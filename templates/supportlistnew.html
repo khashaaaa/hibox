@@ -1,0 +1,19 @@
+<?=$HeaderNew?>
+<?=$CrumbsNew?>
+
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+<div class="bigtitle"><div class="wrap clrfix">
+    <h1><?=Lang::get('favourites')?></h1>
+</div></div>	
+<div class="btabs"><div class="wrap">
+	<div class="bgr clrfix">
+		<ul class="tabs tabs1 clrfix">
+			<li class="active"><a href="/?p=supportlist"><span><?=Lang::get('favourite_items')?></span><i></i></a></li>
+            <? if (!InstanceProvider::getObject()->isLimitItemsByCatalog()) { ?>
+            <li><a href="/?p=favourite_vendors"><span><?=Lang::get('favourite_vendors')?></span><i></i></a></li>
+            <? } ?>
+		</ul>
+	</div>
+	<?=$SupportListNew?>
+</div></div>
+<?=$FooterNew?>

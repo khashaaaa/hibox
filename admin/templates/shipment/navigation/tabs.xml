@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Currency" action="default" cmd="Pricing">
+        <page data-action="default" data-cmd="pricing" />
+    </tab>
+    <tab title="Costs" action="cost" cmd="Pricing">
+        <page data-action="cost" data-cmd="pricing" />
+    </tab>
+</tabs>

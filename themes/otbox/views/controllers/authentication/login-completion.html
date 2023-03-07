@@ -1,0 +1,36 @@
+<div class="tabs-content">
+    <div class="userform">
+        <p><?=Lang::get('Email_required_form_description')?>:</p>
+        <form action="<?=@UrlGenerator::generateContentUrl('login')?>" method="post" class="form">
+            <input type="hidden" name="contextId" value="<?=$contextId?>" />
+            <input type="hidden" name="error" value="email_required" />
+
+            <div class="form-row">
+                <div class="error"><?= (!empty($error)) ? $error : '' ?></div>
+            </div>
+
+            <div class="form-row">
+                <label for="email"><?=Lang::get('Email')?></label>
+                <input id="email" type="text" name="email" value="<?=$email?>" class="form-field" />
+            </div>
+
+            <? if ($password) { ?>
+                <div class="form-row">
+                    <label for="password"><?=Lang::get('password')?></label>
+                    <input id="password" type="password" name="password" class="form-field" />
+                </div>
+            <? } ?>
+
+            <div class="form-row enter">
+                <label></label>
+                <input type="submit" name="login" value="<?=Lang::get('login')?>" class="btn_office" />
+            </div>
+        </form>
+
+        <? if (General::IsFeatureEnabled('ExternalAuthentication')) { ?>
+            <div class="form-row">
+                <?=General::runController('Authentication', 'renderAuthSystemList')?>
+            </div>
+        <? } ?>
+    </div>
+</div>

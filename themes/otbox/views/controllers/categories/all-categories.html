@@ -1,0 +1,37 @@
+<div class="block-categories">
+    <? if (! empty($categories)) { ?>
+        <div class="categories-icons clearfix">
+            <ul>
+                <? foreach ($categories as $cat) { ?>
+                    <li>
+                        <a href="<?=$cat['Url']?>">
+                            <? if (! empty($cat['CategoryIconClass'])) { ?>
+                                <i class="<?=$cat['CategoryIconClass']?>"></i>
+                            <? } ?>
+                            <?=$this->escape($cat['Name'])?>
+                        </a>
+                    </li>
+                <? } ?>
+            </ul>
+        </div>
+
+        <div class="categories-list">
+            <? foreach ($categories as $cat) { ?>
+                <? if (! empty($cat['children'])) { ?>
+                    <div class="categories-list__wrap clearfix">
+                        <h3><?=$this->escape($cat['Name'])?></h3>
+                        <ul>
+                            <? foreach ($cat['children'] as $subCat) { ?>
+                                <li>
+                                    <a href="<?=$subCat['Url']?>">
+                                        <?=$this->escape($subCat['Name'])?>
+                                    </a>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    </div>
+                <? } ?>
+            <? } ?>
+        </div>
+    <? } ?>
+</div>

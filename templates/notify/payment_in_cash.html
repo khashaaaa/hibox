@@ -1,0 +1,28 @@
+<?=Lang::get('hello')?><br />
+<?=Lang::get('payment_in_cash')?> - <?=$payment_sum_text?><br />
+
+<? if (isset($user)) { ?>
+    <?
+    $username = $user['login'];
+    $userFistName = $user['firstname'] ?: $user['firstName'];
+    $userMiddleName = $user['middlename'] ?: $user['middleName'];
+    $userLastName = $user['lastname'] ?: $user['lastName'];
+    if (($userFistName != '') || ($userMiddleName != '') || ($userLastName != '')) {
+        if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") {
+        	$fio .= $userFistName . ' ' . $userMiddleName . ' ' . $userLastName;
+		} else {
+        	$fio .= $userFistName . ' '. $userLastName;
+		}
+    }
+    ?>
+    <br /><strong><?=Lang::get('personal_data')?></strong><br />
+    Id: <?=$user['id']?> <br />
+    Login: <?=$username?> <br />
+    <? if (isset($fio)) { ?>
+        <?=Lang::get('fullname')?> <?=$username?> <br />
+    <? } ?>
+<? } ?>
+
+<?=Lang::get('enter_to_admin_panel')?> <a href="<?=UrlGenerator::getHomeUrl()?>/admin/">
+    <?=UrlGenerator::getHomeUrl()?>/admin/
+</a>

@@ -1,0 +1,40 @@
+<?$p = $_GET['p'];?>
+<?$_GET['p_ajax'] = $_GET['p'];?>
+<?$_GET['p'] = 'item_list_ajax';?>
+<!--noindex-->
+<script type="text/javascript">
+$(function(){
+    $.get("//"+window.location.hostname,<?=json_encode($_GET)?>,function(data){
+        if(data.match(/Location\: /)){
+            window.location = data.match(/Location\: (.+)/)[1];
+            return ;
+        }
+
+        $('#item-list-ajax').replaceWith(data);
+        $('#filterform [name="p"]').val('<?=$p?>');
+        var isAllTypesChecked = $('[name="filters[StuffStatus]"]:first').attr('checked');
+        var countFilters = $('li.opening input:checked').length;
+
+        if((countFilters > 0 && !isAllTypesChecked) || (countFilters > 1)){
+            $('#active-search-prop').show();
+        }
+        $('li.opening input:checked').each(function(){
+            if($(this).val()){
+                var li = $(this).closest('li.opening');
+                var title = li.find('a.opening-a').contents()[1].textContent;
+                $('#clear-filter').prepend(
+                    $('<li><a href="'+$(this).attr('id')+'" class="i-new i-delete i delete"></a><div class="cat">'+title+'</div><div class="itemcat">'+$(this).parent().contents()[1].textContent+'</div></li>')
+                );
+            }
+        });
+    });
+});
+</script>
+<!--/noindex-->
+<?$_GET['p'] = $p;?>
+<div id="item-list-ajax">
+    <div class="main"><div class="wrap clrfix" style="text-align: center">
+        <?=Lang::get('item_list_loading')?>
+        <div id="overlay" style="display: block; height: 30px;"></div>
+    </div></div>
+</div>

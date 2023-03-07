@@ -1,0 +1,34 @@
+
+<div class="bigtitle"><div class="wrap clrfix">
+    <h1><?=Lang::get('Pristroy_all_seller_goods')?></h1>
+</div></div>
+
+<? if (! empty($items)) { ?>
+<div class="main"><div class="wrap clrfix">
+    <div class="bproduct">
+        <h2 class="mb25"><span><?=$seller;?></span></h2>
+        <ul class="lproduct flin w700 w160li jcarousel-skin clrfix">
+            <? foreach ($items as $item) { ?>
+            <li title="<?=$this->escape($item['title'])?>">
+                <a class="pic" href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>">
+                    <i><img src="<?=ProductsHelper::getPristroyImage($item, 160)?>"></i>
+                    <ins></ins>
+                </a>
+                <div class="price">
+                    <div class="line"></div>
+                    <a href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>">
+                        <span><?=$item['display_price']?></span>
+                    </a>
+                    <a href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>">
+                        <ins class="name"><?=$this->escape($item['title'])?></ins>
+                        <span class="glow"></span>
+                    </a>
+                </div>
+            </li>
+            <? } ?>
+        </ul>
+    </div>
+</div></div>
+<? } ?>
+
+<div id="item-debug"></div>

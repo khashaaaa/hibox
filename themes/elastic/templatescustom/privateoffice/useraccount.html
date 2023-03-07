@@ -1,0 +1,18 @@
+<div class="col-lg-12 mb-4" style="background-color: #fef9f2; font-size: 1.35em">
+    <div class="account_name mb5 col-lg-3" style="display: inline-block">
+        <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+            <b><?=$this->escape((string)$userinfo['lastname'] . ' ' . (string)$userinfo['firstname'] . ' ' . (string)$userinfo['middlename']);?></b>
+        <?php } else { ?>
+            <b><?=$this->escape((string)$userinfo['lastname']) . ' ' . (string)$userinfo['firstname']?></b>
+        <?php } ?>
+        <div class="account_number"><span class="f11"><b><?=Lang::get('account_number')?>: </b></span><?=(string)$accountinfo['num']?></div>
+    </div>
+    <div class="f11 col-lg-3 mt-2" style="display: inline-block"><b><?=Lang::get('on_account')?>:</b>
+        <div class="money ltr-for-rtl"><?=TextHelper::formatPrice((float)$accountinfo['availableamount'], $cur)?></div>
+    </div>
+    <div class="f11 col-lg-3 mt-2" style="display: inline-block"><b><?=Lang::get('awaiting_payment')?>:</b>
+        <div class="ltr-for-rtl <?=((float)$accountinfo['paymwaitamount'] > 0) ? 'moneyplus' : 'money';?>"><?=TextHelper::formatPrice((float)$accountinfo['paymwaitamount'], $cur)?></div>
+    </div>
+
+    <?= General::viewFetch('../templatescustom/privateoffice/payformbutton') ?>
+</div>

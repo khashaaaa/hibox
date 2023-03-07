@@ -1,0 +1,9 @@
+.small_txt {
+	font-size:12px;
+	color:#999;
+	border-bottom:#999 1px solid;
+	width:500px;
+}
+#set_answer {
+	position:absolute; background:#FFF; border:#000 2px solid; width:400px; width:400px; top:50%; margin-top:-200px; left:50%; margin-left:-200px; display:none; z-index:100; padding:10px;
+}

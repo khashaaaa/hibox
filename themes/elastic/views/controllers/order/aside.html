@@ -1,0 +1,101 @@
+<div class="aside-right">
+    <div class="list-parcels block-orange sticky-top">
+        <div class="list-parcels__header yellow2-panel">
+            <?=Lang::get('your_order')?>
+        </div>
+
+        <div class="list-parcels__body">
+            <div class="list-parcels__row list-parcels__row-result">
+                <div class="list-parcels__col-left order-pay"><?=Lang::get('To_pay')?>:</div>
+                <div class="list-parcels__col-right order-price">
+                    <?=TextHelper::formatPrice($orderInfo->GetSalesOrderInfo()->GetTotalAmount(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?>
+                </div>
+            </div>
+            <? if ($orderInfo->GetSalesOrderInfo()->GetWeight() > 0) { ?>
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('total_weight')?>:</div>
+                    <div class="list-parcels__col-right weight-amount">
+                        <?=$orderInfo->GetSalesOrderInfo()->getWeight()?>&nbsp;<?=Lang::get('weight_kg')?>
+                    </div>
+                </div>
+            <? } ?>
+            <div class="list-parcels__row">
+                <div class="list-parcels__col-left"><?=Lang::get('delivery')?>:</div>
+                <div class="list-parcels__col-right">
+                    <?=$orderInfo->GetSalesOrderInfo()->getDeliveryModeName()?>
+                </div>
+            </div>
+            <? if ($orderInfo->GetSalesOrderInfo()->GetDeliveryAmount()) { ?>
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('delivery_cost')?>:</div>
+                    <div class="list-parcels__col-right delivery-amount">
+                        <?=TextHelper::formatPrice($orderInfo->GetSalesOrderInfo()->GetDeliveryAmount(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?>
+                    </div>
+                </div>
+            <? } ?>
+            <div class="list-parcels__row">
+                <div class="list-parcels__col-left"><?=Lang::get('Total_items')?>:</div>
+                <div class="list-parcels__col-right goods-amount">
+                    <?=TextHelper::formatPrice($orderInfo->GetSalesOrderInfo()->GetGoodsAmount(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?>
+                </div>
+            </div>
+        </div>
+
+        <? if (! $orderInfo->GetSalesOrderInfo()->IsPaid()) { ?>
+            <div class="list-parcels__footer">
+                <a href="javascript:void(0)" class="button js-pay-order" data-form-url="<?= UrlGenerator::toRoute('pay/form', ['orderId' => $orderInfo->GetSalesOrderInfo()->GetId()])?>">
+                    <?=Lang::get('pay_for_order')?>
+                </a>
+            </div>
+        <? } ?>
+    </div>
+
+    <div class="sticky-top-mobile-wrap">
+        <div class="list-parcels block-orange sticky-top-mobile" style="position: fixed;">
+            <div class="list-parcels__footer">
+                <div class="list-parcels__row list-parcels__row-result">
+                    <?=Lang::get('To_pay')?>:
+                    <b><?=$orderInfo->GetSalesOrderInfo()->GetTotalAmount()?>&nbsp;<?=$orderInfo->GetSalesOrderInfo()->GetCurrencySign()?></b>
+                </div>
+                <? if (! $orderInfo->GetSalesOrderInfo()->IsPaid()) { ?>
+                    <a href="javascript:void(0)" class="button js-pay-order" data-form-url="<?=UrlGenerator::toRoute('pay/form', ['orderId' => $orderInfo->GetSalesOrderInfo()->GetId()])?>">
+                        <?=Lang::get('pay_for_order')?>
+                    </a>
+                <? } ?>
+            </div>
+            <div class="list-parcels__body">
+                <? if ($orderInfo->GetSalesOrderInfo()->GetWeight() > 0) { ?>
+                    <div class="list-parcels__row">
+                        <div class="list-parcels__col-left"><?=Lang::get('total_weight')?>:</div>
+                        <div class="list-parcels__col-right">
+                            <?=$orderInfo->GetSalesOrderInfo()->getWeight()?>&nbsp;<?=Lang::get('weight_kg')?>
+                        </div>
+                    </div>
+                <? } ?>
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('delivery')?>:</div>
+                    <div class="list-parcels__col-right">
+                        <?=$orderInfo->GetSalesOrderInfo()->getDeliveryModeName()?>
+                    </div>
+                </div>
+                <? if ($orderInfo->GetSalesOrderInfo()->GetDeliveryAmount()) { ?>
+                    <? var_dump("delivery-amount") ?>
+                    <div class="list-parcels__row">
+                        <div class="list-parcels__col-left"><?=Lang::get('delivery_cost')?>:</div>
+                        <div class="list-parcels__col-right">
+                            <?=$orderInfo->GetSalesOrderInfo()->GetDeliveryAmount()?>&nbsp;<?=$orderInfo->GetSalesOrderInfo()->GetCurrencySign()?>
+                        </div>
+                    </div>
+                <? } ?>
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('Total_items')?>:</div>
+                    <div class="list-parcels__col-right">
+                        <?=$orderInfo->GetSalesOrderInfo()->GetGoodsAmount()?>&nbsp;<?=$orderInfo->GetSalesOrderInfo()->GetCurrencySign()?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?=Lang::loadJSTranslation(array('payment'))?>

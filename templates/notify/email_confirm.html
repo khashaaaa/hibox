@@ -1,0 +1,4 @@
+<?=Lang::get('hello')?>, <?=$username?><br />
+<?=Lang::get('Email_confirmation_is_needed')?><br />
+<?=Lang::get('Url_to_activate_account')?>
+<a href="<?=UrlGenerator::getHomeUrl()?>/?p=register&activation=<?=$code?>"><?=Lang::get('link1')?></a>

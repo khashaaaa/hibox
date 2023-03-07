@@ -1,0 +1,66 @@
+<div class="row all-categories">
+    <? $count = count($categories); ?>
+    <? $colHeight = ceil($count / 2);  // will do 2 columns ?>
+    <? $i = 0; ?>
+
+    <div class="col-md-6">
+        <ul class="all-categories_col">
+            <? foreach ($categories as $cat) { ?>
+                <? if ($i == $colHeight) { ?>
+                    </ul>
+                    </div>
+                    <div class="col-md-6">
+                    <ul class="all-categories_col">
+                <? } ?>
+
+                <?=General::viewFetch('controllers/categories/all-categories-li', array('vars' => array(
+                    'category' => $cat
+                )))?>
+
+                <? $i++; ?>
+            <? } ?>
+        </ul>
+    </div>
+</div>
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+    $('.all-categories_col').on('click', 'span.allcats_expand_button', function(ev){
+        var catLi = $(ev.target).closest('li');
+        var categoryId = $(catLi).attr('id');
+        if ($('.allcats_expand_button:first i', catLi).hasClass('icon-chevron-right')) { //need open/load
+            $('.allcats_expand_button:first i', catLi).removeClass('icon-chevron-right');
+            $('.allcats_expand_button:first i', catLi).addClass('icon-chevron-down');
+            var spanSubcategories = $('span.allcats_subcategories:first', catLi);
+            $(spanSubcategories).removeClass('closed');
+            $(spanSubcategories).addClass('opened');
+            if ($(spanSubcategories).children().length == 0) {
+                $(spanSubcategories).addClass('preload');
+                $.ajax({
+                    url: "<?=UrlGenerator::getUrl('categories/getSubcategories')?>",
+                    data : {
+                        "cid" : categoryId
+                    },
+                    cache: false,
+                    success: function(data){
+                        if (! data.error && data.html !== '') {
+                            $(spanSubcategories).html(data.html);
+                            $(spanSubcategories).removeClass('preload');
+                        } else {
+                            $('.allcats_expand_button:first i', catLi).hide();
+                            $(spanSubcategories).removeClass('opened');
+                            $(spanSubcategories).addClass('closed');
+                            showError(data);
+                        }
+                    }
+                });
+            }
+        } else { //need close
+            $('.allcats_expand_button:first i', catLi).removeClass('icon-chevron-down');
+            $('.allcats_expand_button:first i', catLi).addClass('icon-chevron-right');
+            $('span.allcats_subcategories:first', catLi).addClass('closed');
+            $('span.allcats_subcategories:first', catLi).removeClass('opened');
+        }
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

@@ -1,0 +1,84 @@
+<section class="block-news-item">
+    <div class="center">
+            <div class="panel-yellow">
+                <h1><?=$new['title']?></h1>
+                <div class="news-date float-left"><i></i><?=TextHelper::date($new['created']) ?></div>
+                <a href="allnews" class="link-news-back float-right"><?=Lang::get('back')?></a>
+            </div>
+            <div class="news_main_image">
+                <? if($new['image'] !== '') { ?>
+                    <img src="<?=DigestRepository::getImage($new['image'], 'large')?>">
+                <? } else { ?>
+                    <img src="/i/noimg.png">
+                <? } ?>
+            </div>
+        <p><?=$new['text']?></p>
+            <? if(count($lastNews) > 0) { ?>
+                <section class="block-news">
+                    <div class="panel-grey"><b><?=Lang::get('another_posts')?></b></div>
+                    <div class="block-news-other__wrap float-left">
+                        <div class="block-news__wrap js-news-wrap">
+                            <? foreach ($lastNews as $lastNew) { ?>
+                                <?$date = $lastNew['created']; ?>
+                                <div class="news-item js-news-item">
+                                    <? if($lastNew['image'] !== '') { ?>
+                                        <a href="<?=UrlGenerator::generateNewsUrl($lastNew['id'])?>" class="news-item__img" style="background-image: url(<?=DigestRepository::getImage($lastNew['image'], 'thumb')?>);"></a>
+                                    <? } else { ?>
+                                        <a href="<?=UrlGenerator::generateNewsUrl($lastNew['id'])?>" class="news-item__img" style="background-image: url('/i/noimg.png');"></a>
+                                    <? } ?>
+                                    <div class="news-item__text">
+                                        <div class="news-item__date"><?=TextHelper::date($date)?></div>
+                                        <a href="<?=UrlGenerator::generateNewsUrl($lastNew['id'])?>" class="news-item__title"><?=$this->escape($lastNew['title'])?></a>
+                                    </div>
+                                </div>
+                            <? } ?>
+                        </div>
+                    </div>
+                </section>
+            <? } ?>
+        </div>
+</section>
+
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        var $newsWrap = $('.js-news-wrap');
+        if ($newsWrap.children('.js-news-item').length >= 5) {
+            $newsWrap.slick({
+                dots: false,
+                speed: 500,
+                arrows: true,
+                autoplay: true,
+                fade: false,
+                vertical: false,
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                responsive: [{
+                    breakpoint:1280,
+                    settings: {
+                        slidesToShow: 4,
+                        arrows:false
+                    }
+                },
+                    {
+                        breakpoint:1024,
+                        settings: {
+                            slidesToShow: 3,
+                            arrows:false
+                        }
+                    },
+                    {
+                        breakpoint:480,
+                        settings: {
+                            slidesToShow: 1,
+                            arrows:false
+                        }
+                    }
+                ]
+            });
+        }
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

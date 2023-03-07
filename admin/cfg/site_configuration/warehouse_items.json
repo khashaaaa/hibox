@@ -1,0 +1,24 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "WarehouseProducts",
+        "do": "saveInline"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        },
+        "textarea": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+    "fields": [
+        {
+            "name": "Quantity",
+            "type": "text"
+        }
+    ]
+}

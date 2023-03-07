@@ -1,0 +1,16 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('categories', 'default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('reviews', 'default')?>" class="muted"><?=LangAdmin::get('reviews::Products_reviews')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Settings')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<?=TabsGenerator::GetSubTabs('templates/reviews/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Settings')?></h1>
+
+<div class="well">
+    <?=MetaUI::render($settings, $updateUrl) ?>
+</div>

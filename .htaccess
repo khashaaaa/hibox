@@ -1,0 +1,40 @@
+AddDefaultCharset utf-8
+
+RewriteEngine On
+RewriteBase /
+
+# define protossl variable
+RewriteRule ^ - [E=protossl]
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP:X-Forwarded-Proto} https
+RewriteRule ^ - [E=protossl:s]
+
+RewriteRule ^admin-new(.*)$ /admin$1 [R=301,NC,L]
+
+# clear last slash
+RewriteCond %{REQUEST_URI} !^(.*)admin$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)admin/$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)admin-old$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)admin-old/$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)install/$ [NC]
+RewriteCond %{REQUEST_METHOD} !=POST
+RewriteCond %{REQUEST_URI} ^(.+)/$
+RewriteRule ^http%{ENV:protossl}://(.+)/$  /$1 [R=301,L]
+
+# clear index.php
+RewriteCond %{REQUEST_URI} !^(.*)admin$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)admin/$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)admin-old$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)admin-old/$ [NC]
+RewriteCond %{REQUEST_URI} !^(.*)install/$ [NC]
+RewriteCond %{REQUEST_METHOD} !=POST
+RewriteCond %{THE_REQUEST} ^.*/index\.php
+RewriteRule ^http%{ENV:protossl}://(.*)index.php$ /$1 [R=301,L,QSA,NE]
+
+RewriteCond %{HTTP_HOST} ^http%{ENV:protossl}://www\.(.*)$ [NC]
+RewriteRule ^(.*)$ %1/$1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^(.*)payment/$ [NC]
+RewriteRule ^(.*)$ index.php [L,QSA]

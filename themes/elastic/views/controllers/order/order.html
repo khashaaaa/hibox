@@ -1,0 +1,60 @@
+<div class="aside">
+	<?=General::runBlock('Menu')?>
+</div>
+
+<div class="main main-order-block">
+	<h1>
+		<?=Lang::get('order')?> <?=OrdersProxy::normalizeOrderId($orderInfo->GetSalesOrderInfo()->getId())?>
+		<span class="status">(<?=$orderInfo->GetSalesOrderInfo()->getStatusName()?>)</span>
+	</h1>
+
+	<div class="main-wrap d-flex flex-wrap">
+		<div class="content-center">
+			<?=General::viewFetch('controllers/order/shipping', array('vars' => $vars))?>
+
+            <?=General::viewFetch('controllers/order/support', array('vars' => $vars))?>
+
+            <?=General::viewFetch('controllers/order/goods', array('vars' => $vars))?>
+
+			<?=General::viewFetch('controllers/order/recipient', array('vars' => $vars))?>
+		</div>
+
+		<?=General::viewFetch('controllers/order/aside', array('vars' => $vars))?>
+	</div>
+</div>
+
+<? if (General::IsFeatureEnabled('ItemReviews')) { ?>
+	<div id="myReview" class="myReview" style="display: none"></div>
+	<?=General::viewFetch('controllers/review/review-block-addform')?>
+<? } ?>
+
+<?=Lang::loadJSTranslation(array(
+        'need_confirm',
+        'sure_delete',
+        'sure_confirm_price',
+        'sure_cancel',
+        'confirm_new_price',
+        'delete',
+        'cancel_order',
+        'save',
+        'saved',
+        'cancel',
+        'Put_up_for_sale',
+        'Sell_out',
+        'Incorrect_quantity',
+        'Product_is_sold',
+        'Default_reject_reason',
+        'your_review',
+        'new_review',
+        'not_entered_required_data',
+        'not_selected_products',
+        'operation_is_not_allowed_for_products'
+    )
+)?>
+
+<? AssetsMin::registerJsFile('js/vendor/jquery.toastmessage.js')?>
+<? AssetsMin::registerCssFile('css/vendor/jquery.raty.css')?>
+<? AssetsMin::registerJsFile('js/vendor/jquery.raty.js') ?>
+<? AssetsMin::registerJsFile(General::getThemeWebDir() . '/js/pages/orderinfo.js')?>
+<? AssetsMin::registerJsFile('js/pages/itemreviews.js') ?>
+

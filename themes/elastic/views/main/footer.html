@@ -1,0 +1,127 @@
+        <div class="content">
+            <?=General::viewFetch('other/mobile-links')?>
+        </div>
+        <footer>
+            <div class="footer-main">
+                <div class="center">
+                    <div class="row">
+                        <? foreach ($bottomMenu as $item) { ?>
+                            <div class="col">
+                                <div class="footer-col__title <?=($controller == $item['alias']) ? 'active' : ''?>"><a href="<?=UrlGenerator::toRoute($item['alias'])?>"><?=$this->escape($item['title'])?></a></div>
+                                <? if (! empty($item['children'])) { ?>
+                                    <ul>
+                                        <? foreach ($item['children'] as $subItem) { ?>
+                                            <li class="<?=($controller == $subItem['alias']) ? 'active' : ''?>">
+                                                <a href="<?=$subItem['url']?>">
+                                                    <?=$this->escape($subItem['title'])?>
+                                                </a>
+                                            </li>
+                                        <? } ?>
+                                    </ul>
+                                <? } ?>
+                            </div>
+                        <? } ?>
+                        <?=Plugins::runEvent('onAfterRenderBottomMenu');?>
+
+                        <?=General::viewFetch('other/social/follow-links')?>
+
+                        <?=General::viewFetch('other/counter')?>
+                    </div>
+                </div>
+            </div>
+
+            <?=General::viewFetch('main/copyright')?>
+
+        </footer>
+
+        <?=General::viewFetch('main/check-noimg', ['path' => CFG_VIEW_ROOT])?>
+
+        <? if (General::isSellFree()) { ?>
+            <?=General::viewFetch('main/sellfree-banner', ['path' => CFG_VIEW_ROOT])?>
+        <? } ?>
+
+        <!--noindex-->
+        <?=General::getConfigValue('online_chat_code')?>
+        <!--/noindex-->
+
+        <?=General::viewFetch('controllers/authentication/login-modal')?>
+        <?=General::viewFetch('controllers/authentication/recovery-modal')?>
+        <?=General::viewFetch('controllers/authentication/confirmation-modal')?>
+        <?=General::viewFetch('controllers/authentication/registration-modal', ['vars' => [
+            'isPhoneRegistrationAllowed' => $isPhoneRegistrationAllowed,
+        ]])?>
+
+        <?=General::viewFetch('main/confirmDialog-tpl', array())?>
+
+        <?=General::viewFetch('other/overlay')?>
+
+        <? $errors = ErrorHandler::getErrors(); ?>
+
+        <? AssetsMin::jsBegin(); ?>
+        <script>
+            $(function(){
+                <? if (! empty($errors)) foreach ($errors as $error) { ?>
+                    showError("<?=TextHelper::htmlToJS($error)?>");
+                <? } ?>
+
+                <? if (Session::checkErrors()) { ?>
+                    <? $message = Session::getErrorDescription(); ?>
+                    showError("<?=TextHelper::htmlToJS($message)?>");
+                <? } ?>
+
+                <? $notifications = Session::getNotifications(); ?>
+                <? if (! empty($notifications)) foreach ($notifications as $notification) { ?>
+                    showMessage("<?=TextHelper::htmlToJS($notification)?>");
+                <? } ?>
+            });
+        </script>
+        <? $strScript = AssetsMin::jsEnd(); ?>
+        <? AssetsMin::registerJs($strScript); ?>
+
+        <?=General::viewFetch('main/cron-run', ['path' => CFG_VIEW_ROOT])?>
+        <?=Lang::loadJSTranslation(array(
+            'sell_not_allowed_without_config',
+            'vendor_added_to_favourites_txt',
+            'no_deliver_for_place_error',
+            'good_added_to_cart',
+            'internal_delivery',
+            'no_items_selected',
+            'good_added_to_fav',
+            'continue_shopping',
+            'Show_queries_log',
+            'recover_repeat',
+            'delivery_modes',
+            'select_later',
+            'in_existence',
+            'InfoMessage',
+            'make_order',
+            'weight_kg',
+            'Debug_log',
+            'reg_order',
+            'cancel',
+            'error',
+            'close',
+            'pcs',
+            'add',
+            'ok',
+        ))?>
+
+        <?=Plugins::runEvent('onAfterRenderFooter');?>
+
+        </div><!-- .wrapper-->
+
+        <script>
+            const PRICE_ROUNDING = <?=(int)General::getNumConfigValue('price_rounding')?>;
+        </script>
+        <?=AssetsMin::printJsFilesGroup('general.js', General::getThemeWebDir() . '/config')?>
+        <?=AssetsMin::printJsFilesGroup('uploader.js', General::getThemeWebDir() . '/config')?>
+
+        <!--Подключение js-файлов собранных по скриптам/шаблонам-->
+        <?=AssetsMin::printJsFiles()?>
+        <!--Подключение js блоков собранных по скриптам/шаблонам-->
+        <?=AssetsMin::printJs()?>
+
+        <!--/noindex-->
+        <? print (General::getConfigValue('html_for_footet')) ? General::getConfigValue('html_for_footet') : ''; ?>
+    </body>
+</html>

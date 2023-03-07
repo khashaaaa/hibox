@@ -1,0 +1,63 @@
+
+<div class="ot_orders_list_page orders-common-wrapper">
+
+    <h1 class="offset-vertical-none"><?=LangAdmin::get('Orders_list')?></h1>
+
+    <? /*=$filterBlock; */ ?>
+    <? include('filter.html'); ?>
+    <? include('filter_short.html'); ?>
+
+    <?=Plugins::runEvent('onAdminBeforeRenderOrdersList', array('filter' => $filter))?>
+
+    <div class="tabbable-ajax offset-bottom1">
+
+        <ul class="nav nav-tabs">
+            <li data-type="orders" class="<?=($activeTab == 'orders' ? 'active' : '')?>">
+                <a href="#ot_orders_filter_tab" data-toggle="tab"><?=LangAdmin::get('By_orders')?></a>
+            </li>
+            <li data-type="items" class="<?=($activeTab == 'items' ? 'active' : '')?>">
+                <a href="#ot_goods_filter_tab" data-toggle="tab"><?=LangAdmin::get('By_goods')?></a>
+            </li>
+            <?=Plugins::runEvent('onAdminAfterRenderOrderNavigation')?>
+        </ul>
+
+        <!--
+        TODO: system should remember the user choice last time to open it when it comes back
+        -->
+
+        <div class="tab-content">
+
+            <div class="tab-pane <?=($activeTab == 'orders' ? 'orders-list-loaded active' : '')?>" id="ot_orders_filter_tab">
+                <? include('filter-orders-results.html'); ?>
+            </div><!-- /#orders-filter-tab -->
+
+            <div class="tab-pane <?=($activeTab == 'items' ? 'items-list-loaded active' : '')?>" id="ot_goods_filter_tab">
+                <? include('filter-goods-results.html'); ?>
+            </div><!-- /#goods-filter-tab -->
+
+        </div><!-- /.tab-content-->
+
+    </div><!-- /.tabbable -->
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-orders-list.js'); ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var pageParams = <?=json_encode(!empty($pageParams) ? $pageParams : array())?>;
+
+    var Filter = <?=json_encode($filter)?>;
+
+    var Orders = new Backbone.Collection();
+    Orders.add(<?=json_encode(is_array($orders) ? array_values($orders) : array())?>);
+
+    var OrdersItems = new Backbone.Collection();
+    OrdersItems.add(<?=json_encode(is_array($items) ? array_values($items) : array())?>);
+
+    var itemsStatusList = new Backbone.Collection();
+    itemsStatusList.add(<?=json_encode(is_array($itemsStatusList) ? array_values($itemsStatusList) : array())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

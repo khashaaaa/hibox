@@ -1,0 +1,13 @@
+<% if (noDelete != 'true') { %>
+    <%= trans.get(msg) %>
+<% } else { %>
+    <b> <%= item %> </b>: <%= trans.get("User_cannot_be_removed_warning") %>
+
+    <select class="input-medium" id="toCategory">
+        <% $.each(categories, function(key, val) { %>
+            <% if (groupId != val['Id']) %>
+                <option value="<%= val['Id'] %>"><%= escapeData(val['Name']) %></option>
+        <% }); %>
+    </select>
+
+<% } %>

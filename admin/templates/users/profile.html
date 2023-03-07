@@ -1,0 +1,74 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('users', 'default')?>"><?=LangAdmin::get('customers')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=$this->escape($user['login'])?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="users-profile-wrapper">
+
+<h1><?=$this->escape($user['login'])?></h1>
+
+
+<div class="tabbable-ajax offset-bottom1">
+
+    <ul class="nav nav-tabs">
+        <li data-type="about" class="<?=($activeTab == 'about' ? 'active' : '')?>">
+            <a href="#customer-info-tab" data-toggle="tab"><?=LangAdmin::get('About_customer')?></a>
+        </li>
+        <? if (RightsManager::hasRight('OrderManagement')) { ?>
+            <li data-type="account" class="<?=($activeTab == 'account' ? 'active' : '')?>">
+                <a href="#customer-account-tab" data-toggle="tab"><?=LangAdmin::get('Account')?></a>
+            </li>
+        <? } ?>
+        <? if (RightsManager::hasRight('OrderManagement')) { ?>
+            <li data-type="orders" class="<?=($activeTab == 'orders' ? 'active' : '')?>">
+                <a href="#customer-orders-tab" data-toggle="tab"><?=LangAdmin::get('Orders')?></a>
+            </li>
+        <? } ?>
+    </ul>
+
+    <!--
+    TODO: tabs must be accessible through the anchors to redirect user after a submit action to
+    -->
+
+    <div class="tab-content">
+
+        <div class="tab-pane <?=($activeTab == 'about' ? 'profile-about-loaded active' : '')?>" id="customer-info-tab">
+            <?=$profileAboutBlock;?>
+        </div><!-- /#customer-info-tab -->
+
+        <? if (RightsManager::hasRight('OrderManagement')) { ?>
+            <div class="tab-pane <?=($activeTab == 'account' ? 'profile-account-loaded active' : '')?>" id="customer-account-tab">
+                <?=$profileAccountBlock;?>
+            </div><!-- /#customer-account-tab -->
+        <? } ?>
+
+        <? if (RightsManager::hasRight('OrderManagement')) { ?>
+            <div class="tab-pane <?=($activeTab == 'orders' ? 'profile-orders-loaded active' : '')?>" id="customer-orders-tab">
+                <?=$profileOrdersBlock;?>
+            </div><!-- /#customer-orders-tab -->
+        <? } ?>
+
+    </div><!-- /.tab-content-->
+
+</div><!-- /.tabbable -->
+
+<p><a href="<?=$PageUrl->generate(array('do'=>'default'))?>"><i class="icon-linked icon-reply"></i><?=LangAdmin::get('To_customers_list')?></a></p>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-users-profile.js'); ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var pageParams = <?=json_encode(!empty($pageParams) ? $pageParams : array())?>;
+    var User = new Backbone.Model(<?=json_encode($user)?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

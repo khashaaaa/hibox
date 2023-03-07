@@ -1,0 +1,35 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('sets', 'default')?>" class="muted"><?=LangAdmin::get('Sets')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('sets', 'categories')?>" class="muted"><?=LangAdmin::get('Selector')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Export')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+<? include('templates/sets/navigation/sub-tabs.html'); ?>
+<? include('templates/sets/navigation/nad-tabs.html'); ?>
+
+<div class="sets_wrapper">
+    <div>
+        <select class="form-control" id="exportingTarget" name="exportingTarget" style="margin-bottom:0">
+            <? foreach($targets as $tar){ ?>
+                <option value="<?=$tar->GetId();?>"><?=$tar->GetName();?></option>
+            <? } ?>
+        </select>
+        <button id="start-export" type="button" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Export')?>..." autocomplete="off">
+            <i class="icon-upload-alt"></i>
+            <?=LangAdmin::get('Export')?>
+        </button>
+        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Export_sets')?>"></i>
+    </div>
+    <br/>
+    <div class="well">
+        <legend class="legend-small">
+            <?=LangAdmin::get('Settings')?>
+        </legend>
+        <?=MetaUI::render($settings, $updateUrl) ?>
+    </div>
+</div> <!-- sets-wrapper -->
+<? AssetsMin::registerJsFile('/admin/js/ot-activity.js') ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-export.js'); ?>

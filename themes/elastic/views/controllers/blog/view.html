@@ -1,0 +1,86 @@
+<section class="block-news-item">
+    <div class="panel-yellow">
+        <h1><?=$post['title']?></h1>
+        <?$date=$post['created']?>
+        <div class="news-date float-left"><i></i><?=$date->format('d.m.Y')?></div>
+        <a href="<?=UrlGenerator::toRoute('digest')?>" class="link-news-back float-right"><?=Lang::get('back')?></a>
+        </div>
+    <div class="blog_main_image">
+        <? if($post['image'] !== '') { ?>
+            <img src="<?=DigestRepository::getImage($post['image'], 'large')?>">
+        <? } else { ?>
+            <img src="/i/noimg.png">
+        <? } ?>
+    </div>
+    <p><?=$post['content']?></p>
+    <? if(count($lastBlogs) > 0) { ?>
+        <section class="block-news">
+            <div class="panel-grey"><b><?=Lang::get('another_posts')?></b></div>
+            <div class="block-blog-other__wrap float-left">
+                <div class="block-blog__wrap">
+                    <? foreach ($lastBlogs as $item) { ?>
+                        <?
+                        $url = UrlGenerator::generatPostUrl('post', $item['id'], $item['alias']);
+                        $date = $item['created'];
+                        $item['created'] = $date->format('Y-m-d H:i:s');
+                        ?>
+                        <div class="blog-item">
+                            <? if($item['image'] !== '') { ?>
+                                <a href="<?=$url?>" class="blog-item__img"
+                                   style="background-image: url(<?=DigestRepository::getImage($item['image'], 'thumb')?>);"></a>
+                            <? } else { ?>
+                                <a href="<?=$url?>" class="blog-item__img"
+                                   style="background-image: url('/i/noimg.png');"></a>
+                            <? } ?>
+                            <div class="blog-item__text">
+                                <div class="blog-item__date"><?=TextHelper::date($item['created']) ?></div>
+                                <a href="<?=$url?>" class="blog-item__title"><?=$this->escape($item['title'])?></a>
+                            </div>
+                        </div>
+                    <? } ?>
+                </div>
+            </div>
+        </section>
+    <? } ?>
+</section>
+<? AssetsMin::jsBegin(); ?>
+    <script>
+        $(function () {
+            $('.block-blog__wrap').slick({
+                dots: false,
+                speed: 500,
+                arrows: true,
+                autoplay: true,
+                fade: false,
+                vertical: false,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                rtl: <?=(General::getConfigValue('rtl')) ? 'true' : 'false'?>,
+                responsive: [
+                    {
+                        breakpoint:1280,
+                        settings: {
+                            slidesToShow: 4,
+                            arrows:false
+                        }
+                    },
+                    {
+                        breakpoint:1024,
+                        settings: {
+                            slidesToShow: 3,
+                            arrows:false
+                        }
+                    },
+                    {
+                        breakpoint:480,
+                        settings: {
+                            slidesToShow: 1,
+                            arrows:false
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

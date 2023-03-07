@@ -1,0 +1,101 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('finance')?>"><?=LangAdmin::get('Finance')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Details')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+<?=TabsGenerator::GetSubTabs('templates/reports/finance/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Details')?></h1>
+<div id="billing-view-wrapper">
+<div class="well inline-table offset-bottom0 offset-left">
+    <form action="<?=$PageUrl->AssignDo('default')?>" id="apply-filter-finance-details">
+        <input type="hidden" name="cmd" value="Reports">
+        <input type="hidden" name="do" value="financeDetails">
+
+        <?=LangAdmin::get('Display2')?>
+        <select name="filter[period]" id="periodFilter" class="input-large offset-left2">
+            <? foreach ($periodFilters as $periodLangKey => $time) { ?>
+            <option value="<?=$periodLangKey?>"
+                <?=(! empty($filter['period']) && $filter['period'] == $periodLangKey) ? 'selected' : ''?>
+            >
+                <?=LangAdmin::get($periodLangKey)?>
+            </option>
+            <? } ?>
+        </select>
+        <br />
+
+        <?=LangAdmin::get('from')?>
+        <div class="input-append">
+            <input name="filter[fromdate]" id="date-start-display" class="input-small date" type="text" value="<?=isset($filter['fromdate']) ? $filter['fromdate'] : '';?>">
+            <span class="btn add-on" id="date-start"><i class="icon-calendar"></i></span>
+        </div>
+        <?=LangAdmin::get('to')?>
+        <div class="input-append">
+            <input name="filter[todate]" id="date-end-display" class="input-small date" type="text" value="<?=isset($filter['todate']) ? $filter['todate'] : '';?>">
+            <span class="btn add-on" id="date-end" ><i class="icon-calendar"></i></span>
+        </div>
+        <div class="inline-block offset-left1">
+            <input type="submit" id="apply_button" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Applying_filters')?>" autocomplete="off" value="<?=LangAdmin::get('Apply')?>">
+        </div>
+    </form>
+    <a class="btn btn-primary btn_preloader export-details ladda-progress-button" href="javascript:void(0)"><i class="icon-share"></i> <?=LangAdmin::get('Export')?></a>
+</div>
+
+<div class="row-fluid contents-wrapper">
+
+    <div class="">
+        <div class="text-right">
+            <? $paginator->displayPerpage(); ?>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th><?=LangAdmin::get('Date')?></th>
+                    <th><?=LangAdmin::get('Login')?></th>
+                    <th><?=LangAdmin::get('Amount')?></th>
+                    <th><?=LangAdmin::get('Notice')?></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($logs->GetResult()->GetContent()->GetItem() as $log) { ?>
+                <tr>
+                    <td><?=date("d.m.Y", strtotime($log->GetTransactionDate()))?> <span class="muted">(<?=date("H:i:s", strtotime($log->GetTransactionDate()))?>)</span></td>
+                    <td>
+                        <a href="<?=$PageUrl->AssignCmdAndDo('users', 'profile')?>&id=<?=$log->GetUserId()->asString()?>">
+                            <? if ($log->GetUserInfo()->GetLogin()) { ?>
+                            <?=$this->escape($log->GetUserInfo()->GetLogin());?>
+                            <? } else { ?>
+                            <?=$this->escape($log->GetUserId()->asString());?>
+                            <? } ?>
+                        </a>
+                    </td>
+                    <td class="text-<?=((float)$log->GetAmount() < 0 ? 'error' : 'success')?>"><?=$log->GetAmount()?> <?=$log->GetCurrencySign()?></td>
+                    <td><?=$log->GetComment()?></td>
+                </tr>
+                <?php  } ?>
+                </tbody>
+            </table>
+        </div>
+
+        <?php $paginator->display(); ?>
+
+    </div>
+</div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var periodFilters = <?=!empty($periodFilters) ? json_encode($periodFilters) : '{}'?>;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-billing-details.js'); ?>

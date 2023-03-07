@@ -1,0 +1,119 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <!--li><a href="<?=$PageUrl->AssignCmdAndDo('brands', 'default')?>" class="muted"><?=LangAdmin::get('Brands')?></a> <span class="divider">›</span></li-->
+    <li class="active"><?=LangAdmin::get('Brands')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Brands')?> <a href="<?=$PageUrl->AssignDo('addBrand')?>" autocomplete="off" class="btn btn-tiny btn-primary btn_preloader weight-normal offset-left3" title="<?=LangAdmin::get('Add_brand')?>" data-loading-text="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></a></h1>
+<div class="btn-group pull-right">
+    <div id="catalogLanguagesContainer">
+        <?=$catalogLanguages;?>
+    </div>
+</div>
+<div class="brands_wrapper">
+<div class="row-fluid offset-bottom1">
+
+    <div class="span4">
+        <strong class="offset-right05"><?=LangAdmin::get('Add')?></strong>
+        <strong data-target=".ot_add_brand_from_list" data-toggle="collapse" class="blink blink-iconed"><i class="icon-list"></i> <?=LangAdmin::get('brands::Select_from_list')?></strong>
+    </div>
+
+</div>
+
+
+<div class="ot_add_brand_from_list collapse">
+
+    <form class="well well-small" action="<?=$PageUrl->AssignCmdAndDo('sets', 'addSetsBrand')?>" method="post">
+    <div class="row-fluid">
+
+         <div class="brand-item-template"><div class="span3" style="display:none;"><label class="checkbox"><input value="" type="checkbox"><span class="thumbnail thumbnail-micro"><img src="" alt=""></span> <span class="brand-name"></span></label></div></div>
+
+        <?php 
+            $cnt = 0;
+            $i = 0;
+            $open = false;
+            if (! empty($allBrands)) {
+                foreach ($allBrands as $i => $brand) { 
+                    if ($brands[$brand['id']]) {
+                        continue;
+                    }
+                    $cnt++; ?>
+		            <?php if( !$open ) { 
+                    $open = true; ?>
+		            <?php } ?>
+		            <div class="span3"><label class="checkbox"><input value="<?=$brand['id']?>" type="checkbox"><span class="thumbnail thumbnail-micro"><img src="<?=$brand['PictureUrl']?>" alt="<?=$this->escape($brand['name'])?>"></span> <?=$this->escape($brand['name'])?></label></div>
+		            <?php $i++;
+                if($i%4 == 0) { 
+                    $open = false;
+                ?>
+                    <?php } ?>
+                <?php } ?>
+            <?php } ?>
+        <span class="no-more-brands" <?php if ($cnt != 0) print 'style="display: none;"'; ?>>
+            <?=LangAdmin::get('No_more_brands')?>
+        </span>
+    </div>
+
+        <div class="offset-top1">
+            <input type="hidden" name="urlId" id="ids">
+            <button id="add-from-list-submit" type="button" class="btn btn-tiny btn-primary <?php if ($cnt==0) print 'disabled'; ?> <?php if (! $cnt==0) print 'btn_preloader'; ?>" autocomplete="off" data-loading-text="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></button>
+            <button type="button" class="btn btn-tiny offset-left1 cancel-btn" data-target=".ot_add_brand_from_list" data-toggle="collapse"><?=LangAdmin::get('Cancel')?></button>
+        </div>
+        
+    </form><!-- /.well -->
+
+</div><!-- /.ot_add_brand_from_list -->
+
+<ul id="brands-sortable" class="thumbnails ot_sortable_cols ot_sortable_brands">
+
+    <div class="ot-brand-template">
+        <li id="brandId" style="display:none;" type="Brand">
+            <div class="thumbnail">
+                <header>
+                    <!--span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><!i class="icon-move"></i></span-->
+                    
+                    <span class="pull-right">
+                        <button class="btn btn-mini disabled ot-preloader" style="display: none;"><i class="ot-preloader-micro"></i></button>
+                        <button class="btn btn-mini ot-hide-brand" title="<?=LangAdmin::get('brands::Hide_brand')?>"><i class="icon-ban-circle"></i></button>
+                        <button class="btn btn-mini ot-show-brand" title="<?=LangAdmin::get('brands::Show_brand')?>"><i class="icon-ok-sign text-success"></i></button>                        
+                        <a href="#" class="btn btn-mini ot-edit-brand" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></a>
+                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+                    </span>
+
+                </header>
+                <a href="#" title="<?=LangAdmin::get('To_brand_page')?>" class="img_preview"><img src="pictureUrl" alt="brandName"></a>
+                <h3>brandName</h3>  
+            </div>
+        </li>
+    </div>
+
+    <?php
+    if (! empty($brands)) {
+        foreach ($brands as $i => $brand) { ?>
+	    <li id="<?=$brand['id']?>" type="Brand" class="<?php if($brand['ishidden']=='true') print "disabled_item";?>">
+	        <div class="thumbnail">
+	            <header>
+	                <span class="pull-right">
+	                    <button class="btn btn-mini disabled ot-preloader" style="display: none;"><i class="ot-preloader-micro"></i></button>
+	                    <button class="btn btn-mini ot-hide-brand" style="<?php if($brand['ishidden']=='true') print "display: none;";?>" title="<?=LangAdmin::get('brands::Hide_brand')?>"><i class="icon-ban-circle"></i></button>
+	                    <button class="btn btn-mini ot-show-brand" style="<?php if($brand['ishidden']=='false') print "display: none;";?>" title="<?=LangAdmin::get('brands::Show_brand')?>"><i class="icon-ok-sign text-success"></i></button>
+	                    <a href="#" class="btn btn-mini ot-edit-brand" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></a>
+	                    <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+	                </span>
+	            </header>
+	            <a href="<?=UrlGenerator::generateBrandUrl($brand['id'], true)?>" target="_blank" title="<?=LangAdmin::get('To_brand_page')?>" class="img_preview"><img src="<?=$brand['PictureUrl']?>" alt="<?=$this->escape($brand['name'])?>"></a>
+	            <h3><?=$this->escape($brand['name'])?></h3>
+	        </div>
+	    </li>
+        <?php } ?>
+    <?php } ?>
+</ul>
+
+
+</div> <!-- sets-wrapper -->
+
+<? AssetsMin::registerJsFile('/admin/js/ot-brands.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

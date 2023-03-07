@@ -1,0 +1,2986 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <!-- Главное меню -->
+    <key name="Seo">Продвижение</key>
+    <key name="Reports">Отчеты</key>
+    <key name="Toolbar">Панель инструментов</key>
+    <!-- /Главное меню -->
+
+    <key name="Site_construction">Конструкция сайта</key>
+    <key name="site_construction">конструкция сайта</key>
+    <key name="Orders">Заказы</key>
+    <key name="orders">заказы</key>
+    <key name="Account">Счет</key>
+    <key name="Users">Пользователи</key>
+    <key name="users">пользователи</key>
+    <key name="Roles">Роли</key>
+    <key name="roles">роли</key>
+    <key name="viewing">Просмотр</key>
+    <key name="Administrators">Администраторы</key>
+    <key name="administrators">администраторы</key>
+    <key name="Administrator">Администратор</key>
+    <key name="SuperAdmin">Суперадмин</key>
+    <key name="SuperOperator">Супер-оператор</key>
+    <key name="SuperManager">Супер-менеджер</key>
+    <key name="ContentManager">Контент-менеджер</key>
+    <key name="Financier">Финансист</key>
+    <key name="Operator">Оператор</key>
+    <key name="Customers">Покупатели</key>
+    <key name="Customer">Покупатель</key>
+    <key name="customers">покупатели</key>
+    <key name="Data_updated_successfully">Данные успешно обновлены</key>
+    <key name="Data_removed_successfully">Данные успешно удалены</key>
+    <key name="Data_added_successfully">Данные успешно добавлены</key>
+    <key name="Remove_config_lang_title">Удалить настройку для данного языка</key>
+    <key name="Files_uploaded_successfully">Файлы успешно загружены</key>
+    <key name="Image_shot_was_uploaded_successfully">Снимок успешно загружен</key>
+    <key name="Links_saved_successfully">Ссылки успешно сохранены</key>
+    <key name="No_files_to_upload">Не выбраны файлы для загрузки</key>
+    <key name="No_links_to_upload">Не указаны ссылки на изображения</key>
+    <key name="Catalog">Каталог</key>
+    <key name="Items">Товары</key>
+    <key name="Languages">Языки</key>
+    <key name="System">Система</key>
+    <key name="Configuration">Конфигурация</key>
+    <key name="general">Общие</key>
+    <key name="General">Общие</key>
+    <key name="Update">Обновление</key>
+    <key name="update">обновление</key>
+    <key name="Security">Безопасность</key>
+    <key name="Editing">Редактирование</key>
+    <key name="editing">редактирование</key>
+    <key name="Adding">Добавление</key>
+    <key name="adding">добавление</key>
+    <key name="Caching">Кэширование</key>
+    <key name="caching">кэширование</key>
+    <key name="Bonus">Бонус</key>
+    <key name="Credit_bonus">Зачислить бонус</key>
+    <key name="Bonus_credited">Бонус зачислен</key>
+    <key name="Credited">Зачислен</key>
+    <key name="Language_select_for_edit">Выбор языковой версии сайта для редактирования</key>
+    <key name="Language_select_for_admin">Выбор языка административного интерфейса</key>
+    <key name="All_languages_versions">Все языковые версии</key>
+    <key name="Global_site_template">Глобальный шаблон сайта</key>
+    <key name="Site_header">Шапка сайта</key>
+    <key name="Logo">Логотип</key>
+    <key name="Show">Отображать</key>
+    <key name="Hide">Скрывать</key>
+    <key name="Faq">Часто задаваемые вопросы</key>
+    <key name="Spravka">Справка</key>
+    <key name="Contact_support">Обратиться в службу поддержки</key>
+
+    <key name="structure_type_title">Режим работы категорий</key>
+    <key name="structure_type_label">Отображение категорий для просмотра каталога товаров</key>
+    <key name="structure_type_hint">Описание режимов смотрите в документации docs.otcommerce.com</key>
+
+    <key name="structure_type_value:LeafMixed">Смешанный </key>
+    <key name="structure_type_value:Predefined">Предопределенный </key>
+    <key name="structure_type_value:Internal">Внутренний </key>
+    <key name="structure_type_value:External">Внешний</key>
+
+    <key name="search_categories_External">Внешние категории отображаются в исходном виде</key>
+    <key name="search_categories_InternalLeaf">Отображаются только внутренние категории</key>
+    <key name="search_categories_Nothing">Категории не отображаются</key>
+
+    <key name="Save">Сохранить</key>
+    <key name="Save_and_exit">Сохранить и выйти</key>
+    <key name="Save_and_continue">Сохранить и продолжить</key>
+    <key name="Saving">Сохраняется</key>
+    <key name="system">система</key>
+    <key name="Connected">Подключено</key>
+    <key name="Filled">Заполнено</key>
+    <key name="Enter_procent_as_a_number">Введите процент числом</key>
+
+    <!-- Подсказки для инлайн полей -->
+    <key name="Not_filled">Не заполнено</key>
+    <key name="Local_help">Локальная помощь</key>
+    <key name="Copy_code_to_field">Скопируйте в поле необходимый код</key>
+    <!-- /Подсказки для инлайн полей -->
+
+
+    <!-- Наименование фич -->
+    <key name="Feature_Showcase">Настройки витрины</key>
+    <key name="Feature_Order">Заказы</key>
+    <key name="Feature_OrderPackageManagement">Посылки</key>
+    <key name="Package_exported_successfuly">Посылка успешно выгружена в службу доставки</key>
+    <key name="Feature_ViewPackage">Просмотр посылок</key>
+    <key name="Feature_EditPackage">Редактирование посылок</key>
+    <key name="Feature_OrderPayment">Оплата заказа</key>
+    <key name="Feature_OrderManagement">Управление заказами</key>
+    <key name="Feature_ViewOrderLine">Просмотр строк заказа</key>
+    <key name="Feature_EditOrderLine">Редактирование строк заказа</key>
+    <key name="Feature_ViewOrder">Просмотр заказа</key>
+    <key name="Feature_EditOrder">Редактирование заказа</key>
+    <key name="Feature_OrderDeliveryManagement">Калькулятор доставки</key>
+    <key name="Feature_ViewDeliveryCalculator">Просмотр настроек калькулятора доставки</key>
+    <key name="Feature_EditDeliveryCalculator">Редактирование настроек калькулятора доставки</key>
+    <key name="Feature_AdminPanel">Административная панель</key>
+    <key name="Feature_SimplePriceFormation">Ценообразование</key>
+    <key name="Feature_ViewCurrencyRateSettings">Просмотр настроек ЦО: наценка, курсы валют, запреты на доставку, округление, использование скидок, и т.д. </key>
+    <key name="Feature_EditCurrencyRateSettings">Изменение настроек ЦО </key>
+    <key name="Feature_InstanceUserSelfManagement">Управление настройками оператора (сменить пароль и т.д.)</key>
+    <key name="Feature_BrandsManagement">Бренды</key>
+    <key name="Feature_ViewBrands">Просмотр брендов</key>
+    <key name="Feature_EditBrands">Редактирование брендов</key>
+    <key name="Feature_CatalogManagement">Каталог</key>
+    <key name="Feature_ViewCatalog">Просмотр каталога, и настроек, с ним связанных (выбор режима каталога)</key>
+    <key name="Feature_EditCatalog">Редактирование каталога и его настроек</key>
+    <key name="Feature_ItemRatingManagement">Подборки</key>
+    <key name="Feature_UserManagement">Покупатели</key>
+    <key name="Feature_ViewUsers">Просмотр покупателей</key>
+    <key name="Feature_EditUsers">Редактирование покупателей </key>
+    <key name="Feature_ViewUserProfiles">Просмотр профилей покупателей</key>
+    <key name="Feature_EditUserProfiles">Редактирование профилей покупателей</key>
+    <key name="Feature_StatisticsManagement">Статистика</key>
+    <key name="Feature_ViewStatisticsSettings">Просмотр настроек статистики</key>
+    <key name="Feature_EditStatisticsSettings">Редактирование настроек статистики</key>
+    <key name="Feature_CurrencyRateEnhance">Ценовые группы</key>
+    <key name="Feature_ViewPriceFormation">Просмотр ценовых групп</key>
+    <key name="Feature_EditPriceFormation">Редактирование ценовых групп</key>
+    <key name="Feature_InstanceUsersAdministration">Пользователи административной панели</key>
+    <key name="Feature_ViewInstanceAdministrationSettings">Просмотр пользователей инстанса и их ролей и прав. </key>
+    <key name="Feature_EditInstanceAdministrationSettings">Редактирование пользователей инстанса и их ролей и прав.</key>
+    <key name="Feature_ViewInstanceUserActionsLog">Просмотр логов пользователей</key>
+    <key name="Feature_Discount">Скидки</key>
+    <key name="Feature_ViewDiscounts">Просмотр скидок</key>
+    <key name="Feature_EditDiscounts">Редактирование скидок</key>
+    <key name="Feature_CDEKIntegration">Интеграция с CDEK</key>
+    <key name="Feature_Warehouse">Склад</key>
+    <key name="Feature_ViewWarehouseInfo">Просмотр склада</key>
+    <key name="Feature_EditWarehouseInfo">Редактирование склада</key>
+    <!-- /Наименование фич -->
+
+    <!-- Заголовки и подсказки в разделе "Конструкция сайта" -->
+    <key name="store_conditions">Условия работы интернет-магазина</key>
+    <key name="how_to_order_label">Как сделать заказ</key>
+    <key name="how_to_order_title_label">Заголовок</key>
+    <key name="how_to_order_subtitle_label">Подзаголовок</key>
+    <key name="how_to_order_link_label">Ссылка</key>
+    <key name="how_to_pay_label">Как оплатить заказ</key>
+    <key name="how_to_pay_title_label">Заголовок</key>
+    <key name="how_to_pay_subtitle_label">Подзаголовок</key>
+    <key name="how_to_pay_link_label">Ссылка</key>
+    <key name="about_delivery_label">Доставка товаров</key>
+    <key name="about_delivery_title_label">Заголовок</key>
+    <key name="about_delivery_subtitle_label">Подзаголовок</key>
+    <key name="about_delivery_link_label">Ссылка</key>
+    <key name="about_guarantees_label">Гарантии</key>
+    <key name="about_guarantees_title_label">Заголовок</key>
+    <key name="about_guarantees_subtitle_label">Подзаголовок</key>
+    <key name="about_guarantees_link_label">Ссылка</key>
+    <key name="Text_pages_setting">Настройка текстовых страниц</key>
+    <key name="Main_page">Главная страница</key>
+    <key name="Display">Отображение</key>
+    <key name="Count_of_elements_in_blocks">Количество выводимых элементов</key>
+    <key name="Count_of_elements_in_blocks_hint">Указывается числом. Рекомендуемое количество выводимых товаров от 4 до
+        8. Новостей — 3. Поставьте «0», если не хотите выводить блок на главной.
+    </key>
+    <key name="Item_page_info">Информация на странице о товаре</key>
+    <key name="Elements_output">Вывод элементов</key>
+
+    <key name="news_count_print_hint">Рекомендуемое количество выводимых новостей — 3 (По умолчанию 3).</key>
+    <key name="items_with_best_hint">Рекомендуемое максимальное количество товаров — 200 (По умолчанию 8).</key>
+    <key name="items_with_popular_hint">Рекомендуемое максимальное количество товаров — 20 (По умолчанию 8).</key>
+    <key name="items_with_last_hint">Рекомендуемое максимальное количество товаров — 30. Последние просмотренные товары — выводятся в Личном кабинете покупателя (По умолчанию 8).</key>
+    <key name="brand_with_best_hint">Рекомендуемое максимальное количество брендов — 20 (По умолчанию 10)</key>
+    <key name="items_with_vendor_hint">Рекомендуемое максимальное количество продавцов — 20 (По умолчанию 8)</key>
+    <key name="items_with_comments_hint">Рекомендуемое количество товаров с отзывами — 20 (По умолчанию 8)</key>
+
+    <!-- /Заголовки и подсказки в разделе "Конструкция сайта" -->
+    <key name="High_limit_is_exceeded">Превышено максимально допустимое значение для поля</key>
+    <key name="Low_limit_is_exceeded">Значение ниже допустимого минимального значения для поля</key>
+    <key name="Value_must_be_numeric">Значение должно быть числом</key>
+
+    <key name="warehouse_items_label">Товары на складе</key>
+    <key name="warehouse_items_hint">Кол-во товаров со склада на главной странице (По умолчанию 8).</key>
+
+    <!-- Поля для раздела "Конструкция сайта" -->
+    <key name="logo_label">Загрузка</key>
+    <key name="logo_hint">
+        Выводится в шапке сайта слева. Рекомендуемый размер 300px по ширине и 100px по высоте. Рекомендуемый формат
+        изображения: png с прозрачным фоном, допустимые форматы: gif, jpg.
+    </key>
+
+    <key name="stock_label">Акция</key>
+    <key name="stock_hint">Рекламный текст, отображаемый на всех страницах в шапке сайта.</key>
+
+    <key name="left_menu_mode_for_content_label">Навигация в колонке</key>
+    <key name="left_menu_mode_for_content_hint">Выбор отображения навигационного меню на страницах сайта. Можно отображать: все страницы
+        любой вложенности, вложенность только до второго уровня или скрыть полностью все боковое меню.
+    </key>
+    <key name="left_menu_mode_for_content_value:1">Отображать все страницы</key>
+    <key name="left_menu_mode_for_content_value:*">Отображать только разделы</key>
+    <key name="left_menu_mode_for_content_value:2">Отображать только разделы</key>
+    <key name="left_menu_mode_for_content_value:3">Скрыть левое меню</key>
+
+    <key name="rtl_label">Направление текста</key>
+    <key name="rtl_hint">Порядок расположения блоков на сайте для языков с различным направлением письма. По умолчанию
+        расположение «слева направо». Направление текста «справа налево» рекомендуется устанавливать для языков:
+        арабского, персидского, еврейского и урду.
+    </key>
+    <key name="rtl_value:*">Слева направо</key>
+    <key name="rtl_value:1">Справа налево</key>
+
+    <key name="display_as_carousel_label">Выводить товары</key>
+    <key name="display_as_carousel_hint">
+        Отображение витрины товаров на главной странице по категориям. «Каруселью» — в одну строку со стрелками
+        прокрутки. «Списком» — в несколько рядов.
+    </key>
+    <key name="display_as_carousel_value:*">Списком</key>
+    <key name="display_as_carousel_value:1">Каруселью</key>
+
+    <key name="custom_head_code_label">Свой код в секции head &lt;br&gt; шаблона сайта</key>
+    <key name="custom_head_code_hint">Свой код в секции head шаблона сайта</key>
+    <key name="Edit_custom_head_text">Код в секции head шаблона сайта</key>
+    <key name="header_text_label">Заголовок сайта</key>
+    <key name="header_text_hint">Текст в шапке сайта</key>
+    <key name="store_email_label">Почта магазина</key>
+    <key name="store_email_hint">Почта в шапке сайта</key>
+    <key name="news_count_print_label">Анонсы новостей</key>
+    <key name="items_with_comments_label">Товары с отзывами</key>
+    <key name="items_with_vendor_label">Рекомендованные продавцы</key>
+    
+    <key name="html_for_footet_label">Свой код перед закрывающимся тегом body</key>
+    <key name="html_for_footet_hint">Свой код перед закрывающимся тегом body</key>
+
+    <key name="brand_with_best_label">Популярные бренды</key>
+    <key name="items_with_best_label">Рекомендуемые товары</key>
+    <key name="items_with_popular_label">Популярные товары</key>
+    <key name="items_with_last_label">Последние открытые товары</key>
+    <key name="items_with_pristroy_label">Пристрой</key>
+    <key name="items_with_pristroy_hint">Кол-во товаров пристроя на главной странице (По умолчанию 8).</key>
+
+    <key name="Pristroy_user_hint">Введите логин пользователя для просмотра товаров, которые он продает.</key>
+
+    <key name="hide_taobao_responses_label">Сторонние отзывы</key>
+	<key name="hide_taobao_responses_hint">Отзывы о товаре от провайдера.</key>
+    <key name="hide_taobao_responses_value:*">Отображать</key>
+    <key name="hide_taobao_responses_value:1">Скрывать</key>
+
+    <key name="product_allow_in_complete_label">Товары с неполной информацией</key>
+    <key name="product_allow_in_complete_hint">Отображать неполную информацию о товаре.</key>
+    <key name="product_allow_in_complete_value:*">Скрывать</key>
+    <key name="product_allow_in_complete_value:1">Отображать</key>
+
+    <key name="product_allow_deleted_label">Удаленные товары</key>
+    <key name="product_allow_deleted_hint">Отображать товары, удаленные продавцом провайдера.</key>
+    <key name="product_allow_deleted_value:*">Скрывать</key>
+    <key name="product_allow_deleted_value:1">Отображать</key>
+
+    <key name="hide_item_title_label">Название</key>
+    <key name="hide_item_title_value:*">Отображать</key>
+    <key name="hide_item_title_value:1">Скрывать</key>
+
+    <key name="hide_item_info_status_label">Статус товара</key>
+    <key name="hide_item_info_status_value:*">Отображать</key>
+    <key name="hide_item_info_status_value:1">Скрывать</key>
+
+    <key name="hide_item_external_links_in_description_label">Внешние ссылки в описании</key>
+    <key name="hide_item_external_links_in_description_hint">Ссылки на внешние сайты во вкладке Фото и описание (ссылки на Таобао, 1688 и т.п.)</key>
+    <key name="hide_item_external_links_in_description_value:*">Отображать</key>
+    <key name="hide_item_external_links_in_description_value:1">Скрывать</key>
+
+    <key name="hide_taobao_link_label">Ссылка на оригинал</key>
+    <key name="hide_taobao_link_value:*">Отображать</key>
+    <key name="hide_taobao_link_value:1">Скрывать</key>
+
+    <key name="hide_item_info_price1_label">Цена за 1 шт.</key>
+    <key name="hide_item_info_price1_value:*">Отображать</key>
+    <key name="hide_item_info_price1_value:1">Скрывать</key>
+
+    <key name="hide_item_info_price_local_delivery_label">Местная доставка</key>
+    <key name="hide_item_info_price_local_delivery_value:*">Отображать</key>
+    <key name="hide_item_info_price_local_delivery_value:1">Скрывать</key>
+
+    <key name="Delivery_internal_hint">Доставка по территории Китая.</key>
+    <key name="Delivery_external_hint">Доставка за пределами Китая по выбранным странам.</key>
+
+    <key name="show_user_history_views_label">История просмотра товаров</key>
+    <key name="show_user_history_views_value:*">Отображать</key>
+    <key name="show_user_history_views_value:1">Скрывать</key>
+
+    <key name="hide_item_property_price_range_label">Ценовой диапазон</key>
+    <key name="hide_item_property_price_range_value:0">Отображать</key>
+    <key name="hide_item_property_price_range_value:*">Отображать</key>
+    <key name="hide_item_property_price_range_value:1">Скрывать</key>
+
+    <key name="hide_item_site_responses_label">Отзыв от пользователей сайта</key>
+    <key name="hide_item_site_responses_value:0">Отображать</key>
+    <key name="hide_item_site_responses_value:*">Отображать</key>
+    <key name="hide_item_site_responses_value:1">Скрывать</key>
+
+    <key name="hide_item_info_weight_label">Вес товара</key>
+    <key name="hide_item_info_weight_value:0">Отображать</key>
+    <key name="hide_item_info_weight_value:*">Отображать</key>
+    <key name="hide_item_info_weight_value:1">Скрывать</key>
+
+    <key name="hide_item_info_in_existence_label">В наличии</key>
+    <key name="hide_item_info_in_existence_value:0">Отображать</key>
+    <key name="hide_item_info_in_existence_value:*">Отображать</key>
+    <key name="hide_item_info_in_existence_value:1">Скрывать</key>
+
+    <key name="hide_item_info_sales_last30day_label">Объем продаж за 30 дней</key>
+    <key name="hide_item_info_sales_last30day_value:0">Отображать</key>
+    <key name="hide_item_info_sales_last30day_value:*">Отображать</key>
+    <key name="hide_item_info_sales_last30day_value:1">Скрывать</key>
+
+    <key name="product_tabs_label">Вкладка по умолчанию</key>
+    <key name="product_tabs_value:1">Характеристика товара</key>
+    <key name="product_tabs_value:2">Фото и описание</key>
+    <key name="product_tabs_value:3">Отзывы</key>
+    <key name="product_tabs_value:4">Сторонние отзывы</key>
+    <key name="product_tabs_value:0">Характеристика товара</key>
+    <key name="product_tabs_value:*">Характеристика товара</key>
+    <key name="search_category_mode_label">Режим работы категорий для поиска</key>
+    <key name="search_category_mode_hint">Выбранная категория будет выводиться на сайте в каталоге, а также участвовать в поиске товаров и категорий по сайту.</key>
+    <key name="search_category_mode_value:*">Внешние категории отображаются в исходном виде
+    </key>
+    <key name="search_category_mode_value:External">Внешние категории отображаются в исходном виде
+    </key>
+    <key name="search_category_mode_value:InternalLeaf">
+        Отображаются только внутренние категории. В данном режиме на странице категорий и поиска будут
+        выводится лишь категории, заполненные в разделе Категории в административной части сайта
+    </key>
+    <key name="search_category_mode_value:Nothing">Категории не отображаются, но увеличивается
+        скорость поиска товаров
+    </key>
+    <key name="search_category_mode_value:CurrentLevel">Вывод подкатегорий текущего уровня</key>
+    <key name="default_perpage_label">Количество отображаемых товаров по умолчанию</key>
+    <key name="default_perpage_hint">Количество товаров, которые выводятся на одной странице. Если товаров больше, то используется постраничная навигация. Оптимальное количество товаров на странице: 40. Внимание: слишком большое количество товаров влияет на скорость загрузки страницы!
+    </key>
+    <key name="default_perpage_value:*">20</key>
+    <key name="default_perpage_value:20">20</key>
+    <key name="default_perpage_value:40">40</key>
+    <key name="default_perpage_value:100">100</key>
+
+    <key name="oficial_catalog_perpage_label">Фирменные товары (Tmall) (максимум 200 товаров)</key>
+    <key name="extended_catalog_perpage_label">Товары из Китая (максимум 200 товаров)</key>
+    <key name="warehouse_catalog_perpage_label">Товары на складе (максимум 200 товаров)</key>
+    <key name="comments_catalog_perpage_label">Товары с отзывами (максимум 100 товаров) </key>
+    <key name="search_type_perpage_label">{{name}} (максимум {{count}} товаров) </key>
+    <key name="pristroy_catalog_perpage_label">Товары Пристроя (максимум 100 товаров)</key>
+
+    <key name="pager_count_print_label">Интервал отображаемых страниц в постраничном разбиении</key>
+    <key name="pager_count_print_hint">
+        Рекомендация: поставить число от 1 до 5.
+В каталоге под списком товаров есть постраничная навигация, которая показывает, сколько страниц с данным товаром доступно для просмотра.
+    </key>
+    <key name="pager_count_print_value:1">1</key>
+    <key name="pager_count_print_value:2">2</key>
+    <key name="pager_count_print_value:*">3</key>
+    <key name="pager_count_print_value:3">3</key>
+    <key name="pager_count_print_value:4">4</key>
+    <key name="pager_count_print_value:5">5</key>
+
+    <key name="hide_work_shedule_label">Контактная информация</key>
+    <key name="hide_work_shedule_hint">Отображение контактной информации (телефон и адрес) в шапке рядом с логотипом.
+    </key>
+    <key name="hide_work_shedule_value:0">Отображать</key>
+    <key name="hide_work_shedule_value:*">Отображать</key>
+    <key name="hide_work_shedule_value:1">Скрывать</key>
+    <key name="phone_label">Телефон</key>
+    <key name="phone_hint">Номер телефона для связи с оператором.</key>
+    <key name="work_shedule_label">График работы</key>
+    <key name="work_shedule_hint">График работы оператора или обработки заказов. Сам магазин работает круглосуточно.</key>
+
+    <key name="hide_operator_label">Блок онлайн поддержки</key>
+    <key name="hide_operator_hint">Блок онлайн поддержки в шапке сайта.</key>
+    <key name="hide_operator_value:0">Отображать</key>
+    <key name="hide_operator_value:*">Отображать</key>
+    <key name="hide_operator_value:1">Скрывать</key>
+
+    <key name="online_chat_code_label">Онлайн поддержка</key>
+    <key name="online_chat_code_hint">Добавьте код, полученный в сервисе онлайн-чата, который вы выбрали для общения с клиентами.</key>
+    <!-- /Поля для раздела "Конструкция сайта" -->
+
+    <!-- Поля для раздела "Заказы:Общие" -->
+    <key name="payment_in_cash_label">Оплата наличными</key>
+    <key name="payment_in_cash_hint">Необходимо включить, если у вас для оплаты заказа, кроме платежных систем, есть оплата наличными.</key>
+    <key name="payment_in_cash_value:1">Включить</key>
+    <key name="payment_in_cash_value:0">Выключить</key>
+    <key name="payment_in_cash_value:*">Выключить</key>
+
+    <key name='skip_reordering_label'>Дозаказ</key>
+    <key name='skip_reordering_hint'>Возможность добавления товаров в уже сформированные заказы.</key>
+    <key name='skip_reordering_value:1'>Запретить</key>
+    <key name='skip_reordering_value:0'>Разрешить</key>
+    <key name='skip_reordering_value:*'>Разрешить</key>
+
+    <key name='hide_money_output_label'>Вывод средств</key>
+    <key name='hide_money_output_hint'>Возможность отправки покупателем заявки на вывод средств с личного счета.</key>
+    <key name='hide_money_output_value:1'>Скрыть</key>
+    <key name='hide_money_output_value:0'>Показать</key>
+    <key name='hide_money_output_value:*'>Показать</key>
+
+    <key name="hide_middle_name_label">Скрывать поле Отчество</key>
+    <key name="hide_middle_name_hint">Скрывать поле отчество в личном кабинете, при оформлении заказа, при регистрации.</key>
+    <key name="hide_middle_name_value:1">Скрывать</key>
+    <key name="hide_middle_name_value:0">Показывать</key>
+    <key name="hide_middle_name_value:*">Скрывать</key>
+
+    <key name="ot_sberbank_pay_active_label">Отобразить на сайте</key>
+    <key name="ot_sberbank_pay_active_hint">Данная опция позволяет отображать или скрывать квитанцию на сайте</key>
+    <key name="ot_sberbank_pay_active_value:0">Скрыть</key>
+    <key name="ot_sberbank_pay_active_value:1">Отобразить</key>
+    <key name="ot_sberbank_pay_active_value:*">Отобразить</key>
+
+    <key name='hide_step_weight_order_label'>Выбор веса при оформлении заказа</key>
+    <key name='hide_step_weight_order_hint'>Если страница с выбором веса скрыта, покупатель не имеет возможности скорректировать вес заказа при его оформлении.</key>
+    <key name='hide_step_weight_order_value:1'>Скрыть</key>
+    <key name='hide_step_weight_order_value:0'>Показать</key>
+    <key name='hide_step_weight_order_value:*'>Показать</key>
+
+    <key name='hide_step_delivery_order_label'>Варианты доставки при оформлении заказа</key>
+    <key name='hide_step_delivery_order_hint'>Если варианты доставки при оформлении заказа скрыты, автоматически выбирается минимальная по цене.</key>
+    <key name='hide_step_delivery_order_value:1'>Скрыть</key>
+    <key name='hide_step_delivery_order_value:0'>Показать</key>
+    <key name='hide_step_delivery_order_value:*'>Показать</key>
+
+    <key name="open_payment_in_new_window_label">Открывать оплату в новом окне</key>
+    <key name="open_payment_in_new_window_value:1">Включить</key>
+    <key name="open_payment_in_new_window_value:0">Выключить</key>
+    <key name="open_payment_in_new_window_value:*">Выключить</key>
+    <key name="open_payment_in_new_window_hint">Платежная система будет открываться в новом окне браузера
+    </key>
+    <key name="notification_email_label">Эл. адрес для получения уведомлений</key>
+    <key name="notification_email_hint">На этот адрес будут приходить уведомления о поступившем заказе, оплате, просьба клиента вывести средства с его счета и иные обращения(возможно указать несколько - разделитель ; )</key>
+    <key name="notification_send_from_label">Эл. адрес отправителя</key>
+    <key name="notification_send_from_hint">Этот адрес будет указан в поле «от кого» в электронных письмах (уведомлениях) для клиента</key>
+    <key name="origin_package_label">Оригинальная упаковка</key>
+    <key name="origin_package_hint">Данная опция предоставляет выбор клиенту: оставить или убрать оригинальную упаковку товара. Применяется при оформлении заказа ко всему списку товаров.</key>
+    <key name="origin_package_value:0">Не предлагать</key>
+    <key name="origin_package_value:*">Не предлагать</key>
+    <key name="origin_package_value:1">Предлагать</key>
+    <key name="order_insurance_percent_label">Страхование заказа &lt;span class="muted"&gt;(%)&lt;/span&gt;</key>
+    <key name="order_insurance_percent_hint">Процент считается от общей стоимости товаров в заказе и добавляется к стоимости доставки. Допустимое значение от 1 до 99 %</key>
+    <key name="usediscount_label">Скидки продавца</key>
+    <key name="usediscount_hint">Показывать или скрывать скидки продавца.</key>
+
+    <key name="usediscount_value:1">Разрешить</key>
+    <key name="usediscount_value:0">Запретить</key>
+    <key name="usediscount_value:*">Разрешить</key>
+    <key name="IsAuctionTypeItemSellAllowed_label">По аукциону</key>
+    <key name="IsAuctionTypeItemSellAllowed_hint">Если включить опцию, то в вашем магазине будут отображаться товары, продаваемые по аукциону.</key>
+    <key name="IsAuctionTypeItemSellAllowed_value:true">Разрешить</key>
+    <key name="IsAuctionTypeItemSellAllowed_value:false">Запретить</key>
+    <key name="IsAuctionTypeItemSellAllowed_value:*">Разрешить</key>
+    <key name="IsNotDeliverableItemSellAllowed_label">Без местной доставки</key>
+    <key name="IsNotDeliverableItemSellAllowed_hint">Если включить опцию, то в вашем магазине будут отображаться товары без местной доставки. Отсутствие местной доставки означает, что продавец уже заложил её стоимость в цену товара.</key>
+    <key name="IsNotDeliverableItemSellAllowed_value:true">Разрешить</key>
+    <key name="IsNotDeliverableItemSellAllowed_value:false">Запретить</key>
+    <key name="IsNotDeliverableItemSellAllowed_value:*">Разрешить</key>
+    <key name="IsSecondhandItemSellAllowed_label">Б/у товары</key>
+    <key name="IsSecondhandItemSellAllowed_hint">Если включить опцию, то в вашем магазине будут отображаться подержанные товары.</key>
+    <key name="IsSecondhandItemSellAllowed_value:true">Разрешить</key>
+    <key name="IsSecondhandItemSellAllowed_value:false">Запретить</key>
+    <key name="IsSecondhandItemSellAllowed_value:*">Разрешить</key>
+    <key name="IsInStockItemSellAllowed_label">Товары временно снятые с продажи</key>
+    <key name="IsInStockItemSellAllowed_hint">Разрешено продавать товары, которые временно сняты с продажи на сайте провайдера</key>
+    <key name="IsInStockItemSellAllowed_value:true">Разрешить</key>
+    <key name="IsInStockItemSellAllowed_value:false">Запретить</key>
+    <key name="IsInStockItemSellAllowed_value:*">Разрешить</key>
+    <key name="IsNotSelectorSellAllowed_label">Товары не из подборок Селектора</key>
+    <key name="IsNotSelectorSellAllowed_hint">Разрешить продажу любых товаров, помимо отобранных в Селекторе</key>
+    <key name="IsNotSelectorSellAllowed_value:true">Разрешить</key>
+    <key name="IsNotSelectorSellAllowed_value:false">Запретить</key>
+    <key name="IsNotSelectorSellAllowed_value:*">Разрешить</key>
+    <key name="IsFilteredItemsSellAllowed_label">Ограниченные к показу</key>
+    <key name="IsFilteredItemsSellAllowed_hint">Товары, ограниченные к показу на главной странице в разделе Ограничения</key>
+    <key name="IsFilteredItemsSellAllowed_value:true">Разрешить</key>
+    <key name="IsFilteredItemsSellAllowed_value:false">Запретить</key>
+    <key name="IsFilteredItemsSellAllowed_value:*">Разрешить</key>
+    <key name="IsUnknownQuantityItemSellAllowed_label">Товары с неточным количеством</key>
+    <key name="IsUnknownQuantityItemSellAllowed_hint">Разрешено продавать товары, про которые пока еще не известно точное количество в наличии</key>
+    <key name="IsUnknownQuantityItemSellAllowed_value:true">Разрешить</key>
+    <key name="IsUnknownQuantityItemSellAllowed_value:false">Запретить</key>
+    <key name="IsUnknownQuantityItemSellAllowed_value:*">Разрешить</key>
+    <key name="hide_item_for_restrictions_label">Скрыть на сайте ограниченные к показу</key>
+    <key name="hide_item_for_restrictions_hint">Не отображать товар, добавленный в разделе Ограничения</key>
+    <key name="hide_item_for_restrictions_value:1">Скрыть</key>
+    <key name="hide_item_for_restrictions_value:0">Отобразить</key>
+    <key name="hide_item_for_restrictions_value:*">Скрыть</key>
+
+    <key name="is_postal_code_required_label">Обязательность почтового индекса</key>
+    <key name="is_postal_code_required_hint">Если после индекс является необходимым, то без его указания будет нельзя оформить заказ</key>
+    <key name="is_postal_code_required_value:0">Необязательно</key>
+    <key name="is_postal_code_required_value:*">Необязательно</key>
+    <key name="is_postal_code_required_value:1">Обязательно</key>
+    <!-- /Поля для раздела "Заказы:Общие" -->
+
+    <key name="actions_with_order">Действия c заказом</key>
+    <key name="restore">Восстановить</key>
+    <key name="to_order_list">К списку заказов</key>
+    <key name="Goodss_price_in_order">Стоимость товаров</key>
+    <key name="Paid_remain_in_order">Оплачено / осталось</key>
+    <key name="Buying_order">Закупка</key>
+    <key name="Packages_order">Посылки</key>
+    <key name="History_order">История</key>
+    <key name="History">История</key>
+    <key name="Information">Информация</key>
+
+
+    <!-- Заголовки и подсказки для раздела "Заказы" -->
+    <key name="quittance_to_bank">квитанция в банк</key>
+    <key name="Quittance_to_bank">Квитанция в банк</key>
+    <!-- /Заголовки и подсказки для раздела "Заказы" -->
+
+    <!-- Поля для раздела "Заказы:Квитанция в банк" -->
+    <key name="name_of_payee">Наименование получателя платежа</key>
+    <key name="INN_of_payee">ИНН получателя платежа (10 или 12 цифр)</key>
+    <key name="account_number_of_payee">Номер счета получателя платежа (20 цифр)</key>
+    <key name="bank_name_of_payee">Наименование банка получателя платежа</key>
+    <key name="bank_identification_code">БИК (8 или 9 цифр)</key>
+    <key name="correspondent_bank_account">Номер кор./сч. банка получателя платежа (20 цифр)</key>
+    <key name="description_of_payment">Наименование платежа</key>
+    <!-- /Поля для раздела "Заказы:Квитанция в банк" -->
+
+    <!-- Раздел "Мультиязыяность" -->
+    <key name="languages">языки</key>
+    <key name="multilingual">мультиязычность</key>
+    <key name="Multilingual">Мультиязычность</key>
+    <key name="Translations">Переводы</key>
+    <key name="translations">переводы</key>
+    <key name="Showcase_languages">Языки витрины</key>
+    <key name="Showcase_languages_hint">Модуль мультиязычности позволяет создавать версии сайтов на нескольких языках.</key>
+    <key name="Showcase_languages_hint_detailes">Здесь можно выбрать язык, на котором будут отображаться товары витрины (на гл странице сайта). Выбор языка осуществляется из выпадающего списка справа, а редактирование выбранных языков — слева.</key>
+    <key name="MoveTo">Перетащить</key>
+    <key name="Delete">Удалить</key>
+    <key name="Add_language">Добавить язык</key>
+    <key name="Key">Ключ</key>
+    <key name="kg">кг</key>
+    <key name="Text">Текст</key>
+    <key name="Language">Язык</key>
+    <key name="Actions">Действия</key>
+    <key name="Translation_exists">Есть перевод</key>
+    <key name="Translation_not_exists">Перевод отсутствует</key>
+    <key name="Is_absent">Отсутствует</key>
+    <key name="In_the_delivery_currency">В валюте доставки</key>
+    <key name="Edit">Редактировать</key>
+    <key name="Close">Закрыть</key>
+    <key name="Translation_is_default">Загружен перевод по умолчанию из файлов папки langs в корне сайта</key>
+    <key name="All_languages">Все языки</key>
+    <key name="All_languages_chosen">Все языки выбраны</key>
+    <key name="Search_text">Искомый текст</key>
+    <key name="Find">Найти</key>
+    <key name="All_options">Все варианты</key>
+    <key name="Own_translations">Собственные переводы</key>
+    <key name="Not_translated">Непереведенные</key>
+    <key name="Box_translated">Переводы из коробки</key>
+    <key name="edit_translation">редактирование перевода</key>
+    <key name="Edit_translation">Редактирование перевода</key>
+    <key name="Save_as_html">Сохранить как html</key>
+    <key name="Save_as_html_hint">Если перевод содержит html теги, включите галочку</key>
+    <key name="Edit_create_key">Редактирование/создание ключа</key>
+    <key name="Key">Ключ</key>
+    <key name="Cancel">Отменить</key>
+    <key name="Cancel_noun">Отмена</key>
+    <key name="Canceling">Отменяется</key>
+    <key name="Search_translation">Поисковые фразы</key>
+    <key name="Search_add">Добавить перевод</key>
+    <key name="Source_text">Исходный текст</key>
+    <key name="Translation">Перевод</key>
+    <key name="Service_translation">Системный перевод</key>
+    <key name="Service_translation_translatable_content">Группа</key>
+    <key name="Service_translation_translatable_content_select">Выберите группу</key>
+    <key name="My_translation">Мой перевод</key>
+    <key name="My_translation_delete_translation">Вернуть перевод по умолчанию</key>
+    <key name="Service_translation_confirm_delete">Вы действительно хотите вернуть перевод по умолчанию?</key>
+    <key name="Revert">Вернуть</key>
+    <!-- /Раздел "Мультиязыяность" -->
+
+    <key name="date">Дата</key>
+    <key name="sender">Отправитель</key>
+    <key name="Buyer-Recipient">Покупатель-Получатель</key>
+    <key name="pic">Рисунок</key>
+    <key name="nomination">Наименование</key>
+    <key name="in_total">ИТОГО</key>
+    <key name="broken_parcel_description">При порче упаковки, фирменного скотча и других признаков повреждения упаковки, обязательно сверить содержимое с данной описью!</key>
+    <key name="order_id">Номер заказа</key>
+    <key name="package_id">Номер посылки</key>
+    <key name="delivery_address">Адрес доставки</key>
+    <key name="order_delivery_address">Адрес доставки заказа</key>
+    <key name="phone">Номер телефона</key>
+    <key name="count">Количество</key>
+    <key name="price">Цена</key>
+    <key name="Print_package_inventory">Опись</key>
+
+    <key name="site_temporary_unavailable_label">Сайт на обслуживании</key>
+    <key name="site_temporary_unavailable_hint">Включаем, чтобы закрыть сайт для проведения технических работ. По
+        умолчанию выключено.
+    </key>
+    <key name="site_temporary_unavailable_value:1">Включено</key>
+    <key name="site_temporary_unavailable_value:0">Выключено</key>
+    <key name="site_temporary_unavailable_value:*">Выключено</key>
+    <key name="auth_to_private_office_label">Переадресация после авторизации</key>
+    <key name="auth_to_private_office_hint">Указываем куда перенаправлять клиента после того как он авторизовался на
+        сайте.
+    </key>
+    <key name="auth_to_private_office_value:1">В личный кабинет</key>
+    <key name="auth_to_private_office_value:0">На главную</key>
+    <key name="auth_to_private_office_value:*">На главную</key>
+    <key name="simplified_registration_label">Упрощенная регистрация</key>
+    <key name="simplified_registration_hint">Позволяет оформлять заказы без предварительной регистрации, указав
+        емейл на последнем этапе оформления
+    </key>
+    <key name="simplified_registration_value:0">Отключена</key>
+    <key name="simplified_registration_value:1">Включена</key>
+    <key name="simplified_registration_value:*">Отключена</key>
+
+    <key name="assign_current_server_ip">Привязать текущий IP сервера</key>
+
+    <key name="switch_on_ip">Включить привязку по IP</key>
+    <key name="switch_off_ip">Отключить привязку по IP</key>
+
+    <key name="auth_capcha_admin_label">Ввод капчи при входе в админ панель</key>
+    <key name="auth_capcha_admin_hint">Дополнительная защита от подбора паролей к админ панели сайта.  </key>
+    <key name="auth_capcha_admin_value:1">Использовать</key>
+    <key name="auth_capcha_admin_value:0">Не использовать</key>
+    <key name="auth_capcha_admin_value:*">Не использовать</key>
+
+    <key name="google_recaptcha_label">Google reCAPTCHA</key>
+    <key name="google_recaptcha_hint">Включение дополнительной защиты сайта от спама</key>
+    <key name="google_recaptcha_value:1">Использовать</key>
+    <key name="google_recaptcha_value:0">Не использовать</key>
+    <key name="google_recaptcha_value:*">Не использовать</key>
+
+    <key name="google_recaptcha_key_public_label">Публичный ключ</key>
+    <key name="google_recaptcha_key_public_hint">Ваш публичный ключ для Google reCAPTCHA</key>
+
+    <key name="google_recaptcha_key_secret_label">Секретный ключ</key>
+    <key name="google_recaptcha_key_secret_hint">Ваш секретный ключ для Google reCAPTCHA</key>
+
+    <key name="use_https_label">Защищенный протокол HTTPS</key>
+    <key name="use_https_hint">Использовать протокол HTTPS при генерации ссылок (возможны проблемы с самоподписанным сертификатом)</key>
+    <key name="use_https_value:1">Использовать</key>
+    <key name="use_https_value:0">Не использовать</key>
+    <key name="use_https_value:*">Не использовать</key>
+
+    <key name="protect_key_label">Защита ключа</key>
+    <key name="protect_key_hint">Чтобы защитить Ваш Персональный Ключ (Instance Key) от незаконного использования, при попадании к третьим лицам, необходимо указать адрес сервера, на котором расположена Ваша Коробка. Когда настройка включена, Ключ не будет работать на другом сервере, кроме Вашего.</key>
+    <key name="protect_key_value:1">Использовать</key>
+    <key name="protect_key_value:0">Не использовать</key>
+    <key name="protect_key_value:*">Не использовать</key>
+
+    <key name="Item_comments">Комментарии для товаров</key>
+    <key name="site_admin_email_label">Эл. адрес для получения уведомлений</key>
+    <key name="site_admin_email_hint">На этот адрес будут приходить уведомления о поступившем заказе, оплате, просьба клиента вывести средства с его счета и иные обращения</key>
+    <key name="site_email_label">Эл. адрес отправителя</key>
+    <key name="site_email_hint">Этот адрес будет указан в поле «от кого» в электронных письмах (уведомлениях) для клиента    </key>
+
+    <key name="Cant_connect_to_server">Невозможно подключиться к серверу обновлений</key>
+    <key name="Automatic_update">Автоматическое обновление системы</key>
+    <key name="Undefined">Неизвестно</key>
+    <key name="DoUpdate">Обновить</key>
+    <key name="Balance">Баланс</key>
+    <key name="UpdateProcess">Выполняется обновление</key>
+    <key name="current_version">Текущая установленная версия</key>
+    <key name="Check_new_versions">Проверить новые доступные версии</key>
+    <key name="last_available_version_for_update">последняя доступная версия для обновления</key>
+    <key name="update_more">подробнее</key>
+    <key name="more_info">Подробнее</key>
+    <key name="Changes_description">Описание изменений</key>
+    <key name="Update_available">Версия совместима с вашей системой</key>
+    <key name="Update_not_available">Версия несовместима с вашей системой и не рекомендуется к обновлению</key>
+
+    <!-- Раздел "Доставка" -->
+    <key name="Delivery_small">доставка</key>
+    <key name="Delivery">Доставка</key>
+    <key name="Delivery_not_available">Данный способ доставки недоступен</key>
+    <key name="Shipment">Доставка</key>
+    <key name="Delivery_internal_small">внутренняя</key>
+    <key name="Delivery_external_small">внешняя</key>
+    <key name="Delivery_internal">Внутренняя</key>
+    <key name="Delivery_external">Внешняя</key>
+    <key name="Editing_internal_delivery">Редактирование оригинальной доставки</key>
+    <key name="Editing_original_price">Редактирование оригинальной цены</key>
+    <key name="Recalculation_item_price">Пересчитать цену товара по закупочным цене/доставке</key>
+    <key name="Recalculation_price">Пересчитать цену</key>
+    <key name="Recalculation_delivery">Пересчитать доставку</key>
+    <key name="Tariffs">Тарифы</key>
+    <key name="tariffs">тарифы</key>
+    <key name="Tariffs_by_countries">Тарифы по странам</key>
+    <key name="tariffs_by_countries">тарифы по странам</key>
+    <key name="Names">Названия</key>
+    <key name="Delivery_country">Страна доставки</key>
+    <key name="Add">Добавить</key>
+    <key name="First_price">Начальная стоимость</key>
+    <key name="Price_step">Стоимость шага</key>
+    <key name="Price_step_hint">Данные предоставляет служба доставки. Стоимость каждого последующего шага, то есть сколько будет добавляться к начальной стоимости доставки при превышении минимального веса посылки.</key>
+
+    <key name="Edit_tariff">Редактирование тарифа для доставки</key>
+    <key name="Create_tariff">Создание тарифа для доставки</key>
+    <key name="create_edit_tariff">создание/редактирование тарифа</key>
+    <key name="Country">Страна</key>
+    <key name="Tariff_avail">Доступность</key>
+    <key name="Delivery_add">Добавить доставку</key>
+    <key name="Delivery_types">Способы доставки</key>
+    <key name="Delivery_types_hint">Доступные способы доставки (с которыми может работать ваш Логист)</key>
+    <key name="Delivery_region">Регион доставки</key>
+    <key name="Delivery_region_hint">Выбирается тот регион, где находится Логист.</key>
+    <key name="choice_of_delivery_region">Выбор региона</key>
+    <key name="Chose_region">Выбрать регион</key>
+    <key name="Delivery_edit">Редактирование</key>
+    <key name="Delivery_type_create">Создание вида доставки</key>
+    <key name="create_edit_delivery">создание/редактирование вида доставки</key>
+    <key name="Name">Название</key>
+    <key name="Description">Описание</key>
+    <key name="Order">Порядок</key>
+    <key name="Currency">Валюта</key>
+    <key name="Weight">Вес</key>
+    <key name="Min_weight_delivery">Минимальный вес посылки</key>
+    <key name="Min_weight_delivery_hint">Минимально допустимый вес посылки.</key>
+    <key name="Max_weight_delivery">Максимальный вес посылки</key>
+    <key name="Max_weight_delivery_hint">Максимально допустимый вес посылки.</key>
+    <key name="Step_by_weight">Шаг по весу</key>
+    <key name="Step_by_weight_hint">По указанному шагу по весу идет округление веса посылки. Например: вес посылки 2 кг 678 гр. Шаг посылки 0,2 кг. Значит окончательный вес посылки будет 2,8 кг и стоимость доставки будет считаться для посылки весом 2,8 кг, а не 2,678 кг.</key>
+    <key name="Delivery_min_price">Учитывать минимальную стоимость доставки</key>
+    <key name="Delivery_min_price_hint">Если галочка не стоит - начальная стоимость, в тарифе доставки, учтена не будет</key>
+    <key name="Delivery_step_price">Учитывать стоимость шага по весу</key>
+    <key name="Delivery_step_price_hint">Если поставлена галочка, то будет действовать округление веса посылки с точностью до шага по весу.</key>
+    <key name="Delivery_rounding">Округлять вес до большего целого</key>
+    <key name="Delivery_rounding_hint">Если поставлена галочка, то вес будет округлен до шага доставки. Если не включено округление идет расчет за каждый грамм без учета шага доставки</key>
+    <key name="All_deliveries_chosen">Все доставки выбраны</key>
+    <key name="Chose_your_warehouse_location">Выберите расположение вашего склада</key>
+    <key name="Cost_calculating">Расчет стоимости</key>
+    <!-- /Раздел "Доставка" -->
+
+    <!-- Раздел "Товары на складе (Пристрой)" -->
+    <key name="Warehouse">Товары на складе</key>
+    <key name="Show_selected_category_goods">Просмотреть товары в выбранной категории</key>
+    <key name="Warehouse_categories">Категории для товаров на складе</key>
+    <key name="Categories">Категории</key>
+    <key name="Category">Категория</key>
+    <key name="Choose_category">Выберите категорию</key>
+    <key name="Enter_category_name_or_chose_it_from_list">Введите название категории или выберите из ее из каталога</key>
+    <key name="Enter_category_name_promt">Введите название категории</key>
+    <key name="Enter_category_name">Введите название</key>
+    <key name="Products">Товары</key>
+    <key name="Product">Товар</key>
+    <key name="Warehouse_import">Импорт товаров</key>
+    <key name="Warehouse_import_example_import_file">Скачать пример импортируемого файла</key>
+
+    <key name="Enter_product_site_link">Введите ссылку на товар на сайте</key>
+    <key name="Enter_product_link">Введите ссылку на товар</key>
+    <key name="Apply_filter">Применить фильтр</key>
+    <key name="Choose_from_category_list">Выбрать в дереве категорий</key>
+    <key name="Selected product">Выбран товар</key>
+
+    <key name="Rename">Переименовать</key>
+    <key name="Create">Создать</key>
+    <key name="Delete">Удалить</key>
+    <key name="Really_delete_this_category">Действительно удалить эту категорию?</key>
+    <key name="Warehouse_root_category">Категории</key>
+
+    <key name="Move_category">Переместить категорию</key>
+    <key name="Hide_category">Скрыть категорию</key>
+    <key name="Show_category">Показать категорию</key>
+    <key name="Open_category">Посмотреть категорию на сайте</key>
+
+    <key name="Copy">Копировать</key>
+    <key name="Cut">Вырезать</key>
+    <key name="Paste">Вставить</key>
+
+    <key name="Rename_category">Переименовать категорию</key>
+    <key name="Add_category">Добавить категорию</key>
+    <key name="Edit_category">Редактировать категорию</key>
+    <key name="Rename_category">Переименовать категорию</key>
+    <key name="Add_category">Добавить категорию</key>
+    <key name="Delete_category">Удалить категорию</key>
+    <key name="Move_up_category">Переместить вверх</key>
+    <key name="Move_down_category">Переместить вниз</key>
+    <key name="Add_root_category">Добавить корневую категорию</key>
+    <key name="Root_category">Категории</key>
+
+    <key name="Add_edit_category">Добавить/редактировать категорию</key>
+    <key name="Category_data">Данные</key>
+    <key name="Category_id">ID категории</key>
+
+    <key name="Parent_category">Родительская категория</key>
+    <key name="Parent_category_hint">Начните вводить название родительской категории в вашем каталоге для выбора. Оставьте поле пустым, чтобы категория была корневой</key>
+
+    <key name="Category_name_hint">Введите название категории в каталоге</key>
+    <key name="Category_predefine_mode_hint">Соответствие вашей категории каталогу товарного провайдера или поисковому запросу. Виртуальная категория не содержит товаров и используется для формирования каталога</key>
+
+
+
+
+    <key name="Approximate_weight">Примерный вес</key>
+    <key name="Approximate_weight_hint">Укажите примерный вес товаров в данной категории для расчета стоимости доставки</key>
+
+    <key name="Category_address">Адрес раздела</key>
+    <key name="Category_address_hint">Впишите адрес страницы на сайте (английские буквы без пробелов)</key>
+
+    <key name="Enter_category_id_promt">Введите ID категории</key>
+
+    <key name="Category_title">Заголовок</key>
+    <key name="Category_title_prefix">Текст до заголовка</key>
+    <key name="Category_title_prefix_hint">Текст выводимый на всех страницах до заголовка (до title)</key>
+    <key name="Category_title_suffix">Текст после заголовка</key>
+    <key name="Category_title_suffix_hint">Текст выводимый на всех страницах после заголовка (после title)</key>
+
+    <key name="Category_meta_keywords">Ключевые слова</key>
+    <key name="Category_meta_keywords_hint">Meta keywords</key>
+    <key name="Category_meta_description">Описание</key>
+    <key name="Category_meta_description_hint">Meta description</key>
+    <key name="Category_filters_not_found">Фильтров для категории не найдено.</key>
+
+    <key name="Name_cannot_be_empty">Название категории должно быть заполнено</key>
+    <key name="Category_id_must_be_positive_numeric">ID категории должно быть числом</key>
+    <key name="Category_id_cannot_be_empty">ID категории не должно быть пустым</key>
+    <key name="Order_cannot_be_empty">Порядок не задан</key>
+
+    <key name="Default_Warehouse_category_name">Товары на складе</key>
+    <!-- /Раздел "Товары на складе (Пристрой)" -->
+
+    <!-- Раздел "Пользователи" -->
+    <key name="Login">Логин</key>
+    <key name="Password">Пароль</key>
+    <key name="Account_number">ID пользователя</key>
+    <key name="First_name">Имя</key>
+    <key name="Last_name">Фамилия</key>
+    <key name="Middle_name">Отчество</key>
+    <key name="Full_name">Фамилия Имя Отчество</key>
+    <key name="Gender">Пол</key>
+    <key name="Male">Мужской</key>
+    <key name="Female">Женский</key>
+    <key name="Email">Эл. почта</key>
+    <key name="Phone">Телефон</key>
+    <key name="Skype">Скайп</key>
+    <key name="City">Город</key>
+    <key name="Status">Статус</key>
+    <key name="Activate">Активировать</key>
+    <key name="Ban">Забанить</key>
+    <key name="Remove">Удалить</key>
+    <key name="Unban">Разбанить</key>
+    <key name="Activate_user">Активировать пользователя</key>
+    <key name="Verify_user_email">Подтвердить Email</key>
+    <key name="Verify_user_phone">Подтвердить номер телефона</key>
+    <key name="Verified">Данные успешно подтверждены</key>
+    <key name="Ban_user">Забанить пользователя</key>
+    <key name="Add_user">Добавить пользователя</key>
+    <key name="Remove_user">Удалить пользователя</key>
+    <key name="Unban_user">Разбанить пользователя</key>
+    <key name="Edit_user">Редактировать пользователя</key>
+    <key name="Login_as_user">Войти под пользователем</key>
+    <key name="Authorize_as_user">Авторизоваться под логином пользователя</key>
+    <key name="Restore_user_password">Восстановить пароль пользователя</key>
+    <key name="Restore_password">Восстановить пароль</key>
+    <key name="New_password">Новый пароль</key>
+    <key name="Old_password">Старый пароль</key>
+    <key name="New_password_error">Не введен новый пароль</key>
+    <key name="Old_password_error">Не введен старый пароль</key>
+    <key name="Type_or_generate">Введите или сгенерируйте</key>
+    <key name="Generate_password">Сгенерировать</key>
+    <key name="Сhange_password">Изменить пароль</key>
+    <key name="Сhanging_password">Смена пароля</key>
+    <key name="Password_must_not_be_empty">Пароль не может быть пустым</key>
+    <key name="Password_min_length_6">Минимальная длина пароля 6 символов</key>
+    <key name="Password_successfully_changed">Пароль успешно изменен</key>
+    <key name="Change_password_confirm">Вы действительно хотите изменить пароль</key>
+    <key name="Hide_notice">Скрыть уведомление</key>
+    <key name="Notifications">Уведомления</key>
+    <key name="Sales_types">Виды продажи товаров</key>
+    <key name="Basket_and_favourites">Корзина и избранное</key>
+    <key name="New_password_created_and_sent_to_user_email">Новый пароль создан и выслан на контактный адрес пользователя</key>
+    <key name="Show_additional_addresses">Показать дополнительные адреса</key>
+    <key name="will_be_opened_in_new_window">откроется в другом окне</key>
+    <key name="Is_active">Активен</key>
+    <key name="Is_not_active">Неактивен</key>
+    <key name="Is_banned">Забанен</key>
+    <key name="User_is_banned">Пользователь забанен</key>
+    <key name="User_is_unbanned">Пользователь разбанен</key>
+    <key name="Really_delete_this_user">Действительно удалить этого пользователя?</key>
+    <key name="Apply">Применить</key>
+    <key name="per_page">на страницу</key>
+    <key name="Filter_by_parameters">Фильтр по параметрам</key>
+    <key name="Applying_filters">Фильтруется</key>
+    <key name="Pay_status_filter">Статус</key>
+    <key name="Pay_status_filter_All">Все</key>
+    <key name="Pay_status_filter_New">Новый</key>
+    <key name="Pay_status_filter_Confirmed">Подтвержден</key>
+    <key name="Pay_status_filter_Waiting">Ожидающий обработки</key>
+    <key name="Pay_status_filter_Canceled">Отклонен</key>
+    <key name="Clear_filters">Очистить фильтры</key>
+    <key name="Pay_creation_date">Дата создания</key>
+    <key name="Pay_status">Статус платежа</key>
+    <key name="Account_title">Учетная запись</key>
+    <key name="Authorization">Авторизация</key>
+    <key name="Personal_info">Персональные данные</key>
+    <key name="Contact_info">Контактные данные</key>
+    <key name="Required_field">Обязательное поле</key>
+    <key name="Address">Адрес</key>
+    <key name="inn">ИНН</key>
+    <key name="PassportNumber">Паспорт (серия/номер)</key>
+    <key name="RegistrationAddress">Адрес по паспорту</key>
+    <key name="Region">Регион</key>
+    <key name="Postal_code">Почтовый индекс</key>
+    <key name="Add_recipient">Добавить получателя</key>
+    <key name="Add_new_recipient">Добавить нового получателя</key>
+    <key name="New_recipient">Новый получатель</key>
+    <key name="Customer_info">Информация о покупателе</key>
+    <key name="Customer_display_name">ФИО покупателя</key>
+    <key name="Funds">Средства</key>
+    <key name="Enter_the_amount_to_enroll_or_withdraw_from_the_account">Введите сумму, которую вы хотите зачислить или снять с личного счета покупателя</key>
+    <key name="Recharge_user_account">Пополнить счет пользователя</key>
+    <key name="Enroll">Зачислить</key>
+    <key name="Enrolling_funds">Зачисление средств</key>
+    <key name="Withdraw">Списать</key>
+    <key name="Withdrawing_funds">Списание средств</key>
+    <key name="Withdraw_funds_from_the_user_account">Снять средства со счета пользователя</key>
+    <key name="Amount">Сумма</key>
+    <key name="Notice">Примечание</key>
+    <key name="Operations">Операции</key>
+    <key name="No_account_operations_found">Операций по счету не найдено</key>
+    <key name="No_orders_found">Заказов не найдено</key>
+    <key name="Order_restore">Восстановление заказа</key>
+    <key name="Customer_profile">Профиль покупателя</key>
+    <key name="Select_customer_profile">Выберите профиль</key>
+    <key name="Really_restore_this_order">Действительно восстановить этот заказ?</key>
+    <key name="Date">Дата</key>
+    <key name="Creation_date">Дата создания</key>
+    <key name="Shipment_date">Дата отправки</key>
+    <key name="Notify_success">Запрос успешно выполнен</key>
+    <key name="Category_edited">Категория успешно обновлена</key>
+    <key name="Notify_error">Извините, кажется, что-то пошло не так</key>
+    <key name="Creation_time">Время создания</key>
+    <key name="Order_number">Номер заказа</key>
+    <key name="Order_status">Статус заказа</key>
+    <key name="Product_status">Статус товара</key>
+    <key name="Paid">Оплачено</key>
+    <key name="Enter_first_symbols">Введите первые символы</key>
+
+    <key name="Merge">Объединить</key>
+    <key name="Select_order_to_merge_please_or_click_Cancel">Выберите заказ для объединения или отмените операцию нажатием кнопки 'Отмена'</key>
+    <key name="No_orders_for_merge">Нет подходящих для объединения заказов</key>
+    <key name="Select_order_for_merge">Выберите заказ для объединения</key>
+    <key name="merge_error_different">Данные заказы принадлежат разным пользователям или имеют различные адреса доставки</key>
+    <key name="merge_error_not_allows">Статус одного или обоих заказов не позволяет их объединение. Объединение возможно только для заказов со статусами меньше "Готов к упаковке"</key>
+    <key name="merge_error_same">Нельзя объединить заказ с самим собой</key>
+    <key name="merge_error_wrong_order">Неправильный номер заказа или заказ с таким номером не найден</key>
+
+    <key name="IsEmailConfirmationUsed_label">Дополнительная активация пользователей через эл. почту</key>
+    <key name="IsEmailConfirmationUsed_hint">После регистрации на сайте пользователь получает уведомление на эл. почту и должен пройти по ссылке для активации своего аккаунта.</key>
+    <key name="IsEmailConfirmationUsed_value:true">Включена</key>
+    <key name="IsEmailConfirmationUsed_value:false">Выключена</key>
+    <key name="IsEmailConfirmationUsed_value:*">Выключена</key>
+    <!-- /Раздел "Пользователи" -->
+
+    <!-- /Раздел "Пристрой" -->
+    <key name="Pristroy">Пристрой</key>
+    <key name="pristroy">пристрой</key>
+    <key name="Approve_product">Утвердить товар</key>
+    <key name="Approve">Утвердить</key>
+    <key name="Reject_product">Отклонить товар</key>
+    <key name="Reject_product_without_reason">Отклонить товар без указания причины</key>
+    <key name="Reject">Отклонить</key>
+    <key name="Remove_product_from_sale">Снять товар с продажи</key>
+    <key name="Remove_from_sale">Снять с продажи</key>
+    <key name="Title">Название</key>
+    <key name="Quantity">Количество</key>
+    <key name="Qty">Кол-во</key>
+    <key name="Price">Цена</key>
+    <key name="Pristroy_status_on_moderation">На модерации</key>
+    <key name="Pristroy_status_approved">Утверждён</key>
+    <key name="Pristroy_status_rejected">Отклонён</key>
+    <key name="Pristroy_status_sold">Продан</key>
+    <key name="Pristroy_status_removed">Снят с продажи</key>
+    <key name="Product_is_rejected">Товар отклонён</key>
+    <key name="Product_is_approved">Товар утверждён</key>
+    <key name="Product_is_removed_from_sale">Товар снят с продажи</key>
+    <key name="Products_are_removed_from_sale">Товары сняты с продажи</key>
+    <key name="Really_remove_this_product_from_sale">Действительно снять этот товар с продажи?</key>
+    <key name="Really_remove_selected_products_from_sale">Действительно снять выбранные товары с продажи?</key>
+    <key name="No_products_found">Товаров не найдено</key>
+    <key name="Images">Фотографии</key>
+    <key name="Image">Изображение</key>
+    <key name="Select_image">Выбрать изображение</key>
+    <key name="Upload">Загрузить</key>
+    <key name="No_item_checked_in_the_list">Не выбран ни один элемент в списке</key>
+    <key name="Reject_reason">Причина отклонения</key>
+    <key name="Enter_reject_reason">Укажите причину отклонения товара</key>
+    <key name="Product_description">Описание товара</key>
+    <key name="Reject_reason_required">Причина (обязательна при отклонении)</key>
+    <key name="Edit_product">Редактировать товар</key>
+    <key name="Image_not_found">Изображение отсутствует</key>
+    <key name="Image_zoom">Увеличить фотографию</key>
+    <key name="Images_count">Всего фотографий</key>
+    <key name="Statuses">Статусы</key>
+    <key name="Reset_filters">Сбросить фильтры</key>
+    <key name="Update_folder_not_writable_now">Нет прав на запись в папку для обновлений (updates)</key>
+
+
+
+    <!-- /Раздел "Пристрой" -->
+
+    <!-- Раздел "Заказы" -->
+    <key name="specified_period">за произвольный период</key>
+    <key name="today_period">за сегодня</key>
+    <key name="yesterday_period">за вчера</key>
+    <key name="current_week_period">за текущую неделю</key>
+    <key name="last_week_period">за прошлую неделю</key>
+    <key name="last_month_period">за последний месяц</key>
+    <key name="last_three_months_period">за последние 3 месяца</key>
+    <key name="year_period">с начала года</key>
+    <key name="Split_item_suggestion">Введите количество товара, которое будет отделено.</key>
+    <key name="Split">Разделить</key>
+    <key name="Split_item_quantity">Разделить количество товара</key>
+    <key name="Package_updated_successfully">Посылка успешно обновлена</key>
+    <key name="Package_created_successfully">Посылка успешно создана</key>
+    <key name="Package">Посылка</key>
+    <key name="No_items_selected">Не выбрано ни одного товара</key>
+    <key name="Editing_package">Редактирование посылки</key>
+    <key name="Redefine_weight_package">Переопределить вес посылки</key>
+    <key name="Creating_package">Создание посылки</key>
+    <key name="Package_removal">Удаление посылки</key>
+    <key name="Print_receipt">Печатать квитанцию</key>
+    <key name="Export_package">Выгрузить в службу доставки</key>
+    <key name="Remove_package">Удалить посылку</key>
+    <key name="Really_delete_this_package">Действительно удалить эту посылку?</key>
+    <key name="Choose_another_package_for_items">Выберите другую посылку для товаров</key>
+    <key name="Item_removal">Удаление товара</key>
+    <key name="Remove_item">Удалить товар</key>
+    <key name="Really_delete_this_item_from_order">Действительно удалить этот товар из заказа?</key>
+    <key name="Create_package_for_all_items">Создать посылку для всех товаров в заказе</key>
+    <key name="Print_package_invoice">Инвойс</key>
+    <key name="Print_invoice">Распечатать накладную</key>
+    <key name="Tracking_number">Трекинг-номер</key>
+    <key name="Tracking">Трекинг</key>
+    <key name="Track_down">Отследить</key>
+    <key name="No_tracking">Трекинг отсутствует</key>
+    <key name="Location">Местоположение</key>
+    <key name="Length">Длина</key>
+    <key name="Height">Высота</key>
+    <key name="Width">Ширина</key>
+    <key name="cm">см</key>
+    <key name="kg">кг</key>
+    <key name="Move">Переместить</key>
+    <key name="Package_election">Выбор посылки</key>
+    <key name="Package_invoice">Инвойс посылки</key>
+    <key name="Package_inventory">Опись посылки</key>
+    <key name="Add_to_package">Добавить в посылку</key>
+    <key name="Adding_to_package_is_for_items_without_packages">Все или часть выбранных товаров уже находятся в посылке. Для перемещения товаров между посылками используйте вкладку "Посылки".</key>
+    <key name="Moving_items_to_new_package">Перемещение товаров в новую посылку</key>
+    <key name="Moving_items_to_new_package_confirmation">Для выбранных товаров будет создана новая посылка. Из текущей посылки выбранные товары будут удалены.</key>
+    <key name="Create_new_package_and_move_selected_items">Создать новую посылку и переместить</key>
+    <key name="Removing_items_from_package">Удаление товаров из посылки</key>
+    <key name="Removing_items_from_package_confirmation">Выбранные товары будут удалены из посылки.</key>
+    <key name="Removing_item_images">Удаление изображений товара</key>
+    <key name="Removing_item_images_confirmation">Действительно удалить это изображение?</key>
+    <key name="Remove_items_from_package">Удалить товары из посылки</key>
+    <key name="Move_selected_items_to_another_package">Переместить выбранные товары в другую посылку</key>
+    <key name="Move_to_another_one">Переместить в другую</key>
+    <key name="Move_selected_items_to_new_package">Переместить выбранные товары в новую посылку</key>
+    <key name="Move_to_new_one">Переместить в новую</key>
+    <key name="Delivery_mode">Способ доставки</key>
+    <key name="Additional_info">Доп. информация</key>
+    <key name="Item_page_on_site">Страница товара на сайте</key>
+    <key name="Enlarge_image">Увеличить изображение</key>
+    <key name="Add_photo">Добавить фотографию</key>
+    <key name="Remove_image">Удалить изображение</key>
+    <key name="Photos">Фотографии</key>
+    <key name="Add_order_item_photos">Добавить фотографии товара</key>
+    <key name="Add_webcam_photo">C веб-камеры</key>
+    <key name="Link">Ссылка</key>
+    <key name="Make_a_shot">Снять</key>
+    <key name="Upload_more">Загрузить еще</key>
+    <key name="Add_one_more_image">Добавить еще одно изображение</key>
+    <key name="Add_more">Добавить еще</key>
+    <key name="Add_one_more_field">Добавить еще одно поле</key>
+    <key name="Enter_image_url">Введите адрес изображения (URL)</key>
+    <key name="Comments">Комментарии</key>
+    <key name="Add_comment">Добавить комментарий</key>
+    <key name="Edit_comment">Редактировать комментарий</key>
+    <key name="Comment_text">Текст комментария</key>
+    <key name="Change_status">Изменить статус</key>
+    <key name="Value_must_not_be_empty">Значение не должно быть пустым</key>
+    <key name="in_order">в заказе</key>
+    <key name="in_order_u">В заказе</key>
+    <key name="Allow_popup_windows_in_browser">Вам необходимо разрешить всплывающие окна в браузере для админки</key>
+    <key name="Really_reserve_money_from_user_account">Действительно зарезервировать деньги на счете пользователя?</key>
+    <!-- /Раздел "Заказы" -->
+
+    <key name="sync_cb_label">Синхронизация с ЦБ</key>
+    <key name="sync_cb_hint">Синхронизация с ЦБ</key>
+    <key name="sync_cb_value:0">нет синхронизации</key>
+    <key name="sync_cb_value:*">нет синхронизации</key>
+    <key name="sync_cb_value:1">есть синхронизация</key>
+    <key name="sync_cb_label">Синхронизация с ЦБ</key>
+    <key name="sync_cb_hint">Синхронизация с ЦБ</key>
+    <key name="sync_cb_value:No">нет синхронизации</key>
+    <key name="sync_cb_value:WithCB">есть синхронизация</key>
+
+    <key name="selected_region">Выбранный регион</key>
+    <key name="choose">Выбрать</key>
+    <key name="delete_warning">Вы уверены, что хотите удалить &lt;strong&gt; &lt;%=item%&gt; &lt;/strong&gt; ?</key>
+    <key name="Data_save_success">Данные успешно сохранены</key>
+    <key name="Fields_incorrect">Неверно заполнены поля</key>
+    <key name="delete_products_warning">Вы уверены, что хотите удалить выбранные товары?</key>
+    <key name="Delete_products_warning">Вы уверены, что хотите удалить выбранные товары?</key>
+
+    <key name="Error">Ошибка</key>
+    <key name="InfoMessage">Сообщение</key>
+
+    <key name="Pricing">Ценообразование</key>
+    <key name="currency_small">валюта</key>
+    <key name="Currency">Валюта</key>
+    <key name="Internal_currency_string">Валюта внутренних расчетов</key>
+    <key name="Shop_currency">Валюты витрины</key>
+    <key name="Add_currency">Добавить валюту</key>
+    <key name="Add_more_currency">Добавить дополнительную валюту</key>
+    <key name="Rate_currency">Курсы валют</key>
+    <key name="Sync_mode">Режим синхронизации</key>
+
+    <key name="Discounts">Скидки</key>
+    <key name="Costs">Стоимость</key>
+    <key name="Bankir">Модуль «Банкир»</key>
+    <key name="Banker">Банкир</key>
+    <key name="Price_groups">Ценновые группы</key>
+    <key name="Price_strategic">Стратегия ценообразования</key>
+    <key name="Intervals">Интервалы</key>
+    <key name="limit">Лимит</key>
+    <key name="margin_product">Наценка товара</key>
+    <key name="margin_fixed">Наценка фиксированная</key>
+    <key name="Edit_price_group">Редактировать ценовую группу</key>
+    <key name="Remove_price_group">Удалить ценовую группу</key>
+    <key name="Edit_price_group_categories">Редактировать категории ценовой группы</key>
+    <key name="Add_price_group">Добавить ценовую группу</key>
+    <key name="Really_remove_this_price_group">Действительно удалить эту ценовую группу?</key>
+    <key name="Price_group_must_have_at_least_one_interval">Ценовая группа должна иметь хотя бы один интервал</key>
+    <key name="Price_group_saved_successfully">Ценовая группа успешно сохранена</key>
+    <key name="Price_group_categories">Категории ценовой группы</key>
+    <key name="Add_price_group_category">Добавить категорию</key>
+    <key name="Category_on_site">Категория на сайте</key>
+    <key name="Price_group_category_added_successfully">В ценовую группу успешно была добавлена категория</key>
+    <key name="Really_remove_this_price_group_category">Действительно удалить эту категорию из ценовой группы?</key>
+    <key name="Please_save_price_group_before_add_new_interval">Перед добавлением нового интервала сохраните текущие изменения.</key>
+    <key name="Price_group_values_must_be_greater_than_zero">Наценка, стоимость доставки или цена товара не могут быть отрицательными.</key>
+    <key name="Back">Вернуться</key>
+    <key name="Must_be_enter_price_group_name">Необходимо ввести название ценовой группы</key>
+    <key name="Must_be_enter_price_group_description">Необходимо ввести описание ценовой группы</key>
+    <key name="Price_group_name_content_invalid_letters">Название группы содержит не допустимые символы</key>
+
+    <key name="Adding_price_group">Добавление ценовой группы</key>
+    <key name="Editing_price_group">Редактирование ценовой группы</key>
+    <key name="Price_group_name">Название группы</key>
+    <key name="Price_group_name_hint">Название группы</key>
+    <key name="Price_group_description">Описание</key>
+    <key name="Price_group_description_hint">Описание группы</key>
+    <key name="Price_group_type">Способ расчета доставки</key>
+    <key name="Price_group_type_hint">Вид ценовой группы. <a href="http://wiki.rkdev.ru/pages/viewpage.action?pageId=16913245#id-ОписаниемодуляБанкир-Видыценовыхгрупп" target="_blank">Подробнее</a></key>
+    <key name="Price_group_default">Группа по умолчанию</key>
+    <key name="Price_group_default_hint">Для всех товаров заданного провайдера по умолчанию будет выбрана эта ценовая группа</key>
+    <key name="Price_intervals">Интервалы</key>
+    <key name="Add_price_interval">Добавить ценовой интервал</key>
+    <key name="For_all_intervals">Для всех интервалов</key>
+    <key name="Size_of_margin">Фикс. наценка</key>
+    <key name="Price_interval">Интервал</key>
+    <key name="Percent_of_margin">Процент наценки</key>
+    <key name="Minimal_price_value">Минимальное значение цены товара </key>
+    <key name="Group_delivery_value">Значение доставки</key>
+    <key name="Margin_percent">Наценка в %</key>
+    <key name="Fixed_margin">Фиксированная наценка</key>
+
+    <key name="Price_group_delivery">Доставка</key>
+    <key name="Price_group_delivery_hint">Формула стандартной стратегии расчета цены товаров.</key>
+
+    <key name="round_settings_label">Округление цен</key>
+    <key name="round_settings_hint">Настройка распространяется на расчет стоимости и на отображение цены товара на витрине. Настройка показывает до какого знака после запятой округлять стоимость товара (0 — знаков после запятой: 122,541 = 123; 2 — 122.541 = 122,55). Округление производится всегда в бОльшую сторону.</key>
+    <key name="persent_label">Процент наценки</key>
+    <key name="persent_hint">Наценка на товары для провайдера по умолчанию. Если на вашем сайте есть другие товарные провайдеры, используйте модуль Банкир.</key>
+    <key name="minimummargin_label">Минимальная наценка</key>
+    <key name="minimummargin_hint">Данная настройка используется только для провайдера, установленного по умолчанию. Если на вашем сайте есть и другие товарные провайдеры, используйте модуль Банкир.</key>
+
+    <key name="Referral_system">Реферальная программа</key>
+    <key name="user_not_exist">Пользователь не существует</key>
+    <key name="illegal_login">Неверный логин</key>
+    <key name="create_group">Создание группы</key>
+    <key name="edit_group">Редактировать группу</key>
+    <key name="referral_procents">Процент прибыли от рефереров</key>
+
+    <key name="referral_category_name_hint">Название реферальной программы.</key>
+    <key name="referral_procents_hint"> Реферер получает указанный здесь процент от завершенных сделок (считается цена товаров) реферала.</key>
+
+    <key name="referral_orders_cost">Минимальная общая сумма заказов рефералов</key>
+    <key name="User">Пользователь</key>
+    <key name="referral_add_user">успешно добавлен в группу скидок</key>
+    <key name="no_users_in_group">В данной группе пока нет пользователей</key>
+    <key name="referral_all_users">Просмотреть список пользователей в скидке</key>
+    <key name="del_group">Удалить группу</key>
+    <key name="add_group">Добавить категорию</key>
+    <key name="category2">категорию</key>
+    <key name="user2">пользователя</key>
+    <key name="Replace">Переместить</key>
+    <key name="replace_or_die">Переместить пользователей группы в стандартную неудаляемую группу </key>
+    <key name="replace_or_die2"> или удалить с группой? &lt;br&gt;
+        Пользователей в группе — &lt;span id="users_in_group"&gt; NN &lt;/span&gt;.</key>
+
+    <key name="Internal_delivery_method_cant_be_deleted">Нельзя удалить последний доступный способ местной доставки</key>
+    <key name="Currency_cant_be_deleted">Нельзя удалить последнюю доступную валюту</key>
+    <key name="Language_cant_be_deleted">Нельзя удалить последний доступный язык</key>
+    <key name="Showcase_currencies">Валюты</key>
+    <key name="All_currencies_chosen">Все валюты выбраны</key>
+
+    <key name="cb_margin">Наценка на курс ЦБ</key>
+    <key name="cb_margin_tip">Курсы валют синхронизируются с Центральным Банком России</key>
+    <key name="hub_margin">Наценка на курс Хаба</key>
+    <key name="hub_margin_tip">Курсы валют синхронизируются с Хабом</key>
+
+    <key name="For_example">Например, {{example}}</key>
+    <key name="Warehouse_products">Товары на складе</key>
+    <key name="Add_product">Добавление товара</key>
+    <key name="Edit_product">Редактирование товара</key>
+    <key name="Enter_product_name">Название товара</key>
+    <key name="Category">Категория</key>
+    <key name="Category_name">Название категории</key>
+    <key name="Category_not_selected">Категория не выбрана</key>
+    <key name="Choose_category_in_the_list">Выберите категорию в структуре дерева категорий</key>
+    <key name="Category_cannot_be_empty">Категория не может быть пустой</key>
+    <key name="add_product">добавление товара</key>
+    <key name="edit_product">редактирование товара</key>
+    <key name="Image_cannot_be_empty">Изображение не может быть пустым</key>
+    <key name="Quantity_must_be_positive">Количество должно быть положительным числом</key>
+    <key name="Incorrect_quantity">Указано некорректное количество товара</key>
+    <key name="Title_cannot_be_empty">Название не может быть пустым</key>
+    <key name="Vendor_cannot_be_empty">Не указан продавец</key>
+    <key name="Description_cannot_be_empty">Описание не может быть пустым</key>
+    <key name="Price_must_be_positive">Цена должна быть положительным числом</key>
+    <key name="Remove">Удалить</key>
+    <key name="Price">Цена</key>
+    <key name="pristroy_price_placeholder">В валюте внутреннего учета</key>
+    <key name="Quantity_placeholder">Введите доступное количество товара</key>
+    <key name="Quantity">Количество</key>
+    <key name="Vendor">Продавец</key>
+    <key name="Enter_vendor">Введите имя продавца</key>
+    <key name="Enter_vendor_id">Введите ID продавца</key>
+    <key name="Show_items_in_category">Открыть категорию</key>
+    <key name="pcs">шт.</key>
+    <key name="Quantity_label">Количество</key>
+    <key name="Quantity_hint"> </key>
+    <key name="Image">Изображение</key>
+    <key name="Products_removed">Товары успешно удалены</key>
+
+    <key name="Confirm_delete">Подтвердите удаление</key>
+    <key name="Change">Изменить</key>
+    <key name="Get_data_from_item">Взять данные существующего товара</key>
+    <key name="Input_link_to_item">Введите ссылку на товар с вашего сайта</key>
+    <key name="Choose_existing_product">Выбрать существующий товар</key>
+
+    <key name="Do_add_product">Добавить товар</key>
+
+    <key name="usevipdiscount_label">VIP скидки продавца</key>
+    <key name="usevipdiscount_hint">Показывать или скрывать VIP-скидки продавца.</key>
+    <key name="usevipdiscount_value:0">Запретить</key>
+    <key name="usevipdiscount_value:*">Запретить</key>
+    <key name="usevipdiscount_value:1">Разрешить</key>
+
+    <key name="Yes">Да</key>
+    <key name="No">Нет</key>
+    <key name="System_events_log">Системный журнал событий формирования страницы</key>
+
+    <key name="goods_plural:1">товар</key>
+    <key name="goods_plural:2">товара</key>
+    <key name="goods_plural:5">товаров</key>
+
+    <!-- Для фотобудки -->
+    <key name="exe_error">Ошибка выполнения</key>
+    <key name="loading">Загрузка</key>
+    <!-- /Для фотобудки -->
+
+    <key name="use_multi_search_label">Мультипоиск</key>
+    <key name="use_multi_search_value:*">Не использовать</key>
+    <key name="use_multi_search_value:1">Использовать</key>
+
+    <key name="default_products_for_display">Количество отображаемых товаров по умолчанию</key>
+
+    <key name="simple_search_perpage_label">Товары из китая</key>
+    <key name="tmall_search_perpage_label">Фирменные товары (Tmall)</key>
+    <key name="promoted_search_perpage_label">Рекомендации Таобао</key>
+    <key name="warehouse_search_perpage_label">Товары со склада</key>
+    <key name="comments_search_perpage_label">Товары с отзывами</key>
+
+    <key name="simple_search_perpage_value:*">8</key>
+    <key name="simple_search_perpage_value:8">8</key>
+    <key name="simple_search_perpage_value:20">20</key>
+    <key name="simple_search_perpage_value:40">40</key>
+    <key name="simple_search_perpage_value:100">100</key>
+
+    <key name="tmall_search_perpage_value:*">4</key>
+    <key name="tmall_search_perpage_value:8">8</key>
+    <key name="tmall_search_perpage_value:16">16</key>
+    <key name="tmall_search_perpage_value:32">32</key>
+    <key name="tmall_search_perpage_value:64">64</key>
+
+    <key name="warehouse_search_perpage_value:*">4</key>
+    <key name="warehouse_search_perpage_value:8">8</key>
+    <key name="warehouse_search_perpage_value:16">16</key>
+    <key name="warehouse_search_perpage_value:32">32</key>
+    <key name="warehouse_search_perpage_value:64">64</key>
+
+    <key name="comments_search_perpage_value:*">4</key>
+    <key name="comments_search_perpage_value:8">8</key>
+    <key name="comments_search_perpage_value:16">16</key>
+    <key name="comments_search_perpage_value:32">32</key>
+    <key name="comments_search_perpage_value:64">64</key>
+
+    <key name="promoted_search_perpage_value:*">4</key>
+    <key name="promoted_search_perpage_value:8">8</key>
+    <key name="promoted_search_perpage_value:16">16</key>
+    <key name="promoted_search_perpage_value:32">32</key>
+    <key name="promoted_search_perpage_value:64">64</key>
+
+    <key name="admin_old">Админка 1.0</key>
+
+    <key name="social">Социальные сети</key>
+    <key name="referals">Реферальные системы</key>
+    <key name="mailing">Рассылки</key>
+    <key name="mailing_list">Список рассылок</key>
+    <key name="promo">Продвижение</key>
+    <key name="Promo">Продвижение</key>
+    <key name="search_optimization">Поисковая оптимизация</key>
+    <key name="add">Добавить</key>
+    <key name="Added">Добавлено</key>
+    <key name="subscribers">Подписчики</key>
+    <key name="config">Настройки</key>
+
+    <key name="site_name_label">Тайтл по умолчанию</key>
+    <key name="site_name_hint">Заголовок страницы сайта, который выводится по умолчанию, если отсутствует заранее заданный заголовок</key>
+    <key name="counter_label">Счетчик посещений</key>
+    <key name="counter_hint">Добавьте код счетчика посещений, чтобы получать статистику по всем страницам сайта</key>
+
+    <key name="category_prefix_label">Текст до названия категории</key>
+    <key name="category_prefix_hint">Текст выводится в заголовке страницы перед названием категории каталога</key>
+    <key name="category_suffix_label">Текст после названия категории</key>
+    <key name="category_suffix_hint">Текст выводится в заголовке страницы после названия категории каталога</key>
+    <key name="brand_prefix_label">Текст до названия бренад</key>
+    <key name="brand_prefix_hint">Текст выводится в заголовке страницы перед названием бренда</key>
+    <key name="brand_suffix_label">Текст после названия бренда</key>
+    <key name="brand_suffix_hint">Текст выводится в заголовке страницы после названия бренда</key>
+    <key name="seller_suffix_label">Текст после имени продавца</key>
+    <key name="seller_suffix_hint">Текст выводится в заголовке страницы после имени продавца</key>
+    <key name="seller_prefix_label">Текст до имени продавца</key>
+    <key name="seller_prefix_hint">Текст выводится в заголовке страницы до имени продавца</key>
+    <key name="title_for_home_label">Title</key>
+    <key name="title_for_home__hint">Заголовок главной страницы сайта</key>
+    <key name="description_for_home_label">Description</key>
+    <key name="description_for_home_hint">Описание сайта, содержащее ключевые слова и фразы</key>
+    <key name="keywords_for_home_label">Keywords</key>
+    <key name="keywords_for_home_hint">Перечислите через запятую ключевые слова, которые характеризуют ваш сайт</key>
+
+
+    <key name="main_page">Главная страница</key>
+    <key name="footer_text_title_label"> Заголовок для текстового блока</key>
+    <key name="footer_text_label">Содержимое внизу страницы</key>
+    <key name="footer_text_hint">Текстовый блок в нижней части страницы</key>
+
+    <key name="site_map_html_hint">Ссылка на html-карту сайта</key>
+    <key name="site_map_xml_hint">Ссылка на xml-карту сайта</key>
+
+    <key name="China_Official_Flag">Фирменные товары (Tmall)</key>
+    <key name="China_Other_Flag">Товары из Китая</key>
+    <key name="China_OtherNew_Flag">Товары из Китая</key>
+    <key name="China_Promoted_Flag">Рекомендации Таобао</key>
+    <key name="China_Original_Flag">Оригинальный поиск</key>
+    <key name="Warehouse_Default_Flag">Товары на складе</key> +
+    <key name="YahooJapan_Default_Flag">Yahoo Япония</key>
+
+    <key name="Taobao/Official">Фирменные товары (Tmall)</key>
+    <key name="Taobao/Extended">Товары из Китая</key>
+    <key name="Taobao/ExtendedNew">Товары из Китая</key>
+    <key name="Taobao/Promoted">Рекомендации Таобао</key>
+    <key name="Taobao/Original">Оригинальный поиск</key>
+    <key name="Warehouse/Default">Товары на складе</key>
+    <key name="YahooJapan/Default">Yahoo Япония</key>
+
+    <key name="update_site_map">Обновить карту сайта</key>
+    <key name="updating_site_map">Карта сайта обновляется</key>
+
+    <key name="widgets">Виджеты</key>
+    <key name="hide_social_label">Блок соц. сетей </key>
+    <key name="hide_social_hint">Режим отображения блока соц. сетей </key>
+    <key name="hide_social_value:*">Отображать</key>
+    <key name="hide_social_value:0">Отображать</key>
+    <key name="hide_social_value:1">Скрывать</key>
+
+    <key name="fbLikeWidget_label">Лайк Фейсбук</key>
+    <key name="fbLikeWidget_hint">Добавьте код, полученный в разделе Facebook для вебмастеров</key>
+
+    <key name="twitWidget_label">Лайк Твиттер</key>
+    <key name="twitWidget_hint">Добавьте код, полученный в разделе Twitter для вебмастеров</key>
+
+    <key name="okWidget_label">Лайк Одноклассники</key>
+    <key name="okWidget_hint">Добавьте код, полученный в разделе для вебмастеров на сайте Одноклассники</key>
+
+    <key name="banner_widget_label">Виджет вместо баннера в колонке</key>
+    <key name="banner_widget_hint">Добавьте код виджета, полученный на сайте ВКонтакте</key>
+    <key name="links">Ссылки</key>
+    <key name="vk_link_label">Группа ВКонтакте</key>
+    <key name="vk_link_hint">Ссылка на вашу группу ВКонтакте</key>
+    <key name="ok_link_label">Одноклассники</key>
+    <key name="ok_link_hint">Ссылка на вашу группу в Одноклассниках</key>
+    <key name="fb_link_label">Фейсбук</key>
+    <key name="fb_link_hint">Ссылка на вашу страницу в Facebook</key>
+    <key name="tw_link_label">Твиттер</key>
+    <key name="tw_link_hint">Ссылка на вашу страницу в Twitter</key>
+    <key name="inst_link_label">Инстаграм</key>
+    <key name="inst_link_hint">Ссылка на вашу страницу в Instagram</key>
+    <key name="product_page">Страница о товаре</key>
+    <key name="share_social_code_label">Виджет «Поделиться в соц. сетях»</key>
+    <key name="share_social_code_hint">Оставьте код, установленный под фото товара по умолчанию или измените его на свой</key>
+
+    <key name="add_category">Добавить категорию</key>
+
+    <key name="add_new_category">Добавление новой категории</key>
+    <key name="category_profit_percent">Процент прибыли от рефереров</key>
+    <key name="category_min_orders_sum">Минимальная общая сумма заказов рефереров</key>
+
+    <key name="category_name">Название</key>
+    <key name="category_action">Действия</key>
+    <key name="category_edit">Редактирование категории</key>
+
+    <key name="add_category_user">Добавить пользователя в категорию</key>
+    <key name="update_category">Редактировать категорию</key>
+    <key name="remove_category">Удалить категорию</key>
+
+    <key name="add_mailing">Создать рассылку</key>
+    <key name="update_mailing">Редактировать</key>
+    <key name="remove_mailing">Удалить</key>
+    <key name="mailing_name">Рассылка</key>
+    <key name="mailing_actions">Действия</key>
+
+    <key name="user_name">Имя</key>
+    <key name="user_login">Логин</key>
+    <key name="user_email">Эл. почта</key>
+    <key name="user_balance">Баланс</key>
+    <key name="apply_filter">Применить фильтр</key>
+    <key name="add_user">Добавить пользователя</key>
+    <key name="export">Экспорт</key>
+    <key name="import">Импорт</key>
+    <key name="subscribers_export_xml">Экспорт подписчиков (.xml)</key>
+    <key name="subscribers_import_xml">Импорт подписчиков (.xml)</key>
+    <key name="subscribers_load_xml">Выберите файл (.xml)</key>
+    <key name="subscribers_user">Пользователь</key>
+    <key name="subscribers_email">Эл. почта</key>
+    <key name="subscribers_actions">Действия</key>
+
+    <key name="config_messages_count">Количество писем</key>
+    <key name="config_use_smtp_server">Использовать SMTP-сервер</key>
+    <key name="config_smpt_address">Адрес SMTP-сервера</key>
+    <key name="config_smtp_port">Порт SMTP-сервера</key>
+    <key name="config_smpt_login">Пользователь</key>
+    <key name="config_smpt_password">Пароль</key>
+    <key name="config_use_ssl">Использовать ssl</key>
+
+    <key name="mailing_crud">Создание/редактирование рассылки</key>
+    <key name="mailing_subject">Тема</key>
+    <key name="mailing_body">Текст письма</key>
+    <key name="mailing_test">Протестировать</key>
+    <key name="mailing_send">Разослать</key>
+    <key name="mailing_send_test_message">Отправить рассылку на тестовый адрес</key>
+    <key name="mailing_msg_count">Письма</key>
+    <key name="Sitemap_updated_successfully">Карта сайта обновлена</key>
+    <key name="Sitemap_updating_error">Во время обновления карты сайта произошла ошибка.</key>
+
+    <key name="go_to_user_profile">Перейти в профиль пользователя</key>
+    <key name="user_information">Информация о пользователе</key>
+    <key name="remove_user">Удалить пользователя</key>
+
+    <key name="social">Социальные сети</key>
+    <key name="referals">Реферальные системы</key>
+    <key name="mailing">Рассылки</key>
+    <key name="mailing_list">Список рассылок</key>
+    <key name="promo">Продвижение</key>
+    <key name="Promo">Продвижение</key>
+    <key name="search_optimization">Поисковая оптимизация</key>
+    <key name="add">Добавить</key>
+    <key name="subscribers">Подписчики</key>
+    <key name="config">Настройки</key>
+
+    <key name="deafult_page_title_label">Тайтл по умолчанию</key>
+    <key name="deafult_page_title_hint">Заголовок страницы сайта, который выводится по умолчанию, если отсутствует заранее заданный заголовок</key>
+    <key name="counter_label">Счетчик посещений</key>
+    <key name="counter_hint">Добавьте код счетчика посещений, чтобы получать статистику по всем страницам сайта</key>
+
+    <key name="category_prefix_label">Текст до названия категории</key>
+    <key name="category_prefix_hint">Текст выводится в заголовке страницы перед названием категории каталога</key>
+    <key name="category_suffix_label">Текст после названия категории</key>
+    <key name="category_suffix_hint">Текст выводится в заголовке страницы после названия категории каталога</key>
+    <key name="brand_prefix_label">Текст до названия бренда</key>
+    <key name="brand_prefix_hint">Текст выводится в заголовке страницы перед названием бренда</key>
+    <key name="brand_suffix_label">Текст после названия бренда</key>
+    <key name="brand_suffix_hint">Текст выводится в заголовке страницы после названия бренда</key>
+    <key name="title_for_home_label">Title</key>
+    <key name="title_for_home_hint">Заголовок главной страницы сайта</key>
+    <key name="description_for_home_label">Description</key>
+    <key name="description_for_home_hint">Описание сайта, содержащее ключевые слова и фразы</key>
+    <key name="keywords_for_home_label">Keywords</key>
+    <key name="keywords_for_home_hint">Перечислите через запятую ключевые слова, которые характеризуют ваш сайт</key>
+
+
+    <key name="main_page">Главная страница</key>
+    <key name="footer_text_label">Содержимое текстового блока</key>
+    <key name="footer_text_hint">Текстовый блок в нижней части страницы</key>
+    <key name="site_map_label">Карта сайта</key>
+    <key name="site_map_hint">Перечень всех текстовых страниц сайта и разделов каталога</key>
+
+    <key name="site_map_html_hint">Ссылка на html-карту сайта</key>
+    <key name="site_map_xml_hint">Ссылка на xml-карту сайта</key>
+
+
+    <key name="update_site_map">Обновить карту сайта</key>
+    <key name="updating_site_map">Карта сайта обновляется</key>
+
+    <key name="widgets">Виджеты</key>
+    <key name="hide_social_label">Блок соц. сетей </key>
+    <key name="hide_social_hint">Режим отображения блока соц. сетей </key>
+
+    <key name="vkLikeWidget_label">Лайк ВКонтакте</key>
+    <key name="vkLikeWidget_hint">Добавьте код, полученный в разделе ВКонтакте для вебмастеров</key>
+
+    <key name="fbLikeWidget_label">Лайк Фейсбук</key>
+    <key name="fbLikeWidget_hint">Добавьте код, полученный в разделе Facebook для вебмастеров</key>
+
+    <key name="twitWidget_label">Лайк Твиттер</key>
+    <key name="twitWidget_hint">Добавьте код, полученный в разделе Twitter для вебмастеров</key>
+
+    <key name="okWidget_label">Лайк Одноклассники</key>
+    <key name="okWidget_hint">Добавьте код, полученный в разделе для вебмастеров на сайте Одноклассники</key>
+
+    <key name="Really_remove_these_roles">Вы действительно хотите удалить роль?</key>
+
+    <key name="add_category">Добавить категорию</key>
+
+    <key name="add_new_category">Добавление новой категории</key>
+    <key name="category_profit_percent">Процент прибыли от рефереров</key>
+    <key name="category_min_orders_sum">Минимальная общая сумма заказов рефереров</key>
+
+    <key name="category_name">Название</key>
+    <key name="category_action">Действия</key>
+    <key name="category_edit">Редактирование категории</key>
+
+    <key name="add_category_user">Добавить пользователя в категорию</key>
+    <key name="update_category">Редактировать категорию</key>
+    <key name="remove_category">Удалить категорию</key>
+
+    <key name="add_mailing">Создать рассылку</key>
+    <key name="update_mailing">Редактировать</key>
+    <key name="remove_mailing">Удалить</key>
+    <key name="mailing_name">Рассылка</key>
+    <key name="mailing_actions">Действия</key>
+
+    <key name="user_name">Имя</key>
+    <key name="user_login">Логин</key>
+    <key name="user_email">Эл. почта</key>
+    <key name="user_balance">Баланс</key>
+    <key name="apply_filter">Применить фильтр</key>
+    <key name="add_user">Добавить пользователя</key>
+    <key name="export">Экспорт</key>
+    <key name="import">Импорт</key>
+    <key name="add_subscription_user">Добавить пользователя в подписку</key>
+    <key name="subscribers_export_xml">Экспорт подписчиков (.xml)</key>
+    <key name="subscribers_import_xml">Импорт подписчиков (.xml)</key>
+    <key name="subscribers_load_xml">Выберите файл (.xml)</key>
+    <key name="subscribers_user">Пользователь</key>
+    <key name="subscribers_email">Эл. почта</key>
+    <key name="subscribers_actions">Действия</key>
+
+    <key name="config_messages_count">Количество писем</key>
+    <key name="config_use_smtp_server">Использовать SMTP-сервер</key>
+    <key name="config_smpt_address">Адрес SMTP-сервера</key>
+    <key name="config_smtp_port">Порт SMTP-сервера</key>
+    <key name="config_smpt_login">Пользователь</key>
+    <key name="config_smpt_password">Пароль</key>
+    <key name="config_use_ssl">Использовать ssl</key>
+
+    <key name="Not_added_items_in_set">В подборку не добавлены следующие товары</key>
+    <key name="Some_goods_have_incorrect_status_to_package">Товар со статусом {{status}} нельзя добавить в посылку</key>
+    <key name="Price_can_not_be_below_zero">Стоимость не может быть отрицательной</key>
+
+    <key name="Users_are_banned">Пользователей забанены</key>
+    <key name="Users_are_unbanned">Пользователи разбанены</key>
+    <key name="Users_are_deleted">Пользователи удалены</key>
+
+    <key name="Really_ban_these_users">Действительно забанить выбранных пользователей?</key>
+    <key name="Really_remove_these_users">Действительно удалить выбранных пользователей?</key>
+    <key name="Really_unban_these_users">Действительно раззабанить выбранных пользователей?</key>
+
+    <key name="Confirm_needed">Требуется подтверждение</key>
+
+    <key name="Url_is_invalid">Неверная\битая ссылка</key>
+
+    <key name="delivery_tracking_num_label">Трекинг-номер</key>
+    <key name="delivery_tracking_num_hint">Номер для отслеживания посылки в службе доставки</key>
+    <key name="package_status_label">Статус</key>
+    <key name="package_status_hint">Статус посылки (изменения вносит логист)</key>
+
+    <key name="delivery_mode_label">Способ доставки</key>
+    <key name="delivery_mode_hint">Способ доставки посылки до получателя</key>
+
+    <key name="package_weight_label">Вес</key>
+    <key name="package_weight_hint">Вес посылки</key>
+
+    <key name="package_price_internal_label">Стоимость</key>
+    <key name="package_price_internal_hint">Стоимость доставки посылки до получателя</key>
+
+    <key name="package_size_label">Размеры посылки</key>
+    <key name="package_size_hint">Габариты посылки в сантиметрах</key>
+
+    <key name="package_additional_info_label">Дополнительная информация</key>
+    <key name="package_additional_info_hint">Дополнительные сведения о посылке, не описанные в других полях</key>
+
+    <key name="discountmode_label">Режим скидок</key>
+    <key name="discountmode_hint">Показывать или скрывать VIP-скидки продавца.</key>
+    <key name="discountmode_value:Default">Режим по умолчанию, настроенный в системе для всех.</key>
+    <key name="discountmode_value:None">Полное отсутствие скидок. </key>
+    <key name="discountmode_value:OnlyCache">Скидки только из кэша. </key>
+    <key name="discountmode_value:OnlyWithFeature"> Скидки только у товаров с особенностью Discount и из кэша.</key>
+    <key name="discountmode_value:All">Все скидки, полученные вместе с поиском, и из кэша. </key>
+
+    <key name="UserName">Имя пользователя</key>
+
+    <key name="Search_types">Типы поиска</key>
+    <key name="Search">Поиск</key>
+    <key name="search_items_at_render_page_label">Поиск в момент загрузки</key>
+    <key name="search_items_at_render_page_hint">Запрос на получение поиска отправляется до отображения результатов. Внимание! страница результата будет загружаться дольше обычного</key>
+    <key name="search_items_at_render_page_value:*">Использовать</key>
+    <key name="search_items_at_render_page_value:1">Использовать</key>
+    <key name="search_items_at_render_page_value:0">Не использовать</key>
+
+    <key name="Search_types_order">Используемые типы поиска по порядку</key>
+    <key name="Search_types_order_hint">Здесь можно выбрать типы поиска, по которым будет осуществляться поиск товаров (в категориях включительно). Выбор типа поиска осуществляется из выпадающего списка справа, а редактирование порядка и использования — слева.</key>
+    <key name="Add_search_types">Добавить в используемые</key>
+    <key name="Last_search_type_can_not_delete">Последний вид поиска невозвможно удалить</key>
+    <key name="Nothing_to_add">Нечего добавлять</key>
+    <key name="Search_providers_translations_alert">Настоятельно просим не использовать в названии поиска слово TAOBAO и производные (например, “Все товары Таобао”). При жалобе со стороны Таобао ваш сайт будет отключен.</key>
+
+    <key name="All_search_types_are_selected">Выбраны все типы поиска</key>
+
+    <key name="Min_weight_can_not_be_more_than_max_weight">Минимальный вес посылки должен быть меньше максимального</key>
+    <key name="Currency_settings_for_shipment">Валюта, в которой будет рассчитываеться данная доставка</key>
+    <key name="Order_settings_for_shipment">Порядковый номер доставки в списке</key>
+
+    <key name="Unable_to_set_the_rate_of_one_currency">Невозможно установить курс одной валюты</key>
+    <key name="You_must_set_the_rate">Необходимо задать курс</key>
+    <key name="Really_delete_the_selected_rate">Действительно удалить выбранный курс </key>
+    <key name="Rate_was_deleted">Курс был успешно удален</key>
+    <key name="Rate_modes">Режимы синхронизации</key>
+    <key name="No_Sinc_Flag">Без синхронизации</key>
+    <key name="WithCB_Sinc_Flag">Синхронизация с ЦБ РФ</key>
+    <key name="WithHub_Sinc_Flag">Синхронизация с Хабом</key>
+    <key name="Add_rate">Добавить курс</key>
+    <key name="Edit_rate">Редактировать курс</key>
+    <key name="synchronized_with_CB">Курсы синхронизируются с ЦБ РФ</key>
+    <key name="synchronized_with_Hub">Курсы синхронизируются с Хабом</key>
+    <key name="CB_rates_today">Курсы валют ЦБ на {{date}} / с наценкой</key>
+    <key name="Hub_rates_today">Курсы валют Хаба на {{date}} / с наценкой</key>
+    <key name="Rate_must_be_float">Значение курса должно быть числом</key>
+    <key name="Such_or_reverse_rate_already_exists">Такой или обратный курс уже существует</key>
+    <key name="Must_set_ratings">Необходимо выбрать в соотношение курсов валют</key>
+    <key name="Rate_set_succes">Настройки сохранены. Через 5 секунд страница будет автоматически обновлена. Подождите...</key>
+
+    <key name="Discount_is_saved">Данные по скидке сохранены</key>
+    <key name="User_is_deleted">Пользователь удален</key>
+    <key name="User_is_replaced">Пользователь перенесен</key>
+    <key name="Discount_is_deleted">Скидка удалена</key>
+    <key name="Must_be_enter_discount_name">Необходимо ввести название скидки</key>
+    <key name="Must_be_enter_discount_value">Необходимо ввести размер скидки</key>
+    <key name="Must_be_enter_discount_start_price">Необходимо ввести сумму с которой скидка активируется</key>
+    <key name="User_added_to_discount">Пользователь добавлен в скидку</key>
+    <key name="Move_user_to_discount">{{login}}: переместить пользователя из группы '{{groupName}}' в группу '{{newGroupName}}'?</key>
+    <key name="Add_discount">Новая скидка</key>
+    <key name="Edit_discount">Редактирование скидки</key>
+    <key name="Discount_must_be_greater_than_zero">Скидка не может быть отрицательной</key>
+    <key name="Minprice_must_be_greater_than_zero">Сумма для скидки должна быть заполнена и не может быть отрицательной</key>
+    <key name="Discount_value_must_not_be_greater_than_hundred">Скидка не может быть более 99</key>
+    <key name="Discount_value_must_not_unprocent">Скидка не может быть меньше 0 более 99</key>
+    <key name="Discount_value_is_wrong">Недопустимое значение скидки</key>
+    <key name="Incorrect_login_or_password">Неверный логин "{{login}}" пользователя или пароль.</key>
+
+    <key name="Added_manually">Добавлен вручную</key>
+
+    <key name="User">Пользователь</key>
+    <key name="Product_title">Товар</key>
+    <key name="Product_quantity">Кол-во</key>
+    <key name="Prev">Предыдущее</key>
+    <key name="Next">Следующее</key>
+
+    <key name="Inn_must_be_10_12_numbers">ИНН должен состоять из 10 или 12 цифр.</key>
+    <key name="Account_payee_must_be_20_numbers">Номер счета получателя должен состоять из 20 цифр.</key>
+    <key name="Correspond_account_must_be_20_numbers">Кор. счет банка должен состоять из 20 цифр.</key>
+    <key name="BIK_must_be_8_9_numbers">БИК банка должен состоять из 8 или 9 цифр.</key>
+    <key name="Field_must_be_filled">Поле должно быть заполнено.</key>
+
+    <key name="email_smtp_security_label">Использовать защищенный протокол SSL</key>
+
+
+    <key name="admin_letter_lang_label">Язык уведомлений</key>
+    <key name="admin_letter_lang_hint">Язык уведомлений, получаемых администратором сайта</key>
+    <key name="admin_letter_lang_value:*">Русский</key>
+    <key name="admin_letter_lang_value:ru">Русский</key>
+    <key name="admin_letter_lang_value:en">Английский</key>
+    <key name="admin_letter_lang_value:khk">Монгольский</key>
+    <key name="admin_letter_lang_value:zh-chs">Китайский</key>
+    <key name="admin_letter_lang_value:es">Испанский</key>
+    <key name="admin_letter_lang_value:de">Немецкий</key>
+    <key name="admin_letter_lang_value:pt">Португальский</key>
+    <key name="admin_letter_lang_value:sah">Якутский (Саха)</key>
+    <key name="admin_letter_lang_value:pl">Польский</key>
+    <key name="admin_letter_lang_value:ka">Грузинский</key>
+    <key name="admin_letter_lang_value:he">Израильский</key>
+    <key name="admin_letter_lang_value:ro">Румынский</key>
+    <key name="admin_letter_lang_value:uk">Украинский</key>
+    <key name="admin_letter_lang_value:bg">Болгарский</key>
+    <key name="admin_letter_lang_value:hy">Армянский</key>
+    <key name="admin_letter_lang_value:fi">Финский</key>
+    <key name="admin_letter_lang_value:ja">Японский</key>
+    <key name="admin_letter_lang_value:az">Азербайджанский</key>
+    <key name="admin_letter_lang_value:ky">Каймановы острова</key>
+    <key name="admin_letter_lang_value:cz">Чешский </key>
+
+    <key name="Navigation">Навигация</key>
+    <key name="GoodsList">Список товаров</key>
+    <key name="Search">Поиск</key>
+    <key name="Multisearch">Мультипоиск</key>
+    <key name="menu_count_lvl1_label">Количество категорий</key>
+    <key name="menu_count_lvl1_hint">Задает количество корневых категорий. Пустое значение поля означает вывод всех категорий. </key>
+    <key name="menu_count_lvl2_label">Количество подкатегорий</key>
+    <key name="menu_count_lvl2_hint">Задает количество подкатегорий. Пустое значение поля означает вывод всех подкатегорий.</key>
+    <key name="menu_type_label">Вид навигации</key>
+    <key name="menu_type_hint">Задает поведение меню категорий каталога</key>
+    <key name="menu_type_value:*">Статическая (список категорий)</key>
+    <key name="menu_type_value:1">Статическая (список категорий)</key>
+    <key name="menu_type_value:2">Выпадающая (два уровня)</key>
+    <key name="menu_type_value:3">Выпадающая (три уровня)</key>
+
+    <key name="Vendor_rating">Рейтинг продавца</key>
+    <key name="vendor_rating_view_as_number_label">Способ вывода рейтинга</key>
+    <key name="vendor_rating_view_as_number_value:*">Иконками</key>
+    <key name="vendor_rating_view_as_number_value:0">Иконками</key>
+    <key name="vendor_rating_view_as_number_value:1">Цифрами</key>
+
+    <key name="Icon">Иконка</key>
+
+    <!-- Раздел "Отчеты" -->
+    <key name="Service_statistics">Сервисная статистика</key>
+    <key name="Billing">Биллинг</key>
+    <key name="Tariff">Тариф</key>
+    <key name="Limit_calls">Лимит вызовов</key>
+    <key name="Percentage_of_turnover">Процент оборота</key>
+    <key name="Cost_one_call">Стоимость 1 вызова в $</key>
+    <key name="Parameter_statistics">Параметр статистики</key>
+    <key name="Per_day">За день</key>
+    <key name="This_month">За месяц</key>
+    <key name="Total">Итого</key>
+    <key name="Total_quantity_of_references_to_services">Общее количество обращений к сервисам (вызовы)</key>
+    <key name="Paid_quantity_of_references_to_services">В том числе платные обращения к сервисам</key>
+    <key name="Total_volume_of_translated_texts">Общий объем переведенных текстов (в символах)</key>
+    <key name="Volume_of_texts_translated_automatic_external_compiler">Объем текстов, переведенных автоматическим внешним транслятором (в символах)</key>
+    <key name="Caching_efficiency_source_of_goods">Эффективность кэширования источника товаров (обращений к провайдеру)</key>
+    <!-- /Раздел "Отчеты" -->
+
+    <key name="email_smtp_security_hint">Дополнительная защита при отправке писем через SMTP, если поддерживается сервером</key>
+    <key name="email_smtp_security_value:ssl">Использовать SSL</key>
+    <key name="email_smtp_security_value:tls">Использовать TLS</key>
+    <key name="email_smtp_security_value:none">Не использовать</key>
+    <key name="email_smtp_security_value:*">Не использовать</key>
+    <key name="email_smtp_adress_label">Адрес SMTP сервера</key>
+    <key name="email_smtp_adress_hint">IP или http адрес - хост SMTP сервера</key>
+    <key name="email_smtp_port_label">Порт SMTP сервера</key>
+    <key name="email_smtp_port_hint">Порт через который устанавливается свзяь с SMTP сервером</key>
+    <key name="email_smtp_user_label">Логин к SMTP серверу</key>
+    <key name="email_smtp_user_hint">Ваш логин к SMTP серверу</key>
+    <key name="email_smtp_pass_label">Пароль к SMTP серверу</key>
+    <key name="email_smtp_pass_hint">Ваш пароль к SMTP серверу</key>
+    <key name="Smtp_mailer_settings">Настройки SMTP для отправки писем</key>
+    <key name="sms_service_setting">Настройки смс сервисов</key>
+
+    <key name="show_hidden_categories_label">Скрытые:</key>
+    <key name="show_hidden_categories_value:1">Отображать</key>
+    <key name="show_hidden_categories_value:*">Отображать</key>
+    <key name="show_hidden_categories_value:0">Скрывать</key>
+
+
+    <key name="Empty_value">Не заполнено</key>
+    <key name="Edit_footer_text">Редактирование содержимого внизу страницы</key>
+
+
+    <key name="Export">Экспортировать</key>
+    <key name="Import">Импортировать</key>
+    <key name="Please_select_file_before_upload">Для импорта предварительно выберите файл</key>
+    <key name="Could_not_load_file_categories">Не удалось загрузить файл категорий</key>
+    <key name="Export_categories">Экспортировать категории</key>
+    <key name="Import_categories">Импортировать категории</key>
+    <key name="Export_category">Экспортировать содержимое категории</key>
+    <key name="Import_category">Импортировать содержимое категории</key>
+    <key name="Upload">Загрузить</key>
+    <key name="Export_as_txt">.txt</key>
+    <key name="Select_file_to_import">Выберите файл</key>
+    <key name="Added_items_from">Добавлены товары из заказа </key>
+    <key name="Merged_with">Товары были перенаправлены в заказ </key>
+    <key name="No_orders_selected">Заказы не выбраны</key>
+    <key name="No_users_selected">Не выбрано ни одного пользователя</key>
+
+    <key name="Сontent">Содержание</key>
+    <key name="blog_posts_label">Количество статей на страницу в блоге</key>
+    <key name="blog_posts_index_label">Анонсы блога</key>
+    <key name="Authorize">Авторизоваться</key>
+    <key name="User_login_can_not_be_empty">Необходимо указать логин пользователя</key>
+    <key name="Support_orders">По заказам</key>
+    <key name="By_orders">По заказам</key>
+    <key name="Support_other">Общие вопросы</key>
+    <key name="Message_can_not_be_empty">Сообщение не может быть пустым</key>
+    <key name="Ticket_closed">Данный запрос закрыт.</key>
+    <key name="To_order">К заказу</key>
+    <key name="Orderlabel">Заказ</key>
+    <key name="Messages_by_theme">Переписка по теме</key>
+    <key name="Add_message">Добавить сообщение</key>
+    <key name="Close_ticket">Закрыть переписку</key>
+    <key name="Text_of_message">Текст сообщения</key>
+    <key name="Support">Тех. поддержка</key>
+    <key name="Tickets_to_orders">Обращения по заказам</key>
+    <key name="ticket_new_count">Новые</key>
+    <key name="Not_answerd">Без ответа</key>
+    <key name="Ticket_number">Номер обращения</key>
+    <key name="from">с</key>
+    <key name="to">по</key>
+    <key name="Theme">Тема</key>
+    <key name="Messages">Cообщения</key>
+    <key name="Conut">Всего</key>
+    <key name="Number">Номер</key>
+    <key name="Collapse_tickets">Свернуть список тем</key>
+    <key name="There_is_not_answered_themes">Есть темы требующие ответа</key>
+    <key name="All_count_themes">Всего тем по заказу</key>
+    <key name="Need_answer">Требует ответа</key>
+    <key name="Read_messages">Прочитать переписку</key>
+    <key name="Customer_profile">Профиль покупателя</key>
+    <key name="Not_found_tickets">По данному запросу ничего не найдено.</key>
+    <key name="Need_choose_ticket_to_see_messages">Чтобы увидеть сообщения по тикету необходимо выбрать его в списке!</key>
+    <key name="General_tickets">Обращения по общим вопросам</key>
+    <key name="No_subject">Без заголовка</key>
+
+    <key name="Product_title">Название товара</key>
+    <key name="Product_quantity">Количество</key>
+
+
+
+    <!-- Раздел "Кэширование" -->
+    <key name="Reset_cache">Сбросить кэш</key>
+    <key name="Reset_cache_label">Сброс кэша</key>
+    <key name="Reset_cache_hint">Очистить весь кеш сайта</key>
+    <key name="Reset_cache_clean">Очистить</key>
+    <key name="Reset_cache_clears">Выполняется очистка</key>
+    <key name="Reset_cache_success">Кэш успешно очищен!</key>
+    <key name="reset_cache_success">Кэш успешно очищен!</key>
+    <key name="Reset_cache_fail">Ошибка очистки кэша. Напишите о проблеме в службу поддержки.</key>
+    <key name="Please_reset_cache">Пожалуйста, очистите кеш через панель администратора</key>
+    <!-- /Раздел "Кэширование" -->
+    <key name="letters">Письма</key>
+    <key name="Newsletter_creation">Создание рассылки</key>
+    <key name="Newsletter_edit">Редактирование рассылки</key>
+    <key name="mailing_subject">Тема</key>
+    <key name="mailing_body">Текст письма</key>
+    <key name="mailing_test_sms">Номер телефона для тестового сообщения</key>
+    <key name="mailing_test_email">Эл. адрес для тестового письма</key>
+    <key name="mailing_test_email_hint">На указанный адрес будет выслано письмо с содержимым рассылки</key>
+    <key name="mailing_test">Протестировать</key>
+    <key name="mailing_send">Разослать</key>
+    <key name="Newsletter_title_must_not_be_empty">Не заполнена тема рассылки</key>
+    <key name="Newsletter_text_must_not_be_empty">Не заполнен текст рассылки</key>
+    <key name="Subscriber_added">Подписчик успешно добавлен</key>
+
+    <key name="Added_items_from">Добавлены товары из заказа </key>
+    <key name="Merged_with">Товары были перенаправлены в заказ </key>
+
+    <!-- Раздел Подборки-->
+    <key name="Sets">Подборки</key>
+    <key name="Brands">Бренды</key>
+    <key name="Sellers">Продавцы</key>
+    <key name="Recommended_products">Рекомендуемые товары</key>
+    <key name="Recommended_categories">Рекомендуемые категории</key>
+    <key name="Popular_products">Популярные товары</key>
+    <key name="BrandsPopular">Популярные бренды</key>
+    <key name="Last_viewed">Последние открытые товары</key>
+    <key name="from_list">из списка</key>
+    <key name="or">или</key>
+    <key name="by_link">по ссылке</key>
+    <key name="Save_order">Сохранить порядок</key>
+    <key name="Saving_order">Сохраняется порядок</key>
+    <key name="By_link_or_Id">По ссылке или Id</key>
+    <key name="Add_brand_by_link_to_brand_or_by_brand_id">Добавление бренда происходит по ссылке на бренд на сайте или по его идентификатору (ID)</key>
+    <key name="Cancel_hide_form">Отменить / Скрыть форму</key>
+    <key name="Brands_not_selected">Ни один бренд не выделен для добавления</key>
+
+    <key name="Change_order">Изменить порядок</key>
+    <key name="To_brand_page">На страницу бренда</key>
+    <key name="Link_id_or_seller_name">Ссылка, id или имя продавца</key>
+    <key name="Duplicate_vendor_name">Имя или отображаемое имя продавца уже существует</key>
+    <key name="Duplicate_vendor_alias">Алиас уже существует</key>
+    <key name="Addition_of_seller_by_name_id_or_link">Добавление продавца происходит по его имени, которое можно найти на странице товара, идентификатору (ID) или по ссылке на страницу продавца на сайте</key>
+    <key name="Display_image">Отображаемое изображение </key>
+    <key name="Display_name">Отображаемое имя</key>
+    <key name="Seller_seo_title">Заголовок</key>
+    <key name="Seller_seo_prefix">Текст до заголовка</key>
+    <key name="Seller_seo_suffix">Текст после заголовка</key>
+    <key name="Seller_seo_keywords">Ключевые слова</key>
+    <key name="Seller_seo_description">Описание</key>
+    <key name="Seller_seo_attributes">Атрибуты поисковой оптимизации</key>
+    <key name="Seller_seo_title_hint">Текст для заголовка страницы в браузере (title), по умолчанию имя продавца</key>
+    <key name="Seller_seo_prefix_hint">Текст, который будет выводиться в title до имени продавца</key>
+    <key name="Seller_seo_suffix_hint">Текст, который будет выводиться в title после имени продавца</key>
+    <key name="Seller_seo_keywords_hint">Keywords, ключевые слова для лучшей индексации страницы</key>
+    <key name="Seller_seo_description_hint">Можно добавить описание продавца для индексации поисковыми роботами</key>
+    <key name="Seller_url">Алиас</key>
+    <key name="Seller_url_hint">Ссылка на продавца</key>
+    <key name="To_seller_page">На страницу продавца</key>
+    <key name="Edit_seller">Редактирование продавца</key>
+    <key name="Add_seller">Добавление продавца</key>
+    <key name="from_file">из файла</key>
+    <key name="From_file">Из файла</key>
+    <key name="Addition_product_by_link">Добавление товара происходит по ссылке на страницу товара на сайте</key>
+    <key name="Addition_product_by_link_name">Для добавления с оригинальным названием оставьте поле пустым</key>
+    <key name="Display_product_name">Отображаемое название товара</key>
+    <key name="by_link">по ссылке</key>
+    <key name="Select_text_file_with_product_links">Укажите текстовый файл со списком ссылок на товары (каждая ссылка должна начинаться с новой строки)</key>
+    <key name="Really_delete_this_brand_from_sets">Вы действительно хотите удалить этот бренд из подборки?</key>
+    <key name="Brand_deleted">Бренд успешно удален из подборки.</key>
+    <key name="Seller_deleted">Продавец успешно удален из подборки.</key>
+    <key name="Seller_url_or_id_is_required">Поле 'Ссылка, id или имя продавца' не может быть пустым </key>
+    <key name="Really_delete_this_seller_from_sets">Вы действительно хотите удалить этого продавца из подборки?</key>
+    <key name="Vendor_name_cannot_be_empty">Название продавца должно быть заполнено</key>
+    <key name="Items_order_saved">Порядок элементов списка сохранен.</key>
+    <key name="Item_url_or_id_is_required">Поле 'Ссылка' не может быть пустым.</key>
+    <key name="Items_file_required">Выберите файла для загрузки товаров.</key>
+    <key name="Item_deleted">Элемент успешно удален</key>
+    <key name="Content_page_deleted">Страница успешно удалена</key>
+    <key name="set_cleared">Подборка успешно очищена</key>
+    <key name="clear_set">Очистить подборку</key>
+    <key name="really_clear_the_set">Вы действительно хотите очистить подборку?</key>
+    <key name="Really_delete_this_item_from_sets">Вы действительно хотите удалить продукт из подборки?</key>
+
+    <!-- /Раздел Подборки -->
+
+    <key name="Login_and_id_are_mismatch">Произошла внутренняя ошибка. Скорее всего, логин пользователя не был выбран в выпадающем списке</key>
+
+    <key name="Bills_to_pay">Счета к оплате</key>
+    <key name="Bill">Счет</key>
+    <key name="Amount_USD">Сумма, $</key>
+    <key name="Amount_RUB">Сумма, руб.</key>
+    <key name="Date_from">Дата с:</key>
+    <key name="Date_to">Дата по:</key>
+    <key name="Bill_discription">Описание счета</key>
+    <key name="Details">Детализация</key>
+    <key name="Condition">Состояние</key>
+    <key name="Get_view">Просмотреть</key>
+    <key name="Print">Распечатать</key>
+    <key name="Do_export">Экспортировать</key>
+    <key name="Show_all">Показать все</key>
+    <key name="Tariffication">Тарификация</key>
+    <key name="Your_rate">Ваш тариф:</key>
+    <key name="Count_service_calls">Число вызовов сервисов:</key>
+    <key name="Turnover_for_month">Оборот за текущий месяц:</key>
+    <key name="Turnover_for_period">Оборот за период:</key>
+    <key name="Service_pay">Сервисный платеж:</key>
+    <key name="Service_pay_on">Сервисный платеж на</key>
+    <key name="History_of_rate_changes">История изменения тарифа</key>
+    <key name="Rate_activation_date">Дата активации тарифа</key>
+    <key name="Rate">Тариф</key>
+    <key name="Rate_activation_due">Окончание действия тарифа</key>
+    <key name="Hosting">Хостинг</key>
+    <key name="Payed_until">Оплачено до:</key>
+    <key name="Bill_info">Информация по счету</key>
+    <key name="Pay_date">Дата оплаты</key>
+    <key name="Url_to_pay">Ссылка на оплату</key>
+    <key name="Payed_amount">Оплаченная сумма, руб</key>
+    <key name="Bill_info_not_found">Информация по счету не найдена</key>
+    <key name="Payed_bills">Оплаченные счета</key>
+    <key name="Show_payed_bills">Показать оплаченные счета</key>
+    <key name="Hide_payed_bills">Скрыть оплаченные счета</key>
+    <key name="No_unpayed_bills">Неоплаченных счетов не найдено</key>
+    <key name="No_payed_bills">Оплаченных счетов не найдено</key>
+    <key name="Select_catalog_limit_error">Невозможно выбрать данный режим, так как выставлен запрет поиска вне каталога</key>
+
+    <key name="IpAccess">Доступ к поиcку по IP</key>
+    <key name="Add_Ip">Добавить IP</key>
+    <key name="Naming">Наименование</key>
+    <key name="Delete_Ip">Удалить IP</key>
+    <key name="Ip_is_deleted"> IP удален </key>
+    <key name="Ip_added"> IP добавлен </key>
+    <key name="Deleting"> Удаление </key>
+    <key name="Entered_ip_is_incorrect"> Введен неверный IP адрес </key>
+    <key name="Not_seted"> Не определено </key>
+
+    <key name="No_more_brands">Все бренды уже в подборке</key>
+    <key name="Banners">Баннеры</key>
+    <key name="Choose_lang_to_edit">Выбрать языковую версию сайта для редактирования</key>
+    <key name="all">Все</key>
+    <key name="Change_banner_sort">Изменить порядок баннеров</key>
+    <key name="Link_to_content">Ссылка на раздел</key>
+    <key name="Edit_banner">Редактировать баннер</key>
+    <key name="Delete_banner">Удалить баннер</key>
+    <key name="Banner_is_deleted">Баннер удален</key>
+    <key name="Banner_is_saved">Баннер сохранен</key>
+    <key name="Add_Edit_Banners">Добавление / редактирование баннера</key>
+    <key name="Choose_catalog_page">Указать страницу каталога</key>
+    <key name="Choose_content_page">Указать раздел сайта</key>
+    <key name="Choose_content_page">Указать раздел сайта</key>
+    <key name="Banner_image_help">Требуемый размер баннеров: для старого шаблона 695px * 330px, для нового шаблона 1024px * 578px</key>
+    <key name="Banner_lang_help">Язык на котором будет показан баннер</key>
+    <key name="Banner_link_help">Ссылка перехода с баннера</key>
+    <key name="You_must_set_the_bannername">Необходимо указать название баннера</key>
+
+    <key name="Set_category_mode">Необходимо установить режим</key>
+    <key name="Must_set_at_minimum_one_category_setting">Необходимо установить хотя бы одну опцию\настройку категории</key>
+
+    <key name="You_have_unpayd_bills">У Вас есть неоплаченные счета!</key>
+    <key name="Go_to">Перейти</key>
+    <key name="Transactions_list">Список транзакций</key>
+    <key name="update_order">Обновлен заказ </key>
+    <key name="change_item_price">Изменена стоимость товара с артикулом </key>
+    <key name="new_price_is">Новая стоимость составляет </key>
+    <key name="get_more_info">Для получения более подробной информации перейдите по </key>
+    <key name="link1">ссылке</key>
+    <key name="Insert_link">Вставить ссылку</key>
+    <key name="Insert_image">Вставить картинку</key>
+    <key name="Alias_is_invalid">Неверный алиас. Допускается использование букв, цифр, символов тире и подчеркивания.</key>
+
+    <key name="change_in_order">Изменения в заказе %s</key>
+    <key name="change_item_price">Изменена стоимость товара с артикулом </key>
+    <key name="new_price_is">Новая стоимость составляет </key>
+    <key name="change_package_price">Изменена стоимость посылки </key>
+    <key name="old_price_is">Старая стоимость составляет </key>
+    <key name="order_need_surcharge"> Необходима доплата в заказ </key>
+
+    <key name="Report_of_errors">Отчет об ошибках</key>
+    <key name="Report_page">Отчет об ошибках по рассылке</key>
+    <key name="subscribers_remove_user">Удалить пользователя из списка подписчиков</key>
+    <key name="Mailing_is_completed">Завершена</key>
+    <key name="Mailing_in_progress">В процессе</key>
+    <key name="Stop_mailing">Завершить</key>
+    <key name="Restart_mailing">Возобновить</key>
+    <key name="Start_mailing">Запустить</key>
+    <key name="day_quota_is_ended">Дневная квота на отправку окончена</key>
+    <key name="mailing_error_not_found">Ошибок не найдено. </key>
+    <key name="Letters_with_error">Писем с ошибкой</key>
+
+    <key name="subscribers_imported">Подписчики импортированы</key>
+    <key name="Operation_log">История действий операторов</key>
+    <key name="Site_speed">Скорость сайта</key>
+    <key name="Loading_chart_data">Загрузка новых данных через</key>
+    <key name="Average_time_page_generation">Среднее время генерации страницы</key>
+    <key name="Average_time_api_connect">Среднее время связи с API</key>
+    <key name="Current_site_speed">Сейчас</key>
+    <key name="Archive_site_speed">За месяц</key>
+    <key name="Average_time_box">Среднее время движка</key>
+    <key name="Average_time_api_work">Среднее время работы API</key>
+    <key name="Operation_type">Тип операции</key>
+    <key name="Order_id">ID заказа</key>
+    <key name="Order_line_id">ID строки заказа</key>
+    <key name="Customer_id">ID покупателя</key>
+    <key name="Datetime">Дата и время</key>
+    <key name="Go_to_user">Перейти к пользователю</key>
+    <key name="Go_to_order">Перейти к заказу</key>
+    <key name="Сombine">Объединить</key>
+    <key name="Goods">Товары</key>
+    <key name="Searches">Поисковые запросы</key>
+    <key name="Restrictions">Ограничения</key>
+    <key name="By_link">По ссылке</key>
+    <key name="Really_delete_this_category_from_sets">Вы действительно хотите удалить данную категорию из подборки?</key>
+    <key name="Category_deleted">Категория удалена</key>
+    <key name="Restriction_item_by_link">Добавление ограничения происходит по ссылке на товар на сайте.</key>
+    <key name="Paste_link_to_item">Вставьте ссылку на товар</key>
+    <key name="To_item_page">На страницу товара</key>
+    <key name="Restriction_brand_by_link">Добавление ограничения происходит по ссылке на товар на сайте.</key>
+    <key name="Paste_link_to_brand">Вставьте ссылку на бренд</key>
+    <key name="To_brand_page">На страницу бренда</key>
+    <key name="Restriction_caregory_by_link">Добавление ограничения происходит по ссылке на категорию товаров на сайте.</key>
+    <key name="Paste_link_to_category">Вставьте ссылку на категорию товаров</key>
+    <key name="To_category_page">На страницу категории</key>
+    <key name="Check_category">Выберите категорию</key>
+    <key name="Check">Выбрать</key>
+    <key name="By_request_or_link">По запросу или ссылке</key>
+    <key name="Paste_request_or_link">Вставьте поисковый запрос или ссылку на страницу</key>
+    <key name="Search_string">Поисковый запрос</key>
+    <key name="To_search_page">На страницу поискового запроса</key>
+    <key name="By_name_or_link">По имени или ссылке</key>
+    <key name="Restriction_vendor_by_link">Добавление ограничения происходит по имени продавца, которое можно найти на странице товара или по ссылке на страницу продавца на сайте.</key>
+    <key name="Restriction_search_by_link">Добавление ограничения происходит по поисковому запросу или ссылке на запрос на сайте.</key>
+    <key name="Paste_name_or_link">Вставьте имя продавца или ссылку на его страницу</key>
+    <key name="To_vendor_page">На страницу продавца</key>
+    <key name="Item_not_entered">Новое ограничение не введено</key>
+    <key name="Category_not_entered">Не выбрана новая категогрия</key>
+    <key name="Restriction_added">Ограничение добавлено</key>
+    <key name="checked_group">выбранную группу</key>
+    <key name="Restrictions_deleted">Ограничения удалены</key>
+    <key name="Item_url_is_invalid">Ссылка на товар некорректна</key>
+    <key name="Category_url_is_invalid">Ссылка на категорию некорректна</key>
+    <key name="Vendor_url_is_invalid">Ссылка на продавца некорректна</key>
+    <key name="Search_url_is_invalid">Ссылка на поиск некорректна</key>
+    <key name="Brand_url_is_invalid">Ссылка на бренд некорректна</key>
+
+    <key name="Сhange_package_status">Изменен статус посылки</key>
+    <key name="Old_package_status">Предыдущий статус посылки</key>
+    <key name="New_package_status">Новый статус посылки</key>
+    <key name="Delivery_cost">Стоимость доставки</key>
+
+    <key name="Сhange_package_trackingnum">Изменен трекинг-номер посылки</key>
+    <key name="new_number">Новый номер</key>
+
+    <key name="Weight_placeholder">кг.</key>
+    <key name="Default_weight">Вес по умолчанию</key>
+    <key name="Weight_must_be_positive">Необходимо указать вес</key>
+    <key name="Incorrect_Weight">Указан некорректный вес</key>
+
+    <key name="Сhange_package_status">Изменен статус посылки</key>
+    <key name="Old_package_status">Предыдущий статус посылки</key>
+    <key name="New_package_status">Новый статус посылки</key>
+
+    <key name="Сhange_package_trackingnum">Изменен трекинг-номер посылки</key>
+    <key name="new_number">Новый номер</key>
+
+    <key name="Translation_Key_hint">Значение (слово или фраза идентификатор), которое переводится на другие языки.</key>
+    <key name="blog_posts_index_hint">Рекомендуемое количество выводимых новостей — 3 (По умолчанию 3).</key>
+    <key name="Update_warning">В данном разделе можно обновить систему (Коробку) вручную или настроить автоматическое обновление. Внимание! Если у вас на сайте есть кастомизированные компоненты, то автоматическое обновление может привести к поломке сайта.</key>
+    <key name="Country_hint">Страна, для которой будет осуществляться доставка.</key>
+    <key name="First_price_hint">Данные предоставляет служба доставки. Стоимость доставки для минимального веса посылки. Если стоит галочка, стоимость доставки будет равна минимальной стоимости, при весе заказа меньше шага доставки или равного ему.</key>
+    <key name="Customer_search_ID">Идентификатор пользователя (ID)</key>
+    <key name="Main_user_agreement">Пользовательское соглашение</key>
+    <key name="Policy">Политика безопасности</key>
+    <key name="About_us">О нас</key>
+    <key name="404">Страница не найдена</key>
+    <key name="Contacts">Контакты</key>
+    <key name="Help">Помощь</key>
+    <key name="User_is_activated">Пользователь активирован</key>
+    <key name="Really_activate_these_users">Действительно активировать выбранных пользователей?</key>
+    <key name="Really_verify_users_data">Подтвердить данные выбранных пользователей?</key>
+    <key name="Users_are_activated">Пользователи активированы</key>
+
+    <key name="Your_version">Доступна по ссылке</key>
+    <key name="referral_bonus">Реферальный бонус</key>
+    <key name="of_amount">от суммы</key>
+    <key name="from_referral">от реферала</key>
+
+    <key name="Order_close">Закрытие заказа</key>
+    <key name="Really_close_this_order">Заказ будет закрыт. Продолжить?</key>
+    <key name="Order_cancel">Отмена заказа</key>
+    <key name="Cancel_order">Отменить заказ</key>
+    <key name="Really_cancel_this_order">Заказ будет отменен. Продолжить?</key>
+
+    <key name="Discount_percent">Процент скидки</key>
+    <key name="Discount_percent_hint">Размер скидки, предоставляемый покупателю. Если число отрицательное, то скидка будет работать как наценка.</key>
+
+    <key name="Discount_orders_sum">Общая сумма заказов</key>
+    <key name="Discount_orders_sum_hint">Начиная с какой суммы заказов будет действовать скидка для покупателя.</key>
+
+    <key name="Discount_group_default">Группа по умолчанию</key>
+    <key name="Discount_group_default_hint">Данная группа будет применена ко всем зарегистрированным пользователям, не включенным в другие группы.</key>
+
+    <key name="Discount_name">Название</key>
+    <key name="Discount_name_hint">Название скидки.</key>
+    <key name="Discount_description">Описание</key>
+    <key name="Discount_description_hint">Краткое описание скидки.</key>
+
+    <key name="Action_not_allowed_for_user">У вас недостаточно прав для этого действия</key>
+
+    <key name="Delivery_integration_type">Тип интеграции</key>
+    <key name="Delivery_integration_type_hint">Выбор сервиса доставки для интеграции</key>
+    <key name="delivery_integration_mode">Способ доставки для интеграции</key>
+    <key name="delivery_integration_mode_hint">Выбор способа доставки для интеграции</key>
+    <key name="delivery_integration_hide_from_buyer">Скрыть возможность выбрать способ доставки при оформлении заказа. Покупатель сможет выбрать этот способ доставки с помощью модуля PROдоставка</key>
+
+    <key name="extendedNew_catalog_perpage_label">Товары из Китая (максимум 200 товаров)</key>
+
+    <key name="limit_items_by_catalog_label">Запрет поиска вне каталога</key>
+    <key name="limit_items_by_catalog_hint">Возможность запретить поиск товаров по названию, артикулу и ссылке на товар вне категорий каталога, используется для специализации магазина.</key>
+    <key name="limit_items_by_catalog_value:0">Разрешить</key>
+    <key name="limit_items_by_catalog_value:*">Разрешить</key>
+    <key name="limit_items_by_catalog_value:1">Запретить</key>
+
+
+    <key name="notification_send_from_name_label">Имя отправителя (сервиса)</key>
+    <key name="notification_send_from_name_hint">Имя отправителя, например, Поставщик товаров ТаоБао №1</key>
+    <key name="Name_of_subscriber_cannot_be_empty">Не задано Имя подписчика</key>
+    <key name="Mail_of_subscriber_cannot_be_empty">Не задан E-mail подписчика</key>
+    <key name="Add_custom_subscriber">Добавить незарегистрированого подписчика</key>
+    <key name="Subscriber_is_added">Подписчик добавлен</key>
+    <key name="Authentication_ajax_true">Аутентификация прошла успешно. Можете продолжить работу с приложением</key>
+    <key name="Session_expired">Сессия устарела</key>
+
+    <key name="Duplicate_category_alias">Введенный адрес раздела уже существует.</key>
+    <key name="Item_id_is_invalid">Идентификатор на товар некорректен</key>
+    <key name="Translate_statuses_hint">Перевести статусы на язык требуемой версии сайта</key>
+    <key name="Translate_statuses">Перевести статусы</key>
+    <key name="Language_select">Язык админки</key>
+    <key name="Show_count_of_posts">Выводить записей на страницу</key>
+    <key name="Start_typing_an_user_login">Начните печатать логин...</key>
+    <key name="Confirm_delete_subscriber">Вы действительно хотите удалить пользователя?</key>
+    <key name="Confirm_delete_subscriber_from_newsl">Пользователь будет удален из всех рассылок. Продолжить?</key>
+    <key name="Users_imported">Пользователи импортированы</key>
+    <key name="simplified_registration_error_help">Для того, чтобы включить опцию 'Упрощенная регистрация' необходимо отключить опцию 'Дополнительная активация пользователей через эл. почту'</key>
+    <key name="simplified_registration_notice_help">Если включена опция 'Упрощенная регистрация', то необходимо отключить опцию 'Дополнительная активация пользователей через эл. почту'</key>
+    <key name="IsEmailConfirmationUsed_error_help">Для того, чтобы включить опцию 'Дополнительная активация пользователей через эл. почту' необходимо отключить опцию 'Упрощенная регистрация'</key>
+
+    <key name="Category_settings">Настройки привязки</key>
+    <key name="From_taobao_url">По ссылке на сайте провайдера</key>
+    <key name="From_taobao_url_help">Введите ссылку на результаты поиска на сайте товарного провайдера.</key>
+    <key name="To_another_params">По другим параметрам</key>
+    <key name="From_request">По запросу</key>
+    <key name="From_request_help">Введите поисковый запрос. Если необходимо, выберите язык, на котором введен поисковый запрос.</key>
+    <key name="No_selection">Не выбрано</key>
+    <key name="Search_method">Способ поиска</key>
+    <key name="Brand">Бренд</key>
+    <key name="Type_brand">Укахите бренд.</key>
+    <key name="Stuff_status">Состояние товара</key>
+    <key name="Filters">Фильтры</key>
+    <key name="Filters_help">Укажите характеристики товаров.</key>
+    <key name="First_choose_category">Выберите сперва категорию.</key>
+    <key name="Use">Использовать</key>
+    <key name="Not_use">Не использовать</key>
+    <key name="from_price">от</key>
+    <key name="to_price">до</key>
+    <key name="Meta">Мета</key>
+    <key name="Contents">Содержание</key>
+    <key name="Filters">Фильтры</key>
+    <key name="Choose_preDefineMode">Выберите привязку</key>
+    <key name="search_category_param_searchUrl">Ссылка</key>
+
+    <key name="search_category_param_preDefineMode">Тип привязки</key>
+    <key name="search_category_param_provider">Провайдер поиска</key>
+    <key name="search_category_param_category">Оригинальная категория</key>
+    <key name="search_category_param_searchWord">Запрос</key>
+    <key name="search_category_param_searchMethod">Метод поиска</key>
+    <key name="search_category_param_vendor">Продавец</key>
+    <key name="search_category_param_minPrice">Минимальная цена</key>
+    <key name="search_category_param_maxPrice">Максимальная цена</key>
+    <key name="search_category_param_brand">Название Бренда</key>
+    <key name="search_category_param_stuffStatus">Состояние товаров</key>
+    <key name="search_category_param_featureDiscount">Скидки</key>
+    <key name="search_category_param_featureAuction">Аукцион</key>
+    <key name="search_category_param_region">Регион</key>
+    <key name="search_category_param_searchUrl">Ссылка</key>
+    <key name="search_category_param_Configurators">Конфигураторы</key>
+    <key name="search_category_param_availableSorts">Сортировка</key>
+    <key name="search">к поиску</key>
+    <key name="category">к категории</key>
+    <key name="virtual">виртуальная</key>
+    <key name="New">Новые</key>
+    <key name="Unused">Неиспользованные</key>
+    <key name="Second">Б/у</key>
+    <key name="true">есть</key>
+    <key name="false">нет</key>
+
+    <key name="Index_settings">Настройка индексирования поисковыми системами</key>
+
+    <key name="no_index_sets_label">Запрет индексации главной страницы (частично)</key>
+    <key name="no_index_sets_hint">Подборки товаров на главной кроме 'популярные', 'последние просмотренные', 'товары с отзывами' по умолчанию индексируются. Запретить индексацию?</key>
+    <key name="no_index_sets_value:*">Индексировать</key>
+    <key name="no_index_sets_value:1">Не индексировать</key>
+
+    <key name="no_index_itemlists_label">Запрет индексации списков товаров в категориях</key>
+    <key name="no_index_itemlists_value:*">Индексировать</key>
+    <key name="no_index_itemlists_value:1">Не индексировать</key>
+
+    <key name="no_index_brand_itemlists_label">Запрет индексации списков товаров в брендах</key>
+    <key name="no_index_brand_itemlists_value:*">Индексировать</key>
+    <key name="no_index_brand_itemlists_value:1">Не индексировать</key>
+
+    <key name="no_index_iteminfo_label">Запрет индексации карточки товара</key>
+    <key name="no_index_iteminfo_value:*">Индексировать</key>
+    <key name="no_index_iteminfo_value:1">Не индексировать</key>
+    <key name="Reserv_money">Зарезервировать средства в пользу заказа</key>
+    <key name="Pay_order">Оплатить заказ</key>
+    <key name="Update_folder_not_writable">Нет прав на запись в папку для обновлений (updates)</key>
+    <key name="There_is_no_archive_of_updates">Не найдено архива с обновлением</key>
+    <key name="Log_in">Войти</key>
+    <key name="Submit">Отправить</key>
+
+    <key name="open">открыть</key>
+    <key name="Start_date_must_be_less">Дата начала должна быть раньше даты конца</key>
+    <key name="End_date_must_be_greater">Дата конца должна быть позже даты начала</key>
+    <key name="Show_queries_log">Показать лог запросов</key>
+    <key name="Access_forbidden">Доступ ограничен</key>
+    <key name="Error_in_ajax_request">Произошла ошибка в AJAX-запросе</key>
+    <key name="Confirmation">Подтверждение</key>
+    <key name="Mailing_remove_confirmation">Вы действительно хотите удалить рассылку?</key>
+    <key name="Test_letter_successfuly_sent">Тестовое письмо успешно отправлено</key>
+    <key name="Given_product_configuration_is_not_in_stock">Товара данной конфигурации нет в наличии</key>
+    <key name="User_profile">Профиль пользователя</key>
+    <key name="Not_set">Не установлено</key>
+    <key name="level">уровень</key>
+    <key name="Start_typing_login">Начните печатать логин</key>
+    <key name="No_matches_found">Совпадений не найдено</key>
+    <key name="Admin_panel">Административный интерфейс платформы OT Commerce</key>
+    <key name="Go_to_site">Перейти на сайт</key>
+    <key name="Editing_categories_filters">Редактирование фильтров категорий</key>
+    <key name="Go_to_page">Перейти к странице</key>
+    <key name="User_cannot_be_removed_warning">Пользователя нельзя удалить. Перенести его в другую категорию?</key>
+    <key name="Up">Наверх</key>
+    <key name="Remove_confirmation">Вы уверены что хотите удалить?</key>
+    <key name="Support_form">Форма для обращения в службу поддержки</key>
+    <key name="Logout">Выйти</key>
+    <key name="Mailing_sender_address">Адрес отправителя рассылки</key>
+    <key name="Mailing_sender_name">Имя отправителя рассылки</key>
+    <key name="Mailing_explain_notes">Количество писем, которые отправляет сервер за одну часть. Ввиду ограничения на рассылку большого количества писем одновременно, обычно создается очередь, которая рассылается сервером по частям</key>
+    <key name="Mailing_title">Название рассылки</key>
+    <key name="Mailing_not_started">Рассылка не началась</key>
+    <key name="Letters_sent">Писем отправлено</key>
+    <key name="Letters_queued">Писем в очереди</key>
+    <key name="Edit_mailing">Редактировать рассылку</key>
+    <key name="Remove_mailing">Удалить рассылку</key>
+    <key name="Subscriber_email">E-mail подписчика</key>
+    <key name="With_chosen">С выбранными</key>
+    <key name="Export_goods">Экспортировать товары</key>
+    <key name="Remove_goods">Удалить товары</key>
+    <key name="Product_number">Номер товара</key>
+    <key name="Show_full_product_info">Отобразить полную информацию о товаре</key>
+    <key name="Order_page">Страница заказа</key>
+    <key name="Export_product">Экспортировать товар</key>
+    <key name="Export_chosen_orders">Экспортировать выбранные заказы</key>
+    <key name="Export_by_agents">Экспорт по агентам</key>
+    <key name="Rest_actions_with_chosen">Остальные действия с выбранными</key>
+    <key name="Restore_orders">Восстановить заказы</key>
+    <key name="Cancel_orders">Отменить заказы</key>
+    <key name="Show_goods_list">Отобразить список товаров</key>
+    <key name="Export_order">Экспортировать заказ</key>
+    <key name="Restore_order">Восстановить заказ</key>
+    <key name="More">Еще</key>
+    <key name="All_parameters">Все параметры</key>
+    <key name="Product_taobao_page">Страница товара на сайте провайдера</key>
+    <key name="Vendor_taobao_page">Страница продавца на сайте провайдера</key>
+    <key name="Full_description">Полное описание</key>
+    <key name="Orders_list">Список заказов</key>
+    <key name="Orders_profile">Профиль доставки</key>
+    <key name="By_goods">По товарам</key>
+    <key name="pcs">шт</key>
+    <key name="Private_data">Личные данные</key>
+    <key name="Filter_goods_by_statuses">Отфильтровать товары по статусам</key>
+    <key name="Customer_comment">Комментарий покупателя</key>
+    <key name="Operator_comment">Комментарий оператора</key>
+    <key name="Customer_image">Изображение</key>
+    <key name="Admin_comment">Комментарий администратора</key>
+    <key name="Transaction_id">Внешний идентификатор платежа</key>
+    <key name="Create_package_with_selected_goods">Создать посылку с выбранными товарами</key>
+    <key name="Create_package">Создать посылку</key>
+    <key name="Add_goods_to_package">Добавить товары в существующую посылку</key>
+    <key name="Slideshow">Слайдшоу</key>
+    <key name="Orders_changes_history">История изменений заказа</key>
+    <key name="No_package_for_order_created">У вас не создано ни единой посылки по заказу</key>
+    <key name="Package_creation_explain_notes_1">Если вы хотите добавить все товары в одну посылку нажмите кнопку</key>
+    <key name="Package_creation_explain_notes_2">Если вы хотите добавить часть товаров, то пройдите во вкладку</key>
+    <key name="Package_creation_explain_notes_3">со списком товаров</key>
+    <key name="Package_creation_explain_notes_4">выберите необходимые для добавления товары и воспользуйтесь групповой функцией</key>
+    <key name="Ready_to_purchase">Готовые к закупке</key>
+    <key name="Book_on_taobao">Забронировать</key>
+    <key name="Booked_goods">Закупленные</key>
+    <key name="Actions_with_customer">Действия с покупателем</key>
+    <key name="Pay_for_user_order">Оплатить заказ пользователя</key>
+    <key name="Delivery_addresses">Адреса доставки</key>
+    <key name="by_packages">по посылкам</key>
+    <key name="Other_active_orders">Другие активные заказы</key>
+    <key name="Order_cost">Стоимость заказа</key>
+    <key name="remain">осталось</key>
+    <key name="No_other_user_order_found">Других текущих заказов у пользователя нет</key>
+    <key name="No_user_info_found">Информация о покупателе не найдена</key>
+    <key name="In_package">В посылке</key>
+    <key name="Chat">Переписка</key>
+    <key name="Set_catalog_section">Указать раздел каталога</key>
+    <key name="Add_discount">Добавить скидку</key>
+    <key name="Remove_discount">Удалить скидку</key>
+    <key name="Add_user_in_discount_group">Добавить пользователя в скидку</key>
+    <key name="To_discounts_list">К списку скидок</key>
+    <key name="Rates_will_be_displayed_after_saving">Курсы валют будут отображены после сохранения</key>
+    <key name="Choose_currency">Выберите валюту</key>
+    <key name="Remove_rate">Удалить курс валюты</key>
+    <key name="Write_letter_to_user">Написать письмо пользователю</key>
+    <key name="Remove_user_from_subscription">Удалить пользователя из подписки</key>
+    <key name="Referal_programs">Реферальные программы</key>
+    <key name="Elements_per_page">Количество элементов на странице</key>
+    <key name="User_successfully_added">Успешно добавленный только что пользователь</key>
+    <key name="To_categories_list">К списку категорий</key>
+    <key name="Add_referal_category">Добавить категорию реферальной программы</key>
+    <key name="Start_typing">Начните печатать</key>
+    <key name="View_users_list_in_category">Просмотреть список пользователей в категории</key>
+    <key name="Middle_level">Средний уровень</key>
+    <key name="Add_new_category">Добавить новую категорию</key>
+    <key name="Go_to_review">Перейти к отзыву</key>
+    <key name="Creation_of_new_xeditable_field">Создание нового XEditable поля</key>
+    <key name="Field_name">Имя поля</key>
+    <key name="Generate">Сгенерировать</key>
+    <key name="Formula">Формула</key>
+    <key name="Css_theme">Тема дизайна</key>
+    <key name="Css_themes">Темы дизайна</key>
+    <key name="Current_theme">Текущая тема</key>
+    <key name="Apply2">Установить</key>
+    <key name="Apply_theme">Установить тему</key>
+    <key name="member_since">Дата регистрации на сайте</key>
+    <key name="Custom_css_themes">Свои темы дизайна</key>
+    <key name="Role">Роль</key>
+    <key name="FIO">ФИО</key>
+    <key name="Found">Найдено</key>
+    <key name="Export_all_users">Экспортировать всех пользователей</key>
+    <key name="In_format">В формате</key>
+    <key name="Failed_to_create_password">Не удалось создать пароль. Похоже, что-то пошло не так. Попробуйте еще раз.</key>
+    <key name="Money_credited_to_user_account">Средства успешно зачислены на счет пользователя</key>
+    <key name="Failed_to_creadit_user_account">Не удалось зачислить средства на счет пользователя. Похоже, что-то пошло не так. Попробуйте еще раз.</key>
+    <key name="Money_successfully_withdrawn_from_user_account">Средства успешно списаны со счета пользователя</key>
+    <key name="Failed_to_withdraw">Не удалось списать средства со счета пользователя.Похоже, что-то пошло не так. Попробуйте еще раз.</key>
+    <key name="About_customer">О покупателе</key>
+    <key name="To_customers_list">К списку покупателей</key>
+    <key name="Role_name">Название роли</key>
+    <key name="Rights">Права</key>
+    <key name="From_template">По образу</key>
+    <key name="Role_from_template_explain_notes">Для упрощения создания новой роли можно воспользоваться шаблоном наборов прав для стандартных ролей</key>
+    <key name="View_role_rights">Просмотреть права роли</key>
+    <key name="editing_role_forbidden">Редактирование роли запрещено</key>
+    <key name="Provider_not_selected">Не выбран провайдер</key>
+    <key name="Time">Время</key>
+    <key name="Mailing_sender_email_not_set">Не задан email отправителя в настройках рассылок</key>
+    <key name="Mailing_sender_name_not_set">Не задано имя отправителя в настройках рассылок</key>
+    <key name="Mailing_receiver_email_not_set">Не задан email получателя</key>
+    <key name="Standard">Стандарт</key>
+    <key name="User_already_exists">Пользователь уже существует</key>
+    <key name="User_not_exists">Пользователя не существует</key>
+    <key name="Enable">Включить</key>
+    <key name="Hide2">Скрыть</key>
+    <key name="Show2">Показать</key>
+    <key name="Display2">Вывести</key>
+    <key name="Original">Оригинал</key>
+    <key name="Edit_discount">Редактировать скидку</key>
+    <key name="Shown">Показаны</key>
+    <key name="All_categories">Все категории</key>
+    <key name="Delivery_profile">Профиль</key>
+    <key name="other">прочее</key>
+    <key name="Page_generation_time">Время генерации страницы</key>
+    <key name="Failed_to_load_class">Невозможно загрузить класс</key>
+    <key name="Create_translation">Создание перевода</key>
+    <key name="Add_translation">Добавить перевод</key>
+    <key name="Fill_out_this_field">Заполните это поле</key>
+    <key name="shopreviews_main_label">Отзывы о магазине</key>
+
+    <key name="shopreviews_main_hint">Укажите кол-во отзывов о магазине на главной (по умолчанию не заполнено и не выводятся на главной).</key>
+    <key name="no_title_set">Не указан Заголовок</key>
+    <key name="no_text_set">Не указан текст рассылки</key>
+    <key name="no_subject_set">Не указана Тема</key>
+
+
+    <key name="Really_remove_these_comment">Действительно удалить этот отзыв?</key>
+    <key name="No_comments_selected">Не выбрано ни одного отзыва</key>
+    <key name="Really_remove_these_comments">Действительно удалить выбранные отзывы?</key>
+    <key name="Success_answer">Ответ на отзыв успешно отправлен.</key>
+    <key name="Comment_removed">Отзыв удален</key>
+    <key name="Comments_removed">Группа отзывов удалена</key>
+    <key name="Comment_activated">Отзыв утвержден</key>
+    <key name="Comments_activated">Группа отзывов утверждена</key>
+    <key name="Wright_answer">Напишите ответ на отзыв</key>
+    <key name="Group">Группа</key>
+    <key name="Downwload_transactions">Скачать детализацию</key>
+    <key name="Call_statistic_by_today_will_be_tomorow">Статистика по вызовам за сегодня будет доступна начиная с завтрашнего дня!</key>
+    <key name="Call_count">Кол-во вызовов</key>
+    <key name="Detalization_for_period">Детализация и оборот за период</key>
+    <key name="Turnover_for_period">Оборот за период:</key>
+    <key name="Must_input_dates_to_get_turnover">Необходимо выбрать период для получения детализации</key>
+
+    <key name="Show_calls_by_periods">Показать кол-во вызовов по дням</key>
+    <key name="referall_active_time_label">Срок активности реферера (указывается в днях)</key>
+    <key name="referall_active_time_hint">Срок после которого реферер перестает быть приглашенным и процент от него более не начисляется</key>
+    <key name="google_commerce_account_label">Аккаунт в Google Analytics</key>
+    <key name="google_commerce_account_hint">ID аккаунта можно посмотреть в личном кабинете Google Analytics</key>
+    <key name="newsletter_per_send_limit_label">Количество писем</key>
+    <key name="newsletter_per_send_limit_hint">Количество писем, которые отправляет сервер за одну часть. Ввиду ограничения на рассылку большого количества писем одновременно, обычно создается очередь, которая рассылается сервером по частям. Значение по умолчанию - 5. Рекомендуемое максимальное значение - 100.</key>
+    <key name="Complex_settings_delivery">Сложные настройки для продвинутых пользователей</key>
+    <key name="Attention">Внимание</key>
+    <key name="Formula">Формула</key>
+    <key name="Save_custom_formula">Сохранить введенную формулу</key>
+    <key name="Warning_complex_settings_delivery">Изменения в формуле не учитываются в конструкторе формул. При редактировании доставки с помощью конструктора, формула будет перезаписана!</key>
+    <key name="Email_setting">Настройки e-mail уведомлений</key>
+    <key name="Notification_setting">Настройки уведомлений</key>
+    <key name="Role_is_deleted">Роль удалена</key>
+    <key name="Price_provider_type">Провайдер товаров</key>
+    <key name="Provider_type">Провайдер товаров</key>
+    <key name="DefaultItemProvider_label">Провайдер по умолчанию</key>
+    <key name="DefaultItemProvider_hint">Для выбранного провайдера будет выводиться соответствующий каталог и настраиваться ценообразование</key>
+    <key name="Invalid_email_in_group">Список E-mail-ов содержит неверные адреса</key>
+
+    <key name="newsletter_day_quota_label">Ограничение на отправку писем (в день)</key>
+    <key name="newsletter_day_quota_hint">Количество писем, которые отправляет сервер за один день. Значение по умолчанию - 100.</key>
+
+    <key name="Plugins">Плагины</key>
+    <key name="Plugin">Плагин</key>
+    <key name="Version">Версия</key>
+    <key name="Activate">Активировать</key>
+    <key name="Deactivate">Деактивировать</key>
+    <key name="Method_renderPluginPage_not_defined">Метод "renderPluginPage" не определён.</key>
+    <key name="No_plugins_found">Плагины не найдены</key>
+    <key name="My_plugins">Мои плагины</key>
+    <key name="Plugins_download_update">Загрузить/обновить</key>
+    <key name="Installed">Установлено</key>
+    <key name="Not_installed">Не установлено</key>
+    <key name="Plugins_control_install">Установить</key>
+    <key name="Plugins_confirm_install">Действительно установить плагин</key>
+    <key name="Plugin_already_installed">Плагин уже установлен</key>
+    <key name="Plugins_control_update">Обновить</key>
+    <key name="Plugins_confirm_update">Действительно обновить плагин</key>
+    <key name="Plugins_control_delete">Удалить</key>
+    <key name="Plugins_confirm_delete">Действительно удалить плагин</key>
+    <key name="Version_platform">Версия платформы</key>
+    <key name="My_version">Моя версия</key>
+    <key name="Allowed_for_box_version">Доступно с версии {{version}}</key>
+    <key name="Price_group_deleted_successfully">Ценовая группа удалена</key>
+    <key name="Show_operator_actions">Показать действия операторов</key>
+    <key name="Hide_operator_actions">Скрыть действия операторов</key>
+    <key name="Action">Действие</key>
+    <key name="Line">Строка</key>
+    <key name="is_old_platform_label">Старый шаблон</key>
+    <key name="is_old_platform_hint">Старые шаблоны и логика работы платформы</key>
+    <key name="is_old_platform_value:1">Включено</key>
+    <key name="is_old_platform_value:0">Выключено</key>
+    <key name="is_old_platform_value:*">Выключено</key>
+
+    <key name="Must_be_checked_one_of_params_minpricedelivery_or_weightstep">Должна быть выбрана одна из опций: 'Учитывать минимальную стоимость доставки' или 'Округлять вес до большего целого'. Если выбрана опция 'Округлять вес до большего целого', нужно задать 'Шаг по весу'.</key>
+    <key name="Must_enter_delivery_name">Не введено название доставки.</key>
+    <key name="Provider">Провайдер</key>
+
+    <key name="Activity_info">Информация об активности</key>
+    <key name="Activities">Активности</key>
+    <key name="Work_time">Время работы</key>
+    <key name="Progress">Прогресс</key>
+    <key name="Process">Процесс</key>
+    <key name="Message">Сообщение</key>
+    <key name="done">выполнено</key>
+    <key name="Finished">Завершена</key>
+    <key name="In_process">В процессе</key>
+    <key name="Caregory_was_deleted_from_provider">Внешняя категория была удалена провайдером. Нажмите "Сохранить" что-бы изменить тип привязки на "виртуальная".</key>
+    <key name="Pause_start_update_activity_info">Остановить/возобновить отслеживание активности</key>
+    <key name="You_have_awating_processes">Есть действия, требующие вашей реакции</key>
+
+    <key name="All_categories_list">Все категории Селектора</key>
+    <key name="Add_to_index">Добавить на главную</key>
+    <key name="Show_category_on_site">Просмотреть категорию на сайте</key>
+    <key name="Remove_from_index">Удалить с главной</key>
+    <key name="Site_categories_saved">Категории сохранены</key>
+    <key name="Used_in_site_hint">Категории, отображающиеся в подборках на главной</key>
+    <key name="Categories_list_hint">Категории, доступные для добавления в подборки на главной</key>
+
+    <key name="Pause_start_update_activity_info">Остановить/возобновить отслеживание активности</key>
+
+    <key name="Fixed_margin_hint">Значения добавляются к стоимости доставки вне зависимости от количества и общего веса товарной позиции. При расчете стоимости доставки добавляется фиксированная наценка интервала, если она не задана, то берется фиксированная наценка группы</key>
+    <key name="Fixed_margin_for_group">Фикс. наценка на доставку</key>
+
+    <key name="Select_all">Выдeлить все</key>
+    <key name="Clear_all">Снять все</key>
+    <key name="Order_canceled">Отменен</key>
+    <key name="Order_cannot_be_canceled">Заказ {{orderId}} не может быть отменен.</key>
+    <key name="Sets_products">Товары в подборке Селектора</key>
+    <key name="Go_edit_sets_products">Перейти в редактирование товаров</key>
+    
+    <key name="External_category_cannot_be_deleted">Внешняя категория не может быть удалена.</key>
+    
+    <key name="Count_of_elements_in_main_page">Количество выводимых элементов на главной</key>
+    <key name="items_with_category_label">Товары в подборке Селектора</key>
+    <key name="items_with_category_hint">Рекомендуемое максимальное количество товаров — 20 (По умолчанию 8).</key>
+    <key name="Sets_items_will_be_deleted">Вся подборка товаров будет удалена</key>
+    <key name="Selector">Селектор</key>
+    <key name="Go_to_Selector">Перейти в Селектор</key>
+    <key name="Remove_from_Selector">Удалить из Селектора</key>
+    <key name="Sets_on_index_page">Подборки на главной</key>
+    
+    <key name="Load_more_items">Показать еще 50 товаров</key>
+    <key name="Load_more_sellers">Показать еще 50 продавцов</key>
+    <key name="Load_more_categories">Показать еще</key>
+    <key name="Category_added">Категория добавлена</key>
+
+    <key name="Find_out_the_advantages_of_the_paid_version">Узнай преимущества платной версии</key>
+    <key name="Advantages_of_the_paid_version">Преимущества платной версии</key>
+    <key name="Advantages_of_the_paid_version_text">
+        <![CDATA[
+        <p>Переход на платную версию обеспечит:</p>
+        <ul>
+            <li>перенос твоего сайта на собственный домен, а если хочешь, то и на собственный хостинг;</li>
+            <li>отключение баннеров OT Commerce (обязательно только использование ссылки на OT Commerce в подвале сайта);</li>
+            <li>постоянную техническую и клиентскую поддержку по всем вопросам работы сайта;</li>
+            <li>гибкие тарифные планы по выплате сервисных платежей;</li>
+            <li>дополнительные возможности и модули, которые помогут увеличить продажи.</li>
+        </ul>
+        <p>Все твои покупатели и заказы, а также изменения и настройки сайта сохранятся!</p>
+        <p>Напиши нам <a href="mailto:info@otcommerce.com">info@otcommerce.com</a> или узнай подробности у оператора на сайте <a href="http://box.otcommerce.com">box.otcommerce.com</a>.</p>
+        <p>Промо-код для получения огромной скидки: «Я владелец Селфри»!</p>
+        ]]>
+    </key>
+    <key name="Please_follow_the_link_to_check_if_update_is_available">Для проверки обновляемости сайта обязательно перейдите по</key>
+    <key name="Control_design">Управление дизайном</key>
+    <key name="custom_scss_after_scss_lite_label">Свой css код</key>
+    <key name="custom_scss_after_scss_elastic_label">Свой css код</key>
+    <key name="custom_scss_after_scss_fashi_label">Свой css код</key>
+    <key name="custom_scss_after_scss_hint">Код после основного css</key>
+    <key name="Cache_not_deleted_completly">Часть файлов удалена, запуск новой итерации. Загрузка...</key>
+    
+    <key name="custom_scss_body_background_color">Цвет фона</key>
+    <key name="custom_scss_body_background_color_lite_label">Цвет фона</key>
+    <key name="custom_scss_body_background_color_elastic_label">Цвет фона</key>
+    <key name="custom_scss_body_background_color_fashi_label">Цвет фона</key>
+
+    <key name="custom_scss_design_color_1">Дизайн. Цвет 1</key>
+    <key name="custom_scss_design_color_1_lite_label">Дизайн. Цвет 1</key>
+    <key name="custom_scss_design_color_1_elastic_label">Дизайн. Цвет 1</key>
+    <key name="custom_scss_design_color_1_fashi_label">Дизайн. Цвет 1</key>
+
+    <key name="custom_scss_design_color_2">Дизайн. Цвет 2</key>
+    <key name="custom_scss_design_color_2_lite_label">Дизайн. Цвет 2</key>
+    <key name="custom_scss_design_color_2_elastic_label">Дизайн. Цвет 2</key>
+    <key name="custom_scss_design_color_2_fashi_label">Дизайн. Цвет 2</key>
+
+    <key name="custom_scss_body_text_color">Цвет текста</key>
+    <key name="custom_scss_body_text_color_lite_label">Цвет текста</key>
+    <key name="custom_scss_body_text_color_elastic_label">Цвет текста</key>
+    <key name="custom_scss_body_text_color_fashi_label">Цвет текста</key>
+
+    <key name="custom_scss_headers_text_color">Цвет заголовков</key>
+    <key name="custom_scss_headers_text_color_lite_label">Цвет заголовков</key>
+    <key name="custom_scss_headers_text_color_elastic_label">Цвет заголовков</key>
+    <key name="custom_scss_headers_text_color_fashi_label">Цвет заголовков</key>
+
+    <key name="custom_scss_border_color">Цвет бордюра</key>
+    <key name="custom_scss_border_color_lite_label">Цвет бордюра</key>
+    <key name="custom_scss_border_color_elastic_label">Цвет бордюра</key>
+    <key name="custom_scss_border_color_fashi_label">Цвет бордюра</key>
+
+    <key name="custom_scss_success_color">Цвет успешного сообщения</key>
+    <key name="custom_scss_success_color_lite_label">Цвет успешного сообщения</key>
+    <key name="custom_scss_success_color_elastic_label">Цвет успешного сообщения</key>
+    <key name="custom_scss_success_color_fashi_label">Цвет успешного сообщения</key>
+
+    <key name="custom_scss_info_color">Цвет информационного сообщения</key>
+    <key name="custom_scss_info_color_lite_label">Цвет информационного сообщения</key>
+    <key name="custom_scss_info_color_elastic_label">Цвет информационного сообщения</key>
+    <key name="custom_scss_info_color_fashi_label">Цвет информационного сообщения</key>
+
+    <key name="custom_scss_warning_color">Цвет предупреджающего сообщения</key>
+    <key name="custom_scss_warning_color_lite_label">Цвет предупреджающего сообщения</key>
+    <key name="custom_scss_warning_color_elastic_label">Цвет предупреджающего сообщения</key>
+    <key name="custom_scss_warning_color_fashi_label">Цвет предупреджающего сообщения</key>
+
+    <key name="custom_scss_danger_color">Цвет сообщения об ошибке</key>
+    <key name="custom_scss_danger_color_lite_label">Цвет сообщения об ошибке</key>
+    <key name="custom_scss_danger_color_elastic_label">Цвет сообщения об ошибке</key>
+    <key name="custom_scss_danger_color_fashi_label">Цвет сообщения об ошибке</key>
+
+    <key name="Saved">Сохранено</key>
+    <key name="Background_image">Фоновое изображение</key>
+    
+    <key name="custom_scss_background_repeat_lite_label">Повтор фона</key>
+    <key name="custom_scss_background_repeat_lite_value:no-repeat">Не повторять</key>
+    <key name="custom_scss_background_repeat_lite_value:repeat">Замостить</key>
+    <key name="custom_scss_background_repeat_lite_value:repeat-x">Замостить по горизонтали</key>
+    <key name="custom_scss_background_repeat_lite_value:repeat-y">Замостить по вертикали</key>
+    <key name="custom_scss_background_repeat_lite_value:*">Замостить</key>
+
+    <key name="custom_scss_background_repeat_elastic_label">Повтор фона</key>
+    <key name="custom_scss_background_repeat_elastic_value:no-repeat">Не повторять</key>
+    <key name="custom_scss_background_repeat_elastic_value:repeat">Замостить</key>
+    <key name="custom_scss_background_repeat_elastic_value:repeat-x">Замостить по горизонтали</key>
+    <key name="custom_scss_background_repeat_elastic_value:repeat-y">Замостить по вертикали</key>
+    <key name="custom_scss_background_repeat_elastic_value:*">Замостить</key>
+
+    <key name="custom_scss_background_repeat_fashi_label">Повтор фона</key>
+    <key name="custom_scss_background_repeat_fashi_value:no-repeat">Не повторять</key>
+    <key name="custom_scss_background_repeat_fashi_value:repeat">Замостить</key>
+    <key name="custom_scss_background_repeat_fashi_value:repeat-x">Замостить по горизонтали</key>
+    <key name="custom_scss_background_repeat_fashi_value:repeat-y">Замостить по вертикали</key>
+    <key name="custom_scss_background_repeat_fashi_value:*">Замостить</key>
+
+    <key name="custom_scss_background_position_lite_label">Позиция фона</key>
+    <key name="custom_scss_background_position_lite_value:right">Справа</key>
+    <key name="custom_scss_background_position_lite_value:left">Слева</key>
+    <key name="custom_scss_background_position_lite_value:center">По центру</key>
+    <key name="custom_scss_background_position_lite_value:*">Слева</key>
+
+    <key name="custom_scss_background_position_elastic_label">Позиция фона</key>
+    <key name="custom_scss_background_position_elastic_value:right">Справа</key>
+    <key name="custom_scss_background_position_elastic_value:left">Слева</key>
+    <key name="custom_scss_background_position_elastic_value:center">По центру</key>
+    <key name="custom_scss_background_position_elastic_value:*">Слева</key>
+
+    <key name="custom_scss_background_position_fashi_label">Позиция фона</key>
+    <key name="custom_scss_background_position_fashi_value:right">Справа</key>
+    <key name="custom_scss_background_position_fashi_value:left">Слева</key>
+    <key name="custom_scss_background_position_fashi_value:center">По центру</key>
+    <key name="custom_scss_background_position_fashi_value:*">Слева</key>
+    
+    <key name="custom_scss_background_attachment_lite_label">Привязка фона</key>
+    <key name="custom_scss_background_attachment_lite_value:*">Прокручивать</key>
+    <key name="custom_scss_background_attachment_lite_value:scroll">Прокручивать</key>
+    <key name="custom_scss_background_attachment_lite_value:fixed">Зафиксировать</key>
+
+    <key name="custom_scss_background_attachment_elastic_label">Привязка фона</key>
+    <key name="custom_scss_background_attachment_elastic_value:*">Прокручивать</key>
+    <key name="custom_scss_background_attachment_elastic_value:scroll">Прокручивать</key>
+    <key name="custom_scss_background_attachment_elastic_value:fixed">Зафиксировать</key>
+
+    <key name="custom_scss_background_attachment_fashi_label">Привязка фона</key>
+    <key name="custom_scss_background_attachment_fashi_value:*">Прокручивать</key>
+    <key name="custom_scss_background_attachment_fashi_value:scroll">Прокручивать</key>
+    <key name="custom_scss_background_attachment_fashi_value:fixed">Зафиксировать</key>
+
+    <key name="Delete_custom_css">Удалить свой файл стилей</key>
+    <key name="Delete_custom_css_confirm">Действительно удалить файл custom.css</key>
+    <key name="Sellfree_items_sets_caution">Данная подборка заполняется автоматически на основе статистики, и не предназначена для ручного управления. При удалении товаров из этой подборки, они попадают в черный список чтобы не появлялись снова из статистики, поэтому они будут запрещены везде, пока вы не исключите их из черного списка.</key>
+    <key name="Compile_screen_scss">Compile screen.scss (for developer)</key>
+    <key name="List_is_empty">Список пуст</key>
+    <key name="Select_email_server_for_box">Использовать для отправки почты сайтом</key>
+    <key name="use_custom_view_label">Пользовательские шаблоны</key>
+    <key name="use_custom_view_hint">Разрешить использование пользовательских шаблонов из директории custom/</key>
+    <key name="use_custom_view_value:*">Разрешить</key>
+    <key name="use_custom_view_value:0">Запретить</key>
+    <key name="use_custom_view_value:1">Разрешить</key>
+    <key name="collect_js_css_label">Склеивать JS и CSS</key>
+    <key name="collect_js_css_value:*">Не склеивать</key>
+    <key name="collect_js_css_value:0">Не склеивать</key>
+    <key name="collect_js_css_value:1">Склеивать</key>
+    <key name="collect_js_css_hint">Склеивать JS и CSS файлы для увеличения скорости их загрузки (в том числе и из Китая)</key>
+    <key name="Instance_configuration">Настройки ключа</key>
+    <key name="No_available_providers">Нет доступных провайдеров</key>
+    <key name="No_available_provider_settings">Нет настроек для доступных провайдеров</key>    
+    <key name="Calls_detalization">Детализация по платным вызовам</key>
+    <key name="Calls_detalization_for_period">Детализация за период</key>
+    <key name="Time_period">Период</key>
+    <key name="Daily">День</key>
+    <key name="Monthly">Месяц</key>
+    <key name="Total_calls_count">Число вызовов всего</key>
+    <key name="Payed_calls_count">Число платных вызовов</key>
+    <key name="Error_calls_count">Число ошибочных вызовов</key>
+    <key name="Calls_statistics">Детализация по методам</key>
+    <key name="Method_name">Название метода</key>
+    <key name="Method_calls_statistics">Детализация по методу: </key>
+    <key name="All_calls_statistics">Детализация по всем методам</key>
+
+    <key name="Category_moved">Категория перенесена</key>
+    <key name="Item_saved_successfully">Информация о товаре обновлена</key>
+    <key name="Item_not_found">Товар не найден</key>
+    <key name="Start_time">Дата запуска</key>
+    <key name="Instruction_http_authenticate_by_cgi">
+        <![CDATA[
+        <p>PHP сконфигурирован как модуль CGI. Для корректной аутентификации в файле .htacces должны быть строки:</p>
+        <blockquote>
+            <p>RewriteCond %{HTTP:Authorization} ^Basic.*</p>
+            <p>RewriteRule (.*) index.php?authorization=%{HTTP:Authorization} [QSA,L]</p>
+        </blockquote>
+        ]]>
+    </key>    
+    <key name="Point">Указать</key>
+    <key name="Link_to_image">Ссылка на картинку в интернете. Пример https://data.otcommerce.com/box/global/brand/Lancel.jpg</key>
+    <key name="Smtp_test_message_subject">Test email</key>
+    <key name="Smtp_test_message_body">Здравствуйте, если вы получили это письмо, то настройки вашего smtp-сервера указаны верно.</key>
+    <key name="Finance">Финансы</key>
+    <key name="Sorting">Сортировка</key>
+    <key name="Configurations">Конфигурации</key>
+    <key name="Configurators">Конфигураторы</key>
+    <key name="Add_property">Добавить свойство</key>
+    <key name="Add_value">Добавить значение</key>
+    <key name="Select_property">Выберите свойство</key>
+    <key name="Select_property_value">Выберите значение</key>
+    <key name="Add_property_value">Добавить значение</key>
+    <key name="Add_property_value_for">Добавить значение для свойства: </key>
+    <key name="Property_value">Введите значение</key>
+    <key name="Property_name">Введите название свойства</key>
+    <key name="Property_value_is_empty">Значение не может быть пустым</key>
+    <key name="Property_name_is_empty">Название свойства не может быть пустым</key>
+    <key name="New_property_value">Добавить новое значение</key>
+    <key name="New_property">Добавить новое свойство</key>
+    <key name="Creating">Создается...</key>
+    <key name="Sell_allowed">Выставлен на продажу</key>
+
+    <key name="Sell_allowed_hint">Если чек-бокс не активен, товар не доступен к продаже.</key>
+    <key name="item_ID">Идентификатор товара</key>
+    <key name="Attention_rounding_zero">Внимание! Выбор точности округления влияет на подсчет итоговой суммы заказа.</key>
+    <key name="Really_reset_this_item_field_value">Вы действительно хотите сбросить значение этого поля?</key>
+    <key name="All_deliveries_are_chosen">Выбраны все виды доставки</key>
+    <key name="Price_deliveries">Привязка к внешним доставкам</key>
+    <key name="Active_price_deliveries">Активные привязки к доставке</key>
+    <key name="Add_price_delivery">Добавить привязку</key>
+    <key name="Extened">Дополнительно</key>
+    <key name="price_rounding_label">Отображение цены</key>
+    <key name="price_rounding_hint">Количество знаков после запятой, которое отображается покупателю</key>
+
+    <key name="Hide_for_customers">Скрыть от покупателей</key>
+  
+    <key name="Сalculation">Расчет прибыли</key>
+    <key name="IncomeAmount">Вошло в систему, </key>
+    <key name="OrdersReservedAmount">Зачислено на оплату заказов, </key>
+    <key name="Number_of_purchases">Выкуплено заказов</key>
+    <key name="Rate_to_rub">Курс к </key>
+    <key name="PurchaseAmount">Выкуплено, </key>
+    <key name="ExternalDeliveryAmount">Доставка</key>
+    <key name="Providers">Провайдеры</key>
+    <key name="Percentage_of_profit">% дохода</key>
+    <key name="Income">Доход</key>
+    <key name="Max_date_range_year">Максимальный диапазон дат равен 1 году.</key>
+
+    <key name="External_comments">Сторонние отзывы</key>
+
+    <key name="Provider_currency">Валюты провайдеров</key>
+    <key name="Rate_margin">Наценка на курс</key>
+    <key name="Default_settings">Настройки по умолчанию</key>
+    <key name="By_default">По умолчанию</key>
+    <key name="Really_set_default_value">Вы действительно хотите установить значение по умолчанию?</key>
+    <key name="Rate_sync_mode">Режим синхронизации</key>
+    
+    <key name="January">Январь</key>
+    <key name="February">Февраль</key>
+    <key name="March">Март</key>
+    <key name="April">Апрель</key>
+    <key name="May">Май</key>
+    <key name="June">Июнь</key>
+    <key name="July">Июль</key>
+    <key name="August">Август</key>
+    <key name="September">Сентябрь</key>
+    <key name="October">Октябрь</key>
+    <key name="November">Ноябрь</key>
+    <key name="December">Декабрь</key>
+    
+    <key name="Original_price">Оригинальная цена</key>
+    <key name="original_price_hint">оплачиваемая покупателем</key>
+    <key name="Price_for_piece">Цена за шт.</key>
+    <key name="Delivery_for_piece">Доставка за шт.</key>
+    <key name="Field_incorrect">Неверно заполнено поле</key>
+    <key name="end_subscription">Отписаться от рассылки</key>
+    <key name="RateWithIncreaseMargin_hint">{{currency1}}-{{currency2}} с наценкой: 1 {{currency1}} = {{RateWithIncreaseMargin}} {{currency2}}</key>
+    <key name="RateWithDecreaseMargin_hint">{{currency2}}-{{currency1}} с наценкой: 1 {{currency1}} = {{RateWithDecreaseMargin}} {{currency2}}</key>
+
+    <key name="search_category_param_languageOfQuery">Язык запроса</key>
+    <key name="category_items_total_count">Всего товаров в категории</key>
+    <key name="Duplicate_imported_category_alias">Адрес раздела {{categoryAlias}} импортированной категории {{category}} уже существует.</key>
+    <key name="Data_updated_with_warnings">Данные обновлены с замечаниями</key>
+    <key name="Letters_templates">Шаблоны писем</key>
+    <key name="In_text_can_be_used_following_placeholders">В тексте можно использовать следующие конструкции</key>
+    <key name="Prepayment">Предоплата</key>
+    <key name="Debt">Задолженность</key>
+    <key name="Documentation">Документация</key>
+    <key name="for_search_use_brand_id">Для поиска по бренду, используйте ID бренда</key>
+    <key name="Import_done_succes">Данные обновлены. Через несколько секунд страница будет автоматически обновлена. Подождите...</key>
+    
+    <key name="Autosets">Автоподборки</key>
+    <key name="Export_sets">Экспорт подборок</key>
+    <key name="Export">Экспорт</key>
+    <key name="Starting_scan">Запуск сканирования</key>
+    <key name="Start_scan">Начать сканирование</key>
+
+    <key name="Update_autosets_products_list">Обновить список товаров в автоподборках</key>
+    <key name="Settings">Настройки</key>
+
+    <key name="settings_saved_and_reload">Настройки сохранены. Через несколько секунд страница будет автоматически обновлена. Подождите...</key>
+    <key name="Purchase_price">Цена закупки</key>
+
+    <key name="group_by">Группировать</key>
+    <key name="group_by_none">без группировки</key>
+    <key name="group_by_vendor">по продавцам</key>
+    <key name="group_by_status">по статусам</key>
+    <key name="сonfigure_internal_deliveries">Настроить внутренние доставки по каждому провайдеру</key>
+
+    <key name="Availible_features">Метки ценовой группы</key>
+    <key name="Availible_features_hint">Метки будут являться атрибутами товаров данной ценовой группы</key>
+
+    <key name="total_amount_products_customers">Полная сумма товаров для покупателя:</key>
+    <key name="original_amount_delivery_products">Оригинальная сумма местной доставки (оплачиваемая покупателем):</key>
+    <key name="original_amount_products">Оригинальная сумма товаров (оплачиваемая покупателем):</key>
+    <key name="purchased_amount_delivery_goods">Закупочная сумма местной доставки:</key>
+    <key name="purchased_amount_goods">Закупочная сумма товаров:</key>
+
+    <key name="combined_package">Общие посылки</key>
+    <key name="created">Создано</key>
+    <key name="packed">Упаковано</key>
+    <key name="prepared">Подготовлено</key>
+    <key name="sent">Отправлено</key>
+    <key name="Track_number_filter_placeholder">Трек номер</key>
+    <key name="total_weight_parcels">Общий вес посылок</key>
+    <key name="common_parcel_price">Общая цена посылок</key>
+    <key name="recipient">Получатель</key>
+    <key name="Add_parcel">Добавить посылку</key>
+    <key name="id_product">id товара</key>
+    <key name="сreat_packages_from_products">Создать посылки из товаров</key>
+
+    <key name="Need_choose_review_to_see_information">Чтобы увидеть информацию по отзыву необходимо выбрать его в списке!</key>
+    <key name="show_review">Показать отзыв</key>
+
+    <key name="Rating">Рейтинг</key>
+    <key name="Score">Оценка</key>
+    <key name="answer_language">Язык ответа</key>
+    <key name="your_answer">Ваш ответ</key>
+    <key name="Registration_address">Регистрационный адрес</key>
+    <key name="registration_date">Дата регистрации</key>
+    <key name="Delivery_service_system">Службы доставки</key>
+    <key name="not_selected_role">Не выбрана роль</key>
+    <key name="design_theme">Тема дизайна</key>
+    <key name="advertising_banner_design">Настройки рекламного баннера</key>
+    <key name="elastic_banner_1">Баннер 1</key>
+    <key name="elastic_banner_1_title_label">Заголовок</key>
+    <key name="elastic_advertising_banner">Рекламный баннер</key>
+    <key name="elastic_advertising_banner_title_label">Заголовок</key>
+    <key name="elastic_advertising_banner_subtitle_label">Подзаголовок</key>
+    <key name="elastic_advertising_banner_link_label">Ссылка</key>
+    <key name="elastic_advertising_banner_image_label">Баннер</key>
+    <key name="elastic_advertising_banner_image_hint">Изображение баннера. Рекомендуемые размеры 1420x260.</key>
+    <key name="elastic_banner_1_subtitle_label">Подзаголовок</key>
+    <key name="elastic_banner_1_link_label">Ссылка</key>
+    <key name="elastic_banner_1_img_label">Баннер</key>
+    <key name="elastic_banner_1_img_hint">Изображение баннера. Рекоммендуемые размеры 285x160.</key>
+    <key name="elastic_banner_2">Баннер 2</key>
+    <key name="elastic_banner_2_title_label">Заголовок</key>
+    <key name="elastic_banner_2_subtitle_label">Подзаголовок</key>
+    <key name="elastic_banner_2_link_label">Ссылка</key>
+    <key name="elastic_banner_2_img_label">Баннер</key>
+    <key name="elastic_banner_2_img_hint">Изображение баннера. Рекоммендуемые размеры 285x160.</key>
+    <key name="fashi_promo_banner_1">Промо баннер 1</key>
+    <key name="fashi_promo_banner_1_title_label">Заголовок</key>
+    <key name="fashi_promo_banner_1_subtitle_label">Подзаголовок</key>
+    <key name="fashi_promo_banner_1_link_label">Ссылка</key>
+    <key name="fashi_promo_banner_1_discount_label">Скидка</key>
+    <key name="fashi_promo_banner_1_img_label">Баннер</key>
+    <key name="fashi_promo_banner_1_img_hint">Изображение баннера. Рекоммендуемые размеры 1920x728.</key>
+    <key name="fashi_promo_banner_2">Промо баннер 2</key>
+    <key name="fashi_promo_banner_2_title_label">Заголовок</key>
+    <key name="fashi_promo_banner_2_subtitle_label">Подзаголовок</key>
+    <key name="fashi_promo_banner_2_link_label">Ссылка</key>
+    <key name="fashi_promo_banner_2_discount_label">Скидка</key>
+    <key name="fashi_promo_banner_2_img_label">Баннер</key>
+    <key name="fashi_promo_banner_2_img_hint">Изображение баннера. Рекоммендуемые размеры 1920x728.</key>
+    <key name="fashi_banner_1">Баннер 1</key>
+    <key name="fashi_banner_1_title_label">Заголовок</key>
+    <key name="fashi_banner_1_link_label">Ссылка</key>
+    <key name="fashi_banner_1_img_label">Баннер</key>
+    <key name="fashi_banner_1_img_hint">Изображение баннера. Рекоммендуемые размеры 285x160.</key>
+    <key name="fashi_banner_2">Баннер 2</key>
+    <key name="fashi_banner_2_title_label">Заголовок</key>
+    <key name="fashi_banner_2_link_label">Ссылка</key>
+    <key name="fashi_banner_2_img_label">Баннер</key>
+    <key name="fashi_banner_2_img_hint">Изображение баннера. Рекоммендуемые размеры 285x160.</key>
+    <key name="fashi_banner_3">Баннер 3</key>
+    <key name="fashi_banner_3_title_label">Заголовок</key>
+    <key name="fashi_banner_3_link_label">Ссылка</key>
+    <key name="fashi_banner_3_img_label">Баннер</key>
+    <key name="fashi_banner_3_img_hint">Изображение баннера. Рекоммендуемые размеры 285x160.</key>
+    <key name="fashi_side_banner_1">Боковой баннер 1</key>
+    <key name="fashi_side_banner_1_title_label">Заголовок</key>
+    <key name="fashi_side_banner_1_link_label">Ссылка</key>
+    <key name="fashi_side_banner_1_img_label">Баннер</key>
+    <key name="fashi_side_banner_1_img_hint">Изображение баннера. Рекоммендуемые размеры 470x620.</key>
+    <key name="fashi_side_banner_2">Боковой баннер 2</key>
+    <key name="fashi_side_banner_2_title_label">Заголовок</key>
+    <key name="fashi_side_banner_2_link_label">Ссылка</key>
+    <key name="fashi_side_banner_2_img_label">Баннер</key>
+    <key name="fashi_side_banner_2_img_hint">Изображение баннера. Рекоммендуемые размеры 470x620.</key>
+    <key name="fashi_side_banner_3">Боковой баннер 3</key>
+    <key name="fashi_side_banner_3_title_label">Заголовок</key>
+    <key name="fashi_side_banner_3_link_label">Ссылка</key>
+    <key name="fashi_side_banner_3_img_label">Баннер</key>
+    <key name="fashi_side_banner_3_img_hint">Изображение баннера. Рекоммендуемые размеры 470x620.</key>
+    <key name="confirm">Подтвердить</key>
+    <key name="confirm_payment">Подтвердить платеж</key>
+    <key name="cancel_payment">Отменить платеж</key>
+    <key name="update_confirm_title">Вы уверены, что хотите обновиться?</key>
+    <key name="update_confirm_message">На вашем сайте есть изменения, внесенные посредством сторонних кастомизаций. Обновление может сломать их, а также нарушить работоспособность сайта в целом. Если вы не уверены в правильной реализации кастомизации, для обновления сайта свяжитесь с вашими кастомизаторами.</key>
+    <key name="create_default_content">Создать контентные страницы по умолчанию</key>
+    <key name="default_content_created_success">Контентные страницы успешно созданы</key>
+    <key name="sure_continue">Вы уверены, что хотите продолжить</key>
+    <key name="sure_overwrite_content_description">Возможно, в процессе создания контентных страниц, некоторые ваши страницы будут затерты новыми.</key>
+    <key name="manual_translation">Ручной перевод</key>
+
+    <key name="Discount">Скидка</key>
+</translations>

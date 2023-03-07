@@ -1,0 +1,70 @@
+<? $secondsWorkTime = round($activity->GetWorkTime() / 1000) ?>
+<? $outputDate = sprintf("%02d:%02d:%02d", (int)($secondsWorkTime / 3600), (int)(($secondsWorkTime % 3600) / 60), $secondsWorkTime % 60); ?>
+<p class="pull-right"><?=LangAdmin::get('Work_time')?>: <?=$outputDate?></p>
+<? $status = $activity->IsFinished() ? LangAdmin::get('Finished') : LangAdmin::get('In_process') ?> 
+<p class="pull-right span3"><?=LangAdmin::get('Status')?>: <?=$status?></p>
+<p><?=LangAdmin::get('Progress')?>: <progress value="<?=$activity->GetProgressPercent()?>" max="100" title="<?=$activity->GetProgressPercent()?>% <?=LangAdmin::get('done')?>"></progress></p>
+<p><?=LangAdmin::get('Description')?>: <?=$activity->GetDescription()?></p>
+
+<div style="height: 35px;">
+    <div class="pull-left" style="line-height: 30px;"><strong><?=LangAdmin::get('Process')?>:</strong></div>
+    <div class="pull-right">
+        <button id="start-stop" class="btn" style="padding: 2px 5px 2px;" title="<?=LangAdmin::get('Pause_start_update_activity_info')?>"><i class="icon-pause"></i></button>
+    </div><!--  icon-play -->
+</div>
+<div id="activity-steps" style="max-height: 260px; overflow: auto; clear: both;">
+    <table class="table">
+        <thead>
+        <tr>
+            <th><?=LangAdmin::get('Message')?></th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <? foreach ($activity->GetSteps()->GetRawData()->Step as $step) { ?>
+            <tr class="<?=strtolower((string)$step->Type)?>">
+                <td><?=(string)$step->Message?></td>
+                <td>
+                    <? if (isset($step->Actions) && isset($step->Actions->Action)) { ?>
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-tiny offset-top05 dropdown-toggle"
+                                    data-loading-text="<i class='icon-spinner icon-spin'></i>"><i
+                                    class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <? foreach ($step->Actions->Action as $action) { ?>
+                                    <li>
+                                        <?
+                                        $params = array();
+                                        $dataParams = '';
+                                        if (isset($action->Parameters) && isset($action->Parameters->Parameter)) {
+                                            foreach ($action->Parameters->Parameter as $parameter) {
+                                                $params[(string)$parameter['Name']] = (string)$parameter;
+                                                $dataParams .= ' data-' . (string)$parameter['Name'] . '="' . (string)$parameter . '"';
+                                            }
+                                        }
+                                        ?>
+                                        <a class="activityStepActionBtn <?=(string)$action->Id?>"
+                                           href="javascript:void(0)" title="<?=(string)$action->DisplayName?>"<?=$dataParams?> data-params='<?=json_encode($params)?>'>
+                                            <?=(string)$action->DisplayName?>
+                                        </a>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        </div>
+                    <? } ?>
+                </td>
+            </tr>
+        <? } ?>
+        </tbody>
+    </table>
+    <a id="end"></a>
+</div>
+
+<? if ($activity->GetActions() && $activity->GetActions()->GetAction() ) { ?>
+    <br/>
+    <div>
+        <? foreach ($activity->GetActions()->GetAction() as $key => $action) { ?>
+            &nbsp;<button class="btn btn-primary activity-action" activity-type="<?=$activity->GetType()?>" activity-id="<?=$activity->GetId()->asString()?>" action-id="<?=$action->GetId()->asString()?>"><?=$action->GetDisplayName()?></button>
+        <? } ?>
+    </div>
+<? } ?>

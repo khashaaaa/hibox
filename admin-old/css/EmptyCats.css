@@ -1,0 +1,18 @@
+#attention {
+	display:block; border:#999 1px solid; background:#CCC; padding:5px; color:#000;
+}
+#parentempty {
+	color:#F9F;
+}
+#empty {
+	color:#F00;
+}
+#UlClick:hover {
+	cursor:pointer;
+	text-decoration:underline;
+}
+#UlClick:hover {
+	cursor:pointer;
+	text-decoration:underline;
+	color:#000;
+}

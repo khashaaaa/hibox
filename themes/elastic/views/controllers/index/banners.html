@@ -1,0 +1,39 @@
+<? if (! empty($banners)) { ?>
+    <div class="banners-slider">
+        <? foreach ($banners as $key => $banner) { ?>
+            <a href="<?=($banner['url'] ? $this->escape($banner['url']) : 'javascript:void(0)')?>"
+               class="baner__item baner__item_large banner-slide"
+               style="background: url(<?=$banner['source']?>) no-repeat;<?= ($key) ? 'display: none' : '' ?>"
+            >
+                <div class="baner__text baner__text_large">
+                    <div class="banner__title banner__title_large">
+                        <?=(! empty($banner['name'])) ? $banner['name'] : ''?>
+                    </div>
+                    <div class="banner__subtitle banner__subtitle_large">
+                        <?=(! empty($banner['content'])) ? $banner['content'] : ''?>
+                    </div>
+                </div>
+            </a>
+        <? } ?>
+    </div>
+<? } ?>
+<? AssetsMin::jsBegin(); ?>
+    <script type="text/javascript">
+        $(function () {
+            $('.banners-slider').slick({
+                dots: true,
+                speed: 500,
+                arrows: true,
+                autoplay: true,
+                fade: false,
+                vertical: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                rtl: <?=(General::getConfigValue('rtl')) ? 'true' : 'false'?>,
+            });
+            $('.banners-slider .baner__item').css('display', 'block');
+        });
+    </script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+

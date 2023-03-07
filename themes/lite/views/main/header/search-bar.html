@@ -1,0 +1,60 @@
+<div class="nav box-search" role="search">
+    <div class="btn-group box-search_btn-group">
+        <button type="button" class="btn dropdown-toggle box-search_btn-group_category" data-toggle="dropdown" 
+                <? if ($isIndexPage) { ?>disabled="disabled"<? } ?> >
+            <span><?=Lang::get('Search_bar_categories')?></span>
+            <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu box-search_btn-group_menu">
+            <?=General::runController('Categories', 'renderMenu')?>
+        </div>
+    </div>
+    <? if (General::isShowSearchBar()) { ?>
+        <form id="box-search-form" class="box-search-form" method="post"
+              action="<?=UrlGenerator::generateSearchUrl(false,true)?>"
+              data-img-upload-url="<?=UrlGenerator::getUrl('upload')?>"
+              data-lang="<?=$this->getUser()->getActiveLang()?>">
+            <div class="input-group">
+                <? $searchParams = General::getSearchParams(); ?>
+                <? if ($isLimitItemsByCatalog && $searchParams['cid']) { ?>
+                    <input type="hidden" name="cid" value="<?=$searchParams['cid']?>" />
+                <? } ?>
+                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                </span>
+
+                <input type="text" name="search" id="box-search-form_search" class="form-control"
+                       value="<?=$this->escape(urldecode($searchParams['search']))?>"
+                       required="required"
+                       placeholder="<?=Lang::get('default_search_text')?>" tabindex="1" />
+
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><?=Lang::get('find')?></button>
+                </span>
+            </div>
+
+            <? if (InstanceProvider::getObject()->isEnablePhotoSearch()) { ?>
+                <? $currentProviderName = InstanceProvider::getObject()->GetProviderNameByAlias(Session::getActiveLang(), $this->getUser()->getProvider());?>
+                <? $currentProviderInfo = InstanceProvider::getObject()->GetProviderInfo(Session::getActiveLang(), $currentProviderName)?>
+                <div id="photo-search" style="display: <?=$currentProviderInfo->GetImageSearch()->IsEnabled() ? 'inline-block' : 'none'?>">
+                    <i class="glyphicon glyphicon-camera"></i>
+                    <input type="file" name="files[]" accept="image/jpeg,image/png,image/gif" class="btn btn-default" title="<?=Lang::get('photo_search')?>"/>
+                    <input type="hidden" name="imageId" value="<?=RequestWrapper::get('imageId')?>"/>
+                </div>
+            <? } ?>
+            <? if (General::onNewPlatformScript('search')) { ?>
+                <?=General::viewFetch('main/header/search-bar-providers', array('vars' => array('providers' => $providers)))?>
+            <? } ?>
+        </form>
+    <? } ?>
+</div> <!-- /box-search -->
+
+<?
+    if (InstanceProvider::getObject()->isEnablePhotoSearch()) {
+        AssetsMin::registerJsFile('/js/vendor/blueimp/jQuery-File-Upload/js/vendor/jquery.ui.widget.js');
+        AssetsMin::registerJsFile('/js/vendor/blueimp/jQuery-File-Upload/js/jquery.iframe-transport.js');
+        AssetsMin::registerJsFile('/js/vendor/blueimp/jQuery-File-Upload/js/jquery.fileupload.js');
+        AssetsMin::registerJsFile('/js/vendor/blueimp/jQuery-File-Upload/js/jquery.fileupload-process.js');
+        AssetsMin::registerJsFile('/js/vendor/blueimp/jQuery-File-Upload/js/jquery.fileupload-validate.js');
+    }
+?>

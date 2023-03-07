@@ -1,0 +1,22 @@
+<?=$HeaderNew?>
+<?=$CrumbsNew?>
+	<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<!-- .main -->
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="bproduct">
+            <? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>
+                <div class="fll col240"><?=$ContentMenu?></div>
+                <div class="flr col690">
+            <? } ?>
+            <?=$Digest?>
+            <? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</div>
+<!-- /.main -->
+        
+<?=$FooterNew?>

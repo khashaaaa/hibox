@@ -1,0 +1,334 @@
+
+<? XEditableFields::Init('order_view', $PageUrl); ?>
+
+<div class="order-view-wrapper">
+
+    <ul class="breadcrumb">
+        <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+        <li><a href="<?=$PageUrl->assignDo('list')?>"><?=LangAdmin::get('Orders')?></a> <span class="divider">›</span></li>
+        <li class="active">№ <?=OrdersProxy::normalizeOrderId($order->id)?></li>
+    </ul>
+    <!--/.breadcrumb-->
+
+    <div class="ot_order_page">
+
+        <div class="row-fluid">
+
+            <h1 class="offset-vertical-none span6">№ <?=OrdersProxy::normalizeOrderId($order->id)?></h1>
+
+            <div class="span2">
+                <div class="btn-group pull-right">
+                    <button data-toggle="dropdown" class="btn btn-small dropdown-toggle offset-top05"><i class="icon-cog"></i> <?=LangAdmin::get('actions_with_order')?><span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li class="exportOrder" style="display:none">
+                            <a data-order-id="<?=$order->id?>" href="javascript:void(0)" title="<?=LangAdmin::get('Export') ?>">
+                                <i class="icon-share"></i><?=LangAdmin::get('Export') ?>
+                            </a>
+                        </li>
+                        <? if ((int)$order['CanRestore']) { ?>
+                        <li>
+                            <a  data-action="<?=$PageUrl->assignDo('restoreOrder')?>"
+                                class="restoreOrder" href="javascript:void(0)" title="<?=LangAdmin::get('Restore_order')?>"
+                            >
+                                <i class="icon-undo"></i> <?=LangAdmin::get('restore')?>
+                            </a>
+                        </li>
+                        <? } ?>
+                        <? if ((int)$order['CanCancel']) { ?>
+                        <li>
+                            <a  data-action="<?=$PageUrl->assignDo('cancelOrder')?>"
+                                class="cancelOrder" href="javascript:void(0)" title="<?=LangAdmin::get('Cancel')?>"
+                            >
+                                <i class="icon-ban-circle"></i> <?=LangAdmin::get('Cancel')?>
+                            </a>
+                        </li>
+                        <? } ?>
+                        <? if ((int)$order['CanClose']) { ?>
+                        <li>
+                            <a  data-action="<?=$PageUrl->assignDo('closeOrder')?>"
+                                class="closeOrder" href="javascript:void(0)" title="<?=LangAdmin::get('Close')?>"
+                            >
+                                <i class="icon-check"></i> <?=LangAdmin::get('Close')?>
+                            </a>
+                        </li>
+                        <? } ?>
+                        <?php
+                        $canBeMerged = array(
+                            10 => 10,
+                            11 => 11,
+                            20 => 20,
+                            30 => 30,
+                            31 => 31,
+                            32 => 32,
+                            36 => 36,
+                            37 => 37
+                            );
+                        if (in_array(intval($order->statuscode), $canBeMerged)) {?>
+                        <li>
+                            <a  class="mergeOrders" href="javascript:void(0)" title="<?=LangAdmin::get('Merge')?>"
+                            >
+                                <i class="icon-exchange"></i> <?=LangAdmin::get('Merge')?>
+                            </a>
+                        </li>
+                        <? } ?>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="span4 offset-top05 ot_order_filtered_nav">
+
+                <!-- filtered orders nav -->
+                <div class="pull-left">
+                    <div class="btn-group">
+                        <!--a href="orders/order" class="btn" title="К предыдущему отфильтрованному заказу"><i class="icon-circle-arrow-left font-14"></i></a-->
+                        <a href="<?=$PageUrl->assignDo('list')?>" class="btn" title="<?=LangAdmin::get('to_order_list')?>"><i class="icon-list-ul font-14"></i></a>
+                        <!--a href="orders/order" class="btn" title="К следующему отфильтрованному заказу"><i class="icon-circle-arrow-right font-14"></i></a-->
+                    </div>
+                </div>
+
+                <!-- order search field -->
+                <div class="pull-right">
+                    <form class="form ot_form ot_form_orders_filters offset-vertical-none" action="" method="get">
+                        <input type="hidden" name="cmd" value="orders" />
+                        <input type="hidden" name="do" value="list" />
+                        <input type="hidden" name="redirectToOrder" value="1" />
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><?=OrdersProxy::normalizeOrderId('ORD-')?></span>
+                            <input name="filter[number]" placeholder="<?=LangAdmin::get('Order_number')?>" class="input-small numeric" type="text" value="" />
+                            <button class="btn" type="submit" title="<?=LangAdmin::get('Find')?>"><i class="icon-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+            </div><!-- /.span4 .ot_order_filtered_nav -->
+        </div><!-- /.row-fluid -->
+
+        <div class="row-fluid">
+
+            <div class="<?=RightsManager::hasRight(RightsManager::RIGHT_VIEWUSERS) ? 'span8' : 'span12'?>">
+
+                <div class="well ot_order_summary">
+                    <div class="row-fluid">
+
+                        <div class="span7">
+                            <h4 class="offset-top0"><?=LangAdmin::get('Orderlabel')?></h4>
+                            <dl class="dl-horizontal dl-ot-horizontal dl-horizontal-large offset-vertical-none" id="orderInfo">
+                                <dt><?=LangAdmin::get('Status')?></dt>
+                                <dd><span class="label weight-normal orderStatus"><?=$order->StatusName?></span></dd>
+                                <dt><?=LangAdmin::get('Creation_date')?></dt>
+                                <dd>
+                                    <?=date('d.m.y', strtotime($order->CreatedDateTime))?>
+                                    <span class="muted font-11">
+                                        <?=date('H:i:s', strtotime($order->CreatedDateTime))?>
+                                    </span>
+                                </dd>
+                                <dt><?=LangAdmin::get('Goodss_price_in_order')?></dt>
+                                <dd class="goodsPrice"><? if($order) echo $order->getFormattedTotalAmount(); ?></dd>
+                                <dt><?=LangAdmin::get('Paid_remain_in_order')?></dt>
+                                <dd class="orderPaidRemainAmount">
+                                    <? if($order) echo $order->getPaidAmount(); ?> /
+                                    <?=TextHelper::formatPrice($order->remainamount, $order->currencysign)?>
+                                </dd>
+                                <dt><?=LangAdmin::get('Weight')?></dt>
+                                <dd class="orderWeight">
+                                    <? if (empty($order->packages)) { ?>
+                                        <div data-field="newWeight"></div>
+                                        <? XEditableFields::Register('newWeight', $order->weight, array(
+                                            'useWrapper' => false, 'useLabel' => false, 'pk' => $order->id, 'inputClass' => 'input-mini price',
+                                            'useLinkWrapper' => false,
+                                        )); ?>
+                                    <? } else { ?>
+                                        <?=$order->weight?>
+                                    <? } ?>
+                                    <span style="padding:0 5px 0 5px;"> <?=LangAdmin::get('kg')?> </span>
+                                    <? if (empty($order->packages)) { ?>
+                                    <button class="btn" id="showWeight" onclick="$('dd.spoiler_body').show('normal'); $('button#showWeight').hide('normal'); $('#addWeightArea').focus();">
+                                        <i class="icon-plus"></i>
+                                    </button>
+                                    <? } ?>
+                                </dd>
+                                <dd class="spoiler_body" style="display: none">
+                                    <input type="text" id="addWeightArea" step="any" class="input-mini weight onEnterAddWeight" style="margin: 0;">
+                                    <button  type="submit" class="btn btn-primary editable-submit" id ="addWeight" onclick="$('dd.spoiler_body').hide('normal'); $('button#showWeight').show('normal')">
+                                        <i class="icon-ok icon-white"></i>
+                                    </button>
+                                    <button type="reset" id="resetBtn" class="btn editable-cancel" onclick="$('dd.spoiler_body').hide('normal'); $('button#showWeight').show('normal')">
+                                        <i class="icon-remove"></i>
+                                    </button>
+                                </dd>
+                                <dt><?=LangAdmin::get('Delivery_cost')?></dt>
+                                <dd>
+                                    <span id="order-delivery-price">
+                                        <?=TextHelper::formatPrice($order->deliveryamount, $order->currencysign) ?>
+                                    </span>
+                                    <?
+                                        $accessDelivery = false;
+                                        foreach ($deliveryModes as $deliveryMode) {
+                                            if ($deliveryMode === $order->deliverymodename) {
+                                                $accessDelivery = true;
+                                                break;
+                                            }
+                                        }
+                                    ?>
+                                    <? if ($accessDelivery) { ?>
+                                        <? if ($canUpdateDeliveryMode) { ?>
+                                            <div data-field="deliveryMode"></div>
+                                            <? XEditableFields::Register(
+                                                'deliveryMode',
+                                                $order->deliverymodeid,
+                                                array(
+                                                    'useWrapper' => false,
+                                                    'useLabel' => false,
+                                                    'pk' => $order->id,
+                                                    'valuesList' => $deliveryModes,
+                                                    'callbackSuccess' => array(
+                                                        'response',
+                                                        'location.reload();'
+                                                    )
+                                                )
+                                            );
+                                            ?>
+                                        <? } ?>
+                                    <? } ?>
+                                         <? if ($accessDelivery === false) { ?>
+                                            <div class="alert alert-danger">
+                                                <?=$order->deliverymodename?><i class="icon-question-sign ot_inline_help" style=" margin-left: 5px" data-toggle="tooltip" data-placement="right" title="<?=LangAdmin::get('Delivery_not_available')?>"></i>
+                                            </div>
+                                         <? } ?>
+                                    <input type="hidden" id="deliveryAccess" value="<?=$accessDelivery?>">
+                                </dd>
+                                <dt><?=LangAdmin::get('Operator')?></dt>
+                                <dd>
+                                    <?=$this->escape($order->operatorname);?>&nbsp;
+                                </dd>
+                            </dl>
+                        </div>
+
+                        <div class="span4 offset1 orderItemsSummary">
+                            <h4 class="offset-top0"><?=LangAdmin::get('Products')?> (<span><?=count($order->items)?></span>)</h4>
+                            <dl class="dl-horizontal dl-horizontal-large dl-ot-horizontal offset-vertical-none">
+                            <? if ($order) { ?>
+                                <? foreach ($order->getItemsGrouppedByStatus() as $status => $count) { ?>
+                                    <dt><?=$status?></dt>
+                                    <dd><span class="badge weight-normal"><?=$count?></span></dd>
+                                <? } ?>
+                            <? } ?>
+                            </dl>
+                        </div>
+                    </div><!-- /.row-fluid -->
+                </div>
+
+                <div class="tabbable">
+
+                    <ul class="nav nav-tabs">
+                        <? if (RightsManager::hasRight(RightsManager::RIGHT_VIEWORDERLINE)) { ?>
+                            <li class="<?=$class?>"><a href="#ot_order_goods_tab" data-toggle="tab"><?=LangAdmin::get('Products')?></a></li>
+                        <? } ?>
+                        <? if (RightsManager::hasRight(RightsManager::RIGHT_VIEWPACKAGE)) { ?>
+                            <li><a href="#ot_order_packages_tab" data-toggle="tab"><?=LangAdmin::get('Packages_order')?></a></li>
+                        <? } ?>
+                        <li><a href="#ot_order_history_tab" data-toggle="tab"><?=LangAdmin::get('History')?></a></li>
+                        <?=Plugins::runEvent('onAdminAfterRenderOrderNavigation', array('order' => $order))?>
+                    </ul>
+
+                    <div class="tab-content">
+
+                        <? if ($order && RightsManager::hasRight(RightsManager::RIGHT_VIEWORDERLINE)) { ?>
+                        <div class="tab-pane tab-container" id="ot_order_goods_tab">
+                            <? include('view/order-goods-tab.html'); ?>
+                        </div><!-- /#ot_order_goods_tab -->
+                        <? } ?>
+
+                        <? if ($order && RightsManager::hasRight(RightsManager::RIGHT_VIEWPACKAGE)) { ?>
+                        <div class="tab-pane tab-container" id="ot_order_packages_tab">
+                            <? include('view/order-packages-tab.html'); ?>
+                        </div><!-- /#ot_order_packages_tab -->
+                        <? } ?>
+
+                        <div class="tab-pane tab-container" id="ot_order_history_tab">
+                            <? if ($order) { ?>
+                            <? include('view/order-history-tab.html'); ?>
+                            <? } ?>
+                        </div><!-- /#ot_order_packages_tab -->
+
+                        <?=Plugins::runEvent('onAdminAfterRenderOrderNavigationContent', array('order' => $order, 'itemsStatusList' => $itemsStatusList))?>
+                    </div>
+
+                </div><!-- /.tabbable -->
+
+            </div><!-- /.span8-->
+
+            <? if (RightsManager::hasRight(RightsManager::RIGHT_VIEWUSERS)) { ?>
+            <div class="span4">
+
+                <div class="well ot_order_sidebar">
+
+                    <div class="tabbable">
+
+                        <ul class="nav nav-pills">
+
+                            <li class="active"><a href="#ot_order_user_panel" data-toggle="tab"><em><?=LangAdmin::get('Customer')?></em></a></li>
+
+                            <li>
+                                <a href="#ot_order_support_panel" data-toggle="tab"><em><?=LangAdmin::get('Chat')?></em>
+                                    <span class="badge count-all"><?=count($order->ticketMessages)?></span>
+                                    <span class="badge badge-success"><?=$order->ticketMessagesNewCount?></span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="ot_order_user_panel">
+                                <? include('view/order-user-panel.html'); ?>
+                            </div><!-- /#ot_order_user_panel -->
+
+                            <div class="tab-pane" id="ot_order_support_panel">
+                                <? include('view/order-support-panel.html'); ?>
+                            </div><!-- /#ot_order_support_panel -->
+
+                        </div><!-- /.tab-content-->
+
+
+                    </div><!-- /.tabbable-->
+
+                </div><!-- /.well -->
+
+            </div><!-- /.span4 -->
+            <? } ?>
+        </div><!-- /.row-fluid -->
+
+    </div><!-- /.ot_order_page -->
+
+    <? if (CMS::IsFeatureEnabled('PhotoReport')) { ?>
+        <? AssetsMin::registerCssFile('/admin/js/ot-order-view/webcam/css/styles.css'); ?> <!--style.css-->
+        <? AssetsMin::registerJsFile('/admin/js/ot-order-view/webcam/webcam.js'); ?>
+        <? AssetsMin::registerJsFile('/admin/js/ot-order-view/upload.js'); ?>
+
+        <!-- order item photos addition window -->
+        <? include('view/add-order-item-photos-window.html'); ?>
+    <? } ?>
+
+</div><!-- /.order-view-wrapper -->
+
+<!-- TODO: Избавиться от дублирования. Переделать экспорт заказов/товаров по-нормальному. -->
+<?= Plugins::invokeEvent('onRenderAdminOrdersList') ?>
+<?= Plugins::invokeEvent('onRenderOrder') ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var Order = new Backbone.Model(<?=json_encode($order)?>);
+    var OrderItems = new Backbone.Collection(<?=json_encode(array_values($order->items))?>);
+    var OrderItemsStatusList = new Backbone.Collection(<?=json_encode($itemsStatusList->asArray())?>);
+    var Customer = new Backbone.Model(<?=json_encode($user->asArray())?>);
+    var CustomerAccount = new Backbone.Model(<?=json_encode($user->account)?>);
+    var InlineFields = new Backbone.Collection(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-order-view.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

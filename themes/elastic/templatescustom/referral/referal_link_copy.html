@@ -1,0 +1,14 @@
+<script>
+    $(document).ready(function () {
+        var clipboard = new ClipboardJS('#copy_referal_link');
+        clipboard.on('success', function (e) {
+            showMessage('<?=Lang::get('Copy_link_succes')?>');
+            e.clearSelection();
+        });
+    });
+</script>
+<?=Lang::loadJSTranslation(array('Copy_link_succes', Lang::get('Copy_link_succes')))?>
+<button class="btn btn-primary referal_link_copy" id="copy_referal_link" href="javascript:void(0);" data-clipboard-text="<?=$referalUrl?>">
+    <span><?=Lang::get('Copy')?></span>
+</button>
+<script src="/js/vendor/clipboard.min.js"></script>

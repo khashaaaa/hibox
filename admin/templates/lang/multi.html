@@ -1,0 +1,82 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('MultilingualSettings', 'default')?>"><?=LangAdmin::get('languages')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('multilingual')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<?=TabsGenerator::GetSubTabs('templates/translation/navigation/tabs.xml', $PageUrl)?>
+
+
+<h1><?=LangAdmin::get('multilingual')?></h1>
+
+
+<div class="well" id="lang-wrapper">
+
+<div class="row-fluid offset-bottom1">
+
+    <form action="<?=$PageUrl->assignDo('saveLangOrder')?>" method="post" id="lang-order">
+
+    <div class="span3">
+
+        <p><strong><?=LangAdmin::get('Showcase_languages')?></strong> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('Showcase_languages_hint_detailes')?>" title="" data-original-title=""></i></p>
+            <ol id="chosenItems" class="unstyled ot_sortable_list ot_sortable">
+                <?
+                $enabledLangs = array();
+                ?>
+                <? if($WebUI->UsedLanguages->string) foreach($WebUI->UsedLanguages->string as $lang){ ?>
+                    <?
+                    $enabledLangs[] = (string)$lang;
+                    $langDescription = '';
+                    foreach($WebUI->Languages->NamedProperty as $langSearch){
+                        if((string)$lang == (string)$langSearch->Name){
+                            $langDescription = (string)$langSearch->Description;
+                            break;
+                        }
+                    }
+                    ?>
+                    <li data-name="<?=(string)$lang?>"><span class="badge"><i class="icon-move" title="<?=LangAdmin::get('MoveTo')?>"></i>
+                            <?=$langDescription?> <i data-lang="<?=(string)$lang?>" class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i></span>
+                    </li>
+                <? } ?>
+            </ol>
+    </div>
+
+    <div class="span9">
+            <p><strong><?=LangAdmin::get('Add_language')?></strong></p>
+            <div class="row-fluid">
+                <select class="input-large select_searched_list span4" name="new_language">
+                    <? $hasItems = false;
+                    foreach ($WebUI->Languages->NamedProperty as $langSearch) {
+                        $hasItems = true;
+                        if (! in_array((string)$langSearch->Name, $enabledLangs)) {
+                            $langDescription = (string)$langSearch->Description;
+                            ?>
+                            <option value="<?=(string)$langSearch->Name?>">
+                                <?=(string)$langSearch->Description?>
+                            </option>
+                        <?
+                        }
+                    }
+                    ?>
+                </select>
+
+                <p class="span2">
+                    <button class="btn btn-small btn-primary<?=($hasItems ? '' : ' disabled')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Add')?>" data-loading-text="<i class='icon-plus'></i>" autocomplete="off" id="add-lang" type="button"><i class="icon-plus"></i>
+                    </button>
+                </p>
+            </div>
+    </div>
+
+    </form>
+
+</div>
+
+<button id="save-lang" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-languages.js'); ?>

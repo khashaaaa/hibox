@@ -1,0 +1,9 @@
+<% $.each(parameters.langVersions, function(lang, isActiveLang) { %>
+    <span class="label <%= (isActiveLang) ? 'label-success' : '' %>">
+        <%= lang == 'all' ? trans.get('all') : lang %>
+    </span>
+    <a href="javascript:void(0)" class="js-remove_config remove_config color-red no-line"
+       data-config="<%= name %>" data-config-lang="<%= lang %>"
+       title="<%= trans.get('Remove_config_lang_title') %>">
+        <i class="icon-remove"></i></a>
+<% }) %>

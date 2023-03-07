@@ -1,0 +1,182 @@
+/* navigation (begin) */
+
+  .menu-top
+  { }
+
+  .menu-user
+  { }
+
+  .menu-navigation.menu-top
+  { float: left }
+
+  .menu-user.menu-top
+  { float: right }
+
+  .menu-top .item
+  {
+    position: relative;
+    float: left;
+
+    line-height: 40px;
+  }
+
+  .menu-navigation .item
+  { margin-right: 15px; }
+
+  .menu-user .item
+  { margin-left: 15px; }
+
+  .menu-navigation a
+  { font-weight: bold }
+
+  .menu-user a.lang.arrow
+  {
+    position: relative;
+    z-index: 6;
+  }
+
+  .menu-user a.lang.arrow:after
+  {
+    margin-left: 3px;
+    content: '\25bc';
+    font-size: 8px;
+    color: #000;
+  }
+
+  .menu-user a.lang.arrow span
+  {
+    padding: 0;
+
+    background: none;
+    vertical-align: middle;
+  }
+
+  .menu-user a.lang i
+  {
+    display: inline-block;
+    height: 11px;
+    width: 16px;
+    background: url('../i/lang.png?v=2') no-repeat left top;
+    vertical-align: -1px;
+    text-indent: 100%;
+    overflow: hidden;
+  }
+
+  .menu-user a.lang i.ru
+  { background-position: 0 0 }
+
+  .menu-user a.lang i.en
+  { background-position: 0 -11px }
+
+  .menu-user a.lang i.de
+  { background-position: 0 -22px }
+
+  .menu-user a.lang i.fr
+  { background-position: 0 -44px }
+
+  .menu-user a.lang i.hy
+  { background-position: 0 -55px }
+
+  .menu-user a.lang i.es
+  { background-position: 0 -66px }
+
+  .menu-user a.lang i.it
+  { background-position: 0 -77px }
+
+  .menu-user a.lang i.bg
+  { background-position: 0 -88px }
+
+  .menu-user a.lang i.md
+  { background-position: 0 -99px }
+
+  .menu-user a.lang i.uk
+  { background-position: 0 -110px }
+
+  .menu-user a.lang i.bl
+  { background-position: 0 -121px }
+
+  .menu-user a.lang i.he
+  { background-position: 0 -132px }
+
+  .menu-user a.lang i.zh-chs
+  { background-position: 0 -143px }
+
+  .menu-user li a.lang i.ka
+  { background-position: 0 -154px }
+
+  .menu-user a.lang i.ro
+  { background-position: 0 -165px }
+
+  .menu-user a.lang i.ja
+  { background-position: 0 -187px }
+
+  .menu-user .menu-lang
+  {
+    display: none;
+    position: absolute;
+    left: -6px;
+    top: 8px;
+    z-index: 4;
+    padding: 20px 5px 2px 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #b2b2b2;
+  }
+
+  .sblocks .menu-lang .item
+  {
+    margin: 3px 0 0 0;
+  }
+
+  .menu-lang .lang i
+  { margin-right: 5px }
+
+  .menu-lang a.lang
+  {
+    margin-right: 6px;
+
+    line-height: normal;
+    color: #06c;
+    vertical-align: 2px;
+
+  }
+
+  .menu-lang .active
+  {
+    opacity: 0.5;
+    filter: (alpha=50% );
+  }
+
+  .menu-lang .active a
+  {
+    color: #4d4d4d;
+  }
+
+  /*
+  * Style For Right To Left
+  * (Hebrew)
+  */
+
+  .rtl .menu-top > .item
+  { float: right }
+
+  .rtl .menu-navigation.menu-top
+  {float: right}
+
+  .rtl .menu-user.menu-top
+  { float: left }
+
+  .rtl .menu-user a.lang.arrow:after
+  {
+    margin-left: 0;
+    margin-right: 3px;
+  }
+
+  .rtl .menu-lang .item
+  {
+    margin: 3px 0 0 10px;
+
+    direction: ltr;
+  }
+
+/* navigation (end) */

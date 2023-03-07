@@ -1,0 +1,163 @@
+<div class="list-products">
+    <div class="panel-grey">
+        <b><?=Lang::get('goods_list')?></b>
+    </div>
+    <div class="list-data-wrap">
+        <div class="list-data__icon">
+            <i class="icon-box-coment"></i>
+        </div>
+        <div class="list-data__content">
+            <?
+            $showOrderByIds = array(); // список уже отображенных заголовков групп
+            ?>
+
+            <? foreach ($basketGroups as $groupId => $groupData) { ?>
+                <? if ($groupId === 'TotalCost') continue; // пропускаем элемент содержащий цену ?>
+
+                <? if (isset($groupData['items'])) foreach($groupData['items'] as $i => $item) { ?>
+                    <?
+                    $itemweight = floatval(str_replace(',', '.', $item->weight));
+                    ?>
+
+                    <? if (!empty($groupId) && !in_array($groupId, $showOrderByIds) && $groupData['price'] > 0) { ?>
+                        <? $showOrderByIds[] = $groupId; ?>
+
+                        <div class="order-item-group-data-line">
+                            <div colspan="8" class="products-section">
+                                <span>
+                                   <?=$groupData['displayName'] ?>
+                                </span>
+                                <span style="float: right">
+                                    <?=TextHelper::formatPrice($groupData['price'], $groupData['sign']) ?>
+                                </span>
+                            </div>
+                        </div>
+                    <? } ?>
+
+                    <div class="list-products__row-item"
+                         id="item<?=$i?>"
+                         data-id="<?=$i?>"
+                         data-price="<?=$item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetValue()?>"
+                         data-sign="<?=$item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetSignAttribute()?>"
+                         data-weight="<?=$itemweight?>" data-vendor="<?=$item->vendorId?>"
+                    >
+                        <div class="list-products__col-img">
+                            <a href="<?=UrlGenerator::generateItemUrl($item->id, array('ConfigId' => $item->configurationId))?>" class="pic">
+                                <img src="<?=$item->getSmallImage('small')?>" alt="img">
+                            </a>
+                        </div>
+
+                        <div class="list-products__col-2">
+                            <div class="list-products__name">
+                                <a href="<?=UrlGenerator::generateItemUrl($item->id, array('ConfigId' => $item->configurationId))?>"
+                                   title="<?=$item->title?>"
+                                   alt="<?=$item->title?>"
+                                >
+                                    <?=$item->title?>
+                                </a>
+                            </div>
+
+
+                            <div class="list-products__link-group">
+                                <a href="javascript:void(0)" class="button button-delete button-delete-line" data-id="<?=$i?>">
+                                    <i></i><?=Lang::get('delete_item')?>
+                                </a>
+                            </div>
+
+                            <div class="list-products__comment">
+                                <div class="form-row">
+                                    <?=Lang::get('comments_for_operator')?>:
+                                    <? $itemComment = $this->escape($item->comment); ?>
+
+                                    <textarea name=""
+                                              itemid="<?=$i?>"
+                                              class="form-control item-comment comment-area"
+                                              data-action="<?=UrlGenerator::getUrl('order/set-item-comment')?>"
+                                    ><?=!empty($itemComment) ? $itemComment : ''?></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-products__col-3">
+                            <div class="list-products-table">
+                                <div class="list-products-table__row">
+                                    <div class="list-products-table__col1"><?=Lang::get('vendor')?>:</div>
+                                    <div class="list-products-table__col2">
+                                        <?=VendorHelper::generateLink($item->vendorId, $item->vendorName, array('title'=>$item->vendorName)) ?>
+                                    </div>
+                                </div>
+
+                                <div class="list-products-table__row">
+                                    <div class="list-products-table__col1"><?=Lang::get('category')?>:</div>
+                                    <div class="list-products-table__col2">
+                                        <a href="/?p=category&amp;cid=<?=$item->categoryId?>" alt="<?=$item->categoryName?>" title="<?=$item->categoryName?>">
+                                            <?=$item->categoryName?>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <? if ($item->configurationName) { ?>
+                                    <? foreach (explode(';', $item->configurationName) as $cfg){ ?>
+                                        <? if($cfg) {?>
+                                            <? $tmp_var = explode(':', $cfg);?>
+                                            <div class="list-products-table__row">
+                                                <div class="list-products-table__col1"><?=current($tmp_var); ?>:</div>
+                                                <div class="list-products-table__col2">
+                                                    <?=end($tmp_var);?>
+                                                </div>
+                                            </div>
+                                        <? } ?>
+                                    <? } ?>
+                                <? } ?>
+
+                                <div class="list-products-table__row">
+                                    <div class="list-products-table__col1"><?=Lang::get('unit_weight')?>:</div>
+                                    <div class="list-products-table__col2">
+                                        <? if (General::getConfigValue('hide_step_weight_order')) { ?>
+                                            <span class="item-weight"><?=number_format((float)$itemweight, 2, '.', " ")?></span>
+                                            &nbsp;<?=Lang::get('weight_kg')?>
+                                        <? } else { ?>
+                                            <input type="text"
+                                                   size="5"
+                                                   itemid="<?=$i?>"
+                                                   class="form-control weight weight-value input_numeric_float"
+                                                   value="<?=number_format((float)$itemweight, 2, '.', ' ') ?>"
+                                                   data-action="<?=UrlGenerator::getUrl('order/set-item-weight')?>"
+                                            >
+                                        <? } ?>
+                                    </div>
+                                </div>
+
+                                <div class="list-products-table__row">
+                                    <div class="list-products-table__col1"><?=Lang::get('quantity')?>:</div>
+                                    <div class="list-products-table__col2 item-qty">
+                                        <? $itemQty = intval($item->quantity); ?>
+                                        <?=$item->quantity?>
+                                    </div>
+                                </div>
+
+                                <div class="list-products-table__row">
+                                    <div class="list-products-table__col1"><?=Lang::get('total_weight')?>:</div>
+                                    <div class="list-products-table__col2 row-weight" itemid="<?=$i?>">
+                                        <span class="item-weight"><?=number_format((float)($itemweight * $itemQty), 2, '.', " ")?></span>
+                                        &nbsp;<?=Lang::get('weight_kg')?>
+                                    </div>
+                                </div>
+
+                                <div class="list-products-table__row">
+                                    <div class="list-products-table__col1"><?=Lang::get('Cost')?>:</div>
+                                    <div class="list-products-table__col2 row-weight" itemid="<?=$i?>">
+                                        <?=TextHelper::formatPrice($item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetValue(), $item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetSignAttribute())?>
+                                        <? if((isset($userdiscount)) && ($userdiscount['Discount'] != 0)){  ?>
+                                            <del><?=TextHelper::formatPrice($item->price->GetConvertedPriceList()->GetInternal()->GetValue(), $item->price->GetConvertedPriceList()->GetInternal()->GetSignAttribute())?></del>
+                                        <? } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <? } ?>
+            <? } ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+<div class="control-group control-group-medium">
+<% } %>
+    <% if(typeof parameters.useLabel === 'undefined' || parameters.useLabel == 'true'){ %>
+        <label class="control-label">
+            <%= trans.get(name + '_label') %>
+            <% if( trans.get(name + '_hint') != (name + '_hint') ){ %>
+                <i class="icon-question-sign ot_inline_help"
+                   data-toggle="popover"
+                   data-content="<%= trans.get(name + '_hint') %>"
+                   title=""
+                   data-original-title=""
+                >
+                </i>
+            <% } %>
+            <div class="configLangVersions" id="configLangVersions_<%= name %>"></div>
+        </label>
+    <% } %>
+    <div class="controls">
+        <a class="ot_inline_editable text-clipped"
+           href="#" data-name="<%= name %>"
+           data-type="textarea"
+           <% if(typeof parameters.emptytext !== 'undefined'){ %>
+               data-emptytext="<%= parameters.emptytext %>"
+           <% } %>
+           data-pk="5"
+           data-url="<%= saveUrl %>"
+            <% if(typeof parameters.inputClass !== 'undefined'){ %>
+                data-inputclass="<%= parameters.inputClass %>"
+            <% } %>
+           data-original-title=""
+           <% if (typeof parameters.placeholder !== 'undefined') { %>
+           data-placeholder="<%= parameters.placeholder %>"
+           <% } %>
+        >
+            <% if (value && (typeof parameters.displayValue !== 'undefined')){ %>
+                <%= parameters.displayValue %>
+            <% } else if (value){ %>
+                <%= value %>
+            <% } else if (typeof parameters.defaultValue !== 'undefined'){ %>
+                <%= parameters.defaultValue %>
+            <% } %>
+        </a>
+    </div>
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+</div>
+<% } %>

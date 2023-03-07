@@ -1,0 +1,54 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('internal')?>"><?=LangAdmin::get('Delivery_small')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Delivery_external_small')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/site_config/navigation/tabs.xml', $PageUrl)?>
+
+
+<!-- ot-sub-sub-nav -->
+<? require_once 'sub_nav.html'; ?>
+<!-- /ot-sub-sub-nav -->
+
+
+<h1><?=LangAdmin::get('Delivery_external_small')?>  <i class="icon-question-sign ot_inline_help ot-header-hint" data-toggle="popover" data-content="<?=LangAdmin::get('Delivery_external_hint')?>"></i></h1>
+
+
+
+<!-- configuration -->
+<div id="content-wrapper">
+
+        <div class="row-fluid offset-bottom1">
+            <div class="span7">
+                <? if (count($Delivery)) { ?>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="span6"><?=LangAdmin::get('Names')?></th>
+                            <th class="span1"><?=LangAdmin::get('Actions')?></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                            <? foreach ($Delivery as $item) { ?>
+                                <tr>
+                                    <td><?= $item['name']?></td>
+                                    <td>
+                                        <a class="btn btn-mini" href="<?=$PageUrl->AssignDo('editDelivery')?>&id=<?=$item['id']?>" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></a>
+                                        <a class="btn btn-mini ot_show_deletion_dialog_modal" data-href="<?=$PageUrl->AssignDo('deleteDelivery')?>" data-id="<?=$item['id']?>" data-name="<?=$item['name']?>" data-link="<?=$PageUrl->AssignDo('default')?>" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></a>
+                                    </td>
+                                </tr>
+                            <? } ?>
+                        </tbody>
+                    </table>
+                <? } ?>
+            </div>
+        </div>
+
+        <div class="controls">
+            <a id="add_new" class="btn btn-primary btn_preloader" href="<?=$PageUrl->AssignDo('editdelivery')?>"><?=LangAdmin::get('Add')?></a>
+        </div>
+</div>
+<? AssetsMin::registerJsFile('/admin/js/ot-shipment.js'); ?>

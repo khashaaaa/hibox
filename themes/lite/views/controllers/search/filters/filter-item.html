@@ -1,0 +1,44 @@
+    <div class="search-filter">
+        <label class="panel-title"><?= $property['name'] ?></label>
+        <? if (isset($isActive) && $isActive) {?>
+            <a href="#" class="glyphicon glyphicon-remove reset-one-filter" title="<?=Lang::get('reset_filter')?>"></a>
+        <? } ?>
+        <div>
+            <?
+            $filterI = 0;
+            $filterCount = count($property['values']['active']) + count($property['values']['other']);
+            foreach ($property['values']['active'] as $value) { ?>
+                <div class="search-params-filter">
+                    <input name="filters[<?=$property['id']?>]<?= $typeOfInput == 'checkbox' ? '[' . $value['id'] . ']' : '' ?>"
+                    value="<?=$value['id']?>" type="<?=$typeOfInput?>" checked="checked"
+                    class="check-search-input" />
+                    <a href="<?=$value['link']?>" class="search-click"><?=$value['name']?>
+                        <? if (!empty($value['itemCount'])) { ?>
+                            <span class="badge badge-primary"><?=$value['itemCount']?></span>
+                        <? } ?>
+                    </a>
+                </div>
+                <? $filterI = $filterI + 1; ?>
+            <? } ?>
+            <? foreach ($property['values']['other'] as $value) { ?>
+                <? if ($filterI == 8 && $filterCount > 8) { ?>
+                <div class="search-params-filter"><a href="" class="toogle-filters toogle-more-filters"><?=Lang::get('more')?></a> </div>
+                <? } ?>
+                <div class="search-params-filter <?=($filterI > 7) ? 'toogle hidden' : '' ?>">
+                    <input name="filters[<?= $property['id'] ?>]<?= $typeOfInput == 'checkbox' ? '[' . $value['id'] . ']' : '' ?>"
+                    value="<?=$value['id']?>" type="<?=$typeOfInput?>"
+                    class="check-search-input" />
+                    <a href="<?=$value['link']?>" class="search-click"><?=$value['name']?>
+                        <? if (!empty($value['itemCount'])) { ?>
+                            <span class="badge badge-primary"><?=$value['itemCount']?></span>
+                        <? } ?>
+                    </a>
+                </div>        
+                <? $filterI = $filterI + 1; ?>
+            <? } ?>            
+            <? if ($filterCount > 8) { ?>
+                <div class="search-params-filter toogle hidden"><a href="" class="toogle-filters toogle-hide-more-filters"><?=Lang::get('hide')?></a> </div>
+            <? } ?>
+            
+        </div>
+    </div>

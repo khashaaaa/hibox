@@ -1,0 +1,24 @@
+<a class="box-scroll-arrow" id="scroll-up">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+</a>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        $(document).scroll(function() {
+            var y = $(this).scrollTop();
+            if ( y > $(window).height() ) {
+                $('#scroll-up').fadeIn();
+            } else {
+                $('#scroll-up').fadeOut();
+            }
+        });
+
+        $('#scroll-up').click(function() {
+            $('body, html').animate({ scrollTop: 0 }, "slow");
+            return false;
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

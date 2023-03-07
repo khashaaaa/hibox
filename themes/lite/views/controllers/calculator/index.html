@@ -1,0 +1,84 @@
+<div class="box-main_calc">
+    <div class="box-main_calc_form">
+        <form action="<?=UrlGenerator::getUrl('calculator')?>" id="calculatorForm">
+            <div class="form-group box-main_calc_form_cost-row">
+                <label for="price"><?=Lang::get('ProductPrice')?>:<sup>*</sup></label>
+                <input type="text" name="price" id="price" value="<?=$priceItems?>" required />
+                <select id="currency" name="currency" required>
+                    <? foreach ($currencyList as $c) { ?>
+                        <option value="<?=$c->GetCode()?>" <? if ($c->GetCode() == $currency) print 'selected="selected"'; ?>>
+                            <?=$c->GetSign()?>
+                        </option>
+                    <? } ?>
+                </select>
+            </div>
+
+            <div class="form-group box-main_calc_form_country-row">
+                <label for="country"><?=Lang::get('country')?>:<sup>*</sup></label>
+                <select name="country" id="country" class="custom-select" required />
+                    <? foreach ($deliveryCountryList as $c) { ?>
+                        <option value="<?=$c->GetId()?>" <? if ($c->GetId() == $country) print 'selected="selected"'; ?>>
+                            <?=$c->GetName()?>
+                        </option>
+                    <? } ?>
+                </select>
+            </div>
+
+            <div class="form-group box-main_calc_form_weight-row">
+                <label for="weight"><?=Lang::get('Calculator_weight')?>:<sup>*</sup></label>
+                <input type="text" name="weight" id="weight" value="<?=$weight?>" required />
+            </div>
+
+            <button type="submit" class="center-block btn btn-default box-main_calc_form_btn" id="calc" data-loading-text="<?=Lang::get('loading')?>...">
+                <?=Lang::get('calculate')?>
+            </button>
+        </form>
+    </div>
+
+    <div id="deliveriesTable">
+        <?=$deliveriesTable?>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+    $('#price').numeric({allow:"."});
+    $('#weight').numeric({allow:"."});
+
+    $('#calc').click(function() {
+        // устанавливаем дефолтные значения при пустых полях
+        if ($('#price').val() === '') {
+            $('#price').val('0.00');
+        }
+        if ($('#weight').val() === '') {
+            $('#weight').val('0.00');
+        }
+
+        var btn = $('#calc');
+        btn.button('loading');
+        $('#deliveriesTable').html('');
+
+        $.post(
+                "<?=UrlGenerator::getUrl('calculator/getDeliveries')?>",
+                $('#calculatorForm').serialize(),
+                function (data) {
+                    if (!data.error) {
+                        $('#deliveriesTable').html(data.html);
+                    } else {
+                        showError(data);
+                    }
+                }, 'json'
+        ).complete(function () {
+            btn.button('reset');
+        });
+
+        // подменяем ссылку в браузере, поддержку перехода по истории не реализуем
+        var newUrl = "<?=UrlGenerator::getUrl('calculator', array('includeQuestionMark' => true))?>&"
+                + $('#calculatorForm').serialize();
+        history.replaceState('', '', newUrl);
+
+        return false;
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

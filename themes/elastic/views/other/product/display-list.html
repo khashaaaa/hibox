@@ -1,0 +1,92 @@
+<div class="product-item item-product-inside js-product-item"
+     data-product-id="<?=$item->id?>"
+     data-product-url="<?=UrlGenerator::toRoute('item', ['id' => $item->id])?>"
+>
+    <?=ProductsHelper::getHtmlFeatureListForLabel($item->features)?>
+    <div class="col-block1">
+        <div class="item-product__img">
+            <a href="<?=$item->url?>" class="item-product__img-a item-list_img-wrap">
+                <? if ($item->getMediumImage()) { ?>
+                <div class="product-image-wrapper">
+                    <img class="main-photo check-noimg" src="<?=$item->getMediumImage()?>" alt="<?=$this->escape($item->title)?>" itemprop="image">
+                </div>
+                <? } ?>
+                <div class="item-product__img_hover">
+                    <span class="button btn-quick-look js-product-btn-quick-look"><?=Lang::get('quick_look')?></span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row search-list__product-title">
+        <? if ($item->title) { ?>
+            <a href="<?=$item->url?>" class="item-product__title line-clamp"><?=$this->escape($item->title)?></a>
+        <? } ?>
+    </div>
+    <div class="item-product__add col-block4" style="float: left">
+        <? if ($item->vendorName) { ?>
+            <div class="item-product__seller"><span><?=Lang::get('vendor')?>:</span> <?= VendorHelper::generateLink($item->vendorId, $item->vendorName, array('class' => 'vendor-url'))?></div>
+        <? } ?>
+        <? if ($item->vendorScore) { ?>
+            <div class="item-product__rating">
+                <span><?=Lang::get('vendor_rating_baserus')?></span>
+                <div class="product-raiting">
+                    <i class="i-raiting <?=$item->provider?> raiting_<?=$item->vendorScore?>"></i>
+                </div>
+            </div>
+        <? } ?>
+        <a href="javascript:void(0)" class="add-favorite hidden"><i></i> <?=Lang::get('Add_item_to_fav')?></a>
+        <div class="search-list item-product__thumbnails" style="width: auto">
+            <? if (count($item->pictures) > 1) { ?>
+                <ul class="product-item-more-photos more-photos">
+                    <? foreach ($item->pictures as $picture) { ?>
+                        <li class="other-photo"
+                            img-src="<?=$picture['medium']?>"
+                            style="background-image: url(<?=$picture['small']?>)"
+                        ></li>
+                    <? } ?>
+                </ul>
+            <? } ?>
+        </div>
+    </div>
+    <div class="search-list__product-price item-product__price">
+        <? if ($item->displayPromoPrice) { ?>
+            <div class="item-product__price_new"><?=$item->displayPromoPrice?></div>
+            <div class="price-old__wrap">
+                <div class="item-product__price_old"><span><?=$item->displayPrice?></span></div>
+                <? if ($item->promotionPricePercent) { ?>
+                    <div class="item-product__price_discount">- <?=$item->promotionPricePercent?>%</div>
+                <? } ?>
+            </div>
+        <? } else {?>
+            <div class="item-list_cost">
+                <div class="item-list_cost_new" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                    <? if ($item->quantityRanges) { ?>
+                    <div class="list_quantity-ranges">
+                        <table class="table" title="<?=Lang::get('Prices_ranges')?>">
+                            <tbody>
+                            <? foreach ($item->quantityRanges as $range) { ?>
+                                <tr>
+                                    <td class="range"><?=$range['DisplayRange']?></td>
+                                    <td class="price"><?=$range['Price']?></td>
+                                </tr>
+                            <? } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <? } else { ?>
+                    <div class="item-product__price_new"><?=$item->displayPrice?></div>
+                    <? } ?>
+                </div>
+            </div>
+        <? } ?>
+        <? if ($item->salesInLast30Days !== null) { ?>
+            <div class="item-product__sold">
+                <div class="sold-block">
+                    <span title="<?=Lang::get('sales_volume1')?>"><?=Lang::get('sold')?>: <?=$item->salesInLast30Days?></span>
+                </div>
+            </div>
+        <? } ?>
+        <span class="button btn-quick-look js-product-btn-quick-look search-list__add-basket-btn"><?=Lang::get('Add_item_to_cart')?></span>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="well">
+    <legend>
+        <?=$displayName?>
+        <? if ($description) { ?>
+            <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+        <? } ?>
+    </legend>
+    <div class="row-fluid">
+        <?=$content?>
+    </div>
+</div>

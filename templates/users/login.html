@@ -1,0 +1,105 @@
+<?
+    $errorMsg = '';
+    $showError = Session::checkErrors() || $otapilib->error_code;
+    if ($showError) {
+        $errorCode = Session::getErrorCode() ? Session::getErrorCode() : (string) $otapilib->error_code;
+        $errorDescription = Session::getErrorDescription();
+        $errorMsg = $errorDescription ? $errorDescription :(string) $otapilib->error_message;
+        Session::clearError();
+    }
+?>
+<div class="tabs-content">
+    <div class="userform">
+
+        <? if (! empty($errorMsg)) { ?>
+            <div class="error">
+                <div class="error">
+                    <?=$errorMsg?>
+                </div>
+            </div>
+        <? } ?>
+
+        <? if (isset($successRecovery)) { ?>
+        <div class="success">
+            <?=$successRecovery?>
+        </div>
+        <? } ?>
+
+        <? if (RequestWrapper::get('reg_success')) { ?>
+        <div class="success">
+            <?=Lang::get('reg_success')?>
+        </div>
+        <? } ?>
+
+        <? if (! $emailRequiredForm) { ?>
+            <form action="<?=@UrlGenerator::generateContentUrl('login')?>" method="post" class="form">
+                <div class="form-row">
+                    <label for="username"><?=Lang::get('login_username')?></label>
+                    <input id="username" type="text" name="username"  class="form-field"/>
+                </div>
+
+                <div class="form-row">
+                    <label for="password"><?=Lang::get('password')?></label>
+                    <input id="password" type="password" name="password" class="form-field"/>
+                </div>
+
+                <div class="form-row">
+                    <label></label>
+                    <label for="remember" class="remeber">
+                        <input class="checkbox" id="remember" type="checkbox" name="remember" value="remember" />
+                        <?=Lang::get('remember')?>
+                    </label>
+                </div>
+
+                <? if (! empty($captcha)) { ?>
+                    <div class="form-row">
+                        <label>&nbsp;</label>
+                        <span class="input">
+                            <img id="siimage" style="border: 1px solid #000; margin-right: 15px" src="./lib/securimage/securimage_show.php?sid=<?php echo md5(uniqid()) ?>" alt="CAPTCHA Image" align="left">
+                            <object type="application/x-shockwave-flash" data="./lib/securimage/securimage_play.swf?audio_file=./lib/securimage/securimage_play.php&amp;bgColor1=#fff&amp;bgColor2=#fff&amp;iconColor=#777&amp;borderWidth=1&amp;borderColor=#000" height="32" width="32">
+                            <param name="movie" value="./lib/securimage/securimage_play.swf?audio_file=./lib/securimage/securimage_play.php&amp;bgColor1=#fff&amp;bgColor2=#fff&amp;iconColor=#777&amp;borderWidth=1&amp;borderColor=#000">
+                            </object>
+                            &nbsp;
+                            <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById('siimage').src = './lib/securimage/securimage_show.php?sid=' + Math.random(); this.blur(); return false"><img src="./lib/securimage/images/refresh.png" alt="Reload Image" onclick="this.blur()" align="bottom" border="0"></a><br />
+                            <?=Lang::get('input_captcha')?>:<br />
+                            <?php echo @$_SESSION['ctform']['captcha_error'] ?>
+                            <input type="text" name="ct_captcha" class="captchainp form-field" size="12" maxlength="8" />
+                        </span>
+                    </div>
+                <? } ?>
+
+                <div class="form-row enter">
+                    <label></label>
+                    <input type="submit" id="submitb" name="login" value="<?=Lang::get('login')?>" class="btn_office" />
+                </div>
+            </form>
+        <? } else { ?>
+            <p><?=Lang::get('Email_required_form_description')?>:</p>
+            <form action="" method="get" class="form">
+                <div class="form-row">
+                    <label for="username"><?=Lang::get('Email')?></label>
+                    <input type="text" name="email" value="<?=$email?>" class="form-field" />
+                </div>
+                <? if ($getPassword) { ?>
+                    <div class="form-row">
+                        <label for="password"><?=Lang::get('password')?></label>
+                        <input type="password" name="password" class="form-field" />
+                    </div>
+                <? } ?>
+                <input type="hidden" name="contextId" value="<?=$contextId?>" />
+                <input type="hidden" name="error" value="email_required" />
+
+                <div class="form-row enter">
+                    <label></label>
+                    <input type="submit" name="login" value="<?=Lang::get('login')?>" class="btn_office" />
+                </div>
+            </form>
+        <? } ?>
+
+        <? if (CMS::IsFeatureEnabled('ExternalAuthentication')) { ?>
+            <div class="form-row">
+                <?=General::runController('Authentication', 'renderAuthSystemList')?>
+            </div>
+        <? } ?>
+    </div>
+</div>

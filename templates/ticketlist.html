@@ -1,0 +1,26 @@
+<? if(count($ticketlist)){?>
+<table class="notepad">
+    <thead>
+        <tr>
+            <td><?=Lang::get('Post_date')?></td>
+            <td><?=Lang::get('msg_number')?></td>
+            <td><?=Lang::get('subject')?></td>
+            <td><?=Lang::get('Messages_total')?></td>
+            <td><?=Lang::get('Unread_messages')?></td>
+        </tr>
+    </thead>
+
+    <tbody>
+        <? foreach($ticketlist as $ticket){ ?>
+            <tr>
+                <td><?=$ticket['createddate']?></td>
+                <td><?=$ticket['ticketid']?></td>
+                <td><?=$ticket['category']?></td>
+                <td><?=(string)$ticket['msgcount']?></td>
+                <td><?=(string)$ticket['newmsgcount']?></td>
+            </tr>
+        <?  }  ?>
+    </tbody>
+</table>
+<br/><br/>
+<? } ?>

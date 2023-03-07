@@ -1,0 +1,54 @@
+
+<?=General::viewFetch('main/footer/content', array('vars' => array(
+'bottomMenu' => $bottomMenu, 'controller' => $controller
+)))?>
+
+<?=General::viewFetch('main/scroll-up')?>
+<?=General::viewFetch('main/check-noimg', ['path' => CFG_VIEW_ROOT])?>
+
+<? if (General::isSellFree()) { ?>
+    <?=General::viewFetch('main/sellfree-banner', ['path' => CFG_VIEW_ROOT])?>
+<? } ?>
+
+<!--noindex-->
+<?=General::getConfigValue('online_chat_code')?>
+<!--/noindex-->
+
+<?=General::viewFetch('main/confirmDialog-tpl', array())?>
+
+<? $errors = ErrorHandler::getErrors(); ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        <? if (! empty($errors)) foreach ($errors as $error) { ?>
+            showError("<?=TextHelper::htmlToJS($error)?>");
+        <? } ?>
+
+        <? if (Session::checkErrors()) { ?>
+            <? $message = Session::getErrorDescription(); ?>
+            showError("<?=TextHelper::htmlToJS($message)?>");
+        <? } ?>
+
+        <? $notifications = Session::getNotifications(); ?>
+        <? if (! empty($notifications)) foreach ($notifications as $notification) { ?>
+                showMessage("<?=TextHelper::htmlToJS($notification)?>");
+        <? } ?>
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<?=General::viewFetch('main/cron-run', ['path' => CFG_VIEW_ROOT])?>
+
+<?=Lang::loadJSTranslation(array('Show_queries_log', 'Debug_log', 'InfoMessage', 'error'))?>
+
+<?=AssetsMin::printJsFilesGroup('general.js', General::getThemeWebDir() . '/config')?>
+<?=AssetsMin::printJsFiles()?>
+<?=AssetsMin::printJs()?>
+ 
+<?=General::getConfigValue('html_for_footet')?>
+ 
+<?=Plugins::runEvent('onAfterRenderFooter');?>
+</body>
+</html>

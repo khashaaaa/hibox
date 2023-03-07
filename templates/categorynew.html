@@ -1,0 +1,38 @@
+<?= $HeaderNew ?>
+<?= $CrumbsNew ?>
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <!--h1><?//=$this->escape($GLOBALS['pagetitle'])?></h1-->
+        <? if(defined('CFG_USE_CURRENCIES_RECOUNT') && CFG_USE_CURRENCIES_RECOUNT){ ?>
+        <div class="clearfix recount-prices">
+            <a href="/?p=set_currency&c=UAH" class="btn-small fll"><span><?=Lang::get('Show_cost_in_grivna')?></span></a>
+            <a href="/?p=set_currency&c=RUB" class="btn-small fll"><span><?=Lang::get('Show_cost_in_rub')?></span></a>
+            <a href="/?p=set_currency&c=USD" class="btn-small fll"><span><?=Lang::get('Show_cost_in_dollars')?></span></a>
+        </div>
+        <? } ?>
+        <script src="js/GeoLocatet.js?<?=CFG_SITE_VERSION;?>"></script>
+        <link rel="stylesheet" href="css/GeoLocatet.css?<?=CFG_SITE_VERSION;?>" />
+        <form  method="post" id="GeoCurr">
+                     <input type='hidden' name='c' id="c">
+         </form>
+        <div style="position:relative;">
+            <?=Plugins::invokeEvent('ShowGeoLocate',array('LocalVal'=>@$_SESSION['CountryISO'])) ?>
+        </div>
+    </div>
+</div>
+
+<?= $ItemListNew ?>
+
+<? if (General::IsFeatureEnabled('Seo2')) { ?>
+    <div class="main">
+        <div class="wrap clearfix mt20">
+            <? if (General::getSeoCategoryImage($_GET['cid'])) { ?>
+                <img class="category-image" src="<?=General::getSeoCategoryImage($_GET['cid'])?>" />
+            <? } ?>
+            <?=General::getSeoText($_GET['cid'], Session::getActiveLang())?>
+        </div>
+    </div>
+<? } ?>
+
+<?= $FooterNew ?>

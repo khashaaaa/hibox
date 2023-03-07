@@ -1,0 +1,156 @@
+<div class="search-content_filters">
+    <div class="clearfix">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <? if ($searchResult->GetItems()->GetItems()->GetTotalCount()) { ?>
+                <div class="search-content_filters-filter search-content_filters-filter_shown-count">
+                    <?
+                        $from = $searchParams['filter']['from'] + 1;
+                        $to = $from + $searchParams['filter']['perPage'] - 1;
+                    ?>
+                    <?=Lang::get('shown')?>:
+                    <b>
+                        <?=Lang::get('from')?> <?=$from?>
+
+                        <?=Lang::get('to')?>
+                        <? if ($searchResult->GetItems()->GetItems()->GetTotalCount() > $to) { ?>
+                            <?= ($to < $activeSearchMethod->GetMaximumItemsCount()) ? $to : $activeSearchMethod->GetMaximumItemsCount() ?>
+                        <? } else { ?>
+                            <?=$searchResult->GetItems()->GetItems()->GetTotalCount()?>
+                        <? } ?>
+                    </b>
+
+                    <?=Lang::get('from2')?>
+                    <? if ($searchResult->GetItems()->GetItems()->GetTotalCount() > $activeSearchMethod->GetMaximumItemsCount()) { ?>
+                        <?=$activeSearchMethod->GetMaximumItemsCount()?>
+                    <? } else { ?>
+                        <?=$searchResult->GetItems()->GetItems()->GetTotalCount()?>
+                    <? } ?>
+
+                    <? if ($searchResult->GetItems()->GetItems()->GetTotalCount() > $activeSearchMethod->GetMaximumItemsCount()) { ?>
+                        <a href="javascript:void(0)" rel="tooltip" data-placement="right"
+                           title="<?=Lang::get('output_is_limited', array('pages' => $searchResult->GetItems()->GetMaximumPageCount()))?>"><span
+                                class="glyphicon glyphicon-info-sign"></span></a>
+                    <? } ?>
+                </div>
+            <? } ?>
+
+            <? if ($activeSearchMethod->PriceRange()) { ?>
+                <? // фильтр по цене ?>
+                <div class="search-content_filters-filter search-content_filters-filter_price-range">
+                    <? $formUrl = clone $baseUrl?>
+                    <form class="form-inline"
+                          action="<?=$formUrl->DeleteKey('cost')->DeleteKey('page')->DeleteKey('perpage')->Get()?>"
+                          method="get">
+                        <span class="form-group"><?=Lang::get('price_simple')?>:</span>
+                        <span class="form-group">
+                            <input type="text" name="cost[from]" class="form-control input-cost"
+                                   value="<?=! empty($searchParams['filter']['minPrice']) ? $searchParams['filter']['minPrice'] : ''?>" style="display: inline"/>
+                        </span>
+                        <span class="form-group">
+                            <input type="text" name="cost[to]" class="form-control input-cost"
+                                   value="<?=! empty($searchParams['filter']['maxPrice']) ? $searchParams['filter']['maxPrice'] : ''?>" style="display: inline"/>
+                        </span>
+                        <button type="submit" class="but search-click"><?=Lang::get('ok')?></button>
+                    </form>
+                </div>
+            <? } ?>
+
+            <? if ($activeSearchMethod->FirstLotRange()) { ?>
+                <? // фильтр по минимальной партии ?>
+                <div class="search-content_filters-filter search-content_filters-filter_first-lot-range">
+                    <? $formUrl = clone $baseUrl?>
+                    <form class="form-inline"
+                          action="<?=$formUrl->DeleteKey('firstLotRange')->DeleteKey('page')->DeleteKey('perpage')->Get()?>"
+                          method="get">
+                        <span class="form-group"><?=Lang::get('minimal_lot')?>:</span>
+                        <? if (in_array($activeSearchMethod->GetFirstLotRangeLogic(), array('Range', 'OnlyMin'))) { ?>
+                            <span class="form-group">
+                                <input type="text" name="firstLotRange[from]" class="form-control input-cost"
+                                       value="<?=! empty($searchParams['filter']['minFirstLot']) ? $searchParams['filter']['minFirstLot'] : ''?>" style="display: inline"/>
+                            </span>
+                        <? } ?>
+                        <? if (in_array($activeSearchMethod->GetFirstLotRangeLogic(), array('Range', 'OnlyMax'))) { ?>
+                            <span class="form-group">
+                                <input type="text" name="firstLotRange[to]" class="form-control input-cost"
+                                       value="<?=! empty($searchParams['filter']['maxFirstLot']) ? $searchParams['filter']['maxFirstLot'] : ''?>" style="display: inline"/>
+                            </span>
+                        <? } ?>
+                        <button type="submit" class="but search-click"><?=Lang::get('ok')?></button>
+                    </form>
+                </div>
+            <? } ?>
+
+            <? if ($activeSearchMethod->VendorRatingRange()) { ?>
+                <? // фильтр по рейтингу продавца ?>
+                <div class="search-content_filters-filter search-content_filters-filter_first-lot-range">
+                    <? $formUrl = clone $baseUrl?>
+                    <form class="form-inline"
+                          action="<?=$formUrl->DeleteKey('rating')->DeleteKey('page')->DeleteKey('perpage')->Get()?>"
+                          method="get">
+                        <span class="form-group"><?=Lang::get('vendor_rating_baserus')?>:</span>
+                        <span class="form-group">
+                            <input type="text" name="rating[from]" class="form-control input-cost"
+                                   value="<?=! empty($searchParams['filter']['minRating']) ? $searchParams['filter']['minRating'] : ''?>" style="display: inline"/>
+                        </span>
+                        <span class="form-group">
+                            <input type="text" name="rating[to]" class="form-control input-cost"
+                                   value="<?=! empty($searchParams['filter']['maxRating']) ? $searchParams['filter']['maxRating'] : ''?>" style="display: inline"/>
+                        </span>
+                        <button type="submit" class="but search-click"><?=Lang::get('ok')?></button>
+                    </form>
+                </div>
+            <? } ?>
+
+            <? if ($activeSearchMethod->VolumeRange()) { ?>
+            <? // фильтр по кол-ву продаж ?>
+            <div class="search-content_filters-filter search-content_filters-filter_first-lot-range">
+                <? $formUrl = clone $baseUrl?>
+                <form class="form-inline"
+                      action="<?=$formUrl->DeleteKey('count')->DeleteKey('page')->DeleteKey('perpage')->Get()?>"
+                      method="get">
+                    <span class="form-group"><?=Lang::get('purchases_count')?>:</span>
+                    <? if (in_array($activeSearchMethod->GetVolumeRangeLogic(), array('Range', 'OnlyMin'))) { ?>
+                        <span class="form-group">
+                            <input type="text" name="count[from]" class="form-control input-cost"
+                                   value="<?=! empty($searchParams['filter']['minVolume']) ? $searchParams['filter']['minVolume'] : ''?>" style="display: inline"/>
+                        </span>
+                    <? } ?>
+                    <? if (in_array($activeSearchMethod->GetVolumeRangeLogic(), array('Range', 'OnlyMax'))) { ?>
+                        <span class="form-group">
+                            <input type="text" name="count[to]" class="form-control input-cost"
+                                   value="<?=! empty($searchParams['filter']['maxVolume']) ? $searchParams['filter']['maxVolume'] : ''?>" style="display: inline"/>
+                        </span>
+                    <? } ?>
+                    <button type="submit" class="but search-click"><?=Lang::get('ok')?></button>
+                </form>
+            </div>
+            <? } ?>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 sort-search">
+            <? if ($activeSearchMethod->GetAvailableSorts()->GetSort()) { ?>
+                <div class="search-sortby">
+		            <? $sortBy = $searchParams['filter']['sortBy']; ?>
+	                <form class="form-inline" role="form" action="<?=$baseUrl->Get()?>">
+	                    <span class="form-group"><?=Lang::get('sort_by')?>:</span>
+	                    <span class="form-group">
+	                        <select name="sort_by" data-form="sortby-form" class="form-control search-click"
+	                                style="width: 180px; display: inline">
+	                            <? foreach ($activeSearchMethod->GetAvailableSorts()->GetSort() as $sort) { ?>
+	                            <option value="<?=$sort->GetOrderBy()?>"
+	                            <?= ($sortBy == $sort->GetOrderBy()) ? 'selected' : ''?> ><?=$sort->
+	                            GetDisplayName()?></option>
+	                            <? } ?>
+	                        </select>
+	                    </span>
+	                </form>
+                </div>
+            <? } ?>
+
+            <div class="search-layout">
+                <?=General::viewFetch('controllers/search/filters/layout', array('vars' => array(
+                    'layout' => $searchParams['layout'], 'baseUrl' => clone $baseUrl
+                )))?>
+            </div>            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+<?=LangAdmin::get('update_order')?> <?=$orderid?> <br/>
+<?=LangAdmin::get('change_item_price')?> <?=$itemid?><br/>
+<?=LangAdmin::get('new_price_is')?>  <?=TextHelper::formatPrice($newprice, $currency)?><br/>
+<?=LangAdmin::get('get_more_info')?>  <a href="<?=UrlGenerator::generateOrderDetailsUrl($orderid, array('tab' => 2),true)?>"><?=LangAdmin::get('link1')?></a>

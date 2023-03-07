@@ -1,0 +1,130 @@
+<div class="bigtitle"><div class="wrap clrfix">
+	<h1><?=Lang::get('site_map')?></h1>
+</div></div>
+<div class="main sitemap">
+    <div class="wrap clrfix">
+        <div class="flr col900">
+            <div class="bproduct">
+
+                <? if (! empty($pages)) { ?>
+                    <h2 class="mb25"><span><?=Lang::get('site_pages')?></span></h2>
+                    <div class="pages_wrapper clrfix">
+                        <?
+                            $count = count($pages);
+                            $counter = 0;
+                        ?>
+                        <div class="col330 mr30 fll">
+                            <? foreach ($pages as $p) { ?>
+
+                                <? if ($counter == ceil(($count)/2)) { ?>
+                                    </div>
+                                    <div class="col330 fll">
+                                <? } ?>
+                                <? $counter++; ?>
+
+                                <div class="boxCategory clrfix">
+                                    <a href="<?=@UrlGenerator::generateContentUrl($p['alias'])?>" class="pages_link" ><?=$p['title']?></a>
+                                    <? if (! empty($p['subpages'])) { ?>
+                                        <ul class="lcategory w12 clrfix">
+                                        <? foreach ($p['subpages'] as $sp) { ?>
+                                            <li>
+                                                <a href="<?=@UrlGenerator::generateContentUrl($sp['alias'])?>" ><?=$sp['title']?></a>
+                                            </li>
+                                        <? } ?>
+                                        </ul>
+                                    <? } ?>
+                                </div>
+
+                            <? } ?>
+                        </div>
+                    </div>
+                <? } ?>
+
+                <? if (! empty($digest)) { ?>
+                    <h2 class="mb25"><span><?=Lang::get('digest')?></span></h2>
+                    <div class="clrfix">
+                        <div class="col330 mr30 fll">
+                            <?
+                            $count = count($digest);
+                            $counter = 0;
+                            foreach ($digest as $d) {
+                                if ($counter == ceil($count/2)) { ?>
+                                    </div>
+                                    <div class="col330 fll">
+                                <? } ?>
+                                <? $counter++; ?>
+                                <div class="boxCategory clrfix">
+
+                                    <? if (count($d['articles'])>0 && (! empty($d['alias']))) { ?>
+                                        <div class="toggle">+</div>
+                                    <? } ?>
+
+                                    <a href="<?=UrlGenerator::generateDigestUrl('digest', $d['alias'])?>" class="category_title" >
+                                        <?=$d['title']?>
+                                    </a>
+                                    <ul class="lcategory w12 clrfix" <?=(empty($d['alias'])) ? 'style="display:block !important"' : ''?>>
+                                        <? if (! empty($d['articles'])) { ?>
+                                            <? foreach ($d['articles'] as $ad) { ?>
+                                                <li><a href="<?=UrlGenerator::generatPostUrl('post', $ad['id'], $ad['alias'])?>"><?=$ad['title']?></a></li>
+                                            <? } ?>
+                                        <? } ?>
+                                    </ul>
+                                </div>
+                            <? } ?>
+                        </div>
+                    </div>
+                <? } ?>
+
+                <? if (! empty($treeCats)) { ?>
+                    <h2 class="mb25"><span><?=Lang::get('subcategories_and_subsections')?></span></h2>
+                    <div class="clrfix">
+                        <div class="col330 mr30 fll">
+                            <?
+                            $count = count($treeCats);
+                            $counter = 0;
+                            foreach ($treeCats as $cat) {
+                                if ($counter == ceil($count/2)) {
+                                    ?>
+                                    </div>
+                                    <div class="col330 fll">
+                                <? } ?>
+                                <? $counter++; ?>
+                                <div class="boxCategory clrfix">
+
+                                    <? if (count($cat['children'])>0) { ?>
+                                        <div class="toggle">+</div>
+                                    <? } ?>
+
+                                    <a href="<?=General::generateUrl('subcategory', $cat)?>" class="category_title" >
+                                        <?=$cat['Name']?>
+                                    </a>
+                                    <ul class="lcategory w12 clrfix">
+                                        <? if (! empty($cat['children'])) { ?>
+                                            <? foreach ($cat['children'] as $c) { ?>
+                                                <li><a href="<?=General::generateUrl('subcategory', $c)?>"><?=$c['Name']?></a></li>
+                                            <? } ?>
+                                        <? } ?>
+                                    </ul>
+                                </div>
+                            <? } ?>
+                        </div>
+                    </div>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+</div>
+<!--noindex-->
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('.toggle').click(function() {                                 
+	        $(this).parent().find('ul').slideToggle();
+	        if ($(this).text() == '-') {
+	            $(this).text('+');
+	        } else {
+	            $(this).text('-');
+	        }
+	    });
+	});
+</script>
+<!--/noindex-->

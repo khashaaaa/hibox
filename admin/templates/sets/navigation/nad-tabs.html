@@ -1,0 +1,20 @@
+<h1><?=LangAdmin::get('Selector')?></h1>
+
+<ul class="nav nav-tabs">
+    <li class="<?=$PageUrl->GetAction() == 'categories' ? 'active' : ''?>">
+        <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'categories')?>"><?=LangAdmin::get('Sets_on_index_page')?></a>
+    </li>
+    <li class="<?=$PageUrl->GetAction() == 'categoriesSettings' ? 'active' : ''?>">
+        <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'categoriesSettings')?>"><?=LangAdmin::get('config')?></a>
+    </li>
+    <? if (CMS::IsFeatureEnabled('AutoRatingLists')) { ?>
+    <li class="<?=$PageUrl->GetAction() == 'autosets' ? 'active' : ''?>">
+        <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'autosets')?>"><?=LangAdmin::get('Autosets')?></a>
+    </li>
+    <? } ?>
+    <? if (CMS::IsFeatureEnabled('SelectorExporter') && RightsManager::hasRight('SelectorExportingManagement')) { ?>
+    <li class="<?=$PageUrl->GetAction() == 'export' ? 'active' : ''?>">
+        <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'export')?>"><?=LangAdmin::get('Export')?></a>
+    </li>
+    <? } ?>
+</ul>

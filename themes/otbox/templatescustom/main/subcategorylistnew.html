@@ -1,0 +1,70 @@
+<div class="content-main container">
+	<div class="row">
+        <? if ($rootcats) { ?>
+			<aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas hidden-xs">
+                <div class="module category-style">
+				    <h3 class="modtitle"><?= Lang::get('categories') ?></h3>
+                    <div class="mod-content box-category">
+                        <ul>
+                            <? if (is_array($rootcats)) foreach ($rootcats as $cat) { ?>
+                            <?
+                                        $active = '';
+                                        if($cat['id'] == $cid || in_array($cat['id'], $ids_path)){
+                                            $active = ' class="active"';
+                                        }
+                                    ?>
+                            <? if ($cat['ishidden'] == 'false') { ?>
+                            <? if ($cat['isparent'] == 'false') { ?>
+                            <li class="item"><a <?=$active?> href="<?=General::generateUrl('category', $cat)?>"><?= $this->escape($cat['name']) ?></a></li>
+                            <? } else { ?>
+                            <li class="item"><a <?=$active?> href="<?=General::generateUrl('subcategory', $cat)?>"><?= $this->escape($cat['name']) ?></a></li>
+                            <? } ?>
+                            <? } ?>
+                            <? } ?>
+                        </ul>
+                    </div>
+                </div>
+			</aside>
+        <? } ?>
+
+        <? if ($subcats_prev) { ?>
+            <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas hidden-xs">
+                <div class="module category-style">
+                    <h3 class="modtitle"><?= Lang::get('subcategories') ?></h3>
+                    <div class="mod-content box-category">
+                        <ul>
+                            <? if (is_array($subcats)) foreach ($subcats_prev as $cat) { ?>
+                                <? if ($cat['ishidden'] == 'false') { ?>
+                                    <? if ($cat['isparent'] == 'false') { ?>
+                                        <li class="item"><a href="<?=General::generateUrl('category', $cat)?>"><?= $this->escape($cat['name']) ?></a></li>
+                                    <? } else { ?>
+                                        <li class="item"><a <?= ($cat['id'] == $cid ? 'class="active"' : '') ?> href="<?=General::generateUrl('subcategory', $cat)?>"><?= $this->escape($cat['name']) ?></a></li>
+                                    <? } ?>
+                                <? } ?>
+                            <? } ?>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        <? } ?>
+
+        <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-off canvas">
+            <div class="module category-style">
+				<h3 class="modtitle"><?= Lang::get('subcategories') ?></h3>
+                <div class="mod-content box-category">
+                    <ul>
+                        <? if (is_array($subcats)) foreach ($subcats as $cat) { ?>
+                        <? if ($cat['ishidden'] == 'false') { ?>
+                        <? if ($cat['isparent'] == 'false') { ?>
+                        <li class="item"><a href="<?=General::generateUrl('category', $cat)?>"><?= $this->escape($cat['name']) ?></a></li>
+                        <? } else { ?>
+                        <li class="item"><a href="<?=General::generateUrl('subcategory', $cat)?>"><?= $this->escape($cat['name']) ?></a></li>
+                        <? } ?>
+                        <? } ?>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+			</aside>
+	</div>
+</div>

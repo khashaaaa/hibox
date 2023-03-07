@@ -1,0 +1,28 @@
+<? if (!empty($availableSearchMethodList) && count($availableSearchMethodList) > 1) { ?>
+    <div class="search-content_search-method">
+        <h4 class="panel-heading"><?=Lang::get('available_searchs')?></h4>
+        <ul>
+            <? foreach ($availableSearchMethodList as $type) { ?>
+                <li>
+                    <a class="btn btn-provider search-click <?= ($type->GetSearchMethod() == $activeSearchMethod->GetSearchMethod() && $type->GetProvider() == $activeSearchMethod->GetProvider()) ? 'btn-provider-active btn-success' : '' ?>"
+                        href="<?=UrlGenerator::generateSearchUrlByParams(array(
+                                'Provider' => InstanceProvider::getObject()->GetAliasByProviderName(
+                                    Session::getActiveLang(),
+                                    $type->GetProvider()
+                                ),
+                                'SearchMethod' => $type->GetSearchMethod(),
+                                'imageId' => $searchParams['imageId'],
+                                'module' => $searchParams['module'],
+                                'vid' => $searchParams['vid'],
+                                'brand' => $searchParams['brand'],
+                                'cid' => $searchParams['cid'],
+                                'search' => $searchParams['searchWord'],
+                         ))?>">
+                        <?=$type->GetDisplayName()?>
+                    </a>
+                </li>
+            <? } ?>
+        </ul>
+    </div>
+<? } ?>   
+    

@@ -1,0 +1,344 @@
+<fieldset class="clearfix">
+    <div class="row-fluid">
+        <form class="form-horizontal inline_editable_form ot_form" enctype="multipart/form-data">
+            <fieldset class="clearfix custom_css">
+                <div class="span6">
+                    <legend class="legend-small"><?=LangAdmin::get('Control_design')?></legend>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_design_color_1_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_design_color_1_elastic', $config->get('custom_scss_design_color_1_elastic', '#fc8215'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_design_color_2_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_design_color_2_elastic', $config->get('custom_scss_design_color_2_elastic', '#f3f3f3'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_body_text_color_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_body_text_color_elastic', $config->get('custom_scss_body_text_color_elastic', '#000'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_border_color_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_border_color_elastic', $config->get('custom_scss_border_color_elastic', '#297e52'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_success_color_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_success_color_elastic', $config->get('custom_scss_success_color_elastic', '#5cb85c'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_info_color_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_info_color_elastic', $config->get('custom_scss_info_color_elastic', '#428bca'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_warning_color_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_warning_color_elastic', $config->get('custom_scss_warning_color_elastic', '#eea236'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_danger_color_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_danger_color_elastic', $config->get('custom_scss_danger_color_elastic', '#f63d45'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_after_scss_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_after_scss_elastic', $config->get('custom_scss_after_scss_elastic'), array(
+                            'displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <button id="compile-custom-scss" class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Save')?>" data-loading-text="<?=LangAdmin::get('Saving')?>" type="button">
+                            <?=LangAdmin::get('Save')?>
+                        </button>
+                        <button id="delete-custom-scss" class="btn btn-small btn-danger" href="javascript:void(0)" title="<?=LangAdmin::get('Delete_custom_css')?>" data-loading-text="<?=LangAdmin::get('loading')?>" type="button">
+                            <?=LangAdmin::get('Delete_custom_css')?>
+                        </button>
+                    </div>
+                    <? if (OTBase::isTest()) { ?>
+                        <div class="control-group control-group-medium">
+                            <button id="compile-scss" class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Compile_screen_scss')?>" data-loading-text="<?=LangAdmin::get('Saving')?>" type="button">
+                                <?=LangAdmin::get('Compile_screen_scss')?>
+                            </button>
+                        </div>
+                    <? } ?>
+                </div>
+                <div class="span6">
+                    <legend class="legend-small"><?=LangAdmin::get('Background_image')?></legend>
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="custom_scss_body_background_color_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_body_background_color_elastic', $config->get('custom_scss_body_background_color_elastic', '#ffffff'), array('displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <form enctype="multipart/form-data">
+                            <div class="controls">
+                                <div class="ot-uploader">
+                                    <img class="image-preview" default="/i/nobg.png" src="<?=$config->get('custom_scss_body_background_image_elastic', '/i/nobg.png', false)?>"/>
+                                    <div class="actions">
+                                        <?php $isNew = ! $config->get('custom_scss_body_background_image_elastic'); ?>
+                                        <span style="display: <?=($isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-new"><?=LangAdmin::get('Upload')?></span>
+                                        <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-exists"><?=LangAdmin::get('Change')?></span>
+
+                                        <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-remove"><?=LangAdmin::get('Remove')?></span>
+                                        <span style="display: none" class="btn btn-primary btn-save" action="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'saveBackground')?>"><i class="icon-ok icon-white"></i></span>
+
+                                        <input style="display: none" class="input-image" name="input_image" type="file" />
+                                        <input type="hidden" name="delete_image" value="0" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div id="custom_scss_background_repeat_container" class="control-group control-group-medium">
+                        <div data-field="custom_scss_background_repeat_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_background_repeat_elastic', $config->get('custom_scss_background_repeat_elastic', 'no-repeat'), array(
+                            'displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div id="custom_scss_background_position_container" class="control-group control-group-medium">
+                        <div data-field="custom_scss_background_position_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_background_position_elastic', $config->get('custom_scss_background_position_elastic', 'center'), array(
+                            'displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+
+                    <div id="custom_scss_background_attachment_container" class="control-group control-group-medium">
+                        <div data-field="custom_scss_background_attachment_elastic"></div>
+                        <? XEditableFields::Register('custom_scss_background_attachment_elastic', $config->get('custom_scss_background_attachment_elastic', 'scroll'), array(
+                            'displayValue' => LangAdmin::get('Filled'),
+                        )); ?>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class="span6">
+            <form class="form-horizontal inline_editable_form ot_form">
+                <legend class="legend-small"><?=LangAdmin::get('elastic_banner_1')?></legend>
+
+                <div data-field="elastic_banner_1_title"></div>
+                <? XEditableFields::Register('elastic_banner_1_title', General::getConfigValue('elastic_banner_1_title', null, true, Session::get('active_lang_siteconfiguration')), array('editable' => false)); ?>
+
+                <div data-field="elastic_banner_1_subtitle"></div>
+                <? XEditableFields::Register('elastic_banner_1_subtitle', General::getConfigValue('elastic_banner_1_subtitle', null, true, Session::get('active_lang_siteconfiguration')), array('editable' => false)); ?>
+
+                <div data-field="elastic_banner_1_link"></div>
+                <? XEditableFields::Register('elastic_banner_1_link', General::getConfigValue('elastic_banner_1_link', null, true, Session::get('active_lang_siteconfiguration'))); ?>
+            </form>
+            <form class="form-horizontal inline_editable_form ot_form" enctype="multipart/form-data">
+            <div class="control-group control-group-medium">
+                <label class="control-label"><?=LangAdmin::get('elastic_banner_1_img_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('elastic_banner_1_img_hint')?>" title=""></i></label>
+                <div class="controls">
+                    <div class="ot-uploader">
+                        <?
+                            if (is_null($config->get('elastic_banner_1_img'))) {
+                                $imgSrc = General::getThemeWebDir() . '/img/banner-img2.png';
+                            } else {
+                                $imgSrc = $config->get('elastic_banner_1_img', '/i/noimg.png', false);
+                            }
+                        ?>
+                        <img class="image-preview" src="<?=$imgSrc?>" default="<?='/i/noimg.png'?>" style="max-height: 160px"/>
+                        <div class="actions">
+                            <?php $isNew = ! $config->get('elastic_banner_1_img'); ?>
+                            <span style="display: <?=($isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-new"><?=LangAdmin::get('Upload')?></span>
+                            <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-exists"><?=LangAdmin::get('Change')?></span>
+
+                            <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-remove"><?=LangAdmin::get('Remove')?></span>
+                            <span style="display: none" class="btn btn-primary btn-save" action="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'saveAdditionalBanner1')?>"><i class="icon-ok icon-white"></i></span>
+
+                            <input style="display: none" class="input-image" name="additional-banner" type="file" />
+                            <input type="hidden" name="delete_image" value="0" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="span6">
+            <form class="form-horizontal inline_editable_form ot_form">
+
+                <legend class="legend-small"><?=LangAdmin::get('elastic_banner_2')?></legend>
+
+                <div data-field="elastic_banner_2_title"></div>
+                <? XEditableFields::Register('elastic_banner_2_title', General::getConfigValue('elastic_banner_2_title', null, true, Session::get('active_lang_siteconfiguration')), array('editable' => false)); ?>
+
+                <div data-field="elastic_banner_2_subtitle"></div>
+                <? XEditableFields::Register('elastic_banner_2_subtitle', General::getConfigValue('elastic_banner_2_subtitle', null, true, Session::get('active_lang_siteconfiguration')), array('editable' => false)); ?>
+
+                <div data-field="elastic_banner_2_link"></div>
+                <? XEditableFields::Register('elastic_banner_2_link', General::getConfigValue('elastic_banner_2_link', null, true, Session::get('active_lang_siteconfiguration'))); ?>
+            </form>
+            <form class="form-horizontal inline_editable_form ot_form" enctype="multipart/form-data">
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('elastic_banner_2_img_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('elastic_banner_2_img_hint')?>" title=""></i></label>
+                    <div class="controls">
+                        <div class="ot-uploader">
+                            <?
+                            if (is_null($config->get('elastic_banner_2_img'))) {
+                                $imgSrc = General::getThemeWebDir() . '/img/banner-img3.png';
+                            } else {
+                                $imgSrc = $config->get('elastic_banner_2_img', '/i/noimg.png', false);
+                            }
+                            ?>
+                            <img class="image-preview" src="<?=$imgSrc?>" default="<?='/i/noimg.png'?>" style="max-height: 160px"/>
+                            <div class="actions">
+                                <?php $isNew = ! $config->get('elastic_banner_2_img'); ?>
+                                <span style="display: <?=($isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-new"><?=LangAdmin::get('Upload')?></span>
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-exists"><?=LangAdmin::get('Change')?></span>
+
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-remove"><?=LangAdmin::get('Remove')?></span>
+                                <span style="display: none" class="btn btn-primary btn-save" action="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'saveAdditionalBanner2')?>"><i class="icon-ok icon-white"></i></span>
+
+                                <input style="display: none" class="input-image" name="additional-banner" type="file" />
+                                <input type="hidden" name="delete_image" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</fieldset>
+
+<form class="form-horizontal inline_editable_form ot_form" enctype="multipart/form-data">
+    <legend class="legend-small"><?=LangAdmin::get('store_conditions')?></legend>
+        <fieldset class="clearfix custom_css">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group control-group-medium">
+                        <legend class="legend-small"><?=LangAdmin::get('how_to_order_label')?></legend>
+                        <img src="<?=General::getThemeWebDir()?>\img\svg\box-orange.svg" class="img_store_conditions" style="width: 50px;"/>
+                        <div data-field="how_to_order_title"></div>
+                        <? XEditableFields::Register('how_to_order_title', $config->get('how_to_order_title'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="how_to_order_subtitle"></div>
+                        <? XEditableFields::Register('how_to_order_subtitle', $config->get('how_to_order_subtitle'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="how_to_order_link"></div>
+                        <? XEditableFields::Register('how_to_order_link', $config->get('how_to_order_link'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group control-group-medium">
+                        <legend class="legend-small"><?=LangAdmin::get('how_to_pay_label')?></legend>
+                        <img src="<?=General::getThemeWebDir()?>\img\svg\pay-orange.svg" class="img_store_conditions" style="width: 50px;"/>
+                        <div data-field="how_to_pay_title"></div>
+                        <? XEditableFields::Register('how_to_pay_title', $config->get('how_to_pay_title'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="how_to_pay_subtitle"></div>
+                        <? XEditableFields::Register('how_to_pay_subtitle', $config->get('how_to_pay_subtitle'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="how_to_pay_link"></div>
+                        <? XEditableFields::Register('how_to_pay_link', $config->get('how_to_pay_link'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group control-group-medium">
+                        <legend class="legend-small"><?=LangAdmin::get('about_delivery_label')?></legend>
+                        <img src="<?=General::getThemeWebDir()?>\img\svg\shopping-bag-orange.svg" class="img_store_conditions" style="width: 50px;"/>
+                        <div data-field="about_delivery_title"></div>
+                        <? XEditableFields::Register('about_delivery_title', $config->get('about_delivery_title'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="about_delivery_subtitle"></div>
+                        <? XEditableFields::Register('about_delivery_subtitle', $config->get('about_delivery_subtitle'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="about_delivery_link"></div>
+                        <? XEditableFields::Register('about_delivery_link', $config->get('about_delivery_link'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group control-group-medium">
+                        <legend class="legend-small"><?=LangAdmin::get('about_guarantees_label')?></legend>
+                        <img src="<?=General::getThemeWebDir()?>\img\svg\shield-orange.png" class="img_store_conditions" style="width: 50px;"/>
+                        <div data-field="about_guarantees_title"></div>
+                        <? XEditableFields::Register('about_guarantees_title', $config->get('about_guarantees_title'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="about_guarantees_subtitle"></div>
+                        <? XEditableFields::Register('about_guarantees_subtitle', $config->get('about_guarantees_subtitle'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                        <div data-field="about_guarantees_link"></div>
+                        <? XEditableFields::Register('about_guarantees_link', $config->get('about_guarantees_link'), array('displayValue' => LangAdmin::get('Filled'))); ?>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+</form>
+
+
+<fieldset class="clearfix">
+    <div class="row-fluid">
+        <div class="span6">
+            <form class="form-horizontal inline_editable_form ot_form">
+                <legend class="legend-small"><?=LangAdmin::get('elastic_advertising_banner')?></legend>
+
+                <div data-field="elastic_advertising_banner_title"></div>
+                <? XEditableFields::Register('elastic_advertising_banner_title', General::getConfigValue('elastic_advertising_banner_title', null, true, Session::get('active_lang_siteconfiguration')), array('editable' => false)); ?>
+
+                <div data-field="elastic_advertising_banner_subtitle"></div>
+                <? XEditableFields::Register('elastic_advertising_banner_subtitle', General::getConfigValue('elastic_advertising_banner_subtitle', null, true, Session::get('active_lang_siteconfiguration')), array('editable' => false)); ?>
+                <div data-field="elastic_advertising_banner_link"></div>
+                <? XEditableFields::Register('elastic_advertising_banner_link', General::getConfigValue('elastic_advertising_banner_link', null, true, Session::get('active_lang_siteconfiguration'))); ?>
+
+            </form>
+            <form class="form-horizontal inline_editable_form ot_form" enctype="multipart/form-data">
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('elastic_advertising_banner_image_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('elastic_advertising_banner_image_hint')?>" title=""></i></label>
+                    <div class="controls">
+                        <div class="ot-uploader">
+                            <?
+                            if (is_null($config->get('elastic_advertising_banner_image'))) {
+                                $imgSrc = General::getThemeWebDir() . '/img/baner-main.jpg';
+                            } else {
+                                $imgSrc = $config->get('elastic_advertising_banner_image', '/i/noimg.png', false);
+                            }
+                            ?>
+                            <img class="image-preview" src="<?=$imgSrc?>" default="<?='/i/noimg.png'?>" style="max-height: 160px"/>
+                            <div class="actions">
+                                <?php $isNew = ! $config->get('elastic_advertising_banner_image'); ?>
+                                <span style="display: <?=($isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-new"><?=LangAdmin::get('Upload')?></span>
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-exists"><?=LangAdmin::get('Change')?></span>
+
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-remove"><?=LangAdmin::get('Remove')?></span>
+                                <span style="display: none" class="btn btn-primary btn-save" action="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'saveAdvertisingBanner')?>"><i class="icon-ok icon-white"></i></span>
+
+                                <input style="display: none" class="input-image" name="advertising-banner" type="file" />
+                                <input type="hidden" name="delete_image" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</fieldset>
+<? if (OTBase::isTest()) { ?>
+    <div class="control-group control-group-medium">
+        <button id="compile-scss" class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Compile_screen_scss')?>" data-loading-text="<?=LangAdmin::get('Saving')?>" type="button">
+            <?=LangAdmin::get('Compile_screen_scss')?>
+        </button>
+    </div>
+<? } ?>
+
+<style>
+    .menu_count_lvl2-wrapper {
+        display: none;
+    }
+    .menu_type-wrapper {
+        display: none;
+    }
+    .product_tabs-wrapper {
+        display: none;
+    }
+</style>

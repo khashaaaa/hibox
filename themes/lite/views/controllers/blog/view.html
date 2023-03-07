@@ -1,0 +1,23 @@
+<? if (! empty($blogCategories)) { ?>
+            <div class="wrap2">
+		<aside class="box-sidebar" role="complementary">
+			<ul class="nav nav-pills nav-stacked text-pages-nav">
+                            <? foreach ($blogCategories as $category) { ?>
+                            <li><a href="<?=UrlGenerator::generateDigestUrl('digest',$category['cid'])?>"><?=$category['title']?></a></li>
+                            <? } ?>
+			</ul>
+		</aside>
+		<main class="box-main" role="main">
+<? } ?>
+            <h1><?=$this->escape($post['title'])?></h1>
+                        <? if ($post['image']) { ?>
+                            <a href="<?=DigestRepository::getImage($post['image'], 'large')?>" class="pic cboxElement pictures" id="main-image-href">
+                                <i><img id="main-image" src="<?=DigestRepository::getImage($post['image'], 'big')?>" default="css/i/default-image.gif" alt=""></i>
+                                <ins></ins>
+                            </a>
+                            <? } ?>
+                            <?=$post['content']?>
+<? if (! empty($blogCategories)) { ?>
+		</main>
+	</div>
+<? } ?>

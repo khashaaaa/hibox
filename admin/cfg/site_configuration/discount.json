@@ -1,0 +1,13 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "pricing",
+        "do": "addUserDiscount"
+    },
+    "fields": [
+        {
+            "name": "username",
+            "mode": "popup",
+            "type": "text"
+        }
+    ]
+}

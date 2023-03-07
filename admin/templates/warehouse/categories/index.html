@@ -1,0 +1,48 @@
+<script src="js/vendor/fuelux/src/tree.js"></script>
+<script src="js/vendor/fuelux/sample/datasourceTree.js"></script>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        var dataSourceTree = new DataSourceTree({
+            data: [
+                { name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+                { name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+                { name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+                { name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+            ],
+            delay: 100
+        });
+
+        $('#ex-tree').tree({
+            dataSource: dataSourceTree,
+            loadingHTML: '<div class="static-loader">Loading...</div>',
+            multiSelect: true,
+            cacheItems: true
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<h1><?=LangAdmin::get('WarehouseCategories')?></h1>
+
+<div class="well fuelux">
+    <div id="ex-tree" class="tree">
+        <div class="tree-folder" style="display:none;">
+            <div class="tree-folder-header">
+                <i class="icon-folder-close"></i>
+
+                <div class="tree-folder-name"></div>
+            </div>
+            <div class="tree-folder-content"></div>
+            <div class="tree-loader" style="display:none">
+            </div>
+        </div>
+        <div class="tree-item" style="display:none;">
+            <i class="tree-dot"></i>
+
+            <div class="tree-item-name"></div>
+        </div>
+    </div>
+</div>

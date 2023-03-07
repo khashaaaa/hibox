@@ -1,0 +1,47 @@
+        <table style="margin: 0px; padding: 0px; font-family: arial, verdana, sans-serif; font-size: 14px; line-height: 1.4em; width: 100%;" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td><center>
+                        <table style="margin: 0px; padding: 0px; width: 700px; border-top: 1px solid #E4E4E4; " border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td style="border-left: 1px solid #E4E4E4; border-right: 1px solid #E4E4E4;" align="left" valign="middle">
+                                    <table style="margin: 0px; padding: 0px; width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="border-bottom: 1px solid #D6D6D6; padding: 8px 0 9px 25px;" align="left" valign="middle" bgcolor="#F8F8F8" width="85"><a style="display: block; border: none; text-decoration: none; padding-right: 15px;" href="<?=UrlGenerator::getHomeUrl()?>" target="_blank"> <img src="<?=str_replace('..', '', UrlGenerator::getHomeUrl() . General::getConfigValue('logo', '/i/logo.png'))?>" width="120" border="0" /> </a></td>
+                                                <td style="border-bottom: 1px solid #D6D6D6; vertical-align: middle;" align="left" valign="middle" bgcolor="#F8F8F8"><a style="color: #373737; text-decoration: none; font-size: 21px; font-weight: bold;" href="<?=UrlGenerator::getHomeUrl()?>" target="_blank"><?=General::getConfigValue('header_text', LangAdmin::get('header_text_label'))?></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left: 1px solid #E4E4E4; border-right: 1px solid #E4E4E4; font-family: 'arial'; font-size: 14px; font-weight: normal; padding: 0 15px;" align="left" valign="top"><span style="display: block; font-size: 30px; line-height: 36px; margin: 20px 0 20px; padding: 0; font-family: 'arial';"><?=LangAdmin::get('Category_title')?></span></td>
+                            </tr>
+                            <tr>
+                                <td style="border-left: 1px solid #E4E4E4; border-right: 1px solid #E4E4E4; padding: 0 15px;" align="left" valign="top">
+                                    <?=LangAdmin::get('Text')?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left: 1px solid #E4E4E4; border-right: 1px solid #E4E4E4; padding: 13px 0 20px 30px;" align="left" valign="top">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 1px solid #DADADA; border-left: 1px solid #E4E4E4; border-right: 1px solid #E4E4E4; font-family: 'arial';" align="left" valign="top" bgcolor="F3F3F3">
+                                    <table style="margin: 0px; padding: 0px; width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top; font-size: 12px; padding: 8px 0 0;" width="70%"></td>
+                                                <td style="vertical-align: top; padding: 8px 30px 0 0;"> <a style="font-size: 11px; color: #666; padding: 0 0 0 5px;" href="{{unsubscribeLink}}" target="_blank"><?=LangAdmin::get('end_subscription')?></a> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </center></td>
+                </tr>
+            </tbody>
+        </table>

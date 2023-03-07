@@ -1,0 +1,9 @@
+siteConfig = <?=json_encode(General::getAllConfigValues())?>;
+siteConfig.get = function(key){
+    if(typeof siteConfig[key] !== 'undefined'){
+        return siteConfig[key];
+    }
+    else{
+        return key;
+    }
+}

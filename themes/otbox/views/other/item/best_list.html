@@ -1,0 +1,13 @@
+<?
+$arr = array_chunk($items, 5);
+foreach ($arr as $items) { ?>
+    <? if (isset($categoryId) && $categoryId) { ?>
+        <? $params['categoryId'] = $categoryId; ?>
+    <? } ?>
+    <div class="item">
+        <? foreach ($items as $value) { ?>
+            <? $params = array('item' => $value); ?>
+        <?=General::viewFetch('other/item/best_item', array('vars' => $params))?>
+        <? } ?>
+    </div>
+<? } ?>

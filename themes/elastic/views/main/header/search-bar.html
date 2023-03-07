@@ -1,0 +1,114 @@
+<? $searchParams = General::getSearchParams(); ?>
+<? if ($isIndexPage !== true) { ?>
+<div class="menu__category">
+    <div class="menu__category_icon">
+       <button class="btn menu_category_button"><i class="fa fa-bars" aria-hidden="true" style="width: 40px"><i class="fa fa-caret-down" aria-hidden="true"></i>
+           </i></button>
+    </div>
+    <div class="category-list__search-bar">
+    <div class="menu__links category-list">
+        <div class="category-list__top_panel">
+            <a href="<?=UrlGenerator::toRoute('allcats')?>" class="category_label"><?=Lang::get('categories')?></a>
+        </div>
+            <?=ContentSection::getWidget([
+                'route' => 'categories/get-menu',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => 86400
+            ])?>
+        </div>
+    </div>
+</div>
+<? } ?>
+<a href="javascript:void(0)" class="search-icon"></a>
+<form method="post"
+      class="search-form <?=InstanceProvider::getObject()->isEnablePhotoSearch()?'js-image-search-form':''?>"
+      action="<?=UrlGenerator::generateSearchUrl(false,true)?>"
+      data-img-upload-url="<?=UrlGenerator::toRoute('upload')?>"
+      data-lang="<?=$this->getUser()->getActiveLang()?>"
+>
+    <div class="form-search">
+        <? if ($isLimitItemsByCatalog && $searchParams['cid']) { ?>
+            <input type="hidden" name="cid" value="<?=$searchParams['cid']?>" />
+        <? } ?>
+
+        <input type="text"
+               name="search"
+               id="box-search-form_search"
+               value="<?=$this->escape(urldecode($searchParams['search']))?>"
+               required="required"
+               placeholder="<?=Lang::get('default_search_text')?>"
+               tabindex="1"
+        >
+
+        <input type="submit" value="">
+
+        <? if (InstanceProvider::getObject()->isEnablePhotoSearch()) { ?>
+            <? $currentProviderName = InstanceProvider::getObject()->GetProviderNameByAlias(Session::getActiveLang(), $this->getUser()->getProvider());?>
+            <? $currentProviderInfo = InstanceProvider::getObject()->GetProviderInfo(Session::getActiveLang(), $currentProviderName)?>
+            <div class="file-upload" id="photo-search" style="display: <?=$currentProviderInfo->GetImageSearch()->IsEnabled() ? 'inline-block' : 'none'?>">
+                <label title="<?=Lang::get('photo_search')?>">
+                    <input type="file" name="files[]" accept="image/jpeg,image/png,image/gif">
+                    <span class="photo-search"></span>
+                </label>
+                <span class="photo-search-preloader fa fa-spinner fa-pulse fa-fw" style="display: none"></span>
+                <input type="hidden" name="imageId" value="<?=RequestWrapper::get('imageId')?>"/>
+            </div>
+        <? } ?>
+
+        <div class="form-overlay"></div>
+    </div>
+
+    <div class="form-search__buttons">
+        <? if (General::onNewPlatformScript('search')) { ?>
+            <?
+            foreach ($providers as $key => $provider) {
+                if ($provider->GetAlias() == $this->getUser()->getProvider()) {
+                    $activeProvider = $provider;
+                    break;
+                }
+            }
+            ?>
+
+            <input type="hidden" name="Provider" value="<?=$activeProvider->GetAlias()?>">
+
+            <div class="form-select select-img <? count($providers) > 1 ? '' : print('hidden') ?>">
+                <a href="#"
+                   id="choose_provider"
+                   aria-haspopup="tree"
+                   aria-expanded="false"
+                   data-toggle="dropdown"
+                   class="dropdown-toggle"
+                >
+                    <ul>
+                        <li>
+                            <span>
+                                <img src="<?=$activeProvider->GetIconImageUrl()?>" alt="<?=$activeProvider->GetIconImageUrl()?>">
+                                <?=$activeProvider->GetDisplayName()?>
+                            </span>
+                        </li>
+                    </ul>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="choose_provider">
+                    <ul>
+                        <? foreach ($providers as $key => $provider) { ?>
+                            <? $availableImageSearch = ($provider->GetImageSearch()->IsEnabled()) ? true : false; ?>
+
+                            <li data-alias="<?=$provider->GetAlias()?>"
+                                data-img-src="<?=$provider->GetIconImageUrl()?>"
+                                data-image-search="<?=(int)$availableImageSearch?>"
+                            >
+                                <span>
+                                    <img src="<?=$provider->GetIconImageUrl()?>" alt="<?=$provider->GetIconImageUrl()?>">
+                                    <?=$provider->GetDisplayName()?>
+                                </span>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+        <? } ?>
+
+        <button type="submit" class="form-button search-items"><?=Lang::get('find')?></button>
+    </div>
+</form>

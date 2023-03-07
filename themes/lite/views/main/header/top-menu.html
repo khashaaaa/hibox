@@ -1,0 +1,7 @@
+<? foreach ($topMenu as $key => $item) { ?>
+    <li <? if ($controller == $item['alias']) { ?> class="active" <? } ?>>
+        <a href="<?=$item['url']?>">
+            <?=$item['title']?>
+        </a>
+    </li>
+<? } ?>

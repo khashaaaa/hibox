@@ -1,0 +1,54 @@
+<div class="container content-main product-listing">
+    <div class="row">
+		<aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas ">
+    		<span id="close-sidebar" class="fa fa-times" aria-hidden="true"></span>
+    		<div class="so_filter_wrap block-shopby">
+        		<div class="so_filter_wrap block-shopby">
+                    <div class="list-group">
+                        <? foreach ($blogCategories as $category) { ?>
+                            <a href="<?=UrlGenerator::generatDigestUrl('digest',$category['cid'])?>" class="list-group-item <?=$currentCategory['alias'] == $category['cid'] ? 'active' : ''?>"><?=$category['title']?></a>		
+                        <? } ?>    
+			        </div>
+        		</div>
+    		</div>
+		</aside>
+		
+		<div class="col-md-9 col-sm-12 col-xs-12 fluid-sidebar">
+    		<a href="javascript:void(0)" class="open-sidebar hidden-lg hidden-md"><i class="fa fa-bars" aria-hidden="true"></i> Боковое меню</a>
+    		<div class="sidebar-overlay "></div>
+			<h1>
+                <? if (! empty($currentCategory)) { ?>
+                    <?=$currentCategory['title']?> / <?=Lang::get('digest')?>
+                <? } else { ?>
+                    <?=Lang::get('digest')?>
+                <? } ?>
+            </h1>
+            
+            <? if ($blog !== -1) { ?>
+			<ul class="box-main_blog-ul">
+                <? foreach ($blog as $post) { ?>
+                <? $date = $post['created']; ?>
+				    <li>
+					<a href="<?=UrlGenerator::generatPostUrl('post',$post['id'], $post['alias'])?>">
+						<h4><?=$post['title']?> <time class="pull-right" datetime="<?= $date->format('d.m.Y')?>"><?= $date->format('d.m.Y')?></time></h2>
+						<div class="img-wrap" style="float: left;padding-right: 20px;">
+							<img src="<?=DigestRepository::getImage($post['image'], 'thumb')?>" alt="<?=$post['title']?>">
+						</div>
+                        <p>
+                            <?php if (!empty($post['brief'])) { ?>
+                                <?=$post['brief']?>
+					        <?php } else { ?>
+                                <?=$post['content']?>                            
+                            <?php } ?>
+                        </p>
+					</a>
+                    </li>
+                <? } ?>
+			</ul>
+			<?php $paginator->display(); ?>
+                <? } else { ?>
+                <p><?=Lang::get('nothing_found')?></p>
+            <? } ?>
+		</div>
+    </div>
+</div>

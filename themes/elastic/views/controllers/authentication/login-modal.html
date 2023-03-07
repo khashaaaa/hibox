@@ -1,0 +1,26 @@
+<div class="modal js-modal-login" id="modal-login" tabindex="-1" role="dialog" style="z-index: 9999">
+    <div class="modal-dialog modal-my modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?=Lang::get('private_office_login')?></h5>
+                <button type="button align-middle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <?=General::viewFetch('controllers/authentication/login-form') ?>
+
+            <? if (General::IsFeatureEnabled('ExternalAuthentication')) { ?>
+                <div class="modal-bottom">
+                    <?=General::runController('Authentication', 'renderAuthSystemList')?>
+                </div>
+            <? } ?>
+
+            <div class="modal-bottom-links text-center">
+                <span><?=Lang::get('no_account_yet')?></span>
+                <a href="<?=UrlGenerator::toRoute('register')?>" class="link-registration js-open-modal-registration"><?=Lang::get('lets_sign_up')?></a>
+            </div>
+        </div>
+    </div>
+</div>

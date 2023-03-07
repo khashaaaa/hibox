@@ -1,0 +1,18 @@
+<? if (!empty($brandlists)) { ?>
+<? foreach($brandlists as $letter => $brandlist){ ?>
+<span class="brandletter"><?=$letter?></span>
+<ul class="cat100 flin clrfix">
+    <? if (!empty($brandlist)) foreach($brandlist as $item) { ?>
+    <? $item['title'] = str_replace(array('&lt; ', ' &gt;', '&lt;', '&gt;', '&LT;', '&Lt; ', ' & gt'),array('<','>','<','>','<','<','>'),$item['title']) ?>
+    <li>
+        <a href="/?p=search&search=&brand=<?=$item['id']?>" class="i100"><img src="<?=$item['pictureurl']?>" alt=""/></a>
+        <a href="/?p=search&search=&brand=<?=$item['id']?>" class="i100-name"><?=$this->escape($item['Name'])?></a>
+    </li>
+    <? } ?>
+</ul>
+<div class="brandclear"></div>
+<? } ?>
+<?}else{?>
+
+<h2><?=$emptymessage?></h2>
+<?}?>

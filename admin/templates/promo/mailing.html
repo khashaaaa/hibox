@@ -1,0 +1,98 @@
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('mailing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('mailing_list')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'mailing'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('mailing')?>"><?=LangAdmin::get('mailing_list')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'subscribers'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('subscribers')?>"><?=LangAdmin::get('subscribers')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'config'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1>
+    <?=LangAdmin::get('mailing_list')   ?>
+    <a href="<?=$PageUrl->AssignDo('addMailing')?>" autocomplete="off" data-loading-text="<?=LangAdmin::get('add')?>" class="btn btn-primary btn_preloader weight-normal offset-left3" type="submit" title="<?=LangAdmin::get('add_mailing')?>"><?=LangAdmin::get('add_mailing')?></a>
+</h1>
+
+<div class="row-fluid">
+
+    <div class="span6">
+
+        <div class="text-right">
+            <select class="input-mini">
+                <option value="10" selected="selected">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="all"><?=LangAdmin::get('All')?></option>
+            </select>
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th><?=LangAdmin::get('mailing_name')?></th>
+                    <th class="span2 text-center"><?=LangAdmin::get('mailing_msg_count')?></th>
+                    <th class="td-2btn-width"><?=LangAdmin::get('mailing_actions')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Сезонные скидки на всю одежду</td>
+                    <td class="text-center"><span class="text-success" title="<?=LangAdmin::get('Letters_sent')?>">220</span> / <span class="text-error" title="Писем в очереди">3479</span></td>
+                    <td>
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="promo/mailing/crud" title="<?=LangAdmin::get('Edit_mailing')?>"><i class="icon-pencil"></i><?=LangAdmin::get('update_mailing')?></a></li>
+                                <li><a href="#" title="<?=LangAdmin::get('Remove_mailing')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i><?=LangAdmin::get('remove_mailing')?></a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Опять двадцать пять — скидка 25 % на весь ассортимент мужских носков!</td>
+                    <td class="text-center">122</td>
+                    <td>
+
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="promo/mailing/crud" title="<?=LangAdmin::get('Edit_mailing')?>"><i class="icon-pencil"></i> <?=LangAdmin::get('Edit')?></a></li>
+                                <li><a href="#" title="<?=LangAdmin::get('Remove_mailing')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i> <?=LangAdmin::get('Remove')?></a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>На сайте появился новый функционал — пристрой</td>
+                    <td class="text-center"><span class="text-success" title="<?=LangAdmin::get('Letters_sent')?>">220</span> / <span class="text-error" title="Писем в очереди">3479</span></td>
+                    <td>
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="promo/mailing/crud" title="<?=LangAdmin::get('Edit_mailing')?>"><i class="icon-pencil"></i> <?=LangAdmin::get('Edit')?></a></li>
+                                <li><a href="#" title="<?=LangAdmin::get('Remove_mailing')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i> <?=LangAdmin::get('Remove')?></a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+    </table>
+
+    </div>
+</div>
+

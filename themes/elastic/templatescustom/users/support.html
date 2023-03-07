@@ -1,0 +1,37 @@
+<div class="main">
+<div class="userform">
+    <form action="/?p=profile" method="post">
+        <? if($success){ ?>
+            <div class="success">
+                <?=$success?>
+            </div>
+        <? } ?>
+        <? if($error){ ?>
+            <div class="error">
+                <?=$error?>
+            </div>
+        <? } ?>
+
+        <div class="form-row">
+            <label for="Subject"><?=Lang::get('subject')?></label>
+            <input id="Subject" type="text" name="Subject" value="<?=$this->escape($Subject)?>" class="form-field" />
+        </div>
+
+        <div class="form-row">
+            <label for="Text"><?=Lang::get('text')?></label>
+            <textarea id="Text" name="Text" class="form-field form-field__textarea"><?=$this->escape($Text)?></textarea>
+        </div>
+
+        <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+            <div class="form-row">
+                <label for="MiddleName"><?=Lang::get('middle_name')?></label>
+                <input id="MiddleName" type="text" name="MiddleName" value="<?=$this->escape($MiddleName)?>" class="form-field" />
+            </div>
+        <?php } ?>
+
+        <div class="form-row">
+            <input type="submit" name="login" value="<?=Lang::get('save')?>" class="submit"/>
+        </div>
+    </form>
+</div>
+</div>

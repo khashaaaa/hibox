@@ -1,0 +1,52 @@
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <h1><?=Lang::get('business_with_velichina')?></h1>
+    </div>
+</div>
+
+<div class="main">
+    <div class="clrfix">
+
+
+    <div class="bproduct fs15 mb30">
+        <h2 class="mb20"><span> </span></h2>
+        <? if ($user) : ?>
+
+        <table class="notepad note_office">
+            <tr>
+                <td class="f11 lgray"><?=Lang::get('status')?>:</td>
+                <td><b><?= $statuses[$user['status']]; ?></b></td>
+            </tr>
+            <tr>
+                <td class="f11 lgray"><?=Lang::get('User_balance')?>:</td>
+                <td><b><?= $user['balance']; ?></b>
+                </td>
+            </tr>
+        </table>
+        <?if($messages){?>
+            <br />
+            <strong><?=Lang::get('Messages')?>:</strong>
+            <br /><br />
+        <?}?>
+        <table class="notepad note_office">
+            <?foreach($messages as $m){ if($m['added']){?>
+            <tr>
+                <td width="80"><?=date('m-d-Y', $m['added'])?></td>
+                <td width="150" class="lblue"><a href="/?p=support&mode=chat&id=Ticket-<?=$m['id']?>"><?=$m['subject']?></a></td>
+                <td><?=$m['message']?></td>
+            </tr>
+            <?}}?>
+        </table>
+<? else : ?>
+
+    <div>
+        <h2><span><?=Lang::get('no_data')?></span></h2>
+    </div>
+
+<? endif; ?>
+
+    </div>
+
+    </div>
+
+</div>

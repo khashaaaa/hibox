@@ -1,0 +1,116 @@
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="bigtitle"><div class="wrap clrfix">
+    <h1><?=Lang::get('weight_calc')?></h1>
+</div></div>
+
+<div id="dialog" title="<?=Lang::get('warning')?>" style="display:none;">
+  <?=Lang::get('weight_is_not_correct')?>
+</div>
+
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="bproduct" id="overlay-wrapper">
+            <div id="overlay"></div>
+            <h2 class="mb10"><span><?=Lang::get('goods_list')?></span></h2>
+
+            <? if(count($list)) {?>
+                    <div id="sign" style="display: none"><?=Lang::get('kg').'.'?></div>
+                    <table class="basket tsimple notepad">
+                        <thead>
+                            <tr>
+                                <td class="w80"><?=Lang::get('good')?></td>
+                                <td width="40%"><?=Lang::get('original')?></td>
+                                <td width="12%"><?=Lang::get('configuration')?></td>
+                                <td class="td4" width="10%"><?=Lang::get('unit_weight')?></td>
+                                <td align="center" width="10%"><?=Lang::get('quantity')?></td>
+                                <td width="15%"><?=Lang::get('total_weight')?></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                <? $total_w = 0; ?>
+                            <? $sign = ''; ?>
+                            <? $sign = ' '.Lang::get('kg').'.'; ?>
+                            <? foreach ($list as $item) { ?>
+
+                            <? $total_w += $item['Quantity']*$item['Weight'];?>
+                            <tr id="item<?=$item['ItemId']?>">
+                                <td>
+                                    <ul class="lproduct w80li">
+                                        <li>
+						                                <? $options = array(); ?>
+						                                <? if (isset($item['ConfigurationId'])) { ?>
+						                                    <? $options = array('ConfigId' => $item['ConfigurationId']); ?>
+						                                <? } ?>                                         
+                                            <a href="<?=UrlGenerator::generateItemUrl($item['ItemId'], $options)?>" class="pic" title="<?=$this->escape($item['ItemTitle']);?>" alt="<?=$this->escape($item['ItemTitle']);?>">
+                                                <i><img width="70" height="70" src="<?=ProductsHelper::getSmallImage($item);?>"></i>
+                                                <ins></ins>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <p class="mb5 lblue"><a title="<?=$this->escape($item['ItemTitle']);?>" alt="<?=$this->escape($item['ItemTitle']);?>" href="/?p=item&id=<?=$item['ItemId'];?>"><b><?=$this->escape($item['ItemTitle']);?> </b></a></p>
+                                    <p class="mb5"><span class="lgray"><?=Lang::get('vendor')?></span> <?= VendorHelper::generateLink($item['VendorId'], '<b>' . $item['VendorId']. '</b>', array('title'=>$item['VendorId'])) ?></p>
+                                    <p class="mb5"><span class="lgray"><?=Lang::get('category')?></span> <a href="/?p=category&cid=<?=$item['CategoryId']?>" alt="<?=$item['CategoryName']?>" title="<?=$item['CategoryName']?>"><b><?=$item['CategoryName']?></b></a></p>
+                                </td>
+                                <td>
+                                    <table class="info infoitem">
+                                        <? if (isset($item['ItemConfiguration'])) { ?>
+                                            <? foreach(explode(';', $item['ItemConfiguration']) as $cfg){ ?>
+                                                <? if($cfg) {?>
+                                                <tr>
+                                                    <? $configArray = explode(':',$cfg); ?>
+                                                    <td class="lgray"><?= current($configArray); ?>:</td>
+                                                    <td><b class="ltr-for-rtl"><?= end($configArray); ?></b></td>
+                                                </tr>
+                                                <? } ?>
+                                            <? } ?>
+                                        <? } ?>
+                                    </table>
+                                </td>
+                                <td class="tagc"><input type="text" size="5" class="change-weight weight input_numeric_float" itemid="<?=$item['Id'];?>" value="<?=round($item['Weight'], 3)?>"></td>
+                                <td class="tagc"><?=$item['Quantity']?></td>
+                                <td class="row-weight" itemid="<?=$item['Id'];?>"><? echo round($item['Quantity']*$item['Weight'], 3).' '.$sign; ?></td>
+                            </tr>
+                            <? } ?>
+                            <tr class="bdb0">
+                                <td colspan="5"></td>
+                                <td>
+                                    <strong><?=Lang::get('total')?>:&nbsp;</strong><span id="total_w"><? echo ' '.round($total_w, 3).' '.$sign;?></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="bgr-panel mt5">
+                        <a href="<?=@UrlGenerator::generateContentUrl('basket')?>" class="btn btn-apper b-first-page"><?=Lang::get('back')?></a>
+                        <a href="/?p=userorder&step2&type=<?=$alias?>"  id="next" class="btn btn-apper b-last-page"><?=Lang::get('continue')?></a>
+                    </div>
+            <? } else { ?>
+                <h2><span><?=Lang::get('empty_cart')?></span></h2>
+            <? } ?>
+        </div>
+    </div>
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+   
+var price_round_decimals = <?=(int)General::getNumConfigValue('price_rounding')?>;
+var min_order_cost = false;
+
+$(function()
+{
+    $("#dialog:ui-dialog").dialog( "destroy" );
+    $("#dialog").dialog({
+        autoOpen: false,
+        modal: true,
+        buttons : {
+            "<?=Lang::get('ok')?>" : function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+});
+</script>
+<!--/noindex-->

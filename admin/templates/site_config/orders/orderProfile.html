@@ -1,0 +1,48 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('orders')?>" class="muted"><?=LangAdmin::get('orders')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('general')?>" class="muted"><?=LangAdmin::get('general')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('OrderProfile')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+<? XEditableFields::Init('order', $PageUrl); ?>
+
+<div class="tabbable ot_sub_sub_nav">
+
+    <? require TPL_ABSOLUTE_PATH . 'site_config/inc/orders_submenu.php'; ?>
+
+</div><!-- /ot-sub-sub-nav -->
+
+<div class="row-fluid">
+    <div class="span10">
+        <h1><?=LangAdmin::get('Order')?></h1>
+    </div>
+    <div class="span2">
+        <?=AdminLanguage::getLanguageSelector(false)?>
+    </div>
+</div>
+
+<div class="well">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="control-group">
+                <?= $UserProfileSettings ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-site-config.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

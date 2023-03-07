@@ -1,0 +1,103 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Costs')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+<? XEditableFields::Init('cost', $PageUrl); ?>
+
+<h1><?=LangAdmin::get('Costs')?></h1>
+
+<? $percent = isset($Settings->Settings->MarginPercentage) ? (string)$Settings->Settings->MarginPercentage : ''; ?>
+<? $min_margin = isset($Settings->Settings->MinimumMargin) ? (string)$Settings->Settings->MinimumMargin : ''; ?>
+<? $use_discount = ((string)$Settings->Settings->UseDiscount=='true');?>
+<? $curent_discount_mode = (string)$Settings->Settings->DiscountMode;?>
+<? $available_discount_mode = $Settings->Settings->AvailableDiscountModes;?>
+
+<div class="well">
+    <form class="form-horizontal inline_editable_form ot_form pricing-cost">
+        <fieldset>
+
+            <? if (! General::isSellFree(Session::getActiveAdminLang()) || OTBase::isTest()) { ?>
+            <div class="control-group control-group-medium">
+                <div data-field="round_settings"></div>
+                <? XEditableFields::Register('round_settings', @$RoundSettings['priceroundingfactor'], array(
+                            'placeholder' => LangAdmin::get('For_example', array('example' => 2)), 'inputClass' => 'numericMinus'
+                )); ?>
+                <p class="offset-bottom1"><span class="blink collapseCustom" data-target=".ot_show_collapse" data-toggle="collapse"><?=LangAdmin::get('Extened')?></span></p>
+                <div class="ot_show_collapse" style="display: none">
+                    <div data-field="price_rounding"></div>
+                    <? XEditableFields::Register('price_rounding', $priceRoundingOriginal, array(
+                        'placeholder' => LangAdmin::get('For_example', array('example' => 2)), 'inputClass' => 'numeric'
+                    )); ?>
+                </div>
+                <span class="attention-block"><?=LangAdmin::get('Attention_rounding_zero')?></span>
+
+
+            </div>
+
+            <? } ?>
+
+            <? if (! CMS::IsFeatureEnabled('CurrencyRateEnhance')) { ?>
+            <div class="control-group control-group-medium">
+                <div data-field="persent"></div>
+                <? XEditableFields::Register('persent', $percent, array(
+                            'placeholder' => LangAdmin::get('For_example', array('example' => 1.5)), 'inputClass' => 'price'
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium wrapper_minimummargin">
+                <div class="minimummargin">
+                    <div data-field="minimummargin"></div>
+                    <? XEditableFields::Register('minimummargin', $min_margin, array(
+                                'placeholder' => LangAdmin::get('For_example', array('example' => 100)), 'inputClass' => 'numeric'
+                    )); ?>
+                </div>
+                <div class="input-append sign">
+                    <span class="add-on"><?=$defaultPriceCurrency?></span>
+                </div>
+            </div>
+            <? } ?>
+
+            <div class="control-group control-group-medium">
+                <div data-field="usediscount"></div>
+                <? XEditableFields::Register('usediscount', $use_discount); ?>
+            </div>
+
+            <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="available_discount_mode">
+                        <?=LangAdmin::get('discountmode_label')?>
+                        <i class="icon-question-sign ot_inline_help" data-toggle="popover" title=""
+                           data-content="<?=LangAdmin::get('discountmode_hint')?>" data-original-title=""></i>
+                    </label>
+
+                    <select class="input-xxlarge available_discount_mode" name="available_discount_mode">
+                        <? foreach ($available_discount_mode->NamedProperty as $discount_mode) { ?>
+                            <option value="<?=$discount_mode->Name?>"
+                                <?=$discount_mode->Name == $curent_discount_mode ? 'selected="selected"' : '' ?> >
+                                <?=$discount_mode->Description?>
+                            </option>
+                        <? } ?>
+                    </select>
+                    <button class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Save')?>" autocomplete="off" id="save-available_discount_mode" type="button"><i class="icon-ok"></i></button>
+                </div>
+            <? } ?>
+
+        </fieldset>
+    </form>
+
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-cost-settings.js'); ?>

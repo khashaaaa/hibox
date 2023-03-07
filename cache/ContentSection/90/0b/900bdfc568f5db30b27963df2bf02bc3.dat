@@ -1,0 +1,128 @@
+<section class="box-section supply-products-section recommended-vendors-section">
+    <h2>Рекомендованные продавцы</h2>
+    <ul class="item-list">
+        	        <li class="col-md" title="veromoda官方旗舰店">
+                <a href="/vendor?id=veromoda官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/5a/31/165b55490ecc57e1a62b2f55d96f0a.png" alt="veromoda官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="德尔玛旗舰店">
+                <a href="/vendor?id=德尔玛旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/b5/4e/b7112bbfb972ca32ab46fb3d27a36a.png" alt="德尔玛旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="babycare旗舰店">
+                <a href="/vendor?id=babycare旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/c6/ff/8ca69744808c92e0dab1dc54bad0f6.png" alt="babycare旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="美的官方旗舰店">
+                <a href="/vendor?id=美的官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/01/9e/438811cfdcd5a582c063e7fdcb048d.png" alt="美的官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="迪卡侬旗舰店">
+                <a href="/vendor?id=迪卡侬旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/29/5c/d9ad817dbaed5a0ca50b9b7ee10f0d.png" alt="迪卡侬旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="zara官方旗舰店">
+                <a href="/vendor?id=zara官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/7f/87/5bb61ce821e9cf13e07a1507f11537.png" alt="zara官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="优衣库官方旗舰店">
+                <a href="/vendor?id=优衣库官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/6c/fc/b14c4ea3626c7e87aef97f51242224.jpg" alt="优衣库官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="bershka官方旗舰店">
+                <a href="/vendor?id=bershka官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://img.alicdn.com/https://img.alicdn.com/imgextra/i1/1787605898/TB2MfGwcStYBeNjSspkXXbU8VXa_!!1787605898.jpg" alt="bershka官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="热风服饰旗舰店">
+                <a href="/vendor?id=热风服饰旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://img.alicdn.com/imgextra//i1/2206474976557/O1CN01MokZFg1yJ9Yjleonh_!!2206474976557.jpg" alt="热风服饰旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="stradivarius官方旗舰店">
+                <a href="/vendor?id=stradivarius官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://img.alicdn.com//a0/33/TB1NO0vHpXXXXaxXFXXSutbFXXX.jpg" alt="stradivarius官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="gap官方旗舰店">
+                <a href="/vendor?id=gap官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://img.alicdn.com//38/90/TB1dxaUwxD1gK0jSZFsSuvldVXa.jpg" alt="gap官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="">
+                <a href="/vendor?id=puma官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/c5/31/33fe48026f67672a539668d44d5824.jpg" alt="" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="adidas官方旗舰店">
+                <a href="/vendor?id=adidas官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/aa/8e/67f58970375860546c9b1644426d5f.png" alt="adidas官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="reebok官方旗舰店">
+                <a href="/vendor?id=reebok官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://cdn.otcommerce.com/i/9c/e3/4f3e5027e2c33caa951ba7932edc98.png" alt="reebok官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+        	        <li class="col-md" title="小米官方旗舰店">
+                <a href="/vendor?id=小米官方旗舰店" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="https://img.alicdn.com//d0/5d/TB1Ade.fpYM8KJjSZFuSuwf7FXa.jpg" alt="小米官方旗舰店" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"></h3-->
+				</a>
+	        </li>
+            </ul>
+            <div class="col-md-12 clearfix">
+            <a href="/all_vendors" class="btn" style="width: 100%;margin-top: 20px;">Все продавцы</a>
+        </div>
+    </section> 

@@ -1,0 +1,96 @@
+/* icons-control (begin) */
+	
+
+  .i-new
+  {
+    display: inline-block;
+
+    vertical-align: middle;
+
+    background: url('../i/icons.controls.png')/*!important*/;
+  }
+
+  .i-new.i-open-filter
+  {
+    height: 18px;
+    width: 18px;
+
+    background-position: -36px 0!important;
+  }
+
+  .i-new.i-close-filter
+  {
+    height: 18px;
+    width: 18px;
+
+    background-position: -18px 0!important;
+  }
+
+  .i-new.i-arrow-down,
+  .i-new.i-arrow-left,
+  .i-new.i-arrow-right,
+  .i-new.i-arrow-up
+  {
+    height: 9px;
+    width: 9px;
+  }
+
+  .i-new.i-arrow-down
+  { background-position: -27px -91px }
+
+  .i-new.i-arrow-right
+  { background-position: -18px -91px }
+
+  .i-new.i-arrow-up
+  { background-position: -27px -91px }
+
+  .i-new.i-arrow-left
+  { background-position: -18px -91px }
+
+  .i-new.i-delete-new {
+    height: 19px;
+    width: 15px;
+    background-position: -71px 5px;
+    padding: 2px;
+  }
+
+  .i-new.i-delete
+  {
+    height: 15px;
+    width: 15px;
+
+    background-position: -73px -1px;
+  }
+
+  .i-new.i-plus,
+  .i-new.i-minus
+  {
+    height: 9px;
+    width: 9px;
+    background-position: 0 -91px;
+  }
+
+  .i-new.i-minus
+  { background-position: -9px -91px }
+
+  .i.rounder
+  {
+    
+    height: 19px;
+    width: 18px;
+	
+  }
+
+	.i.item-remove {
+		/* padding: 3px 6.6px; */
+		background-position: -36px -411px !important;
+
+	}
+
+  .i.operation
+  {
+    height: 9px;
+    width: 9px;
+  }
+
+/* icons-control (end) */

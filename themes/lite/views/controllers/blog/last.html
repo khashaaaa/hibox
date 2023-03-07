@@ -1,0 +1,20 @@
+<? if ($blog !== -1) { ?>
+    <section class="box-section blog-section">
+        <h2><?=Lang::get('post')?></h2>
+		<ul>
+            <? foreach ($blog as $post) { ?>
+            <? $date = $post['created']; ?>
+            <li class="col-md">
+            	<a href="<?=UrlGenerator::generatPostUrl('post', $post['id'], $post['alias'])?>" class="thumbnail" class="thumbnail" class="thumbnail">
+            	<div class="blog-section_img-wrap">
+	                <img src="<?=DigestRepository::getImage($post['image'], "thumb")?>" class="check-noimg" alt="<?=$this->escape($post['title'])?>">
+				</div>
+					<time datetime="<?=$date->format('Y-m-d')?>"><?=$date->format('Y-m-d')?></time>
+					<h3><?=$this->escape($post['title'])?></h3>
+				</a>
+			</li>
+            <? } ?>
+		</ul>
+		<a href="<?=UrlGenerator::generateContentUrl('digest')?>" class="see-all-link"><?=Lang::get('digest')?></a>
+	</section>
+<? } ?>

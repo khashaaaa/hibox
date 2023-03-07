@@ -1,0 +1,99 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('internal')?>"><?=LangAdmin::get('Delivery_small')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('tariffs')?>"><?=LangAdmin::get('tariffs_by_countries')?></a> <span class="divider">›</span></li>
+    <li class="active">
+        <? if (isset($Tariff)) { ?>
+        <?=LangAdmin::get('Edit_tariff')?> <?=$DeliveryItem['name']?>
+        <? } else { ?>
+        <?=LangAdmin::get('Create_tariff')?> <?=$DeliveryItem['name']?>
+        <? } ?>
+    </li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? require_once 'sub_nav.html'; ?>
+<!-- /ot-sub-sub-nav -->
+
+<h1>
+    <? if (isset($Tariff)) { ?>
+    <?=LangAdmin::get('Edit_tariff')?> <?=$DeliveryItem['name']?>
+    <? } else { ?>
+    <?=LangAdmin::get('Create_tariff')?> <?=$DeliveryItem['name']?>
+    <? } ?>
+</h1>
+
+<? //var_dump($DeliveryItem); ?>
+<? $currency_code = $DeliveryItem['currencycode']; ?>
+
+<div id="content-wrapper">
+    <div class="well">
+        <form method="post" action="<?=$PageUrl->AssignDo('saveTariff')?>" class="form-horizontal ot_form">
+            <input type="hidden" name="tariff[delivery]" value="<?=$DeliveryItem['id']?>"/>
+            <input type="hidden" name="tariff[currencycode]" value="<?=$currency_code?>"/>
+            <? if (isset($Tariff)) { ?>
+                <input type="hidden" name="tariff[id]" value="<?=$Tariff['id']?>"/>
+            <? } ?>
+
+            <div class="control-group control-group-medium">
+                <label class="control-label" for="tariff[countrycode]"><?=LangAdmin::get('Country')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Country_hint')?>"></i></label>
+                <div class="controls">
+                    <select id="tariff[countrycode]" name="tariff[countrycode]" class="input-large select_searched_list">
+                        <? $selected = ''; ?>
+                        <? foreach ($Countries as $code=>$name) { ?>
+                            <? if (isset($Tariff)) { ?>
+                                <? $selected = ($Tariff['countrycode'] == $code) ? ' selected' : ''; ?>
+                            <? } ?>
+                            <option <?=$selected?> value="<?=$code?>"> <?=$name . ' (' . $code . ')'?></option>
+                        <? } ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <label class="control-label" for="tariff[start]"><?=LangAdmin::get('First_price')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('First_price_hint')?>"></i></label>
+                <div class="controls">
+                    <input id="tariff[start]" name="tariff[start]" class="input-mini price" type="text" value="<?=(string)$Tariff['start']?>" placeholder="18 <?=$currency_code?>">
+                </div>
+            </div>
+
+
+            <div class="control-group control-group-medium">
+                <label class="control-label" for="tariff[step]"><?=LangAdmin::get('Price_step')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Price_step_hint')?>"></i></label>
+                <div class="controls">
+                    <input id="tariff[step]" name="tariff[step]" class="input-mini price" type="text" value="<?=(string)$Tariff['step']?>" placeholder="15 <?=$currency_code?>">
+                </div>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div class="controls">
+                    <label class="checkbox inline" for="tariff[isenabled]">
+                        <? if (isset($Tariff)) { ?>
+                            <? $checked = ((int)$Tariff['isenabled']) ?  'checked' : ''; ?>
+                        <? } else { ?>
+                            <? $checked = ''; ?>
+                        <? } ?>
+                        <input id="tariff[isenabled]" name="tariff[isenabled]" value="1" type="checkbox" <?=$checked?>>
+                        <?=LangAdmin::get('Tariff_avail')?>
+                    </label>
+                </div>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div class="controls">
+                    <a href="#" id="save-tariff" data-link="<?=$PageUrl->DeleteKey('id')->DeleteKey('delivery')->AssignDo('tariffs')?>" name="save-tariff" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></a>
+                    <a id="cancel" href="<?=$PageUrl->DeleteKey('id')->DeleteKey('delivery')->AssignDo('tariffs')?>" class="btn offset-left1 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-shipment.js'); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js.php'); ?>

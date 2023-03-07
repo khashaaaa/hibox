@@ -1,0 +1,62 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Contents')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Banners')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'contents/inc/tabs.php'; ?>
+
+<div id="banners-wrapper">
+<div class="row-fluid">
+
+    <div class="span8">
+        <h1>
+            <?=LangAdmin::get('Banners')?>
+            <a href="<?=$PageUrl->AssignDo('bannerForm')?>" autocomplete="off" data-loading-text="<?=LangAdmin::get('Add')?>" class="btn btn-tiny btn-primary btn_preloader weight-normal offset-left1" title="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></a>
+            <button class="btn btn-tiny <? if(! count($banners)) { echo 'disabled'; } ?> <? if(count($banners)) { echo 'btn_preloader'; } ?> saveBannerSort" action="<?=$PageUrl->AssignDo('saveBannerSort')?>" data-loading-text="<i class='icon-reorder'></i> <?=LangAdmin::get('Save_order')?>" title="<?=LangAdmin::get('Save_order')?>"><i class="icon-reorder"></i> <?=LangAdmin::get('Save_order')?></button>
+        </h1>
+    </div>
+    
+    <div class="span4 offset-top1">
+        <!-- site language -->
+        
+        <? if (count($languages) > 1) { ?> 
+        <div class="btn-group pull-right">
+            <?=AdminLanguage::getLanguageSelector(false)?>
+        </div>
+        <? } ?>
+        <!-- /site language -->
+    </div>    
+
+</div>
+
+
+<ol id="banners-sortable" class="unstyled ot_sortable_rows banner_sort">
+    <? foreach ($banners as $item) { ?>
+    <li data-id="<?=$item['id']?>">
+        <article class="well">
+
+            <aside class="sortable_handler"><i class="icon-move" title="<?=LangAdmin::get('Change_banner_sort')?>"></i></aside>
+
+            <section class="row-fluid">
+                <div class="span2">
+                    <img class="img-polaroid" src="<?=$item['source']?>">
+                </div>
+                <div class="span10">
+                    <h4 class="offset-vertical-none"><a href="<?=$item['url'] ? $this->escape($item['url']) : '#' ?>" <?=$item['url'] ? 'target="_blank"' : '' ?> title="<?=LangAdmin::get('Link_to_content')?>"><?=$this->escape($item['name'])?></a></h4>
+                    <p><?=LangAdmin::get('Language')?>: <?=$item['lang']?></p>
+                    <a class="btn btn-tiny" href="<?=$PageUrl->AssignDo('bannerForm')?>&bannerId=<?=$item['id']?>" title="<?=LangAdmin::get('Edit_banner')?>"><i class="icon-pencil"></i></a>
+                    <button class="btn btn-tiny ot_show_deletion_dialog offset-left1" banner-name="<?=$this->escape($item['name'])?>" banner-id="<?=$item['id']?>" action="<?=$PageUrl->AssignDo('deleteBanner')?>" title="<?=LangAdmin::get('Delete_banner')?>"><i class="icon-remove"></i></button>
+                </div>
+            </section>
+
+        </article>
+    </li>
+    <? } ?>
+</ol>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-banners.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

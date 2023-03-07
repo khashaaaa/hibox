@@ -1,0 +1,26 @@
+<?=$Header?>
+
+<div class="col700">
+    <div class="tuning">
+        <div style="margin: 0 0 10px 0;">
+            <h2 class="mt30"><?=LangAdmin::get('order_settings')?></h2>
+            <form action="<?=BASE_DIR;?>index.php?do=saveSettings&amp;cmd=order_settings" method="post">
+                <label style="width: 300px; display: inline-block"><?=LangAdmin::get('min_order_cost')?></label>
+                <input type="text" name="MinOrderCost" value="<?= General::priceFormat($order_settings['MinOrderCost'], 0) ?>" />
+                <br />
+
+                <label style="width: 300px; display: inline-block"><?=LangAdmin::get('max_note_items_count')?></label>
+                <input type="text" name="MaxNoteItemsCount" value="<?= $order_settings['MaxNoteItemsCount'] ?>" />
+                <br />
+
+                <label style="width: 300px; display: inline-block"><?=LangAdmin::get('max_cart_items_count')?></label>
+                <input type="text" name="MaxCartItemsCount" value="<?= $order_settings['MaxCartItemsCount'] ?>" />
+                <br />
+
+                <input type="submit" value="<?=LangAdmin::get('save')?>" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<?=$Footer?>

@@ -1,0 +1,239 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('internal')?>"><?=LangAdmin::get('Delivery_small')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Delivery_external_small')?></a> <span class="divider">›</span></li>
+    <li class="active">
+        <? if (isset($Delivery)) { ?>
+        <span><?=LangAdmin::get('Delivery_edit')?> <?=$Delivery['name']?></span>
+        <? } else { ?>
+        <span><?=LangAdmin::get('Delivery_type_create')?></span>
+        <? } ?>
+    </li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? require_once 'sub_nav.html'; ?>
+<!-- /ot-sub-sub-nav -->
+
+<h1>
+    <? if (isset($Delivery)) { ?>
+    <span><?=LangAdmin::get('Delivery_edit')?> <?=$Delivery['name']?></span>
+    <? } else { ?>
+    <span><?=LangAdmin::get('Delivery_type_create')?></span>
+    <? } ?>
+</h1>
+
+<div id="content-wrapper">
+
+    <div class="well">
+
+        <form action="<?=$PageUrl->DeleteKey('id')->AssignDo('saveDelivery')?>" class="form-horizontal ot_form">
+
+            <fieldset>
+                <? if (isset($Delivery)) { ?>
+                    <input name="delivery[id]" value="<?=$Delivery['id']?>" type="hidden"/>
+                <? } ?>
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[name]"><?=LangAdmin::get('Name')?></label>
+                    <div class="controls">
+                        <input id="delivery[name]" name="delivery[name]" data-check="delivery_name" class="input-xlarge" value="<?=@$Delivery['name']?>"  type="text">
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[description]"><?=LangAdmin::get('Description')?></label>
+                    <div class="controls">
+                        <input id="delivery[description]" name="delivery[description]" class="input-xlarge" value="<?=@$Delivery['description']?>" type="text">
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[currencycode]"><?=LangAdmin::get('Currency')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Currency_settings_for_shipment')?>"></i></label>
+                    <div class="controls">
+                        <select id="delivery[currencycode]" name="delivery[currencycode]" class="input-small select_searched_list">
+                            <? $selected = ''; ?>
+                            <? foreach ($CurrencyList as $currency) { ?> 
+                                <? if (isset($Delivery)) { ?>
+                                    <? $selected = ($Delivery['currencycode'] == $currency['code']) ? ' selected' : ''; ?>
+                                <? } ?>
+                                <option value="<?=$currency['code']?>" <?=$selected?>><?=$currency['code']?></option>
+                            <? } ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[order]"><?=LangAdmin::get('Order')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Order_settings_for_shipment')?>"></i></label>
+                    <div class="controls">
+                        <input id="delivery[order]" name="delivery[order]" class="input-mini numeric" value="<?=(string)@$Delivery['order']?>" type="text">
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium" style="display: none;">
+                    <label class="control-label" for="delivery[formula]"><?=LangAdmin::get('Formula')?> </label>
+                    <div class="controls">
+                        <input id="delivery[formula]" name="delivery[formula]" class="input-xlarge" value="<?=(string)@$Delivery['formula']?>" type="text">
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery_integration_type"><?=LangAdmin::get('Delivery_integration_type')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Delivery_integration_type_hint')?>"></i></label>
+                    <div class="controls">
+                        <select id="delivery_integration_type" name="delivery[integration_type]" class="input-large">
+                            <? foreach ($integrationTypes as $type) { ?>
+                                <? $selected = ($Delivery['IntegrationType'] == $type['IntegrationType']) ? 'selected' : ''; ?>
+                                <? if (($type['IsAvailable'] == 'true') || ($selected != '')) { ?>
+                                    <option value="<?=$type['IntegrationType']?>" <?=$selected?>><?=$type['Name']?></option>
+                                <? } ?>
+                            <? } ?>
+                        </select>
+                        <input type="hidden" name="delivery[current_integration_type]" value="<?=$Delivery['IntegrationType']?>" />
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery_integration_mode"><?=LangAdmin::get('delivery_integration_mode')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('delivery_integration_mode_hint')?>"></i></label>
+                    <div class="controls">
+                        <select id="delivery_integration_mode" name="delivery[integration_mode]" class="input-large" <?=(!$integrationDeliveryModes)?'disabled="disabled"':''?>>
+                            <option disabled selected value><?= LangAdmin::get('Select_property_value') ?></option>
+                                <? foreach ($integrationDeliveryModes as $key => $value) { ?>
+                                    <? $selected = ($Delivery['IntegrationDeliveryMode'] == $key) ? 'selected' : ''; ?>
+                                    <option value="<?=$key?>" <?=$selected?>><?= $value ?></option>
+                                <? } ?>
+                        </select>
+                        <input type="hidden" name="delivery[current_integration_mode]" value="<?=$Delivery['IntegrationDeliveryMode']?>" />
+                    </div>
+                </div>
+                
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[IsHidden]"><?=LangAdmin::get('Hide_for_customers')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('delivery_integration_hide_from_buyer')?>"></i> </label>
+                    <div class="controls">
+                        <? if (isset($Delivery) && $Delivery['IsHidden']=='true') $checked = 'checked'; ?>
+                        <input name="delivery[IsHidden]" value="1" type="checkbox" <?=$checked?>>
+                    </div>
+                </div>
+                
+            </fieldset>
+
+            <fieldset>
+
+                <legend><?=LangAdmin::get('Cost_calculating')?></legend>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[min_weight]"><?=LangAdmin::get('Min_weight_delivery')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Min_weight_delivery_hint')?>"></i></label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="delivery[min_weight]" name="delivery[min_weight]" data-check="min_weight" class="input-mini price" type="text" placeholder="0" value="<?= (!empty($parsed_formula['min_weight'])) ? $parsed_formula['min_weight'] : '';?>">
+                            <span class="add-on"><?=LangAdmin::get('kg')?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[max_weight]"><?=LangAdmin::get('Max_weight_delivery')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Max_weight_delivery_hint')?>"></i></label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="delivery[max_weight]" name="delivery[max_weight]" data-check="max_weight" class="input-mini price" type="text" placeholder="999" value="<?= (!empty($parsed_formula['max_weight'])) ? $parsed_formula['max_weight'] : '';?>">
+                            <span class="add-on"><?=LangAdmin::get('kg')?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="delivery[step_weight]"><?=LangAdmin::get('Step_by_weight')?> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Step_by_weight_hint')?>"></i></label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="delivery[step_weight]" name="delivery[step_weight]" data-check="step_weight" class="input-small price" type="text" placeholder="<?=LangAdmin::get('Is_absent')?>" value="<?= (!empty($parsed_formula['step_weight'])) ? $parsed_formula['step_weight'] : '';?>">
+                            <span class="add-on"><?=LangAdmin::get('kg')?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div class="controls">
+                        <label class="checkbox inline" for="delivery[min_price_delivery]">
+                            <input name="delivery[min_price_delivery]" id="delivery[min_price_delivery]" data-check="min_price_delivery" value="1" type="checkbox" <?= (!empty($parsed_formula['min_price_delivery'])) ? 'checked' : '';?>>
+                            <?=LangAdmin::get('Delivery_min_price')?>
+                        </label>
+                        <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Delivery_min_price_hint')?>"></i>
+                    </div>
+                </div>
+                <div class="control-group control-group-medium">
+                    <div class="controls">
+                        <label class="checkbox inline" for="delivery[rounding]">
+                            <input name="delivery[rounding]" id="delivery[rounding]" data-check="rounding" value="1" type="checkbox" <?= $isRoundedStep ? 'checked' : '';?>>
+                            <?=LangAdmin::get('Delivery_rounding')?>
+                        </label> <i class="icon-question-sign ot_inline_help" data-content="<?=LangAdmin::get('Delivery_rounding_hint')?>"></i>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <legend><?=LangAdmin::get('Provider_type')?></legend>
+                <div class="control-group control-group-medium">
+                    <? foreach ($providers->GetItem() as $item) { ?>
+                        <? if($item->IsEnabled()) { ?>
+                            <label class="checkbox inline" for="delivery[provider][<?=$item->GetType()?>]">
+                                <? $checked = '';?>
+                                <? if (isset($Delivery) && in_array($item->GetType(), $Delivery['providertypes'])) $checked = 'checked'; ?>
+                                <input name="delivery[provider][<?=$item->GetType()?>]" value="1" type="checkbox" <?=$checked?>>
+                                <?=$item->GetDisplayName()?>
+                            </label>
+                        <? } ?>
+                    <? } ?>
+                </div>
+            </fieldset>
+
+            <!-- Блок Сложных настроек выводится только при редактировании доставки -->
+            <? if (isset($Delivery)) { ?>
+                <div class="box box-closed corner-all">
+                    <div class="box-header corner-top">
+                        <div class="header-control">
+                            <a data-box="collapse"><i class="icon-caret-down"></i></a>
+                        </div>
+                        <span><?=LangAdmin::get('Complex_settings_delivery')?></span>
+                    </div>
+
+                    <div class="box-body">
+                        <div role="alert" class="alert alert-warning">
+                            <strong><?=LangAdmin::get('Attention')?>!</strong> <?=LangAdmin::get('Warning_complex_settings_delivery')?>
+                        </div>
+
+                        <div class="control-group control-group-medium">
+                            <label class="control-label" for="delivery[complex_formula]"><?=LangAdmin::get('Formula')?></label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input id="delivery[complex_formula]" name="delivery[complex_formula]" data-check="complex_formula" class="input-xlarge" type="text" placeholder="<?=LangAdmin::get('Formula')?>" value="<?=$Delivery['formula']?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group control-group-medium">
+                            <div class="controls">
+                                <label class="checkbox inline" for="delivery[save_custom_formula]">
+                                    <input name="delivery[save_custom_formula]" id="delivery[save_custom_formula]" data-check="save_custom_formula" value="1" type="checkbox">
+                                    <?=LangAdmin::get('Save_custom_formula')?>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            <? } ?>
+
+            <div class="control-group control-group-medium">
+                <div class="controls">
+                    <a href="javascript:void(0)" id="save-delivery" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off" data-link="<?=$PageUrl->DeleteKey('id')->AssignDo('default')?>"><?=LangAdmin::get('Save')?></a>
+                    <a id="cancel" href="<?=$PageUrl->DeleteKey('id')->AssignDo('default')?>" class="btn offset-left1 btn_preloader" data-loading-text="<?=LangAdmin::get('Canceling')?>"><?=LangAdmin::get('Cancel')?></a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-shipment.js'); ?>

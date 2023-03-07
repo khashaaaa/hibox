@@ -1,0 +1,55 @@
+<? if (! empty($banners)) { ?>
+    <div class="so-homeslider sohomeslider-inner-1">
+        <? foreach ($banners as $key => $banner) { ?>
+            <a href="<?=($banner['url'] ? $this->escape($banner['url']) : 'javascript:void(0)')?>">
+                <img src="<?=$banner['source']?>" alt="image">
+            </a>
+        <? } ?>
+    </div>
+<? } ?>
+
+<? AssetsMin::jsBegin(); ?>
+    <script type="text/javascript">
+        var total_item = 3 ;
+        $(".sohomeslider-inner-1").owlCarousel2({
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn',
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplaySpeed:  1000,
+            smartSpeed: 500,
+            autoplayHoverPause: true,
+            startPosition: 0,
+            mouseDrag:  true,
+            touchDrag: true,
+            dots: true,
+            autoWidth: false,
+            dotClass: "owl2-dot",
+            dotsClass: "owl2-dots",
+            loop: true,
+            navText: ["Next", "Prev"],
+            navClass: ["owl2-prev", "owl2-next"],
+            //  dotsContainer: '#carousel-custom-dots',
+            responsive: {
+                0:{ items: 1,
+                    nav: total_item <= 1 ? false : ((false ) ? true: false),
+                },
+                480:{ items: 1,
+                    nav: total_item <= 1 ? false : ((false ) ? true: false),
+                },
+                768:{ items: 1,
+                    nav: total_item <= 1 ? false : ((false ) ? true: false),
+                },
+                992:{ items: 1,
+                    nav: total_item <= 1 ? false : ((false ) ? true: false),
+                },
+                1200:{ items: 1,
+                    nav: total_item <= 1 ? false : ((false ) ? true: false),
+                }
+            },
+        });
+
+
+    </script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

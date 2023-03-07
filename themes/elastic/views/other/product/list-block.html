@@ -1,0 +1,13 @@
+<div class="listing-wrap">
+    <? foreach ($products as $item) { ?>
+        <div class="item-product <?= (! $item->isSellAllowed) ? 'is-sell-allowed-false' : '' ?> <?=ProductsHelper::formatFeatureListForCss($item->features)?>">
+            <? if ((General::getConfigValue('hide_item_for_restrictions')) && (! $item->isSellAllowed) && ($item->sellDisallowReason === 'IsFiltered')) { ?>
+                <?=General::viewFetch('other/product/display-disalow')?>
+            <? } elseif ($item->errorCode == 'Ok') { ?>
+                <?=$item->displayBlock()?>
+            <? } else { ?>
+                <?=General::viewFetch('other/product/display-error', array('vars' => array('item' => $item)))?>
+            <? } ?>
+        </div>
+    <? } ?>
+</div>

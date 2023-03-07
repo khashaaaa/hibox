@@ -1,0 +1,32 @@
+<?=General::runController('Header')?>
+    <?=General::runController('Crumbs')?>
+    <? if($_GET['p'] == 'subcategory' or $_GET['p'] == 'category' or $_GET['p'] == 'vendor' or $_GET['p'] == 'search' or $_GET['p'] == 'digest') { ?>
+    <div class="container product-listing content-main">
+        <div class="row">
+            <? if (!empty(General::$_page['title_h1'])) { ?>
+                <h1><?=General::$_page['title_h1']?></h1>
+            <? } ?>
+            <? if (!empty(General::$_page['text'])) { ?>
+                <div class="box-section"><?//=General::$_page['text']?></div>
+            <? } ?>
+            <?=$result?>
+        </div>
+    </div>
+    <? } else { ?>
+        <div class="container content-main">
+            <div class="row">
+                <div id="content" class="col-md-12 col-sm-12">
+                <? if (!empty(General::$_page['title_h1'])) { ?>
+                    <h1><?=General::$_page['title_h1']?></h1>
+                <? } ?>
+
+                <? if (!empty(General::$_page['text'])) { ?>
+                    <div class="box-section"><?=General::$_page['text']?></div>
+                <? } ?>
+
+                <?=$result?>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+<?=General::runController('Footer')?>

@@ -1,0 +1,16 @@
+<? if (General::getConfigValue('show_debug') && !defined('NO_DEBUG_STRONG') && !empty($_SESSION['sid']) && SCRIPT_NAME != 'send_debug_info' && isset($GLOBALS['trace'])) { ?>
+<?php $logs = isset($logs) ? $logs : General::GetArrayLogs($GLOBALS['trace']);?>
+<div id="top-service-block">
+    <div class="userform">
+        <div class="enter">
+            <form action="\?p=send_debug_info" method="POST" target="_blank">
+                <input type="submit" class="btn_office" value="<?=Lang::get('speed_test')?>" style="background-position: 0 -144px;width: 184px;">
+                <input type="hidden" name="logs" value='<?=serialize($logs)?>' />
+            </form>
+        </div>
+        <div id="close-top-service-block" onclick="$('#top-service-block').hide();">
+            x
+        </div>
+    </div>
+</div>
+<? } ?>

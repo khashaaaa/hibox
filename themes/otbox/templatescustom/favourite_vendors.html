@@ -1,0 +1,15 @@
+<?=$HeaderNew?>
+<div id="checkout-cart" class="container">
+    <div class="row">
+        <div id="content" class="col-sm-12">
+            <ul class="tabs tabs1 clrfix" style="margin: 30px 0;display: block;width: 100%;">
+                <li><a href="/?p=supportlist"><span><?=Lang::get('favourite_items')?></span><i></i></a></li>
+                <? if (!InstanceProvider::getObject()->isLimitItemsByCatalog()) { ?>
+                    <li class="active"><a href="/?p=favourite_vendors"><span><?=Lang::get('favourite_vendors')?></span><i></i></a></li>
+                <? } ?>
+            </ul>
+            <?=$FavouriteVendors?>
+        </div>
+    </div>
+</div>
+<?=$FooterNew?>

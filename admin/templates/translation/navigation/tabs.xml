@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Multilingual" action="default" cmd="MultilingualSettings">
+        <page data-action="default" data-cmd="multilingualsettings" />
+    </tab>
+    <tab title="Translations" action="default" cmd="Translations">
+        <page data-action="default" data-cmd="translations" />
+        <page data-action="edit" data-cmd="translations" />
+    </tab>
+    <tab title="Service_translation" action="service" cmd="Translations">
+        <page data-action="service" data-cmd="translations" />
+    </tab>
+    <tab title="Search_translation" action="search" cmd="Translations">
+        <page data-action="search" data-cmd="translations" />
+    </tab>
+</tabs>

@@ -1,0 +1,18 @@
+<? if(isset($footerMenu)) { ?>
+    <? foreach ($footerMenu as $menu) { ?>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 col_bko7  col-style">
+            <div class="box-account box-footer">
+                <div class="module clearfix">
+                    <h3 class="modtitle"><?=$menu['title']?></h3>
+                </div>
+                <div class="modcontent">
+                    <ul class="menu">
+                        <? foreach ($menu['child'] as $submenu) { ?>
+                            <li><a href="<?=$submenu['link']?>" title="<?=$submenu['title']?>"><?=$submenu['title']?></a></li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+<? } ?>

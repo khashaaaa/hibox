@@ -1,0 +1,53 @@
+<div class="debug-widgets-status">
+    <span>
+        Выполнено запросов: <?= count($logs) ?>
+    </span>
+    <span class="debug-widgets-duration">
+        <?= number_format(Debugger::calculateTime($logs), $roundingPrecision) ?> сек.
+    </span>
+</div>
+
+<ul class="debug-widgets-list">
+    <? if (count($logs)) { ?>
+        <? foreach ($logs as $log) { ?>
+            <li class="debug-widgets-list-item js-debug-body-row" connection="pet_graduatealbum">
+                <div class="debug-widgets-list-item-info">
+                    <code class="js-log-type">
+                        <?= Lang::get(strtolower($log->type)) ?>
+                        <span>
+                            <? if ($log->link) { ?>
+                                <?= $log->link ?>
+                            <? } ?>
+                            <?= $log->startText ?>
+                            <a href="javascript:void(0)" class="additional-more js-debug-body-row-additional-more">
+                                More...
+                            </a>
+                        </span>
+                    </code>
+
+                    <div class="log-additional js-debug-body-row-additional closed">
+                        <? if ($log->arguments) { ?>
+                            <span class="log-additional-row"> Arguments: <?= $log->arguments ?> </span>
+                        <? } ?>
+
+                        <? if (! empty($log->additionalText)) { ?>
+                            <span class="log-additional-row"> Additional: <?= $log->additionalText ?> </span>
+                        <? } ?>
+
+                        <? if ($log->traceStr) { ?>
+                            <span class="log-additional-row"> Trace: <br> <?= $log->traceStr ?> </span>
+                        <? } ?>
+                    </div>
+                </div>
+
+                <span class="debug-widgets-duration">
+                    Время: <?= number_format($log->runTime, $roundingPrecision) ?> сек. <br>
+                    <? if ($log->transferTime) { ?>
+                        Связь: <?= number_format($log->transferTime, $roundingPrecision) ?> сек.
+                        (<?= number_format($log->transferTime / $log->runTime * 100) ?>%)
+                    <? } ?>
+                </span>
+            </li>
+       <? } ?>
+    <? } ?>
+</ul>

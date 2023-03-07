@@ -1,0 +1,32 @@
+<?php
+if (!$activeSearchMethod->GetFeatures() && !$activeSearchMethod->StuffStatus()) return '';
+?>
+<div class="search-content_features">
+	<div class="col-md-12">
+		<? if ($activeSearchMethod->GetFeatures()) { ?>
+			<? foreach ($activeSearchMethod->GetFeatures()->GetFeature() as $feature) { ?>
+				<? if (!$feature->CanBeTrue()) continue; ?>
+
+				<? $featureUrl = clone $baseUrl?>
+				<? $isActive = (! empty($searchParams['features'][$feature->GetName()]))?>
+				<? $featureUrl->DeleteKey(array('features', $feature->GetName()))->DeleteKey('page')->DeleteKey('perpage'); ?>
+				<a href="<?=$isActive ? $featureUrl->Get() : $featureUrl->Add('features[' . $feature->GetName() . ']', 'true')->Get()?>"
+				   class="btn btn-default search-click <?=$isActive ? 'btn-success active-feature' : ''?> feature-<?= $feature->GetName() ?>">
+					<?= $isActive ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+					<?=$feature->GetDisplayNameForTrue()?>
+				</a>
+			<? } ?>
+		<? } ?>
+
+		<? if ($activeSearchMethod->StuffStatus()) { ?>
+			<? $featureUrl = clone $baseUrl?>
+			<? $isActive = (! empty($searchParams['StuffStatus']))?>
+			<? $featureUrl->DeleteKey('StuffStatus')->DeleteKey('page')->DeleteKey('perpage'); ?>
+			<a href="<?=$isActive ? $featureUrl->Get() : $featureUrl->Add('StuffStatus', 'New')->Get()?>"
+			   class="btn btn-default search-click <?=$isActive ? 'btn-success active-feature' : ''?> feature-StuffStatus">
+				<?= $isActive ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+				<?=Lang::get('only_new')?>
+			</a>
+		<? } ?>
+	</div>
+</div>

@@ -1,0 +1,111 @@
+<div class="control-group control-group-medium">
+    <label class="control-label"><?=$displayName?>
+        <? if ($description) { ?>
+        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+        <? } ?>
+    </label>
+    <a href="#" id="<?=$name?>" <?=$requireReload ? 'require-reload="true"' : '' ?> data-type="number" class="ot_inline_editable" data-pk="1"
+    <?=($minValue !== null) ? 'data-min="'.$minValue.'"' : ''?>
+    <?=($maxValue !== null) ? 'data-max="'.$maxValue.'"' : ''?>><?=$currentValue?></a>
+    <span class="unit"><?=$unit?></span>
+</div>
+
+<script>
+    $(function() {
+        //meta-ui-container
+        var container = $('#<?=$name?>').closest('div.meta-ui-container');
+        var updateSettingsUrl = $(container).attr('update-settings-url');
+        $('#<?=$name?>').editable({
+            <? if ($nameCanByReset) { ?>
+                extraButtons: '<button type="button" class="btn icon-refresh <?=$nameCanByReset?>" title="<?=LangAdmin::get("By_default")?>"></button>',
+            <? } ?>
+            url: updateSettingsUrl + '&type=Text',
+            emptytext: trans.get('Not_set'),
+            <?=($isReadOnly == 1) ? 'disabled: true,' : '' ?>
+            success: function(data, config) {
+                if (!data.error) {
+                    showMessage(trans.get('Data_save_success'));
+                    if ($('#<?=$name?>').attr('require-reload') == 'true') {
+                        if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                           var container = $('#<?=$name?>').closest('.allow-reload');
+                           var url = $(container).attr('reload-url');
+                           if (url) {
+                               $.post(url, {}, function (data) {
+                                   if (! data.error) {
+                                       $(container).html(data.html);
+                                   } else {
+                                       showError(data);
+                                   }
+                               }, 'json').error(function(xhr, ajaxOptions, thrownError){
+                                   showError(xhr.responseText);
+                               });                                
+                               return;
+                           }
+                        }
+                        location.reload();
+                    }                   
+                } else {
+                    showError(data);
+                    var container = $('#<?=$name?>').closest('.control-group');
+                    $('.editable-input input', container).addClass('error');
+                    return false;
+                }
+            },
+            error: function(errors) {
+                showError(errors);
+            }
+        });
+        <? if ($nameCanByReset) { ?>
+        container.on('click', 'button.<?=$nameCanByReset?>', function () {
+            modalDialog(trans.get('Confirm_needed'), trans.get('Really_set_default_value'), function () {
+            $('button.<?=$nameCanByReset?>').attr('disabled','disabled');
+            $('button.<?=$nameCanByReset?>').addClass('btn_preloader');
+            $('button.<?=$nameCanByReset?> i').hide();
+            $.post(
+                updateSettingsUrl,
+                {
+                    "name": '<?=$nameCanByReset?>',
+                    "value": 'true',
+                    "type": 'Text'
+                },
+                function (data) {
+                    if (!data.error) {
+                        showMessage(trans.get('Data_save_success'));
+                        $('button.<?=$nameCanByReset?>').removeClass('btn_preloader');
+                        $('button.<?=$nameCanByReset?>').addClass('disabled');
+                        $('button.<?=$nameCanByReset?> i').show();
+                        $('button.<?=$nameCanByReset?>').attr('disabled');
+
+
+                        if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                            var container = $('#<?=$name?>').closest('.allow-reload');
+                            var url = $(container).attr('reload-url');
+                            if (url) {
+                                $.post(url, {}, function (data) {
+                                    if (! data.error) {
+                                        $(container).html(data.html);
+                                    } else {
+                                        showError(data);
+                                    }
+                                }, 'json').error(function(xhr, ajaxOptions, thrownError){
+                                    showError(xhr.responseText);
+                                });
+                                return;
+                            }
+                        }
+                        location.reload();
+                    } else {
+                        showError(data);
+                        var container = $('#<?=$name?>').closest('.control-group');
+                        $('#<?=$name?>', container).addClass('error');
+                        return false;
+                    }
+                }, 'json'
+            );
+            });
+                return false;
+
+        });
+        <? } ?>
+    });
+</script>

@@ -1,0 +1,121 @@
+<div class="content content-basket js-basket"
+     data-get-basket-url="<?= UrlGenerator::toRoute('basket/getBasket') ?>"
+     data-item-info-action="<?= UrlGenerator::toRoute('basket/getItemInfo') ?>"
+     data-line-change-configuration-url="<?= UrlGenerator::toRoute('basket/changeConfiguration') ?>"
+     data-change-quantity-url="<?= UrlGenerator::toRoute('basket/changeQuantity') ?>"
+     data-get-delivery-cost-url="<?= UrlGenerator::toRoute('basket/getDeliveryCost') ?>"
+     data-make-order-url="<?= UrlGenerator::getUrl('userorder', ['includeGet' => true, 'getParams' => ['step1' => 1]]) ?>"
+     data-run-basket-checking-url="<?= UrlGenerator::getUrl('basket/runChecking') ?>"
+     data-basket-checking-url="<?= UrlGenerator::getUrl('basket/checking') ?>"
+     data-edit-basket-item-fields-url="<?= UrlGenerator::toRoute('basket/editBasketItemFields') ?>"
+     data-get-basket-deliveries-url="<?= UrlGenerator::toRoute('basket/getBasketDeliveries') ?>"
+>
+    <section class="content-block">
+        <div class="row">
+            <div class="col-l-12 col-xl-10 offset-xl-1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1><?= Lang::get('cart') ?></h1>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row js-basket-content-wrapper"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="js-basket-line-change-configuration-modal" style="display: none">
+        <form class="js-basket-line-change-form basket-line-change-form" action="">
+            <input type="hidden" class="js-basket-line-change-configuration-modal-lineId" name="lineId">
+            <input type="hidden" class="js-basket-line-change-configuration-modal-itemId" name="itemId">
+            <input type="hidden" class="js-basket-line-change-configuration-modal-itemUrl" name="itemUrl">
+            <input type="hidden" class="js-basket-line-change-configuration-modal-comment" name="comment">
+            <input type="hidden" class="js-basket-line-change-configuration-modal-quantity" name="quantity">
+            <input type="hidden" class="js-basket-line-change-configuration-modal-externalDeliveryId" name="externalDeliveryId">
+
+            <p class="h5 js-basket-line-change-configuration-modal-message">
+                <?= Lang::get('attention_price') ?>
+            </p>
+        </form>
+    </div>
+
+    <div class="js-basket-select-skeleton" style="display: none">
+        <span class="js-basket-select-skeleton-name"></span>
+        <select class="form form-control js-basket-select" name="">
+            <option class="js-basket-select-option" value=""></option>
+        </select>
+        <br>
+    </div>
+
+    <div class="js-basket-table-delivery-skeleton table-delivery-wrapper" style="display: none">
+        <table class="table table-delivery table-borderless js-basket-table-delivery">
+            <thead>
+                <tr>
+                    <th scope="col"><?=Lang::get('transport_company')?></th>
+                    <th scope="col"><?=Lang::get('delivery_description')?></th>
+                    <th scope="col"><?=Lang::get('delivery_cost')?></th>
+                </tr>
+            </thead>
+            <tbody class="js-basket-table-delivery-body">
+                <tr class="delivery_list js-basket-table-delivery-mode-skeleton">
+                    <td class="td-1">
+                        <div class="custom-control custom-radio">
+                            <input id=""
+                                   value="0"
+                                   type="radio"
+                                   data-id="0"
+                                   data-name="<?= Lang::get('select_later') ?>"
+                                   name="externalDeliveryId"
+                                   class="custom-control-input deliveryMethod js-basket-table-delivery-mode-input"
+                            >
+                            <label for="" class="custom-control-label deliveryName js-basket-table-delivery-mode-label">
+                                <?= Lang::get('select_later') ?>
+                            </label>
+                        </div>
+                    </td>
+                    <td class="td-2">
+                        <p class="js-basket-table-delivery-mode-description-text"></p>
+                        <p class="js-basket-table-delivery-mode-description-error text-danger delivery-mode-error"></p>
+                    </td>
+                    <td class="td-3 js-basket-table-delivery-mode-price"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="overlay-progressbar js-basket-progressbar">
+        <div class="progressbar-inner-wrapper">
+            <p><?= Lang::get('please_wait_basket_checking') ?></p>
+            <div class="progress">
+                <div class="progress-bar
+                        progress-bar-info
+                        progress-bar-striped
+                        active
+                        js-basket-progressbar-progress"
+                >0%</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= Lang::loadJSTranslation(array(
+    'clear_cart',
+    'change_config',
+    'to_favourites',
+    'select_delivery',
+    'sure_delete_all',
+    'delete_selected',
+    'delete_from_cart',
+    'order_has_comments',
+    'sure_to_favourites',
+    'sure_favourite_multi',
+    'sure_delete_selected',
+    'Cart_remove_confirmation',
+    'move_selected_to_favorites',
+    'attention_changes_in_the_basket',
+    'delivery_method_select_at_checkout'
+)) ?>
+
+<? AssetsMin::registerJsFile('js/pages/basket.js'); ?>

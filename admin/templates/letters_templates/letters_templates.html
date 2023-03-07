@@ -1,0 +1,52 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Letters_templates')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+<!-- ot-sub-sub-nav -->
+
+<div class="row-fluid">
+    <div class="span10">
+        <h1><?=LangAdmin::get('Letters_templates')?></h1>
+    </div>
+
+    <div class="span2 offset-top1">
+        <?=AdminLanguage::getLanguageSelector(false)?>
+    </div>
+</div>
+
+<div class="well" id="eventsTemplates">
+	<div class="row-fluid" id="eventsContainer">
+	    <div class="span12">
+	        <br/>
+	        <? if (empty($events)) { ?>
+	            <p><?=LangAdmin::get('List_is_empty')?></p>
+	        <? } else { ?>
+	            <div class="tabbable tabs-left">
+	                <ul class="nav nav-tabs">
+	                    <? foreach ($events as $event) { ?>
+	                        <li>
+	                            <a href="javascript:void(0)" class="event"  data-type="<?=$event->GetName()?>" action="<?=$PageUrl->Add('do', 'getTemplate')->Get()?>" data-loading-text="<span class='ot-preloader-mini'></span>">
+	                                <?=$event->GetDescription()?>
+	                            </a>
+	                        </li>
+	                    <? } ?>
+	                </ul>
+	                <div class="tab-content">
+	                    <div id="eventTemplateMetaUI" class="allow-reload"></div>
+	                </div>
+	            </div>
+	        <? } ?>
+	    </div>
+	</div>
+<? ScriptIncluder::AddCustomScript('js/ot-letters-templates.js'); ?>
+<script type="text/javascript">
+$(window).load(function() {
+    $('.event:first').click();
+});
+</script>	
+</div>
+
+

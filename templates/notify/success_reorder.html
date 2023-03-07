@@ -1,0 +1,6 @@
+<?=Lang::get('hello')?><br />
+<?=Lang::get('new_reorder_entered')?>: <?=$orderId?> <br />
+<? if ($with_order) { ?>
+    <?=Lang::get('Need_to_merge_order_with_order')?> <?=$with_order?> <?=Lang::get('with_order')?> № <?=$orderId?> <br />
+<? } ?>
+<?=Lang::get('enter_to_admin_panel')?> <a href="<?=UrlGenerator::getHomeUrl()?>/admin/index.php?cmd=orders&do=orderinfo&id=<?=$url?>"><?=UrlGenerator::getHomeUrl()?>/admin/index.php?cmd=orders&do=orderinfo&id=<?=$url?></a>

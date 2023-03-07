@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-4">
+            <form class="needs-validation confirmation-form js-confirmation-form"
+                  action="<?= UrlGenerator::toRoute('authentication/confirm') ?>"
+            >
+                <div class="modal-row">
+                    <label>
+                        <?= Lang::get('confirmation_phone_label') ?> *
+                        <input type="text" name="code" class="form-control" autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="modal-row js-response js-confirmation-error hidden">
+                    <div class="alert alert-danger js-confirmation-error-message" role="alert"></div>
+                </div>
+
+                <div class="for-btn">
+                    <button type="submit" class="btn button mx-auto js-confirmation-form-btn">
+                        <?= Lang::get('confirmation_phone_btn') ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::registerJsFile('/js/pages/authetication-phone.js'); ?>

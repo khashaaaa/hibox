@@ -1,0 +1,52 @@
+/* form and field (begin) */
+
+  .form
+  {}
+
+  .field label
+  {
+    display: inline-block;
+    margin: 0 5px 0 0;
+    width: 200px;
+
+    text-align: right;
+  }
+
+  .field
+  {
+    margin: 10px 0;
+    width: 49%;
+  }
+
+  .form-field
+  {
+
+
+    border: 1px solid #ccc;
+    padding: 4px;
+
+    font-size: 12px;
+  }
+
+  .form .form-field
+  { width: 200px }
+
+  .form .form-field.captchainp
+  { width: auto }
+
+  .form-field__select
+  { border: 1px solid #ccc }
+
+  .form-field__textarea
+  {
+    padding: 4px;
+    height: 60px;
+
+    border: 1px solid #ccc
+  }
+
+  .required-field 
+  {
+    border-color: #ec1c23;
+  }
+/* form and field (end) */

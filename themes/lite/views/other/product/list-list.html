@@ -1,0 +1,14 @@
+<ul class="item-list-list">
+    <? foreach ($products as $item) { ?>
+    <li class="product <?= (! $item->isSellAllowed) ? 'is-sell-allowed-false' : '' ?> <?=ProductsHelper::formatFeatureListForCss($item->features)?>" title="<?=$this->escape($item->title)?>">
+        <?=ProductsHelper::getHtmlFeatureListForLabel($item->features)?>
+        <? if ((General::getConfigValue('hide_item_for_restrictions')) && (! $item->isSellAllowed) && ($item->sellDisallowReason === 'IsFiltered')) {
+            View::fetchTemplate('item-replace-text', 'item_replace_text', '/blocks/search/', array('text' => Lang::get('IsFiltered')));
+        } elseif ($item->errorCode != 'Ok') { ?>
+            <?=View::fetchTemplate('item-error-code', 'item', '/blocks/search/', array('item' => $item))?>
+        <? } else { ?>
+            <?=$item->displayList()?>
+        <? } ?>
+    </li>
+    <? } ?>
+</ul>

@@ -1,0 +1,56 @@
+<div class="product-item" itemscope itemtype="https://schema.org/Product">
+    <a href="<?=$item->url?>" class="item-list_img-wrap">
+        <? if ($item->getMediumImage()) { ?>
+        <div class="product-image-wrapper">
+            <img class="check-noimg main-photo" src="<?=$item->getMediumImage()?>" alt="<?=$this->escape($item->title)?>" itemprop="image">
+        </div>
+        <? } ?>
+    </a>
+    <a href="<?=$item->url?>"><h3 itemprop="name"><?=$this->escape($item->title)?></h3></a>
+    <div class="item-list_cost">
+        <? if ($item->displayPromoPrice) { ?>
+            <div class="item-list_cost_old">
+                <span><?=$item->displayPrice?></span>
+            </div>
+            <div class="item-list_cost_new" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <?=$item->displayPromoPrice?>
+            </div>
+        <? } else {?>
+            <div class="item-list_cost_new" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <?=$item->displayPrice?>
+            </div>
+        <? } ?>
+    </div>
+    <div class="more-info">
+        <div>
+            <? if ($item->quantityRanges) { ?>
+                <table class="table quantity-ranges" title="<?=Lang::get('Prices_ranges')?>">
+                    <tbody>
+                        <tr>
+                            <? foreach ($item->quantityRanges as $range) { ?>
+                                <th><?=$range['Price']?></th>
+                            <? } ?>
+                        </tr>
+                        <tr>
+                            <? foreach ($item->quantityRanges as $range) { ?>
+                                <td><?=$range['DisplayRange']?></td>
+                            <? } ?>
+                        </tr>
+                    </tbody>
+                </table>
+            <? } ?>
+            <? if (!is_null($item->itemReviewRating)) { ?>
+                <div class="ratyScore ratyScore-sm" style="text-align: center;" data-score="<?=$item->itemReviewRating?>"></div>
+            <? } ?>
+            <? if ($item->vendorName) { ?>
+                <?=Lang::get('vendor')?>: <?= VendorHelper::generateLink($item->vendorId, $item->vendorName, array('class' => 'vendor-url'))?> <br>
+            <? } ?>
+            <? if ($item->vendorScore) { ?> <i class="i-raiting <?=$item->provider?> raiting_<?=$item->vendorScore?>"></i><? } ?>
+            <ul class="more-photos">
+                <? foreach ($item->pictures as $picture) { ?>
+                <li img-src="<?=$picture['medium']?>" class="other-photo" style="background: url(<?=$picture['small']?>);background-size: cover"></li>
+                <? } ?>
+            </ul>
+        </div>
+    </div>
+</div>

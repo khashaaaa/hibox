@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<translations>
+    <key name='subject_add_bonus'>Subject of the letter to referral about getting referral bonuses</key>
+    <key name='subject_change_category'>Subject of the letter to the user about the change of referral category</key>
+</translations>

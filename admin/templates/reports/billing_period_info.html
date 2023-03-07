@@ -1,0 +1,37 @@
+<!--dt></dt>
+<dd></dd>
+<dt><?=LangAdmin::get('Your_rate')?></dt>
+<dd><span class="label weight-normal"><?= $rate->GetName() ?></span></dd-->
+<b><?=LangAdmin::get('Call_statistic_by_today_will_be_tomorow')?></b>
+<dt><?=LangAdmin::get('Count_service_calls')?></dt>
+<dd><?= $rent->GetCallCount() ?></dd>
+<dt><?=LangAdmin::get('Turnover_for_period')?></dt>
+<dd><?= round((float)$rent->GetTurnover()->GetSumMoney()->asString(), 2) ?>  <?= $rent->GetTurnover()->GetSumMoney()->GetSignAttribute() ?></dd>
+<dt><?=LangAdmin::get('Service_pay')?></dt>
+<dd><?= round((float)$rent->GetSum()->GetMarginPrice(), 2) ?>  <?= $rent->GetSum()->GetOriginalCurrencyCode() ?></dd>
+<dd><?=$transactionsFile ? '<a href="' . $transactionsFile . '" target="_blank">' . LangAdmin::get('Downwload_transactions') . '</a>' : ''?></dd>
+<? if (is_object($callStatistic->GetArchiveRecord())) { ?>
+<p><span class="blink" data-target=".ot_show_callStat" data-toggle="collapse"><?=LangAdmin::get('Show_calls_by_periods')?></span></p>
+<div class="ot_show_callStat collapse">
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th><?=LangAdmin::get('Date')?></th>
+        <th><?=LangAdmin::get('Call_count')?></th>
+    </tr>
+    </thead>
+    <tbody>
+        
+        <?  if ($callStatistic->GetArchiveRecord()) foreach ($callStatistic->GetArchiveRecord() as $record) { ?>        
+        <tr>
+            <td><?= date("d.m.Y", strtotime($record->GetTimeMeasure())) ?></td>
+            <td><?= $record->GetCount() ?></td>            
+        </tr>
+        <? } ?>
+    </tbody>
+
+</table>
+
+</div>
+<? } ?>

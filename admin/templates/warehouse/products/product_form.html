@@ -1,0 +1,482 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('warehouse', 'default')?>" class="muted"><?=LangAdmin::get('Warehouse')?></a> <span class="divider">›</span></li>
+    <li class="active">
+                <? if(isset($predefinedFormData['id'])){ ?>
+                <?=LangAdmin::get('edit_product')?>
+                <? }else{ ?>
+                <?=LangAdmin::get('add_product')?>
+                <? } ?>
+    </li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<?=TabsGenerator::GetSubTabs('templates/warehouse/navigation/tabs.xml', $PageUrl)?>
+
+<? AssetsMin::registerJsFile('/admin/js/vendor/jstree/jquery.jstree.js'); ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    categoryPath = <?=json_encode($categoryPath)?>;
+    <? if(isset($currentItem)){ ?>
+        currentItem = <?=json_encode($currentItem)?>;
+    <? } ?>
+    var WarehouseCategories = new Backbone.Collection();
+    var data = <?=json_encode($categories);?>;
+    WarehouseCategories.add(data);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-warehouse-product-edit.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/vendor/jasny-bootstrap.min.js'); ?>
+
+
+
+<? if(isset($predefinedFormData['id'])){ ?>
+    <!-- Form Name -->
+    <h1><?=LangAdmin::get('Edit_product')?></h1>
+<? }else{ ?>
+    <!-- Form Name -->
+    <h1><?=LangAdmin::get('Add_product')?></h1>
+<? } ?>
+
+
+<div class="well row" id="warehouse-product" style="margin-left: 0px"> <!--fuelux-->
+    <?
+    $predefinedFormData = isset($predefinedFormData) ? $predefinedFormData : Session::get('ItemFormRequest');
+    $predefinedFormData = is_array($predefinedFormData) ? $predefinedFormData : array(
+        'Name' => '',
+        'Vendor' => '',
+        'Price' => '',
+        'Quantity' => '1',
+        'Description' => '',
+        'MainImageUrl' => ''
+    );
+    ?>
+    <div style="display: none" id="item-description"><?=$predefinedFormData['Description']?></div>
+
+    <!-- Взять данные с существующего товара-->
+    <p class="offset-bottom2">
+        <a class="get-item-info bold"
+            href="#" data-name="Price"
+            data-type="text"
+            data-pk="1"
+            data-url="<?=$PageUrl->Add('do', 'getItemData')->Get()?>"
+            data-original-title=""
+            data-inputclass="input-xxlarge"
+            data-placement="left"
+            data-value=""
+            data-placeholder="<?=LangAdmin::get('Choose_existing_product')?>"
+            >
+            <?=LangAdmin::get('Choose_existing_product')?>
+        </a>
+    </p>
+
+    <form class="form-horizontal ot_form" action="<?=$PageUrl->Add('do', 'saveProduct')->Get()?>" method="post" enctype="multipart/form-data">
+        <? if(isset($predefinedFormData['id'])){ ?>
+            <input type="hidden" name="Id" value="<?=$predefinedFormData['id']?>">
+        <? } else { ?>
+            <input type="hidden" name="Id" id="newItemId" value="">
+        <? } ?>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Sell_allowed')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('Sell_allowed_hint')?>" title=""></i></label>
+            <div class="controls">
+                <input itemId="<?=$predefinedFormData['id']?>" id="SellAllowed" name="SellAllowed" type="checkbox" <?=$predefinedFormData['IsSellAllowed'] ? 'checked="checked"' : ''?>/>
+            </div>
+        </div>
+
+        <!-- Название товара-->
+        <div class="control-group">
+            <label class="control-label bold" for="Name"><?=LangAdmin::get('Name')?></label>
+            <div class="controls">
+                <input id="Name" name="Name" placeholder="<?=LangAdmin::get('Enter_product_name')?>" value="<?=$this->escape($predefinedFormData['Name'])?>" class="input-xlarge" required type="text">
+            </div>
+        </div>
+
+        <!-- Продавец-->
+        <div class="control-group">
+            <label class="control-label bold" for="Vendor"><?=LangAdmin::get('Vendor')?></label>
+            <div class="controls">
+                <? $vendorName = is_array($predefinedFormData['Vendor']) ? $predefinedFormData['Vendor']['Name'] : $predefinedFormData['Vendor']; ?>
+                <input id="Vendor" name="Vendor" placeholder="<?=LangAdmin::get('Enter_vendor')?>" value="<?=$this->escape($vendorName)?>" class="input-medium" required type="text">
+            </div>
+        </div>
+
+        <!-- Категория в каталоге-->
+        <div class="control-group">
+            <label class="control-label bold" for="CategoryName"><?=LangAdmin::get('Category')?></label>
+            <div class="controls">
+                <input required title="<?=LangAdmin::get('Choose_category_in_the_list')?>" placeholder="<?=LangAdmin::get('Choose_category_in_the_list')?>" id="CategoryName" name="CategoryName" class="input-medium" type="text" value="<?=$category ? $this->escape($category['Name']) : ''?>" disabled="disabled">
+                <input type="hidden" id="CategoryId" name="CategoryId" value="<?=$category ? $category['Id'] : 0?>">
+                <!--button type="button" data-toggle="button" class="btn" title="Указать раздел каталога"><i class="icon-list-alt font-14"></i></button-->
+                <a href="#tree-modal" role="button" data-toggle="modal" type="button" data-toggle="button" class="btn" title="<?=LangAdmin::get('Choose_from_category_list')?>"><i class="icon-list-alt font-14"></i></a>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold" for="CategoryName"><?=LangAdmin::get('Images')?></label>
+            <div class="controls">
+                <div>
+                    <span class="btn btn-tiny upload-image"><span><?=LangAdmin::get('Upload')?></span></span> 
+                    <span class="btn btn-tiny add-image"><span><?=LangAdmin::get('Point')?></span></span>
+                </div>
+                <br/>            
+                <ul id="image-items-sortable" type="<?=$type?>" class="thumbnails ot_sortable_cols ot_image_items">
+                    <div class="template-image hide">
+                        <li class="modified" id="itemId" picture="" originalPicture="">
+	                        <input type="hidden" name="" value="">
+	                        <div class="thumbnail">
+	                            <header>
+	                                <span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span>
+	                                <span class="pull-right">
+	                                    <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+	                                </span>
+	                            </header>
+	                            <a href="javascript:void(0)" title="" target="_blank" class="img_preview">
+	                              <img id="img_preview" src="<?=$imgUrl['url']?>" alt="">
+	                            </a>
+	                        </div>
+                        </li>                    
+                    </div>
+                    <div class="template-upload-image hide">
+                        <li class="modified" id="itemId" picture="" originalPicture="">
+                            <div class="thumbnail">
+                                <header>
+                                    <!--span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span-->
+                                    <span class="pull-right">
+                                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+                                    </span>
+                                </header>
+		                        <div class="fileupload fileupload-new" data-provides="fileupload">
+		                            <div class="left">
+			                            <div class="fileupload-preview fileupload-exists thumbnail" style="padding:3px; width: 100px; height: 101px; display: inline-block">
+			                                <img id="MainImageThumb" src="https://www.placehold.it/100x100/EFEFEF/AAAAAA" />
+			                            </div>
+		                            </div>
+		                            <div>
+			                            <span class="btn btn-file btn-inverse hide" >
+			                                <input type="hidden" id="MainImageUrl" name="MainImageUrl[]" />
+			                            </span>
+		                            </div>
+		
+		                        </div>                               
+                            </div>
+                        </li>                    
+                    </div>
+                    <? if (isset($predefinedFormData['ImageUrls'])) { ?>
+	                    <? foreach($predefinedFormData['ImageUrls'] as $key => $imgUrl) { ?> 
+                            <? if ($imgUrl['IsMain'] == 'true') { ?>
+			                    <li id="itemId" picture="" originalPicture="">
+			                        <input type="hidden" name="images[]" value="<?=$imgUrl['url']?>">
+			                        <div class="thumbnail">
+			                            <header>
+			                                <span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span>
+			                                <span class="pull-right">
+			                                    <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+			                                </span>
+			                            </header>
+			                            <a href="javascript:void(0)" title="" class="img_preview">
+			                              <img id="img_preview" src="<?=$imgUrl['url']?>" alt="">
+			                            </a>
+			                            <!--h3 title="itemTitle">itemTitle</h3-->
+			                        </div>
+			                    </li>
+                                <? break; ?>  
+	                        <? } ?>
+	                    <? } ?>
+	                    <? foreach($predefinedFormData['ImageUrls'] as $key => $imgUrl) { ?> 
+                            <? if ($imgUrl['IsMain'] == 'false') { ?>
+					            <li id="itemId" picture="" originalPicture="">
+					                <input type="hidden" name="images[]" value="<?=$imgUrl['url']?>">
+					                <div class="thumbnail">
+					                    <header>
+					                        <span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span>
+					                        <span class="pull-right">
+					                            <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+					                        </span>
+					                    </header>
+					                    <a href="javascript:void(0)" title="" target="_blank" class="img_preview">
+					                      <img id="img_preview" src="<?=$imgUrl['url']?>" alt="">
+					                    </a>
+					                </div>
+					            </li>
+			                 <? } ?>
+			            <? } ?>
+		            <? } ?>
+                </ul>
+            </div>
+        </div>
+
+                <!-- Цена-->
+                <div class="control-group">
+                    <label class="control-label bold" for="Price"><?=LangAdmin::get('Price')?></label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="Price" name="Price" class="input-mini price" required type="text" value="<?=$this->escape($predefinedFormData['Price'])?>">
+                            <span class="add-on"><?=$currency?></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <? if(isset($predefinedFormData['id'])){ ?>
+                <div class="control-group">
+                    <label class="control-label bold" for="confs"></label>
+                    <div class="controls">
+                        <input type="hidden" id="configurations" name="configurations" value="<?= empty($predefinedFormData['configurations']) ? 0 : 1 ?>">
+                        <a href="javascript:void(0);" id="product-configurations"><?=LangAdmin::get('Configurations')?></a>
+                    </div>
+                </div>
+                <? } ?>                
+
+                <!-- Количество-->
+                <div class="control-group">
+                    <label class="control-label bold" for="Quantity"><?=LangAdmin::get('Quantity')?></label>
+                    <div class="controls">
+                        <input id="Quantity" name="Quantity" class="input-mini input_numeric_only" required type="text" value="<?=$this->escape($predefinedFormData['Quantity'])?>" placeholder="<?=LangAdmin::get('Quantity_placeholder')?>" <?=($predefinedFormData['IsSellAllowed'] || !empty($predefinedFormData['configurations']))  ? 'readonly="readonly"' : '' ?>>
+                    </div>
+                </div>
+                
+                <!-- Вес-->
+                <div class="control-group" id="WeightExist">
+                    <label class="control-label bold" for="Weight"><?=LangAdmin::get('Weight')?></label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="Weight" name="Weight" class="input-mini" type="text" value="<?=$this->escape($predefinedFormData['Weight'])?>" <?= $predefinedFormData['Weight'] ? '' : 'disabled="disabled"' ?> >
+                            <span class="add-on"><?=LangAdmin::get('Weight_placeholder')?></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ресет Веса-->
+                <div class="control-group">
+                    <label class="control-label bold" for="WeightReset"><?=LangAdmin::get('Default_weight')?></label>
+                    <div class="controls">
+                        <input id="WeightReset" name="WeightReset" type="checkbox" <?=$predefinedFormData['Weight'] ? '' : 'checked="checked"'?>/>
+                    </div>
+                </div>
+
+                <!-- Описание-->
+                <div class="control-group">
+                    <label class="control-label bold" for="Description"><?=LangAdmin::get('Description')?></label>
+                    <div class="controls">
+                        <textarea id="Description" name="Description"> </textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="submit_btn1" class="btn btn-primary btn_preloader save_and_continue" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save_and_continue')?></button> 
+                        <button id="submit_btn2" class="btn btn-primary btn_preloader save_and_exit" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save_and_exit')?></button>
+                        <a href="<?=$PageUrl->AssignCmdAndDo('WarehouseProducts', 'default')?>" class="btn offset-left2"><?=LangAdmin::get('Cancel_noun')?></a>
+                    </div>
+                </div>
+        </form>
+</div>
+
+<div class="modal hide fade" id="tree-modal">
+  <input type="hidden" id="categoryId" value="0">
+  <input type="hidden" id="categoryName" value="0">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3><?=LangAdmin::get('Category')?></h3>
+  </div>
+  <div class="modal-body" style="overflow: auto;">
+    <div id="jstree">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><?=LangAdmin::get('Cancel')?></button>
+    <button class="btn btn-primary"><?=LangAdmin::get('choose')?></button>
+  </div>
+</div>
+
+<div class="hide">
+    <div id="conf-content">
+        <div id="configurators-container">
+            <div id="configurators-head"><?=LangAdmin::get('Configurators')?></div>        
+            <div id="configurators-content" class="form-horizontal" item-id="<?=$predefinedFormData['id']?>">
+                <div class="property-template hide">
+                    <div class="property-section row-fluid" name="">
+	                    <label class="control-label bold"><span class="property-name"></span> <span class="remove-property"><i class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i></span></label>
+	    	            <div class="property-values controls">
+	    	               <div class="property-value-template hide">
+		                        <div class="property-value-section" value-id="" value-value="">
+		                            <span class="property-value"></span> <span class="remove-property-value"><i class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i></span>
+		                        </div>    	           
+	                        </div>
+	                    </div>
+	                    <div class="actions">
+	                        <button class="add-property-value btn btn-small"><?=LangAdmin::get('Add_value')?></button>
+	                    </div>
+                    </div>
+                </div>
+	       <? foreach($properties as $key => $property) { ?>
+                <div class="property-section processed row-fluid" prop-name="<?=$property['name']?>" prop-id="<?=$property['id']?>">
+                    <label class="control-label bold"><span class="property-name"><?=$property['name']?></span> <span class="remove-property"><i class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i></span></label>
+                    <div class="property-values controls">
+                        <div class="property-value-template hide">
+                            <div class="property-value-section" value-id="" value-value="">
+                                <span class="property-value"></span> <span class="remove-property-value"><i class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i></span>
+                            </div>                 
+                        </div>
+                   <? if (isset($property['values']) && is_array($property['values']) && ! empty($property['values']) ) { ?>
+                        <? foreach ($property['values'] as $vkey => $value) { ?>
+                        <div class="property-value-section processed" value-id="<?=$value['id']?>" value-value="<?=$value['value']?>">
+                            <span class="property-value"><?=$value['value']?></span> <span class="remove-property-value"><i class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i></span>
+                        </div>
+                        <? } ?>
+                    <? } ?>
+                    </div>
+                    <div class="actions">
+                        <button class="add-property-value btn btn-small"><?=LangAdmin::get('Add_value')?></button>
+                    </div>
+                </div>	       
+	       <? } ?> 
+	       </div>
+	       <div id="add-configurator">
+	            <button id="add-property-btn" class="btn btn-small"><?=LangAdmin::get('Add_property')?></button>
+                <button id="save-properties-btn" class=" btn btn-small btn-success hide" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+	       </div>
+	   </div>
+       <div id="configurations-container" sellAllowed="<?=$predefinedFormData['IsSellAllowed']? 1 : 0 ?>">
+            <div id="configurations-head"><?=LangAdmin::get('Configurations')?></div>
+	        <div id="configurations-content" item-id="<?=$predefinedFormData['id']?>">
+	            <div class="configuration-template hide">
+	                <div class="configuration" id="">
+	                    <div class="conf-name"></div>
+	                    <div class="row-fluid">
+	                        <div class="control-group span6">
+	                            <label class="control-label bold" for=""><?=LangAdmin::get('Quantity')?></label>
+	                            <div class="controls">
+	                                <input type="text" id="" class="input-medium quantity input_numeric_only" name="" value="" <?=$predefinedFormData['IsSellAllowed'] ? 'readonly="readonly"' : '' ?>>
+	                            </div>
+	                        </div>
+	                        <div class="control-group span6">
+	                            <label class="control-label bold" for=""><?=LangAdmin::get('Price')?></label>
+	                            <div class="controls">
+	                                <input type="text" id="" class="input-medium price" name="" value="">
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <? foreach ($predefinedFormData['configurations'] as $c => $conf) { ?>
+	                <div class="configuration processed" id="<?=$conf['id']?>">
+	                    <div class="conf-name"><?=$conf['displayname']?></div>
+	                    <div class="row-fluid">
+		                    <div class="control-group span6">
+			                    <label class="control-label bold quantity" for="quantity-<?=$conf['id']?>"><?=LangAdmin::get('Quantity')?></label>
+			                    <div class="controls">
+			                        <input type="text" id="quantity-<?=$conf['id']?>" class="input-medium quantity input_numeric_only" name="quantity-<?=$conf['id']?>" value="<?=$conf['quantity']?>" <?=$predefinedFormData['IsSellAllowed'] ? 'readonly="readonly"' : '' ?>>
+			                    </div>
+		                    </div>
+		                    <div class="control-group span6">
+		                        <label class="control-label bold price" for="price-<?=$conf['id']?>"><?=LangAdmin::get('Price')?></label>
+		                        <div class="controls">
+		                            <input type="text" id="price-<?=$conf['id']?>" class="input-medium price" name="price-<?=$conf['id']?>" value="<?=$conf['price']?>">
+		                        </div>
+		                    </div>
+	                    </div>
+	                </div>
+	           <? } ?>
+	        </div>
+	   </div>
+    </div>
+</div>
+
+
+<div class="hide">
+    <div id="add-property">
+        <div class="form-horizontal inline_editable_form ot_form">
+            <div class="control-group control-group-medium">
+                <label class="control-label bold" for="new-property"><?=LangAdmin::get('New_property')?></label>
+                <div class="controls">
+                    <input class="input-medium" type="text" id="new-property" value="" placeholder="<?=LangAdmin::get('Property_name')?>">
+                    <button id="add-new-property-btn" class="btn" data-loading-text="<?=LangAdmin::get('Creating')?>"><?=LangAdmin::get('Add')?></button>
+                </div>
+            </div>
+	        <div class="control-group">
+                <label class="control-label bold" for="property"><?=LangAdmin::get('Select_property')?></label>
+	            <div class="values-list">
+	                <ul id="property" style="width:100%;">
+	                    <? foreach($allProperties as $key => $property) { ?>
+	                        <li value="<?=$property['id']?>">
+                                <a href="#" class="">
+                                    <i class="icon-file"></i>
+                                    <?=$property['name']?>
+                                    <span class="property-actions">
+                                        <button class="btn btn-tiny offset-right1">
+                                            <i class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i>
+                                        </button>
+                                    </span>
+                                </a>	                        
+	                        </li>
+	                    <? } ?>
+	                </ul>
+	            </div>
+	        </div>
+        </div>
+    </div>
+</div>
+
+<div class="hide">
+    <div id="add-property-value">
+        <div class="form-horizontal inline_editable_form ot_form">
+           <div class="control-group control-group-medium">
+                <label class="control-label bold" for="new-property-value"><?=LangAdmin::get('New_property_value')?></label>
+                <div class="controls">
+                    <input class="input-medium" type="text" id="new-property-value" value="" placeholder="<?=LangAdmin::get('Property_value')?>">
+                    <button id="add-new-property-value-btn" class="btn" data-loading-text="<?=LangAdmin::get('Creating')?>"><?=LangAdmin::get('Add')?></button>
+                </div>
+            </div>
+	        <div class="control-group">
+	            <label class="control-label bold" for="property-value"><?=LangAdmin::get('Select_property_value')?></label>
+	            <div class="values-list">
+	                <ul id="property-value" style="width:100%;">
+	                    <? foreach($allValues as $key => $value) { ?>
+	                        <li id="<?=$value['id']?>" value="<?=$value['id']?>" prop-id="<?=$value['propertyId']?>">
+                                <a href="#" class="">
+                                    <i class="icon-file"></i>
+                                    <?=$value['value']?>
+                                    <span class="property-value-actions">
+                                        <button class="btn btn-tiny offset-right1">
+                                            <i class="icon-remove" title="<?=LangAdmin::get('Delete')?>"></i>
+                                        </button>
+                                    </span>
+                                </a>	                           
+	                        </li>
+	                    <? } ?>
+	                </select>
+	            </div>
+	        </div>
+       </div>
+    </div>
+</div>
+<!-- new photos window -->
+<div class="modal hide fade ot_crud_custom_picture_window" tabindex="-1">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><?=LangAdmin::get('brands::Logo')?></h3>
+    </div>
+
+    <div class="modal-body">
+            <div class="control-group">
+                        <br>
+                        <label class="control-label bold"><?=LangAdmin::get('Link')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Link_to_image')?>"></i></label>
+                        <div class="controls">
+                            <input type="text" id="dataId" name="dataId">
+                        </div>
+            </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn_preloader btn-primary pull-left" autocomplete="off"><?=LangAdmin::get('Add')?></button>
+        <a href="#" class="btn pull-right" data-dismiss="modal"><?=LangAdmin::get('Cancel')?></a>
+    </div>
+</div>
+<div id="overlay"></div>

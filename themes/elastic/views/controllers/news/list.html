@@ -1,0 +1,35 @@
+<? if ($news !== -1) { ?>
+<section class="block-news">
+    <div class="center">
+        <div class="block-news__wrap-content">
+            <? foreach ($news as $new) { ?>
+                <div class="news-item">
+                    <? if($new['image'] !== '') { ?>
+                        <a href="<?=UrlGenerator::generateNewsUrl($new['id'])?>" class="news-item__img" style="background-image: url(<?=DigestRepository::getImage($new['image'], 'thumb')?>);"></a>
+                    <? } else { ?>
+                        <a href="<?=UrlGenerator::generateNewsUrl($new['id'])?>" class="news-item__img" style="background-image: url('/i/noimg.png');"></a>
+                    <? } ?>
+                    <div class="news-item__text">
+                        <? $date = $new['created'] ?>
+                        <div class="news-item__date"><?=TextHelper::date($date)?></div>
+                        <a href="<?=UrlGenerator::generateNewsUrl($new['id'])?>" class="news-item__title"><?=$this->escape($new['title'])?></a>
+                        <p><?=$new['brief']?></p>
+                    </div>
+                    </div>
+            <? } ?>
+        </div>
+    </div>
+</section>
+<? } else { ?>
+    <h3><?= Lang::get('nothing_found')?></h3>
+<? } ?>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        $('.block-news div.news-item__text').expander({
+            expandText: ''
+        })});
+
+</script>
+<? $script = AssetsMin::jsEnd() ?>
+<? AssetsMin::registerJs($script) ?>

@@ -1,0 +1,13 @@
+<div id="all-categories-preloader"></div>
+<ul class="nav nav-tabs nav-stacked" id="all-categories" current-page="<?=$currentPage?>">
+    <? foreach ($allCategories as $category) { ?>
+	<li id="<?=$category['categoryid']?>" style="<?// (in_array($category['categoryid'], $siteCategories)) ? 'display: none;' : '' ?>">
+	   <a href="<?=$PageUrl->AssignCmdAndDo('sets','items')?>&type=Category&cid=<?=$category['categoryid']?>" id="<?=$category['categoryid']?>" title="<?=LangAdmin::get('Go_edit_sets_products')?>">
+	       <span class="category-name"><?=$category['name']?></span>
+	   </a>
+           <i title="<?=LangAdmin::get('Add_to_index')?>" class="icon-plus selector-icon-plus" style="<?=$category['onSite'] ? "display:none;" : "" ?>"></i>
+           <i title="<?=LangAdmin::get('Show_category_on_site')?>" class="icon-search selector-icon-search" data-url="<?= UrlGenerator::generateCategoryUrl(array('Id' => $category['categoryid']), true) ?>"></i>
+        </li>
+    <? } ?>
+</ul>
+<?=$paginator->display()?>

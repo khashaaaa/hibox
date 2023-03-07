@@ -1,0 +1,97 @@
+<style>
+    label {
+        margin-bottom: 0;
+    }
+</style>
+<div class="main">
+    <h1><?=Lang::get('Withdrawals')?></h1>
+<div class="userform userBigLabel">
+    <form name="send_form" method="post" id="output_money">
+        <? if($success){ ?>
+            <div class="success">
+                <?=$success?>
+            </div>
+        <? } ?>
+        <? if($error){ ?>
+            <div class="error">
+                <?=$error?>
+            </div>
+        <? } ?>
+
+        <div class="bproduct col-lg-8">
+            <h2 class="mb20"><span><?=Lang::get('A_withdrawal')?> </span></h2>
+            <span id="avaliable_amount"></span>
+            <div class="form-row">
+                <label for="amount"><?=Lang::get('sum')?><span class="red">*</span></label>
+                <input id="amount" type="text" name="amount"  value="<?=$amount?>" onkeypress="EnableSubmit('output_money_button','postform')" class="form-control" data-type="price"/>
+            </div>
+
+            <div class="form-row" style="margin-top: 15px">
+                <label for="comment"><?=Lang::get('comment')?></label>
+                <textarea id="comment" type="text" name="comment" class="form-control"><?=$comment?></textarea>
+            </div>
+
+            <div class="submit_button">
+                <input type="button" name="login" value="<?=Lang::get('send')?>" class="btn btn-primary mt-2" id="output_money_button" onclick="DisableSubmit('output_money_button','output_money');"/>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+</div>
+<?=Lang::loadJSTranslation(array('not_enough_money', 'amount_equal_zero', 'empty_amount'))?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        $('span#avaliable_amount').attr('amount','<?=$amount;?>');
+
+        $('input[name=amount]').change(function(){
+            validate();
+        });
+
+        var validate = function() {
+            var obj = $('input[name=amount]');
+            if (obj.val() === '') {
+                showMessage(trans.get('empty_amount'), true);
+                return false;
+            }
+            var limit = Number($('span#avaliable_amount').attr('amount'));
+            var amount = Number(obj.val());
+            var result = limit>=amount && amount!=0;
+            if (amount <= 0) {
+                showMessage(trans.get('amount_equal_zero'), true);
+                return false;
+            }
+            if (!result) {
+                showMessage(trans.get('not_enough_money'), true);
+
+                obj.css('border-color','#ff0000');
+            } else {
+                obj.css('border-color','#999');
+            }
+            return result;
+        };
+
+        $('form[name=send_form]').submit(function() {
+            return validate();
+        });
+    });
+
+    function DisableSubmit(id_button,form){
+
+        $('#'+id_button).attr("disabled", "disabled");
+        $('#'+id_button).css("color", "#999");
+        $('#'+form).submit();
+    }
+
+    function EnableSubmit(id_button){
+        $('#'+id_button).removeAttr("disabled style");
+    }
+</script>
+
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+

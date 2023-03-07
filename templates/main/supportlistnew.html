@@ -1,0 +1,239 @@
+<div class="addform" id="dialog-form" title="<?= Lang::get('saving') ?>" style="display: none;">
+    <span id="message" ><?= Lang::get('all_changes_saved') ?></span>
+</div>
+
+<div id="dialog-confirm" title="<?=Lang::get('need_confirm')?>"  style="display: none;">
+  <?=Lang::get('sure_delete')?><span id="itemid" style="display:none;"></span>
+</div> 
+<div style="display:none;" class="addform" id="dialog-empty" title="<?=Lang::get('warning')?>">
+    <span id="message" ><?=Lang::get('Need_choose_items')?></span>
+</div>
+
+<input type="hidden" id="comment_saved" value="<?= Lang::get('comment_saved') ?>" />
+<input type="hidden" id="close" value="<?= Lang::get('close') ?>" />
+
+<div class="tabs-content" id="overlay-wrapper">
+    <? if (count($list)) { ?>
+        <div id="overlay"></div>
+        <table class="basket tsimple">
+
+		<div class="bgr-panel mb20">
+			<ul class="tableList">
+				<li><?=Lang::get('items_rus')?>: <b><?=count($list)?></b></li>
+				<li><?=Lang::get('shown')?>: <?=Lang::get('from')?> <b><? if ($from < $perpage){ echo 1; } else {echo ($from + 1); }?></b> <?=Lang::get('to')?>
+					<b><? if ($from + $perpage < count($list)) print $from + $perpage; else print count($list); ?></b> <?=Lang::get('from2')?>
+					<b><?=count($list)?></b></li>
+				<li style="width:50%">&nbsp;<br/></li>
+				<li>
+					<form method="post" id="per_page">
+						<?=Lang::get('output_to')?>
+						<select name="per_page" onchange="document.getElementById('per_page').submit();">
+							<option value="20" <?if ($perpage == '20') { ?>selected<? }?>>20</option>
+							<option value="40" <?if ($perpage == '40') { ?>selected<? }?>>40</option>
+							<option value="100" <?if ($perpage == '100') { ?>selected<? }?>>100</option>
+						</select>
+					</form>
+				</li>
+			</ul>
+		</div>
+            <tr>
+                <td style="width: 20px;">                        
+                    <input name="deleter_all" type="checkbox" value=""/>		
+                </td>
+                <td colspan="5" width="98%">
+                    <?/*=Lang::get('actions_with_supportlist');*/?>
+                    <div class="mb10" style="cursor:pointer;display:inline">
+                        <a class="btn-small fll" onclick="confirm('DelGroup');" style="margin-right:20px"><span><?=Lang::get('delete')?></span></a>
+                    </div>
+                    <div class="mb10" style="cursor:pointer;display:inline">
+                        <a class="btn-small fll" onclick="add_group_to_basket();"><span><?=Lang::get('add_group_to_basket')?></span></a>
+                    </div>
+                </td>
+            </tr>
+            <? $total_sum = 0; 
+            $sign = ''; 
+			$page_count_print = General::getNumConfigValue('pager_count_print', 2);
+			$curpage = floor($from / $perpage) + 1;
+			$maxpage = ceil(count($list)/ $perpage);
+			for ($i = (($curpage - 1) * $perpage); $i <= (($curpage - 1) * $perpage + ($perpage - 1)); $i++){
+                if ($i < count($list)){
+				$item = $list[$i];
+                
+                ?>
+                <tr class="del-item-1 <?=ProductsHelper::formatFeatureListForCss((array)$item['features'])?>" id="item<?= $item['ItemId'] ?>">
+                    <td colspan="5" style="padding:0">
+                    <table style="width: 55%; float:left">
+                        <tr>
+                    <td style="width: 20px;">
+                        <input name="deleter" type="checkbox" value="<?= $item['Id']; ?>"/>		
+                    </td>
+                    <td class="w80"> 
+                        <ul class="lproduct w80li">
+                            <li>
+                                <? $options = array(); ?>
+                                <? if (isset($item['ConfigurationId'])) { ?>
+                                    <? $options = array('ConfigId' => $item['ConfigurationId']); ?>
+                                <? } ?>                            
+                                
+                                <a href="<?=UrlGenerator::generateItemUrl($item['ItemId'], $options)?>" class="pic" title="<?=Lang::get('Go_to_product_card')?>">
+                                    <i><img width="70" height="70" src="<?=ProductsHelper::getSmallImage($item)?>"></i>
+                                    <ins></ins>
+                                </a>
+                            </li>	
+                        </ul>		
+                    </td>
+                    <td>
+                        <p class="mb5"><span class="lgray"><?= Lang::get('good_code') ?></span> <b><?= $item['ItemId']; ?></b></p>
+                        <p class="mb5"><span class="lgray"><?= Lang::get('vendor') ?></span> <b><?= $item['VendorId']; ?></b></p>
+                        <p class="mb5"><span class="lgray"><?= Lang::get('category') ?></span> <a href="/search?cid=<?= $item['CategoryId'] ?>"><b><?= $item['CategoryName'] ?></b></a></p>
+                        <!-- <p class="lblue"><a href="/?p=item&id=<?= $item['ItemId']; ?>"><b class="item-title" itemid="<?= $item['Id']; ?>"><?= $item['ItemTitle']; ?></b></a></p> Не надо выводить тут названия товара -->
+                        <?=ProductsHelper::getHtmlFeatureListForLabel((array)$item['features'])?>
+                    </td>
+                    <td>
+                        <table class="info infoitem">
+                            <? if (isset($item['ItemConfiguration'])) { ?>
+                                <? foreach (explode(';', $item['ItemConfiguration']) as $cfg) { ?>
+                                    <? if ($cfg) { ?>
+                                        <tr>
+											<? $configArray = explode(':', $cfg); ?>
+                                            <td class="lgray"><?= current($configArray); ?>:</td>
+                                            <td><b><?= end($configArray); ?></b></td>
+                                        </tr>
+                                    <? } ?>
+                                <? } ?>
+                            <? } ?>
+                            <tr>
+                                <td class="lgray"><nobr><?= Lang::get('price') ?>:</nobr></td>
+                                <td><b class="ltr-for-rtl"><span id="price-1-<?=$item['Id']?>"><?=TextHelper::formatPrice($item['Price'], $item['CurrencySign'])?></b></td>
+                            </tr>
+                        </table>
+                    </td>
+                    </tr>
+                    </table>
+                    <table style="width: 45%; float:left">
+                        <tr>
+        <td>
+            <div class="calc" style="white-space: nowrap">
+                <span class="lgray mr10"><?= Lang::get('quantity') ?>:</span>
+                <b><input type="text" value="<?= $item['Quantity'] ?>" class="w20 tar input_numeric_only item-quanity" itemid="<?= $item['Id']; ?>" id="count-<?= $item['Id'] ?>"></b>
+                <span class="num-controls">
+                    <span class="plus unselectable" rel="count-<?= $item['Id'] ?>" itemid="<?= $item['Id']; ?>">+</span>
+                    <span class="minus unselectable" rel="count-<?= $item['Id'] ?>" itemid="<?= $item['Id']; ?>">-</span>
+                </span>
+                <span class="total bbprice ltr-for-rtl" id="total-price-<?= $item['Id']; ?>"><?=TextHelper::formatPrice($item['Quantity'] * (float)$item['Price'], $item['CurrencySign'])?></span>
+            </div>
+            <div class="mess_oper">
+                <label for="message" class="lgray"><?= Lang::get('comments_for_operator') ?>:</label>
+                <textarea name="" class="fs11" itemid="<?= $item['Id']; ?>"><?=$item['Comment']?></textarea>
+                <i class="i copy" itemid="<?= $item['Id']; ?>"></i>
+            </div>
+        </div>
+        </td>
+        <td class="w168 pr0">
+            <? $id = $item["Id"]; ?>
+            <div class="mb10"><a class="btn-small btn-remove btn-delete-item" href="/?p=supportlist&del=<?= $item['Id']; ?>" item="item-1" onclick="confirm('<?= $id; ?>'); return false;"><span><?= Lang::get('drop_item') ?></span></a></div>
+            <div><a class="btn-small btn-add add-to-basket" href="#" itemid="<?= $item['Id']; ?>"><span><?= Lang::get('to_basket') ?></span></a></div>
+            <form action="/" id="add-to-basket-<?= $id; ?>">
+                <input type="hidden" name="p" value="MoveItemFromNoteToBasket" />
+                <input type="hidden" name="id" value="<?= $item['Id']; ?>" />
+            </form>
+        </td>
+        </tr></table></td>
+        </tr>
+    <? } }?>
+    </table>
+<? } else { ?>
+    <br/>
+    <h3 class="lgray tagc mt10"> <?= Lang::get('empty_list') ?>! </h3>
+<? } ?>
+</div>
+
+<?=$paginatorFav->display();?>
+
+<!--noindex-->
+<script type="text/javascript">
+
+var item_id = 0;
+var price_round_decimals = <?=(int)General::getNumConfigValue('price_rounding')?>;
+
+$(function() 
+{
+    var action = "/?p=delete_from_favourites";
+    $("#dialog-confirm:ui-dialog").dialog("destroy");
+    $("#dialog-confirm").dialog({
+        autoOpen: false,
+        modal: true,
+        buttons : {
+            "<?=Lang::get('yes')?>" : function() {
+				if (item_id=="DelGroup") {
+                     var checks=$('input[name=deleter]').filter(':checked'); 
+                     var checks_do = '';
+					 for (i=0; i<checks.length; i++){
+   						 checks_do=checks_do+checks[i].value+",";
+ 					 }
+                    checks_do=checks_do.substring(0, checks_do.length - 1);
+                    $.get(
+                        action,
+                        {
+                            ids: checks_do,
+                            delGroup: true
+                        },
+                        function () {
+                            location.reload();
+                        }
+                    );
+				} else {
+				    document.location.href = '/?p=delete_from_favourites&del=' + item_id + "&per_page="+<?=$perpage?>;
+				}
+        },
+            "<?=Lang::get('no')?>" : function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+    $( "#dialog-form" ).dialog({
+        autoOpen: false,
+        width:210,
+        height:160,
+        modal: true,
+        buttons: {
+            "<?=Lang::get('close')?>": function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+    
+    $( "#dialog-empty" ).dialog({
+        autoOpen: false,
+        width:210,
+        height:160,
+        modal: true,
+        buttons: {
+            "<?=Lang::get('close')?>": function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+});
+
+function confirm(id) { 
+    item_id = id;
+	if (item_id=="DelGroup") {
+        var checks=$('input[name=deleter]').filter(':checked');        
+        if (checks.length == 0) {
+            $("#dialog-empty").dialog("open");
+            return;
+        }
+        $("#dialog-confirm").html("<?=Lang::get('sure_delete_group')?><span id='itemid' style='display:none;'></span>");
+	} else {
+        $("#dialog-confirm").html("<?=Lang::get('sure_delete')?><span id='itemid' style='display:none;'></span>");
+    }
+    $("#dialog-confirm").dialog("open");
+    return false;
+}
+
+</script>
+<!--/noindex-->

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+    <event name="ShowHistory" pakage_path="UserHistory" class_name="UserHistory"></event>
+	<event name="AddItemHistory" pakage_path="UserHistory" class_name="UserHistory"></event>    
+</events>

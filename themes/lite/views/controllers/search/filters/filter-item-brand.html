@@ -1,0 +1,13 @@
+
+            <div class="search-filter">
+                <label class="panel-title"><?= $property['name'] ?></label>
+                <? if (isset($isActive) && $isActive) {?>
+                    <a href="#" class="glyphicon glyphicon-remove reset-one-filter" title="<?=Lang::get('reset_filter')?>"></a>
+                <? } ?>
+                <div>
+                    <input type="text" id="brandSearch" placeholder="<?=Lang::get('input_brand_name')?>" style="display:inline-block">
+                    <div id="brand-container" style="display:inline-block">
+                        
+                    </div>
+                </div>
+            </div>

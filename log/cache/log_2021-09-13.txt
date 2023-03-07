@@ -1,0 +1,1 @@
+2021-09-13 9:17:05 - DEBUG --> FileAndMysqlMemoryCache_AddCacheEl

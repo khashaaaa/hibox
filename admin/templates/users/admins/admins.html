@@ -1,0 +1,72 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Administrators')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="admins-wrapper">
+
+    <div class="row-fluid">
+
+        <h1 class="pull-left"><?=LangAdmin::get('Administrators')?></h1>
+
+        <a class="btn btn-primary btn_preloader weight-normal offset-left3 pull-right" data-loading-text="<?=LangAdmin::get('Add')?>" title="<?=LangAdmin::get('Add_user')?>" href="<?=$PageUrl->AssignDo('add')?>"><?=LangAdmin::get('Add')?></a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered data_table_sorting" id="data_table_sorting">
+            <thead>
+            <tr>
+                <th><?=LangAdmin::get('Roles')?></th>
+                <th><?=LangAdmin::get('Login')?></th>
+                <th><?=LangAdmin::get('UserName')?></th>
+                <th class="td-2btn-width"><?=LangAdmin::get('Actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <? foreach ($users as $user) { ?>
+            <tr id="<?=$user['id']?>">
+                <td>
+                    <? $roles = array(); ?>
+                    <? $rolesDisplay = array(); ?>
+                    <? foreach ($user['Roles'] as $value) { ?>
+                    <? $roles[] = $value['name']; ?>
+                    <? $rolesDisplay[] = '<a href=' . $PageUrl->generate(array('cmd' => 'roles', 'do' => 'show', 'name' => $value['name'])) . '>' . $this->escape(LangAdmin::get($value['name'])) . '</a>'; ?>
+                    <? } ?>
+                    <?=implode(', ', $rolesDisplay);?>
+                </td>
+                <td><?=$this->escape($user['login'])?></td>
+                <td><?=$this->escape($user['name'])?></td>
+                <td class="adminsActions">
+                    <? if (RightsManager::isSuperAdmin()) { ?>
+                    <a class="btn btn-mini" href="<?=$PageUrl->Add('login', $user['Login'])->Add('do', 'edit')->Get()?>" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></a>
+                    <? if (! (Session::get('adminLogin') === $user['login'] && in_array(RightsManager::getCurrentRole(), $roles))) { ?>
+                    <a data-action="<?=$PageUrl->assignDo('remove', false)?>" data-login="<?=$this->escape($user['login'])?>" class="btn btn-mini ot_show_deletion_dialog_modal remove_admin"  href="javascript:void(0)" title="<?=LangAdmin::get('Remove')?>"><i class="icon-remove"></i></a>
+                    <? } ?>
+                    <? } ?>
+                </td>
+            </tr>
+            <? } ?>
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /.admins-wrapper -->
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-admins.js'); ?>

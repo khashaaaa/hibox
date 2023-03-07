@@ -1,0 +1,121 @@
+<div class="general-info well well-small well-transp offset-top1 inset-bottom0">
+    <dl class="dl-horizontal dl-ot-horizontal dl-horizontal-large offset-vertical-none">
+        <? if ($review['OrderId'] != '') { ?>
+        <dt><?= LangAdmin::get('in_order_u') ?>: </dt>
+        <dd><a href="?cmd=orders&do=view&id=<?= $review['OrderId'] ?>" title="<?= LangAdmin::get('To_order') ?>"><?= $review['OrderId'] ?></a></dd>
+        <? } ?>
+
+        <dt><?= LangAdmin::get('Condition') ?>: </dt>
+        <dd><?= $review['IsApproved'] ? LangAdmin::get('Pristroy_status_approved') : LangAdmin::get('Pristroy_status_on_moderation') ?></dd>
+
+        <? if ($review['NegativeGrade'] !== false && $review['PositiveGrade'] !== false) { ?>
+        <dt><?= LangAdmin::get('Score') ?>: </dt>
+        <dd>
+                <span class="grade">
+                    <span class="color-green"><i class="icon-thumbs-up"></i> <span><?= $review['PositiveGrade'] ?></span></span>
+                    <span class="color-red"><i class="icon-thumbs-down"></i> <span><?= $review['NegativeGrade'] ?></span></span>
+                </span>
+        </dd>
+        <? } ?>
+
+        <? if ($review['Rating'] !== false) { ?>
+        <dt><?= LangAdmin::get('Rating') ?>: </dt>
+        <dd><div class="ratyScore" data-score="<?= $review['Rating'] ?>"></div></dd>
+        <? } ?>
+
+        <div class="bonus_credited" <?=!$review['IsRewarded'] ? 'style="display: none"' : ''?>>
+            <dt><?= LangAdmin::get('Bonus') ?>: </dt>
+            <dd>
+                <a href="<?=$PageUrl->generate(array('cmd'=>'users', 'do'=>'profile', 'id'=>$review['UserId'], 'active_tab'=>'account'))?>">
+                    <?= LangAdmin::get('Credited') ?>
+                </a>
+            </dd>
+        </div>
+    </dl>
+</div>
+<? if ($canBeAnswered) { ?>
+<div>
+    <div class="row-fluid offset-bottom05">
+        <div class="pull-left span12"><i class="icon-plus color-blue">
+            </i> <span class="blink font-12" data-toggle="collapse" data-target=".review-message-reply-form" title="<?= LangAdmin::get('Add_message') ?>"><?= LangAdmin::get('Add_message') ?></span>
+            <button id="toggleEnrollForm" type="button" class="btn btn-tiny pull-right" data-toggle="collapse" data-target=".credit-bonus" title="<?=LangAdmin::get('Recharge_user_account')?>"><i class="icon-plus-sign color-green"></i> <?= LangAdmin::get('Credit_bonus')?></button>
+        </div>
+    </div>
+
+    <div class="row-fluid credit-bonus collapse" style="height: 0px;">
+        <form class="form-horizontal offset-top1 offset-bottom2">
+            <h4><?=LangAdmin::get('Enrolling_funds')?></h4>
+            <dt class="text-success">
+                <?=LangAdmin::get('Amount')?>
+                <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('For_example', array('example' => '1000.23'))?>"></i>
+            </dt>
+            <dd>
+                <input name="amount" type="text" class="input-mini price">
+            </dd>
+            <dt class="text-success"><?=LangAdmin::get('Notice')?></dt>
+            <dd>
+                <textarea name="comment" class="input-xlarge" rows="2"></textarea>
+            </dd>
+            <dd>
+                <div class="offset-top05">
+                    <button id="enrollMoneyBtn" autocomplete="off" data-loading-text="<?=LangAdmin::get('Enroll')?>" class="btn btn-primary btn_preloader" type="button"><?=LangAdmin::get('Enroll')?></button>
+                    <button class="btn" type="button" data-toggle="collapse" data-target=".credit-bonus"><?=LangAdmin::get('Cancel')?></button>
+                </div>
+            </dd>
+            <input name="reviewId" type="hidden" value="<?=$review['Id']?>">
+            <input name="isDebit" type="hidden" value="true">
+        </form>
+    </div>
+
+    <div class="collapse review-message-reply-form">
+        <form action="?cmd=reviews&do=addAnswerToItemReview" method="post" class="add-message-form form-horizontal offset-top1 offset-bottom2">
+            <input type="hidden" name="reviewId" value="<?=$review['Id']?>">
+            <label><b><?= LangAdmin::get('answer_language') ?>:</b>
+                <select class="input-large" name="language">
+                    <? foreach ($availableLanguages as $key => $value) { ?>
+                    <option value="<?=$key?>" <?= $key == $review['OriginalLanguage'] ? 'selected ' : '' ?>><?=$value?></option>
+                    <? } ?>
+                </select>
+            </label>
+            <?=OTFileStorage::getWidget(array('fileType' => 'Image'))?>
+            <textarea name="message" rows="6" class="input-block-level" placeholder="<?= LangAdmin::get('Text_of_message') ?>"></textarea>
+
+            <div class="offset-top05">
+                <button autocomplete="off" data-loading-text="<?= LangAdmin::get('add') ?>" class="btn btn-tiny btn-primary btn_preloader" type="submit"><?= LangAdmin::get('add') ?></button>
+                <button class="btn btn-tiny offset-left1" type="button" data-toggle="collapse" data-target=".review-message-reply-form"><?= LangAdmin::get('Cancel_noun') ?></button>
+            </div>
+        </form>
+    </div>
+</div>
+<? } ?>
+
+<div class="chat-messages">
+    <p class="message-box">
+            <span class="message">
+                <i class="icon-envelope"></i> <strong><?= $review['UserName'] ?></strong>
+                <span class="message-time"><?= $review['CreatedTime'] ?></span>
+                <span class="message-text"><?= $review['Text'] ?></span>
+                <? $prf = 'prf' . $review['Id']; ?>
+                <? foreach ($review['ImageUrls'] as $key => $val) { ?>
+                <a href="<?= $val ?>" rel="<?=$prf?>_answer" class="review-pictures" style="text-decoration: none">
+                    <img src="<?= $review['ImagePreviewUrls'][$key] ?>" width="30" height="30"/>
+                </a>
+                <? } ?>
+            </span>
+    </p>
+    <? foreach ($review['Answers'] as $key => $answer) { ?>
+    <p class="message-box <?= $answer['IsOperator'] ? 'operator' : '' ?>">
+            <span class="message">
+                <strong><?= $answer['AuthorName'] ?></strong>
+                <span class="message-text"><?= $answer['Text'] ?></span>
+                <? $prf = 'prf' . rand(10000, 100000); ?>
+
+                <? foreach ($answer['ImageUrls'] as $keyImg => $image) { ?>
+                <a href="<?= $image ?>" rel="<?=$prf?>_answer" class="review-pictures" style="text-decoration: none">
+                        <img src="<?= $review['Answers'][$key]['ImagePreviewUrls'][$keyImg] ?>" width="30" height="30"/>
+                    </a>
+                <? } ?>
+            </span>
+    </p>
+    <? } ?>
+</div>

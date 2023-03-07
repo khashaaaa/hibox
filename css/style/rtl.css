@@ -1,0 +1,242 @@
+body.rtl {
+	direction: rtl;
+}
+
+body.rtl .ltr-for-rtl
+{
+	display: inline-block;
+
+	direction: ltr;
+	text-align: right;
+
+	white-space: nowrap;
+}
+
+.wrapper_sale_item .old_price
+{
+	direction: ltr;
+}
+.wrapper_sale_item .new_price
+{
+	direction: ltr;
+}
+
+.lproduct .price span,
+.lproduct .price b,
+.lproduct .price a
+{
+	direction: ltr;
+}
+
+.rtl .i{
+	margin: 0 0 0 5px;
+	vertical-align: middle;
+}
+
+.rtl .col{
+	float: right;
+}
+
+.rtl .hblocks li{
+	float: right;
+}
+.rtl .header .logo{
+	margin-left: 0;
+	margin-right: 40px;
+	background-position: right top;
+}
+
+.rtl .col240.mr30{
+	margin-right: 0;
+	margin-left: 30px;
+}
+.rtl .hblocks li.name{
+	margin-left: 10px;
+	margin-right: 0;
+	padding-top: 0px;
+	text-align: left;
+}
+
+.rtl .hblocks .phone{
+	margin-left: 20px!important;
+	margin-right: 0px;
+}
+
+.rtl .hblocks .operator a
+{
+  padding: 8px 13px 0 70px;
+
+	background-position: 10px 0;
+}
+
+.rtl .fll{
+	float: right;
+}
+
+.rtl .flr{
+	float: left;
+}
+
+
+.rtl #actions_banner img{
+	float: right;
+}
+
+.rtl .flin li{
+	float: right;
+}
+
+.rtl .bproduct>h2.mb25 span,
+.rtl .bproduct>h2.mb20 span{
+	float: right;
+	padding: 0 0 0 10px;
+	background-color: #fff;
+}
+
+.rtl .lproduct .price .glow{
+	right: auto;
+	left: 0px;
+}
+
+.rtl .lcategory li a:before,
+.rtl .lcategory li small.before{
+	left: auto;
+	right: 0px;
+}
+
+.rtl .lcategory li a{
+	padding-left: 0;
+	padding-right: 10px;
+}
+
+.rtl .footer .up{
+	left: 0;
+	right: auto;
+}
+
+.rtl .footer .fmenu li{
+	margin-left: 20px;
+	margin-right: 0;
+}
+
+.rtl .footer .pay{
+	margin-left: 0;
+	margin-right: -10px;
+}
+
+
+.rtl .lproduct .price{
+	border-radius: 0 0 3px 0;
+}
+.rtl .lproduct .price span, .bbprice{
+	border-radius: 0 0 3px 0;
+}
+.rtl .main .info td{
+	padding: 8px 10px 5px 10px;
+}
+
+.rtl .main .info .raiting td{
+	padding: 5px 10px 5px 10px;
+}
+
+.rtl .tabs{
+	float: right;
+}
+.rtl ul.tabs{
+	padding: 0 5px 0 0;
+}
+.rtl ul.tabs li{
+	float: right;
+}
+
+.rtl .list_minipic li{
+	float: right;
+	margin: 0 0 4px 4px;
+}
+
+.rtl .addbasket span{
+	padding: 0 40px 0 0;
+	background-position: 145px -377px;
+}
+
+.rtl .addbasket span .i{
+	left: auto;
+	right: 31px;
+}
+
+.rtl .ml20{
+	margin-left: 20px;
+}
+
+
+.rtl .userform .btn_office{
+	padding: 8px 8px 11px;
+}
+
+.rtl .pager{
+	float: right;
+}
+
+.rtl .pager li:first-child{
+	border-radius: 0 5px 5px 0;
+}
+
+.rtl .rating-slider-block .slider-min-indicator .from,
+.rtl .rating-slider-block .slider-max-indicator .till{
+	float: right;
+	margin: 0 0 0 6px;
+}
+
+.rtl .rating-slider-block .slider-min-indicator .from-value,
+.rtl .rating-slider-block .slider-max-indicator .till-value{
+	float: right;
+}
+
+.rtl .rating-slider-block .slider-input{
+	float: left;
+	margin-right: 0;
+	margin-left: 20px;
+}
+
+.rtl .listitem li .cat{
+	padding: 5px 10px 0 0;
+}
+
+
+
+.rtl .lproduct .price .glow{
+	background-image: url('../i/rtl/glow_i.png');
+	background-position: 0 0;
+}
+
+.rtl .calc-form label,
+.rtl .calc-form .for-input{
+	float: right;
+}
+
+.rtl .calc-form label{
+	text-align: left;
+}
+
+.rtl .basket .total
+{
+	border-radius: 3px 0 0 3px;
+}
+
+.rtl .sblocks .menu-lang .lang i
+{
+	margin-right: 0;
+	margin-left: 5px;
+}
+
+.rtl .office_info_main .addmoney span .i-new
+{ left: 75px }
+
+/*
+ after reformat
+*/
+
+.rtl .innerlist
+{
+ padding: 0 20px 0 0;
+}

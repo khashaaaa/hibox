@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <header>
+        <column>Order item № </column>
+        <column>Full name</column>
+        <column>Address</column>
+        <column>№</column>
+        <column>Item</column>
+        <column>Colour</column>
+        <column>Size</column>
+        <column>颜色分类 </column>
+        <column>尺码 </column>		
+        <column>Photo</column>
+        <column>Qty</column>
+        <column>Price without discount (yuan)</column>
+        <column>Price with discount</column>
+        <column>China delivery (yuan fo 1 item)</column>
+        <column>Total China delivery (yuan)</column>
+        <column>Total price with discount (yuan)</column>
+        <column>Total price (yuan)</column>
+    </header>
+    <other>
+        <column>№</column>
+        <column>Link</column>
+        <column>Image</column>
+        <column>Id</column>
+        <column>描述</column>     <!--Конфигурация-->
+        <column>數</column>       <!--Количество-->
+        <column>價格, ¥</column>  <!--Цена-->
+        <column>交貨, ¥</column>  <!--Доставка-->
+        <column>量, ¥</column>    <!--Сумма-->
+        <column>Buy р.</column>
+        <column>Paid р.</column>
+        <column>Diff</column>
+    </other>
+</config>

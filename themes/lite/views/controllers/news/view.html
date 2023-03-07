@@ -1,0 +1,16 @@
+    <div>
+		<main role="main" class="main-content">
+                        <? if ($new) { ?>
+			<h1><?=$this->escape($new['title'])?></h1>
+                        <? if ($new['image']) { ?>
+                            <a href="<?=DigestRepository::getImage($new['image'], 'large')?>" class="pic cboxElement pictures" id="main-image-href">
+                                <i><img id="main-image" src="<?=DigestRepository::getImage($new['image'], 'big')?>" default="css/i/default-image.gif" alt=""></i>
+                                <ins></ins>
+                            </a>
+                            <? } ?>
+                            <?=$new['text']?>
+			<? } else { ?>
+                            <?=Lang::get('empty_page_msg')?>
+                        <? } ?>
+		</main>
+	</div>

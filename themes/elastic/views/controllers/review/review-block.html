@@ -1,0 +1,30 @@
+<?
+/**
+ * Шаблон отображения блока отзывов в виде списка
+ * или в виде единичного блока
+ *
+ * @var $reviews OtapiArrayOfItemReviewInfo массив отзывов
+ * @var $reviews OtapiItemReviewInfo единичный отзыв
+ */
+?>
+<? if (isset($reviews)) { ?>
+    <? if ($reviews instanceof OtapiArrayOfItemReviewInfo) { // display reviews list ?>
+        <ul class="paymshipReviews">
+            <? foreach ($reviews->GetItem() as $review) { ?>
+                <li class="paymshipReviewsItem"  data-item-review-id="<?=$review->GetId()->asString()?>">
+                    <?=General::viewFetch('controllers/review/review-block-item', array('vars' => array('review' => $review, 'source' => $source)))?>
+                </li>
+            <? } ?>
+        </ul>
+    <? } elseif ($reviews instanceof OtapiItemReviewInfo) { // display review item ?>
+        <?=General::viewFetch('controllers/review/review-block-item', array('vars' => array('review' => $reviews)))?>
+    <? } ?>
+<? } ?>
+<? if (!$reviews->GetItem()) { ?>
+    <div class="noReviews">
+        <h3><?=Lang::get('no_item_reviews')?></h3>
+    </div>
+<? } ?>
+<?=Lang::loadJSTranslation(array('saved', 'not_filled_required_field'))?>
+
+<link rel="stylesheet" href="css/style/ot-itemreviews.css?<?=CFG_SITE_VERSION;?>"/>

@@ -1,0 +1,285 @@
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var OrderPackages = new Backbone.Collection();
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+    <div class="alert alert-success createNewPackageBlock"
+        style="color: #000; background: #F5F5F5; display:<?=(empty($order->packages) ? 'block' : 'none')?>"
+    >
+        <h3><?=LangAdmin::get('No_package_for_order_created')?>.</h3>
+        <? if (RightsManager::hasRight(RightsManager::RIGHT_EDITPACKAGE)) { ?>
+            <p><?=LangAdmin::get('Package_creation_explain_notes_1')?> <strong>«<?=LangAdmin::get('Create')?>»</strong>. <?=LangAdmin::get('Package_creation_explain_notes_2')?> <a href="#" onclick="$('a[href=#ot_order_goods_tab]').click(); return false;" class="bold"><?=LangAdmin::get('Package_creation_explain_notes_3')?></a>, <?=LangAdmin::get('Package_creation_explain_notes_4')?> <strong>«<?=LangAdmin::get('Create_package')?>»</strong>.</p>
+            <p>
+                <a  href="<?=$PageUrl->generate(array('do'=>'savePackage', 'orderId'=>$order->id, 'cutomerId'=>$order->custid))?>"
+                    class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Create')?>"
+                    title="<?=LangAdmin::get('Create_package_for_all_items')?>"
+                >
+                    <?=LangAdmin::get('Create')?>
+                </a>
+            </p>
+        <? } ?>
+    </div>
+
+<? if (! empty($order->packages)) { ?>
+    <? if (!empty($packageConfirmingButtons)) { ?>
+        <? foreach($packageConfirmingButtons as $integrationType => $title) { ?>
+            <div style="margin-bottom: 35px;">
+                <button type="button" class="btn btn-small packagesConfirmingAction"
+                    data-loading-text="<?=LangAdmin::get('loading')?>..."
+                    data-action="<?=$PageUrl->generate(array('do' => 'runExportedPackagesConfirming', 'integrationType' => $integrationType))?>">
+                    <?= $title ?>
+                </button>
+            </div>
+        <? } ?>
+    <? } ?>
+
+    <? foreach ($order->packages as $package) { ?>
+
+        <? AssetsMin::jsBegin(); ?>
+        <script>
+            OrderPackages.add(<?=json_encode($package->asArray())?>);
+        </script>
+        <? $strScript = AssetsMin::jsEnd(); ?>
+        <? AssetsMin::registerJs($strScript); ?>
+
+    <!-- package item -->
+    <div class="packageItemBlock" data-id="<?=$package->id?>">
+
+    <div class="row-fluid">
+        <h3 class="pull-left offset-top0 offset-bottom1">
+            <?=LangAdmin::get('Package')?> № <?=$package->id?> <span class="muted">(<?=count($package->items)?> <?=LangAdmin::getPlural('goods', count($package->items))?>)</span>
+        </h3>
+        <div class="btn-group pull-right">
+            <? if ((int)$package->canupdate && RightsManager::hasRight(RightsManager::RIGHT_EDITPACKAGE)) { ?>
+                <a href="<?=$PageUrl->generate(array('do'=>'package', 'orderId'=>$order->id, 'packageId'=>$package->id))?>" class="btn btn-small" title="<?=LangAdmin::get('Edit')?>"><i class="icon-edit font-14"></i> <?=LangAdmin::get('Edit')?></a>
+            <? } ?>
+            <button class="btn btn-small printPackageInvoiceBtn" title="<?=LangAdmin::get('Print_package_invoice')?>"><i class="icon-print font-14"></i> <?=LangAdmin::get('Print_package_invoice')?></button>
+            <a target="_blank" href="?cmd=orders&do=printdeclaration&id=<?=$order->id?>&pid=<?=$package->id?>" class="btn btn-small" title="<?=LangAdmin::get('Print_package_inventory')?>"><i class="icon-print font-14"></i> <?=LangAdmin::get('Print_package_inventory')?></a>
+            <? if ($package->CanPrintPackageReceipt == 'true') { ?>
+                <button
+                    data-action="<?=$PageUrl->generate(array('do'=>'printPackageReceipt', 'packageId'=>$package->id))?>"
+                    class="btn btn-small printPackageReceipt"
+                    title="<?=LangAdmin::get('Print_receipt')?>"><i class="icon-print font-14"></i> <?=LangAdmin::get('Print_receipt')?></button>
+            <? } ?>
+
+            <?=Plugins::invokeEvent('onPrintPackageStickerButton', array($order->id, $package->id))?>
+            
+            <? if ($package->CanExportToExternalDeliverySystem == 'true') { ?>
+                <button data-action="<?=$PageUrl->generate(array('do'=>'exportPackage', 'packageId'=>$package->id))?>" class="btn btn-small exportPackage" title="<?=LangAdmin::get('Export_package')?>"><i class="icon-share font-14"></i> <?=LangAdmin::get('Export_package')?></button>
+            <? } ?>
+            <? if ((int)$package->candelete && RightsManager::hasRight(RightsManager::RIGHT_EDITPACKAGE)) { ?>
+                <button data-action="<?=$PageUrl->generate(array('do'=>'deletePackage', 'packageId'=>$package->id))?>" class="btn btn-small deletePackage" title="<?=LangAdmin::get('Remove_package')?>"><i class="icon-remove font-14"></i> <?=LangAdmin::get('Remove')?></button>
+            <? } ?>
+        </div>
+    </div>
+
+    <div class="well">
+        <div class="row-fluid">
+
+            <div class="span6">
+
+                <div class="well well-white inset-top05 inset-bottom0">
+
+                    <dl class="dl-horizontal dl-ot-horizontal">
+                        <dt><?=LangAdmin::get('Tracking_number')?></dt>
+                        <dd>
+                            <? if ($package->canbetracking) { ?>
+                                <a href="javascript:void(0)"
+                                   data-action="<?=$pageUrl->AssignCmdAndDo('Orders', 'getPackageTracking')?>"
+                                   data-package-id="<?=$package->id?>"
+                                   class="js-package-tracking"
+                                >
+                                    <?=$package->deliverytrackingnum ? $package->deliverytrackingnum : LangAdmin::get('Track_down')?>
+                                    <i class="icon-external-link"></i>
+                                </a>
+
+                                <table class="js-package-tracking-table package-tracking-table table table-borderless"
+                                       style="display: none"
+                                >
+                                    <thead class="table-parcels__row_top">
+                                        <tr>
+                                            <th><?=LangAdmin::get('Datetime')?></th>
+                                            <th><?=LangAdmin::get('Status')?></th>
+                                            <th><?=LangAdmin::get('Location')?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="js-package-tracking-table-lines">
+                                        <tr class="js-package-tracking-table-line" style="display: none">
+                                            <td class="js-package-tracking-table-line-time"></td>
+                                            <td class="js-package-tracking-table-line-status"></td>
+                                            <td class="js-package-tracking-table-line-location"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <?=LangAdmin::loadJSTranslation(array('Tracking', 'Close', 'No_tracking'))?>
+                            <? } else { ?>
+                                <?=$package->deliverytrackingnum?>&nbsp;
+                            <? } ?>
+                        </dd>
+                        <dt><?=LangAdmin::get('Status')?></dt>
+                        <dd><span class="label weight-normal"><?=$package->statusname?></span></dd>
+                        <dt><?=LangAdmin::get('Creation_date')?></dt>
+                        <dd><?=date('d.m.Y', strtotime($package->creationdate))?></dd>
+                    </dl>
+
+                    <dl class="dl-horizontal dl-ot-horizontal">
+                        <dt><?=LangAdmin::get('Delivery_mode')?></dt>
+                        <dd><?=$package->deliverymodename?></dd>
+                        <dt><?=LangAdmin::get('Weight')?></dt>
+                        <dd><?=(float)$package->weight?> <?=LangAdmin::get('kg')?></dd>
+                        <dt><?=LangAdmin::get('Costs')?></dt>
+                        <dd><?=TextHelper::formatPrice($package->PriceCust, $package->CurrencySignCust)?></dd>
+                        <dt><?=LangAdmin::get('Shipment_date')?></dt>
+                        <dd><?=$package->getShipmentDate()?>&nbsp;</dd>
+                    </dl>
+
+                    <dl class="dl-horizontal dl-ot-horizontal">
+                        <dt><?=LangAdmin::get('Address')?></dt>
+                        <dd><?=TextHelper::escape($package->getDeliveryAddress())?></dd>
+                    </dl>
+
+                    <dl class="dl-horizontal dl-ot-horizontal">
+                        <dt class="profile-inn"><?=LangAdmin::get('inn')?></dt>
+                        <dd class="profile-inn"><?=TextHelper::escape($package->deliverycontactinn)?></dd>
+                        <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+                            <dt><?=LangAdmin::get('PassportNumber')?></dt>
+                            <dd><?=TextHelper::escape($package->deliverycontactpassportnumber)?></dd>
+                            <dt><?=LangAdmin::get('RegistrationAddress')?></dt>
+                            <dd><?=TextHelper::escape($package->deliverycontactregistrationaddress)?></dd>
+                        <? } ?>
+                    </dl>
+
+                    <? if (! empty($package->additionalinfo)) { ?>
+                        <p><strong><?=LangAdmin::get('Additional_info')?>:</strong> <?=TextHelper::escape($package->additionalinfo)?></p>
+                    <? } ?>
+
+                </div>
+
+            </div>
+
+            <div class="span5 offset1">
+
+                <div class="row-fluid">
+                    <div class="span6"><h4><?=LangAdmin::get('Products')?> (<?=count($package->items)?>)</h4></div>
+
+                    <? if (! empty($package->items) && RightsManager::hasRight(RightsManager::RIGHT_EDITPACKAGE)) { ?>
+                        <!-- goods actions -->
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-tiny offset-top05 dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <!-- Если есть куда перемещать (посылок больше, чем одна) -->
+                                <? if (count($order->packages) > 1) { ?>
+                                    <li>
+                                        <a  class="packagesElectionBtn"
+                                            href="javascript:void(0)"
+                                            title="<?=LangAdmin::get('Move_selected_items_to_another_package')?>"
+                                        >
+                                            <i class="icon-exchange"></i> <?=LangAdmin::get('Move_to_another_one')?>
+                                        </a>
+                                    </li>
+                                <? } ?>
+                                <li>
+                                    <a  class="moveItemsToNewPackageBtn"
+                                        href="javascript:void(0)"
+                                        title="<?=LangAdmin::get('Move_selected_items_to_new_package')?>"
+                                    >
+                                        <i class="icon-gift"></i> <?=LangAdmin::get('Move_to_new_one')?>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a  class="deleteItemsFromPackageBtn"
+                                        href="javascript:void(0)"
+                                        title="<?=LangAdmin::get('Remove_items_from_package')?>"
+                                    >
+                                        <i class="icon-remove"></i> <?=LangAdmin::get('Remove')?>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div><!-- /goods actions -->
+                    <? } ?>
+                </div>
+
+                <ul class="unstyled ot_parsel_goods_list">
+                    <? foreach ($package->items as $item) { ?>
+                    <li data-item-id="<?=$item->orderLineId?>">
+
+                        <? if (RightsManager::hasRight(RightsManager::RIGHT_EDITPACKAGE)) { ?>
+                            <label class="checkbox inline">
+                                <input type="checkbox" />
+                            </label>
+                        <? } ?>
+
+                        <a target="_blank" href="<?=UrlGenerator::generateItemUrl($item->itemid)?>" title="<?=LangAdmin::get('Item_page_on_site')?>">
+                            № <?=$order->getNumericId()?> - <?=$item['LineNum']?></a>
+                        (<?=$item->weight?>&nbsp;<?=LangAdmin::get('kg')?>, <?=$item->quantity?>&nbsp;<?=LangAdmin::get('pcs')?>)
+
+                        <!-- img -->
+                        <a href="#<?=$order->getNumericId()?>-<?=$item->orderLineId?>-img-packages-tab" class="thumbnail" data-toggle="lightbox" title="<?=LangAdmin::get('Enlarge_image')?>">
+                            <img src="<?=ProductsHelper::getSmallImage($item)?>" alt="" />
+                        </a>
+                        <div id="<?=$order->getNumericId()?>-<?=$item->orderLineId?>-img-packages-tab" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="lightbox-header">
+                                <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true" title="<?=LangAdmin::get('Close')?>"><i class="icon-remove-sign"></i></button>
+                            </div>
+                            <div class="lightbox-content">
+                                <img src="<?=$item->itemimageurl?>" />
+                                <div class="lightbox-caption">
+                                    <p class="text-clipped-general"><?=$item->BriefDescrTrans?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /img -->
+                    </li>
+                    <? } ?>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+    <!-- /package item -->
+
+    <? } ?>
+
+    <!-- package election modal window -->
+    <div class="modal hide fade packagesElectionWindow">
+        <div class="modal-body">
+            <div class="packagesElectionWindowBody">
+            <? foreach ($order->packages as $key => $package) { ?>
+                <label class="radio inset1 inset-left2 <?=($key == 0 ? 'selected_item' : '')?>">
+                    <input type="radio" name="selectedPackage" value="<?=$package->id?>" <?=($key == 0 ? 'checked="checked"' : '')?> />
+                    <p>
+                        <strong><?=LangAdmin::get('Package')?> № <?=$package->id?> (<?=count($package->items)?> <?=LangAdmin::getPlural('goods', count($package->items))?>)</strong>
+                        <span class="badge"><?=$package->statusname?></span>
+                        <?=(float)$package->weight?> <?=LangAdmin::get('kg')?>,
+                        <?=TextHelper::formatPrice($package->PriceCust, $package->CurrencySignCust)?>.
+                        <?=LangAdmin::get('Creation_date')?> <?=date('d.m.Y', strtotime($package->creationdate))?>.
+                    </p>
+                    <?=$package->deliverymodename?>.
+                    <? if ($package->deliverytrackingnum) { ?>
+                        <?=LangAdmin::get('Tracking_number')?>: <?=$package->deliverytrackingnum?>.
+                    <? } ?>
+                    <? if ($package->getShipmentDate()) { ?>
+                        <?=LangAdmin::get('Shipment_date')?> <?=$package->getShipmentDate()?>
+                    <? } ?>
+                    <br/>
+                    <?=LangAdmin::get('Address')?>: <?=$package->getDeliveryAddress()?>
+                    <? if (! empty($package->additionalinfo)) { ?>
+                        <em><?=LangAdmin::get('Additional_info')?>:</em> <?=$this->escape($package->additionalinfo)?>
+                    <? } ?>
+                </label>
+            <? } ?>
+            </div>
+        </div>
+    </div>
+
+<? } ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-activity.js') ?>

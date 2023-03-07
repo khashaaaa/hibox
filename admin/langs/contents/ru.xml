@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Content">Содержание</key>
+    <key name="Sections">Пользовательские</key>
+    <key name="Add">Добавить</key>
+    <key name="Add_page">Добавить страницу</key>
+    <key name="Name">Название</key>
+    <key name="Pages">Страницы</key>
+    <key name="Address">Адрес</key>
+    <key name="Menu">Меню</key>
+    <key name="Language">Язык</key>
+    <key name="Actions">Действия</key>
+    <key name="Edit">Редактировать</key>
+    <key name="Edit_page">Редактировать станицу</key>
+    <key name="Delete">Удалить</key>
+    <key name="Add_subsection">Добавить подраздел</key>
+    
+    <key name="Services">Служебные</key>
+    
+    <key name="News">Новости</key>
+    <key name="allnews">Новости</key>
+    <key name="Title">Заголовок</key>
+    <key name="Edit_news">Редактировать новость</key>
+    <key name="Delete_news">Удалить новость</key>
+    <key name="Content_pages">Контентные страницы</key>
+    <key name="Navigation">Навигация</key>
+    <key name="Banners">Баннеры</key>
+    <key name="Save_order">Сохранить порядок</key>
+    <key name="Change_banners_order">Изменить порядок баннеров</key>
+    <key name="Delete_banner">Удалить баннер</key>
+    <key name="Edit_banner">Редактировать баннер</key>
+    <key name="Add_edit_page">Добавление / редактирование страницы</key>
+    <key name="Is">Является</key>
+    <key name="at_menu">в меню</key>
+    
+    <key name="Page">Разделом</key>
+    <key name="Subpage">Подразделом</key>
+    <key name="Top_menu">Верхнее</key>
+    <key name="Bottom_menu">Нижнее</key>
+    <key name="Column_menu">В колонке</key>
+    <key name="Not_menu">Не добавлять</key>
+    <key name="for"> для </key>
+    <key name="Seo_attributes">Атрибуты поисковой оптимизации</key>
+    <key name="Keywords">Ключевые слова</key>
+    <key name="Description">Описание</key>
+    <key name="Really_remove_this_page">Действительно удалить эту страницу?</key>
+    <key name="Delete_page">Удалить страницу</key>
+    <key name="Go_to_page">Перейти к странице</key>
+    <key name="Edit_page">Редактировать страницу</key>
+    
+    <key name="top_menu">Верхнее меню</key>
+    <key name="bottom_menu">Нижнее меню</key>
+    <key name="left_menu">В колонке</key>
+    <key name="Page_saved_successfully">Страница успешно сохранена</key>
+    <key name="Content_cannot_be_empty">Содержание страницы должно быть заполнено</key>
+    <key name="Alias_cannot_be_empty">Адрес страницы не может быть пустым</key>
+    
+    <key name="Top_navigation">Верхняя</key>
+    
+    <key name="Bottom_navigation">Нижняя</key>
+    <key name="Column_navigation">В колонке</key>
+    <key name="Use_in_menu">Используется в меню</key>
+    <key name="Pages_list">Список страниц</key>
+    <key name="Add_page_to_menu">Добавить страницу в меню</key>
+    <key name="Change_order">Изменить порядок</key>
+    <key name="Displayed_only_pages">Отображаются только страницы первого уровня.</key>
+    <key name="Calculator">Калькулятор</key>
+    <key name="Pristroy">Пристрой</key>
+    <key name="Reviews">Отзывы о товарах</key>
+    <key name="Digest">Блог</key>
+    <key name="Shop_reviews">Отзывы о магазине</key>
+    
+    <key name="Menu_saved_successfully">Меню успешно сохранено</key>
+    <key name="Alias_already_in_use">Aдрес страницы уже занят</key>
+
+    <key name="Really_remove_this_news">Действительно удалить эту новость?</key>
+    <key name="Add_news">Добавление новости</key>
+    <key name="Edit_news">Редактирование новости</key>
+    <key name="Image">Изображение</key>
+    <key name="News_preview">Анонс</key>
+    
+    <key name="Brief_cannot_be_empty">Анонс новости не может быть пустым</key>
+    
+    <key name="Select">Выбрать</key>
+    <key name="Change">Изменить</key>
+    <key name="Go_to_news">Перейти к новости</key>
+    
+    <key name="Blog">Блог</key>
+    <key name="Add_post">Добавление поста</key>
+    <key name="Edit_post">Редактирование поста</key>
+    <key name="Date">Дата</key>
+    <key name="Select_category">Выберите категорию</key>
+    <key name="Category">Категория</key>
+    <key name="Really_remove_this_post">Действительно удалить этот пост?</key>
+    
+    <key name="Title_h1">Заголовок H1</key>
+    <key name="Name_hint">Используется как пункт меню, в хлебных крошках и как заголовок H1, если он не задан</key>    
+    <key name="You_must_upload_the_image">Необходимо выбрать картинку подходящего размера.</key>
+    
+    <key name="Shop_comments">Отзывы о магазине</key>
+    <key name="comment">Отзыв</key>
+    <key name="comment_date">Дата</key>
+    <key name="comment_name">Пользователь</key>
+    <key name="actions">Действия</key>
+    <key name="Activate_comment">Утвердить отзыв</key>
+    <key name="Answer_comment">Ответить на отзыв</key>
+    <key name="Activate_comments">Утвердить группу отзывов</key>
+    <key name="Answer">Ответ</key>
+    <key name="Address_hint">Алиас страницы для построения ссылки</key>
+
+    <key name="Manual_page_lang_code_is_null">Не выбран язык! Сохраните страницу, выбрав язык</key>
+    <key name="Indexing">Индексация</key>
+    <key name="Indexing_hint">Индексировать ли страницу поисковыми системами (если нет, то страницы не будет в карте сайта и у нее будет проставлен тэг "не индексировать")</key>
+</translations>

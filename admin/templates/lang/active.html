@@ -1,0 +1,44 @@
+<!-- site language -->
+<?  if ($languages && (count($languages) > 1)) { ?>
+    <div class="btn-group pull-right">
+        <a class="btn dropdown-toggle offset-top05" data-toggle="dropdown" href="#" title="<?=LangAdmin::get('Language_select_for_edit')?>">
+
+            <? $activeLang = false; ?>
+            <? if ($languages) foreach ($languages as $key => $lang) { ?>
+                <? if ((string)$key == Session::get('active_lang_' . strtolower($PageUrl->GetKey('cmd')))) { ?>
+                    <? $activeLang = (string)$key; ?>
+                    <?=(string)$lang?>
+                <? } ?>
+            <? } ?>
+            <? if (! $activeLang) { 
+                if ($showAll) {
+                ?>
+                    <?=LangAdmin::get('All_languages_versions')?>
+                <? } else { ?>
+                    <?=(string)($languages[Session::get('active_lang_admin')]) ?>
+                <? } ?>
+            <? } ?>
+
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <? if ($activeLang && $showAll) { ?>
+            <li>
+                <a data-value="" href="<?=$PageUrl->SetPageLangUrl('')?>">
+                    <?=LangAdmin::get('All_languages_versions')?>
+                </a>
+            </li>
+            <? } ?>
+            <? if ($languages) foreach($languages as $key => $lang) { ?>
+                <? if ((string)$key != $activeLang) { ?>
+                <li>
+                    <a data-value="<?=(string)$key?>" href="<?=$PageUrl->SetPageLangUrl((string)$key)?>">
+                        <?=(string)$lang?>
+                    </a>
+                </li>
+                <? } ?>
+            <? } ?>
+        </ul>
+    </div>
+<? } ?>
+<!-- /site language -->

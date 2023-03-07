@@ -1,0 +1,19 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "SiteConfiguration",
+        "do": "save"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+    "fields": [
+        {
+            "name": "blog_posts",
+            "type": "text"
+        }
+    ]
+}

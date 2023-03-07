@@ -1,0 +1,14 @@
+<? if (InstanceProvider::getObject()->isLimitItemsByCatalog()) return; ?>
+
+<? if ($showLinkAllGoods) { ?>
+    <a href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $vendorId])?>" class="all-products-seller"><?=Lang::get('all_goods_from_seller')?></a>
+<? } ?>
+<? if (!empty($products)) { ?>
+    <div class="panel yellow2-panel seller-items-panel"><?=Lang::get('other_goods')?></div>
+
+    <div class="item-product_aside-wrap">
+        <?=General::viewFetch('other/product/list-block', ['vars' => [
+            'products' => $products
+        ]])?>
+    </div>
+<? } ?>

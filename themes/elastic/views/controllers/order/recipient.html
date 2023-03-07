@@ -1,0 +1,40 @@
+<div class="list-user-data">
+    <div class="panel-grey">
+        <b><?=Lang::get('recipient_data')?></b>
+    </div>
+
+    <div class="list-user-data__table">
+        <div class="list-user-data__table_row">
+            <div class="list-user-data__table_col1"><?=Lang::get('delivery_address')?>:</div>
+            <div class="list-user-data__table_col2">
+                <? $deliverAddress = $orderInfo->GetSalesOrderInfo()->GetDeliveryAddress(); ?>
+                <?=$deliverAddress->GetPostalCode() ? $this->escape($deliverAddress->GetPostalCode() . ', ') : ''?>
+                <?=$deliverAddress->GetCountry() ? $this->escape($deliverAddress->GetCountry() . ', ') : ''?>
+                <?=$deliverAddress->GetRegionName() ? $this->escape($deliverAddress->GetRegionName() . ', ') : ''?>
+                <?=$deliverAddress->GetCity() ? $this->escape($deliverAddress->GetCity() . ', ') : ''?>
+                <?=$deliverAddress->GetAddress() ? $this->escape($deliverAddress->GetAddress()) : ''?>
+            </div>
+        </div>
+
+        <div class="list-user-data__table_row">
+            <div class="list-user-data__table_col1"><?=Lang::get('recipient')?>:</div>
+            <div class="list-user-data__table_col2">
+                <?=$orderInfo->GetSalesOrderInfo()->GetCustName()?>
+                <? if ($deliverAddress->GetINN()) { ?>
+                    </br><?=Lang::get('inn')?>: <?=$deliverAddress->GetINN()?>
+                <? } ?>
+                <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+                    <br/><?=Lang::get('passport')?>: <?=$deliverAddress->GetPassportNumber()?>
+                    <br/><?=Lang::get('registrationaddress')?>: <?=$deliverAddress->GetRegistrationAddress()?>
+                <? } ?>
+            </div>
+        </div>
+
+        <div class="list-user-data__table_row">
+            <div class="list-user-data__table_col1"><?=Lang::get('contact_information')?>:</div>
+            <div class="list-user-data__table_col2">
+                <?=$orderInfo->GetSalesOrderInfo()->GetDeliveryAddress()->GetPhone()?>
+            </div>
+        </div>
+    </div>
+</div>

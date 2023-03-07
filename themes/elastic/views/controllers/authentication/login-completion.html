@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-4">
+            <p><?=Lang::get('Email_required_form_description')?>:</p>
+            <form action="<?=UrlGenerator::toRoute('login')?>" method="post" class="needs-validation" novalidate>
+                <input type="hidden" name="contextId" value="<?=$contextId?>" />
+                <input type="hidden" name="error" value="email_required" />
+
+                <div class="form-row">
+                    <label>
+                        <?=Lang::get('Email')?> *
+                        <input type="text" name="email" value="<?=$email?>" class="form-control" required />
+                    </label>
+                </div>
+
+                <? if ($password) { ?>
+                    <div class="form-row">
+                        <label>
+                            <?=Lang::get('password')?> *
+                            <input type="password" name="password" class="form-control" required />
+                        </label>
+                    </div>
+                <? } ?>
+
+                <div class="form-group js-response">
+                    <? if (!empty($error)) { ?>
+                        <div class="alert alert-danger" role="alert"><?=$error?></div>
+                    <? } ?>
+                </div>
+
+                <button type="submit" class="btn btn-primary js-submit"><?=Lang::get('login')?></button>
+            </form>
+
+            <? if (General::IsFeatureEnabled('ExternalAuthentication')) { ?>
+                <div class="form-row">
+                    <?=General::runController('Authentication', 'renderAuthSystemList')?>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</div>

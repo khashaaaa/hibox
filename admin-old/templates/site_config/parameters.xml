@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parameters>
+    <parameter label="site_temporary_unavailable" name="site_temporary_unavailable" type="checkbox"></parameter>
+    <parameter label="header_text" name="header_text" type="text" message="message_header_text" multilingual="true"></parameter>
+	<parameter label="work_shedule" name="work_shedule" type="text" message="message_work_shedule" multilingual="true"></parameter>
+    <parameter label="phone" name="phone" type="text"></parameter>
+    <parameter label="hide_taobao_link" name="hide_taobao_link" type="checkbox"></parameter>
+    <parameter label="hide_operator" name="hide_operator" type="checkbox"></parameter>
+    <parameter label="hide_work_shedule" name="hide_work_shedule" type="checkbox"></parameter>
+    <parameter label="online_chat_code" name="online_chat_code" type="textarea"></parameter>
+    <parameter label="show_debug" name="show_debug" type="checkbox" message="check_www_and_non_www"></parameter>
+    <parameter label="meta_tags" name="meta_tags" type="textarea"></parameter>
+    <parameter label="rtl" name="rtl"  type="checkbox" multilingual="true"></parameter>
+
+    <parameter type="title" label="site_main_setting"></parameter>
+    <parameter label="display_as_carousel" name="display_as_carousel" type="checkbox" message="need_to_clear_cache"></parameter>
+    <parameter label="VK Like Widget" name="vkLikeWidget" type="textarea"></parameter>
+    <parameter label="Facebook Like Widget" name="fbLikeWidget" type="textarea"></parameter>
+    <parameter label="Twitter Widget" name="twitWidget" type="textarea"></parameter>
+    <parameter label="Odnoklassniki Widget" name="okWidget" type="textarea"></parameter>
+    <parameter label="banner_widget" name="banner_widget" type="textarea"></parameter>
+    <parameter label="hide_social" name="hide_social" type="checkbox"></parameter>
+	<parameter label="hide_brands_url" name="hide_brands_url" type="checkbox"></parameter>
+    <parameter label="news_count_print" name="news_count_print" type="text"></parameter>
+    <parameter label="blog_posts_index" name="blog_posts_index" type="text"></parameter>
+    <parameter label="items_with_best" name="items_with_best" type="text" value_type="int" max="200"></parameter>
+    <parameter label="items_with_popular" name="items_with_popular" type="text" value_type="int" max="20"></parameter>
+    <parameter label="items_with_last" name="items_with_last" type="text" value_type="int" max="30"></parameter>
+    <parameter label="brand_with_best" name="brand_with_best" type="text" value_type="int" max="20"></parameter>
+    <parameter label="items_with_vendor" name="items_with_vendor" type="text" value_type="int" max="20"></parameter>
+    <parameter label="items_with_comments" name="items_with_comments" type="text" default="8"></parameter>
+    <parameter label="shopreviews_main" name="shopreviews_main" type="text" default="5"></parameter>
+
+    <parameter label="vk_link" name="vk_link" type="text"></parameter>
+    <parameter label="hide_vk_link" name="hide_vk_link" type="checkbox"></parameter>
+
+    <parameter label="fb_link" name="fb_link" type="text"></parameter>
+    <parameter label="hide_fb_link" name="hide_fb_link" type="checkbox"></parameter>
+
+    <parameter label="tw_link" name="tw_link" type="text"></parameter>
+    <parameter label="hide_tw_link" name="hide_tw_link" type="checkbox"></parameter>
+
+	<parameter type="title" label="cat_menu_setting"></parameter>   
+	<parameter label="menu_count_lvl1" name="menu_count_lvl1" type="text" message="clear_cache_please"></parameter>
+	<parameter label="menu_count_lvl2" name="menu_count_lvl2" type="text" message="clear_cache_please"></parameter>
+	
+
+    <parameter type="title" label="site_orders_setting"></parameter>
+    <parameter label="payment_in_cash" name="payment_in_cash" type="checkbox"></parameter>
+    <parameter label="open_payment_in_new_window" name="open_payment_in_new_window" type="checkbox"></parameter>
+    <parameter label="notification_email" name="notification_email" type="text"></parameter>
+    <parameter label="notification_send_from" name="notification_send_from" type="text"></parameter>
+    <parameter label="CFG_PREFIX_REPLACE_ORD" name="CFG_PREFIX_REPLACE_ORD" type="text"  multilingual="true"></parameter>
+    <parameter label="origin_package" name="origin_package" type="checkbox"></parameter>
+    <parameter label="order_insurance_percent" name="order_insurance_percent" type="text"></parameter>
+    <parameter label="skip_reordering" name="skip_reordering" type="checkbox"></parameter>
+    <parameter label="hide_money_output" name="hide_money_output" type="checkbox"></parameter>
+    <parameter label="hide_step_weight_order" name="hide_step_weight_order" type="checkbox"></parameter>
+    <parameter label="hide_middlename" name="hide_middlename" type="checkbox"></parameter>
+    <parameter label="hide_step_delivery_order" name="hide_step_delivery_order" type="checkbox"></parameter>
+
+	
+	<parameter type="title" label="google_commerce"></parameter>   
+	<parameter label="google_commerce_account" name="google_commerce_account" type="text" message="google_commerce_account_txt"></parameter>
+	
+	
+    <parameter type="title" label="site_product_comments_setting"></parameter>
+    <parameter label="site_admin_email" name="site_admin_email" type="text"></parameter>
+    <parameter label="site_email" name="site_email" type="text"></parameter>
+
+    <parameter type="title" label="site_seo_setting"></parameter>
+    <parameter label="site_name" name="site_name" type="text" multilingual="true"></parameter>
+    <parameter label="title_for_home" name="title_for_home" type="text" multilingual="true"></parameter>
+    <parameter label="description_for_home" name="description_for_home" type="text" multilingual="true"></parameter>
+    <parameter label="keywords_for_home" name="keywords_for_home" type="text" multilingual="true"></parameter>
+    <parameter label="counter" name="counter" type="textarea"></parameter>
+    <parameter label="sitemap" name="sitemap_generate" value="sitemap_generate" action="generateSiteMap" type="ajax_button"></parameter>
+    <parameter label="category_prefix" name="category_prefix" type="text" feature="Seo2" multilingual="true"></parameter>
+    <parameter label="category_suffix" name="category_suffix" type="text" feature="Seo2" multilingual="true"></parameter>
+    <parameter label="footer_text" name="footer_text" type="richText" feature="Seo1" multilingual="true"></parameter>
+
+    <parameter type="title" label="login_site_settings"></parameter>
+    <parameter label="auth_to_private_office" name="auth_to_private_office" type="checkbox"></parameter>
+    <parameter label="auth_capcha_admin" name="auth_capcha_admin" type="checkbox"></parameter>
+
+    <parameter type="title" label="site_item_view_setting"></parameter>
+    <parameter label="hide_taobao_link" name="hide_taobao_link" type="checkbox"></parameter>
+    <!--<parameter label="hide_taobao_responses" name="hide_taobao_responses" type="checkbox"></parameter>-->
+    <parameter label="hide_item_site_responses" name="hide_item_site_responses" type="checkbox"></parameter>
+    <parameter label="hide_item_info_status" name="hide_item_info_status" type="checkbox"></parameter>
+    <parameter label="hide_item_info_in_existence" name="hide_item_info_in_existence" type="checkbox"></parameter>
+    <parameter label="hide_item_info_weight" name="hide_item_info_weight" type="checkbox"></parameter>
+    <parameter label="hide_item_info_sales_last30day" name="hide_item_info_sales_last30day" type="checkbox"></parameter>
+    <parameter label="hide_item_info_price1" name="hide_item_info_price1" type="checkbox"></parameter>
+    <parameter label="hide_item_info_price_local_delivery" name="hide_item_info_price_local_delivery" type="checkbox"></parameter>
+    <parameter label="show_user_history_views" name="show_user_history_views" type="checkbox"></parameter>
+    <parameter label="price_rounding" name="price_rounding" type="text"></parameter>
+    <parameter type="radiobutton" name="product_tabs" value="1" label="product_tabs_properties"></parameter>
+    <parameter type="radiobutton" name="product_tabs" value="2" label="product_tabs_photos"></parameter>
+    <parameter type="radiobutton" name="product_tabs" value="3" label="product_tabs_reviews"></parameter>
+    <!-- <parameter type="radiobutton" name="product_tabs" value="4" label="product_tabs_reviews_tao"></parameter> -->
+    <parameter label="hide_item_property_price_range" name="hide_item_property_price_range" type="checkbox"></parameter>
+    <parameter type="textarea" name="share_social_code" label="share_social_code"></parameter>
+    <parameter label="hide_item_for_restrictions" name="hide_item_for_restrictions" type="checkbox"></parameter>
+
+    <parameter type="title" label="site_vendor_view_setting"></parameter>
+    <parameter label="hide_vendor_info_name" name="hide_vendor_info_name" type="checkbox"></parameter>
+    <parameter label="Vendor_rating_view_as_number" name="vendor_rating_view_as_number" type="checkbox"></parameter>
+
+    <parameter type="title" label="site_cms_setting"></parameter>
+    <parameter type="radiobutton" name="left_menu_mode_for_content" value="1" label="left_menu_mode_for_content_1"></parameter>
+    <parameter type="radiobutton" name="left_menu_mode_for_content" value="2" label="left_menu_mode_for_content_2"></parameter>
+    <parameter type="radiobutton" name="left_menu_mode_for_content" value="3" label="left_menu_mode_for_content_3"></parameter>
+    <parameter label="shop_reviews_perpage" name="shop_reviews_perpage" type="text" message="shop_reviews_perpage_help"></parameter>
+
+    <parameter type="title" label="view_itemlist"></parameter>    
+    <parameter label="min_cost_goods" name="min_cost_goods" type="text"></parameter>
+    <parameter label="hide_bu_goods" name="hide_bu_goods" type="checkbox"></parameter>
+    
+
+    <parameter type="title" label="frontend_config"></parameter>
+    <parameter label="blog_posts" name="blog_posts" type="text"></parameter>
+    <parameter label="html_for_footet" name="html_for_footet" type="textarea" multilingual="true"></parameter>
+
+    <parameter type="title" label="email_setting"></parameter>
+    <parameter label="email_from" name="email_from" type="text"></parameter>
+	
+	<parameter label="email_smtp_adress" name="email_smtp_adress" type="text" message="email_smtp_adress_help"></parameter>
+	<parameter label="email_smtp_port" name="email_smtp_port" type="text"></parameter>	
+	<parameter label="email_smtp_user" name="email_smtp_user" type="text"></parameter>
+	<parameter label="email_smtp_pass" name="email_smtp_pass" type="text"></parameter>
+	<parameter label="email_smtp_ssl" name="email_smtp_ssl" type="text"></parameter>
+	
+    <parameter label="email_order_sent" name="on_order_send" type="textarea" multilingual="true" message="order_sent_parameters" />
+    <parameter label="email_ticket_answer" name="email_ticket_answer" type="textarea" multilingual="true" message="insert_ticket_answer"></parameter>
+    <parameter label="email_new_ticket" name="email_new_ticket" type="textarea" multilingual="true" message="insert_new_ticket"></parameter>
+    <parameter label="email_order_pay_cash" name="email_order_pay_cash" type="textarea" multilingual="true" message="insert_order_pay_cash"></parameter>	
+    <parameter label="email_money_withdrawal" name="email_money_withdrawal" type="textarea" multilingual="true" message="insert_money_withdrawal"></parameter>
+
+    <parameter type="title" label="export_params"></parameter>
+    <parameter label="export_canceled_items" name="export_canceled_items" type="checkbox"></parameter>
+</parameters>

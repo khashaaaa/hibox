@@ -1,0 +1,77 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <!--li><a href="<?=$PageUrl->AssignCmdAndDo('sellers', 'default')?>" class="muted"><?=LangAdmin::get('Sellers')?></a> <span class="divider">›</span></li-->
+    <li class="active"><?=$vendorInfo['id'] ? LangAdmin::get('Edit_seller') :  LangAdmin::get('Add_seller')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=$vendorInfo['id'] ? LangAdmin::get('Edit_seller') : LangAdmin::get('Add_seller')?></h1>
+<div class="row-fluid offset-bottom1">
+    <?=AdminLanguage::getLanguageSelector(false)?>
+</div>
+
+<div class="well seller_wrapper">
+    <?= $settings ?>
+
+    <form class="form-horizontal ot_form " method="post" action="<?=$PageUrl->AssignCmdAndDo('sets', 'updateSetsSeller')?>" method="post" enctype="multipart/form-data" >
+        <input type="hidden" id="sellerId" name="sellerId" value="<?=$vendorInfo['id']?>">
+        <input type="hidden" name="language" id="currentLang" value="<?=$currentLang?>" data-lang="<?=$currentLang?>">
+
+        <div class="box box-blinked box-closed offset-top0 offset-bottom0">
+
+            <div class="box-header corner-top">
+                <i class="icon-caret-right font-13"></i>
+                <a href="#" data-box="collapse" class="font-13 bold">
+                    <?=LangAdmin::get('Seller_seo_attributes')?>
+                </a>
+            </div>
+
+            <div class="box-body inset-horizontal-none inset-bottom0">
+
+                <div class="control-group offset-top1">
+                    <label class="control-label"><?=LangAdmin::get('Seller_seo_title')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Seller_seo_title_hint')?>"></i></label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="pagetitle" name="pagetitle" type="text" value="<?=$this->escape($vendorInfo['seo']['pagetitle'])?>">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('Seller_seo_keywords')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Seller_seo_keywords_hint')?>"></i></label>
+                    <div class="controls">
+                        <textarea cols="20" rows="2" class="input-xxlarge" id="seo-keywords" name="seo-keywords"><?=$this->escape($vendorInfo['seo']['seo_keywords'])?></textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('Seller_seo_description')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Seller_seo_description_hint')?>"></i></label>
+                    <div class="controls">
+                        <textarea cols="20" rows="2" class="input-xxlarge" id="seo-description" name="seo-description"><?=$this->escape($vendorInfo['seo']['seo_description'])?></textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('Seller_url')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Seller_url_hint')?>"></i></label>
+                    <div class="controls">
+                        <input class="input-xlarge" type="text" name="url" id="url" value="<?=$this->escape($vendorInfo['alias'])?>">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="controls offset-top2">
+            <button id="save-seller-btn" class="btn btn-primary btn_preloader js-save-seller-btn" data-redirect-url="<?= $pageUrl->AssignCmdAndDo('sets', 'sellers') ?>" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+            <button id="save-seller-btn" class="btn btn-primary btn_preloader js-save-seller-btn" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save_and_continue')?></button>
+            <a id="cancel-btn" href="<?=$PageUrl->AssignDo('sellers')?>" type="button" class="btn offset-left2 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+        </div>
+    </form>
+
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-sellers.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

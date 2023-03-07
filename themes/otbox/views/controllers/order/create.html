@@ -1,0 +1,251 @@
+<div id="new-order-create">
+    <div>
+        <div class="navbar order-navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li class="active"><?=Lang::get('reg_order')?> <div class="arrow-left"></div></li>
+                    <li><div class="white-arrow-left"></div> <?=Lang::get('payment')?> <div class="arrow-left"></div></li>
+                    <li><div class="white-arrow-left"></div> <?=Lang::get('Finish')?> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <span class="accordion-toggle" data-toggle1="collapse" data-parent="#accordion2" href="javascript:void(0)" href1="#collapse1" >
+                    <?=Lang::get('goods_list')?>
+                    <i class="icon-check"></i>
+                </span>
+            </div>
+            <div id="collapse1" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div class="table-responsive">
+                        <table class="basket tsimple notepad">
+                            <thead>
+                            <tr>
+                                <td class="w80"><?=Lang::get('good')?></td>
+                                <td><?=Lang::get('original')?></td>
+                                <td width="15%"><?=Lang::get('configuration')?></td>
+                                <td class="td4" width="7%"><?=Lang::get('unit_weight')?></td>
+                                <td align="center" width="7%"><?=Lang::get('quantity')?></td>
+                                <td width="10%"><?=Lang::get('total_weight')?></td>
+                                <td width="10%"><?=Lang::get('price_simple')?></td>
+                                <td width="10%"></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?
+                            $items = array();
+                            $totalWeight = 0;
+                            $currency = '';
+                            $showOrderByIds = array(); // список уже отображенных заголовков групп
+                            ?>
+                            <?  foreach ($basketGroups as $groupId => $groupData) { ?>
+                                <? if ($groupId === 'TotalCost') continue; // пропускаем элемент содержащий цену ?>
+
+                                <? if (isset($groupData['items'])) foreach($groupData['items'] as $i => $item) { ?>
+                                    <?
+                                    $items[] = $i;
+                                    $itemweight = floatval(str_replace(',', '.', $item->weight));
+                                    ?>
+
+                                    <? if (!empty($groupId) && !in_array($groupId, $showOrderByIds) && $groupData['price'] > 0) { ?>
+                                        <? $showOrderByIds[] = $groupId; ?>
+
+                                        <tr class="order-item-group-data">
+                                            <td colspan="8" class="products-section">
+                                            <span style="font-size: 14px; font-weight: bold; color: #fff">
+                                               <?= $groupData['displayName'] ?>
+                                            </span>
+                                                <span style="float: right; font-size: 14px; font-weight: bold; color: #fff">
+                                                <?= TextHelper::formatPrice($groupData['price'], $groupData['sign']) ?>
+                                            </span>
+                                            </td>
+                                        </tr>
+                                    <? } ?>
+
+                                    <tr class="order-item" id="item<?=$i?>" data-id="<?=$i?>" data-price="<?= $item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetValue()?>" data-sign="<?= $item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetSignAttribute()?>" data-weight="<?=$itemweight?>" data-vendor="<?=$item->vendorId?>">
+                                        <td>
+                                            <ul class="lproduct w80li">
+                                                <li>
+                                                    <a href="<?=UrlGenerator::generateItemUrl($item->id, array('ConfigId' => $item->configurationId))?>" class="pic">
+                                                        <i><img width="80" height="80" src="<?=$item->getSmallImage('small')?>"></i>
+                                                        <ins></ins>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <p class="mb5"><a title="<?=$item->title?>" alt="<?=$item->title?>" href="<?=UrlGenerator::generateItemUrl($item->id, array('ConfigId' => $item->configurationId))?>"><?=$item->title?> </a></p>
+                                            <p class="mb5"><span class="lgray"><?=Lang::get('vendor')?></span> <?= VendorHelper::generateLink($item->vendorId, $item->vendorName, array('title'=>$item->vendorName)) ?></p>
+                                            <p class="mb5"><span class="lgray"><?=Lang::get('category')?></span> <a href="/?p=category&amp;cid=<?=$item->categoryId?>" alt="<?=$item->categoryName?>" title="<?=$item->categoryName?>"><?=$item->categoryName?></a></p>
+                                            <p>
+                                                <label class=""><?=Lang::get('comments_for_operator')?>:</label>
+                                                <textarea name="" class="comment-area item-comment" data-action="<?=UrlGenerator::getUrl('order/set-item-comment')?>" itemid="<?=$i?>"><?= $item->comment ?></textarea>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <table class="info infoitem">
+                                                <tbody>
+                                                <? if ($item->configurationName) {?>
+                                                    <? foreach(explode(';', $item->configurationName) as $cfg){ ?>
+                                                        <? if($cfg) {?>
+                                                            <tr><? $tmp_var = explode(':', $cfg);?>
+                                                                <td class="lgray"><?= current($tmp_var); ?>:</td>
+                                                                <td><?=end($tmp_var);?></td>
+                                                            </tr>
+                                                        <? } ?>
+                                                    <? } ?>
+                                                <? } ?>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td class="tagc">
+                                            <? if (General::getConfigValue('hide_step_weight_order')) { ?>
+                                                <span class="item-weight"><?= number_format((float)$itemweight, 3, '.', " ") ?></span> <?=Lang::get('weight_kg')?>
+                                            <? } else { ?>
+                                                <input type="text" size="5" class="weight weight-value input_numeric_float" data-action="<?=UrlGenerator::getUrl('order/set-item-weight')?>" itemid="<?=$i?>" value="<?= number_format((float)$itemweight, 3, '.', ' ') ?>">
+                                            <? } ?>
+                                        </td>
+                                        <td class="tagc">
+                                            <? $itemQty = intval($item->quantity); ?>
+                                            <span class="item-qty"><?=$item->quantity?></span>
+                                        </td>
+                                        <td class="row-weight" itemid="<?=$i?>">
+                                            <span class="item-weight"><?= number_format((float)($itemweight * $itemQty), 3, '.', " ") ?></span> <?=Lang::get('weight_kg')?>
+                                            <? $totalWeight += (str_replace(' ', '', $itemweight) * $itemQty); ?>
+                                        </td>
+                                        <td class="row-price">
+                                            <nobr><?=TextHelper::formatPrice($item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetValue(), $item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetSignAttribute())?></nobr>
+                                            <? if((isset($userdiscount)) && ($userdiscount['Discount'] != 0)){  ?>
+                                                <div class="row-original-price"><del><?=TextHelper::formatPrice($item->price->GetConvertedPriceList()->GetInternal()->GetValue(), $item->price->GetConvertedPriceList()->GetInternal()->GetSignAttribute())?></del></div>
+                                            <? } ?>
+                                            <? $currency = $item->promotionPrice->GetConvertedPriceList()->GetInternal()->GetSignAttribute() ?>
+                                        </td>
+                                        <td>
+                                            <a class="btn item-btn" href="#" onclick="confirmRemoveOrderItem(<?=$i?>); return false;"><span><?=Lang::get('delete_item')?></span></a>
+                                        </td>
+                                    </tr>
+                                <? } ?>
+                            <?  }  ?>
+                            <tr class="bdb0">
+                                <td colspan="5"></td>
+                                <td>
+                                    <?=Lang::get('total')?>:&nbsp;&nbsp;<span class="total-weight" data-weight="<?=number_format((float)$totalWeight, 3, '.', "")?>" style="white-space: nowrap"><?=number_format((float)$totalWeight, 3, '.', " ")?></span>&nbsp;<?=Lang::get('weight_kg')?>
+                                </td>
+                                <td class="row-price"><span class="products-price" data-value="<?=$basketGroups['TotalCost']['value']?>" data-sign="<?=$basketGroups['TotalCost']['sign']?>"><?=TextHelper::formatPrice($basketGroups['TotalCost']['value'], $basketGroups['TotalCost']['sign'])?></span></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix">
+                        <div class="pull-right actions-panel">
+                            <a href="javascript:void(0)" id="nextstep1" class="btn btn-success b-last-page next-button"><?=Lang::get('continue')?></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <? if ($orders['TotalCount'] && ! General::getConfigValue('skip_reordering')) { ?>
+            <div class="accordion-group" id="orderSelection">
+                <div class="accordion-heading">
+                <span class="accordion-toggle" data-toggle1="collapse" data-parent="#accordion2" href="javascript:void(0)" href1="#collapse2">
+                    <?=Lang::get('merge_order_select')?>
+                    <i class="icon-check"></i>
+                </span>
+                </div>
+                <div id="collapse2" class="accordion-body collapse">
+                    <div class="accordion-inner">
+
+                        <table class="notepad orders" width="100%">
+                            <tbody>
+                            <tr class="active-option">
+                                <td width="20">
+                                    <input id="new-order" type="radio" name="order" value="new" checked="checked">
+                                </td>
+                                <td class="radio-option">
+                                    <?=Lang::get('create_new_order')?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20">
+                                    <input id="existing-order" type="radio" name="order" value="old">
+                                </td>
+                                <td class="radio-option">
+                                    <span id="old-order-id"> <?=Lang::get('select_from_exists')?></span>
+                                </td>
+                            </tr>
+                            </tbody></table>
+
+                        <div class="clearfix">
+                            <div class="pull-right actions-panel">
+                                <a href="javascript:void(0)" class="btn btn-apper b-first-page back-button"><?=Lang::get('back')?></a>
+                                <a class="btn btn-success b-last-page merge-button" href="javascript:void(0)" id="nextstep2"><?=Lang::get('continue')?></a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+        <div class="accordion-group new-order">
+            <div class="accordion-heading">
+                <span class="accordion-toggle" data-toggle1="collapse" data-parent="#accordion2" href="javascript:void(0)"  href1="#collapse3">
+                    <?=Lang::get('delivery')?>
+                    <i class="icon-check"></i>
+                </span>
+            </div>
+            <div id="collapse3" class="accordion-body collapse">
+                <?=General::viewFetch('controllers/order/delivery-tab', array('vars' => array(
+                    'provider' => $provider,
+                    'profiles' => $profiles,
+                    'countries' => $countries,
+                    'cities' => $cities,
+                    'items' => $items,
+                    'deliveryId' => $deliveryId,
+                    'userData' => $userData,
+                    'totalWeight' => $totalWeight,
+                    'basketGroups' => $basketGroups,
+                    'isQuickOrder' => false,
+                )))?>
+            </div>
+        </div>
+    </div>
+
+    <div id="orders-list" class="hide">
+        <table class="notepad orders" width="100%">
+            <tbody>
+            <?  foreach ($orders['Content'] as $o => $order) { ?>
+                <tr>
+                    <td width="1%"><input type="radio" name="exist-order" value="<?=$order['Id']?>"> </td>
+                    <td class="radio-option">
+                        <?=Lang::get('number')?>: <a href="/?p=orderdetails&amp;orderid=<?=$order['Id']?>" target="_blank" style="text-decoration: underline;"><?=OrdersProxy::normalizeOrderId($order['Id'])?></a><br>
+                        <?=Lang::get('creation_date')?>: <?=date('Y-m-d H:i:s', strtotime($order['CreatedDateTime']))?><br>
+                        <?=Lang::get('Goods_quantity')?>: <?=$order['ItemsCount']?><br>
+                        <?=Lang::get('cost_with_delivery')?>: <span class="pr"><?=$order['TotalAmount']?></span><br>
+                    </td>
+                </tr>
+            <? } ?>
+            </tbody>
+        </table>
+    </div>
+    <div id="order-overlay"></div>
+</div>
+
+<?=Lang::loadJSTranslation(array('Not_selected', 'sure_delete', 'delete_item', 'delete', 'cancel', 'not_filled_required_field', 'empty_deliveries', 'click_order', 'select_order_to_merge', 'merge_order_with', 'merge_order', 'select_from_exists', 'continue', 'min_cost', 'add', 'pickup_points', 'no_deliver_for_place_error'))?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var priceSign = '<?= $currency ?>';
+    var PRICE_ROUND_DECIMALS = <?=(int)General::getConfigValue('price_rounding')?>;
+    var minOrderPrice = <?= $minOrderCost ?>;
+    var ordersCount = <?=$orders['TotalCount']?>;
+    var allowMerge = <?= General::getConfigValue('skip_reordering') ? 'false' : 'true' ?>;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/js/vendor/selectize/selectize/dist/js/standalone/selectize.min.js')?>
+<? AssetsMin::registerCssFile('/js/vendor/selectize/selectize/dist/css/selectize.css')?>

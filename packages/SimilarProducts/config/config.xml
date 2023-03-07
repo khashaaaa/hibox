@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <title>RecommendedGoods</title>
+    <description></description>
+    <version>1.0</version>
+    <events>
+        <event name="onRenderItemPage" />
+    </events>
+</plugin>

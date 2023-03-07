@@ -1,0 +1,41 @@
+<? if (! $user->isEmpty()) { ?>
+
+    <p><i class="icon-plus color-blue"></i> <span class="blink font-12" data-toggle="collapse" data-target=".support-message-reply-form" title="<?=LangAdmin::get('Add_message')?>"><?=LangAdmin::get('Add_message')?></span></p>
+
+    <div class="collapse support-message-reply-form">
+        <form action="<?=$PageUrl->AssignCmdAndDo('support', 'addTicketMessage')?>" class="form-horizontal offset-top1 offset-bottom2">
+            <textarea rows="6" class="input-xlarge" placeholder="<?=LangAdmin::get('Text_of_message')?>"></textarea>
+            <div class="offset-top05">
+                <button autocomplete="off" data-loading-text="<?=LangAdmin::get('Add')?>" class="btn btn-tiny btn-primary btn_preloader" type="button"><?=LangAdmin::get('Add')?></button>
+                <button class="btn btn-tiny offset-left1" type="button" data-toggle="collapse" data-target=".support-message-reply-form"><?=LangAdmin::get('Cancel')?></button>
+            </div>
+        </form>
+    </div>
+
+<? } ?>
+
+<div class="chat-messages">
+
+    <? foreach ($order->ticketMessages as $message) { ?>
+        <? if ($message['Direction'] == 'In') { ?>
+            <!-- message customer -->
+            <p class="message-box <?=($message['read'] == 0 ? 'new' : '')?>">
+                <span class="message">
+                    <strong><i class="icon-envelope"></i> <?=$this->escape($message['username'])?></strong>
+                    <span class="message-time"><?=date('d.m.Y, H:i', strtotime($message['CreatedDate']))?></span>
+                    <span class="message-text"><?=TextHelper::parseTextWithUrl(nl2br($this->escape($message['Text'])))?></span>
+                </span>
+            </p>
+        <? } else { ?>
+            <!-- message operator -->
+            <p class="message-box operator">
+                <span class="message">
+                    <strong><i class="icon-reply  muted"></i> <?=$this->escape($message['username'])?></strong>
+                    <span class="message-time"><?=date('d.m.Y, H:i', strtotime($message['CreatedDate']))?></span>
+                    <span class="message-text"><?=TextHelper::parseTextWithUrl(nl2br($this->escape($message['Text'])))?></span>
+                </span>
+            </p>
+        <? } ?>
+    <? } ?>
+
+</div>

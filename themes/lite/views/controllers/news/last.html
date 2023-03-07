@@ -1,0 +1,19 @@
+<? if (! empty($news)) { ?>
+    <section class="box-section blog-section">
+        <h2><?=Lang::get('news')?></h2>
+		<ul>
+            <? foreach ($news as $new) { ?>
+            <li class="col-md">
+                <a href="?p=news&id=<?=$new['id']?>" class="thumbnail" class="thumbnail" class="thumbnail">
+                	<div class="blog-section_img-wrap">
+                    	<img src="<?=DigestRepository::getImage($new['image'], "thumb")?>" class="check-noimg" alt="<?=$this->escape($new['title'])?>">
+                    </div>
+					<time datetime="<?=date('Y-m-d', strtotime($new['created'])) ?>"><?=date('Y-m-d', strtotime($new['created'])) ?></time>
+					<h3><?=$this->escape($new['title'])?></h3>
+				</a>
+			</li>
+            <? } ?>
+		</ul>
+		<a href="?p=allnews" class="see-all-link"><?=Lang::get('all_news')?></a>
+	</section>
+<? } ?>

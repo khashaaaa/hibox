@@ -1,0 +1,142 @@
+<style>
+    .captcha a {
+        height: 32px;
+        display: block;
+    }
+
+    .gdcaptcha {
+        width: 30%;
+    }
+
+    .soc-login a img {
+        border-radius: 5px;
+    }
+</style>
+<div class="col-sm-5" id="content">
+    <form action="<?=UrlGenerator::generateContentUrl('register')?>" method="post" id="register" class="form-horizontal">
+        <div class="form-group required">
+            <label for="username" class="col-sm-3 control-label"><?=Lang::get('login_username')?></label>
+            <div class="col-sm-9">
+                <input id="username" type="text" name="username" value="<?=$this->escape($username)?>" class="form-control required-field" maxlength="50"/>
+            </div>
+        </div>
+
+        <div class="form-group required">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9">
+                <input id="email" type="text" name="email" value="<?=$this->escape($email)?>" class="form-control required-field" />
+            </div>
+        </div>
+
+        <div class="form-group required">
+            <label for="password" class="col-sm-3 control-label"><?=Lang::get('password')?></label>
+            <div class="col-sm-9">
+                <input id="password" type="password" name="password" class="required-field form-control" /><br/>
+                <small><?=Lang::get('password_desc')?></small>
+            </div>
+        </div>
+
+        <?
+        if(CMS::IsFeatureEnabled('ReferralProgram')){
+            print ReferalSystem::onRegisterFormRender();
+        }
+        ?>
+
+        <?=Plugins::invokeEvent('onRegisterFormRender')?>
+
+        <? if (!OTCaptcha::isCaptchaUnavailable()) { ?>
+            <div class="form-group required">
+                <?=OTCaptcha::render(); ?>
+            </div>
+        <? } ?>
+
+        <div class="form-group required">
+            <label for="agree" class="agree">
+                <input id="agree" style="display: inline-block" type="checkbox" class="required-field checkbox" name="agree" value="agree" <?=$agree?> />
+            </label>
+
+            <?=Lang::get('agree_with')?> <a id="user_agreement_spoiler-toggler"><?=Lang::get('user_agreement_l')?></a>
+            <br/>
+        </div>
+        <div style="display: none" id="user_agreement_spoiler-text" class="user_agreement_spoiler-text">
+            <?=$userAgreement?>
+        </div>
+
+        <?=Lang::get('required_fields')?><br/><br/>
+
+        <script>
+            $('#user_agreement_spoiler-toggler').click(function(){
+                $('#user_agreement_spoiler-text').slideToggle('400');
+            });
+        </script>
+
+        <div class="form-row register">
+            <input type="submit" id="submitb" name="login" value="<?=Lang::get('registration_label')?>"class="button" />
+        </div>
+    </form>
+
+    <? if (CMS::IsFeatureEnabled('ExternalAuthentication')) { ?>
+        <div class="form-row" style="margin-top: 20px">
+            <?=General::runController('Authentication', 'renderAuthSystemList')?>
+        </div>
+    <? } ?>
+</div>
+<!--noindex-->
+<script type="text/javascript">
+$(function()
+{
+    var checkregister = function()
+    {
+        var f = true;
+        if ($('#username').val() == '') {
+            $('#username').addClass('required-field');
+            f = false;
+        } else {
+            $('#username').removeClass('required-field');
+        }
+        if ($('#email').val() == '') {
+            $('#email').addClass('required-field');
+            f = false;
+        } else {
+            $('#email').removeClass('required-field');
+        }
+        if ($('#password').val() == '') {
+            $('#password').addClass('required-field');
+            f = false;
+        } else {
+            $('#password').removeClass('required-field');
+        }
+
+        if ($('#register .googleReCaptcha').length) {
+            if (! grecaptcha.getResponse().length) {
+                $('#register .googleReCaptcha').addClass('required-field');
+                f = false;
+            } else {
+                $('#register .googleReCaptcha').removeClass('required-field');
+            }
+        }
+
+        if ($('#register .gdcaptcha').length) {
+            if ($('#register .gdcaptcha').val() == '') {
+                $('#register .gdcaptcha').addClass('required-field');
+                f = false;
+            } else {
+                $('#register .gdcaptcha').removeClass('required-field');
+            }
+        }
+
+        if ($('#agree:checked').length == 0) f = false;
+        if (!f) {
+            $('#submitb').attr('disabled', 'disabled');
+            $('#submitb').addClass('btn_office_disabled');
+        } else {
+            $('#submitb').removeAttr('disabled');
+            $('#submitb').removeClass('btn_office_disabled');
+        }
+    }
+
+    setInterval(checkregister, 1000);
+
+});
+</script>
+<!--/noindex-->

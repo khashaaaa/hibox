@@ -1,0 +1,142 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'system')?>"><?=LangAdmin::get('system')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('general')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<?=TabsGenerator::GetSubTabs('templates/site_config/system/navigation/tabs.xml', $PageUrl)?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? XEditableFields::Init('system', $PageUrl); ?>
+
+<h1><?=LangAdmin::get('general')?></h1>
+
+<!-- caching configuration -->
+<div class="well" id="global-wrapper">
+
+    <form class="form-horizontal inline_editable_form ot_form">
+            <div class="row-fluid">
+                <fieldset class="span6">
+                    <div class="control-group control-group-medium">
+                        <label class="control-label" for="Default_item_provider">
+                            <?=LangAdmin::get('DefaultItemProvider_label')?>
+                            <i class="icon-question-sign ot_inline_help" data-toggle="popover" title=""
+                               data-content="<?=LangAdmin::get('DefaultItemProvider_hint')?>" data-original-title=""></i>
+                        </label>
+                        <div class="controls">
+                            <select class="input-large span4 DefaultItemProvider" name="DefaultItemProvider">
+                                <? foreach ($providerInfoList as $searchProvider) { ?>
+                                    <option value="<?=$searchProvider['Type']?>"
+                                            <?=$defaultItemProvider == $searchProvider['Type'] ? 'selected="selected"' : ''?>
+                                            <?=$searchProvider['IsEnabled'] == 'false' ? 'disabled="disabled"' : ''?> >
+                                        <?=$searchProvider['DisplayName']?>
+                                    </option>
+                                <? } ?>
+                            </select>
+                            <button class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Save')?>" autocomplete="off" id="save-default_item_provider" type="button"><i class="icon-ok"></i></button>
+                        </div>
+                    </div>
+
+                    <div data-field="site_temporary_unavailable"></div>
+                    <? XEditableFields::Register('site_temporary_unavailable', General::getConfigValue('site_temporary_unavailable')); ?>
+                    
+                    <div data-field="use_custom_view"></div>
+                    <? XEditableFields::Register('use_custom_view', General::getConfigValue('use_custom_view', 1)); ?>
+                    
+                    <div data-field="collect_js_css"></div>
+                    <? XEditableFields::Register('collect_js_css', General::getConfigValue('collect_js_css', 1), array()); ?>
+
+                    <div data-field="is_old_platform"></div>
+                    <? XEditableFields::Register('is_old_platform', General::getConfigValue('is_old_platform'),
+                        [
+                            'callbackSuccess' => array(
+                                'response, value, object',
+                                'var obj = new ConfigPage(); obj.toggleOldTemplateSettingCallback(value);',
+                            ),
+                        ]); ?>
+
+                    <div id="design_theme" class="control-group control-group-medium <?=General::getConfigValue('is_old_platform') ? 'hidden' : ''?>">
+                        <label class="control-label">
+                            <?=LangAdmin::get('Css_theme')?>
+                        </label>
+                        <div class="controls">
+                            <select class="input-large span4" name="design_theme">
+                                <? foreach ($themes as $theme) { ?>
+                                    <option value="<?=$theme['name']?>"
+                                        <?=$theme['active'] ? 'selected="selected"' : ''?>
+                                        <?=$theme['disabled'] ? 'disabled="disabled"' : ''?>>
+                                        <?=$theme['name']?>
+                                    </option>
+                                <? } ?>
+                            </select>
+                            <button class="btn btn-small btn-primary" title="<?=LangAdmin::get('Save')?>" autocomplete="off" id="save-design_theme" type="button"><i class="icon-ok"></i></button>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <? if (!empty($messageSettings)) { ?>
+                    <fieldset class="span6">
+                        <legend class="legend-mini"><?=LangAdmin::get('Notification_setting')?></legend>
+                        <?=MetaUI::render($messageSettings['settings'], $messageSettings['updateUrl']);?>
+                    </fieldset>
+                <? } ?>
+
+            </div>
+
+            <? if ($emailServerInfoSettingsHtml) { ?>
+                <div class="row-fluid">
+                    <div class="span12"><legend class="legend-mini"><?=LangAdmin::get('Smtp_mailer_settings')?></legend></div>
+                </div>
+                <?=$emailServerInfoSettingsHtml?>
+            <? } ?>
+
+            <? if ($smsServiceInfoSettingsHtml) { ?>
+                <div class="row-fluid">
+                    <div class="span12"><legend class="legend-mini"><?=LangAdmin::get('sms_service_setting')?></legend></div>
+                </div>
+                <?=$smsServiceInfoSettingsHtml?>
+            <? } ?>
+
+            <div class="row-fluid hide">
+                <p class="text-warning">For developers:</p>
+                <div class="span6">
+                    <div data-field="email_smtp_adress"></div>
+                    <? XEditableFields::Register('email_smtp_adress', General::getConfigValue('email_smtp_adress'), array('placeholder' => 'gmail.com')); ?>
+
+                    <div data-field="email_smtp_port"></div>
+                    <? XEditableFields::Register('email_smtp_port', General::getNumConfigValue('email_smtp_port'), array('placeholder' => '8080', 'inputClass' => 'numeric')); ?>
+
+                    <div data-field="email_smtp_user"></div>
+                    <? XEditableFields::Register('email_smtp_user', General::getConfigValue('email_smtp_user'), array('placeholder' => LangAdmin::get('Login'))); ?>
+
+                    <div data-field="email_smtp_pass"></div>
+                    <? XEditableFields::Register('email_smtp_pass', General::getConfigValue('email_smtp_pass'), array('placeholder' => '********')); ?>
+
+                    <div data-field="email_smtp_security"></div>
+                    <? XEditableFields::Register('email_smtp_security', General::getConfigValue('email_smtp_security')); ?>
+                </div>
+            </div>
+
+        </form>
+
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-site-config.js'); ?>

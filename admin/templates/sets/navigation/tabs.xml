@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="BrandsPopular" action="default" cmd="sets">
+        <page data-action="default" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+    <tab title="Sellers" action="sellers" cmd="sets">
+        <page data-action="sellers" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+    <tab title="Recommended_products" action="recommended" cmd="sets">
+        <page data-action="recommended" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+    <tab title="Popular_products" action="popular" cmd="sets">
+        <page data-action="popular" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+
+    <tab title="Last_viewed" action="last" cmd="sets">
+        <page data-action="last" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+
+    <tab title="Warehouse" action="warehouse" cmd="sets" feature="Warehouse">
+        <page data-action="warehouse" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+
+    <tab title="Recommended_categories" action="recommendedCategory" cmd="sets">
+        <page data-action="recommendedCategory" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+
+    <tab title="Categories" action="categories" cmd="sets" feature="RatingListForCategory">
+        <page data-action="categories" data-cmd="sets" />
+        <page data-action="categoriesSettings" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+    </tab>
+
+
+</tabs>

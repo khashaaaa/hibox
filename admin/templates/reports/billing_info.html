@@ -1,0 +1,247 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Billing')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Billing')?></h1>
+
+<div class="well inline-block">
+    <dl class="dl-horizontal dl-horizontal-large dl-ot-horizontal offset-vertical-none">
+        <dt><?=LangAdmin::get('Prepayment')?>:</dt>
+        <dd><?=$account->GetPrepayment()?>&nbsp;</dd>
+
+        <dt><?=LangAdmin::get('Debt')?>:</dt>
+        <dd><?=$account->GetDebt()?>&nbsp;</dd>
+    </dl>
+</div>
+
+<h2><?=LangAdmin::get('Bills_to_pay')?></h2>
+<div id="billing-view-wrapper">
+    <? if ($unpaidBillsCount > 0) { ?>
+        <table class="table table-bordered data_table_sorting">
+            <thead>
+            <tr>
+                <th><?=LangAdmin::get('Bill')?></th>
+                <th><?=LangAdmin::get('Amount_USD')?></th>
+                <th><?=LangAdmin::get('Date_from')?></th>
+                <th><?=LangAdmin::get('Date_to')?></th>
+                <th><?=LangAdmin::get('Bill_discription')?></th>
+                <th><?=LangAdmin::get('Details')?></th>
+                <th><?=LangAdmin::get('Condition')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <?
+                /**
+                * @var $unpaidBills OtapiArrayOfBillInfo
+                */
+                ?>
+                <? foreach ($unpaidBills->GetItem() as $item) { ?>
+                    <tr>
+                        <td><a href="<?= $item->GetPaymentUrl() ?>" target="_blank"><?= $item->GetPaymentUrl() ?></a></td>
+                        <td><?= $item->GetSumToPayInUSD()->asString() ?></td>
+                        <td><?= $item->GetSettlingPeriod()->GetDateFrom() ? date("d.m.Y", strtotime($item->GetSettlingPeriod()->GetDateFrom())) : LangAdmin::get('Not_seted') ?></td>
+                        <td><?= $item->GetSettlingPeriod()->GetDateTo() ? date("d.m.Y", strtotime($item->GetSettlingPeriod()->GetDateTo())) : LangAdmin::get('Not_seted') ?></td>
+                        <td><?= $item->GetDescription() ?>  </td>
+                        <td>
+                        <? if ($item->GetType()->GetName() == 'Rent') { ?>
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle" title="<?=LangAdmin::get('Actions')?>"><i class="icon-cog"></i> <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a target="_blank" href="<?=$PageUrl->generate(array('do'=>'viewBill', 'billId'=>$item->GetId()->asString()))?>" class="view-bill" title="<?=LangAdmin::get('will_be_opened_in_new_window')?>"><i class="icon-file-alt"></i> <?=LangAdmin::get('Get_view')?></a></li>
+                                    <li><a target="_blank" href="<?=$PageUrl->generate(array('do'=>'viewBill', 'billId'=>$item->GetId()->asString(), 'autoPrint'=>1))?>" class="print-bill"><i class="icon-print"></i> <?=LangAdmin::get('Print')?></a></li>
+                                    <li><a target="_blank" href="<?=$PageUrl->generate(array('do'=>'exportBill', 'billId'=>$item->GetId()->asString()))?>" class="export-bill"><i class="icon-upload-alt"></i> <?=LangAdmin::get('Do_export')?> (.xls)</a></li>
+                                </ul>
+                            </div>
+                        <? } else { ?>
+                            —
+                        <? } ?>
+                        </td>
+                        <td><strong class="text-error"><?= $item->GetStatus()->GetDescription() ?></strong></td>
+                    </tr>
+                <? } ?>
+            </tbody>
+
+        </table>
+    <? } else { ?>
+        <p> <?=LangAdmin::get('No_unpayed_bills')?></p>
+    <? } ?>
+
+    <div class="ot_show_all_bills">
+        <h2><?=LangAdmin::get('Payed_bills')?></h2>
+
+        <? if ($paidBillsCount > 0) { ?>
+            <div class="pull-right">
+                <label><?=LangAdmin::get('Show')?>
+                    <select class="input-mini perpageSelect">
+                        <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                            <option value="<?=$perPageLimit?>"
+                                <?= $perPageLimit == $paginator->limit() ? ' selected="selected"' : '' ?>>
+                                <?= $perPageLimit ?>
+                            </option>
+                        <? } ?>
+                    </select>
+                </label>
+            </div>
+
+            <table class="table table-bordered data_table_sorting bill-table">
+                <thead>
+                    <tr>
+                        <th><?=LangAdmin::get('Bill')?></th>
+                        <th><?=LangAdmin::get('Amount_USD')?></th>
+                        <th><?=LangAdmin::get('Date_from')?></th>
+                        <th><?=LangAdmin::get('Date_to')?></th>
+                        <th><?=LangAdmin::get('Bill_discription')?></th>
+                        <th><?=LangAdmin::get('Details')?></th>
+                        <th><?=LangAdmin::get('Condition')?></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?
+                    /**
+                    * @var $paidBills OtapiArrayOfBillInfo
+                    */
+                    ?>
+                    <?  foreach ($paidBills->GetItem() as $item) { ?>
+                        <tr>
+                            <td><a href="<?= $item->GetPaymentUrl() ?>" target="_blank"><?= $item->GetPaymentUrl() ?></a></td>
+                            <td><?= $item->GetSumToPayInUSD()->asString() ?></td>
+                            <td><?= $item->GetSettlingPeriod()->GetDateFrom() ? date("d.m.Y", strtotime($item->GetSettlingPeriod()->GetDateFrom())) : LangAdmin::get('Not_seted')  ?></td>
+                            <td><?= $item->GetSettlingPeriod()->GetDateTo() ? date("d.m.Y", strtotime($item->GetSettlingPeriod()->GetDateTo())) : LangAdmin::get('Not_seted') ?></td>
+                            <td><?= $item->GetDescription() ?>  </td>
+                            <td>
+                            <? if ($item->GetType()->GetName() == 'Rent') { ?>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle" title="<?=LangAdmin::get('Actions')?>"><i class="icon-cog"></i> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a target="_blank" href="<?=$PageUrl->generate(array('do'=>'viewBill', 'billId'=>$item->GetId()->asString()))?>" class="view-bill" title="<?=LangAdmin::get('will_be_opened_in_new_window')?>"><i class="icon-file-alt"></i> <?=LangAdmin::get('Get_view')?></a></li>
+                                        <li><a target="_blank" href="<?=$PageUrl->generate(array('do'=>'viewBill', 'billId'=>$item->GetId()->asString(), 'autoPrint'=>1))?>" class="print-bill"><i class="icon-print"></i> <?=LangAdmin::get('Print')?></a></li>
+                                        <li><a target="_blank" href="<?=$PageUrl->generate(array('do'=>'exportBill', 'billId'=>$item->GetId()->asString()))?>" class="export-bill"><i class="icon-upload-alt"></i> <?=LangAdmin::get('Do_export')?> (.xls)</a></li>
+                                    </ul>
+                                </div>
+                            <? } else { ?>
+                                —
+                            <? } ?>
+                            </td>
+                            <td><strong class="text-success"><?= $item->GetStatus()->GetDescription() ?></strong></td>
+                        </tr>
+                    <? } ?>
+                </tbody>
+            </table>
+
+            <div class="pagination-orders">
+                <?= isset($paginator) ? $paginator->display(false) : ''; ?>
+            </div>
+        <? } else { ?>
+            <p> <?=LangAdmin::get('No_payed_bills')?></p>
+        <? } ?>
+    </div>
+</div>
+
+
+<? if (! empty($rent) && !empty($rate)) { ?>
+    <h2><?=LangAdmin::get('Tariffication')?></h2>
+    <?
+        /**
+         * @var $rent OtapiRentalPaymentInfo
+        */
+    ?>
+<div class="clearfix">  
+    <div class="span4 well inline-table offset-bottom0">
+        <dl class="dl-horizontal dl-ot-horizontal dl-horizontal-xxlarge offset-vertical-none">
+            <dt><?=LangAdmin::get('Your_rate')?></dt>
+            <dd><span class="label weight-normal"><?= $rate->GetName() ?></span></dd>
+            <dt><?=LangAdmin::get('Count_service_calls')?></dt>
+            <dd><?= $rent->GetCallCount() ?></dd>
+            <dt><?=LangAdmin::get('Turnover_for_month')?></dt>
+            <dd><?= round((float)$rent->GetTurnover()->GetSumMoney()->asString(), 2) ?>  <?= $rent->GetTurnover()->GetSumMoney()->GetSignAttribute() ?></dd>
+            <? if (! General::isSellFree()) { ?>
+            <dt><?=LangAdmin::get('Service_pay_on')?> <?=date('d.m.Y')?>:</dt>
+            <dd><?= round((float)$rent->GetSum()->GetMarginPrice(), 2) ?>  <?= $rent->GetSum()->GetOriginalCurrencyCode() ? $rent->GetSum()->GetOriginalCurrencyCode() : '$' ?></dd>
+            <? } ?>
+            <!--dt></dt>
+            <dd></dd>
+            <dt></dt>
+            <dd></dd-->
+        </dl>
+    </div>
+    
+    <div class="span8 well inline-table offset-bottom0 offset-left1">
+        <p> <?=LangAdmin::get('Detalization_for_period')?></p>
+                    <?=LangAdmin::get('from')?>
+                    <div class="input-append">
+                        <input name="fromdate" id="date-start-display" class="input-small date" type="text" value="">
+                        <span class="btn add-on" id="date-start"><i class="icon-calendar"></i></span>
+                    </div>
+
+                    <?=LangAdmin::get('to')?>
+                    <div class="input-append">
+                        <input name="todate" id="date-end-display" class="input-small date" type="text" value="">
+                        <span class="btn add-on" id="date-end" ><i class="icon-calendar"></i></span>
+                    </div>
+
+                    <div class="inline-block offset-left1">
+                        <button id="apply_button" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Applying_filters')?>" autocomplete="off"><?=LangAdmin::get('Apply')?></button>
+                    </div>
+        <dl class="dl-horizontal dl-ot-horizontal dl-horizontal-large offset-vertical-none" id="billing_period_info">
+            
+        </dl>
+    </div>
+</div>
+<? } ?>
+
+<? if (! empty($rateHistory)) { ?>    
+    <h3><?=LangAdmin::get('History_of_rate_changes')?></h3>
+    <table class="table table-bordered data_table_sorting">
+
+        <thead>
+            <tr>
+                <th><?=LangAdmin::get('Rate_activation_date')?></th>
+                <th><?=LangAdmin::get('Rate')?></th>
+                <th><?=LangAdmin::get('Rate_activation_due')?></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?
+             /**
+             * @var $rateHistory OtapiArrayOfTariffHistoryElement
+             */
+            ?>
+            <?  foreach ($rateHistory->GetTariffHistoryElement() as $item) { ?>
+            <tr <?=$item->IsActive() ? 'class="success"' : ''?>>
+                <td><?= date("d.m.Y H:m:s", strtotime($item->GetActivationDate())) ?></td>
+                <td><?= $item->GetTariff()->GetName() ?></td>
+                <td>—</td>
+            </tr>
+            <? } ?>
+        </tbody>
+
+    </table>
+
+<? } ?>
+
+<?
+    /**
+     * @var $hosting OtapiInstanceHostingInfo
+    */
+?>
+<? if ($hosting->GetName() && !General::isSellFree(Session::getActiveAdminLang())) { ?>
+    <h2 class="offset-top1"><?=LangAdmin::get('Hosting')?></h2>
+    <div class="well inline-block">
+        <dl class="dl-horizontal dl-ot-horizontal dl-horizontal-large offset-vertical-none">
+            <dt><?=LangAdmin::get('Title')?>:</dt>
+            <dd><?= $hosting->GetName() ?></dd>
+            <dt><?=LangAdmin::get('Payed_until')?></dt>
+            <dd><?= date("d.m.Y", strtotime($hosting->GetExpirationDate())) ?></dd>
+        </dl>
+    </div>
+<? } ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-billing-reports.js'); ?>

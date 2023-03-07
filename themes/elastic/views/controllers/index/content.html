@@ -1,0 +1,14 @@
+<? if (General::getConfigValue('footer_text_title') !== '' && General::getConfigValue('footer_text') !== '') { ?>
+<section class="block-text">
+    <div class="center">
+        <? if (General::getConfigValue('footer_text_title')) { ?>
+            <div class="block__title"><?= General::getConfigValue('footer_text_title') ?></div>
+        <? } ?>
+        <? if (General::getConfigValue('footer_text')) { ?>
+            <div class="box-section content-section">
+                <?= General::getConfigValue('footer_text') ?>
+            </div>
+        <? } ?>
+    </div>
+</section>
+<? } ?>

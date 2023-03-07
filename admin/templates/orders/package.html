@@ -1,0 +1,347 @@
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->assignDo('list')?>"><?=LangAdmin::get('Orders')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->generate(array('cmd'=>'orders','do'=>'view','id'=>$order->id))?>">№ <?=OrdersProxy::normalizeOrderId($order->id)?></a> <span class="divider">›</span></li>
+    <li class="active"><?=$this->escape($actionTitle)?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<h1><?=$this->escape($actionTitle)?></h1>
+
+<div class="well order-package-wrapper">
+
+    <form id="packageEditForm" method="post" action="<?=$PageUrl->assignDo('savePackage')?>" class="form-horizontal ot_form">
+        <input type="hidden" name="packageId" value="<?=(isset($package) ? $package->id : 'new')?>" />
+        <input type="hidden" name="orderId" value="<?=$order->id?>" />
+        <input type="hidden" name="cutomerId" value="<?=$order->custid?>" />
+        <input id="ProviderTypeEnum" type="hidden" name="providerTypeEnum" value="<?=$order->providertypeenum?>" />
+
+    <fieldset>
+
+     <div class="row-fluid">
+
+        <div class="span6">
+
+            <legend><?=LangAdmin::get('Package')?></legend>
+
+            <div class="control-group">
+                <label for="DeliveryTrackingNum" class="control-label"><?=LangAdmin::get('delivery_tracking_num_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('delivery_tracking_num_hint')?>"></i></label>
+                <div class="controls">
+                    <input id="DeliveryTrackingNum" name="DeliveryTrackingNum" class="input-medium" type="text" value="<?=(isset($package) ? $package->DeliveryTrackingNum : '')?>" />
+                </div>
+            </div>
+
+            <? if (! empty($packageStatuses)) { ?>
+            <div class="control-group">
+                <label for="packageStatus" class="control-label"><?=LangAdmin::get('package_status_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('package_status_hint')?>"></i></label>
+                <div class="controls">
+                    <select id="packageStatus" name="packageStatus" class="input-medium" <?=($package->CanChangeStatus == 'true' ? '' : 'disabled="disabled"')?>>
+                        <? if ($package->CanChangeStatus == 'true') { ?>
+                            <? foreach ($packageStatuses as $status) { ?>
+                            <option value="<?=$status['id']?>" <?=($package->statuscode == $status['id'] ? 'selected' : '')?>>
+                                <?=$status['name']?>
+                            </option>
+                            <? } ?>
+                        <? } else { ?>
+                            <option name="status" value="<?=$package->statuscode?>" selected="selected">
+                                <?=$package->statusname?>
+                            </option>
+                        <? } ?>
+                    </select>
+                </div>
+
+                <input type="hidden" name="currentPackageStatus" value="<?=$package->statuscode?>" />
+            </div>
+            <? } ?>
+
+            <div class="control-group">
+                <label for="DeliveryModeId" class="control-label"><?=LangAdmin::get('delivery_mode_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('delivery_mode_hint')?>"></i></label>
+                <div class="controls">
+                    <? if (! empty($deliveryModes)) { ?>
+                    <select name="DeliveryModeId" id="DeliveryModeId" class="input-xlarge">
+                        <? foreach ($deliveryModes as $mode) { ?>
+                        <option value="<?=$mode['id']?>" <?=($package->deliverymodeid == $mode['id'] ? 'selected' : '')?>>
+                            <?=$mode['name']?>
+                        </option>
+                        <? } ?>
+                    </select>
+                    <? } ?>
+                    <input type="hidden" id="DeliveryPickupPointCode" name="DeliveryPickupPointCode" value="<?=$package->DeliveryPickupPointCode?>" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="Weight" class="control-label"><?=LangAdmin::get('package_weight_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('package_weight_hint')?>"></i></label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input id="Weight" name="Weight" class="input-mini weight" type="text" value="<?=(isset($package) ? $package->weight : '')?>" />
+                        <span class="add-on"><?=LangAdmin::get('kg')?></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group packagePriceBlock">
+                <label for="PriceInternal" class="control-label"><?=LangAdmin::get('package_price_internal_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('package_price_internal_hint')?>"></i></label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input id="PriceInternal" class="input-mini price" type="text" name="PriceInternal"
+                            value="<?=(isset($package) ? $package->priceinternal : '')?>"
+                        />
+                        <span class="add-on"><?=$package->currencysigncust?></span>
+                    </div>
+                </div>
+                <input type="hidden" name="CurrentPriceInternal" value="<?=(float)$package->priceinternal?>" />
+                <input type="hidden" name="ManualPrice" value="<?=(float)$package->ManualPrice?>" />
+            </div>
+
+            <div class="control-group">
+                <label for="packageSize" class="control-label"><?=LangAdmin::get('package_size_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('package_size_hint')?>"></i></label>
+                <div class="controls">
+                    <div class="input-prepend input-append">
+                        <span class="add-on" style="width: 60px;"><?=LangAdmin::get('Length')?></span>
+                        <input class="input-mini numeric" type="text" name="packageSize[Length]" value="<?=(float)$package['size']['length']?>" id="packageSize"/>
+                        <span class="add-on"><?=LangAdmin::get('cm')?></span>
+                    </div>
+                    <br/>
+                    <div class="input-prepend input-append">
+                        <span class="add-on" style="width: 60px;"><?=LangAdmin::get('Height')?></span>
+                        <input class="input-mini numeric" type="text" name="packageSize[Height]" value="<?=(float)$package['size']['height']?>"/>
+                        <span class="add-on"><?=LangAdmin::get('cm')?></span>
+                    </div>
+                    <br/>
+                    <div class="input-prepend input-append">
+                        <span class="add-on" style="width: 60px;"><?=LangAdmin::get('Width')?></span>
+                        <input class="input-mini numeric" type="text" name="packageSize[Width]" value="<?=(float)$package['size']['width']?>"/>
+                        <span class="add-on"><?=LangAdmin::get('cm')?></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="AdditionalInfo" class="control-label"><?=LangAdmin::get('package_additional_info_label')?><i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('package_additional_info_hint')?>"></i></label>
+                <div class="controls">
+                    <textarea id="AdditionalInfo" name="AdditionalInfo" rows="4" class="input-xlarge"><?=(isset($package) ? $this->escape($package->additionalinfo) : '')?></textarea>
+                </div>
+            </div>
+
+            <? if (! empty($packageItems)) { ?>
+                <legend><?=LangAdmin::get('Products')?></legend>
+
+                <table>
+                    <tr>
+                        <td></td><td></td><td></td>
+                        <td class="weight-col">
+                            <div class="input-append">
+                                <input id="calculate-weight" name="calculate-weight" class="input-mini" type="text" disabled value="<?=(isset($package) ? $package->weight : '')?>" />
+                                <span class="add-on"><?=LangAdmin::get('kg')?></span>
+                                <span id="calculate-weight-btn" class="btn" title="<?=LangAdmin::get('Redefine_weight_package')?>"><i class="icon-arrow-up"></i></span>
+                            </div>
+                        </td>
+                    </tr>
+                <? foreach ($packageItems as $item) { ?>
+                    <tr class="offset-bottom1">
+                        <td>
+                            <? $disabled = ($item['canmovetopackage'] == 'true') ? '' : 'disabled="disabled"'; ?>
+                            <? $checked = isset($item['in_package']) ? 'checked="checked"' : ''; ?>
+                            <input class="pull-left item-check" name="itemsIds[<?=$item->id?>]" type="checkbox" <?=$checked?> <?=$disabled ?>
+                                   data-weight-per-item="<?=$item['weight']?>"
+                                   data-item-count="<?=$item['qty']?>"
+                                   value="<?=$item->id?>" />
+                        </td>
+                        <td>
+                            <a href="#<?=$order->getNumericId();?>-<?=$item->id?>-img" class="thumbnail thumbnail-micro pull-left" data-toggle="lightbox" title="<?=LangAdmin::get('Enlarge_image')?>"><img src="<?=ProductsHelper::getSmallImage($item)?>" alt=""></a>
+                            <div id="<?=$order->getNumericId()?>-<?=$item->id?>-img" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="lightbox-header">
+                                    <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true"  title="<?=LangAdmin::get('Close')?>"><i class="icon-remove-sign"></i></button>
+                                </div>
+                                <div class="lightbox-content">
+                                    <img src="<?=ProductsHelper::getLargeImage($item)?>">
+                                    <div class="lightbox-caption"><p class="text-clipped-general"><?=$this->escape($item['LineNum'])?></p></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="media-body">
+
+                                <a href="<?=UrlGenerator::generateItemUrl($item['itemid'])?>" target="_blank" title="<?=LangAdmin::get('Item_page_on_site')?>">№ <?=$order->getNumericId()?> - <?=$item['LineNum']?></a>:
+                                <?=TextHelper::formatPrice($item['PriceCust'], $order['CurrencySign'])?>, <?=$item['qty']?> <?=LangAdmin::get('pcs')?>., <?=$item['StatusName']?>
+
+                            </div>
+                        </td>
+                        <td class="weight-col">
+                            <?=($item['weight'] * $item['qty'])?> <?=LangAdmin::get('kg')?>
+                        </td>
+                    </tr>
+                <? } ?>
+                </table>
+            <? } ?>
+        </div>
+
+        <div class="span6">
+
+            <legend class="AddressData">
+                <?=LangAdmin::get('Customer_profile')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Customer_profile')?>" data-original-title="" title=""></i>
+                <? if (RightsManager::hasRight(RightsManager::RIGHT_VIEWUSERPROFILES)) { ?>
+                <select class="input-large pull-right" id="user-package-profiles">
+                    <option value="default-user-profile"><?=LangAdmin::get('Select_customer_profile')?></option>
+                    <? 
+                    $i=1;
+                    foreach ($profiles as $profile) { ?>
+                        <option value="user-profile-<?=$i?>"
+                                data-country="<?=$profile['countrycode']?>"
+                                data-region="<?=TextHelper::escape($profile['region'])?>"
+                                data-city="<?=TextHelper::escape($profile['city'])?>"
+                                data-address="<?=TextHelper::escape($profile['address'])?>"
+                                data-postalcode="<?=TextHelper::escape($profile['postalcode'])?>"
+                                data-firstname="<?=TextHelper::escape($profile['firstname'])?>"
+                                data-lastname="<?=TextHelper::escape($profile['lastname'])?>"
+                                data-middlename="<?=TextHelper::escape($profile['middlename'])?>"
+                                data-phone="<?=TextHelper::escape($profile['phone'])?>"
+                                data-inn="<?=TextHelper::escape($profile['inn'])?>"
+                                data-passportnumber="<?=TextHelper::escape($profile['passportnumber'])?>"
+                                data-registrationaddress="<?=TextHelper::escape($profile['registrationaddress'])?>"><?=LangAdmin::get('Delivery_profile')?> <?=$i?></option>
+                    <? 
+                        $i++;
+                    } ?>
+                </select>
+                <? } ?>
+            </legend>
+
+            <legend class="legend-mini"><?=LangAdmin::get('Address')?></legend>
+
+            <div class="control-group AddressData">
+                <label for="DeliveryCountryCode" class="control-label"><?=LangAdmin::get('Country')?></label>
+                <div class="controls">
+                    <? if (! empty($package)) { ?>
+                        <input type="hidden" id="DeliveryCountry" name="DeliveryCountry" value="<?=$package->deliverycountry?>" />
+                    <? } ?>
+                    <? if (! empty($countries)) { ?>
+                    <select name="DeliveryCountryCode" id="DeliveryCountryCode" class="input-medium">
+                        <?
+                            $country4Select = $address['country'] ? $address['country'] : '';
+                            if ( $package && $package->deliverycountrycode) {
+                                $country4Select = $package->deliverycountrycode;
+                            }
+                            foreach ($countries as $country) {
+                        ?>
+                                <option value="<?=$country['id']?>" <?=($country['id'] == $country4Select ? 'selected' : '');?>>
+                                    <?=$country['name'];?>
+                                </option>
+                        <?  } ?>
+                    </select>
+                    <? } ?>
+                </div>
+            </div>
+
+            <div class="control-group AddressData">
+                <label for="DeliveryRegionName" class="control-label"><?=LangAdmin::get('Region')?></label>
+                <div class="controls">
+                    <input id="DeliveryRegionName" class="input-medium" type="text" name="DeliveryRegionName" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryRegionName : $address['regionName']))?>"/>
+                </div>
+            </div>
+
+            <div class="control-group AddressData">
+                <label for="DeliveryCity" class="control-label"><?=LangAdmin::get('City')?></label>
+                <div class="controls">
+                    <input id="DeliveryCity" class="input-medium" type="text" name="DeliveryCity" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryCity : $address['city']))?>"/>
+                    <input id="DeliveryCityCode" type="hidden" name="DeliveryCityCode" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryCityCode : $address['cityCode']))?>"/>
+                </div>
+            </div>
+
+            <div class="control-group AddressData">
+                <label for="DeliveryAddress" class="control-label"><?=LangAdmin::get('Address')?></label>
+                <div class="controls">
+                    <input id="DeliveryAddress" class="input-xlarge" type="text" name="DeliveryAddress" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryAddress : $address['address']))?>"/>
+                </div>
+            </div>
+
+            <div class="control-group AddressData">
+                <label for="DeliveryPostalCode" class="control-label"><?=LangAdmin::get('Postal_code')?></label>
+                <div class="controls">
+                    <input id="DeliveryPostalCode" class="input-mini" type="text" name="DeliveryPostalCode" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryPostalCode : $address['postalCode']))?>"/>
+                </div>
+            </div>
+
+            <legend class="legend-mini"><?=LangAdmin::get('Private_data')?></legend>
+
+            <div class="control-group">
+                <label for="DeliveryContactLastname" class="control-label"><?=LangAdmin::get('Last_name')?></label>
+                <div class="controls">
+                    <input id="DeliveryContactLastname" class="input-medium surname" type="text" name="DeliveryContactLastname" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryContactLastname : $address['lastName']))?>"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="DeliveryContactFirstname" class="control-label"><?=LangAdmin::get('First_name')?></label>
+                <div class="controls">
+                    <input id="DeliveryContactFirstname" class="input-medium name" type="text" name="DeliveryContactFirstname" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryContactFirstname : $address['firstName']))?>"/>
+                </div>
+            </div>
+
+            <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+	            <div class="control-group">
+	                <label for="DeliveryContactMiddlename" class="control-label"><?=LangAdmin::get('Middle_name')?></label>
+	                <div class="controls">
+	                    <input id="DeliveryContactMiddlename" class="input-medium name" type="text" name="DeliveryContactMiddlename" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryContactMiddlename : $address['middleName']))?>"/>
+	                </div>
+	            </div>
+            <?php } ?>
+
+            <div class="control-group">
+                <label for="DeliveryContactPhone" class="control-label"><?=LangAdmin::get('Phone')?></label>
+                <div class="controls">
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="icon-phone"></i></span>
+                        <input id="DeliveryContactPhone" class="input-medium phone" type="text" name="DeliveryContactPhone" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryContactPhone : $address['phone']))?>"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group profile-inn">
+                <label for="DeliveryContactINN" class="control-label"><?=LangAdmin::get('inn')?></label>
+                <div class="controls">
+                    <input id="DeliveryContactINN" class="input-medium phone" type="text" name="DeliveryContactINN" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryContactINN : $address['inn']))?>"/>
+                </div>
+            </div>
+
+            <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+                <div class="control-group">
+                    <label for="DeliveryContactPassportNumber" class="control-label"><?=LangAdmin::get('PassportNumber')?></label>
+                    <div class="controls">
+                        <input id="DeliveryContactPassportNumber" class="input-medium" type="text" name="DeliveryContactPassportNumber" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryContactPassportNumber : $address['PassportNumber']))?>"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="DeliveryContactRegistrationAddress" class="control-label"><?=LangAdmin::get('RegistrationAddress')?></label>
+                    <div class="controls">
+                        <input id="DeliveryContactRegistrationAddress" class="input-medium" type="text" name="DeliveryContactRegistrationAddress" value="<?=TextHelper::escape((isset($package) ? $package->DeliveryContactRegistrationAddress : $address['RegistrationAddress']))?>"/>
+                    </div>
+                </div> 
+            <? } ?>
+
+        </div><!-- /.span6 -->
+
+    </div><!-- /.row-fluid -->
+
+    </fieldset>
+
+    <div class="control-group offset-top2">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>">
+                <?=LangAdmin::get('Save')?>
+            </button>
+            <a  class="btn offset-left1 btn_preloader" data-loading-text="<?=LangAdmin::get('Canceling')?>"
+                href="<?=$PageUrl->generate(array('cmd'=>'orders', 'do'=>'view', 'id'=>$order->id))?>"
+            >
+                <?=LangAdmin::get('Cancel')?>
+            </a>
+        </div>
+    </div>
+
+</form>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-order-package.js'); ?>

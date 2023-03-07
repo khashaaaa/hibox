@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<parts>
+    <part name="pricing">
+        <page cmd="pricing" do="*" />
+        <page cmd="discount" do="*" />
+        <page cmd="banker" do="*" />
+    </part>
+    <part name="promo">
+        <page cmd="promo" do="*" />
+        <page cmd="social" do="*" />
+        <page cmd="referals" do="*" />
+        <page cmd="referral" do="*" />
+        <page cmd="addCategory" do="*" />
+        <page cmd="updateCategory" do="*" />
+        <page cmd="subscribers" do="*" />
+        <page cmd="config" do="*" />
+        <page cmd="mailing" do="*" />
+        <page cmd="addMailing" do="*" />
+        <page cmd="newsletters" do="*" />
+        <page cmd="contents" do="shopComments" />
+    </part>
+    <part name="contents">
+        <page cmd="contents" do="*" />
+        <page cmd="blog" do="*" />
+        <page cmd="siteconfiguration" do="contents" />
+    </part>
+    <part name="users">
+        <page cmd="users" do="*" />
+        <page cmd="administrators" do="*" />
+        <page cmd="roles" do="*" />
+        <page cmd="siteconfiguration" do="users" />
+    </part>
+    <part name="pluginsutil">
+        <page cmd="pluginsutil" do="*" />
+    </part>
+    <part name="site_configuration">
+        <page cmd="siteconfiguration" do="*" />
+        <page cmd="shipment" do="*" />
+        <page cmd="translations" do="*" />
+        <page cmd="update" do="*" />
+        <page cmd="multilingualsettings" do="*" />
+        <page cmd="ipaccess" do="*" />
+        <page cmd="providerconfiguration" do="*" />
+        <page cmd="letterstemplates" do="*" />
+    </part>
+    <part name="catalog">
+        <page cmd="categories" do="*" />
+        <page cmd="catalog" do="*" />
+        <page cmd="pristroy" do="*" />
+        <page cmd="reviews" do="*" />
+        <page cmd="brands" do="*" />
+        <page cmd="warehouse" do="*" />
+        <page cmd="warehouseproducts" do="*" />
+        <page cmd="sets" do="*" />
+        <page cmd="restrictions" do="*" />
+        <page cmd="items" do="*" />
+    </part>
+    <part name="orders">
+        <page cmd="orders" do="*" />
+    </part>
+    <part name="reports">
+        <page cmd="reports" do="*" />
+    </part>
+</parts>

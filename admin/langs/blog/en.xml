@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Content">Content</key>
+    <key name="Image">Image</key>
+    
+    <key name="Title">Title</key>
+    <key name="Language">Language</key>
+    <key name="Actions">Actions</key>
+    <key name="Add">Add</key>
+    <key name="Edit">Edit</key>
+    <key name="Delete">Delete</key>
+    <key name="Select">Select</key>
+    <key name="Change">Change</key>
+    <key name="Go_to_news">Go to news</key>
+    <key name="Go_to_post">Go to post</key>
+    
+    <key name="Blog">Blog</key>
+    <key name="Add_post">Add post</key>
+    <key name="Edit_post">Edit post</key>
+    <key name="Date">Date</key>
+    <key name="Select_category">Select category</key>
+    <key name="Category">Category</key>
+    <key name="Really_remove_this_post">Really remove this post?</key>
+    <key name="Post_saved_successfully">Post saved successfully</key>
+    <key name="Really_remove_selected_category">Really remove selected category?</key>
+    <key name="Empty_category_name">Empty category name</key>
+    <key name="Empty_category_description">Empty category description</key>
+    <key name="Blog_category_saved_successfully">Post category saved successfully</key>
+    <key name="Add_product">Add product</key>
+    <key name="Enter_product_id">Enter product id</key>
+    <key name="no_posts">No posts</key>
+    <key name="add_blog_post">Add post</key>
+    <key name="No_category">No category</key>
+    <key name="Articles">Posts</key>
+    <key name="Settings">Settings</key>
+    <key name="Page_saved_successfully">Post successfuly saved</key>
+    <key name="announcement">Post announcement</key>
+    
+</translations>

@@ -1,0 +1,21 @@
+<? $socialWithsubscribeWidgets = $parameters ?>
+
+<div class="tabs tabs-social">
+    <div class="tabs-panel">
+        <ul class="tabs__caption">
+            <? $active = true; ?>
+            <? foreach ($socialWithsubscribeWidgets as $item) { ?>
+            <li class="<?= $active ? 'active' : '' ?> <?=$item->GetId(); ?>">
+                <?=General::viewFetch('controllers/index/socialtabs/' . $item->GetId()); ?>
+                <? $active = false; ?>
+            </li>
+            <? } ?>
+        </ul>
+    </div>
+
+    <? $active = true; ?>
+    <? foreach ($socialWithsubscribeWidgets as $item) { ?>
+    <div class="tabs__content <?= $active ? 'active' : '' ?>"><?=$item->GetSubscribeWidget(); ?></div>
+    <? $active = false; ?>
+    <? } ?>
+</div>

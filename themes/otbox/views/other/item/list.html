@@ -1,0 +1,12 @@
+<? foreach ($items as $item) { ?>
+    <div class="item ">
+        <div class="product-layout style1">
+            <?=ProductsHelper::getHtmlFeatureListForLabel($item['Features'])?>
+            <? $params = array('item' => $item); ?>
+            <? if (isset($categoryId) && $categoryId) { ?>
+                <? $params['categoryId'] = $categoryId; ?>
+            <? } ?>
+            <?=General::viewFetch('other/item/item', array('vars' => $params))?>
+        </div>
+    </div>
+<? } ?>

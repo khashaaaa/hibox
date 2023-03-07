@@ -1,0 +1,305 @@
+<?
+$availablePyGroupsList = [
+    'from_account' => Lang::get('from_account'),
+    'payment_in_system' => Lang::get('Payment_in_system'),
+    'payment_in_cash' => Lang::get('payment_in_cash'),
+    'sberbank' => Lang::get('quittance')
+];
+?>
+
+<div id="dialog-form" title="<?=Lang::get('message')?>">
+    <span id="msg"></span>
+</div>
+
+<div class="modal" id="modal-top-up" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-top-up modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <?=isset($_GET['orderid']) ? Lang::get('payment') : Lang::get('deposit_funds')?>
+                </div>
+                <button type="button align-middle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-wrap">
+                <? if (isset($orderInfo)) { ?>
+                    <h2>
+                        <?=Lang::get('order')?> <?=OrdersProxy::normalizeOrderId($orderInfo->GetSalesOrderInfo()->getId())?>
+                    </h2>
+                <? } ?>
+                <? if ((!empty($payGroups) && count($payGroups) > 1) || (empty($methods) && General::getConfigValue('payment_in_cash'))) { ?>
+                    <div class="table-top-up">
+                        <? if (isset($_GET['orderid'])) { ?>
+                            <div class="table-top-up__header">
+                                <div class="form-row">
+                                    <? if (! empty($method_groups) || General::getConfigValue('payment_in_cash')) { ?>
+                                        <?=Lang::get('To_pay')?>: <?=round((float)$orderInfo->GetSalesOrderInfo()->GetRemainAmount(), 2)?> <?=$currency['sign']?>
+                                    <? } else { ?>
+                                        <h3><?=Lang::get('no_payment_methods_is_connected')?></h3>
+                                    <? } ?>
+                                </div>
+                            </div>
+                        <? } ?>
+
+                        <? if (! empty($payGroups) && count($payGroups) > 1) { ?>
+                            <div class="table-top-up__content">
+                                <? foreach ($availablePyGroupsList as $payGroupKey => $payGroup) { ?>
+                                    <? if (! array_key_exists($payGroupKey, $payGroups)) continue; ?>
+                                    <div class="table-top-up__row">
+                                        <div class="custom-control custom-radio">
+                                            <input name="pay"
+                                                   type="radio"
+                                                   id="pay-group-<?=$payGroupKey?>"
+                                                   class="custom-control-input pay_group"
+                                                   data-group-block="<?=$payGroupKey?>"
+                                                   <?=$activePayGroup == $payGroupKey ? 'checked="true"' : ''?>
+                                            >
+                                            <label class="custom-control-label" for="pay-group-<?=$payGroupKey?>">
+                                                <?=$payGroup?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            </div>
+                        <? } ?>
+                    </div>
+                <? } ?>
+
+                <div class="pay-groups">
+                    <? if (isset($payGroups['from_account'])) { ?>
+                        <div class="list-pay-block list-pay-block__from_account" <?=$activePayGroup == 'from_account' ? 'style="display:block"' : ''?>>
+                            <div class="list-pay-block__header">
+                                <div class="list-pay-block__title">
+                                    <?=Lang::get('from_account')?>
+                                    <? if ($accountInfo->GetAvailableAmount() < $orderInfo->GetSalesOrderInfo()->GetRemainAmount()) { ?>
+                                        <br><span class="color-red">
+                                            <?=Lang::get('Account_part_payment')?>
+                                        </span>
+                                    <? } ?>
+                                </div>
+                            </div>
+
+                            <div class="list-pay-block__content">
+                                <?=Lang::get('on_account')?> <?=$accountInfo->GetAvailableAmount()?>&nbsp;<?=$currency['sign']?>
+
+                                <form method="post" action="/?p=personal_account_pay&amp;orderid=<?=$orderInfo->GetSalesOrderInfo()->GetId()?>">
+                                    <input type="hidden" name="amount" value="<?=(float)$orderInfo->GetSalesOrderInfo()->GetRemainAmount() > (float)$accountInfo->GetAvailableAmount() ? round((float)$accountInfo->GetAvailableAmount(), 2) : round((float)$orderInfo->GetSalesOrderInfo()->GetRemainAmount(), 2)?>">
+                                    <input type="hidden" value="<?=$orderInfo->GetSalesOrderInfo()->GetId()?>" name="salesId">
+                                    <div class="enter">
+                                        <input type="submit"
+                                               class="btn_pay_account button"
+                                               value="<?=Lang::get('pay')?> <?=(float)$orderInfo->GetSalesOrderInfo()->GetRemainAmount() > (float)$accountInfo->GetAvailableAmount() ? round((float)$accountInfo->GetAvailableAmount(), 2) : round((float)$orderInfo->GetSalesOrderInfo()->GetRemainAmount(), 2)?> <?=$currency['sign']?>"
+                                        >
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? if (isset($payGroups['payment_in_system']) || isset($payGroups['payment_in_cash']) || isset($payGroups['sberbank'])) { ?>
+                        <? if (isset($payGroups['payment_in_system']) && isset($method_groups)) { ?>
+                            <div class="list-pay-block list-pay-block__payment_in_system" <?=$activePayGroup == 'payment_in_system' ? 'style="display:block"' : ''?>>
+                                <div class="list-pay-block__content">
+                                    <? if(!empty($method_groups)) { ?>
+                                        <form action="/" <?=General::getConfigValue('open_payment_in_new_window', '0') != '0'?'target="_blank"':''?>>
+                                            <input type="hidden" name="p" value="pay">
+                                            <input type="hidden" name="pay" value="1">
+
+                                            <? if (!isset($_GET['orderid'])) { ?>
+                                                <input type="hidden" name="deposit" value="1">
+
+                                                <div class="table-top-up">
+                                                    <div class="table-top-up__header">
+                                                        <div class="form-row">
+                                                            <label for="validationCustom01"><?=Lang::get('enter_amount')?> (<?=$currency['sign']?>):</label>
+                                                            <div class="table-top-up-form-right">
+                                                                <input type="text" class="form-control" name="money" id="validationCustom01" pattern="^[ 0-9]+$" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <? } else { ?>
+                                                <input type="hidden" name="orderid" value="<?=$orderInfo->GetSalesOrderInfo()->GetId()?>">
+                                                <input type="hidden" name="money" value="1">
+                                            <? } ?>
+
+                                            <span class="select-payment-method list-pay-block__title"><?=Lang::get('select_payment_method')?>:</span>
+
+                                            <? $idx = 0; ?>
+                                            <? foreach($method_groups as $group_key => $method_group) { ?>
+                                                <div class="list-pay-block" style="display: block">
+                                                    <div class="list-pay-block__header">
+                                                        <div class="list-pay-block__title"><?= Lang::get($group_key); ?></div>
+                                                    </div>
+                                                    <? foreach($method_group as $k => $m) { ?>
+                                                        <? if (empty($m)) continue; ?>
+                                                        <? $k = $idx++; ?>
+                                                        <div class="list-pay-block__content">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" id="payment_<?=$k?>" name="paymentId" class="custom-control-input payment_radio" value="<?= $m['Id'] ?>">
+                                                                <label class="custom-control-label payment_radio" for="payment_<?=$k?>"><?= $m['Name'] ?></label>
+                                                            </div>
+                                                            <div class="online-wallets-box panel-grey" pid="desc<?= $m['Id'] ?>" style="display:none;">
+                                                                <?= $m['Description'] ?><br>
+
+                                                                <div class="img-online-wallets">
+                                                                    <? if (!empty($m['AbsoluteImageUrl'])) { ?>
+                                                                        <img src="<?= $m['AbsoluteImageUrl'] ?>" style="display:block;margin:5px 0px; max-width: 110px;" alt="img">
+                                                                    <? } ?>
+                                                                </div>
+
+                                                                <? if ($m['CustomField'] != 'None') { ?>
+                                                                    <div class="form-row form-online-wallets">
+                                                                        <label class="online-wallets-label " for="payment_<?= $k ?>_custom" id="payment_<?= $k ?>_custom_name"><?= Lang::get(strtolower((string)$m['CustomField'])) ?></label>
+                                                                        <div>
+                                                                            <input type="text" class="form-control custom-fields" id="payment_<?= $k ?>_custom" value="" style="margin-bottom: 5px">
+                                                                        </div>
+                                                                    </div>
+                                                                <? } ?>
+
+                                                                <div class="table-top-up-form-right">
+                                                                    <? if (isset($_GET['orderid'])) { ?>
+                                                                        <button type="submit" class="button button-add"><?=Lang::get('pay')?></button>
+                                                                    <? } else { ?>
+                                                                        <button type="submit" class="button"><?=Lang::get('add_money')?></button>
+                                                                    <? } ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <? } ?>
+                                                </div>
+                                            <? } ?>
+                                        </form>
+                                    <? } ?>
+                                </div>
+                            </div>
+                        <? } ?>
+                        
+                        <? if (isset($payGroups['payment_in_cash']) or General::getConfigValue('payment_in_cash')) { ?>
+                            <div class="list-pay-block list-pay-block__payment_in_cash" <?=$activePayGroup == 'payment_in_cash' ? 'style="display:block"' : ''?>>
+                                <div class="list-pay-block__header">
+                                    <div class="list-pay-block__title">
+                                        <?=Lang::get('payment_in_cash')?>
+                                    </div>
+                                </div>
+                                <div class="list-pay-block__content">
+                                    <?=Lang::get('payment_in_cash_description')?>
+
+                                    <form action="/" <?=General::getConfigValue('open_payment_in_new_window', '0') != '0'?'target="_blank"':''?>>
+                                        <input type="hidden" name="deposit" value="1">
+                                        <input type="hidden" name="p" value="pay">
+                                        <input type="hidden" name="pay" value="1">
+                                        <input type="hidden" name="orderid" value="<?=$orderInfo !== null ? $orderInfo->GetSalesOrderInfo()->GetId() : ''?>">
+                                        <input type="hidden" name="money" value="1">
+                                        <input type="hidden" name="paymentId" value="payment_in_cash">
+                                        <input type="submit" class="btn_pay_account button button-add" value="<?=Lang::get('pay')?>">
+                                    </form>
+                                </div>
+                            </div>
+                        <? } ?>
+                        
+                        <? if (isset($payGroups['sberbank'])) { ?>
+                            <? $sberbank = $methods['sberbank']; ?>
+                            <div class="list-pay-block list-pay-block__sberbank" <?=$activePayGroup == 'sberbank' ? 'style="display:block"' : ''?>>
+                                <div class="list-pay-block__header">
+                                    <div class="list-pay-block__title">
+                                        <?=Lang::get('quittance')?>
+                                    </div>
+                                </div>
+
+                                <div class="list-pay-block__content">
+                                    <?=Lang::get('quittance_desc')?>
+
+                                    <form action="/" <?=General::getConfigValue('open_payment_in_new_window', '0') != '0'?'target="_blank"':''?>>
+                                        <input type="hidden" name="deposit" value="1">
+                                        <input type="hidden" name="p" value="pay">
+                                        <input type="hidden" name="pay" value="1">
+                                        <input type="hidden" name="orderid" value="<?=$orderInfo->GetSalesOrderInfo()->GetId()?>">
+                                        <input type="hidden" name="money" value="1">
+                                        <input type="hidden" name="paymentId" value="<?=$sberbank['Id']?>">
+                                        <input type="submit" class="btn_pay_account button button-add" value="<?= Lang::get('quittance_view') ?>">
+                                    </form>
+                                </div>
+                            </div>
+                        <? } ?>
+                    <? } else { ?>
+                        <h3><?=Lang::get('no_payment_methods_is_connected')?></h3>
+                    <? } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var paymentSystems = $('.list-pay-block__payment_in_system ');
+
+    paymentSystems.find('.button-add').attr('disabled', 'disabled').addClass('disabled');
+    paymentSystems.find('.payment_radio').each(function () {
+        if ($(this).prop('checked')) {
+            paymentSystems.find('.button-add').removeAttr('disabled').removeClass('disabled');
+        }
+    });
+
+    paymentSystems.find('.payment_radio').each(function() {
+            if ($(this).prop('checked')) {
+                paymentSystems.find('.button-add').removeAttr('disabled').removeClass('disabled');
+            }
+        }
+    );
+
+    if (paymentSystems.find('.payment_radio').length == 1) {
+        paymentSystems.find('.payment_radio').attr('checked', 'checked').change().hide();
+    }
+
+    paymentSystems.find('.custom-control-input.payment_radio').change(function () {
+        paymentSystems.find('.online-wallets-box.panel-grey').hide();
+        paymentSystems.find('[pid="desc' + $(this).val() + '"]').css('display', 'inline-block');
+        paymentSystems.find('.button-add').removeAttr('disabled').removeClass('disabled');
+    });
+
+    $('#payment-form').submit(function () {
+        var paymentName = $('[name="paymentId"]:checked').attr('id');
+        var paymentCustomExists = false;
+        var custom = 0;
+        if ($('#' + paymentName + '_custom').length > 0) {
+            paymentCustomExists = true;
+            custom = $('#' + paymentName + '_custom').val();
+            $('#' + paymentName + '_custom').removeClass('custom-fields');
+        }
+        if (paymentCustomExists && !custom) {
+            showError('<?=Lang::get('not_filled_required_field')?>: ' + $('#' + paymentName + '_custom_name').text());
+            return false;
+        }
+        if (!$('[name="money"]').val()) {
+            showError('<?=Lang::get('not_filled_required_field')?>: <?=Lang::get('sum')?>');
+            return false;
+        }
+
+        $('.custom-fields').remove();
+
+        return true;
+    });
+
+    function showPayGroup() {
+        var checkedGroup = $('.pay_group:checked');
+        if (checkedGroup.length) {
+            var groupName = checkedGroup.data('group-block');
+            $('.list-pay-block').hide();
+            $('.list-pay-block__' + groupName).show().find('.list-pay-block').show();
+        }
+    }
+
+    $('.pay_group').change(function () {
+        showPayGroup();
+    });
+
+    $(function () {
+        showPayGroup();
+    })
+</script>
+
+<?=Plugins::runEvent('onAfterRenderPaymentMethods')?>
+<?=Plugins::invokeEvent('onRenderPaymentMethodsPage')?>
+<b><?= @preg_replace('/\[.*Exception\]/', '', $payment_error) ?></b>

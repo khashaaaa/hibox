@@ -1,0 +1,17 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Plugins')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=$plugin['title']?></li>
+</ul><!--/.breadcrumb-->
+
+<div class="plugins-wrapper">
+
+    <div class="row-fluid">
+        <h1 class="pull-left"><?=$plugin['title']?></h1>
+    </div>
+
+    <div class="row-fluid">
+        <?=$result?>
+    </div>
+
+</div>

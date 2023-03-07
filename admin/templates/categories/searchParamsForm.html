@@ -1,0 +1,130 @@
+<form method="post" action="" class="form-horizontal ot_form ot_search_params_form">
+    <div class="control-group hide">
+        <label class="control-label bold"><?=LangAdmin::get('From_taobao_url')?><i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('From_taobao_url_help')?>"></i></label>
+        <div class="controls">
+            <input name="serachUrl" id="serachUrl" class="input-large" type="text">
+        </div>
+    </div>
+    <!--div class="control-group">
+        <strong class="blink blink-iconed collapseSearchForm"> <?=LangAdmin::get('To_another_params')?></strong>
+    </div-->
+    <div class="collapsedSearchForm "> <!-- hidden-element -->
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('From_request')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('From_request_help')?>"></i></label>
+            <div class="controls">
+                <input name="searchWord" id="searchWord" class="input-large" type="text">
+                <select class="input-medium" name="languageOfQuery" id="languageOfQuery">
+                    <option value=""><?=LangAdmin::get('No_selection')?></option>
+                    <? foreach($usedLaguages as $lang => $name) { ?>
+                    <option value="<?=$lang?>"><?=$name?></option>
+                    <? } ?>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Category')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Check_category')?>"></i></label>
+            <div class="controls">
+                <strong class="blink blink-iconed chooseSearchCategory"><?=LangAdmin::get('Check_category')?></strong> <span id="selectedSearchCategory"><?=LangAdmin::get('No_selection')?></span> <span id="searchCategoryPreloader"></span>
+            </div>
+        </div>
+        
+        
+        <div class="control-group searchMethod">
+            <label class="control-label bold"><?=LangAdmin::get('Search_method')?></label>
+            <div class="controls">
+            <? if (count($selectedSearchMethods) == 1) { ?>
+            	<input type="hidden" name="searchMethod" id="searchMethod" value="<?=$selectedSearchMethods[0]->GetSearchMethod()?>">
+            	<?=$selectedSearchMethodsName[$selectedSearchMethods[0]->GetSearchMethod()]?>
+                <!--select class="input-medium" name="searchMethod" id="searchMethod">
+                    <option value="<?=$selectedSearchMethods[0]->GetSearchMethod()?>"><?=$selectedSearchMethodsName[$selectedSearchMethods[0]->GetSearchMethod()]?></option>
+                </select-->
+            <? } else { ?>
+                <select class="input-medium" name="searchMethod" id="searchMethod">
+                    <option value=""><?=LangAdmin::get('No_selection')?></option>
+                    <? foreach($selectedSearchMethods as $method) {?>
+                    <option value="<?=$method->GetSearchMethod()?>"><?=$selectedSearchMethodsName[$method->GetSearchMethod()]?></option>
+                    <? } ?>
+                </select>
+            <? } ?>
+            </div>
+        </div>
+        
+        <div class="control-group isVendor">
+            <label class="control-label bold"><?=LangAdmin::get('search_category_param_vendor')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Enter_vendor_id')?>"></i></label>
+            <div class="controls">
+                <input name="vendor" id="vendor" class="input-large" type="text">
+            </div>
+        </div>
+        
+        <div class="control-group isVendorLocation">
+            <label class="control-label bold"><?=LangAdmin::get('Region')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('choice_of_delivery_region')?>"></i></label>
+            <div class="controls">
+                <strong class="blink blink-iconed chooseVendorLocation"><?=LangAdmin::get('Chose_region')?></strong> <span id="selectedVendorLocation"><?=LangAdmin::get('No_selection')?></span>
+            </div>
+        </div>
+        
+        <div class="control-group isPriceRange">
+            <label class="control-label bold"><?=LangAdmin::get('hide_item_property_price_range_label')?> </label>
+            <div class="controls">
+                <?=LangAdmin::get('from_price')?> <input class="input-mini price" name="minPrice" id="minPrice" type="text"> <span class="label label-info"><?=$providerCurrency?></span>
+                <?=LangAdmin::get('to_price')?> <input class="input-mini price" name="maxPrice" id="maxPrice" type="text"> <span class="label label-info"><?=$providerCurrency?></span>
+            </div>
+        </div>
+        
+        <div class="control-group isBrand">
+            <label class="control-label bold"><?=LangAdmin::get('Brand')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Type_brand')?>"></i></label>
+            <div class="controls">
+                <input name="brand" id="brand" class="input-large" type="text">
+            </div>
+        </div>
+        
+        <div class="control-group isStuffStatus">
+            <label class="control-label bold"><?=LangAdmin::get('Stuff_status')?> </label>
+            <div class="controls">
+                <select class="input-medium" name="stuffStatus" id="stuffStatus">
+                    <option value=""><?=LangAdmin::get('Not_seted')?></option>                    
+                    <option value="New"><?=LangAdmin::get('New')?></option>
+                    <option value="Unused"><?=LangAdmin::get('Unused')?></option>
+                    <option value="Second"><?=LangAdmin::get('Second')?></option>                    
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group isConfigurators">
+            <label class="control-label bold"><?=LangAdmin::get('Filters')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Filters_help')?>"></i></label>
+            <div class="controls">
+                <?=LangAdmin::get('First_choose_category')?>
+            </div>
+        </div>
+        
+        <div class="control-group isFeatureDiscount">
+            <label class="control-label bold"><?=LangAdmin::get('Feature_Discount')?> </label>
+            <div class="controls">
+                <select class="input-medium" name="featureDiscount" id="featureDiscount">
+                    <option value=""><?=LangAdmin::get('Not_seted')?></option>                    
+                    <option value="true"><?=LangAdmin::get('Use')?></option>
+                    <option value="false"><?=LangAdmin::get('Not_use')?></option>                    
+                </select>
+            </div>
+        </div>
+        <div class="control-group isAvailableSorts">
+            <label class="control-label bold"><?=LangAdmin::get('Sorting')?> </label>
+            <div class="controls">
+                <select class="input-medium" name="availableSorts" id="availableSorts">
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-group isFeatureAuction">
+            <label class="control-label bold"><?=LangAdmin::get('search_category_param_featureAuction')?> </label>
+            <div class="controls">
+                <select class="input-medium" name="featureAuction" id="featureAuction">
+                    <option value=""><?=LangAdmin::get('Not_seted')?></option>                    
+                    <option value="true"><?=LangAdmin::get('Use')?></option>
+                    <option value="false"><?=LangAdmin::get('Not_use')?></option>                    
+                </select>
+            </div>
+        </div>
+        
+    </div>    
+</form>

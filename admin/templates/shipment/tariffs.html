@@ -1,0 +1,78 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('internal')?>"><?=LangAdmin::get('Delivery_small')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('tariffs_by_countries')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+
+<!-- ot-sub-sub-nav -->
+<? require_once 'sub_nav.html'; ?>
+<!-- /ot-sub-sub-nav -->
+
+<h1><?=LangAdmin::get('tariffs_by_countries')?></h1>
+
+
+<div id="content-wrapper">
+
+    <form method="get" action="<?=$PageUrl->AssignDo('addTariff')?>" class="form-inline offset-top1 offset-bottom3">
+        <select name="delivery" id="delivery" class="input-xxlarge">
+            <? foreach ($Delivery as $delivery_id=>$delivery_item) { ?>
+            <option value="<?=$delivery_id?>"><?=$delivery_item['name']?></option>
+            <? } ?>
+        </select>
+        <a id="add_tariff" class="btn btn-primary" data-link="<?=$PageUrl->AssignDo('addTariff')?>" title="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></a>
+    </form>
+
+<? foreach ($Rates as $delivery_id=>$rates_items) { ?>
+    <? $currency_code = $Delivery[$delivery_id]['currencycode']; ?>
+    <div class="box corner-all">
+        <div class="box-header corner-top">
+            <div class="header-control">
+                <a data-box="collapse"><i class="icon-caret-up"></i></a>
+            </div>
+            <span><?=$Delivery[$delivery_id]['name']?></span>
+        </div>
+
+        <div class="box-body box-body-tabled">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="span5"><?=LangAdmin::get('Delivery_country')?></th>
+                        <th class="span3"><?=LangAdmin::get('First_price')?></th>
+                        <th class="span3"><?=LangAdmin::get('Price_step')?></th>
+                        <th class="span1"><?=LangAdmin::get('Tariff_avail')?></th>
+                        <th class="span1"><?=LangAdmin::get('Actions')?></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <? foreach ($rates_items as $rate) { ?>
+                    <tr>
+                        <td><? echo $Countries[$rate['countrycode']] . " (" . $rate['countrycode'] . ")"; ?></td>
+                        <td><?=(float)$rate['start'] . ' ' . $currency_code ?></td>
+                        <td><?=(float)$rate['step'] . ' ' . $currency_code ?></td>
+                        <td>
+                            <? $checked = $rate['isenabled'] ? "checked='checked'" : "";?>
+                            <input type="checkbox" disabled="disabled" <?=$checked?> >
+                        </td>
+                        <td>
+                            <a class="btn btn-mini" href="<?=$PageUrl->AssignDo('editTariff')?>&id=<?=$rate['id']?>&delivery=<?=$delivery_id?>" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-mini ot_show_deletion_tariff_dialog_modal" data-href="<?=$PageUrl->AssignDo('deleteTariff')?>" data-id="<?=$rate['id']?>" data-name="<?=$Delivery[$delivery_id]['name'].' '.$Countries[$rate['countrycode']] . " (" . $rate['countrycode'] . ")"?> " data-link="<?=$PageUrl->AssignDo('tariffs')?>" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></a>
+                        </td>
+                    </tr>
+                    <? } ?>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+<? } ?>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-shipment.js'); ?>

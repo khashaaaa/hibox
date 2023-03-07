@@ -1,0 +1,15 @@
+<div class="modal js-modal-confirmation" id="modal-confirmation" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-my modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><?=Lang::get('confirmation_phone_tab')?></h5>
+                <button type="button align-middle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <?=General::viewFetch('controllers/authentication/confirmation-form') ?>
+        </div>
+    </div>
+</div>

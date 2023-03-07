@@ -1,0 +1,167 @@
+<div class="control-group control-group-medium textarea-control">
+    <label class=""><?=$displayName?>
+        <? if ($description) { ?>
+        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+        <? } ?>
+        <? if ($unit) { ?>
+            <span class="unit">(<?=$unit?>)</span>
+        <? } ?>
+    </label>
+    <div class="<?=$name?>-container">
+        <textarea id="<?=$name?>" <?= ($isReadOnly == 1) ? 'disabled="disabled"' : ''?> <?=$requireReload ? 'require-reload="true"' : '' ?>><?=$currentValue?></textarea>
+        <? if ($isReadOnly == 0) { ?>
+        <button type="submit" class="btn btn-primary editable-submit <?=$name?> disabled" disabled="disabled"><i class="icon-ok icon-white"></i></button>
+        <? } ?>
+        <? if ($nameCanByReset) { ?>
+        <button type="submit" class="btn <?=$nameCanByReset?>" title="<?=LangAdmin::get("By_default")?>"><i class="icon-refresh"></i></button>
+        <? } ?>
+        <?=General::viewFetch('meta-ui/type/placeholders', array('path' => CFG_VIEW_ROOT, 'vars' => array('placeholders' => $placeholders, 'name' => $name, 'type' => $type)));?>
+    </div>
+
+</div>
+
+<script>
+    $(function(){
+        var container = $('#<?=$name?>').closest('div.meta-ui-container');
+        var updateSettingsUrl = $(container).attr('update-settings-url') + '&type=Html';
+        $('button.<?=$name?>').addClass('disabled');
+
+        
+        var onChange = function() {
+            $('button.<?=$name?>').removeClass('disabled');
+            $('button.<?=$name?>').removeAttr('disabled');
+        };
+        
+        $('#<?=$name?>').change(onChange);
+
+        $('button.<?=$name?>').click(function () {
+            var value = $('#<?=$name?>').val();
+            $('button.<?=$name?>').attr('disabled','disabled');
+            $('button.<?=$name?>').addClass('btn_preloader');
+            $('button.<?=$name?> i').hide();
+            $.post(
+                    updateSettingsUrl,
+                    {
+                        "value": value,
+                        "name": '<?=$name?>',
+                    },
+                    function (data) {
+                        if (!data.error) {
+                            showMessage(trans.get('Data_save_success'));
+                            $('button.<?=$name?>').removeClass('btn_preloader');
+                            $('button.<?=$name?>').addClass('disabled');
+                            $('button.<?=$name?> i').show();
+                            $('button.<?=$name?>').attr('disabled', 'disabled');
+                            if ($('#<?=$name?>').attr('require-reload') == 'true') {
+                                if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                                   var container = $('#<?=$name?>').closest('.allow-reload');
+                                   var url = $(container).attr('reload-url');
+                                   if (url) {
+                                       $.post(url, {}, function (data) {
+                                           if (! data.error) {
+                                               $(container).html(data.html);
+                                           } else {
+                                               showError(data);
+                                           }
+                                       }, 'json').error(function(xhr, ajaxOptions, thrownError){
+                                           showError(xhr.responseText);
+                                       });                                
+                                       return;
+                                   }
+                                }                       
+                                location.reload();
+                            }
+                        } else {
+                            showError(data);
+                            var container = $('#<?=$name?>').closest('.control-group');
+                            $('#<?=$name?>', container).addClass('error');
+                            return false;
+                        }
+                    }, 'json'
+            );
+
+            return false;
+        });
+
+        <? if ($nameCanByReset) { ?>
+            $('button.<?=$nameCanByReset?>').click(function () {
+                modalDialog(trans.get('Confirm_needed'), trans.get('Really_set_default_value'), function () {
+                    $('button.<?=$nameCanByReset?>').attr('disabled', 'disabled');
+                    $('button.<?=$nameCanByReset?>').addClass('btn_preloader');
+                    $('button.<?=$nameCanByReset?> i').hide();
+                    $.post(
+                        updateSettingsUrl,
+                        {
+                            "name": '<?=$nameCanByReset?>',
+                            "value": 'true',
+                            "type": 'Text'
+                        },
+                        function (data) {
+                            if (!data.error) {
+                                showMessage(trans.get('Data_save_success'));
+                                $('button.<?=$nameCanByReset?>').removeClass('btn_preloader');
+                                $('button.<?=$nameCanByReset?>').addClass('disabled');
+                                $('button.<?=$nameCanByReset?> i').show();
+                                $('button.<?=$nameCanByReset?>').attr('disabled');
+
+
+                                if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                                    var container = $('#<?=$name?>').closest('.allow-reload');
+                                    var url = $(container).attr('reload-url');
+                                    if (url) {
+                                        $.post(url, {}, function (data) {
+                                            if (!data.error) {
+                                                $(container).html(data.html);
+                                            } else {
+                                                showError(data);
+                                            }
+                                        }, 'json').error(function (xhr, ajaxOptions, thrownError) {
+                                            showError(xhr.responseText);
+                                        });
+                                        return;
+                                    }
+                                }
+                                location.reload();
+                            } else {
+                                showError(data);
+                                var container = $('#<?=$name?>').closest('.control-group');
+                                $('#<?=$name?>', container).addClass('error');
+                                return false;
+                            }
+                        }, 'json'
+                    );
+                });
+                return false;
+            });
+        <? } ?>
+    });
+</script>
+<style>
+    .textarea-control {
+        position: relative;
+    }
+    .<?=$name?>-container {
+        padding-right: 50px;
+        position: relative;
+    }
+    textarea#<?=$name?> {
+        width: 100%;
+        height: 200px;
+    }
+    .<?=$name?>-container button.btn-primary{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+    .<?=$name?>-container button.btn_preloader{
+        padding-right: 20px!important;
+        height: 28px;
+        width: 35px;
+        background-position: 10px;
+    }
+    .<?=$nameCanByReset?> {
+        right: 1px;
+        position: absolute;
+        top: 33px;
+    }
+</style>

@@ -1,0 +1,193 @@
+<div class="userform userBigLabel">
+    <form action="/?p=profile&new_profile" method="post">
+        <? if($success){ ?>
+        <div class="success">
+            <?=$success?>
+        </div>
+        <? } ?>
+        <? if($error){ ?>
+        <div class="error">
+            <?=urldecode($error)?>
+        </div>
+        <? } ?>
+
+        <div class="bproduct mb30">
+                <h2 class="mb20"><span><?=Lang::get('Add_new_profile')?></span></h2>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("FirstName")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="RecipientFirstName"><?=Lang::get('name')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="RecipientFirstName" type="text" name="Profile[FirstName]" value="<?=@$FirstName?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("LastName")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="RecipientLastName"><?=Lang::get('last_name')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="RecipientLastName" type="text" name="Profile[LastName]" value="<?=@$LastName?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("MiddleName")?>
+                <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="RecipientMiddleName"><?=Lang::get('middle_name')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="RecipientMiddleName" type="text" name="Profile[MiddleName]" value="<?=@$MiddleName?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>"/>
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("INN")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="RecipientINN"><?=Lang::get('inn')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="RecipientINN" type="text" name="Profile[INN]" value="<?=@$INN?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("CountryCode")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="Country"><?=Lang::get('country')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <select name="Profile[CountryCode]" id="ProfileCountry" class="form-field form-field__select <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                            <? foreach($countries as $item) { ?>
+                            <option value="<?=$item['Id']?>" <?=$state === "Disabled" ? "disabled" : ''?> <? if(User::getObject()->getCountryCode() == $item['id']) print 'selected'; ?>> <?=$item['Name']?></option>
+                            <? } ?>
+                    </select>
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("City")?>
+                <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="City"><?=Lang::get('city')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="City" type="text" name="Profile[City]" value="<?=@$City?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("Address")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="Address"><?=Lang::get('address')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="Address" type="text" name="Profile[Address]" value="<?=@$Address?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("PostalCode")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="PostalCode"><?=Lang::get('post_code')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="PostalCode" type="text" name="Profile[PostalCode]" value="<?=@$PostalCode?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("Region")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="Region"><?=Lang::get('state_territory')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="Region" type="text" name="Profile[Region]" value="<?=@$Region?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("Phone")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="Phone"><?=Lang::get('phone')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="Phone" type="text" name="Profile[Phone]" value="<?=@$Phone?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("PassportNumber")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="PassportNumber"><?=Lang::get('passport')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="PassportNumber" type="text" name="Profile[PassportNumber]" value="<?=@$PassportNumber?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("RegistrationAddress")?>
+            <div class="form-row <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                    <label for="RegistrationAddress"><?=Lang::get('state_territory')?>
+                        <? if ($state === "EnabledAndRequired") { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="RegistrationAddress" type="text" name="Profile[RegistrationAddress]" value="<?=@$RegistrationAddress?>"
+                           class="form-field <?=$state === "EnabledAndRequired" ? "required" : ''?>" />
+                </div>
+
+                <div class="form-row">
+                    <span class="red"><?=Lang::get('stars_inputs')?></span>
+                </div>
+
+                <div class="form-row">
+                    <label></label>
+                    <input type="submit" name="login" id="submit_new_profile" value="<?=Lang::get('save')?>" class="btn_office" />
+                    <input type="submit" name="cancel" id="cancel_new_profile" value="<?=Lang::get('cancel')?>" class="btn_office" />
+                </div>
+
+        </div>
+    </form>
+
+</div>
+
+<script>
+    $(function(){
+        var validateDelivery = function(){
+            var requiredFields = $('.userform form .form-row .required');
+            var validateSuccess = true;
+            requiredFields.each(function(){
+                if ($(this).val().trim() == '') {
+                    validateSuccess = false;
+                    $(this).addClass('required-field');
+                } else {
+                    $(this).removeClass('required-field');
+                }
+            });
+
+            if (validateSuccess == true) {
+                $('#submit_new_profile').removeAttr('disabled');
+                $('#submit_new_profile').removeClass('btn_office_disabled');
+            } else {
+                $('#submit_new_profile').attr('disabled', 'disabled');
+                $('#submit_new_profile').addClass('btn_office_disabled');
+            }
+        };
+
+        setInterval(validateDelivery, 1000);
+
+    });
+</script>

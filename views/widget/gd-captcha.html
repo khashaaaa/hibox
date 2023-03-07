@@ -1,0 +1,11 @@
+<span class="input captcha">
+    <img class="captcha-img" id="<?=$id?>_siimage" style="border: 1px solid #000; margin-right: 15px" src="./lib/securimage/securimage_show.php?sid=<?php echo md5(uniqid()) ?>" alt="CAPTCHA Image" align="left">
+    <object type="application/x-shockwave-flash" data="./lib/securimage/securimage_play.swf?audio_file=./lib/securimage/securimage_play.php&amp;bgColor1=#fff&amp;bgColor2=#fff&amp;iconColor=#777&amp;borderWidth=1&amp;borderColor=#000" height="32" width="32">
+        <param name="movie" value="./lib/securimage/securimage_play.swf?audio_file=./lib/securimage/securimage_play.php&amp;bgColor1=#fff&amp;bgColor2=#fff&amp;iconColor=#777&amp;borderWidth=1&amp;borderColor=#000">
+    </object>
+
+    <a class="gd-captchaRefresh" tabindex="-1" style="border-style: none;" href="#" title="Refresh Image"><img src="./lib/securimage/images/refresh.png" alt="Reload Image" onclick="this.blur()" align="bottom" border="0"></a><br />
+    <?=Lang::get('input_captcha')?>&nbsp;*
+    <?php echo @$_SESSION['ctform']['captcha_error'] ?>
+    <input type="text" name="ct_captcha" class="required-field captchainp form-field gdcaptcha form-control mt-3" size="12" maxlength="8" id="<?=$id?>_input" autocomplete="off" required/>
+</span>

@@ -1,0 +1,28 @@
+<div class="well">
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+            <? $i = 0; ?>
+            <? foreach ($fields as $k => $item) { ?>
+                <? $name = (string)$item['Name']; ?>
+                <? $encodeName = MetaUI::encodeParametersString($name); ?>
+                <? $i++; ?>
+                <li class="<?= ($i == 1) ? 'active' : ''?>">
+                    <a href="#tab-<?=$encodeName?>" data-toggle="tab">
+                        <?= !empty($item['DisplayName']) ? $item['DisplayName'] : 'Id: ' . $item['Id'] ?>
+                    </a>
+                </li>
+            <? } ?>
+        </ul>
+        <div class="tab-content">
+            <? $i = 0; ?>
+            <? foreach ($fields as $item) { ?>
+                <? $name = (string)$item['Name']; ?>
+                <? $encodeName = MetaUI::encodeParametersString($name); ?>
+                <? $i++; ?>
+                <div class="tab-pane <?= ($i == 1) ? 'active' : ''?>" id="tab-<?=$encodeName?>">
+                    <?= MetaUI::renderFields($item, $data->$name, $prefix . $encodeName . MetaUI::NODES_SEPARATOR) ?>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</div>

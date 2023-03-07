@@ -1,0 +1,28 @@
+<?
+$type = explode(':', $type);
+$type = strtolower(end($type));
+?>
+
+<div class="well form-horizontal ot_form">
+    <?=MetaUI::render($eventTemplate, $updateTemplateUrl, array('tinyMCEAbsoluteUrls' => true))?>
+    
+	<br/>
+	<div class="control-group">
+	    <label class="control-label"><?=LangAdmin::get('mailing_test_' . $type)?></label>
+	    <div class="controls">
+	        <input name="test-recipient"
+				   class="input-large recipient <?= $type ?>"
+				   type="text"
+				   placeholder="<?= $type == 'email' ? 'admin-mail@domain.ltd' : '7123456789' ?>"
+			>
+
+	        <button class="btn btn_preloader testTemplate"
+					action="<?=$testTemplateServerUrl?>"
+					title="<?=LangAdmin::get('mailing_send_test_message')?>"
+					data-loading-text="<i class='icon-share-alt'></i> <?=LangAdmin::get('mailing_test')?>"
+			>
+				<i class="icon-share-alt"></i> <?=LangAdmin::get('mailing_test')?>
+			</button>
+	    </div>
+	</div>    
+</div>

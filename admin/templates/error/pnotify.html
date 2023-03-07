@@ -1,0 +1,8 @@
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        showError('<?=htmlspecialchars($message, ENT_QUOTES)?>');
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

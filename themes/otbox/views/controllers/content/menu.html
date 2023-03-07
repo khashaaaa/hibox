@@ -1,0 +1,17 @@
+<div class="list-group">
+    <? foreach ($menu as $item) { ?>
+        <a href="<?=$item['url']?>" title="<?=$this->escape($item['title'])?>" class="list-group-item <?=$item['active'] && !$item['hasActiveChildren'] ? 'active' : ''?>">
+            <?=$this->escape($item['title'])?>
+        </a>
+    
+        <? if (!empty($item['children'])) { ?>
+            <ul class="listitem">
+                <? foreach ($item['children'] as $child) { ?>
+                    <li class="item">
+                        <a href="<?=$child['url']?>" title="<?=$this->escape($child['title'])?>" class="<?=!(empty($child['active'])) ? 'active' : ''?>"><?=$this->escape($child['title'])?></a>
+                    </li>
+                <? } ?>
+            </ul>
+        <? } ?>
+    <? } ?>
+</div>

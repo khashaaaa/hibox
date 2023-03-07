@@ -1,0 +1,15 @@
+<div class="well">
+    <?=MetaUI::render($setting, $updateSettingsUrl)?>
+</div>
+
+<div class="control-group">
+    <label class="control-label"><?=LangAdmin::get('mailing_test_email')?></label>
+    <div class="controls">
+        <input name="test-email" class="input-large email" type="text" placeholder="admin-mail@domain.ltd">
+        <button class="btn btn_preloader testEmailServer" data-loading-text="<i class='icon-share-alt'></i> <?=LangAdmin::get('mailing_test')?>" title="<?=LangAdmin::get('mailing_send_test_message')?>" action="<?=$testEmailServerUrl?>"><i class="icon-share-alt"></i> <?=LangAdmin::get('mailing_test')?></button>
+    </div>
+</div>
+<div class="control-group">
+    <? $buttonClass = (General::getConfigValue('email_smtp_server_id') == $serverId) ? 'btn-success' : 'btn-primary'; ?>
+    <button class="btn <?=$buttonClass?> selectEmailServerForBox" action="<?=$selectEmailServerForBoxUrl?>" data-id="<?=$serverId?>"><?=LangAdmin::get('Select_email_server_for_box')?></button>
+</div>

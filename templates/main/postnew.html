@@ -1,0 +1,35 @@
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="wrap b-post b-post-full main-content">
+    <? if ($post) { ?>
+        <? $date = $post['created']; ?>
+        <div class="date"><?=$date->format('d.m.Y')?></div>
+        <h1><?=$this->escape($post['title'])?></h1>
+        <div id="content_area">
+            <div class="item-image">
+                <? if ($post['image']) { ?>
+                <a href="<?=DigestRepository::getImage($post['image'], "large")?>" class="pic cboxElement pictures" id="main-image-href">
+                    <i><img id="main-image" src="<?=DigestRepository::getImage($post['image'], "big")?>" default="css/i/default-image.gif" alt=""></i>
+                    <ins></ins>
+                </a>
+                <? } ?>
+            </div>
+            <div class="content">
+                <?=$post['content']?></div>
+            </div>
+        </div>
+    <? } else {?>
+        <h2 class="mb25"><span><?=Lang::get('empty_page')?></span></h2>
+        <div class="full-page">
+            <?=Lang::get('empty_page_msg')?>
+        </div>
+    <? }?>
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".pictures").colorbox({rel:'group1'});
+});
+</script>
+<!--/noindex-->

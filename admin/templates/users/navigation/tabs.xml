@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Customers" action="default" cmd="users">
+        <page data-action="list" data-cmd="users" />
+        <page data-action="editUser" data-cmd="users" />
+        <page data-action="addUser" data-cmd="users" />
+        <page data-action="profile" data-cmd="users" />
+    </tab>
+    <tab title="Administrators" action="default" cmd="administrators">
+        <page data-action="default" data-cmd="administrators" />
+        <page data-action="edit" data-cmd="administrators" />
+        <page data-action="add" data-cmd="administrators" />
+        <page data-action="save" data-cmd="administrators" />
+    </tab>
+    <tab title="Roles" action="default" cmd="roles">
+        <page data-action="default" data-cmd="roles" />
+        <page data-action="edit" data-cmd="roles" />
+        <page data-action="add" data-cmd="roles" />
+    </tab>
+    <tab title="config" action="users" cmd="siteconfiguration">
+        <page data-action="users" data-cmd="siteconfiguration" />
+    </tab>
+</tabs>

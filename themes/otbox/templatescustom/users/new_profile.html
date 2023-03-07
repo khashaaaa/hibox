@@ -1,0 +1,128 @@
+<div class="userform userBigLabel">
+    <form action="/?p=profile&new_profile" method="post">
+        <? if($success){ ?>
+        <div class="success">
+            <?=$success?>
+        </div>
+        <? } ?>
+        <? if($error){ ?>
+        <div class="error">
+            <?=urldecode($error)?>
+        </div>
+        <? } ?>
+
+        <div class="bproduct mb30">
+                <h2 class="mb20"><span><?=Lang::get('Add_new_profile')?></span></h2>	
+
+                <div class="form-row">
+                    <label for="RecipientFirstName"><?=Lang::get('name')?><span class="red">*</span></label>
+                    <input id="RecipientFirstName" type="text" name="Profile[FirstName]" value="<?=@$FirstName?>" class="form-field required" />
+                </div>
+
+                <div class="form-row">
+                    <label for="RecipientLastName"><?=Lang::get('last_name')?><span class="red">*</span></label>
+                    <input id="RecipientLastName" type="text" name="Profile[LastName]" value="<?=@$LastName?>" class="form-field required" />
+                </div>
+
+				<? if (! General::getConfigValue('hide_middle_name')) { ?>
+	                <div class="form-row">
+	                    <label for="RecipientMiddleName"><?=Lang::get('middle_name')?><span class="red">*</span></label>
+	                    <input id="RecipientMiddleName" type="text" name="Profile[MiddleName]" value="<?=@$MiddleName?>" class="form-field required"/>
+	                </div>
+	            <?php } ?>
+
+                <div class="form-row">
+                    <label for="RecipientINN"><?=Lang::get('inn')?></label>
+                    <input id="RecipientINN" type="text" name="Profile[INN]" value="<?=@$INN?>" class="form-field" />
+                </div>
+
+                <div class="form-row">
+                    <label for="Country"><?=Lang::get('country')?><span class="red">*</span></label>
+                    <select name="Profile[CountryCode]" id="ProfileCountry" class="form-field form-field__select required">
+                            <? foreach($countries as $item) { ?>
+                            <option value="<?=$item['Id']?>" <? if(@$CountryCode==$item['id']) print 'selected'; ?>> <?=$item['Name']?></option>
+                            <? } ?>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="City"><?=Lang::get('city')?><span class="red">*</span></label>
+                    <input id="City" type="text" name="Profile[City]" value="<?=@$City?>" class="form-field required" />
+                </div>
+
+                <div class="form-row">
+                    <label for="Address"><?=Lang::get('address')?><span class="red">*</span></label>
+                    <input id="Address" type="text" name="Profile[Address]" value="<?=@$Address?>" class="form-field required" />
+                </div>
+
+                <div class="form-row">
+                    <label for="PostalCode"><?=Lang::get('post_code')?>
+                        <? if (General::getConfigValue('is_postal_code_required')) { ?>
+                            <span class="red">*</span>
+                        <? } ?>
+                    </label>
+                    <input id="PostalCode" type="text" name="Profile[PostalCode]" value="<?=@$PostalCode?>" class="form-field <?=(General::getConfigValue('is_postal_code_required'))?'required':''?>" />
+                </div>
+
+                <div class="form-row">
+                    <label for="Region"><?=Lang::get('state_territory')?></label>
+                    <input id="Region" type="text" name="Profile[Region]" value="<?=@$Region?>" class="form-field" />
+                </div>
+                
+                <div class="form-row">
+                    <label for="Phone"><?=Lang::get('phone')?><span class="red">*</span></label>
+                    <input id="Phone" type="text" name="Profile[Phone]" value="<?=@$Phone?>" class="form-field required" />
+                </div>
+                <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+                    <div class="form-row">
+                        <label for="PassportNumber"><?=Lang::get('passport')?></label>
+                        <input id="PassportNumber" type="text" name="Profile[PassportNumber]" value="<?=@$PassportNumber?>" class="form-field" />
+                    </div>
+
+                    <div class="form-row">
+                        <label for="RegistrationAddress"><?=Lang::get('state_territory')?></label>
+                        <input id="RegistrationAddress" type="text" name="Profile[RegistrationAddress]" value="<?=@$RegistrationAddress?>" class="form-field" />
+                    </div>
+                <? } ?>
+                <div class="form-row">
+                    <span class="red"><?=Lang::get('stars_inputs')?></span>
+                </div>
+
+                <div class="form-row">
+                    <label></label>
+                    <input type="submit" name="login" id="submit_new_profile" value="<?=Lang::get('save')?>" class="btn_office" />
+                    <input type="submit" name="cancel" id="cancel_new_profile" value="<?=Lang::get('cancel')?>" class="btn_office" />
+                </div>
+
+        </div>
+    </form>
+    
+</div>
+
+<script>
+    $(function(){
+        var validateDelivery = function(){
+            var requiredFields = $('.userform form .required');
+            var validateSuccess = true;
+            requiredFields.each(function(){
+                if ($(this).val().trim() == '') {
+                    validateSuccess = false;
+                    $(this).addClass('required-field');
+                } else {
+                    $(this).removeClass('required-field');
+                }
+            });
+
+            if (validateSuccess == true) {
+                $('#submit_new_profile').removeAttr('disabled');
+                $('#submit_new_profile').removeClass('btn_office_disabled');
+            } else {
+                $('#submit_new_profile').attr('disabled', 'disabled');
+                $('#submit_new_profile').addClass('btn_office_disabled');
+            }
+        };
+
+        setInterval(validateDelivery, 1000);
+
+    });
+</script>

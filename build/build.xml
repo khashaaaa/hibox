@@ -1,0 +1,123 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="box" basedir="." default="demo_archive">
+    <property name="package"  value="${phing.project.name}" override="true" />
+    <property name="builddir" value="./build" override="true" />
+    <property name="srcdir"   value="${project.basedir}" override="true" />
+    <property name="version"  value="" override="true" />
+    <property name="tests_dir"  value="" override="true" />
+
+    <fileset dir="." id="update_files">
+        <include name="**" />
+        <exclude name="build.xml" />
+        <exclude name="referral.php" />
+        <exclude name="referral/**" />
+        <exclude name="blockscustom/**" />
+        <exclude name="templatescustom/**" />
+        <exclude name="new-admin-proto/**" />
+        <exclude name="_html_layouts/**" />
+        <exclude name="config/server/**" />
+        <exclude name="OpentaoCMS/**" />
+        <exclude name="packages/**" />
+        <exclude name="opentao.zip" />
+        <exclude name="www/**" />
+        <exclude name="taoadmin/**" />
+        <exclude name="taolib.php" />
+        <exclude name="configcustom.php" />
+        <exclude name="favicon.ico" />
+        <exclude name="robots.txt" />
+        <exclude name="config/script_controller.xml" />
+        <exclude name="updates/version.xml" />
+        <exclude name="themes/elastic/**" />
+        <exclude name="themes/fashi/**" />
+    </fileset>
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT) Target: demo_archive                        -->
+    <!-- ============================================  -->
+    <target name="demo_archive" description="Create demo download archive">
+        <mkdir dir="${builddir}/../cache" />
+        <mkdir dir="${builddir}/../temp" />
+        <mkdir dir="${builddir}/temp" />
+        <copy todir="${builddir}/temp">
+            <fileset refid="update_files" />
+        </copy>
+        <delete>
+            <fileset dir="${builddir}/temp/langs">
+                <include name="*" />
+                <exclude name="ru.xml" />
+                <exclude name="en.xml" />
+                <exclude name=".htaccess" />
+            </fileset>
+            <fileset dir="${builddir}/temp">
+                <include name=".*/**" />
+            </fileset>
+        </delete>
+        <zip destfile="${builddir}/../temp/opentao.zip">
+            <fileset dir="${builddir}/temp">
+                <include name="**/**" />
+            </fileset>
+        </zip>
+        <delete dir="${builddir}/temp" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT) Target: update_archive                        -->
+    <!-- ============================================  -->
+    <target name="update_archive" description="Create demo download archive">
+        <mkdir dir="${builddir}/source_files" />
+        <copy todir="${builddir}/source_files">
+            <fileset refid="update_files" />
+        </copy>
+        <delete>
+            <fileset dir="${builddir}/source_files/langs">
+                <include name="*" />
+                <exclude name="ru.xml" />
+                <exclude name="en.xml" />
+                <exclude name=".htaccess" />
+            </fileset>
+            <fileset dir="${builddir}/source_files">
+                <include name=".*/**" />
+            </fileset>
+        </delete>
+        <zip destfile="${builddir}/opentao_${version}.zip">
+            <fileset dir="${builddir}/source_files">
+                <include name="**/**" />
+            </fileset>
+        </zip>
+        <delete dir="${builddir}/source_files" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: Rebuild                               -->
+    <!-- ============================================  -->
+    <target name="rebuild" description="rebuilds this package">
+        <delete dir="${builddir}/temp" />
+        <phingcall target="demo_archive" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: Rebuild update                        -->
+    <!-- ============================================  -->
+    <target name="rebuild_update" description="rebuilds this package">
+        <delete dir="${builddir}/source_files" />
+        <phingcall target="update_archive" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: Builds dev                            -->
+    <!-- ============================================  -->
+    <target name="build_dev" description="builds dev">
+        <mkdir dir="${builddir}/../cache" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: Builds dev                            -->
+    <!-- ============================================  -->
+    <target name="generate_tests_html_report" description="generates tests html report">
+        <phpunitreport infile="${builddir}/tests.xml"
+                       format="frames"
+                       todir="${tests_dir}"
+                />
+    </target>
+</project>

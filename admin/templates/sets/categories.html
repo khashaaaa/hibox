@@ -1,0 +1,44 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('sets', 'default')?>" class="muted"><?=LangAdmin::get('Sets')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Selector')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<? include('templates/sets/navigation/sub-tabs.html'); ?>
+
+<? include('templates/sets/navigation/nad-tabs.html'); ?>
+
+<div class="sets_wrapper">
+    <form class="form-horizontal ot_form" action="#">
+        <div class="row-fluid offset-bottom1">
+            <div class="span3">
+                <p><strong><?=LangAdmin::get('Sets_on_index_page')?></strong> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Used_in_site_hint')?>"></i></p>
+                <ol class="unstyled ot_sortable_list ot_sortable">
+                    <div class="menu-item-template" style="display: none;"><li id="pageId" ><span class="badge" title="title"><i class="icon-move" title="<?=LangAdmin::get('contents::Change_order')?>"></i> <span class="title"><a href="#">title</a></span> <i class="icon-remove" title="<?=LangAdmin::get('Remove_from_index')?>"></i></span></li>
+                    </div>
+                    <? if (! empty($siteCategories)) foreach ($siteCategories as $category) {
+                        $categoryId = $category['CategoryId'];
+                            if (! $category) {
+                                continue;
+                            }
+                    ?>
+                        <li id="<?=$categoryId?>"><span class="badge" title="<?=$category['itemratingtypename']?>"><i class="icon-move" title="<?=LangAdmin::get('contents::Change_order')?>"></i> <a href="<?=$PageUrl->AssignCmdAndDo('sets','items')?>&type=Category&cid=<?=$category['categoryid']?>" title="<?=LangAdmin::get('Go_edit_sets_products')?>"><?=$category['name']?></a> <i class="icon-remove" title="<?=LangAdmin::get('Remove_from_index')?>"></i></span></li>
+                    <? } ?>
+                </ol>
+            </div>
+            <div class="span4">
+                <p><strong><?=LangAdmin::get('All_categories_list')?></strong> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Categories_list_hint')?>"></i></p>
+                <div id="all-categories-container">
+                    <div id="all-categories-preloader"></div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn_preloader btn-primary save-menu" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+    </form>
+</div> <!-- sets-wrapper -->
+
+<? AssetsMin::registerJsFile('/admin/js/ot-sets-categories.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

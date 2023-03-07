@@ -1,0 +1,13 @@
+<div <?=General::getConfigValue('rtl') ? 'style="direction: rtl"': ''?>>
+    <?=Lang::get('hello')?><br />
+    <?=Lang::get('Withdrawals')?><br />
+
+    <strong><?=Lang::get('Withdraw_email_text1')?>:</strong><br>
+    <?=Lang::get('Withdraw_email_a_sum')?> : <?=TextHelper::formatPrice($available_sum, $currency)?><br>
+    <?=Lang::get('Withdraw_email_sum')?>: <?=TextHelper::formatPrice($withdraw_sum, $currency)?><br>
+    <?=Lang::get('Withdraw_email_fio')?>: <?=$last_name?> <?=$middle_name?> <?=$first_name?><br>
+    <?=Lang::get('Withdraw_email_login')?>: <?=$username?><br>
+    <?=Lang::get('Withdraw_email_comment')?>: <?=$comment?><br><br><br>
+
+    <?=Lang::get('Withdraw_email_text2')?>
+</div>

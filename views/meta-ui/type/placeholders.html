@@ -1,0 +1,46 @@
+<? if (! empty($placeholders)) { ?>
+    <div class="field-placeholder">
+        <div><?=LangAdmin::get('In_text_can_be_used_following_placeholders')?>:</div>
+        <? foreach ($placeholders as $p => $placeholder) { ?>
+            <code><?=$placeholder['Value']?></code>- <?=$placeholder['Description']?><br>
+        <? } ?>
+    </div>
+    <style>
+        .field-placeholder {
+            clear: both;
+        }
+        .field-placeholder code {
+            cursor: pointer;
+            font-size: 10px;
+        }
+    </style>
+
+    <script>
+        $('#' + '<?=$name?>').closest('.control-group').find("div.field-placeholder code")
+            .on('click', function() {
+                var placeholder = $(this).text();
+
+                <? switch ($type) {
+                    case 'Text': ?>
+                        var input = $('#' + '<?=$name?>').closest('.control-group').find('input');
+                        if (input.length) {
+                            var caret = input[0].selectionStart,
+                                predefinedText = input.val();
+                            input.val(predefinedText.substring(0, caret) + placeholder + predefinedText.substring(caret));
+                        }
+                        <? break;
+                    case 'Textarea': ?>
+                        var textarea = $('#' + '<?=$name?>');
+                        if (textarea.length) {
+                            var caret = textarea[0].selectionStart,
+                                predefinedText = textarea.val();
+                            textarea.val(predefinedText.substring(0, caret) + placeholder + predefinedText.substring(caret));
+                        }
+                        <? break;
+                    case 'Html': ?>
+                        tinymce.get('<?=$name?>').execCommand('mceInsertContent', false, placeholder);
+                        <? break;
+                } ?>
+            });
+    </script>
+<? } ?>

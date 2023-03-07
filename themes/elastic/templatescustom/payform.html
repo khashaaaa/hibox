@@ -1,0 +1,120 @@
+<style>
+    .debug-log {
+        display: none;
+    }
+    .col690 {
+        width: 690px;
+    }
+    .fll {
+        float: left;
+    }
+    .flr {
+        float: right;
+    }
+    .wrap {
+        margin: 0 auto;
+        width: 960px;
+        max-width: 100%;
+    }
+    .clrfix {
+        zoom: 1.0;
+    }
+    .ramka {
+        border-top: black 1px dotted;
+        border-bottom: black 1px dotted;
+        border-left: black 1px dotted;
+        border-right: black 1px dotted;
+        width: 681px;
+    }
+
+    .lineh {
+        border-bottom: black 2px solid;
+    }
+
+    .linevh {
+        border-bottom: black 2px solid;
+        border-left: black 2px solid;
+    }
+
+    .linev {
+        border-left: black 2px solid;
+    }
+
+    .lineh {
+        border-bottom: black 2px solid;
+    }
+
+    .line_lbt {
+        border-left: black 1px solid;
+        border-bottom: black 1px solid;
+        border-top: black 1px solid;
+        font-weight: bold;
+    }
+
+    .t8n {
+        font-size: 8.5pt;
+        font-family: "times new roman", serif;
+    }
+
+    .h8b {
+        font-weight: bold;
+        font-size: 6.3pt;
+        font-family: arial, sans-serif;
+        border-bottom: black 1px solid;
+        text-align: center;
+    }
+
+    .t6n {
+        font-size: 6.5pt;
+        font-family: "times new roman", serif;
+    }
+
+    .t7n {
+        font-size: 7.5pt;
+        font-family: "times new roman", serif;
+    }
+
+    .t10b {
+        font-weight: bold;
+        font-size: 10pt;
+        font-family: "times new roman", serif;
+    }
+
+    .line_lbtr {
+        border-left: black 1px solid;
+        border-bottom: black 1px solid;
+        border-top: black 1px solid;
+        border-right: black 1px solid;
+        font-weight: bold;
+    }
+    .mb20 {
+        margin-bottom: 20px;
+    }
+</style>
+<?=$HeaderNew?>
+<? if (!RequestWrapper::getValueSafe('print')) { ?>
+    <?=$CrumbsNew?>
+<? } ?>
+
+    <div class="spacer mb20"><div class="wrap clrfix"></div></div>
+    <div class="main" style="height: 900px"><div class="wrap clrfix" style="zoom:1.2">
+            <? if (!RequestWrapper::getValueSafe('print')) { ?>
+                <div class="fll col240">
+                    <?=$Menu?>
+                    <?=$Subscribe?>
+                </div>
+            <? } ?>
+            <div class="<?=(RequestWrapper::getValueSafe('print'))?'fll':'flr'?> col690"><?=$PayForm?></div>
+        </div></div>
+
+<? if (!RequestWrapper::getValueSafe('print')) { ?>
+    <?=$FooterNew?>
+<? } ?>
+
+<? if (RequestWrapper::getValueSafe('print')) { ?>
+    <script>
+        $('nav.box-up-menu, header, div.box-search, div.crumbs, .panel-top, .aside').hide();
+        $('.main .wrap').find('pre').hide();
+        $('.main .wrap').find('.col690').css('margin-left', 'calc( 50% - 345px )');
+    </script>
+<? } ?>

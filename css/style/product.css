@@ -1,0 +1,60 @@
+
+  .multi
+  { width: 100% }
+
+  .multi .top_line
+  {
+    color: #fff;
+    font-size: 18px;
+  }
+
+  .multi .top_line:after
+  {
+    display: block;
+    margin: 0 0 10px 0;
+
+    clear: both;
+    content: '';
+  }
+
+  .top_line .top_left
+  {
+    float: left;
+    padding: 7px;
+    height: 18px;
+    width: 550px;
+
+    background: #ed1c24;
+
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .top_left .totalcount
+  { float: right }
+
+  .top_line .top_right
+  {
+    float: right;
+    margin-left: 10px;
+    padding: 7px;
+    height: 18px;
+    width: 100px;
+
+    background: #ed1c24;
+
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .top_right .i-link
+  { color: #fff }
+
+  .multi .item_block
+  {
+    display: block;
+    width: 100%;
+  }
+

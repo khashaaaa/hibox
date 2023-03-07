@@ -1,0 +1,87 @@
+ <?=$HeaderNew?>
+
+<div class="main indexnew">
+    <div class="wrap clrfix">
+
+        <div class="fll col240">
+            <div class="dropdown dropdown-main">
+                <?=$MenuShortNew;?>
+                <div class="b-link__dropdown-all">
+                    <a class="b-link" href="<?=General::generateUrl('allcats', array() )?>"><i class="i-new i-arrow-right i arrowright"></i><span><?=Lang::get('all_goods_categories')?></span></a>
+                </div>
+            </div>
+
+            <? if(@General::getConfigValue('banner_widget')){ ?>
+                <?=@General::getConfigValue('banner_widget')?>
+            <? }else{?>
+                <a href="/?p=help"><img src="p/banner.png"></a>
+            <? } ?>
+        </div>
+
+        <div class="flr col690">
+            <?=$Banners?>
+
+            <?
+                $socialWithLikeWidgets = InstanceProvider::getObject()->GetSocialWithLikeWidgets();
+                $socialWithLinks = InstanceProvider::getObject()->GetSocialWithLinks();
+            ?>
+            <? if (!empty($socialWithLikeWidgets) || !empty($socialWithLinks)) { ?>
+            <div class="socblocks mb20 clrfix">
+                <? if (!empty($socialWithLikeWidgets)) { ?>
+                    <div class="fll col55w">
+                        <div class="title"><?=Lang::get('share_with_friends')?>:</div>
+                        <table>
+                            <? foreach($socialWithLikeWidgets as $item) { ?>
+                                <tr>
+                                    <td>
+                                        <?=$item->GetLikeWidget(); ?>
+                                    </td>
+                                </tr>
+                            <?}?>
+                        </table>
+                    </div>
+                <? } ?>
+                <? if (!empty($socialWithLinks)) { ?>
+                    <div class="fll col50w social-links">
+                        <div class="title"><?=Lang::get('follow_news')?>:</div>
+                        <p>
+                            <? foreach($socialWithLinks as $item) { ?>
+                                <a href="<?=$item->GetLink();?>" class="<?=$item->GetId(); ?>" target="_blank">
+                                    <img src="<?=$item->GetIconUrl();?>" />
+                                </a>
+                            <? } ?>
+                        </p>
+                    </div>
+                <? } ?>
+            </div>
+            <? } ?>
+            <? if(defined('CFG_USE_CURRENCIES_RECOUNT') && CFG_USE_CURRENCIES_RECOUNT){ ?>
+            <div class="clearfix recount-prices">
+                <a href="/?p=set_currency&c=UAH" class="btn-small fll"><span><?=Lang::get('Show_cost_in_grivna')?></span></a>
+                <a href="/?p=set_currency&c=RUB" class="btn-small fll"><span><?=Lang::get('Show_cost_in_rub')?></span></a>
+                <a href="/?p=set_currency&c=USD" class="btn-small fll"><span><?=Lang::get('Show_cost_in_dollars')?></span></a>
+            </div>
+            <? } ?>
+             <script src="js/GeoLocatet.js?<?=CFG_SITE_VERSION;?>"></script>
+            <link rel="stylesheet" href="css/GeoLocatet.css?<?=CFG_SITE_VERSION;?>" />
+            <form  method="post" id="GeoCurr">
+                         <input type='hidden' name='c' id="c">
+             </form>
+            <div style="position:relative;">
+                <?=Plugins::invokeEvent('ShowGeoLocate',array('LocalVal'=>@$_SESSION['CountryISO'])) ?>
+             </div>
+            <?=$NewsBlock?>
+            <? if(CMS::IsFeatureEnabled('Digest')) { ?>
+                <?=$DigestBlock?>
+            <? } ?>
+
+            <?=$ItemSetsNew?>
+            <div style="display:none" data-info="index-sets-loaded"></div>
+            <? if(CMS::IsFeatureEnabled('ShopComments')) { ?>
+                <?=$ShopreviewsBlock?>
+            <? } ?>
+        </div>
+    </div>
+</div>
+<div style="display:none" data-info="index-footer-loaded"></div>
+<?=$FooterNew?>

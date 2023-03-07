@@ -1,0 +1,374 @@
+<h1><?=Lang::get('account')?></h1>
+<?=Lang::loadJSTranslation(array('yes', 'no'))?>
+<div id="confirm-profile-dialog-form" title="<?=Lang::get('message')?>">
+    <div id="message_info" ><?=Lang::get('profile_will_be_removed')?></div>
+    <br/><div class="error" id="error" style="color:red;"></div>
+    <input type="hidden" name="profile_id" value=""/>
+</div>
+
+<div class="userform userBigLabel">
+        <? if($success){ ?>
+        <div class="success">
+            <?=$success?>
+        </div>
+        <? } ?>
+        <? if($error){ ?>
+        <div class="error">
+            <?=$error?>
+        </div>
+        <? } ?>
+        
+        <form action="/?p=profile" method="post">
+		<div class="bproduct mb30">
+			<h2 class="mb20"><span><?=Lang::get('fullname')?></span></h2>		
+		
+			<div class="form-row">
+                <label for="LastName"><?=Lang::get('last_name')?></label>
+                <input id="LastName" type="text" name="LastName" value="<?=TextHelper::escape($LastName)?>" class="form-field name" />
+            </div>
+
+			<div class="form-row">
+				<label for="FirstName"><?=Lang::get('name')?></label>
+				<input id="FirstName" type="text" name="FirstName" value="<?=TextHelper::escape($FirstName)?>" class="form-field name" />
+			</div>
+        
+        	<? if (! General::getConfigValue('hide_middle_name')) { ?>
+				<div class="form-row">
+					<label for="MiddleName"><?=Lang::get('middle_name')?></label>
+					<input id="MiddleName" type="text" name="MiddleName" value="<?=TextHelper::escape($MiddleName)?>" class="form-field name" />
+				</div>
+			<?php } ?>
+
+            <div class="form-row">
+                <label for="Phone"><?=Lang::get('phone_for_notifications')?></label>
+                <input id="Phone" type="text" name="Phone" disabled="disabled"  value="<?=TextHelper::escape($Phone)?>" class="form-field phone" />
+                <input type="hidden" name="Phone" value="<?=TextHelper::escape($Phone)?>" />
+            </div>
+
+            <div class="form-row">
+				<label for="Email">Email</label>
+				<input id="Email" type="text" value="<?=TextHelper::escape($Email)?>" disabled="disabled" class="form-field email" />
+				<input type="hidden" name="Email" value="<?=TextHelper::escape($Email)?>" />
+			</div>
+
+			<div class="form-row">
+				<label for="Skype">Skype</label>
+				<input id="Skype" name="Skype" type="text" value="<?=TextHelper::escape($Skype)?>" class="form-field" />
+			</div>
+            
+			<div class="form-row">
+				<label for="Sex"><?=Lang::get('gender')?><span class="red">*</span></label>
+				<select name="Sex" id="Sex" class="form-field form-field__select">
+					<option value="Male" <? if($Sex=='Male') print 'selected'; ?>><?=Lang::get('male')?></option>
+					<option value="Female" <? if($Sex=='Female') print 'selected'; ?>><?=Lang::get('female')?></option>
+				</select>
+			</div>
+
+            <div class="form-row">
+                <label></label>
+                <input type="submit" name="save" value="<?=Lang::get('save')?>" class="btn_office" />
+            </div>
+		</div>
+            
+        </form>
+		<!--div class="bproduct mb30">
+			<h2 class="mb20"><span><?=Lang::get('delivery_data')?></span></h2>	
+            <div class="form-row">
+				<label for="Profile"><?=Lang::get('profile')?></label>
+                <? if (count($profiles)) { ?>
+                    <select name="profiles_select" id="profiles_select" class="form-field form-field__select">
+                        <? $profiles_count = 0; ?>
+                        <? foreach ($profiles as $profile) { ?>
+                            <? $profiles_count++; ?>
+                            <option value="<?=$profile['id']?>"><?=Lang::get('profile') . ' '  . $profiles_count ?></option>
+                        <? } ?>
+                    </select>
+                <? } ?>
+                <a href='/?p=profile&new_profile'><?=Lang::get('add')?></a>
+			 </div>
+                        
+                        <? $profiles_count = 0; ?>
+                        <? foreach ($profiles as $profile) { ?>
+                        <? $profiles_count++; ?>
+                        <div class="profile-data" id="profile-<?=$profile['id']?>" <? if ($profiles_count > 1) { ?> style="display:none;" <? } ?> >
+                        <form action="/?p=profile" method="post">
+                            <input  type="hidden" name="Profile[Id]" value="<?=$profile['id']?>" />
+                            <input  type="hidden" name="save_delivery_profile" value="save_delivery_profile" />
+
+                            <div class="form-row">
+                                <label for="RecipientFirstName"><?=Lang::get('name')?><span class="red">*</span></label>
+                                <input id="RecipientFirstName" type="text" name="Profile[FirstName]" value="<?=$profile['firstname']?>" class="form-field" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="RecipientLastName"><?=Lang::get('last_name')?><span class="red">*</span></label>
+                                <input id="RecipientLastName" type="text" name="Profile[LastName]" value="<?=$profile['lastname']?>" class="form-field" />
+                            </div>
+
+							<? if (! General::getConfigValue('hide_middle_name')) { ?>
+	                            <div class="form-row">
+	                                <label for="RecipientMiddleName"><?=Lang::get('middle_name')?><span class="red">*</span></label>
+	                                <input id="RecipientMiddleName" type="text" name="Profile[MiddleName]" value="<?=$profile['middlename']?>" class="form-field" />
+	                            </div>
+                            <?php } ?>
+
+                            <div class="form-row">
+                                <label for="Country"><?=Lang::get('country')?><span class="red">*</span></label>
+                                <select name="Profile[CountryCode]" id="Profile[Country]" class="form-field form-field__select">
+                                        <? foreach($countries as $item) { ?>
+                                        <option value="<?=$item['Id']?>" <? if($profile['countrycode']==$item['id']) print 'selected'; ?>> <?=$item['Name']?></option>
+                                        <? } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="City"><?=Lang::get('city')?><span class="red">*</span></label>
+                                <input id="City" type="text" name="Profile[City]" value="<?=$profile['city']?>" class="form-field" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="Address"><?=Lang::get('address')?><span class="red">*</span></label>
+                                <input id="Address" type="text" name="Profile[Address]" value="<?=$profile['address']?>" class="form-field" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="PostalCode"><?=Lang::get('post_code')?>
+                                <? if (General::getConfigValue('is_postal_code_required')) { ?>
+                                    <span class="red">*</span>
+                                <? } ?>
+                                </label>
+                                <input id="PostalCode" type="text" name="Profile[PostalCode]" value="<?=$profile['postalcode']?>" class="form-field" />
+                            </div>
+
+                        <div class="form-row">
+                                <label for="Region"><?=Lang::get('state_territory')?></label>
+                                <input id="Region" type="text" name="Profile[Region]" value="<?=$profile['region']?>" class="form-field" />
+                            </div>
+                            
+                            <div class="form-row">
+                                    <label for="Phone"><?=Lang::get('Phone')?></label>
+                                    <input id="Phone" type="text" name="Profile[Phone]" value="<?=$profile['Phone']?>" class="form-field" />
+                            </div>
+                            <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+                            	<div class="form-row">
+                                    <label for="PassportNumber"><?=Lang::get('passport')?></label>
+                                    <input id="PassportNumber" type="text" name="Profile[PassportNumber]" value="<?=$profile['passportnumber']?>" class="form-field" />
+                            	</div>                            
+                            	<div class="form-row">
+                                    <label for="RegistrationAddress"><?=Lang::get('registrationaddress')?></label>
+                                    <input id="RegistrationAddress" type="text" name="Profile[RegistrationAddress]" value="<?=$profile['registrationaddress']?>"  class="form-field" />
+                            	</div>
+                            <? } ?>  
+                            
+                            <div class="form-row">
+                                <span class="red"><?=Lang::get('stars_inputs')?></span>
+                            </div>
+
+                            <div class="deleteAccount">
+                                <label></label>
+                                <input type="submit" name="save" value="<?=Lang::get('save')?>" class="btn_office" />
+                                <input type="submit" id="delete-delivery-profile" name="delete-delivery-profile" data-profile-id="<?=$profile['id']?>" value="<?=Lang::get('delete')?>" class="btn_office" />
+                            </div>
+                        </form>
+               </div>
+			<? } ?>
+			
+		</div-->
+
+
+    <form action="/?p=deleteAccount" method="post">
+
+        <div class="bproduct mb30">
+            <h2 class="mb20"><span><?=Lang::get('delete_self_account')?></span></h2>
+
+            <? if(Session::getErrorCode() == 'account_delete_error'){ ?>
+                <div class="error">
+                    <?=Session::getErrorDescription()?>
+                </div>
+            <? } ?>
+
+            <div class="form-row">
+                <label><?=Lang::get('current_password')?></label>
+                <input type="password" name="password" class="form-field" />
+            </div>
+            <div class="form-row">
+                <label></label>
+                <input type="submit" class="btn_office confirm-operation" name="delete_account" value="<?=Lang::get('delete')?>" class="" onSuccess="$(that).closest('form').submit();"
+                       data-message="<?=Lang::get('Sure_to_delete_account')?>" data-title="<?=Lang::get('warning')?>" />
+            </div>
+        </div>
+    </form>
+
+    <form action="/?p=profile" method="post">
+
+        <div class="bproduct mb30">
+            <h2 class="mb20"><span><?=Lang::get('changing_email')?></span></h2>
+
+            <? if($error_email){ ?>
+                <div class="error">
+                    <?=$error_email?>
+                </div>
+            <? } ?>
+
+            <div class="form-row">
+                <label><?=Lang::get('password')?></label>
+                <input  type="password" name="password" class="form-field" />
+            </div>
+
+            <div class="form-row">
+                <label><?=Lang::get('new_email')?></label>
+                <input type="text" name="newEmail" class="form-field" />
+            </div>
+
+            <div class="form-row">
+                <label></label>
+                <input type="submit" name="change_email" value="<?=Lang::get('save')?>" class="btn_office" />
+            </div>
+
+        </div>
+    </form>
+
+    <form action="/?p=profile" method="post" class="js-phone-field">
+        <input type="hidden" name="change_phone" value="true">
+
+        <div class="bproduct mb30">
+            <h2 class="mb20"><span><?=Lang::get('changing_phone')?></span></h2>
+
+            <div class="error js-phone-error" style="display: none"></div>
+
+            <div class="form-row">
+                <label><?=Lang::get('password')?></label>
+                <input  type="password" name="password" class="form-field" />
+            </div>
+
+            <div class="form-row">
+                <label><?=Lang::get('new_phone')?></label>
+                <input type="text" name="newPhone" class="form-field" />
+            </div>
+
+            <div class="form-row">
+                <label></label>
+                <input type="submit" value="<?=Lang::get('save')?>" class="btn_office" />
+            </div>
+        </div>
+    </form>
+
+    <form action="/?p=profile" method="post" class="js-phone-code" style="display: none">
+        <input type="hidden" name="confirm_phone" value="true">
+
+        <div class="bproduct mb30">
+            <h2 class="mb20"><span><?=Lang::get('confirmation_phone_tab')?></span></h2>
+
+            <div class="error js-phone-error" style="display: none"></div>
+
+            <div class="form-row">
+                <label><?=Lang::get('confirmation_phone_label')?></label>
+                <input type="text" name="confirmation_code" class="form-field" autocomplete="off"/>
+            </div>
+
+            <div class="form-row">
+                <label></label>
+                <input type="submit" value="<?=Lang::get('confirmation_phone_btn')?>" class="btn_office" />
+            </div>
+        </div>
+    </form>
+
+    <form action="/?p=profile" method="post">
+	
+		<div class="bproduct mb30">
+			<h2 class="mb20"><span><?=Lang::get('changing_password')?></span></h2>	
+			
+			<? if($error_password){ ?>
+			<div class="error">
+				<?=$error_password?>
+			</div>
+			<? } ?>
+			
+			<div class="form-row">
+				<label for="currentPassword"><?=Lang::get('current_password')?></label>
+				<input id="currentPassword" type="password" name="currentPassword" class="form-field" />
+			</div>
+			
+			<div class="form-row">
+				<label for="newPassword"><?=Lang::get('new_password')?></label>
+				<input id="newPassword" type="password" name="newPassword" class="form-field" />
+			</div>
+			
+			<div class="form-row">
+				<label for="newPasswordConfirm"><?=Lang::get('new_password_confirm')?></label>
+				<input id="newPasswordConfirm" type="password" name="newPasswordConfirm" class="form-field" />
+			</div>
+			
+			<div class="form-row">
+                <label></label>
+				<input type="submit" name="change_password" value="<?=Lang::get('save')?>" class="btn_office" />
+			</div>
+			
+		</div>
+    </form>
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+    $(function(){
+        $("#confirm-profile-dialog-form").dialog({
+            autoOpen:false,
+            modal:true,
+            width:350,
+            buttons:{
+                "<?=Lang::get('delete')?>":function () {
+                    var profile_id = $(this).find('input[name=profile_id]').val();
+                    $.ajax({
+                        url: "//"+window.location.hostname,
+                        data: {p: 'delete_delivery_profile', id: profile_id}
+                    })
+                    .success(function(data){
+                        data = JSON.parse(data);
+                        if(data.success) {
+                            window.location.href = '/?p=profile'
+                        } else {
+                            $('#confirm-profile-dialog-form #error').show();
+                            $('#confirm-profile-dialog-form #error').html(data.message);
+                        }
+                    })
+                    .error(function(jqXHR, textStatus, errorThrown){
+                        $('#confirm-profile-dialog-form #error').show();
+                        $('#confirm-profile-dialog-form #error').html(textStatus + ' ' + errorThrown);
+                    });
+                },
+                "<?=Lang::get('cancel')?>":function () {
+                        $(this).dialog("close");
+                }
+            }
+        });
+
+        $('.js-phone-field, .js-phone-code').on('submit', function (e) {
+            e.preventDefault();
+
+            var $form = $(e.currentTarget);
+            var action = $form.attr('action');
+            var data = $form.serializeArray();
+            var $error = $form.find('.js-phone-error');
+
+            $.post(
+                    action,
+                    data,
+                    function (response) {
+                        $error.hide();
+
+                        if (response.error) {
+                            $error.show().html(response.error);
+                        }  else if (response.isPhoneVerificationUsed) {
+                            $('.js-phone-field').hide();
+                            $('.js-phone-code').show();
+                        } else if (response.redirectUrl) {
+                            window.location.href = response.redirectUrl;
+                        }
+                    }
+            );
+        });
+    });
+</script>
+<!--/noindex-->
+
+<?=Plugins::invokeEvent('onRenderProfile')?>

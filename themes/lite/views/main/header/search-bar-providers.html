@@ -1,0 +1,25 @@
+<? if (count($providers) > 1) { ?>
+    <ul class="nav nav-tabs box-search-form_providers" id="box-search-form_providers">
+        <?
+        /**
+         * @var OtapiProviderInfo $provider
+         */
+        ?>
+        <? foreach ($providers as $key => $provider) { ?>
+            <? $availableImageSearch = ($provider->GetImageSearch()->IsEnabled()) ? true : false; ?>
+            <li class="<?=$provider->GetAlias()?> <?= ($provider->GetAlias() == $this->getUser()->getProvider()) ? 'active' : ''?>">
+                <a href="javascript:void(0)" data-toggle="tab" data-alias="<?=$provider->GetAlias()?>" data-image-search="<?=(int)$availableImageSearch?>">
+                    <img src="<?=$provider->GetIconImageUrl()?>" class="provider-icon <?=$provider->GetAlias()?>" />
+                    <?=$provider->GetDisplayName()?>
+                </a>
+            </li>
+        <? } ?>
+    </ul>
+<? } ?>
+<select name="Provider" style="display: none;">
+    <? foreach ($providers as $key => $provider) { ?>
+        <option value="<?=$provider->GetAlias()?>" <?= ($provider->GetAlias() == $this->getUser()->getProvider()) ? 'selected' : ''?>>
+            <?=$provider->GetDisplayName()?>
+        </option>
+    <? } ?>
+</select>

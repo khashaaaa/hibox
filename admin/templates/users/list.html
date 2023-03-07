@@ -1,0 +1,318 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('customers')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="users-wrapper">
+
+<div class="row-fluid">
+
+    <h1 class="pull-left"><?=LangAdmin::get('customers')?></h1>
+
+    <? if (RightsManager::hasRight(RightsManager::RIGHT_EDITUSERS)) { ?>
+    <a href="<?=$PageUrl->AssignDo('addUser')?>" data-loading-text="<?=LangAdmin::get('Add_user')?>" class="btn btn-tiny btn_preloader pull-right offset-top2" title="<?=LangAdmin::get('Add_user')?>"><i class="icon-plus"></i> <?=LangAdmin::get('Add_user')?></a>
+    <? } ?>
+
+</div>
+
+    <div class="row-fluid">
+        <h3 class="offset-top01 muted"><?=LangAdmin::get('Filter_by_parameters')?></h3>
+    </div>
+
+    <div class="well well-small offset-bottom2" id="users-filter">
+
+        <form id="filters" class="offset-vertical-none" action="" method="get">
+            <input type="hidden" name="cmd" value="users"/>
+            <input type="hidden" name="perpage" value="<?=$paginator->limit();?>"/>
+
+            <div class="row-fluid offset-bottom05">
+
+                <div class="span2">
+                    <label for="ot_user_id_filter"><?=LangAdmin::get('Account_number')?></label>
+                    <input data-provide="typeahead" data-param="user_id" type="text" class="input-block-level numeric" id="ot_user_id_filter" name="filter[user_id]" value="<?=isset($filter['user_id']) ? $filter['user_id'] : ''?>">
+                </div>
+                <div class="span2">
+                    <label for="ot_user_login_filter"><?=LangAdmin::get('Login')?></label>
+                    <input data-provide="typeahead" title="<?=LangAdmin::get('Enter_first_symbols')?>" data-param="login" type="text" class="input-block-level" id="ot_user_login_filter" name="login" value="<?=isset($login) ? $login : ''?>">
+                </div>
+                <div class="span2">
+                    <label for="ot_user_second_name_filter"><?=LangAdmin::get('Last_name')?></label>
+                    <input data-provide="typeahead" title="<?=LangAdmin::get('Enter_first_symbols')?>" data-param="lastname" type="text" class="input-block-level" id="ot_user_second_name_filter" name="lastname" value="<?=isset($lastname) ? $lastname : ''?>">
+                </div>
+                <div class="span2">
+                    <label for="ot_user_email_filter"><?=LangAdmin::get('Email')?></label>
+                    <input data-provide="typeahead" title="<?=LangAdmin::get('Enter_first_symbols')?>" data-param="email" type="text" class="input-block-level email" id="ot_user_email_filter" name="email" value="<?=isset($email) ? $email : ''?>">
+                </div>
+                <div class="span2">
+                    <label for="ot_user_phone_filter"><?=LangAdmin::get('Phone')?></label>
+                    <input data-provide="typeahead" title="<?=LangAdmin::get('Enter_first_symbols')?>" data-param="phone" type="text" class="input-block-level" id="ot_user_phone_filter" name="phone" value="<?=isset($phone) ? $phone : ''?>">
+                </div>
+                <div class="span2">
+                    <label for="ot_user_city_filter"><?=LangAdmin::get('City')?></label>
+                    <input data-provide="typeahead" title="<?=LangAdmin::get('Enter_first_symbols')?>" data-param="city" type="text" class="input-block-level" id="ot_user_city_filter" name="city" value="<?=isset($city) ? $city : ''?>">
+                </div>
+                <div class="span6" style="margin-left: 0">
+                    <label for="ot_user_city_filter"><?=LangAdmin::get('registration_date')?></label>
+                    <?=LangAdmin::get('from')?>
+                    <div class="input-append">
+                        <input name="registrationDateFrom" id="date-start-display" class="input-small date" data-param="registrationDateFrom" type="text" value="<?=isset($registrationDateFrom) ? $registrationDateFrom: '';?>">
+                        <span class="btn add-on" id="date-start"><i class="icon-calendar"></i></span>
+                    </div>
+
+                    <?=LangAdmin::get('to')?>
+                    <div class="input-append">
+                        <input name="registrationDateTo" id="date-end-display" class="input-small date"  data-param="registrationDateTo" type="text" value="<?=isset($registrationDateTo) ? $registrationDateTo : '';?>">
+                        <span class="btn add-on" id="date-end" ><i class="icon-calendar"></i></span>
+                    </div>
+                </div>
+
+                <!--<div class="span2">
+                    <input type="text" class="input-medium" id="ot_user_country_filter">
+                </div>-->
+
+            </div>
+
+            <div class="row-fluid"><button id="apply_filters_button" type="submit" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Applying_filters')?>" autocomplete="off"><?=LangAdmin::get('Apply')?></button></div>
+
+        </form>
+
+    </div>
+
+    <div class="row-fluid">
+
+        <div class="span2">
+            <? if (RightsManager::hasRight(RightsManager::RIGHT_EDITUSERS)) { ?>
+            <!-- group actions -->
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-tiny dropdown-toggle"><i class="icon-cog"></i> <?=LangAdmin::get('With_chosen')?> <span class="caret"></span></button>
+                <ul class="dropdown-menu top-user-actions">
+                    <li class="ot-bulkVerifyUserData">
+                        <a data-action="<?=$PageUrl->assignDo('bulkVerifyUserEmail')?>"
+                           href="javascript:void(0)"
+                           title="<?=LangAdmin::get('Verify_user_email')?>"
+                        >
+                            <i class="icon-play-circle"></i> <?=LangAdmin::get('Verify_user_email')?>
+                        </a>
+                    </li>
+                    <li class="ot-bulkVerifyUserData">
+                        <a data-action="<?=$PageUrl->assignDo('bulkVerifyUserPhone')?>"
+                           href="javascript:void(0)"
+                           title="<?=LangAdmin::get('Verify_user_phone')?>"
+                        >
+                            <i class="icon-play-circle"></i> <?=LangAdmin::get('Verify_user_phone')?>
+                        </a>
+                    </li>
+                    <li class="ot-bulkBanUser"><a data-action="<?=$PageUrl->assignDo('bulkBanUser')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Ban_user')?>"><i class="icon-ban-circle"></i> <?=LangAdmin::get('Ban')?></a></li>
+                    <li class="ot-bulkRemoveUser"><a data-action="<?=$PageUrl->assignDo('bulkRemoveUser')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Remove_user')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i> <?=LangAdmin::get('Remove')?></a></li>
+                    <li class="divider"></li>
+                    <li class="ot-bulkUnbanUser"><a data-action="<?=$PageUrl->assignDo('bulkUnbanUser')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Unban_user')?>"><i class="icon-ok"></i> <?=LangAdmin::get('Unban')?></a></li>
+                </ul>
+            </div><!-- group actions -->
+            <?php } ?>
+        </div>
+
+        <div class="span4 text-center">
+            <strong><?=LangAdmin::get('Found')?></strong>: <?=$count?>;
+            <?php if (! empty($count)) { ?>
+                <strong><?=LangAdmin::get('Shown')?>:</strong> <?=LangAdmin::get('from')?> <?=$startPos?> <?=LangAdmin::get('to')?> <?=$endPos?>
+            <?php } ?>
+        </div>
+
+        <div class="span6 text-right">
+
+            <!-- export users -->
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-tiny dropdown-toggle ladda-button ladda-progress-button export-users" title="<?=LangAdmin::get('Export_all_users')?>"><i class="icon-share"></i> <?=LangAdmin::get('Export')?> <span class="caret"></span></button>
+                <ul class="dropdown-menu export-actions">
+                    <li class="ot-exportUsers" data-type="xml" data-count="<?=$count?>"><a href="javascript:void(0)" title="<?=LangAdmin::get('In_format')?> .xml">.xml</a></li>
+                    <li class="ot-exportUsers" data-type="xls" data-count="<?=$count?>"><a href="javascript:void(0)" title="<?=LangAdmin::get('In_format')?> .xls">.xls</a></li>
+                    <li class="ot-exportUsers" data-type="txt" data-count="<?=$count?>"><a href="javascript:void(0)" title="<?=LangAdmin::get('In_format')?> .txt">.txt</a></li>
+                </ul>
+            </div>
+
+
+            <select class="input-mini offset-left1 offset-bottom0" id="perpage">
+                    <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                    <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+                    <? } ?>
+            </select>
+
+        </div>
+
+    </div>
+
+    <form action="/" target="_blank" id="site_form"></form>
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="data_table_sorting">
+            <thead>
+            <tr>
+                <th>
+                    <label class="checkbox inline" id="checkAll" >
+                        <input type="checkbox" />
+                    </label>
+                    <!--
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a data-action="<?=$PageUrl->assignDo('bulkActivateUser')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Activate_user')?>"><i class="icon-play-circle"></i> <?=LangAdmin::get('Activate')?></a></li>
+                                                <li><a data-action="<?=$PageUrl->assignDo('bulkBanUser')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Ban_user')?>"><i class="icon-ban-circle"></i> <?=LangAdmin::get('Ban')?></a></li>
+                                                <li><a data-action="<?=$PageUrl->assignDo('bulkRemoveUser')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Remove_user')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i> <?=LangAdmin::get('Remove')?></a></li>
+                                                <li class="divider"></li>
+                                                <li><a data-action="<?=$PageUrl->assignDo('bulkUnbanUser')?>" href="javascript:void(0)" title="<?=LangAdmin::get('Unban_user')?>"><i class="icon-ok"></i> <?=LangAdmin::get('Unban')?></a></li>
+                                            </ul>
+                                    </div>
+                    -->
+                </th>
+                <th><?=LangAdmin::get('Login')?></th>
+                <th><?=LangAdmin::get('Account_number')?></th>
+                <th><?=LangAdmin::get('Full_name')?></th>
+                <th><?=LangAdmin::get('Email')?></th>
+                <th><?=LangAdmin::get('Phone')?></th>
+                <th><?=LangAdmin::get('Status')?></th>
+                <th class="td-2btn-width"><?=LangAdmin::get('Actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <? foreach ($users as $user) { ?>
+            <tr id="<?=$user['id']?>">
+                <td>
+                    <input type="checkbox" name="ids" value="<?=$user['id']?>"/>
+                </td>
+                <td>
+                    <a href="<?=$PageUrl->generate(array('do'=>'profile', 'id'=>$user['id']))?>">
+                        <?=$this->escape($user['Login']);?>
+                    </a>
+                </td>
+                <td>
+                    <?=$user['Id']?>
+                </td>
+                <td>
+                    <?=$this->escape($user['LastName']) . ' ' . $this->escape($user['FirstName']) . ' ' . $this->escape($user['MiddleName']);?>
+                </td>
+                <td>
+                    <?=$this->escape($user['email']);?>
+                </td>
+                <td>
+                    <?=$this->escape($user['Phone']);?>
+                </td>
+                <td class="userStatus">
+                    <? $isBanned = ((string) $user['IsActive'] === 'false'); ?>
+                    <? $isPhoneOrEmailActive = (string) $user['IsEmailVerified'] === 'true' || (string) $user['IsPhoneVerified'] === 'true'; ?>
+                    <? if (! $isPhoneOrEmailActive) { ?>
+                        <span class="text-warning"><?=LangAdmin::get('Is_not_active')?></span>
+                    <? } elseif (! $isBanned) { ?>
+                        <span class="text-success"><?=LangAdmin::get('Is_active')?></span>
+                    <? } else { ?>
+                        <span class="text-error"><?=LangAdmin::get('Is_banned')?></span>
+                    <? } ?>
+                </td>
+                <td class="userActions">
+                    <div class="btn-group pull-right">
+                        <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <? if (RightsManager::hasRight(RightsManager::RIGHT_EDITUSERS)) { ?>
+                                <li>
+                                    <a href="<?=$PageUrl->generate(array('do'=>'editUser', 'id'=>$user['id']))?>"
+                                       title="<?=LangAdmin::get('Edit_user')?>"
+                                    >
+                                        <i class="icon-edit"></i> <?=LangAdmin::get('Edit')?>
+                                    </a>
+                                </li>
+
+                                <? if ((string)$user['IsEmailVerified'] === 'false') { ?>
+                                    <li class="verifyUserData">
+                                        <a data-action="<?=$PageUrl->assignDo('VerifyUserEmail', false)?>"
+                                           href="javascript:void(0)"
+                                           title="<?=LangAdmin::get('Verify_user_email')?>"
+                                        >
+                                            <i class="icon-play-circle"></i> <?=LangAdmin::get('Verify_user_email')?>
+                                        </a>
+                                    </li>
+                                <? } ?>
+
+                                <? if ((string)$user['IsPhoneVerified'] === 'false') { ?>
+                                    <li class="verifyUserData">
+                                        <a data-action="<?=$PageUrl->assignDo('VerifyUserPhone', false)?>"
+                                           href="javascript:void(0)"
+                                           title="<?=LangAdmin::get('Verify_user_phone')?>"
+                                        >
+                                            <i class="icon-play-circle"></i> <?=LangAdmin::get('Verify_user_phone')?>
+                                        </a>
+                                    </li>
+                                <? } ?>
+
+                                <? if ($isBanned) { ?>
+                                    <li class="unbanUser">
+                                        <a data-action="<?=$PageUrl->assignDo('unbanUser', false)?>"
+                                           href="javascript:void(0)"
+                                           title="<?=LangAdmin::get('Unban_user')?>"
+                                        >
+                                            <i class="icon-ok"></i> <?=LangAdmin::get('Unban')?>
+                                        </a>
+                                    </li>
+                                <? } else { ?>
+                                    <li class="banUser">
+                                        <a data-action="<?=$PageUrl->assignDo('banUser', false)?>"
+                                           href="javascript:void(0)"
+                                           title="<?=LangAdmin::get('Ban_user')?>"
+                                        >
+                                            <i class="icon-ban-circle"></i> <?=LangAdmin::get('Ban')?>
+                                        </a>
+                                    </li>
+                                <? } ?>
+
+                                <li class="removeUser">
+                                    <a data-action="<?=$PageUrl->assignDo('removeUser', false)?>"
+                                       href="javascript:void(0)"
+                                       title="<?=LangAdmin::get('Remove_user')?>"
+                                       class="ot_show_deletion_dialog_modal"
+                                    >
+                                        <i class="icon-remove"></i> <?=LangAdmin::get('Remove_user')?>
+                                    </a>
+                                </li>
+
+                                <li class="divider"></li>
+                            <? } ?>
+                            <li class="loginAsUser">
+                                <a target="_blank"
+                                   href="<?=$PageUrl->Add('login', $user['Login'])->Add('do', 'loginAsUser')->Get()?>"
+                                   title="<?=LangAdmin::get('Authorize_as_user')?> (<?=LangAdmin::get('will_be_opened_in_new_window')?>)">
+                                    <i class="icon-user"></i> <?=LangAdmin::get('Login_as_user')?>
+                                    <i class="icon-external-link"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <? } ?>
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /.users-wrapper -->
+
+    <?php $paginator->display(); ?>
+
+<br><br>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-users.js'); ?>

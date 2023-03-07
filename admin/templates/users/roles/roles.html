@@ -1,0 +1,51 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Roles')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+
+<div class="roles-wrapper">
+    <div class="row-fluid">
+        <h1 class="pull-left">
+        <?=LangAdmin::get('roles')?>
+        <a href="<?=$PageUrl->AssignDo('edit')?>" class="btn btn-primary btn_preloader" title="<?=LangAdmin::get('add')?>" data-loading-text="<?=LangAdmin::get('adding')?>"><?=LangAdmin::get('add')?></a>
+
+        </h1>
+
+    </div>
+    <div class="row-fluid offset-bottom1">
+        <div class="span5">
+            <table class="table table-bordered data_table_sorting">
+                <thead>
+                <tr>
+                    <th><?=LangAdmin::get('Role')?></th>
+                    <th class="td-3btn-width"><?=LangAdmin::get('Actions')?></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <? foreach ($roles as $role) { ?>
+                    <tr>
+                        <td class="bold"><?=$this->escape(LangAdmin::get($role['name']))?></td>
+                        <td class="rolesActions">
+                        <a class="btn btn-mini" href="<?=$PageUrl->generate(array('cmd' => 'roles', 'do' => 'show', 'name' => $role['name']))?>" title="<?=LangAdmin::get('View_role_rights')?>"><i class="icon-eye-open"></i></a>
+                        <? if ($role['canbeedited'] == 'true') { ?>
+                            <a class="btn btn-mini" href="<?=$PageUrl->AssignCmdAndDo('roles', 'edit').'&name='.$role['name']?>" title="<?=LangAdmin::get('View_role_rights')?>"><i class="icon-pencil"></i></a>
+                        <? } ?>
+                        <? if ($role['canbedeleted'] == 'true') { ?>
+                            <a data-action="<?=$PageUrl->assignDo('remove', false)?>" data-name="<?=$this->escape($role['name'])?>" class="btn btn-mini ot_show_deletion_dialog_modal remove_role"  href="javascript:void(0)" title="<?=LangAdmin::get('Remove')?>"><i class="icon-remove"></i></a>
+                        <? } ?>
+                        </td>
+                    </tr>
+                <? } ?>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div> <!-- /.roles-wrapper -->
+
+<? AssetsMin::registerJsFile('/admin/js/ot-roles.js'); ?>

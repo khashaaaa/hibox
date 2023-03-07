@@ -1,0 +1,14 @@
+<?=$HeaderNew?>
+<?=$CrumbsNew?>
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+<div class="btabs mt15"><div class="wrap">
+	<div class="bgr clrfix">
+		<ul class="tabs tabs1 clrfix">
+			<li><a href="<?=@UrlGenerator::generateContentUrl('login')?>"><span><?=Lang::get('private_office_login')?></span><i></i></a></li>
+			<li class="active"><a href="<?=@UrlGenerator::generateContentUrl('register')?>"><span><?=Lang::get('registration_tab')?></span><i></i></a></li>
+			<li><a href="<?=@UrlGenerator::generateContentUrl('recovery')?>"><span><?=Lang::get('pass_recovery')?></span><i></i></a></li>
+		</ul>
+	</div>
+	<?=$Register?>
+</div></div>
+<?=$FooterNew?>

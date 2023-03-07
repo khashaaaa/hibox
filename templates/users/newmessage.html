@@ -1,0 +1,56 @@
+<div class="userform newmessage">
+    <form action="/?p=support&mode=new" method="post" id="postform" onsubmit="return ChechSupportForm()">
+        <? if($success){ ?>
+        <div class="success">
+            <?=$success?>
+        </div>
+        <? } ?>
+        <? if($error){ ?>
+        <div class="error">
+            <?=$error?>
+        </div>
+        <? } ?>
+
+        <div class="form-row">
+            <label for="Subject"><?=Lang::get('subject')?><i class="glyphicon glyphicon-asterisk"></i></label>
+            <span class="input">
+                <input id="Subject" class="form-field" type="text" name="Subject" value="<?=$this->escape($subject)?>" onkeypress="EnableSubmit('new_ticket_button','postform')"/>
+            </span>
+        </div>
+
+        <div class="form-row">
+            <label for="SalesId"><?=Lang::get('order_number')?></label>
+            <span class="input">
+                <select id="SalesId" name="SalesId" class="form-field form-field__select">
+                    <option value=""><?=Lang::get('click_order')?></option>
+                    <? foreach($orders as $c){ ?>
+                        <option value="<?=$c['Id']?>" <? if ($orderId==$c['Id']) {?> selected <?} ?>><?=(defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, $c['Id']):(string)$c['Id'])?></option>
+                    <? } ?>
+                </select>
+            </span>
+        </div>
+
+        <div class="form-row">
+            <label for="CategoryId"><?=Lang::get('category')?><i class="glyphicon glyphicon-asterisk"></i></label>
+            <span class="input">
+                <select id="CategoryId" name="CategoryId" onchange="EnableSubmit('new_ticket_button','postform')" class="form-field form-field__select">
+                    <option value=""><?=Lang::get('select_category')?></option>
+                    <? foreach($cats as $c){ ?>
+                        <option value="<?=$c['CategoryId']?>" <? if ($categoryId==$c['CategoryId']) {?> selected <?} ?>><?=$c['Name']?></option>
+                    <? } ?>
+                </select>
+            </span>
+        </div>
+
+        <div class="form-row">
+            <label for="Text"><?=Lang::get('message_text')?>:<i class="glyphicon glyphicon-asterisk"></i></label>
+            <span class="input">
+                <textarea id="Text" name="Text" class="form-field form-field__textarea" onkeypress="EnableSubmit('new_ticket_button','postform');"><?=$this->escape($_POST['Text'])?></textarea>
+            </span>
+        </div>
+
+        <div class="form-row send">
+            <input type="button" name="send" value="<?=Lang::get('send_message')?>" class="btn_office"  id="new_ticket_button" onclick="DisableSubmit('new_ticket_button','postform');"/>
+        </div>
+    </form>
+</div>

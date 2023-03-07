@@ -1,0 +1,126 @@
+<div class="calc-form">
+	<div class="line-form">
+		<label><?=Lang::get('ProductPrice')?>:<sup>*</sup></label>
+		<div class="for-input">
+			<input type="number" step="0.01" name="price" id="price" value="">
+                        <select style="width:80px;" id="currency" name="currency">
+                            <? foreach ($currency_list['displayedmoneys'] as $currency) { ?>
+                                <option value="<?=$currency['code']?>"><?=$currency['sign']?></option>
+                            <? } ?>
+                        </select>
+		</div>
+	</div>
+	<div class="line-form">
+		<label><?=Lang::get('country')?>:<sup>*</sup></label>
+		<div class="for-input">
+			<select name="country" id="country" class="custom-select">
+                            <? foreach ($country_list as $country) { ?>
+                                <option value="<?=$country['id']?>"><?=$country['name']?></option>
+                            <? } ?>
+			</select>
+		</div>
+	</div>
+	<div class="line-form">
+		<label><?=Lang::get('weightgrams')?>:<sup>*</sup></label>
+		<div class="for-input">
+			<input type="text" name="mass" id="mass" class="weight" value="" />
+		</div>
+	</div>
+    
+        <div class="line-form calculator-line-from">
+		<button class="calculate"><?=Lang::get('calculate')?></button>
+	</div>
+    
+	<div class="line-form"  style="padding-left: 30px;">
+            <table id="delivery_result" style="padding-left: 10px;">
+                <thead style="display: none;">
+                    <tr>
+                        <th><?=Lang::get('delivery')?><br/></th>
+                        <th><?=Lang::get('delivery_cost')?><br/></th>
+                        <th><?=Lang::get('total_cost')?><br/></th>
+                    </tr>
+                </thead>
+                <tbody style="display: none;">
+                </tbody>
+            </table>
+	</div>
+
+    <?=Plugins::invokeEvent('onCalculatorPageRender')?>
+</div>
+<!--noindex-->
+<script type="text/javascript">
+$(function(){
+    $('.calculate').button().click(function() {
+        var weight = setVal($('input[name=mass]').val());
+        var price_good  = $('input[name=price]').val();
+        var country  = $('#country option:selected').val();
+        var currency = $('#currency option:selected').val();
+
+        price_good = setVal(price_good.replace(/\s+/g, '')); 
+    
+        if(!price || !weight || !country) {
+            deliveryCost = 0;
+        };
+        
+        $.ajax({
+            url:'/?p=get_delivery&code=' + country + '&weight=' + weight/1000,
+            success:function (data) {
+                data = $.parseJSON(data);
+                
+                var html = '';
+                
+                if (data.success) {
+                    var flag = 0;
+                    
+                    $.each(data.data, function(i, delivery) {
+                        html += '<tr>';
+                        html += '<td><strong>' + delivery['name'] + '</strong></td>';
+
+                        var prices = delivery['FullPrice']['ConvertedPriceList']['DisplayedMoneys'];
+                        $.each(prices, function(i, price) {
+                            $.each(price, function(j, elem) {
+                                if (elem['Code']) {
+                                    if (elem['Code'] == currency) {
+                                        flag = 1;
+                                        var all_price = parseFloat(price_good) + parseFloat(price['price']);
+                                        html += '<td align="center">' + price['price'] + ' ' + elem['Sign'] + '</td>';
+                                        html += '<td align="center">' + all_price.toFixed(2) + ' ' + elem['Sign'] + '</td>';
+                                    }
+                                }
+                            });
+                        });
+                        
+                        html += '</tr>';
+                    });
+                    
+                    $('#delivery_result thead').show();
+                    if (flag == 0) {
+                        $('#delivery_result thead').hide();
+                        html = '<tr><td colspan="3" style="padding-left:100px;"><?=Lang::get("delivery_not_found_in_this_currency")?></td></tr>';
+                    }
+                    
+                    $('#delivery_result tbody').html(html);
+                    $('#delivery_result tbody').show();
+                } else {
+                    html += '<tr><td colspan="3" style="padding-left:100px;"><?=Lang::get("delivery_not_found")?></td></tr>';
+                    $('#delivery_result tbody').html(html);
+                    
+                    $('#delivery_result thead').hide();
+                    $('#delivery_result tbody').show();
+                }
+            },
+            error:function () {
+            }
+        });
+        
+    });
+    
+    
+    var setVal = function(val) {
+        var tmp = (!val) ? '' : val;
+        tmp = parseFloat(tmp.replace(',', '.'), 10);
+        return isNaN(tmp) ? 0 : tmp;
+    }
+});
+</script>
+<!--/noindex-->

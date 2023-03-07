@@ -1,0 +1,12 @@
+
+<!-- old css -->
+
+<? if (file_exists(CFG_APP_ROOT.'/css/custom.css')) { ?>
+    <? AssetsMin::registerCssFile('css/style/paginator.css')?>
+<? } else { ?>
+    <?=AssetsMin::printCssFilesGroup('custom.new.css', General::getThemeWebDir() . '/config')?>
+<? } ?>
+
+<? if (in_array($controller, array('shopreviews', 'startpage'))) { ?>
+    <? AssetsMin::registerCssFile('css/style/shopreviews.css')?>
+<? } ?>

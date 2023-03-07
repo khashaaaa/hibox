@@ -1,0 +1,146 @@
+<table width="400px" border="1" cellpadding="5" cellspacing="0" style="font-family:'Arial'; font-size:10pt;">
+    <% if (escapeData(package.get("creationdate"))) { %>
+        <tr>
+            <td><%= trans.get("Date") %></td>
+            <td><%= package.get("creationdate") %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverycountry"))) { %>
+        <tr>
+            <td><%= trans.get("Country") %></td>
+            <td><%= escapeData(package.get("deliverycountry")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliveryregionname"))) { %>
+        <tr>
+            <td><%= trans.get("Region") %></td>
+            <td><%= escapeData(package.get("deliveryregionname")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverycity"))) { %>
+        <tr>
+            <td><%= trans.get("City") %></td>
+            <td><%= escapeData(package.get("deliverycity")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliveryaddress"))) { %>
+        <tr>
+            <td><%= trans.get("Address") %></td>
+            <td style="font-size:9pt;"><%= escapeData(package.get("deliveryaddress")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverypostalcode"))) { %>
+        <tr>
+            <td><%= trans.get("Postal_code") %></td>
+            <td><%= escapeData(package.get("deliverypostalcode")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("recipientName"))) { %>
+        <tr>
+            <td><%= trans.get("Customer_display_name") %></td>
+            <td><%= escapeData(package.get("recipientName")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverycontactphone"))) { %>
+        <tr>
+            <td><%= trans.get("Phone") %></td>
+            <td><%= escapeData(package.get("deliverycontactphone")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverycontactinn"))) { %>
+        <tr>
+            <td><%= trans.get("inn") %></td>
+            <td><%= escapeData(package.get("deliverycontactinn")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverycontactpassportnumber"))) { %>
+        <tr>
+            <td><%= trans.get("PassportNumber") %></td>
+            <td><%= escapeData(package.get("deliverycontactpassportnumber")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverycontactregistrationaddress"))) { %>
+        <tr>
+            <td><%= trans.get("RegistrationAddress") %></td>
+            <td><%= escapeData(package.get("deliverycontactregistrationaddress")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverytrackingnum"))) { %>
+        <tr>
+            <td><%= trans.get("Tracking_number") %></td>
+            <td><%= package.get("deliverytrackingnum") %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("deliverymodename"))) { %>
+        <tr>
+            <td><%= trans.get("Delivery_mode") %></td>
+            <td><%= escapeData(package.get("deliverymodename")) %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("weight"))) { %>
+        <tr>
+            <td><%= trans.get("Weight") %></td>
+            <td><%= escapeData(package.get("weight")) %> <%= trans.get("kg") %></td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("pricecust"))) { %>
+        <tr>
+            <td><%= trans.get("Costs") %></td>
+            <td>
+                <%= escapeData(package.get("pricecust")) %>
+                <%= escapeData(package.get("currencysigncust")) %>
+            </td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("size").length) && escapeData(package.get("size").length) > 0) { %>
+        <tr>
+            <td><%= trans.get("package_size_label") %> (<%= trans.get("Length") %>)</td>
+            <td>
+                <%= escapeData(package.get("size").length) %>
+                <%= trans.get("cm") %>
+            </td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("size").height) && escapeData(package.get("size").height) > 0) { %>
+        <tr>
+            <td><%= trans.get("package_size_label") %> (<%= trans.get("Height") %>)</td>
+            <td>
+                <%= escapeData(package.get("size").height) %>
+                <%= trans.get("cm") %>
+            </td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("size").width) && escapeData(package.get("size").width) > 0) { %>
+        <tr>
+            <td><%= trans.get("package_size_label") %> (<%= trans.get("Width") %>)</td>
+            <td>
+                <%= escapeData(package.get("size").width) %>
+                <%= trans.get("cm") %>
+            </td>
+        </tr>
+    <% } %>
+
+    <% if (escapeData(package.get("additionalinfo"))) { %>
+        <tr>
+            <td><%= trans.get("package_additional_info_label") %></td>
+            <td><%= escapeData(package.get("additionalinfo")) %></td>
+        </tr>
+    <% } %>
+</table>

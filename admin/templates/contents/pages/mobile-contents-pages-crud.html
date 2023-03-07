@@ -1,0 +1,20 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>"><?=LangAdmin::get('contents::Content')?></a> <span class="divider">›</span></li>
+    <li> <a href="<?=$PageUrl->AssignCmdAndDo('contents', 'contentPages')?>"><?=LangAdmin::get('contents::Content_pages')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('contents::Edit')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/contents/navigation/tabs.xml', $PageUrl)?>
+<div class="row-fluid">
+    <div class="span10">
+        <h1><?=LangAdmin::get('contents::Edit_page')?></h1>
+    </div>
+    <div class="span2">
+        <?=AdminLanguage::getLanguageSelector(false)?>
+    </div>
+</div>
+<div class="well">
+    <?=$settings?>
+</div>

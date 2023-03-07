@@ -1,0 +1,48 @@
+<?
+/**
+ * @var AdminUrlWrapper $PageUrl
+ */
+?>
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Promo', 'default')?>"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('config')?></li>
+</ul>
+<!--/.breadcrumb-->
+<? XEditableFields::Init('promo', $PageUrl); ?>
+<?=TabsGenerator::GetTabs('templates/promo/navigation/tabs.xml', $PageUrl)?>
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'default' && $PageUrl->GetCmd() == 'Newsletters'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing_list')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'default' && $PageUrl->GetCmd() == 'Subscribers'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Subscribers', 'default')?>"><?=LangAdmin::get('subscribers')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'config' && $PageUrl->GetCmd() == 'Newsletters'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1><?=LangAdmin::get('config')?></h1>
+
+<div class="well">
+
+    <form class="form-horizontal ot_form" method="post">
+        
+        <div data-field="newsletter_per_send_limit"></div>
+        <? XEditableFields::Register('newsletter_per_send_limit', General::getConfigValue('newsletter_per_send_limit'), array('inputClass' => 'numeric')); ?>
+        
+        <div data-field="newsletter_day_quota"></div>
+        <? XEditableFields::Register('newsletter_day_quota', General::getConfigValue('newsletter_day_quota'), array('inputClass' => 'numeric')); ?>        
+    </form>
+
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

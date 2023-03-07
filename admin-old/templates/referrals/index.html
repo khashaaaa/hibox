@@ -1,0 +1,68 @@
+<?=$Header?>
+<script type="text/javascript" src="/admin/js/referral.js"></script>
+<?
+function showReferralsList($referrals, $level, $status){
+    $request = new RequestWrapper();
+    $statuses = array(
+        '-'
+    , 'Участник'
+    , 'Лидер'
+    , 'Босс'
+    , 'Президент'
+    );
+    if(isset($referrals)){
+        foreach($referrals as $referral){?>
+        <tr <?if($status == 1 && $level > 2){?>style="color: gray"<?}?>>
+            <td><?=$referral['id']?></td>
+            <td><?=$level?></td>
+            <td>
+                <?=str_pad('', 4*6*($level-2), '&nbsp;')?>
+                <a href="index.php?cmd=referrals&parent=<?=$referral['id']?>"><?=$this->escape($referral['login'])?></a>
+            </td>
+            <td><?=$statuses[$referral['status']]?></td>
+            <td><?=$referral['balance']?></td>
+            <td><?=$referral['gifts_from_children']?></td>
+            <td>
+                <?if($referral['parent_id'] == $request->get('parent') && $referral['gift_exists_to_parent']){?>
+                <button class="send_present" item="<?=$referral['id']?>">
+                    <?=$referral['gift_exists_to_parent']?>
+                </button> (<?=$referral['sent_gift_exists_to_parent']?>)
+                <?}else{?>
+                <?=$referral['gift_exists_to_parent']?> (<?=$referral['sent_gift_exists_to_parent']?>)
+                <?}?>
+            </td>
+        </tr>
+        <?
+            if(isset($referral['children']))
+                showReferralsList($referral['children'], $level+1, $status);
+        }
+    }
+}
+?>
+
+<div class="main">
+    <div class="canvas clrfix">
+        <h1> Бонусная программа </h1>
+        <a href="<?php echo BASE_DIR; ?>index.php?cmd=referrals">Корень</a>
+        <?foreach($chain as $user){?>
+            > <a href="<?php echo BASE_DIR; ?>index.php?cmd=referrals&parent=<?=$user['id']?>"><?=$this->escape($user['login'])?></a>
+        <?}?>
+
+        <hr />
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Уровень</th>
+                <th>Логин</th>
+                <th>Статус</th>
+                <th>Баланс</th>
+                <th>Подарки для пользователя</th>
+                <th>Подарки от пользователя (отправлено)</th>
+            </tr>
+            <?=showReferralsList($referrals,  2, $currentUserStatus)?>
+        </table>
+
+    </div>
+</div>
+<?=$Footer?>

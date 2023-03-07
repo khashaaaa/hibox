@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="add_new">Создать</key>
+    <key name="save">Сохранить</key>
+    <key name="add_link">Добавить ссылку</key>
+    <key name="title">Название</key>
+    <key name="link">Ссылка</key>
+    <key name="caption">Название раздела</key>
+    <key name="language">Язык</key>
+    <key name="edit_link">Редактировать ссылку</key>
+</translations>

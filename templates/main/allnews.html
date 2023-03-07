@@ -1,0 +1,34 @@
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <h1><?=Lang::get('all_news')?></h1>
+    </div>
+</div>
+
+<div class="main main-content">
+    <div class="wrap">
+        <? if ($allNews != -1) { ?>
+        <ul class="blog l-inner-blog">
+            
+            <? foreach ($allNews as $news) { ?>
+            <li class="item">
+                <div class="post-info">
+                    <div class="post-date"><?=$news['created']?></div>
+                    <div class="post-content">
+                        <div class="title"><a href="?p=news&id=<?=$news['id']?>" class="i-link"><?=$this->escape($news['title'])?></a></div>
+                        <div class="content">
+                            <div class="post-image">
+                                <a href="?p=news&id=<?=$news['id']?>"><img class="image" src="<?=DigestRepository::getImage($news['image'], "thumb")?>"></a>
+                            </div>
+                            <?=$news['brief']?>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <? } ?>
+            
+        </ul>
+        <? } else { ?>
+        <p> <?=Lang::get('There_is_no_news')?></p>   
+        <? } ?>
+    </div>
+</div>

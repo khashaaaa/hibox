@@ -1,0 +1,69 @@
+<div class="row-fluid">
+        <table id="activitiesList" class="table table-striped display dataTable no-footer" cellspacing="0">
+            <thead>
+                <tr>
+                    <th><?=LangAdmin::get('Start_time')?></th>
+                    <th><?=LangAdmin::get('Description')?></th>
+                    <th><?=LangAdmin::get('Type')?></th>
+                    <!--th> IsAwaitingAction </th-->
+                    <th><?=LangAdmin::get('Progress')?></th>
+                    <th class="sorting_disabled"> <?=LangAdmin::get('Actions')?> </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th><?=LangAdmin::get('Start_time')?></th>
+                    <th><?=LangAdmin::get('Description')?></th>
+                    <th><?=LangAdmin::get('Type')?></th>
+                    <!--th> IsAwaitingAction </th-->
+                    <th><?=LangAdmin::get('Progress')?></th>
+                    <th class="sorting_disabled"><?=LangAdmin::get('Actions')?></th>
+                </tr>
+            </tfoot>
+            <tbody>
+            
+    <?php
+        foreach ($result as $key => $activity) { 
+            $class='';
+            if ($activity->IsCancelled() == 1) {
+                $class .= 'error';
+            } elseif ($activity->IsFinished() == 1) { 
+                $class .= 'success';
+            }
+            ?>
+            <tr class="<?=$class?>" activity-id="<?=$activity->GetId()->asString()?>" activity-type="<?=$activity->GetType()?>"
+                activity-finished="<?=$activity->IsFinished()?>">
+                <td>
+                    <?
+                    $date = new DateTime($activity->GetStartTime());
+                    print $date->format('d.m.Y H:i:s');
+                    ?>
+                </td>
+                <td>
+                    <a class="openActivityBtn" href="javascript:void(0)" title="<?=LangAdmin::get('Open')?>">
+                        <?=$activity->GetDescription()?>
+                    </a>
+                    <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('Id')?>: <?=$activity->GetId()->asString()?>" title="" data-original-title=""></i>
+                </td>
+                <td><?=$activity->GetType()?></td>
+                <td><progress value="<?=$activity->GetProgressPercent()?>" max="100" title="<?=$activity->GetProgressPercent()?>% <?=LangAdmin::get('done')?>"></progress></td>
+                <td>
+                    <div class="btn-group pull-right">
+                        <button data-toggle="dropdown" class="btn btn-tiny offset-top05 dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="openActivityBtn" href="javascript:void(0)" title="<?=LangAdmin::get('Open')?>">
+                                    <i class="icon-eye-open"></i> <?=LangAdmin::get('Open')?>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-activities.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-activity.js'); ?>

@@ -1,0 +1,23 @@
+<?=$HeaderNew?>
+<?=$CrumbsNew?>
+
+<? if((@$_GET['orderid'] && ($_GET['p']!='pay'))||(@$_GET['print']=='Y')){ ?>
+    <?=$PrivateOffice?>
+<? } else { ?>
+<div class="content">
+    <section class="content-block">
+        <div class="center">
+            <div class="menu_subscribe">
+                <?=$Menu?>
+                <div class="header_private_office">
+                <? if (!isset($_GET['orderstate'])) { ?>
+                    <?=$Subscribe?>
+                <? } ?>
+                </div>
+            </div>
+            <div class="flr col690"><?=$PrivateOffice?></div>
+        </div>
+    </section>
+</div>
+<? } ?>
+<?=$FooterNew?>

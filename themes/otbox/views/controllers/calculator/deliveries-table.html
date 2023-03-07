@@ -1,0 +1,19 @@
+
+<table class="table table-hover table-bordered box-main_calc_result">
+    <tr class="box-main_calc_result_label-tr">
+        <td><?=Lang::get('delivery')?>:</td>
+        <td><?=Lang::get('delivery_cost')?>:</td>
+    </tr>
+    <? if (empty($deliveries)) { ?>
+        <tr>
+            <td colspan="3"><?=Lang::get('Calculator_deliveries_list_empty')?></td>
+        </tr>
+    <? } else { ?>
+        <? foreach ($deliveries as $deliverie) { ?>
+            <tr>
+                <td class="box-main_calc_result_delivery-name"><?=$deliverie['name']?></td>
+                <td class="box-main_calc_result_delivery-cost"><?=$deliverie['deliveriePrice']?></td>
+            </tr>
+        <? } ?>
+    <? } ?>
+</table>

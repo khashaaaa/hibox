@@ -1,0 +1,62 @@
+<? // скрыть подборку от индексации ?>
+<?=(isset($noIndex) && $noIndex) ? '<!--noindex-->' : '' ?>
+<section class="<?=(General::getConfigValue('display_as_carousel')) ? 'block-slider' : 'block-list'?>">
+    <div class="center">
+        <div class="listing-wrap">
+            <div class="block-slider__title">
+                <span><?= (isset($title) && ! empty($title)) ? $title : Lang::get($type);?></span>
+                <? if (isset($seeAllLink) && $seeAllLink) { ?>
+                <a href="<?=$seeAllLink?>"><?=Lang::get('all_categories_goods')?></a>
+                <? } ?>
+            </div>
+
+            <? $params = array('items' => $list); ?>
+            <? if (isset($categoryId) && $categoryId) { ?>
+                <? $params['categoryId'] = $categoryId; ?>
+            <? } ?>
+            <?=General::viewFetch('other/item/list', array('vars' => $params))?>
+        </div>
+    </div>
+</section>
+
+<? // если необходимо вывести товары каруселькой ?>
+<? if (General::getConfigValue('display_as_carousel')) { ?>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        var sliderBlocks = $('.block-slider__wrap').not('.slick-initialized');
+        $.each(sliderBlocks, function (i, block) {
+            if ($(block).children('a.item-product').length >= 5) {
+                $(block).slick({
+                    dots: false,
+                    speed: 500,
+                    arrows: true,
+                    autoplay: true,
+                    fade: false,
+                    vertical: false,
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    rtl: <?=(General::getConfigValue('rtl')) ? 'true' : 'false'?>,
+                    // the magic
+                    responsive: [{
+                        breakpoint:1024,
+                        settings: {
+                            slidesToShow: 4,
+                        }
+                    },
+                    {
+                        breakpoint:480,
+                        settings: {
+                            slidesToShow: 3,
+                        }
+                    }]
+                })
+            }
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+<? } ?>
+
+<?=(isset($noIndex) && $noIndex) ? '<!--/noindex-->' : '' ?>

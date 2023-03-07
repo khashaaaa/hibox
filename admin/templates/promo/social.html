@@ -1,0 +1,40 @@
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('social')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+<? XEditableFields::Init('promo', $PageUrl); ?>
+<div class="row-fluid">
+    <div class="span10">
+        <h1><?=LangAdmin::get('social')?></h1>
+    </div>
+    <div class="span2">
+        <?=AdminLanguage::getLanguageSelector(false)?>
+    </div>
+</div>
+
+<div class="well">
+    <div class="row-fluid">
+        <div class="row-fluid">
+            <div class="control-group">
+                <?= $settings ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-site-config.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

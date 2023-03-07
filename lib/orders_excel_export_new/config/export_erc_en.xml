@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <header>
+        <column>Order number</column>
+        <column>Order price</column>
+        <column>Taobao price</column>
+        <column>Internal delivery</column>
+        <column>External delivery</column>
+        <column>Payment system comission (dengionline)</column>
+        <column>Comission for logistics services</column>
+        <column>Project service payment for the maintenance</column>
+        <column>LLSL profit</column>
+    </header>
+</config>

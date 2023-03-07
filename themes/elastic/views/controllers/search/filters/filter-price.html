@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="card-header nopadding panel-grey" id="heading03">
+        <h5 class="mb-0">
+            <button class="btn btn-link link pl-0 pr-0 collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#filter-price"
+                    aria-expanded="true"
+                    aria-controls="filter-price">
+                <?=Lang::get('price_simple')?><i></i>
+            </button>
+        </h5>
+    </div>
+    <div id="filter-price"
+         class="collapse <?=(isset($isActive) && $isActive) ? 'show' : ''?>"
+         aria-labelledby="heading03">
+        <div class="card-body search-filter">
+            <div class="slider-range">
+                <span class="form-group">
+                    <input type="text" name="cost[from]" data-type="price" class="form-control input-cost" placeholder="<?=Lang::get('from_price')?>"
+                           value="<?=! empty($searchParams['filter']['minPrice']) ? $searchParams['filter']['minPrice'] : ''?>"
+                           style="display: inline"/>
+                </span><span class="form-group">&ndash;</span>
+                <span class="form-group">
+                    <input type="text" name="cost[to]" data-type="price" class="form-control input-cost" placeholder="<?=Lang::get('to_price')?>"
+                           value="<?=! empty($searchParams['filter']['maxPrice']) ? $searchParams['filter']['maxPrice'] : ''?>"
+                           style="display: inline"/>
+                </span>
+            </div>
+            <div class="custom-control">
+                <ul class="ling-group">
+                    <li><a href="javascript:void(0)" class="filter-input-apply"><?=Lang::get('apply')?></a></li>
+                    <li><a href="javascript:void(0)" class="filter-input-reset"><?=Lang::get('reset')?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    filterPriceApply = function () {
+        $('#filterPriceApply').click();
+    }
+    $('.filter-input-reset').click(function (e) {
+        var filtersInputs = $(e.currentTarget).closest('.card').find('input');
+        for (var i = 0; i < filtersInputs.length; i++) {
+            $(filtersInputs[i]).val('');
+        }
+        filterPriceApply();
+    });
+</script>

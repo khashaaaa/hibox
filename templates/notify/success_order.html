@@ -1,0 +1,3 @@
+<?=Lang::get('hello')?><br />
+<?=Lang::get('new_order_entered')?>: <?=OrdersProxy::normalizeOrderId($orderId)?> <br />
+<?=Lang::get('enter_to_admin_panel')?> <a href="<?=UrlGenerator::getHomeUrl()?>/admin/index.php?cmd=orders&do=orderinfo&id=<?=$url?>"><?=UrlGenerator::getHomeUrl()?>/admin/index.php?cmd=orders&do=orderinfo&id=<?=$url?></a>

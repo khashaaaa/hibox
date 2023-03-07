@@ -1,0 +1,44 @@
+<h3><?=LangAdmin::get('Orders_changes_history')?></h3>
+
+<? if(RightsManager::hasRight(RightsManager::RIGHT_VIEWINSTANCEUSERACTIONSLOG)) {  ?>
+<p>
+    <button id="showOrderLogBtn" class="btn btn-primary">
+        <?=LangAdmin::get('Show_operator_actions')?>
+    </button>
+    <button id="hideOrderLogBtn" class="btn btn-primary hidden">
+        <?=LangAdmin::get('Hide_operator_actions')?>
+    </button>
+</p>
+<? } ?>
+
+
+<? if (! empty($order->processlog)) { ?>
+<dl class="dl-horizontal dl-ot-horizontal dl-horizontal-large">
+    <dt><?=LangAdmin::get('Date')?></dt>
+    <dd><strong><?=LangAdmin::get('Status')?></strong></dd>
+
+    <? foreach ($order->processlog as $record) { ?>
+    <dt><?=date('d.m.Y', strtotime($record->logdate))?> <span
+            class="muted font-11 weight-normal">(<?=date('H:i:s', strtotime($record->logtime))?>)</span></dt>
+    <dd><!--<?=$record->prevvalue?> → --><?=$record->newvalue?></dd>
+    <? } ?>
+</dl>
+<? } ?>
+
+<? if(RightsManager::hasRight(RightsManager::RIGHT_VIEWINSTANCEUSERACTIONSLOG)) {  ?>
+<div id="orderLogWrapper" class="hidden">
+    <table class="table table-striped display" id="orderLog">
+        <thead>
+        <tr>
+            <th><?=LangAdmin::get('Date')?></th>
+            <th><?=LangAdmin::get('Line')?></th>
+            <th><?=LangAdmin::get('Operation_type')?></th>
+            <th><?=LangAdmin::get('Action')?></th>
+            <th><?=LangAdmin::get('Operator')?></th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<? } ?>

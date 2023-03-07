@@ -1,0 +1,85 @@
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Promo', 'default')?>"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('referral', 'default')?>"><?=LangAdmin::get('Referral_system')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('referral', 'viewGroup', $Category->id)?>"><?=LangAdmin::get('Category')?>  &#171;<?=$Category->GetGroupName()?>&#187;</a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('category_edit')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li class="active"><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('referals')?></a></li>
+        <li><a href="<?=$PageUrl->AssignDo('config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1><?=LangAdmin::get('category_edit')?> &#171;<?=$Category->GetGroupName()?>&#187;</h1>
+
+<!-- global template configuration -->
+<div class="well">
+        <form method="post" action="<?=$PageUrl->DeleteKey('id')->Add('do', 'editGroup')->Get()?>" class="form-horizontal ot_form">
+            <fieldset>
+                <input type="hidden" name="id" value="<?=$Category->GetId()?>" />
+                <div class="control-group control-group-medium">
+				    <label class="control-label"><?=LangAdmin::get('category_name')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('category_name')?>"></i></label>
+					<div class="controls">
+						<input id="textinput" name="name" class="input-xlarge" type="text" required="required" value="<?=$Category->GetGroupName()?>">
+					</div>
+
+                    <!--label class="control-label"><?=LangAdmin::get('Name')?></label>
+                    <div class="controls">
+                        <input id="textinput" name="name" class="input-xlarge" type="text" required="required" value="<?=$Category->GetGroupName()?>">
+                    </div-->
+                </div>
+
+                <div class="control-group control-group-medium">
+					<label class="control-label"><?=LangAdmin::get('referral_procents')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="bottom" data-content="<?=LangAdmin::get('referral_procents')?>"></i></label>
+					<div class="controls">
+						<div class="input-append">
+							<input id="ot_CB_currency_extra" placeholder="0" class="input-mini price" type="text" name="profit" value="<?=$Category->GetProfitPercent() * 100?>" required="required" >
+							<span class="add-on">%</span>
+						</div>
+					</div>
+				
+                    <!--label class="control-label" for="ot_CB_currency_extra"><?=LangAdmin::get('referral_procents')?></label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="ot_CB_currency_extra" name="profit" placeholder="0" class="input-mini price" type="text" required="required" value="<?=$Category->GetProfitPercent() * 100?>">
+                            <span class="add-on">%</span>
+                        </div>
+                    </div-->
+                </div>
+
+
+                <div class="control-group control-group-medium">
+					<label class="control-label"><?=LangAdmin::get('referral_orders_cost')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="bottom" data-content="<?=LangAdmin::get('referral_orders_cost')?>"></i></label>
+					<div class="controls">
+						<div class="input-append">
+							<input placeholder="0" class="input-mini numeric" type="text" name="minPayment"  required="required" value="<?=$Category->GetMinOverallPayment()?>">  
+							<span class="add-on"><?=$currenciesSettings['internalcurrencycode'];?></span>
+						</div>
+					</div>
+				
+                    <!--label class="control-label"><?=LangAdmin::get('referral_orders_cost')?></label>
+                    <div class="controls">
+                        <input id="textinput" name="minPayment" class="input-small" type="text" required="required" value="<?=$Category->GetMinOverallPayment()?>">
+                    </div-->
+                </div>
+
+            </fieldset>
+
+
+            <div class="control-group control-group-medium">
+                <div class="controls">
+                    <button type="submit" onclick="$(this).attr('disabled', 'disabled'); submit();" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+                    <button type="reset" onclick="window.location.href = '<?=$PageUrl->DeleteKey('id')->AssignClearCmd('referral')?>';" class="btn offset1 btn_preloader" data-loading-text="<?=LangAdmin::get('Canceling')?>"><?=LangAdmin::get('Cancel')?></button>
+                </div>
+            </div>
+
+
+        </form>
+</div>

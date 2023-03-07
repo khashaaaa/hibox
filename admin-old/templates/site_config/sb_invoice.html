@@ -1,0 +1,61 @@
+<?=$Header?>
+
+<div class="col700">
+    <div class="tuning">
+        <div style="margin: 0 0 10px 0;">
+            <h2 class="mt30"><?=LangAdmin::get('quittance_config')?></h2>
+			<?if (isset($errors)&&!empty($errors)):?>
+			<p class="required"><?=LangAdmin::get('quittance_error')?></p>
+			<?endif?>
+			<form id="quittance_config" action="<?=BASE_DIR;?>index.php?do=save&amp;cmd=sb_invoice" method="post">
+
+				<?foreach ($fields as $field):?>
+					<label style="width: 200px; display: inline-block"><?=LangAdmin::get($field)?><span class="required">*</span></label>
+					<input style="width: 500px; <?=isset($errors[$field])?'border-color: #FF0000;':''?>" type="text" name="<?=$field?>" value="<?=!empty($errors)?htmlspecialchars($_POST[$field]):htmlspecialchars(@$siteConfig[1][$field])?>">
+					<br /><br />
+				<?endforeach;?>
+                <input type="submit" value="<?=LangAdmin::get('save')?>">
+            </form>
+        </div>
+		<?=LangAdmin::get('required')?>
+    </div>
+</div>
+<script type="text/javascript">
+	$().ready(function() {
+		$('#quittance_config').submit(function() {
+//			$('#err_mes').text("");
+//			var have_err=false;
+//			var err_mes='';
+//			var err_elem=false;
+//			var err_elem_name=false;
+//			var i=0;
+//			for (var key in reqFiels)
+//			{
+//				var val = reqFiels[key];
+//				err_elem=true;
+//				$('[name^="'+val.name+'"]').each(function(index) {
+//					if($(this).val())
+//						err_elem=false;
+//				});
+//				if(err_elem)
+//				{
+//					have_err=true;
+//					err_mes=err_mes+" "+val.caption+",";
+//					$('[name="'+val.name+'[0]"]').addClass('red_req');
+//					if(i==0)
+//						err_elem=val.name;
+//					i++;
+//				}
+//			}
+//			if(have_err)
+//			{
+//				$('#err_mes').text('Поля '+err_mes.slice(0,-1)+' обязательны для заполнения.');
+//				var position = $('[name="'+val.name+'[0]"]').position();
+//				$("html").scrollTop(position.top);
+//				return false;
+//			}
+		});
+	});
+</script>
+
+<?=$Footer?>

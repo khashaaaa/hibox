@@ -1,0 +1,62 @@
+<? if (User::getObject()->isAuthenticated()) { ?>
+    <a class="btn item-btn <?=General::getConfigValue('is_old_platform') ? 'fll' : 'item-btn btn-primary';?> addItemReview"  href="javascript:void(0);" data-itemid="<?=$itemId?>">
+        <span><?=Lang::get('add_item_review_in_item')?></span>
+    </a>
+    <br><br>
+<? } ?>
+<label class="reviews-source__label">
+    <input type="checkbox" name="reviewsSource" id="reviewsSourceCheckbox" class="js-reviews-source-checkbox reviews-source__checkbox"<?= $source === 'Internal' ? 'checked' : ''?>>
+    <?=Lang::get('provider_reviews')?>
+</label>
+
+<? if (!empty($reviews)) { ?>
+    <? if ($showAllReviewsButton) { ?>
+        <div class="mb10"><a href="javascript:void(0)" id="showAllReviews"><?=Lang::get('back_to_all_reviews')?></a></div>
+    <? } ?>
+
+    <?=General::viewFetch('controllers/review/review-block', array('vars' => array('reviews' => $reviews, 'source' => $source)))?>
+
+    <? if ($totalCount > $perpage) { ?>
+        <nav>
+            <? $page_count_print = General::getConfigValue('pager_count_print') ? General::getConfigValue('pager_count_print') : '2'; ?>
+            <? $curpage = floor($from / $perpage) + 1; ?>
+            <? $maxpage = ceil($totalCount / $perpage); ?>
+            <? if ($maxpage > 1) { ?>
+                <ul class="pagination">
+                    <? if ($curpage > ($page_count_print + 1)) { ?>
+                        <li><a href="javascript:void(0)" from="0" class="search-click page-link item-review-page i-link" data-action="<?=UrlGenerator::toRoute('product/reviews')?>">1</a></li>
+                    <? } ?>
+                    <? if ($curpage > ($page_count_print + 2)) { ?>
+                        <li class="pagination_skip">...</li>
+                    <? } ?>
+                    <? for ($i = max(1, $curpage - $page_count_print); $i <= min($maxpage, $curpage + $page_count_print); $i++) { ?>
+                        <? if ($curpage == $i) { ?>
+                            <li class="page-item active"><a href="javascript:void(0)" from="<?=($i - 1) * $perpage?>" class="search-click page-link item-review-page i-link" data-action="<?=UrlGenerator::toRoute('product/reviews')?>"><?=$i?></a>
+                            </li>
+                        <? } else { ?>
+                            <li><a href="javascript:void(0)" from="<?=($i - 1) * $perpage?>" class="search-click page-link item-review-page i-link" data-action="<?=UrlGenerator::toRoute('product/reviews')?>"><?=$i?></a></li>
+                        <? } ?>
+                    <? } ?>
+                    <? if ($curpage < $maxpage - ($page_count_print + 1)) { ?>
+                        <li class="pagination_skip">...</li>
+                    <? } ?>
+                    <? if ($curpage < $maxpage - $page_count_print) { ?>
+                        <li class="page-item"><a href="javascript:void(0)" from="<?=($maxpage - 1) * $perpage?>" class="search-click page-link item-review-page i-link" data-action="<?=UrlGenerator::toRoute('product/reviews')?>"><?=$maxpage?></a></li>
+                    <? } ?>
+                </ul>
+            <? } ?>
+        </nav>
+    <? } ?>
+
+<? } ?>
+
+<? if (User::getObject()->isAuthenticated()) { ?>
+    <div id="myReview" class="myReview" style="display: none"></div>
+    <?=General::viewFetch('controllers/review/review-block-addform')?>
+<? } ?>
+
+<script>
+    $('div.ratyScore').raty({
+        readOnly: true
+    });
+</script>

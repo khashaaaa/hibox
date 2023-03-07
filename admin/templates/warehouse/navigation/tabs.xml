@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Categories" action="default" cmd="warehouse">
+        <page data-action="default" data-cmd="warehouse" />
+        <page data-action="" data-cmd="warehouse" />
+    </tab>
+    <tab title="Products" action="default" cmd="WarehouseProducts">
+        <page data-action="default" data-cmd="warehouseproducts" />
+        <page data-action="addProduct" data-cmd="warehouseproducts" />
+        <page data-action="editProduct" data-cmd="warehouseproducts" />
+    </tab>
+    <tab title="Warehouse_import" action="import" cmd="warehouse">
+        <page data-action="import" data-cmd="warehouse" />
+    </tab>
+</tabs>

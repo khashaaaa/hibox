@@ -1,0 +1,245 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('warehouse', 'default')?>" class="muted"><?=LangAdmin::get('Warehouse')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Warehouse_products')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<? AssetsMin::registerJsFile('/admin/js/vendor/jstree/jquery.jstree.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-warehouse-products.js'); ?>
+
+<?=TabsGenerator::GetSubTabs('templates/warehouse/navigation/tabs.xml', $PageUrl)?>
+
+<h1>
+    <?=LangAdmin::get('Products')?>
+    <a href="<?=$PageUrl->DeleteKey('category')->Add('do', 'addProduct')->Get()?>" autocomplete="off" class="btn btn-tiny btn-primary btn_preloader weight-normal offset-left3" title="<?=LangAdmin::get('Do_add_product')?>" data-loading-text="<?=LangAdmin::get('Do_add_product')?>"><?=LangAdmin::get('Do_add_product')?></a>
+</h1>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    categoryPath = <?=json_encode($categoryPath)?>;
+
+    <? if(isset($currentItem)){ ?>
+        currentItem = <?=json_encode($currentItem)?>;
+    <? } ?>
+
+    var WarehouseCategories = new Backbone.Collection();
+    WarehouseCategories.add(<?=json_encode($categories);?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<div id="warehouse-products">
+<!-- filters-->
+<div class="row-fluid" >
+
+    <div class="span7">
+
+        <div class="well well-small offset-bottom3">
+
+            <form class="form-horizontal ot_form" id="filters" method="get">
+                <input type="hidden" name="cmd" value="WarehouseProducts">
+                <input type="hidden" name="action" value="default">
+                <input type="hidden" name="perpage" value="<?=$paginator->limit();?>"/>
+
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('Category')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Enter_category_name_or_chose_it_from_list')?>"></i></label>
+                    <div class="controls">
+                        <?php
+                            $filterCategoryName = $filter['categoryName'] ? $this->escape($filter['categoryName']) : '';
+                            $filterCategoryId = $filter['categoryId'] ? $filter['categoryId'] : '';
+                            $filterProductUrl = $filter['productUrl'] ? $this->escape($filter['productUrl']) : '';
+
+                        ?>
+                        <input type="text" id="category_name" name="category_name" placeholder="<?=LangAdmin::get('Choose_category_in_the_list')?>" readonly="readonly" value="<?=$filterCategoryName?>" >
+                        <input type="hidden" name="category_id" id="category_id" value="<?=$filterCategoryId?>">
+
+                        <a href="#tree-modal" role="button" data-toggle="modal" type="button" data-toggle="button" class="btn" title="<?=LangAdmin::get('Choose_from_category_list')?>"><i class="icon-list-alt font-14"></i></a>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('Product')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Enter_product_site_link')?>"></i></label>
+                    <div class="controls">
+                        <input type="text" class="" placeholder="<?=LangAdmin::get('Enter_product_site_link')?>" id="product_url" name="product_url" value="<?=$filterProductUrl?>">
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button type="submit" class="btn btn-tiny btn_preloader" data-loading-text="<?=LangAdmin::get('Apply_filter')?>" autocomplete="off"><?=LangAdmin::get('Apply_filter')?></button>
+                    <a href="#" id="reset_filter" class="btn pull-right" title="<?=LangAdmin::get('Reset_filters')?>">
+                        <?=LangAdmin::get('Reset_filters')?>
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div><!-- /filters-->
+
+<?php if (! empty($filter['Id'])) { ?>
+    <h2><?=LangAdmin::get('Selected product') . ' #'. $filter['Id'];?></h2>
+<?php } ?>
+
+<?php if (array_key_exists('categoryName', $filter) && array_key_exists('categoryId', $filter) && $filter['categoryName'] > 0) { ?>
+    <h2><?=LangAdmin::get('Category') . ': '. $filter['categoryName'];?></h2>
+<?php } ?>
+
+<?php if ($count == 0) { ?>
+    <h2><?=LangAdmin::get('No_products_found')?></h2>
+<?php } else { ?>
+
+<div class="row-fluid">
+    <div class="span6">
+        <!-- button inactive state — when no item is selected -->
+        <button class="btn btn-tiny groupDelete" data-action="<?=$PageUrl->Add('do', 'delete')  ->Get()?>"><?=LangAdmin::get('Remove')?></button>
+        <!-- button active state — when any item is selected -->
+        <!--<button class="btn btn-tiny ot_show_deletion_dialog_modal" title="Удалить выбранные товары"><span class="text-error">Удалить</span></button>-->
+    </div>
+    <div class="span6 text-right">
+        <select class="input-mini" id="perpage">
+            <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                    <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+                <? } ?>
+                </select>
+   </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered" >
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="checkAll"></th>
+                <th><?=LangAdmin::get('Image')?></th>
+                <th><?=LangAdmin::get('Name')?></th>
+                <th><?=LangAdmin::get('Costs')?></th>
+                <th><?=LangAdmin::get('Quantity')?></th>
+                <th><?=LangAdmin::get('Sell_allowed')?></th>
+                <th><?=LangAdmin::get('Actions')?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <? if($items) foreach ($items as $i => $item) { ?>
+                <tr id="<?=$item['Id']?>" class="<?=$item['IsSellAllowed'] ? 'SellAllowed' : 'SellNotAllowed'?>">
+                    <td><input type="checkbox" name="ids<?=$item['Id']?>" value="<?=$item['Id']?>"/></td>
+                    <td class="text-center" data-toggle="modal-gallery" data-target="#modal-gallery">
+                        <a href="<?=ProductsHelper::getSmallImage($item)?>" class="thumbnail thumbnail-mini" title="<?=LangAdmin::get('Enlarge_image')?>" data-gallery="gallery"><img src="<?=$item['MainImageUrl']?>" alt="<?=$this->escape($item['Name'])?>"></a>
+                    </td>
+                    <td>
+                        <a target="_blank" href="<?=UrlGenerator::generateWarehouseItemUrl($item['id'])?>" title="<?=LangAdmin::get('Item_page_on_site')?>"><?=$this->escape($item['Name'])?></a>
+                    </td>
+                    <td>
+                    <span class="blink">
+                        <a class="ot_inline_editable"
+                           href="#" data-name="Price"
+                           data-type="text"
+                           data-pk="<?=$item['Id']?>"
+                           data-url="<?=$PageUrl->Add('do', 'saveInline')->Get()?>"
+                           data-original-title=""
+                           data-inputclass="input-mini"
+                           data-placement="left"
+                        >
+                        <?=$item['Price']?>
+                        </a>
+                    </span>
+                        <?=$currency?>
+                    </td>
+                    <td>
+                        <? if ($item['IsSellAllowed'] || (! $item['IsSellAllowed'] && !empty($item['Configurations']))) { ?>
+                        <?=$item['Quantity']?>
+                        <? } else { ?>
+                        <span class="blink">
+                        <a class="ot_inline_editable"
+                           href="#" data-name="Quantity"
+                           data-type="text"
+                           data-pk="<?=$item['Id']?>"
+                           data-url="<?=$PageUrl->Add('do', 'saveInline')->Get()?>"
+                           data-original-title=""
+                           data-inputclass="input-mini"
+                           data-placement="left"
+                        >
+                            <?=$item['Quantity']?>
+                        </a>
+                    </span>
+                        <? } ?>
+                        <?=LangAdmin::get('pcs')?>
+                    </td>
+                    <td>
+                        <input type="checkbox" class="SellAllowed" name="ids<?=$item['Id']?>" value="<?=$item['Id']?>" <?=$item['IsSellAllowed'] ? 'checked="checked"' : ''?> />
+                    </td>
+                    <td>
+                        <!--a href="cat/warehouse/goods/crud" class="btn btn-mini" title="Редактировать"><i class="icon-pencil"></i></a-->
+                        <a href="<?=$PageUrl->Add('do', 'editProduct')->Add('id', $item['Id'])->Get()?>"
+                           data-name="<?=$this->escape($item['Name'])?>" class="btn btn-mini" title="<?=LangAdmin::get('Edit')?>">
+                            <i class="icon-pencil"></i>
+                        </a>
+
+                        <!--button class="btn btn-mini ot_show_deletion_dialog_modal" title="Удалить"><i class="icon-remove"></i></button-->
+                        <a href="<?=$PageUrl->Add('do', 'delete')->Add('id', $item['Id'])->Get()?>"
+                           data-name="<?=$this->escape($item['Name'])?>" class="btn btn-mini ot_show_deletion_dialog_modal">
+                            <i class="icon-remove"></i>
+                        </a>
+                    </td>
+                </tr>
+            <? } ?>
+        </tbody>
+    </table>
+</div>
+
+    <?php $paginator->display(); ?>
+<?php } ?>
+
+</div>
+
+<!-- modal-gallery is the modal dialog used for the image gallery -->
+<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h3 class="modal-title"></h3>
+    </div>
+
+    <div class="modal-body"><div class="modal-image"></div></div>
+
+    <div class="modal-footer">
+
+        <div class="row-fluid">
+
+            <div class="span6 text-left">
+                <div class="btn-group">
+                    <button class="btn btn-primary modal-prev" title="<?=LangAdmin::get('Prev')?>"><i class="icon-arrow-left icon-white"></i></button>
+                    <button class="btn btn-primary modal-next" title="<?=LangAdmin::get('Next')?>"><i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+
+            <div class="span6 text-right">
+                <button href="#" class="btn" data-dismiss="modal"><?=LangAdmin::get('Close')?></button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><!-- /modal-gallery-->
+
+<div class="modal hide fade" id="tree-modal">
+  <input type="hidden" id="categoryId" value="0">
+  <input type="hidden" id="categoryName" value="0">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3><?=LangAdmin::get('Category')?></h3>
+  </div>
+  <div class="modal-body" style="overflow: auto;">
+    <div id="jstree">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><?=LangAdmin::get('Cancel')?></button>
+    <button class="btn btn-primary"><?=LangAdmin::get('choose')?></button>
+  </div>
+</div>

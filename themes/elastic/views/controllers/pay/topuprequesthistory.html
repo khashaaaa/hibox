@@ -1,0 +1,35 @@
+<div class="bproduct mt-3 col-lg-12 payments-table__block" style="float: left">
+    <? if($userPayments) {?>
+        <table class="table payments-table" width="100%">
+            <thead>
+            <tr>
+                <td><?=Lang::get('date')?></td>
+                <td><?=Lang::get('created_date')?></td>
+                <td><?=Lang::get('sum')?></td>
+                <td><?=Lang::get('customer_comment')?></td>
+                <td><?=Lang::get('operator_comment')?></td>
+                <td><?=Lang::get('status')?></td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <? foreach($userPayments->GetItem() as $payment) {?>
+                <tr>
+                    <td><?=date("Y-m-d H:i:s", strtotime($payment->GetCreatedDate()))?></td>
+                    <td><?=$payment->GetPaymentModeId()?></td>
+                    <td><?=$payment->GetAmount()?></td>
+                    <td><?=$payment->GetComment()?></td>
+                    <td><?=$payment->GetOperatorComment()?></td>
+                    <td><p class="payment__<?=$payment->GetStatus()?>"><?=Lang::get('Status_'.$payment->GetStatus())?></p></td>
+                </tr>
+            <? } ?>
+            </tbody>
+        </table>
+        <div>
+            <?php $paginator->display(); ?>
+        </div>
+    <? }  else { ?>
+        <h3 class="lgray tagc mt10"> <?=Lang::get('empty_list')?> </h3>
+    <? } ?>
+</div>
+

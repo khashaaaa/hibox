@@ -1,0 +1,102 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('roles', 'default')?>"><?=LangAdmin::get('Roles')?></a> <span class="divider">›</span></li>
+    <? if (isset($role_name)) { ?>
+        <li class="active"><?=$this->escape(LangAdmin::get($role_name))?></li>
+    <? } else { ?>
+        <li class="active"><?=$this->escape($actionTitle)?></li>
+    <? } ?>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+<? require TPL_ABSOLUTE_PATH . 'global_modals.php'; ?>
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="roles-form-wrapper">
+    <? if ($role_options['CanBeEdited'] == 'true' || $view_only || empty($role_name)) {?>
+        <h1><?=$this->escape($actionTitle)?></h1>
+
+
+        <div class="well">
+
+                <form method="post" action="<?=$PageUrl->AssignCmdAndDo('roles', 'save')?>" class="form-horizontal ot_form">
+                    <input type="hidden" name="exists" value="<?=(!empty($role_name) ? $role_name : '')?>" />
+                    <? if (! $role_name) { ?>
+                        <fieldset id="fieldsetRoleName">
+                            <div class="control-group">
+                                <label class="control-label"><strong><?=LangAdmin::get('Role_name')?></strong></label>
+                                <div class="controls">
+                                    <input id="RoleName" name="RoleName" class="input-medium not_from_template" type="text" value="">
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    <? } ?>
+
+                    <h3><?=LangAdmin::get('Rights')?></h3>
+                    <fieldset class="template_role">
+                        <? if (! $role_name) { ?>
+                            <div class="control-group">
+                                <label class="control-label"><?=LangAdmin::get('From_template')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Role_from_template_explain_notes')?>"></i></label>
+                                <div>
+                                    <select name="TemplateRole" class="input-large">
+                                        <option></option>
+                                        <? foreach ($template_roles as $item) { ?>
+                                            <option value="<?=$item['name']?>"><?=LangAdmin::get($item['name'])?></option>
+                                        <? } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        <? } ?>
+
+                        <div class="tree_rights">
+                            <? if (count($role_rights)) { ?>
+                                <? foreach ($role_rights as $item) { ?>
+                                    <? $title = OTBase::isTest() ? $item['Description'] . ' (<code>' . $item['Name'] . '</code>)' : $item['Description']; ?>
+                                    <div class="right_group">
+                                        <h4>
+                                            <? $checked = ($item['isturnon'] == 'true') ? "checked='checked'" : ""; ?>
+                                            <? $diabled = ($view_only == 'true') ? "disabled='disabled'" : ""; ?>
+                                            <? $name = "Rights[]"; ?>
+                                            <input data-level="0" data-name="<?=(string)$item['Name']?>" class="not_from_template right-<?=$item['Id']?>" type="checkbox" name="<?=$name?>" value="<?=(string)$item['Id']?>" <?=$checked?> <?=$diabled?>>
+                                            <span class="blink" data-toggle="collapse" data-name="<?=(string)$item['Name']?>" data-target=".<?=strtolower($item['Name'])?>-rights"><?=$title?></span>
+                                        </h4>
+
+                                        <div class="collapse in <?=strtolower($item['Name'])?>-rights">
+                                            <ul class="unstyled" data-level="0">
+                                                <? Roles::printRoleTree($item, 1, $role_rights, $view_only);?>
+                                            </ul>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            <? } ?>
+                        </div>
+
+                    </fieldset>
+
+                    <div class="offset-top1">
+                        <? if ($view_only) { ?>
+                            <? if ($role_options['CanBeEdited'] == 'true') {?>
+                                <a href="<?=$PageUrl->generate(array('cmd' => 'roles', 'do' => 'edit', 'name' => $role_name))?>" type="button" class="btn btn-primary btn_preloader offset-left1" data-loading-text="<?=LangAdmin::get('Editing')?>"><?=LangAdmin::get('Edit')?></a>
+                            <? } ?>
+                            <a href="<?=$PageUrl->AssignCmdAndDo('roles', 'default')?>" type="button" class="btn btn_preloader offset-left1" name="cancel"><?=LangAdmin::get('Back')?></a>
+                        <? } else {?>
+                            <button type="submit" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+                            <a href="<?=$PageUrl->AssignCmdAndDo('roles', 'default')?>" type="button" class="btn btn_preloader offset-left1" data-loading-text="<?=LangAdmin::get('Canceling')?>" name="cancel"><?=LangAdmin::get('Cancel')?></a>
+                        <? } ?>
+                    </div>
+
+                </form>
+
+        </div><!-- /.well -->
+
+    <? } else { ?>
+    <span><?=LangAdmin::get('editing_role_forbidden')?></span>
+    <? } ?>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-roles-form.js'); ?>

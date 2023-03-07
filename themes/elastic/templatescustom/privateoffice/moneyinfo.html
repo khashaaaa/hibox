@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="css/libs/jquery/jquery.ui/jquery-ui.css">
+<div class="main">
+    <? if($accountinfo && ( !defined('CFG_HIDE_DEPOSIT_STATUS') || @!CFG_HIDE_DEPOSIT_STATUS )) {?>
+        <? $cur = $accountinfo['currencysign']; ?>
+    <? } ?>
+
+    <h1><?=Lang::get('status_account')?></h1>
+    <h2 class="mb20"><span style="margin-top: 20px"><?=Lang::get('payment_history')?></span></h2>
+
+    <div class="orderstate__account">
+        <?=General::viewFetch('../templatescustom/privateoffice/useraccount', array('vars' => [
+        'userinfo' => $userinfo,
+        'accountinfo' => $accountinfo,
+        'cur' => $cur
+        ]))?>
+    </div>
+
+    <form method="post" class= "form-inline order_date col-lg-6 col-12 col-sm-6" action="/?p=moneyinfo">
+        <div class="form-group datepick">
+            <h6 class="order_date_label"><?=Lang::get('date')?></h6>
+            <input  type="text" id="fromdate" class="form-control col-lg-3 col-md-3 col-sm-6 col-12" name="fromdate" value="<?=@$fromdate?>" style="border-radius: 3px;" required>
+            <input  type="text" id="todate" class="form-control col-lg-3 col-md-3 col-sm-6 col-12" name="todate" value="<?=@$todate?>" style="border-radius: 3px;" required>
+            <input type="submit" class="btn btn-primary ml-1 col-lg-3 col-md- col-sm-6" value="<?=Lang::get('show')?>" style="float: none;">
+        </div>
+    </form>
+
+    <div class="bproduct mt-3 col-lg-12" style="float: left">
+
+        <? if($moneyhistory) {?>
+            <table class="table" width="100%">
+                <thead>
+                <tr>
+                    <td><?=Lang::get('date')?></td>
+                    <td><?=Lang::get('comment')?></td>
+                    <td><?=Lang::get('sum')?></td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <? foreach($moneyhistory['translist'] as $element) {?>
+                    <tr>
+                        <td><?=date("Y-m-d H:i:s", strtotime($element['transdate']))?></td>
+                        <td><?=(defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, (string)$element['comment']):(string)$element['comment'])?></td>
+                        <td>
+                            <? $style = (string)$element['Direction']== 'Out' ? 'style="color: Red"' : 'style="color: Green"'; ?>
+                            <span <?=$style;?> >
+                        <?=" <span dir=ltr>".number_format((float)$element['amount'], (int)General::getNumConfigValue('price_rounding'), '.', ' ')."</span>".' '.$cur; ?>
+                    </span>
+                        </td>
+                    </tr>
+                <? } ?>
+                </tbody>
+            </table>
+        <? }  else { ?>
+            <h3 class="lgray tagc mt10"> <?=Lang::get('empty_list')?> </h3>
+        <? } ?>
+    </div>
+
+</div>
+
+<script>
+
+    $(function() {
+        $( "#fromdate" ).datepicker();
+        $( "#todate" ).datepicker();
+    });
+
+    $(function() {
+        $( "#fromdate" ).datepicker({
+            dateFormat: 'dd.mm.yy',
+        });
+        $( "#todate" ).datepicker({
+            dateFormat: 'dd.mm.yy',
+        });
+    });
+</script>
+
+
+

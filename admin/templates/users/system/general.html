@@ -1,0 +1,69 @@
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? XEditableFields::Init('system', $PageUrl); ?>
+
+<h1><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>" class="muted"><?=LangAdmin::get('Configuration')?></a>
+    / <a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'system')?>"><?=LangAdmin::get('system')?></a>
+    / <?=LangAdmin::get('general')?>
+</h1>
+
+<!-- ot-sub-sub-nav -->
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'system'){ ?>class="active"<?} ?>>
+            <a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'system')?>">
+                <i class="icon-sitemap"></i>
+                <span><?=LangAdmin::get('General')?></span>
+            </a>
+        </li>
+        <li <? if($PageUrl->GetCmd() == 'Update'){ ?>class="active"<?} ?>>
+            <a href="<?=$PageUrl->AssignCmdAndDo('Update', 'default')?>">
+                <i class="icon-refresh"></i>
+                <span><?=LangAdmin::get('Update')?></span>
+            </a>
+        </li>
+    </ul>
+</div><!-- /ot-sub-sub-nav -->
+
+
+<!-- caching configuration -->
+<div class="box corner-all">
+    <div class="box-body">
+
+        <form class="form-horizontal inline_editable_form ot_form">
+            <div class="row-fluid">
+
+
+                <fieldset class="span6">
+
+                    <div data-field="site_temporary_unavailable"></div>
+                    <? XEditableFields::Register('site_temporary_unavailable', $Config->Get('site_temporary_unavailable')); ?>
+
+                    <div data-field="auth_to_private_office"></div>
+                    <? XEditableFields::Register('auth_to_private_office', $Config->Get('auth_to_private_office')); ?>
+
+                </fieldset>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

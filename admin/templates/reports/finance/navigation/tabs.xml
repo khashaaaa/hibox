@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Reports" action="finance" cmd="Reports">
+        <page data-action="finance" data-cmd="reports" />
+    </tab>
+    <tab title="Details" action="financeDetails" cmd="Reports">
+        <page data-action="financeDetails" data-cmd="reports" />
+    </tab>
+    <tab title="Сalculation" action="calculation" cmd="Reports">
+        <page data-action="calculation" data-cmd="reports" />
+    </tab>
+</tabs>

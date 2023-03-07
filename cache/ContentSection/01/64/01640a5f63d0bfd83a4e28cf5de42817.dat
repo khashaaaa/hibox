@@ -1,0 +1,651 @@
+<div class="row row_8wyu row-main">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_bomm">
+        <div class="row row_lt7o  inner ">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_tvjh col-style">
+                <div class="module so-extraslider-ltr extra-layout24">
+                    <h3 class="modtitle"><span>Популярные бренды</span></h3>
+                    <div class="modcontent">
+                        <div id="so_extra_slider_popular_brands" class="so-extraslider buttom-type1 preset00-5 preset01-3 preset02-3 preset03-2 preset04-1 button-type1">
+                            <div class="extraslider-inner products-list product-grid9 owl2-carousel owl2-theme owl2-loaded extra-animate">
+                                                        <div class="brand-item" title="Victoria&#039;s Secret">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/logo-of-victorias-secret.jpg" alt="Victoria&#039;s Secret" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47965">
+                                    <div class="coupon">
+                                        <span>Victoria&#039;s Secret</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Vero Moda">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Vero-Moda.jpg" alt="Vero Moda" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47964">
+                                    <div class="coupon">
+                                        <span>Vero Moda</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="True Religion">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/True-Religion.jpg" alt="True Religion" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47963">
+                                    <div class="coupon">
+                                        <span>True Religion</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="TOM TAILOR/汤姆泰勒">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Tom-Tailor.jpg" alt="TOM TAILOR/汤姆泰勒" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47962">
+                                    <div class="coupon">
+                                        <span>TOM TAILOR/汤姆泰勒</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Tom Ford">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Tom-Ford.jpg" alt="Tom Ford" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47961">
+                                    <div class="coupon">
+                                        <span>Tom Ford</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Tiffany &amp; Co./蒂芙尼">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Tiffany-Co.jpg" alt="Tiffany &amp; Co./蒂芙尼" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47960">
+                                    <div class="coupon">
+                                        <span>Tiffany &amp; Co./蒂芙尼</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Thomas＆Friends/托马斯＆朋友">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Thomas&Friends.jpg" alt="Thomas＆Friends/托马斯＆朋友" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47959">
+                                    <div class="coupon">
+                                        <span>Thomas＆Friends/托马斯＆朋友</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="TAG Heuer">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Tag-Heuer.jpg" alt="TAG Heuer" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47958">
+                                    <div class="coupon">
+                                        <span>TAG Heuer</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Swatch/斯沃琪">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Swatch.jpg" alt="Swatch/斯沃琪" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47957">
+                                    <div class="coupon">
+                                        <span>Swatch/斯沃琪</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="SUPERDRY">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Superdry.jpg" alt="SUPERDRY" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47956">
+                                    <div class="coupon">
+                                        <span>SUPERDRY</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Stella Mccartney">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Stella-McCartney.jpg" alt="Stella Mccartney" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47955">
+                                    <div class="coupon">
+                                        <span>Stella Mccartney</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="starbucks/星巴克">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Starbucks.jpg" alt="starbucks/星巴克" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47954">
+                                    <div class="coupon">
+                                        <span>starbucks/星巴克</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Spalding/斯伯丁">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Spalding.jpg" alt="Spalding/斯伯丁" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47953">
+                                    <div class="coupon">
+                                        <span>Spalding/斯伯丁</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Sony/索尼">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Sony.jpg" alt="Sony/索尼" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47952">
+                                    <div class="coupon">
+                                        <span>Sony/索尼</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Samsung/三星">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Samsung.jpg" alt="Samsung/三星" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47951">
+                                    <div class="coupon">
+                                        <span>Samsung/三星</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Revlon/露华浓">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Revlon.jpg" alt="Revlon/露华浓" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47950">
+                                    <div class="coupon">
+                                        <span>Revlon/露华浓</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Rayban/雷朋">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/RayBan.jpg" alt="Rayban/雷朋" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47949">
+                                    <div class="coupon">
+                                        <span>Rayban/雷朋</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Prada/普拉达">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/prada.png" alt="Prada/普拉达" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47948">
+                                    <div class="coupon">
+                                        <span>Prada/普拉达</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="PLAYBOY/花花公子">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Playboy.jpg" alt="PLAYBOY/花花公子" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47947">
+                                    <div class="coupon">
+                                        <span>PLAYBOY/花花公子</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="MANGO">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Mango.jpg" alt="MANGO" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47946">
+                                    <div class="coupon">
+                                        <span>MANGO</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Levi&#039;s">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Levi's_logo.jpg" alt="Levi&#039;s" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47945">
+                                    <div class="coupon">
+                                        <span>Levi&#039;s</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Lenovo/联想">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Lenovo.jpg" alt="Lenovo/联想" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47944">
+                                    <div class="coupon">
+                                        <span>Lenovo/联想</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Lancel/兰姿">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Lancel.jpg" alt="Lancel/兰姿" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47943">
+                                    <div class="coupon">
+                                        <span>Lancel/兰姿</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Lacoste/拉科斯特">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/lacoste.jpg" alt="Lacoste/拉科斯特" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47942">
+                                    <div class="coupon">
+                                        <span>Lacoste/拉科斯特</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="JEEP">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/AFS-JEEP.jpg" alt="JEEP" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47941">
+                                    <div class="coupon">
+                                        <span>JEEP</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="INTEX">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/INTEX.jpg" alt="INTEX" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47940">
+                                    <div class="coupon">
+                                        <span>INTEX</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Hello Kitty">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/400x400-hello-kitty.png" alt="Hello Kitty" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47938">
+                                    <div class="coupon">
+                                        <span>Hello Kitty</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Gucci/古驰">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/GUCCI.jpg" alt="Gucci/古驰" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47937">
+                                    <div class="coupon">
+                                        <span>Gucci/古驰</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Givenchy/纪梵希">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Givenchy.jpg" alt="Givenchy/纪梵希" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47936">
+                                    <div class="coupon">
+                                        <span>Givenchy/纪梵希</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="FENDI">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Fendi.jpg" alt="FENDI" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47935">
+                                    <div class="coupon">
+                                        <span>FENDI</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="ESPRIT/埃斯普利特">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Esprit.jpg" alt="ESPRIT/埃斯普利特" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47934">
+                                    <div class="coupon">
+                                        <span>ESPRIT/埃斯普利特</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Ed hardy">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Ed-Hardy.jpg" alt="Ed hardy" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47933">
+                                    <div class="coupon">
+                                        <span>Ed hardy</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Ecco/爱步">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Ecco.jpg" alt="Ecco/爱步" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47932">
+                                    <div class="coupon">
+                                        <span>Ecco/爱步</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Dior">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Dior.jpg" alt="Dior" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47930">
+                                    <div class="coupon">
+                                        <span>Dior</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Diesel">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Logo-Diesel.jpg" alt="Diesel" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47929">
+                                    <div class="coupon">
+                                        <span>Diesel</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Chloe">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Chloe.jpg" alt="Chloe" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47928">
+                                    <div class="coupon">
+                                        <span>Chloe</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Casio/卡西欧">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Casio.jpg" alt="Casio/卡西欧" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47927">
+                                    <div class="coupon">
+                                        <span>Casio/卡西欧</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Cartier/卡地亚">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Cartier.jpg" alt="Cartier/卡地亚" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47926">
+                                    <div class="coupon">
+                                        <span>Cartier/卡地亚</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Calvin Klein/凯文克莱">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/Calvin_klein_logo.jpg" alt="Calvin Klein/凯文克莱" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47925">
+                                    <div class="coupon">
+                                        <span>Calvin Klein/凯文克莱</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        <div class="brand-item" title="Bvlgari/宝格丽">
+                                <div class="brand-img">
+                                    <img class="lazyload" data-src="https://data.otcommerce.com/box/global/brand/BVLGARI.jpg" alt="Bvlgari/宝格丽" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?brand=ot:47924">
+                                    <div class="coupon">
+                                        <span>Bvlgari/宝格丽</span>
+                                    </div>
+                                    <div class="enter">
+                                        <span>Смотреть</span>
+                                    </div>
+                                </a>
+                            </div>
+                                                        </div>
+                        </div>
+                                                    <a href="/brands" class="see-all-link">Смотреть все</a>
+                                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function ($) {
+        (function (element) {
+            var $element = $(element),
+                $extraslider = $(".extraslider-inner", $element),
+                _delay = 500 ,
+                _duration = 800 ,
+                _effect = 'none ';
+
+            $extraslider.on("initialized.owl.carousel2", function () {
+                var $item_active = $(".owl2-item.active", $element);
+                if ($item_active.length > 1 && _effect != "none") {
+                    _getAnimate($item_active);
+                }
+                else {
+                    var $item = $(".owl2-item", $element);
+                    $item.css({"opacity": 1, "filter": "alpha(opacity = 100)"});
+                }
+
+
+                $(".owl2-controls", $element).insertBefore($extraslider);
+                $(".owl2-dots", $element).insertAfter($(".owl2-prev", $element));
+
+            });
+
+            $extraslider.owlCarousel2({
+                rtl: false,
+                margin: 30,
+                slideBy: 1,
+                autoplay: 0,
+                autoplayHoverPause: 0,
+                autoplayTimeout: 0 ,
+                autoplaySpeed: 1000 ,
+                startPosition: 0 ,
+                mouseDrag: 1,
+                touchDrag: 1 ,
+                autoWidth: false,
+                responsive: {
+                    0: 	{ items: 2 } ,
+                    480: { items: 2 },
+                    768: { items: 3 },
+                    992: { items: 3 },
+                    1200: {items: 8}
+                },
+                dotClass: "owl2-dot",
+                dotsClass: "owl2-dots",
+                dots: false ,
+                dotsSpeed:500 ,
+                nav: true ,
+                loop: true ,
+                navSpeed: 500 ,
+                navText: ["&#171 ", "&#187 "],
+                navClass: ["owl2-prev", "owl2-next"]
+
+            });
+
+            $extraslider.on("translate.owl.carousel2", function (e) {
+
+                var $item_active = $(".owl2-item.active", $element);
+                _UngetAnimate($item_active);
+                _getAnimate($item_active);
+            });
+            $extraslider.on("translated.owl.carousel2", function (e) {
+
+                var $item_active = $(".owl2-item.active", $element);
+                var $item = $(".owl2-item", $element);
+                _UngetAnimate($item);
+                if ($item_active.length > 1 && _effect != "none") {
+                    _getAnimate($item_active);
+                } else {
+                    $item.css({"opacity": 1, "filter": "alpha(opacity = 100)"});
+                }
+            });
+            function _getAnimate($el) {
+                if (_effect == "none") return;
+                //if ($.browser.msie && parseInt($.browser.version, 10) <= 9) return;
+                $extraslider.removeClass("extra-animate");
+                $el.each(function (i) {
+                    var $_el = $(this);
+                    var i= i + 1;
+                    $(this).css({
+                        "-webkit-animation": _effect + " " + _duration + "ms ease both",
+                        "-moz-animation": _effect + " " + _duration + "ms ease both",
+                        "-o-animation": _effect + " " + _duration + "ms ease both",
+                        "animation": _effect + " " + _duration + "ms ease both",
+                        "-webkit-animation-delay": +i * _delay + "ms",
+                        "-moz-animation-delay": +i * _delay + "ms",
+                        "-o-animation-delay": +i * _delay + "ms",
+                        "animation-delay": +i * _delay + "ms",
+
+                    }).animate({
+
+                    });
+                    if (i == $el.size() - 1) {
+                        $extraslider.addClass("extra-animate");
+                    }
+                });
+            }
+            function _UngetAnimate($el) {
+                $el.each(function (i) {
+                    $(this).css({
+                        "animation": "",
+                        "-webkit-animation": "",
+                        "-moz-animation": "",
+                        "-o-animation": "",
+                    });
+                });
+            }
+        })("#so_extra_slider_popular_brands");
+    });
+    //]]>
+</script>

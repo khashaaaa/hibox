@@ -1,0 +1,46 @@
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+<div class="control-group control-group-medium">
+<% } %>
+    <% if(typeof parameters.useLabel === 'undefined' || parameters.useLabel == 'true'){ %>
+    <label class="control-label">
+        <% if (typeof parameters.label !== 'undefined') { %>
+            <%= parameters.label %>
+        <% } else { %>
+            <%= trans.get(name + '_label') %>
+        <% } %>
+        <% if( trans.get(name + '_hint') != (name + '_hint') ){ %>
+            <i class="icon-question-sign ot_inline_help"
+               data-toggle="popover"
+               data-content="<%= trans.get(name + '_hint') %>"
+               title=""
+               data-original-title=""
+            >
+            </i>
+        <% } %>
+        <div class="configLangVersions" id="configLangVersions_<%= name %>"></div>
+    </label>
+    <% } %>
+    <% if(typeof parameters.useLinkWrapper === 'undefined' || parameters.useLinkWrapper == 'true'){ %>
+    <div class="controls">
+    <% } %>
+        <input class="color-input" type="color" data-name="<%= name %>" 
+            <% if(typeof parameters.pk !== 'undefined'){ %>
+                data-pk="<%= parameters.pk %>"
+            <% } else { %>
+                data-pk="1"
+            <% } %>
+            value="<%= value %>"
+            <% if(typeof parameters.inputClass !== 'undefined'){ %>
+                data-inputclass="<%= parameters.inputClass %>"
+            <% } %>
+            <% if (typeof parameters.placeholder !== 'undefined') { %>
+            data-placeholder="<%= parameters.placeholder %>"
+            <% } %>
+        >
+        
+    <% if(typeof parameters.useLinkWrapper === 'undefined' || parameters.useLinkWrapper == 'true'){ %>
+    </div>
+    <% } %>
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+</div>
+<% } %>

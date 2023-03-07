@@ -1,0 +1,8 @@
+<? if (General::getConfigValue('footer_text_title')) { ?>
+    <h1><?=General::getConfigValue('footer_text_title')?></h1>
+<? } ?>
+<? if(General::getConfigValue('footer_text')){ ?>
+    <div class="box-section content-section">
+        <?=General::getConfigValue('footer_text')?>
+    </div>
+<? } ?>

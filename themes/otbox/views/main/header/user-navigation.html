@@ -1,0 +1,80 @@
+<div class="header-top hidden-compact">
+    <div class="container">
+        <div class="row">
+            <div class="header-top-left col-lg-6 hidden-md hidden-xs hidden-sm">
+                <div class="hidden-md hidden-sm hidden-xs welcome-msg">
+                    <?
+                    if (General::isSellFree()) {
+                        $defaultHeaderText = Lang::get('sellfree_header_text');
+                    } else {
+                        $defaultHeaderText = Lang::get('header_text');
+                    }
+                    ?>
+                    <?=(General::getConfigValue('header_text', $defaultHeaderText, false));?>
+                </div>
+            </div>
+            <div class="header-top-right collapsed-block col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <ul class="top-link list-inline">
+                    <? if ($langs && count($langs) > 1) { ?>
+                    <li id="langSelectActive" class="box-up-menu_lang-change">
+                        <a href="#" class="dropdown-toggle lang" data-toggle="dropdown" title="<?=$cms->getLangDescrByCode(User::getObject()->getActiveLang())?>">
+                            <i class="<?=User::getObject()->getActiveLang()?>">
+                                <? foreach ($langs as $l) { ?>
+                                    <? if ($l['name'] == User::getObject()->getActiveLang()) { ?>
+                                        <img src="<?=$l['ImageUrl']?>" alt="<?=$this->escape($l['Description'])?>">
+                                    <? } ?>
+                                <? } ?>
+                            </i>
+                            <b class="caret"></b>
+                        </a>
+                        <ul id="langSelectUI" class="dropdown-menu">
+                            <? foreach($langs as $l){ ?>
+                            <li>
+                                <a href="/?p=setlang&lang=<?=$l['name']?>&from=<?=urlencode($_SERVER['REQUEST_URI'])?>" class="lang" title="<?=$cms->getLangDescrByCode($l['name'])?>">
+                                    <i class="<?=$l['name']?>"><img src="<?=$l['ImageUrl']?>" alt="<?=$this->escape($l['Description'])?>"></i> <?=$this->escape($l['Description'])?>
+                                </a>
+                            </li>
+                            <? } ?>
+                        </ul>
+                    </li>
+                    <? } ?>
+                    <? if (! $this->getUser()->isAuthenticated()) { ?>
+                    <li class="log login hidden-xs">
+                        <i class="fa fa-lock"></i>
+                        <a class="link-lg" href="<?=UrlGenerator::generateContentUrl('login')?>"><?=Lang::get('login')?></a>
+                        <?=Lang::get('or')?>
+                        <a href="<?=UrlGenerator::generateContentUrl('register')?>"><?=Lang::get('registration_tab')?></a>
+                    </li>
+                    <? } ?>
+                    <li class="account" id="my_account">
+                        <a href="<?=UrlGenerator::generateContentUrl('privateoffice')?>" class="btn-xs dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+                            <span><?=Lang::get('my_account')?> </span><span class="fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li class="box-up-menu_shopping-cart">
+                                <a href="<?=UrlGenerator::generateContentUrl('supportlist')?>" title="<?=Lang::get('favourites')?>"><?=Lang::get('favourites')?> <span id="basket-items-count" class="badge"><?=$this->getUser()->getCountInBasket()?></span></a>
+                            </li>
+                            <? if (! $this->getUser()->isAuthenticated()) { ?>
+                            <li><a href="<?=UrlGenerator::generateContentUrl('register')?>"><?=Lang::get('registration_tab')?></a></li>
+                            <li><a href="<?=UrlGenerator::generateContentUrl('login')?>"><?=Lang::get('login')?></a></li>
+                            <? } ?>
+                            <? if ($this->getUser()->isAuthenticated()) { ?>
+                                <li class="">
+                                    <a href="<?=UrlGenerator::generateContentUrl('privateoffice')?>">
+                                        <? if (isset($l['name'])) { ?>
+                                            <i class="<?=$l['name']?>"></i>
+                                        <? } ?>
+                                        <span><?=Lang::get('private_office')?></span>
+                                    </a>
+                                </li>
+                                <li class="box-up-menu_exit-btn">
+                                    <button onclick="location.href='<?=UrlGenerator::generateContentUrl('logout')?>'" type="button" class="btn navbar-btn"><?=Lang::get('logout')?></button>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

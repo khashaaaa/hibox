@@ -1,0 +1,66 @@
+<section class="box-section box-main_soc-block">
+    <? if (
+        General::getConfigValue('vkLikeWidget') ||
+        General::getConfigValue('fbLikeWidget') ||
+        General::getConfigValue('twitWidget') ||
+        General::getConfigValue('okWidget')
+    ) { ?>
+        <div class="box-main_soc-block_share">
+            <div class="box-main_soc-block_share_title"><?=Lang::get('share_with_friends')?>:</div>
+
+            <? if (General::getConfigValue('vkLikeWidget')) { ?>
+                <?=General::getConfigValue('vkLikeWidget')?>
+            <? } ?>
+            <? if (General::getConfigValue('fbLikeWidget')) { ?>
+                <?=General::getConfigValue('fbLikeWidget')?>
+            <? } ?>
+            <? if (General::getConfigValue('twitWidget')) { ?>
+                <?=General::getConfigValue('twitWidget')?>
+            <? } ?>
+            <? if (General::getConfigValue('okWidget')) { ?>
+                <?=General::getConfigValue('okWidget')?>
+            <? } ?>
+        </div>
+    <? } ?>
+
+    <div class="box-main_soc-block_links">
+        <div class="box-main_soc-block_links_title"><?=Lang::get('follow_news')?>:</div>
+
+        <ul>
+            <? if (! General::getConfigValue('hide_vk_link')) { ?>
+                <li class="box-main_soc-block_links_vk">
+                    <a href="<?=General::getConfigValue('vk_link', 'https://vk.com/otcommerce')?>" target="_blank">
+                    </a>
+                </li>
+            <? } ?>
+
+            <? if (General::getConfigValue('ok_link')) { ?>
+                <li class="box-main_soc-block_links_ok">
+                    <a href="<?=General::getConfigValue('ok_link')?>" target="_blank">
+                    </a>
+                </li>
+            <? } ?>
+
+            <? if (! General::getConfigValue('hide_fb_link')) { ?>
+                <li class="box-main_soc-block_links_fb">
+                    <a href="<?=General::getConfigValue('fb_link', 'https://www.facebook.com/otcommerce')?>" target="_blank">
+                    </a>
+                </li>
+            <? } ?>
+
+            <? if (! General::getConfigValue('hide_tw_link')) { ?>
+                <li class="box-main_soc-block_links_tw">
+                    <a href="<?=General::getConfigValue('tw_link', 'https://twitter.com/OT_Commerce')?>" target="_blank">
+                    </a>
+                </li>
+            <? } ?>
+
+            <? if (General::getConfigValue('inst_link')) { ?>
+                <li class="box-main_soc-block_links_inst">
+                    <a href="<?=General::getConfigValue('inst_link')?>" target="_blank">
+                    </a>
+                </li>
+            <? } ?>
+        </ul>
+    </div>
+</section>

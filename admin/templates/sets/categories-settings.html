@@ -1,0 +1,38 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('sets', 'default')?>" class="muted"><?=LangAdmin::get('Sets')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('sets', 'categories')?>" class="muted"><?=LangAdmin::get('Selector')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('config')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<? include('templates/sets/navigation/sub-tabs.html'); ?>
+
+<? XEditableFields::Init('sets', $PageUrl); ?>
+
+<? include('templates/sets/navigation/nad-tabs.html'); ?>
+
+<div class="sets_wrapper">
+<div class="well">
+    <legend class="legend-small">
+        <?=LangAdmin::get('Count_of_elements_in_main_page')?>
+    </legend>
+    <form class="form-horizontal inline_editable_form ot_form">
+        <div data-field="items_with_category"></div>
+        <? XEditableFields::Register('items_with_category', General::getNumConfigValue('items_with_category'), array('inputClass' => 'numeric')); ?>
+    </form>
+</div>
+</div> <!-- sets-wrapper -->
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

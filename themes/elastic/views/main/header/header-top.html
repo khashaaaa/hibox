@@ -1,0 +1,46 @@
+<div class="header-top">
+    <div class="center">
+        <a href="javascript:void(0)" class="menu-icon" data-toggle="modal" data-target="#modal-menu-mobile">
+            <img src="<?=General::getThemeWebDir()?>/img/svg/icon-menu.svg" alt="img">
+        </a>
+
+        <?
+            $showDeliveryLang = $printCurrency || $printCountry || $printLangs;
+            $showContacts = General::getConfigValue('phone') || General::getConfigValue('store_email');
+
+            if ($showDeliveryLang && $showContacts) {
+                $menuSizeClass = 'menu-sm';
+            } elseif ($showDeliveryLang || $showContacts) {
+                $menuSizeClass = 'menu-xs';
+            } else {
+                $menuSizeClass = 'menu-lg';
+            }
+        ?>
+
+        <?=General::viewFetch('main/header/header-top/top-menu', [
+            'vars' => [
+                'topMenu' => $topMenu,
+                'controller' => $controller,
+                'menuSizeClass' => $menuSizeClass
+            ]
+        ])?>
+
+        <?=General::viewFetch('main/header/header-top/user-navigation')?>
+
+        <? if ($showContacts) { ?>
+            <?=General::viewFetch('main/header/header-top/contacts')?>
+        <? } ?>
+
+        <? if ($showDeliveryLang) { ?>
+            <?=General::viewFetch('main/header/header-top/delivery-lang', [
+                'vars' => [
+                    'printCountry' => $printCountry,
+                    'printCurrency' => $printCurrency,
+                    'printLangs' => $printLangs,
+                    'langs' => $langs
+                ]
+            ])?>
+        <? } ?>
+
+    </div>
+</div>

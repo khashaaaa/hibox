@@ -1,0 +1,183 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>"><?=LangAdmin::get('contents::Content')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('contents::Add_edit_page')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/contents/navigation/tabs.xml', $PageUrl)?>
+
+
+<h1><?=LangAdmin::get('contents::Add_edit_page')?></h1>
+
+<div class="well contents-wrapper">
+
+    <form method="post" action="<?=$PageUrl->AssignCmdAndDo('contents', 'savePage')?>" class="form-horizontal ot_form ot-edit-page-form">
+        <input type="hidden" name="is_service" id="is_service" value="<?=$isService?>">
+        <input type="hidden" name="id" id="id" value="<?=$pageId?>">
+        <input type="hidden" name="main" id="type" value="<?=$pageType?>">
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Name')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Name_hint')?>"></i></label>
+            <div class="controls">
+                <input class="input-xlarge" id="title" name="title" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>" <?php if ($page) echo 'value="' . TextHelper::escape($page['title']) . '"' ?>>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Title_h1')?></label>
+            <div class="controls">
+                <input class="input-xlarge" id="titleh1" name="titleh1" type="text" required="required" title="" <?php if ($page) echo 'value="' . TextHelper::escape($page['title_h1']) . '"' ?> original-value="<?=$page['title_h1'] ? TextHelper::escape($page['title_h1']) : ''?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Address')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Address_hint')?>"></i></label>
+            <div class="controls">
+                <input class="input-xlarge" name="alias" id="alias" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>" <?php if ($page) echo 'value="' . $page['alias'] . '"' ?> <?php if ($isService==1) print 'disabled="disabled"';?> original-value="<?=$page['alias'] ? $page['alias'] : ''?>">
+                <?php if ($isService) { ?>
+                    <input type="hidden" name="alias" value="<?=$page['alias']?>">
+                <?php } ?>
+            </div>
+        </div>
+
+        <div class="control-group" <?php if ($isService==1) print 'style="display: none;"';?>>
+
+            <label class="control-label bold"><?=LangAdmin::get('contents::Is')?></label>
+
+            <div class="controls">
+
+                <select class="input-medium" name="page-level" id="page-level">
+                    <option value="page" <?php if ($parentId == FALSE ) echo 'selected="selected"'?>><?=LangAdmin::get('contents::Page')?></option>
+                    <option value="sub_page" <?php if ($parentId != FALSE ) echo 'selected="selected"'?>><?=LangAdmin::get('contents::Subpage')?></option>
+                </select>
+
+                <span class="page-menu-section" <?php if ($pageType == 'sub_page') print 'style="display:none;"'?>>
+                    <?=LangAdmin::get('contents::at_menu')?>
+                    <select class="input-medium" id="page-menu" name="page-menu">
+                        <option value="top_menu" <?php if ($page['menu'] == 'top_menu' ) echo 'selected="selected"'?>> <?=LangAdmin::get('contents::Top_menu')?></option>
+                        <option value="left_menu" <?php if ($page['menu'] == 'left_menu' ) echo 'selected="selected"'?>><?=LangAdmin::get('contents::Column_menu')?></option>
+                        <option value="bottom_menu" <?php if ($page['menu'] == 'bottom_menu' ) echo 'selected="selected"'?>><?=LangAdmin::get('contents::Bottom_menu')?></option>
+                        <option value="without_menu" <?php if ($page['menu'] == FALSE ) echo 'selected="selected"'?>><?=LangAdmin::get('contents::Not_menu')?></option>
+                    </select>
+                </span>
+
+                <span class="page-parent-section" <?php if ($pageType == 'page') print 'style="display:none;"'?> >
+                    <?=LangAdmin::get('contents::for')?>
+                    <select class="input-medium" id="page-parent" name="page-parent">
+                        <? foreach ($pages as $ppage) {
+                            $select = $ppage['id'] == $parentId ? 'selected="selected"' : '';
+                            if ($ppage['id'] != $page['id']) {
+                        ?>
+                            <option value="<?=$ppage['id']?>" <?=$select?>><?=$this->escape($ppage['title'])?></option>
+                        <?php } } ?>
+                    </select>
+                </span>
+            </div>
+        </div>
+
+        <!--div class="control-group">
+            <div class="controls">
+
+                <select class="input-medium" id="page-level" name="page-level">
+                    <option value="sub_page" <?php if ($page['parentId'] != FALSE ) echo 'selected="selected"'?>><?=LangAdmin::get('contents::Subpage')?></option>
+                    <option value="page" <?php if ($page['parentId'] == FALSE ) echo 'selected="selected"'?>><?=LangAdmin::get('contents::Page')?></option>
+                </select>
+            </div>
+        </div-->
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Language')?></label>
+            <div class="controls">
+
+                <select class="input-medium" id="page-language" name="page-language" <?php if ($isService==1) print 'disabled="disabled"';?>>
+                    <? foreach ($languages as $lang) { ?>
+                        <option value="<?=$lang['name']?>" <?php if($language == $lang['name']) print 'selected="selected"' ?>><?=$lang['description']?></option>
+                    <?php } ?>
+                </select>
+                <? if ($isService == 1) { ?>
+                    <input type="hidden" name="page-language" id="page-language-active" value="<?=$language?>">
+                <? } ?>
+
+            </div>
+        </div>
+
+        <div class="box box-blinked box-closed offset-top0 offset-bottom1_2">
+
+            <div class="box-header corner-top">
+                <i class="icon-caret-right font-13"></i>
+                <a href="#" data-box="collapse" class="font-13 bold">
+                    <?=LangAdmin::get('contents::Seo_attributes')?>
+                </a>
+            </div>
+
+            <div class="box-body inset-horizontal-none">
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('contents::Indexing')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Indexing_hint')?>"></i></label>
+                    <div class="controls">
+                        <? $checked = ''; ?>
+                        <? if (! $page) $checked = 'checked'; ?>
+                        <? if ($page && $page['is_index']) $checked = 'checked'; ?>
+                        <input class="input" type="checkbox" id="page-index" name="page-index" value="1" <?=$checked?>>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('contents::Title')?></label>
+                    <div class="controls">
+                        <input class="input-xlarge" type="text" id="page-title" name="page-title" <?php if ($page) echo 'value="' . $page['pagetitle'] . '"' ?> original-value="<?=$page['pagetitle'] ? $page['pagetitle'] : ''?>">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('contents::Keywords')?> </label>
+                    <div class="controls">
+                        <textarea cols="20" rows="2" class="input-xxlarge"  id="page-keywords" name="page-keywords" ><?php if ($page) echo $page['seo_keywords'] ?></textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('contents::Description')?></label>
+                    <div class="controls">
+                        <textarea cols="20" rows="2" class="input-xxlarge"  id="page-description" name="page-description"><?php if ($page) echo $page['seo_description'] ?></textarea>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Content')?></label>
+            <div class="controls">
+                <textarea cols="30" rows="10" class="input-xxlarge" id="page-content" name="page-content"> <?php echo $page['content']; ?></textarea>
+            </div>
+        </div>
+
+        <? if (!empty($page[children])) { ?>
+        <div class="row-fluid offset-bottom1">
+            <div class="span3">
+                <p><strong><?=LangAdmin::get('contents::Pages_list')?></strong></p>
+                <ol class="unstyled ot_sortable_list ot_sortable">
+                    <? foreach ($page[children] as $chPage) {?>
+                    <li data-pageid="<?=$chPage['page_id']?>" class="page_children_list"><span class="badge" title="<?=$chPage['title']?>"><i class="icon-move" title="<?=LangAdmin::get('contents::Change_order')?>"></i><?=$chPage['title']?></span></li>
+                    <?php } ?>
+                </ol>
+            </div>
+        </div>
+        <? } ?>
+
+        <div class="controls">
+            <a href="#" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Save')?>"><?=LangAdmin::get('Save')?></a>
+            <? if ($pageId) { ?>
+            <a href="#" class="btn btn_preloader save-and-continue" data-loading-text="<?=LangAdmin::get('Save_and_continue')?>"><?=LangAdmin::get('Save_and_continue')?></a>
+            <? } ?>
+            <a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>" type="button" class="btn offset-left2 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+        </div>
+
+    </form>
+
+</div>
+
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-contents-pages.js'); ?>

@@ -1,0 +1,4 @@
+<?=Lang::get('hello')?><br />
+<?=Lang::get('get_new_ticket_txt')?>: <?=$ticket_id?> <br />
+<div style="display:block; border:#000 1px solid; background:#FFC; margin:10px;"><?=$txt_message?></div>
+<?=Lang::get('go_answer_ticket_txt')?> <a href="<?=UrlGenerator::getHomeUrl()?>/?p=support&mode=chat&id=<?=$ticket_id?>"><?=UrlGenerator::getHomeUrl()?>/?p=support&mode=chat&id=<?=$ticket_id?></a>

@@ -1,0 +1,24 @@
+
+@import "style/reset.css";
+@import "style/default.css";
+@import "style/grid.css";
+@import "style/icons.control.css";
+@import "style/button.css";
+@import "style/messages.css";
+
+@import "style/form.css";
+
+@import "style/rtl.css";
+
+@import "style/reformat.css";
+@import "style/raiting.css";
+@import "style/blog.style.css";
+
+@import "style/ie.lte9.css";
+@import "style/garbage.css";
+
+@import "libs/jquery/jquery.carousel/jquery-carosuel.css";
+@import "libs/jquery/jquery.coin-slider/coin-slider-styles.css";
+@import "libs/jquery/jquery.ui/jquery-ui.css";
+@import "libs/jquery/jquery.colorbox/jquery-colorbox.css";
+@import "style.content.css";

@@ -1,0 +1,362 @@
+<!-- User's info -->
+
+<? if (! $user->isEmpty()) { ?>
+    <dl class="dl-horizontal dl-ot-horizontal offset-top01 offset-bottom05">
+        <p>
+            <strong>
+                <i class="icon-user"></i>
+                <? if (RightsManager::isAvailableCmd('users')) { ?>
+                <a  href="<?=$PageUrl->generate(array('cmd'=>'users','do'=>'profile', 'id'=>$user['id']))?>"
+                    title="<?=LangAdmin::get('User_profile')?>" target="_blank"
+                >
+                <? } ?>
+                    <?=$this->escape($user->getDisplayName())?>
+                <? if (RightsManager::isAvailableCmd('users')) { ?>
+                </a>
+                <a   href="<?=$PageUrl->generate(array('cmd'=>'users','do'=>'loginAsUser','id'=>$user['id'],'login'=>$user['login']))?>" target="_blank">
+                    <button class="btn btn-mini offset-left05" type="button" title="<?=LangAdmin::get('Authorize_as_user')?> (<?=LangAdmin::get('will_be_opened_in_new_window')?>)">
+                        <?=LangAdmin::get('Authorize')?>
+                        <i class="icon-external-link"></i>
+                    </button>
+                </a>
+                <? } ?>
+            </strong>
+        </p>
+        <dt><?=LangAdmin::get('Account_number')?></dt>
+        <dd><?=$user->account->id?></dd>
+
+        <dt><?=LangAdmin::get('user_balance')?></dt>
+        <dd>
+
+            <span id="accountAvailableAmount" class="inline-block label weight-normal font-12">
+                <?=TextHelper::formatPrice($user->account->AvailableCust, $user->account->CurrencySignCust)?>
+            </span>
+
+            <? $showPaymentReserveBtn = ((float)$user->account->availablecust > 0); ?>
+            <? if ($showPaymentReserveBtn || RightsManager::isAvailableCmd('users')) { ?>
+            <div class="btn-group">
+                <div class="btn-group pull-right">
+                    <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle" title="<?=LangAdmin::get('Actions_with_customer')?>"><i class="icon-cog"></i> <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <? if (RightsManager::isAvailableCmd('users')) { ?>
+                            <li><a id="toggleEnrollForm" href="javascript:void(0)" data-toggle="collapse" data-target=".credit-user-account-form" title="<?=LangAdmin::get('Recharge_user_account')?>"><i class="icon-plus-sign"></i> <span class="font-12"><?=LangAdmin::get('Enroll')?></span></a></li>
+                            <li><a id="toggleWithdrawForm" href="javascript:void(0)" data-toggle="collapse" data-target=".debit-user-account-form" title="<?=LangAdmin::get('Withdraw_funds_from_the_user_account')?>"><i class="icon-minus-sign"></i> <span class="font-12"><?=LangAdmin::get('Withdraw')?></span></a></li>
+                            <li class="divider"></li>
+                        <? } ?>
+                        <li class="paymentReserve" style="<?=! $showPaymentReserveBtn ? 'display:none' : ''?>">
+                            <a  id="paymentReserveBtn" href="javascript:void(0)" title="<?=LangAdmin::get('Pay_for_user_order')?>"
+                                    data-action="<?=$PageUrl->assignDo('paymentReserve')?>"
+                            >
+                                <i class="icon-ok"></i> <span class="font-12"><?=LangAdmin::get('Pay_order')?></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <? } ?>
+
+        </dd>
+
+        <!--credit-user-account-form-->
+        <div class="collapse credit-user-account-form font-12">
+            <form class="form-horizontal" onsubmit="$(this).find('button:first').trigger('click'); return false;">
+                <h4 class="font-13"><?=LangAdmin::get('Enrolling_funds')?></h4>
+                <dl>
+                    <dt class="text-success"><?=LangAdmin::get('Amount')?></dt>
+                    <dd><input name="amount" type="text" class="input-mini price"></dd>
+                    <dt class="text-success"><?=LangAdmin::get('Notice')?></dt>
+                    <dd><textarea name="comment" class="input-medium" rows="2"></textarea></dd>
+                    <dd>
+                        <div class="offset-top05">
+                            <button id="enrollMoneyBtn" autocomplete="off" data-loading-text="<?=LangAdmin::get('Enroll')?>" class="btn btn-mini btn-primary btn_preloader" type="button"><?=LangAdmin::get('Enroll')?></button>
+                            <button class="btn btn-mini" type="button" data-toggle="collapse" data-target=".credit-user-account-form"><?=LangAdmin::get('Cancel')?></button>
+                        </div>
+                    </dd>
+                </dl>
+                <input name="isDebit" type="hidden" value="true"/>
+            </form>
+        </div>
+
+        <!--debit-user-account-form-->
+        <div class="collapse debit-user-account-form font-12">
+            <form class="form-horizontal offset-top1 offset-bottom2"
+                onsubmit="$(this).find('button:first').trigger('click'); return false;">
+                <h4 class="font-13"><?=LangAdmin::get('Withdrawing_funds')?></h4>
+                <dl>
+                <dt class="text-error"><?=LangAdmin::get('Amount')?></dt>
+                <dd><input name="amount" type="text" class="input-mini price"></dd>
+                <dt class="text-error"><?=LangAdmin::get('Notice')?></dt>
+                <dd><textarea name="comment" class="input-medium" rows="2"></textarea></dd>
+                <dd>
+                    <div class="offset-top05">
+                        <button id="withdrawMoneyBtn" autocomplete="off" data-loading-text="<?=LangAdmin::get('Withdraw')?>" class="btn btn-mini btn-primary btn_preloader" type="button"><?=LangAdmin::get('Withdraw')?></button>
+                        <button class="btn btn-mini" type="button" data-toggle="collapse" data-target=".debit-user-account-form"><?=LangAdmin::get('Cancel')?></button>
+                    </div>
+                </dd>
+                </dl>
+                <input name="isDebit" type="hidden" value="false"/>
+            </form>
+        </div>
+
+        <dt><?=LangAdmin::get('Phone')?></dt>
+        <dd><?=$this->escape($user->phone)?>&nbsp;</dd>
+        <dt><?=LangAdmin::get('Email')?></dt>
+        <dd><a href="mailto:<?=$user->email?>"><?=$this->escape($user->email)?></a></dd>
+
+    </dl>
+
+    <div class="well well-small well-transp offset-vertical-none inset-bottom0">
+        <h4 class="offset-top0"><?=LangAdmin::get('order_delivery_address')?></h4>
+        <ul class="unstyled delivery-adress">
+            <li>
+                <span data-field="Familyname"></span>
+                <? XEditableFields::Register(
+                    'Familyname',
+                    $this->escape($order->deliveryaddress->familyname),
+                    array('emptytext' => LangAdmin::get('Last_name'),
+                        'title' => LangAdmin::get('Last_name'),
+                        'pk' => $order->id,
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+                <span data-field="Name"></span>
+                <? XEditableFields::Register(
+                    'Name',
+                    $this->escape($order->deliveryaddress->name),
+                    array('emptytext' => LangAdmin::get('First_name'),
+                        'title' => LangAdmin::get('First_name'),
+                        'pk' => $order->id,
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+                <span data-field="Patername"></span>
+                <? XEditableFields::Register(
+                    'Patername',
+                    $this->escape($order->deliveryaddress->patername),
+                    array('emptytext' => LangAdmin::get('Middle_name'),
+                        'title' => LangAdmin::get('Middle_name'),
+                        'pk' => $order->id,
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+            </li>
+            <? if (! empty($order->deliveryaddress->inn)) { ?>
+                <li class="profile-inn">
+                    <div data-field="INN"></div>
+                    <? XEditableFields::Register(
+                        'INN',
+                        $this->escape($order->deliveryaddress->inn),
+                        array('emptytext' => LangAdmin::get('inn'),
+                            'title' => LangAdmin::get('inn'),
+                            'pk' => $order->id,
+                            'useWrapper' => 'false', 'useLabel' => 'false')
+                    ); ?>
+                </li>
+            <? } ?>
+            <li>
+                <div data-field="Country"></div>
+                <? XEditableFields::Register(
+                    'Country',
+                    $this->escape($order->deliveryaddress->country),
+                    array('emptytext' => LangAdmin::get('Country'),
+                        'title' => LangAdmin::get('Country'),
+                        'pk' => $order->id,
+                        'disabled' => ($order->deliveryaddress->PickupPointCode) ? 'true' : 'false',
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+            </li>
+            <li>
+                <div data-field="PostalCode"></div>
+                <? XEditableFields::Register(
+                    'PostalCode',
+                    ($order->deliveryaddress->postalcode != '000000') ? $this->escape($order->deliveryaddress->postalcode) : '',
+                    array('emptytext' => LangAdmin::get('Postal_code'),
+                        'title' => LangAdmin::get('Postal_code'),
+                        'pk' => $order->id,
+                        'disabled' => ($order->deliveryaddress->PickupPointCode) ? 'true' : 'false',
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+                <div data-field="RegionName"></div>
+                <? XEditableFields::Register(
+                    'RegionName',
+                    (! empty($order->deliveryaddress->regionname)) ? $this->escape($order->deliveryaddress->regionname) : '',
+                    array('emptytext' => LangAdmin::get('Region'),
+                        'title' => LangAdmin::get('Region'),
+                        'pk' => $order->id,
+                        'disabled' => ($order->deliveryaddress->PickupPointCode) ? 'true' : 'false',
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+                <div data-field="City"></div>
+                <? XEditableFields::Register(
+                    'City',
+                    (! empty($order->deliveryaddress->city)) ? $this->escape($order->deliveryaddress->city) : '',
+                    array('emptytext' => LangAdmin::get('City'),
+                        'title' => LangAdmin::get('City'),
+                        'pk' => $order->id,
+                        'disabled' => ($order->deliveryaddress->PickupPointCode) ? 'true' : 'false',
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+                <div data-field="Address"></div>
+                <? XEditableFields::Register(
+                    'Address',
+                    $this->escape($order->deliveryaddress->address),
+                    array('emptytext' => LangAdmin::get('Address'),
+                        'title' => LangAdmin::get('Address'),
+                        'pk' => $order->id,
+                        'disabled' => ($order->deliveryaddress->PickupPointCode) ? 'true' : 'false',
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+            </li>
+            <li>
+                <div data-field="Phone"></div>
+                <? XEditableFields::Register(
+                    'Phone',
+                    $this->escape($order->deliveryaddress->phone),
+                    array('emptytext' => LangAdmin::get('Phone'),
+                        'title' => LangAdmin::get('Phone'),
+                        'pk' => $order->id,
+                        'useWrapper' => 'false', 'useLabel' => 'false')
+                ); ?>
+            <? if (! empty($order->deliveryaddress->passportnumber)) { ?>
+                <li>
+                    <div data-field="PassportNumber"></div>
+                    <? XEditableFields::Register(
+                        'PassportNumber',
+                        $this->escape($order->deliveryaddress->passportnumber),
+                        array('emptytext' => LangAdmin::get('PassportNumber'),
+                            'title' => LangAdmin::get('PassportNumber'),
+                            'pk' => $order->id,
+                            'useWrapper' => 'false', 'useLabel' => 'false')
+                    ); ?>
+                </li>
+            <? } ?>
+            <? if (! empty($order->deliveryaddress->registrationaddress)) { ?>
+                <li>
+                    <div data-field="RegistrationAddress"></div>
+                    <? XEditableFields::Register(
+                        'RegistrationAddress',
+                        $this->escape($order->deliveryaddress->registrationaddress),
+                        array('emptytext' => LangAdmin::get('Registration_address'),
+                            'title' => LangAdmin::get('Registration_address'),
+                            'pk' => $order->id,
+                            'useWrapper' => 'false', 'useLabel' => 'false')
+                    ); ?>
+                </li>
+            <? } ?>
+        </ul>
+
+        <?php if (count($order->packages) > 0) {
+            $packs = array();
+        ?>
+            <h4 class="offset-top0"><?=LangAdmin::get('Delivery_addresses')?> <span class="muted"><?=LangAdmin::get('by_packages')?></span></h4>
+            <? foreach ($order->packages as $pack) {
+                if (! array_key_exists($pack->id, $packs)) { ?>
+                    <p>
+                        <span class="ot-spoiler ot-spoiler-iconed blink opened" data-toggle="collapse" data-target=".ot-package-<?=$pack->id?>">
+                            <i class="icon-caret-right color-blue font-12"></i>
+                            № <?=$pack->id?>
+                        </span>
+
+                        <div class="ot-package-<?=$pack->id?> collapse" style="height: 0px;">
+                            <div class="well well-small well-white inset-bottom0 offset-bottom1">
+                                <ul class="unstyled">
+                                    <li><strong><?=$pack->getRecipientName()?></strong></li> 
+                                    <? if (! empty($pack->deliverycontactinn)) { ?>
+                                        <li class="profile-inn"><?=LangAdmin::get('inn')?>: <?=$pack->deliverycontactinn ?></li>
+                                    <? } ?>
+                                    <?php
+                                    $addr = $pack->getDeliveryAddress(false, true);
+                                    foreach ($addr as $addrRow) { ?>
+                                        <li><?=$addrRow?></li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </p>
+                <?php   $packs[$pack->id] = 1;
+                }
+                ?>
+            <? }    ?>
+        <? } ?>
+
+        <? if (! empty($additionalAddresses) && is_array($additionalAddresses) && count($additionalAddresses) > 0 ) { ?>
+        <p><span class="blink" data-toggle="collapse" data-target=".other-user-delivery-addresses" title="<?=LangAdmin::get('Add_new_recipient')?>"><?=LangAdmin::get('Show_additional_addresses')?></span></p><!-- TODO: Show when there is any -->
+        <div class="collapse other-user-delivery-addresses">
+            <ol>
+                <? foreach ($additionalAddresses as $address) { ?>
+                <li>
+                    <ul class="unstyled">
+                        <li><?=$this->escape($address['RecipientFirstName'])?> <?=$this->escape($address['RecipientLastName'])?></li>
+                        <li><?=$this->escape($address['country'])?></li>
+                        <li><?=$address['city']?$this->escape($address['city']).', ':''?>
+                            <?=$address['region']?$this->escape($address['region']).', ':''?>
+                            <?=$this->escape($address['PostalCode'])?>
+                        </li>
+                        <li><?=$this->escape($address['address'])?></li>
+                        <li><?=$this->escape($address['phone'])?></li>
+                        <? if (! empty($address['INN'])) { ?>
+                            <li class="profile-inn"><?=LangAdmin::get('inn')?>: <?=$this->escape($address['INN'])?></li>
+                        <? } ?>
+                        <? if (!empty($address['PassportNumber']) && $address['PassportNumber']) { ?>
+                        <li><?=$this->escape($address['PassportNumber'])?></li>
+                        <? } ?>
+                        <? if (!empty($address['RegistrationAddress']) && $address['RegistrationAddress']) { ?>
+                        <li><?=$this->escape($address['RegistrationAddress'])?></li>
+                        <? } ?>
+                    </ul>
+                </li>
+                <? } ?>
+            </ol>
+        </div>
+        <? } ?>
+    </div>
+
+    <!-- other  user's active orders-->
+    <h5 class="offset-bottom0"><?=LangAdmin::get('Other_active_orders')?></h5>
+
+    <? if ($user->orders && ! $user->orders->isEmpty()) { ?>
+        <? foreach ($user->orders as $otherOrder) {
+            if ($otherOrder['id'] == $order['id']) {
+                continue;
+            }
+        ?>
+        <div class="box box-blinked box-closed offset-top01 offset-bottom0">
+
+            <div class="box-header corner-top">
+                <i class="icon-caret-right color-blue font-12"></i>
+                <a href="#" data-box="collapse" data-target=".other-active-order-<?=$otherOrder->id?>" class="font-12 blink">
+                    <?=OrdersProxy::normalizeOrderId($otherOrder->id)?>
+                </a>
+            </div>
+
+            <div class="box-body inset-horizontal-none .other-active-otherOrder-<?=$otherOrder->id?>">
+                <div class="well">
+                    <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none">
+                        <dt><?=LangAdmin::get('Order_number')?></dt>
+                        <dd>
+                            <a href="<?=$PageUrl->generate(array('do'=>'view', 'id'=>$otherOrder->id))?>">
+                                <?=OrdersProxy::normalizeOrderId($otherOrder->id)?>
+                            </a>
+                        </dd>
+                        <dt><?=LangAdmin::get('Order_status')?></dt>
+                        <dd><?=$otherOrder->StatusName?></dd>
+                        <dt><?=LangAdmin::get('Creation_date')?></dt>
+                        <dd><?=date('d.m.y', strtotime($otherOrder['createddatetime']))?> <span class="muted font-11">(<?=date('H:i:s', strtotime($otherOrder['createddatetime']))?>)</span></dd>
+                        <dt><?=LangAdmin::get('Order_cost')?></dt>
+                        <dd><?=$otherOrder->getFormattedTotalAmount()?></dd>
+                        <dt><?=LangAdmin::get('Paid')?> / <?=LangAdmin::get('remain')?></dt>
+                        <dd>
+                            <?=$otherOrder->getPaidAmount()?> /
+                            <?=TextHelper::formatPrice($otherOrder->remainamount, $otherOrder->currencysign)?>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <? } ?>
+    <? } else { ?>
+
+    <p><i class="icon-info-sign"></i> <?=LangAdmin::get('No_other_user_order_found')?>.</p>
+
+    <? } ?>
+
+<? } else { ?>
+    <p><i class="icon-info-sign"></i> <?=LangAdmin::get('No_user_info_found')?>.</p>
+<? } ?>

@@ -1,0 +1,163 @@
+<div class="aside-right">
+    <div class="list-parcels block-orange sticky-top">
+        <div class="list-parcels__header yellow2-panel">
+            <?=Lang::get('your_order')?>
+        </div>
+
+        <div class="list-parcels__body">
+            <div class="list-parcels__row list-parcels__row-result">
+                <div class="list-parcels__col-left"><?=Lang::get('total')?>:</div>
+                <div class="list-parcels__col-right order-price"></div>
+            </div>
+
+            <div class="list-parcels__row">
+                <div class="list-parcels__col-left"><?=Lang::get('Total_items')?></div>
+                <div class="list-parcels__col-right products-price"
+                     data-sign="<?=$basketGroups['TotalCost']['sign']?>"
+                     data-value="<?=$basketGroups['TotalCost']['value']?>"
+                >
+                    <?=TextHelper::formatPrice($basketGroups['TotalCost']['value'], $basketGroups['TotalCost']['sign'])?>
+                </div>
+            </div>
+
+            <div class="list-parcels__row">
+                <div class="list-parcels__col-left"><?=Lang::get('delivery_cost')?></div>
+                <div class="list-parcels__col-right delivery-price">
+                    <?=Lang::get('Not_selected')?>
+                </div>
+            </div>
+
+            <div class="list-parcels__row">
+                <div class="list-parcels__col-left"><?=Lang::get('total_weight')?>:</div>
+                <div class="list-parcels__col-right total-weight" data-weight="<?=(float)$totalWeight?>">
+                    <?=number_format((float)$totalWeight, 2, '.', " ")?>&nbsp;<?=Lang::get('weight_kg')?>
+                </div>
+            </div>
+
+            <div class="list-parcels__row">
+                <div class="list-parcels__col-left"><?=Lang::get('delivery')?>:</div>
+                <div class="list-parcels__col-right externalDeliveryMode">
+                    <?=Lang::get('Not_selected')?>
+                </div>
+            </div>
+
+            <div class="list-parcels__row">
+                <? if (General::getConfigValue('origin_package')) { ?>
+                    <div class="form-row">
+                        <div class="custom-control custom-checkbox order-origin-package">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="order-origin-package-aside"
+                                   data-input-class="order-origin-package"
+                            >
+                            <label class="custom-control-label aside-checkbox" for="order-origin-package-aside">
+                                <?=Lang::get('save_origin_package')?>
+                            </label>
+                        </div>
+                    </div>
+                <? } ?>
+                <? $order_insurance = General::getConfigValue('order_insurance_percent') ? General::getConfigValue('order_insurance_percent') : 0; ?>
+                <? if ($order_insurance > 0) { ?>
+                    <div class="form-row order-insurance">
+                        <div class="custom-control custom-checkbox order-insurance">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="order-insurance-aside"
+                                   data-input-class="order-insurance"
+                            >
+                            <label class="custom-control-label aside-checkbox" for="order-insurance-aside">
+                                <?=Lang::get('order_insurance')?>
+                            </label>
+                        </div>
+                    </div>
+                <? } ?>
+            </div>
+        </div>
+
+        <? if (!$isQuickOrder) { ?>
+            <div class="list-parcels__footer">
+                <a href="javascript:void(0)" class="button createOrder"><?=Lang::get('confirm_order')?></a>
+            </div>
+        <? } ?>
+    </div>
+
+    <div class="sticky-top-mobile-wrap">
+        <div class="list-parcels block-orange sticky-top-mobile" style="position: fixed;">
+            <div class="list-parcels__footer">
+                <div class="list-parcels__row list-parcels__row-result">
+                    <div class="list-parcels__col-left"><?=Lang::get('total')?>:</div>
+                    <div class="list-parcels__col-right order-price"></div>
+                </div>
+
+                <? if (!$isQuickOrder) { ?>
+                    <a href="javascript:void(0)" class="button createOrder"><?=Lang::get('confirm_order')?></a>
+                <? } ?>
+
+                <div class="additional_options">
+                    <? if (General::getConfigValue('origin_package')) { ?>
+                        <div class="form-row">
+                            <div class="custom-control custom-checkbox order-origin-package">
+                                <input type="checkbox"
+                                       class="custom-control-input"
+                                       id="order-origin-package-aside-mobile"
+                                       data-input-class="order-origin-package"
+                                >
+                                <label class="custom-control-label aside-checkbox" for="order-origin-package-aside-mobile">
+                                    <?=Lang::get('save_origin_package')?>
+                                </label>
+                            </div>
+                        </div>
+                    <? } ?>
+                    <? $order_insurance = General::getConfigValue('order_insurance_percent') ? General::getConfigValue('order_insurance_percent') : 0; ?>
+                    <? if ($order_insurance > 0) { ?>
+                        <div class="form-row">
+                            <div class="custom-control custom-checkbox order-insurance">
+                                <input type="checkbox"
+                                       class="custom-control-input"
+                                       id="order-insurance-aside-mobile"
+                                       data-input-class="order-insurance"
+                                >
+                                <label class="custom-control-label aside-checkbox" for="order-insurance-aside-mobile">
+                                    <?=Lang::get('order_insurance')?>
+                                </label>
+                            </div>
+                        </div>
+                    <? } ?>
+                </div>
+            </div>
+
+            <div class="list-parcels__body">
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('Total_items')?></div>
+                    <div class="list-parcels__col-right products-price"
+                         data-sign="<?=$basketGroups['TotalCost']['sign']?>"
+                         data-value="<?=$basketGroups['TotalCost']['value']?>"
+                    >
+                        <?=TextHelper::formatPrice($basketGroups['TotalCost']['value'], $basketGroups['TotalCost']['sign'])?>
+                    </div>
+                </div>
+
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('delivery_cost')?></div>
+                    <div class="list-parcels__col-right delivery-price">
+                        <?=Lang::get('Not_selected')?>
+                    </div>
+                </div>
+
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('total_weight')?>:</div>
+                    <div class="list-parcels__col-right total-weight" data-weight="<?=(float)$totalWeight?>">
+                        <?=number_format((float)$totalWeight, 2, '.', " ")?></span>&nbsp;<?=Lang::get('weight_kg')?>
+                    </div>
+                </div>
+
+                <div class="list-parcels__row">
+                    <div class="list-parcels__col-left"><?=Lang::get('delivery')?>:</div>
+                    <div class="list-parcels__col-right externalDeliveryMode">
+                        <?=Lang::get('Not_selected')?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

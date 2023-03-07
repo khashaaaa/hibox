@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Products_reviews">Products reviews</key>
+    <key name="Accept_selected_reviews">Approve selected reviews</key>
+    <key name="Delete_selected_reviews">Delete selected reviews</key>
+    <key name="Accept">Approve</key>
+    <key name="Review">Review</key>
+    <key name="User">User</key>
+    <key name="Created">Created</key>
+    <key name="Actions">Actions</key>
+    <key name="Go_to_review">Go to review</key>
+    <key name="Accept_review">Approve review</key>
+    <key name="Delete_review">Delete review</key>
+    <key name="Review_accepted">Review approved</key>
+    <key name="Reviews_accepted">Reviews approved</key>
+    <key name="Review_deleted">Review deleted</key>
+    <key name="Reviews_deleted">Reviews deleted</key>
+    <key name="Really_delete_review">Are you sure you want to delete this review?</key>
+    <key name="Really_delete_reviews">Are you sure you want to delete selected reviews?</key>
+    
+</translations>
+
+
+
+

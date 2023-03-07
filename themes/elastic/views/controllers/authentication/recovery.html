@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-xs-12">
+            <?=General::viewFetch('controllers/authentication/recovery-form', ['vars' => [
+                'error' => $error,
+                'login' => $login,
+                'success' => $success,
+            ]]) ?>
+        </div>
+    </div>
+</div>

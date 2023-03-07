@@ -1,0 +1,137 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "SiteConfiguration",
+        "do": "save"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        },
+        "textarea": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+    "fields": [
+        {
+            "name": "site_temporary_unavailable",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "auth_to_private_office",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "auth_capcha_admin",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+		{
+            "name": "google_recaptcha",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "google_recaptcha_key_public",
+            "type": "text"
+        },
+        {
+            "name": "google_recaptcha_key_secret",
+            "type": "text"
+        },
+        {
+            "name": "email_smtp_security",
+            "type": "select",
+            "valuesList": [
+                "none",
+                "ssl",
+                "tls"
+            ]
+        },		
+        {
+            "name": "email_smtp_pass",
+            "type": "text"
+        },
+        {
+            "name": "email_smtp_user",
+            "type": "text"
+        },
+        {
+            "name": "email_smtp_port",
+            "type": "text"
+        },
+        {
+            "name": "email_smtp_adress",
+            "type": "text"
+        },
+        {
+            "name": "notification_send_from_name",
+            "type": "text"
+        },
+        {
+            "name": "notification_send_from",
+            "type": "text"
+        },
+        {
+            "name": "notification_email",
+            "type": "text"
+        },
+        {
+            "name":"admin_letter_lang",
+            "type": "select",
+            "valuesList": [
+                "ru",
+                "en"
+            ]
+        },
+        {
+            "name": "is_old_platform",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "use_https",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "use_custom_view",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "collect_js_css",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        }
+    ]
+}

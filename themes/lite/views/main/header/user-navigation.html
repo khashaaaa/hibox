@@ -1,0 +1,42 @@
+<?=General::viewFetch('main/stock_layout')?>
+
+<nav class="box-up-menu">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+    </div>
+    <ul class="head-cart">
+        <li class="box-up-menu_shopping-cart">
+            <a href="<?=UrlGenerator::generateContentUrl('basket')?>">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                <span><?=Lang::get('cart')?></span>
+                <span id="basket-items-count" class="badge js-cart-amount"><?=$this->getUser()->getCountInBasket()?></span>
+            </a>
+        </li>
+        <li class="box-up-menu_favorite">
+            <a href="<?=UrlGenerator::generateContentUrl('supportlist')?>">
+                <span class="glyphicon glyphicon-star"></span>
+                <span><?=Lang::get('favourites')?></span>
+                <span id="note-items-count" class="badge js-favorite-amount" title="<?//=Lang::get('Price_items_without_delivery', array('value' => $this->getUser()->getTotalPriceInNote()))?>">
+            <?=$this->getUser()->getCountInNote()?>
+        </span>
+            </a>
+        </li>
+    </ul>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+            <?=General::viewFetch(
+                'main/header/user-navigation-navbar-nav-content',
+                array('vars' => array('langs' => $langs, 'cms' => $cms))
+            )?>
+            <?=General::viewFetch(
+                'main/header/top-menu',
+                array('vars' => array('topMenu' => $topMenu, 'controller' => $controller))
+            )?>
+        </ul>
+    </div>
+</nav>

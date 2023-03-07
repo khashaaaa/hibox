@@ -1,0 +1,41 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('categories', 'default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Items')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+
+<h1><?=LangAdmin::get('Edit_product')?></h1>
+
+<div class="well item_wrapper">
+
+    <form method="post" class="form-horizontal ot_form" action="<?=$PageUrl->AssignDo('editItem')?>"  enctype="multipart/form-data">
+
+        <div class="row-fluid">
+
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('item_ID')?> </label>
+                    <div class="controls">
+                        <input type="text" id="item-id" name="item-id" class="input-block-level" data-provide="typeahead" required="required">
+                    </div>
+                </div>
+
+            </div><!-- /. span6 -->
+
+        </div><!-- /.row-fluid -->
+
+        <div class="controls offset-top2">
+            <button id="edit-item-btn" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Edit')?>"><?=LangAdmin::get('Edit')?></button>
+        </div>
+
+    </form>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-items.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+

@@ -1,0 +1,165 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Support', 'default')?>"><?=LangAdmin::get('Support')?></a> <span class="divider">›</span></li>    
+    <li class="active"><?=LangAdmin::get('general')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/support/navigation/tabs.xml', $PageUrl)?>
+
+<div class="row-fluid">
+
+    <h1 class="span5"><?=LangAdmin::get('General_tickets')?></h1>
+
+    <div class="span3 offset-top2 text-right">
+        <span class="text-success"><?=LangAdmin::get('ticket_new_count')?></span> <span class="badge badge-success countNewTickets"><?=$supportTickets['totalCountNew']?></span>
+        <span class="text-error"><?=LangAdmin::get('Not_answerd')?></span> <span class="badge badge-important countNotAnswerTickets"><?=$supportTickets['totalCountNotAnswered']?></span>
+    </div>
+
+</div>
+
+<div class="row-fluid ot_support">
+
+    <div class="span8">
+
+        <div class="well well-small offset-bottom1">
+
+            <form class="ot_form" id="filters" action="" method="get">
+
+                <div class="row-fluid">
+
+                    <div class="span3">
+                        <div class="control-group">
+                            <label class="control-label bold" for=""><?=LangAdmin::get('Ticket_number')?></label>
+                            <div class="controls">
+                                <input type="text" class="input-medium numeric" name="ticket_id" value="<?=$filter['ticket_id']?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span3 offset1">
+                        <div class="control-group">
+
+                            <label class="control-label bold" for="ot_order_number"><?=LangAdmin::get('User')?></label>
+                            <div class="controls">
+                                <input type="text" class="input-medium" name="ticket_user" value="<?=$filter['ticket_user']?>">
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="span4 offset1">
+                        <div class="control-group">
+                            <label class="control-label bold text-right"><?=LangAdmin::get('Condition')?></label>
+                            <div class="controls">
+                                <label class="checkbox inline"><input type="checkbox" name="ticket_new" <?=$filter['ticket_new'] ? 'checked' : ''?>><?=LangAdmin::get('ticket_new_count')?></label>
+                                <label class="checkbox inline"><input type="checkbox" name="ticket_notanswer" <?=$filter['ticket_notanswer'] ? 'checked' : ''?>><?=LangAdmin::get('Not_answerd')?></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+                    
+
+                    <div class="span10">
+
+                        <div class="control-group">
+                            <label class="control-label bold"><?=LangAdmin::get('Date')?></label>
+                            <div class="controls">
+                                <?=LangAdmin::get('from')?>
+                                <div class="input-append">
+                                    <input id="date-start-display" class="input-small" type="text" data-date-format="dd.mm.yyyy" name="ticket_date_from" data-date="<?=$filter['ticket_date_from']?>" value="<?=$filter['ticket_date_from']?>">
+                                    <span class="btn add-on" id="date-start"><i class="icon-calendar"></i></span>
+                                </div>
+
+                                <?=LangAdmin::get('to')?>
+                                <div class="input-append">
+                                    <input  id="date-end-display" class="input-small" type="text" data-date-format="dd.mm.yyyy" name="ticket_date_to" data-date="<?=$filter['ticket_date_to']?>" value="<?=$filter['ticket_date_to']?>">
+                                    <span class="btn add-on" id="date-end"><i class="icon-calendar"></i></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="span2 offset-top-lebel-1">
+                        <div class="controls offset-top-lebel-1">
+                            <input type="hidden" name="perpage" value="<?=$paginator->limit();?>">
+                            <input type="hidden" name="cmd" value="support"/>
+                            <input type="hidden" name="do" value="other"/>
+                            <button type="submit" class="btn btn_preloader btn-primary pull-right" data-loading-text="<?=LangAdmin::get('apply_filter')?>" autocomplete="off"><?=LangAdmin::get('apply_filter')?></button>
+<!--                            <button type="button" class="btn">Сбросить фильтры</button>-->
+                        </div>
+                    </div>
+
+                </div>
+                
+
+            </form>
+
+        </div><!-- /.well -->
+
+        <div class="text-right">
+            <select class="input-mini" id="ot-perpage-change">
+                <option value="10" <?=$paginator->limit() == 10 ? 'selected' : ''?>>10</option>
+                <option value="25" <?=$paginator->limit() == 25 ? 'selected' : ''?>>25</option>
+                <option value="50" <?=$paginator->limit() == 50 ? 'selected' : ''?>>50</option>
+                <option value="100" <?=$paginator->limit() == 100 ? 'selected' : ''?>>100</option>                
+            </select>
+        </div>
+        <? if (! empty($supportTickets['content'])) { ?>
+        <table class="table ot_support_orders_themes">
+
+            <thead>
+                <tr>
+                    <th colspan="2"><?=LangAdmin::get('Theme')?></th>
+                    <th><?=LangAdmin::get('Messages')?><br><span class="font-11"><span class="weight-normal"><?=LangAdmin::get('Conut')?></span> / <span class="text-success"><?=LangAdmin::get('ticket_new_count')?></span></span></th>
+                    <th><?=LangAdmin::get('Date')?></th>
+                    <th><?=LangAdmin::get('Category')?></th>
+                    <th><?=LangAdmin::get('Customer')?></th>
+                    <th><?=LangAdmin::get('Number')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                    
+                <? foreach ($supportTickets['content'] as $message) { ?>
+                    <tr>
+                        <td>
+                            <?=($message['notAnswered'] && $message['status'] != 'close') ? '<i class="icon-flag" title="'. LangAdmin::get('Need_answer'). '"></i>' : ''?>
+                        </td>
+                        <td><span class="blink ot-show-chat <?=$message['newmsgcount'] ? 'strong' : ''?>" ticketId="<?=$message['id']?>" userId="<?=$message['user']?>" title="<?=LangAdmin::get('Read_messages')?>"><?=strlen($message['subject']) > 2 ? $this->escape($message['subject']) : LangAdmin::get('No_subject')?></span></td>
+                        <td class="text-center"><strong><?=$message['msgcount']?></strong> <?=$message['newmsgcount'] ? '/ <strong class="text-success">' . $message['newmsgcount'] . '</strong>' : '' ?></td>
+                        <td><?=date('d.m.Y', $message['createddate'])?>, <span class="muted"><?=date('H:i', $message['createddate'])?></span></td>
+                        <td><?=$message['category']?></td>
+                        <td><a href="?cmd=users&id=<?=$message['user']?>&do=profile" title="<?=LangAdmin::get('Customer_profile')?>"><?=$message['userLogin'] ? $this->escape($message['userLogin']) : LangAdmin::get('Customer_profile')?></a></td>
+                        <td>Ticket-<?=$message['id']?></td>
+                    </tr>
+                <? } ?>
+            </tbody>
+        </table>
+        <? } else { ?>
+            <?=LangAdmin::get('Not_found_tickets')?>
+        <? } ?>
+    </div>
+
+
+    <div class="span4">
+        <div class="ot_support_view_topic">
+            
+            <aside class="well">
+                <h4><?=LangAdmin::get('Need_choose_ticket_to_see_messages')?></h4>
+                
+            </aside>
+        </div>
+    </div>
+
+</div>
+
+ <?php $paginator->display(); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-support.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>

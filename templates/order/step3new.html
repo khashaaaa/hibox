@@ -1,0 +1,261 @@
+<script type="text/javascript" src="js/order_delivery.js?<?=CFG_SITE_VERSION;?>"></script>
+
+<?=Lang::loadJSTranslation(array('empty_delivery_country', 'empty_deliveries', 'Defined_delivery_mode_not_found_Please_select_other', 'not_filled_required_field'));?>
+
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <h1><?=Lang::get('delivery')?></h1>
+    </div>
+</div>
+
+<div class="main"><div class="wrap clrfix">
+    <div class="bproduct" id="address_form">
+        <span class="red"><?=Lang::get('stars_inputs')?></span>
+        <br/>
+        <br/>
+        <div class="field">
+            <div class="form-row">
+                <? if (count($profiles)) { ?>
+                    <label for="Profile"><?=Lang::get('Profiles')?></label>
+                    <select name="profiles_select" id="profiles_select_step3" class="form-field form-field__select">
+                        <? $profiles_count = 0; ?>
+                        <? foreach ($profiles as $profile) { ?>
+                            <? $profiles_count++; ?>
+                            <option value="<?=$profile['id']?>"><?=Lang::get('profile') . ' '  . $profiles_count ?></option>
+                        <? } ?>
+                    </select>
+                <? } ?>
+            </div>
+        </div>
+        <form action="/?p=userorder&step4&type=<?=$alias?>" method="post" id="address_form2">
+            <div class="profile-data" id="profile" >
+                <? if (count($profiles)) { ?>
+                    <input  id="ProfileId" type="hidden" name="Profile[Id]" value="" />
+                <? } else { ?>
+                    <input  id="ProfileCreate" type="hidden" name="Profile[New]" value="1" />
+                <? } ?>
+
+                <input type="hidden" name="type" value="<?=$type?>" />
+
+                <? $state = InstanceProvider::getObject()->GetProfileFieldState("FirstName")?>
+                <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("FirstName")?>
+                <fieldset>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="RecipientFirstName-parent">
+                        <label for="FirstName"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="FirstName" type="text" name="Profile[FirstName]" value="" class="form-field" />
+                    </div>
+                </fieldset>
+                <? $state = InstanceProvider::getObject()->GetProfileFieldState("MiddleName")?>
+                <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("MiddleName")?>
+                <fieldset>
+                        <div class="field di <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>b" id="RecipientMiddleName-parent">
+                            <label for="middleName"><?=$displayName?>
+                                <? if ($state === "EnabledAndRequired") { ?>
+                                    <span class="red">*</span>
+                                <? } ?>
+                            </label>
+                            <input id="MiddleName" type="text" name="Profile[MiddleName]" value="" class="form-field" />
+                        </div>
+                    </fieldset>
+                <? $state = InstanceProvider::getObject()->GetProfileFieldState("LastName")?>
+                <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("LastName")?>
+                <fieldset>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="RecipientLastName-parent">
+                        <label for="LastName"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="LastName" type="text" name="Profile[LastName]" value="" class="form-field" />
+                    </div>
+                </fieldset>
+                <? $state = InstanceProvider::getObject()->GetProfileFieldState("INN")?>
+                <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("INN")?>
+                <fieldset>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="RecipientINN-parent">
+                        <label for="INN"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="INN" type="text" name="Profile[INN]" value="" class="form-field" />
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("PassportNumber")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PassportNumber")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="RecipientPassportNumber-parent">
+                        <label for="PassportNumber"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="PassportNumber" type="text" name="Profile[PassportNumber]" value="" class="form-field" />
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("RegistrationAddress")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("RegistrationAddress")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="RecipientRegistrationAddress-parent">
+                        <label for="RegistrationAddress"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="RegistrationAddress" type="text" name="Profile[RegistrationAddress]" value="" class="form-field" />
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("PassportIssueDate")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PassportIssueDate")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="PassportIssueDate-parent">
+                        <label for="PassportIssueDate"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="PassportIssueDate" type="text" name="Profile[PassportIssueDate]" value="" class="form-field" />
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("CountryCode")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("CountryCode")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="Country-parent">
+                        <label for="country"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <select name="Profile[CountryCode]" id="Country" class="form-field form-field__select" style="width: 258px;">
+                                <? if (! count($profiles)) { ?>
+                                    <option code="" value=""> <?=Lang::get('Not_selected')?></option>
+                                <? } ?>
+                                <? foreach($countries as $item) { ?>
+                                    <? $countrySelected = ($item['Id']==User::getObject()->getCountryCode() && count($profiles)==0) || $item['Id'] == $profile['CountryCode']; ?>
+                                    <option code="<?=$item['Id']?>" value="<?=$item['Id']?>" <?= $countrySelected ? 'selected="selected"' : '' ?>> <?=$item['Name']?></option>
+                                <? } ?>
+                        </select>
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("PostalCode")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PostalCode")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="PostalCode-parent">
+                        <label for="PostalCode"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="PostalCode" type="text" name="Profile[PostalCode]" value="" class="form-field" />
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("Region")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Region")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="Region-parent">
+                        <label for="Region"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="Region" type="text" name="Profile[Region]" value="" class="form-field" />
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("City")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("City")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="City-parent">
+                        <label for="City"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="City" type="text" name="Profile[City]" value="" class="form-field" />
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("Address")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Address")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="Address-parent">
+                        <label for="Address"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="Address" type="text" name="Profile[Address]" value="" class="form-field" />
+                    </div>
+                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("Phone")?>
+                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Phone")?>
+                    <div class="field dib <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>" id="Phone-parent">
+                        <label for="Phone"><?=$displayName?>
+                            <? if ($state === "EnabledAndRequired") { ?>
+                                <span class="red">*</span>
+                            <? } ?>
+                        </label>
+                        <input id="Phone" type="text" name="Profile[Phone]" value="" class="form-field" />
+                    </div>
+                </fieldset>
+            </div>
+
+
+            <? if (General::getConfigValue('hide_step_delivery_order')) { ?>
+                <div style="display: none">
+            <? } ?>
+            <h3 class="mt15"><?=Lang::get('delivery_method')?></h3>
+            <strong><?=Lang::get('total_weight')?>:</strong> <?=$weight;?> <?=Lang::get('kg')?>
+            <table class="notepad mt10 mb10" id="deliveries-list">
+                <tr>
+                    <td width="5%"></td>
+                    <td width="60%"><?=Lang::get('delivery_options')?></td>
+                    <td><?=Lang::get('delivery_cost')?></td>
+                </tr>
+                <? $i=0; if(is_array($models)) foreach ($models as $model) {?>
+                    <? $checked = ($i==0) ? 'checked="checked"' : ''; ?>
+                    <? $i++; ?>
+                    <tr>
+                        <? $model['description'] = preg_replace("/\[([^\]]+)\]/", "<a href='$1'>$1</a>", $model['description']); ?>
+                        <? $model['description'] = str_replace("\n", "<br>", $model['description']); ?>
+                        <td width="5%"><input type="radio" name="model" value="<?=$model['id'];?>" <?=$checked;?> /></td>
+                        <td><strong><?=$model['name'];?></strong><br/><?=$model['description'];?></td>
+                        <td><b><?=TextHelper::formatPrice($model['price'], $model['currencysign'])?></b></td>
+                    </tr>
+                <? } ?>
+            </table>
+            <? if (General::getConfigValue('hide_step_delivery_order')) { ?>
+                </div>
+            <? } ?>
+            <? if(isset($_GET['weight']) && $_GET['weight']==0) { ?>
+                <font color="#ff0000"><br/><?=Lang::get('desc_weight_0')?></font>
+            <? } ?>
+            <input type="hidden" name="total_weight" value="<?=$weight;?>"/>
+            <input type="hidden" name="order" value="<?=$order;?>"/>
+
+            <div id="adr_spinner" style="display:none"><img src="css/i/ajax-loader.gif"></div>
+            <h3 id="empty_deliveries" style="margin-bottom: 20px; display:<?=(empty($models) ? 'block' : 'none')?>">
+                <div class="bgr mb15 office_info_main order-msg error">
+                <?=Lang::get('empty_delivery_country')?>
+                </div>
+            </h3>
+
+            <div class="bgr-panel mt5">
+                <? $params .= (isset($_GET['weight'])) ? '&weight='.$_GET['weight'] : '';?>
+                <? if (! General::getConfigValue('skip_reordering') && Session::isAuthenticated()) { ?>
+                <a href="/?p=userorder&step2&type=<?=$alias . $params?>" class="btn btn-apper b-first-page"><?=Lang::get('back')?></a>
+                <? } else if (! General::getConfigValue('hide_step_weight_order')) { ?>
+                <a href="/?p=userorder&step1&type=<?=$alias?>" class="btn btn-apper b-first-page"><?=Lang::get('back')?></a>
+                <? } else { ?>
+                <a href="<?=UrlGenerator::generateContentUrl('basket')?>" class="btn btn-apper b-first-page"><?=Lang::get('back')?></a>
+                <? } ?>
+                <input class="btn btn-apper b-last-page" type="button" value="<?=Lang::get('make_order')?>" onclick="checkinputstep3();" id="nextstep">
+            </div>
+        </form>
+
+    </div>
+    
+</div></div>
+<!-- /.main -->
+<!--noindex-->
+<script type="text/javascript">
+    var profiles = <?= json_encode($profiles) ?>;
+    var countryPrices = <?= json_encode($countryPrices) ?>;
+    var deliveryId = <?= $deliveryId ? "'$deliveryId'" : 0?>;
+    var defaultDelivery = <?=$defaultDelivery ? "'$defaultDelivery'" : 0?>;
+    var price_round_decimals = <?=(int)General::getNumConfigValue('price_rounding')?>;
+    var min_order_cost = false;
+</script>
+<!--/noindex-->
+
+<?=Plugins::invokeEvent('onRenderOrderStep3')?>

@@ -1,0 +1,61 @@
+<? if (!empty($categories)) { ?>
+    <div class="card">
+        <div class="card-header bg-white nopadding">
+            <h5 class="mb-0">
+                <button class="btn btn-link link pl-0 pr-0 collapsed" type="button" data-toggle="collapse" data-target="#<?=$id ?>" aria-expanded="true" aria-controls="collapse2"><?=$title?><i></i></button>
+            </h5>
+        </div>
+        <div id="<?=$id ?>" class="collapse" aria-labelledby="headingThree">
+            <div class="card-body pt-0">
+                <ul>
+                    <? foreach ($categories as $key => $cat) { ?>
+                        <li <?= ($key > 10) ? 'style="display: none"' : '' ?>>
+                            <a href="<?=UrlGenerator::generateSearchUrlByParams(array(
+                                'vid' => $resetSearchContext ? null : $searchParams['vid'],
+                                'brand' => $resetSearchContext ? null : $searchParams['brand'],
+                                'cid' => $cat->GetId(),
+                                'search' => $resetSearchContext ? null : $searchParams['searchWord'],
+                                'imageId' => $resetSearchContext ? null : $searchParams['imageId'],
+                                'module' => $resetSearchContext ? null : $searchParams['module'],
+                                'SearchMethod' => $searchParams['SearchMethod'],
+                                'Provider' => $searchParams['Provider'],
+                                'OtapiCategory' => $cat,
+                                ))?>"><?=$cat->GetName()?>
+                                <? if ($cat->GetItemCount() !== "0") { ?>
+                                    <span class="badge badge-primary"><?=$cat->GetItemCount()?></span>
+                                <? } ?>
+                            </a>
+                        </li>
+                    <? } ?>
+                    <? if(count($categories) > 11) { ?>
+                        <div class="search-content_categories_show-all">
+                            <a href = "javascript:void(0)" id="<?=$id?>-show-more"><?=Lang::get('show_all', ['count' => count($categories)])?></a>
+                        </div>
+                    <? } ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+<? } ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(document).ready(function(){
+        //Отслеживание ресайза
+        $(".search-content_categories").resize(function(e){
+            if ($(window).width() > 768) {
+                $('#<?=$id?>').removeClass('collapse').removeClass('in');
+                $('#<?=$id?>').attr('aria-expanded', true);
+                $('#<?=$id?>').css('height', '');
+            }
+        });
+    });
+
+    $('#<?=$id?>-show-more').click(function () {
+        $('#<?=$id?> li').show();
+        $('#<?=$id?>-show-more').hide();
+        $('#<?=$id?>-hide-more').show();
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

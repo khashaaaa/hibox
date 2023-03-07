@@ -1,0 +1,168 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('currency_small')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+
+<? XEditableFields::Init('pricing', $PageUrl); ?>
+
+<? $MarginRate = isset($CurrenciesSettings['MarginRate']) && (string)$CurrenciesSettings['MarginRate'] ? ($CurrenciesSettings['MarginRate']-1)*100 : 0; ?>
+
+<h1><?=LangAdmin::get('currency_small')?></h1>
+
+<div class="alert alert-info"><?=LangAdmin::get('Internal_currency_string')?>: <span class="label label-info"><?= $CurrenciesSettings['internalcurrencycode'];?></span></div>
+
+<div class="well" id="pricing-wrapper">
+    <div class="form-horizontal inline_editable_form ot_form">
+        <legend><?=LangAdmin::get('Provider_currency')?></legend>
+
+        <div class="row-fluid">
+        <div class="span12">
+            <ol class="unstyled">
+                <? foreach($providerInfoList as $provider) { ?>
+                    <? if ($provider['IsEnabled'] == "true") { ?>
+                        <li>
+                            <?=$provider['DisplayName']?> - <?=$provider['CurrencyCode']?>
+                        </li>
+                    <? } ?>
+                <? } ?>
+            </ol>
+        </div>
+    </div>
+    <form action="<?=$PageUrl->assignDo('saveCurrency')?>" method="post" id="currency-order"></form>
+
+    <div class="form-horizontal inline_editable_form ot_form">
+        <fieldset class="offset-bottom1">
+        <legend><?=LangAdmin::get('Showcase_currencies')?></legend>
+
+        <div class="row-fluid">        
+            
+        <div class="span2">
+            <p><strong><?=LangAdmin::get('Shop_currency')?></strong></p>
+            <? $currency_settings_code = array(); ?>
+            <? if($CurrenciesSettings['currenciesdisplayingorder']) { ?>
+                <ol class="unstyled ot_sortable_list ot_sortable" id="chosenItems">
+                    <? foreach($CurrenciesSettings['currenciesdisplayingorder'] as $currency) { ?>
+                        <? $currency_settings_code[] = $currency['code']; ?>
+                        <li data-name="<?=$currency['code']?>"><span class="badge">
+                                <i class="icon-move" title="<?=LangAdmin::get('MoveTo')?>"></i>
+                                <?=$currency['code']?>
+                                <i data-name="<?=$currency['code']?>" class="icon-remove remove-currency" title="<?=LangAdmin::get('Delete')?>"></i></span>
+                        </li>
+                    <? } ?>
+                </ol>
+            <? } ?>
+        </div>
+
+        <div class="span10">
+            <? foreach ($currency_settings_code as $code) { ?>
+                <input type="hidden" name="current_currency[]" value="<?=$code?>"/>
+            <? } ?>
+
+            <? if ($CurrencyList) { ?>
+                <p><strong><?=LangAdmin::get('Add_currency')?></strong></p>
+                <div class="row-fluid">
+                    <select  class="input-large select_searched_list span2" name="new_currency" tabindex="-1">
+                        <? foreach($CurrencyList as $currency) { ?>
+                            <? if(in_array($currency['code'], $currency_settings_code)) continue; ?>
+                            <option value="<?=$currency['code']?>"><?=$currency['code']?></option>
+                        <? } ?>
+                    </select>
+
+                    <button id="add-currency" class="btn btn-small btn-primary offset-left1" href="#" title="<?=LangAdmin::get('Add_more_currency')?>" data-loading-text="<i class='icon-plus'></i>" autocomplete="off"><i class="icon-plus"></i></button>
+                </div>
+            <? } ?>
+        </div>
+
+    </div>
+        
+        </fieldset>
+        <legend><?=LangAdmin::get('Rate_currency')?></legend>
+        <div class="col-lg-12">
+             <div class="rates-sync-block-modes"><?=LangAdmin::get('Rate_sync_mode')?></div>
+             <div class="rates-sync-block-margin"><?=LangAdmin::get('Rate_margin')?></div>
+        </div>
+        <div>
+        <div class="rates-sync-block"><?=LangAdmin::get('Default_settings')?></div>
+        
+             - <select id="syncmode" name="syncMode">
+                <? foreach($SyncMode as $mode) {
+                if (! CMS::IsFeatureEnabled('EnhancedConverter')) {
+                   if ($mode['IsEnhancedMode'] != 'false') continue;
+                } ?>
+                    <option value="<?=$mode['Name']?>" <?=$mode['Name'] == $CurrenciesSettings['SyncMode'] ? 'selected' : ''?>><?=$mode['Description']?></option>                
+                <? } ?>
+            </select>
+             <input id="sync-margin" name="sync-margin" class="input-mini rate-sync-margin numeric_can_empty" type="text" value="<?=(($CurrenciesSettings['Margin']*100) - 100) >= 0 ? (($CurrenciesSettings['Margin']*100) - 100) : ''?>"/>  %
+        </div>
+        
+        <fieldset>   
+            <ul class="ot_currency_list">
+            <? foreach($CurrenciesSettings['CurrencyRateList'] as $currency) { ?>
+                <li first="<?=$currency['FirstCode']?>" second="<?=$currency['SecondCode']?>">
+                    <div  class="rates-sync-block">
+                        1 <?=$currency['FirstCode']?> = <a class="ot_inline_popup_text_editable edit_rate" href="#" data-type="text" data-pk="1" data-url="" data-inputclass="input-medium price" title="<?=LangAdmin::get('Edit_rate')?>"><?=$currency['Rate']?></a> <?=$currency['SecondCode']?>
+                    </div>
+                    <? if (CMS::IsFeatureEnabled('EnhancedConverter')) { ?>
+                     - <select id="rate-sync-mode" class="rates-sync">
+                        <option value="" <?=$currency['SyncMode'] ? 'selected' : ''?>><?=LangAdmin::get('By_default')?></option>
+                        <? foreach($SyncMode as $mode) { ?>                        
+                        <option value="<?=$mode['Name']?>" <?=$mode['Name'] == $currency['SyncMode'] ? 'selected' : ''?>><?=$mode['Description']?></option>                
+                        <? } ?>
+                    </select>
+                    <input id="rate-sync-margin" class="rate-sync-margin input-mini numeric_can_empty" type="text" value="<?=(($currency['Margin']*100)-100) >= 0 ? (($currency['Margin']*100)-100)  : ''?>"/>  %
+                    <? } ?>
+                    <button class="btn btn-mini ot_delete_rate delete-rate" title="<?=LangAdmin::get('Remove_rate')?>"><i class="icon-remove"></i></button>
+                    <table class="rate-increase-decrease-margin" border="0" cellspacing="0" cellpadding="0">
+                        <? if (isset($currency['RateWithIncreaseMargin'])) { ?>
+                        <tr><td>
+                           <?=LangAdmin::get('RateWithIncreaseMargin_hint', array('currency1' => $currency['FirstCode'], 'currency2' => $currency['SecondCode'], 'RateWithIncreaseMargin' => $currency['RateWithIncreaseMargin']))?>
+                        </td></tr>
+                        <? } ?>
+                        <? if (isset($currency['RateWithDecreaseMargin'])) { ?>
+                        <tr><td>
+                           <?=LangAdmin::get('RateWithDecreaseMargin_hint', array('currency1' => $currency['FirstCode'], 'currency2' => $currency['SecondCode'], 'RateWithDecreaseMargin' => $currency['RateWithDecreaseMargin']))?>
+                        </td></tr>
+                        <? } ?>
+                    </table>
+                </li>
+            <? } ?>
+            <? foreach($NotExistsRates as $currency) { ?>
+                <? if ($currency['Status'] == 'NotExists') { ?>
+                <li style="font-weight: bold" first="<?=$currency['FirstCurrencyCode']?>" second="<?=$currency['SecondCurrencyCode']?>">
+                    <div  class="rates-sync-block font-red">
+                    1 <?=$currency['FirstCurrencyCode']?> = <a class="ot_inline_popup_text_editable edit_rate" href="#" data-type="text" data-pk="1" data-url="" data-inputclass="input-medium price" title="<?=LangAdmin::get('Edit_rate')?>">1</a> <?=$currency['SecondCurrencyCode']?>
+                    </div>
+                    <? if (CMS::IsFeatureEnabled('EnhancedConverter')) { ?>
+                     - <select id="rate-sync-mode" class="rates-sync">
+                        <option value="" selected><?=LangAdmin::get('By_default')?></option>
+                        <? foreach($SyncMode as $mode) { ?>
+                        <option value="<?=$mode['Name']?>"><?=$mode['Description']?></option>                
+                        <? } ?>
+                    </select>
+                    <input id="rate-sync-margin" class="rate-sync-margin input-mini numeric_can_empty" type="text" value=""/> %
+                    <? } ?>
+                </li>
+                <? } ?>
+            <? } ?>
+            </ul>
+        
+        </fieldset>
+        
+        <button type="submit" id="save-currency" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+        
+    </div>
+
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-pricing.js'); ?>

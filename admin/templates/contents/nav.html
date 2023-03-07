@@ -1,0 +1,196 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>"><?=LangAdmin::get('contents::Content')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('contents::Navigation')?></li>
+</ul>
+
+<?=TabsGenerator::GetTabs('templates/contents/navigation/tabs.xml', $PageUrl)?>
+
+<div class="row-fluid">
+
+    <div class="span10">
+        <h1><?=LangAdmin::get('contents::Navigation')?></h1>
+    </div>
+
+    <div class="span2 offset-top1">
+        <!-- site language -->
+        <div id="activeLanguagesContainer"></div>
+        <!-- /site language -->
+    </div>
+
+</div>
+
+
+<div class="tabbable offset-bottom1 contents-wrapper">
+
+    <ul class="nav nav-tabs">
+        <li><a href="#ot-top-nav-tab" data-toggle="tab"><?=LangAdmin::get('contents::Top_navigation')?></a></li>
+        <li><a href="#ot-aside-nav-tab" data-toggle="tab"><?=LangAdmin::get('contents::Column_navigation')?></a></li>
+        <li><a href="#ot-bottom-nav-tab" data-toggle="tab"><?=LangAdmin::get('contents::Bottom_navigation')?></a></li>
+    </ul>
+
+    <div class="tab-content">
+
+
+        <div class="tab-pane active" id="ot-top-nav-tab" type="top_menu">
+
+            <div class="well">
+
+                <form class="form-horizontal ot_form" action="#">
+
+                    <div class="row-fluid offset-bottom1">
+
+                        <div class="span3">
+
+                            <p><strong><?=LangAdmin::get('contents::Use_in_menu')?></strong></p>
+
+                            <ol class="unstyled ot_sortable_list ot_sortable">
+                                <div class="menu-item-template" style="display: none;"><li id="pageId" ><span class="badge" title="title"><i class="icon-move" title="<?=LangAdmin::get('contents::Change_order')?>"></i> <span class="title">title</span> <i class="icon-remove" title="<?=LangAdmin::get('contents::Delete')?>"></i></span></li>
+                                </div>
+
+                            <? foreach ($topMenu as $pageId) {
+                                $page = $allDocs[$pageId];
+                                if (! $page) {
+                                    continue;
+                                }
+                            ?>
+                                <li id="<?=$pageId?>"><span class="badge" title="<?=$page['title']?>"><i class="icon-move" title="<?=LangAdmin::get('contents::Change_order')?>"></i> <?=$page['title']?> <i class="icon-remove" title="<?=LangAdmin::get('contents::Delete')?>"></i></span></li>
+                            <?php } ?>
+                            </ol>
+                        </div>
+
+                        <div class="span4">
+                            <p><strong><?=LangAdmin::get('contents::Pages_list')?></strong> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Displayed_only_pages')?>"></i></p>
+                            <div class="row-fluid">
+
+                                <select class="input-large select_searched_list span9">
+                                    <? foreach ($allDocs as $page) {
+                                        if (in_array($page['id'], $topMenu)) {
+                                            continue;
+                                        }
+                                    ?>
+                                    <option id="<?=$page['id']?>" value="<?=$page['id']?>"><?=$page['title']?></option>
+                                    <? } ?>
+                                </select>
+
+                                <button class="btn btn-small btn-primary offset-left1 add-page-to-menu" title="<?=LangAdmin::get('contents::Add_page_to_menu')?>"><i class="icon-plus"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="button" class="btn btn_preloader btn-primary save-menu" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+                </form>
+            </div>
+
+        </div><!-- /#ot-top-nav-tab -->
+
+
+        <div class="tab-pane" id="ot-aside-nav-tab" type="left_menu">
+
+            <div class="well">
+
+                <form class="form-horizontal ot_form" action="#">
+
+                    <div class="row-fluid offset-bottom1">
+
+                        <div class="span3">
+
+                            <p><strong><?=LangAdmin::get('contents::Use_in_menu')?></strong></p>
+
+                            <ol class="unstyled ot_sortable_list ot_sortable">
+                                <? foreach ($leftMenu as $pageId) {
+                                    $page = $allDocs[$pageId];
+                                    if (! $page) {
+                                        continue;
+                                    }
+                                ?>
+                                <li id="<?=$page['id']?>"><span class="badge" title="<?=$page['title']?>"><i class="icon-move" title="<?=LangAdmin::get('contents::Change_order')?>"></i> <?=$page['title']?> <i class="icon-remove" title="<?=LangAdmin::get('contents::Delete')?>"></i></span></li>
+                                <?php } ?>
+                            </ol>
+                        </div>
+
+                        <div class="span4">
+                            <p><strong><?=LangAdmin::get('contents::Pages_list')?></strong> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Displayed_only_pages')?>"></i></p>
+                            <div class="row-fluid">
+
+                                <select class="input-large select_searched_list span9">
+                                    <? foreach ($allDocs as $page) {
+                                        if (in_array($page['id'], $leftMenu)) {
+                                            continue;
+                                        }
+                                    ?>
+                                    <option id="<?=$page['id']?>" value="<?=$page['id']?>"><?=$page['title']?></option>
+                                    <? } ?>
+                                </select>
+
+                                <button class="btn btn-small btn-primary offset-left1 add-page-to-menu" title="<?=LangAdmin::get('contents::Add_page_to_menu')?>"><i class="icon-plus"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" class="btn btn_preloader btn-primary save-menu" data-loading-text="Saving" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+
+                </form>
+
+            </div>
+
+        </div><!-- /#ot-aside-nav-tab -->
+
+
+        <div class="tab-pane" id="ot-bottom-nav-tab" type="bottom_menu">
+
+            <div class="well">
+
+                <form class="form-horizontal ot_form" action="#">
+
+                    <div class="row-fluid offset-bottom1">
+
+                        <div class="span3">
+
+                            <p><strong><?=LangAdmin::get('contents::Use_in_menu')?></strong></p>
+
+                            <ol class="unstyled ot_sortable_list ot_sortable">
+                                <? foreach ($bottomMenu as $pageId) {
+                                    $page = $allDocs[$pageId];
+                                    if (! $page) {
+                                        continue;
+                                    }
+                                ?>
+                                <li id="<?=$page['id']?>"><span class="badge" title="<?=$page['title']?>"><i class="icon-move" title="<?=LangAdmin::get('contents::Change_order')?>"></i> <?=$page['title']?> <i class="icon-remove" title="<?=LangAdmin::get('contents::Delete')?>"></i></span></li>
+                                <?php } ?>
+                            </ol>
+                        </div>
+
+                        <div class="span4">
+                            <p><strong><?=LangAdmin::get('contents::Pages_list')?></strong> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Displayed_only_pages')?>"></i></p>
+                            <div class="row-fluid">
+
+                                <select class="input-large select_searched_list span9">
+                                    <? foreach ($allDocs as $page) {
+                                        if (in_array($page['id'], $bottomMenu)) {
+                                            continue;
+                                        }
+                                    ?>
+                                    <option id="<?=$page['id']?>" value="<?=$page['id']?>"><?=$page['title']?></option>
+                                    <? } ?>
+                                </select>
+
+                                <button class="btn btn-small btn-primary offset-left1 add-page-to-menu" title="<?=LangAdmin::get('contents::Add_page_to_menu')?>"><i class="icon-plus"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button type="button" class="btn btn_preloader btn-primary save-menu" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+                </form>
+
+            </div>
+
+        </div><!-- /#ot-bottom-nav-tab -->
+
+    </div><!-- /.tab-content-->
+
+</div><!-- /.tabbable -->
+<? AssetsMin::registerJsFile('/admin/js/ot-contents-nav.js'); ?>

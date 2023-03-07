@@ -1,0 +1,66 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Discounts')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+
+
+
+<h1><?=LangAdmin::get('Discounts')?> <a href="<?=$PageUrl->AssignDo('editDiscount')?>" class="btn btn-primary weight-normal btn_preloader offset-left3" data-loading-text="<?=LangAdmin::get('Adding')?>" autocomplete="off"><?=LangAdmin::get('Add_discount')?></a></h1>
+
+
+
+
+<div class="row-fluid offset-bottom1">
+    <div class="span6">
+    <? if (count($discounts)) { ?>
+    <div id="discount-group-wrapper">
+    <table class="table table-bordered bootstrap-datatable">
+
+        <thead>
+            <tr>
+                <th class="span4"><?=LangAdmin::get('Name')?></th>
+                <th class="span4"><?=LangAdmin::get('Provider_type')?></th>
+                <th class="span2"><?=LangAdmin::get('Actions')?></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <? foreach ($discounts as $discount) { ?>
+            <tr>
+                <td><a href="<?=$PageUrl->AssignDo('groupInfo')?>&groupId=<?=$discount['id']?>" title="<?=LangAdmin::get('referral_all_users')?>"><?=$this->escape($discount['name'])?></a></td>
+                <td>
+                    <?= implode(
+                        ', ',
+                        array_map(
+                            function ($discountProvider) use ($providers) {
+                                return $providers[$discountProvider]['DisplayName'];
+                            },
+                            $discount['DiscountIdentificationParametr']['Providers']
+                        )
+                    )?>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <!-- add new user -->
+                        <a class="ot-typehead-discountusers btn btn-tiny" data-url="<?=$PageUrl->AssignDo('addUserDiscount')?>&groupId=<?=$discount['Id']?>" href="#" data-toggle="tooltip" data-placement="bottom"> + <i class="icon-user"></i></a>
+
+                        <!-- discount actions -->
+                        <a class="btn btn-tiny" href="<?=$PageUrl->AssignDo('editDiscount')?>&groupId=<?=$discount['id']?>" title="<?=LangAdmin::get('Edit_discount')?>"><i class="icon-pencil"></i></a><!-- link is user only for prototype dinamics. In real application use button instead -->
+                        <button class="btn btn-tiny ot_show_deletion_dialog_to_group_modal" title="<?=LangAdmin::get('Remove_discount')?>" group-name="<?=$this->escape($discount['name'])?>" group-id="<?=$discount['id']?>" action="<?=$PageUrl->AssignDo('deleteGroup')?>"><i class="icon-remove-sign"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <? } ?>
+        </tbody>
+    </table>
+    </div>
+    <? } ?>
+    </div>
+</div>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-discount-group.js'); ?>

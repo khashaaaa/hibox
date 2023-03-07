@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Products_reviews">Отзывы о товарах</key>
+    <key name="Accept_selected_reviews">Утвердить выбранные отзывы</key>
+    <key name="Delete_selected_reviews">Удалить выбранные отзывы</key>
+    <key name="Accept">Утвердить</key>
+    <key name="Review">Отзыв</key>
+    <key name="User">Пользователь</key>
+    <key name="Created">Создан</key>
+    <key name="Actions">Действия</key>
+    <key name="Go_to_review">Перейти к отзыву</key>
+    <key name="Accept_review">Утвердить отзыв</key>
+    <key name="Delete_review">Удалить отзыв</key>
+    <key name="Review_accepted">Отзыв утвержден</key>
+    <key name="Reviews_accepted">Отзывы утверждены</key>
+    <key name="Review_deleted">Отзыв удален</key>
+    <key name="Reviews_deleted">Отзывы удалены</key>
+    <key name="Really_delete_review">Действительно удалить отзыв?</key>
+    <key name="Really_delete_reviews">Действительно удалить выбранные отзывы?</key>
+    
+</translations>
+
+
+
+

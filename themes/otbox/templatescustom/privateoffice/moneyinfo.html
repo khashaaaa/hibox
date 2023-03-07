@@ -1,0 +1,89 @@
+<script type="text/javascript" src="js/jquery.ui.core.js?<?=CFG_SITE_VERSION;?>"></script>
+<script type="text/javascript" src="js/jquery.ui.widget.js?<?=CFG_SITE_VERSION;?>"></script>
+<script type="text/javascript" src="js/jquery.ui.datepicker.js?<?=CFG_SITE_VERSION;?>"></script>
+
+<script>
+$(function() {
+        $( "#fromdate" ).datepicker({
+            dateFormat: 'dd.mm.yy',
+        });
+        $( "#todate" ).datepicker({
+            dateFormat: 'dd.mm.yy',
+        });
+});
+</script>
+
+<h1><?=Lang::get('status_account')?></h1>
+
+<? if($accountinfo && ( !defined('CFG_HIDE_DEPOSIT_STATUS') || @!CFG_HIDE_DEPOSIT_STATUS )) {?>
+<? $cur = $accountinfo['currencysign']; ?>
+<div class="bgr mb30 office_info_main">
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="account_name mb5"><?php if (! General::getConfigValue('hide_middle_name')) { 
+                    		echo $this->escape($userinfo['lastname'].' '.$userinfo['firstname'].' '.$userinfo['middlename']);
+						} else {
+							echo $this->escape($userinfo['lastname'].' '.$userinfo['firstname']);
+						}?></div>
+                    <div class="account_number"><span class="f11 lgray"><?=Lang::get('account_number')?>:</span> <b><?=(string)$accountinfo['num']?></b></div>
+                </td>
+                <td>
+                    <div class="f11 lgray"><?=Lang::get('awaiting_payment')?>:</div>
+                    <div class="money"><?=number_format((float)$accountinfo['paymwaitamount'], (int)General::getNumConfigValue('price_rounding'), '.', ' ').' '.$cur;?></div>
+                </td>
+                <td>
+                    <div class="f11 lgray"><?=Lang::get('on_account')?>:</div>
+                    <div class="money ltr-for-rtl"><?=number_format((float)$accountinfo['availableamount'], (int)General::getNumConfigValue('price_rounding'), '.', ' ').' '.$cur;?></div>
+                </td> 
+                <td style="width: 181px;">
+                    <a href="/?p=pay&deposit" class="btn btn-primary"><?=Lang::get('deposit_funds')?></a>
+
+                    <!--a href="/?p=support&mode=new&type=moneyOut">Вывод стредств</a -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<? } ?>
+
+<div class="bproduct">
+    <h2 class="mb20"><span><?=Lang::get('payment_history')?></span></h2>
+    <h6><?=Lang::get('date')?></h6>
+    <form method="post" action="/?p=moneyinfo">
+        <input  type="text" id="fromdate" class="form-field" name="fromdate" value="<?=@$fromdate?>" style="border-radius: 3px;">
+        <input  type="text" id="todate" class="form-field" name="todate" value="<?=@$todate?>" style="border-radius: 3px;">
+        <input type="submit" class="btn fll" value="<?=Lang::get('show')?>" style="float: none;">
+    </form>
+
+    <? if($moneyhistory) {?>
+    
+    <table class="notepad" width="100%">
+        <thead>
+            <tr>
+                <td><?=Lang::get('date')?></td>
+                <td><?=Lang::get('comment')?></td>
+                <td><?=Lang::get('sum')?></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <? foreach($moneyhistory['translist'] as $element) {?>
+            <tr>
+                <td><?=date("Y-m-d H:i:s", strtotime($element['transdate']))?></td>
+                <td><?=(defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, (string)$element['comment']):(string)$element['comment'])?></td>
+                <td>
+                    <? $style = (string)$element['Direction']== 'Out' ? 'style="color: Red"' : 'style="color: Green"'; ?> 
+                    <span <?=$style;?> >
+                        <?=number_format((float)$element['amount'], (int)General::getNumConfigValue('price_rounding'), '.', ' ').' '.$sign; ?>
+                    </span>
+                </td>
+            </tr>
+            <? } ?>
+        </tbody>
+    </table>
+    <? }  else { ?>
+            <h3 class="lgray tagc mt10"> <?=Lang::get('empty_list')?> </h3>
+    <? } ?>
+</div>

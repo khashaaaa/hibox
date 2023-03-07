@@ -1,0 +1,53 @@
+<section class="box-section supply-products-section pristroy-section">
+    <h2><?= (isset($title) && $title) ? $title : Lang::get($type);?></h2>
+    <? // если необходимо вывести товары каруселькой ?>
+    <? if (General::getConfigValue('display_as_carousel') && count($list) > 4) { ?>
+        <div class="jcarousel">
+    <? } ?>
+    <ul class="item-list">
+        <? foreach ($list as $item) { ?>
+	        <li class="col-md-4 col-xs-4 col-sm-4 col-lg-3" title="<?= $this->escape($item['title']) ?>" >
+	            <a href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+		            <div class="item-list_btn-group">
+                        <button title="<?=Lang::get('See_item')?>">
+                            <span class="glyphicon glyphicon-eye-open" ></span>
+                        </button>
+                        <!--<button title="<?=Lang::get('Add_item_to_cart')?>">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                        </button>
+                        <button title="<?=Lang::get('Add_item_to_fav')?>">
+                            <span class="glyphicon glyphicon glyphicon-star"></span>
+                         </button>-->
+				    </div>
+                    <div class="item-list_img-wrap">
+                        <div class="product-image-wrapper">
+                            <img class="check-noimg" src="<?=ProductsHelper::getPristroyImage($item, 160)?>" alt="<?= $this->escape($item['title']) ?>" itemprop="image">
+                        </div>
+                    </div>				    
+					<h3 itemprop="name"><?= $this->escape($item['title']) ?></h3>
+					<div class="item-list_cost">
+                        <div class="item-list_cost_new" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <span itemprop="price"><?=$item['display_price'];?></span>
+                        </div>
+		            </div>
+				</a>
+	        </li>
+        <? } ?>
+    </ul>
+    
+    <? if (General::getConfigValue('display_as_carousel') && count($list) > 4) { ?>
+            <div class="jcarousel_nav">
+                <a class="jcarousel_nav_prev" href="#">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="jcarousel_nav_next" href="#">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+    <? } ?>
+    
+    <? if (isset($seeAllLink) && $seeAllLink) { ?>
+        <a href="<?=$seeAllLink?>" class="see-all-link"><?=Lang::get('all_categories_goods')?></a>
+    <? } ?>
+</section> 

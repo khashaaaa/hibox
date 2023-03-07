@@ -1,0 +1,23 @@
+<?=General::runController('Header')?>
+
+<div class="content">
+    <?=General::runController('Crumbs')?>
+
+    <section class="content-block">
+        <div class="center">
+            <? if (!empty(General::$_page['title_h1'])) { ?>
+                <h1 class="content-block__title"><?=General::$_page['title_h1']?></h1>
+            <? } ?>
+
+            <? if (!empty(General::$_page['text'])) { ?>
+                <div class="content-block__text"><?=General::$_page['text']?></div>
+            <? } ?>
+
+            <div class="js-content-main">
+                <?=$result?>
+            </div>
+        </div>
+    </section>
+</div>
+
+<?=General::runController('Footer')?>

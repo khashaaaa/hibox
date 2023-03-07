@@ -1,0 +1,88 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Operation_log')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+
+<div class="row-fluid contents-wrapper">
+
+    <div class="">
+        <div id="logs-filter" class="well well-small offset-bottom2">
+
+        <form method="get" action="" class="offset-vertical-none" id="filters">
+            <input type="hidden" value="Reports" name="cmd">
+            <input type="hidden" value="operationLog" name="do">
+
+            <div class="row-fluid offset-bottom05">
+                <div class="span3">
+                    <?=LangAdmin::get('Operation_type')?>
+                    <select class="input-large" id="optype" name="optype">
+                        <option value=""></option>
+                        <? foreach ($opTypes as $type => $description) { ?>
+                            <? $selected = ($type == $currentType) ? 'selected' : ''; ?>
+                            <option value="<?=$type?>" <?=$selected?>><?=$description?></option>
+                        <? } ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button id="apply_filters_button" type="submit" class="btn btn_preloader offset-left3 btn-primary" data-loading-text="<?=LangAdmin::get('Apply')?>" autocomplete="off"><?=LangAdmin::get('Apply')?></button>
+            </div>
+
+        </form>
+
+    </div>
+        <div class="text-right">
+            <select class="input-mini" id="perpage">
+                <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                    <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+                <? } ?>
+            </select>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="span1"><?=LangAdmin::get('Operator')?></th>
+                    <th class="span1"><?=LangAdmin::get('Operation_type')?></th>
+                    <th class="span1"><?=LangAdmin::get('Order_id')?></th>
+                    <th class="span1"><?=LangAdmin::get('Order_line_id')?></th>
+                    <th class="span1"><?=LangAdmin::get('Customer_id')?></th>
+                    <th class="span6"><?=LangAdmin::get('Description')?></th>
+                    <th class="span1"><?=LangAdmin::get('Datetime')?></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($records as $rec) { ?>
+                <?php
+                    $description = $rec['description'];
+                    $description = str_replace(';', '; ', $description);
+                    $datetime = strtotime($rec['datetime']);
+                ?>
+                <tr>
+                    <td><!--a target="_blank" href="/admin/?cmd=users&do=profile&id=<?=$rec['instanceuserid']?>" title="<?=LangAdmin::get('Go_to_user')?>"--><?=$rec['instanceuserlogin']?><!--/a--></td>
+                    <td><?=$rec['operationtype']?></td>
+                    <td>
+                        <a target="_blank" href="/admin/?cmd=orders&do=view&id=<?=$rec['orderid']?>" title="<?=LangAdmin::get('Go_to_order')?>"><?=$rec['orderid']?></a>
+                    </td>
+                    <td><?=$rec['orderlineid']?></td>
+                    <td><a target="_blank" href="/admin/?cmd=users&do=profile&id=<?=$rec['customerid']?>" title="<?=LangAdmin::get('Go_to_user')?>"><?=$rec['customerid']?></a></td>
+                    <td><?=$this->escape($description)?></td>
+                    <td><?=date('d.m.Y', $datetime)?>, <span class="muted"><?=date('H:i', $datetime)?></span></td>
+                </tr>
+                <?php  } ?>
+                </tbody>
+            </table>
+        </div>
+        
+        <?php $paginator->display(); ?>
+
+    </div>
+</div>

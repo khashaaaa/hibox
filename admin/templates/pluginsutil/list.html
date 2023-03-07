@@ -1,0 +1,68 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Plugins')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('All')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pluginsutil/navigation/tabs.xml', $PageUrl)?>
+
+<div class="plugins-wrapper">
+
+    <div class="row-fluid">
+        <h1 class="pull-left"><?=LangAdmin::get('Plugins')?></h1>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="data_table_sorting">
+            <thead>
+            <tr>
+                <th><?=LangAdmin::get('Plugin')?></th>
+                <th><?=LangAdmin::get('Version')?></th>
+                <th><?=LangAdmin::get('Status')?></th>
+                <th class="td-2btn-width"><?=LangAdmin::get('Actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <? if (! empty($plugins)) { ?>
+            <? foreach ($plugins as $plugin) { ?>
+            <tr>
+                <td>
+                    <a href="<?=$PageUrl->generate(array('do'=>'view', 'plugin' => $plugin['name']))?>">
+                        <?=$plugin['title']?>
+                    </a>
+                </td>
+                <td>
+                    <?=$plugin['version']?>
+                </td>
+                <td>
+                    <? if ($plugin['status']) { ?>
+                    <span class="text-success"><?=LangAdmin::get('Is_active')?></span>
+                    <? } else { ?>
+                    <span class="text-error"><?=LangAdmin::get('Is_not_active')?></span>
+                    <? } ?>
+                </td>
+                <td class="pluginActions">
+                    <div class="btn-group pull-right">
+                        <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <? if ($plugin['status']) { ?>
+                            <li class="edit-page"><a href="<?=$PageUrl->generate(array('do'=>'deactivate', 'name' => $plugin['name']))?>" title="<?=LangAdmin::get('Deactivate')?>"><i class="icon-ban-circle"></i> <?=LangAdmin::get('Deactivate')?></a></li>
+                            <? } else { ?>
+                            <li class="edit-page"><a href="<?=$PageUrl->generate(array('do'=>'activate', 'name' => $plugin['name']))?>" title="<?=LangAdmin::get('Activate')?>"><i class="icon-ok"></i> <?=LangAdmin::get('Activate')?></a></li>
+                            <? } ?>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <? } ?>
+            <? } else { ?>
+            <tr>
+                <td colspan="4"><?=LangAdmin::get('No_plugins_found')?></td>
+            </tr>
+            <? } ?>
+            </tbody>
+        </table>
+    </div>
+
+</div>

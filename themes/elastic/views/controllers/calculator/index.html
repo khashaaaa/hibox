@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-12 col-sm-6 mx-auto">
+        <form action="<?=UrlGenerator::getUrl('calculator')?>" class="needs-validation js-calculator-form" novalidate
+              data-page-url="<?=UrlGenerator::toRoute('calculator')?>"
+              data-ajax-url="<?=UrlGenerator::toRoute('calculator/getDeliveries')?>">
+            <div class="form-group required">
+                <label for="weight" class="control-label"><?=Lang::get('Calculator_weight')?></label>
+                <input type="text" id="weight" name="weight" value="<?=$weight?>" class="form-control" data-type="weight" required />
+                <div class="invalid-feedback"><?=Lang::get('Value_must_not_be_empty')?></div>
+            </div>
+
+            <div class="form-group">
+                <label for="currency" class="control-label"><?=Lang::get('Currency')?></label>
+                <select id="currency" name="currency" class="form-control custom-select">
+                    <? foreach ($currencyList as $c) { ?>
+                        <option value="<?=$c->GetCode()?>" <?= ($c->GetCode() == $currency) ? 'selected="selected"' : '' ?>>
+                            <?=$c->GetSign()?>
+                        </option>
+                    <? } ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="country" class="control-label"><?=Lang::get('country')?></label>
+                <select id="country" name="country" class="form-control custom-select" />
+                    <? foreach ($deliveryCountryList as $c) { ?>
+                        <option value="<?=$c->GetId()?>" <?= ($c->GetId() == $country) ? 'selected="selected"' : '' ?>>
+                            <?=$c->GetName()?>
+                        </option>
+                    <? } ?>
+                </select>
+            </div>
+            <div class="calculator-submit" style="width: 100%">
+                        <button type="submit" class="btn btn-primary js-submit" data-loading-text="<?=Lang::get('loading')?>...">
+                            <?=Lang::get('calculate')?>
+                        </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="mt-4 js-deliveries-table">
+            <?=$deliveriesTable?>
+        </div>
+    </div>
+</div>
+<? AssetsMin::registerJsFile('js/pages/calculator.js')?>

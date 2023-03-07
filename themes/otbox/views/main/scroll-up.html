@@ -1,0 +1,21 @@
+<div class="back-to-top" id="scroll-up"><i class="fa fa-angle-up"></i></div>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        $(document).scroll(function() {
+            var y = $(this).scrollTop();
+            if ( y > $(window).height() ) {
+                $('#scroll-up').fadeIn();
+            } else {
+                $('#scroll-up').fadeOut();
+            }
+        });
+
+        $('#scroll-up').click(function() {
+            $('body, html').animate({ scrollTop: 0 }, "slow");
+            return false;
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

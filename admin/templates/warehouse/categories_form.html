@@ -1,0 +1,79 @@
+<?=TabsGenerator::GetTabs('templates/warehouse/navigation/tabs.xml', $PageUrl)?>
+
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="warehouse-form-wrapper">
+
+<h1>
+    <a href="<?=$PageUrl->AssignCmdAndDo('warehouse', 'default')?>" class="muted"><?=LangAdmin::get('Warehouse')?></a>
+    / <a class="muted" href="<?=$PageUrl->AssignCmdAndDo('warehouse', 'default')?>"><?=LangAdmin::get('categories')?></a>
+    / <?=$actionTitle?>
+</h1>
+
+
+<div class="box corner-all">
+
+    <div class="box-body">
+
+        <form method="post" action="<?=$PageUrl->AssignCmdAndDo('warehouse', 'saveCategory')?>" class="form-horizontal ot_form">
+
+            <input type="hidden" name="id" value="<?=(!empty($category) ? $category['id'] : 0)?>" />
+
+            <fieldset>
+
+                <legend><?=LangAdmin::get('Category_info')?></legend>
+
+                <div class="row-fluid">
+
+                    <div class="span6">
+
+                        <div class="control-group">
+                            <label class="control-label" for="Login"><?=LangAdmin::get('Title')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('Title')?>"></i></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-category"></i></span>
+                                    <input value="<?=(!empty($category) ? $category['name'] : '')?>" id="Title" name="Title" class="input-medium" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="ParentId"><?=LangAdmin::get('ParentId')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('ParentId')?>"></i></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-lock"></i></span>
+                                    <input id="ParentId" name="ParentId" class="input-medium" type="text">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="IsParent"><?=LangAdmin::get('IsParent')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('IsParent')?>"></i></label>
+                            <div class="controls">
+                                <input value="<?=(!empty($category) ? $category['IsParent'] : '')?>" id="IsParent" name="IsParent" class="input-medium" type="checkbox">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div><!-- /.row-fluid -->
+
+            </fieldset>
+            
+            <div class="control-group offset-top2">
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+                    <button type="button" class="btn offset1 btn_preloader" data-loading-text="<?=LangAdmin::get('Canceling')?>"><?=LangAdmin::get('Cancel')?></button>
+                </div>
+            </div>            
+
+        </form>
+
+    </div>
+</div>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-warehouse-form.js'); ?>

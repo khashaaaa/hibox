@@ -1,0 +1,79 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'banker')?>"><?=LangAdmin::get('Banker')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Price_group_categories')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Price_group_categories') . ' ' .$group['name'] ?>
+<span class="offset-left1"><span class="blink blink-iconed font-14 weight-normal" data-toggle="collapse" data-target=".ot_add_category_from_link"><i class="icon-plus"></i><?=LangAdmin::get('Add')?></span></span>
+</h1>
+
+<div id="pricegroup-category-wrapper">
+<div class="ot_add_category_from_link collapse">
+    <div>
+        <form method="post" class="form-inline well" action="<?=$PageUrl->AssignCmdAndDo('Pricing', 'addPriceGroupCategory')?>">
+            <input type="hidden" id="groupId" name="id" value="<?=$group['id']?>">
+            <div class="control-group">
+                <label class="control-label bold"><?=LangAdmin::get('By_link')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Caregory_by_link')?>"></i>
+                </label>
+                <div class="controls">
+                    <input class="span9 category-url" name="category-url" type="text" placeholder="<?=LangAdmin::get('Paste_link_to_category')?>">
+                    <span type="button" data-toggle="button" class="btn show-categories"  title="<?=LangAdmin::get('Set_catalog_section')?>"><i class="icon-list-alt font-14"></i></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="button" class="btn btn-primary" ><?=LangAdmin::get('Add')?></button>
+                    <button type="button" class="btn offset-left05" data-target=".ot_add_category_from_link" data-toggle="collapse" title="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="span12"><?=LangAdmin::get('Name')?></th>
+            <th>ID</th>
+            <th><?=LangAdmin::get('Actions')?></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <? if (! empty($categories)) { ?>
+        <? foreach ($categories as $category) { ?>   
+                
+        <tr id="<?=$category['id']?>">
+            <td><a href="<?=
+            UrlGenerator::generateCategoryUrl(
+            	array('Id' => $category['id'],'Name' => $category['name']), true)?>" title="<?=LangAdmin::get('To_category_page')?>"><?=$category['name']?></a></td>
+            <td><?=$category['id']?></td>
+            <td><a href="#" class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete_category')?>" ><i class="icon-remove-sign"></i></a></td>
+        </tr>
+        <? } ?>
+        <? } ?> 
+    </tbody>
+
+</table>
+
+<a href="<?=$PageUrl->AssignCmdAndDo('pricing', 'banker')?>" type="button" class="btn btn_preloader" data-loading-text="<?=LangAdmin::get('Back')?>"><?=LangAdmin::get('Back')?></a>
+
+
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var CategoriesCategories = new Backbone.Collection();
+    CategoriesCategories.add(<?=json_encode($allCategories);?>);    
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/vendor/jstree/jquery.jstree.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-pricing-group-category.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>

@@ -1,0 +1,149 @@
+    <?=General::runController('Header')?>
+
+    <div class="content">
+
+        <section class="block-banners">
+            <div class="center">
+                <?=General::viewFetch('main/header/header-nav')?>
+                <div class="category-list">
+                    <?=ContentSection::getWidget([
+                        'route' => 'categories/get-menu',
+                        'mode' => ContentSection::MODE_AJAX_LOAD,
+                        'cache' => 86400
+                    ])?>
+                </div>
+
+                <div class="banners-wrap">
+
+                    <?=ContentSection::getWidget([
+                        'route' => 'index/render-slider',
+                    ])?>
+
+                    <? if (General::getConfigValue('elastic_banner_1_img') !== '') { ?>
+                        <a href="<?=(General::getConfigValue('elastic_banner_1_link') ? General::getConfigValue('elastic_banner_1_link') : 'javascript:void(0)')?>" class="baner__item banner__item_small"
+                           style="background-image: url(<?=General::getConfigValue('elastic_banner_1_img', General::getThemeWebDir() . '/img/banner-img2.png', false)?>);">
+                            <div class="baner__text">
+                                <div class="banner__title"><?=General::getConfigValue('elastic_banner_1_title')?></div>
+                                <div class="banner__subtitle">
+                                    <?=General::getConfigValue('elastic_banner_1_subtitle')?>
+                                </div>
+                            </div>
+                        </a>
+                    <? } ?>
+                    <? if (General::getConfigValue('elastic_banner_2_img') !== '') { ?>
+                        <a href="<?=(General::getConfigValue('elastic_banner_2_link') ? General::getConfigValue('elastic_banner_2_link') : 'javascript:void(0)')?>" class="baner__item banner__item_small"
+                           style="background-image: url(<?=General::getConfigValue('elastic_banner_2_img', General::getThemeWebDir() . '/img/banner-img3.png', false)?>);">
+                            <div class="baner__text">
+                                <div class="banner__title"><?=General::getConfigValue('elastic_banner_2_title')?></div>
+                                <div class="banner__subtitle">
+                                    <?=General::getConfigValue('elastic_banner_2_subtitle')?>
+                                </div>
+                            </div>
+                        </a>
+                    <? } ?>
+                </div>
+            </div>
+        </section>
+
+        <?= General::viewFetch('controllers/index/store-conditions') ?>
+
+        <? $setParameters = SetsUpdater::getCategoryItemsParams(); ?>
+        <? if (isset($setParameters[0]) && $setParameters[0]['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-categories-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters[0]['cacheTime'],
+                'cacheKey' => 'sets/render-categories-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+            ])?>
+        <? } ?>
+
+        <? $setParameters = SetsUpdater::getBestItemsParams(); ?>
+        <? if ($setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-recommend-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime'],
+                'cacheKey' => 'sets/render-recommend-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+            ])?>
+        <? } ?>
+
+        <? $setParameters = SetsUpdater::getPopularItemsParams(); ?>
+        <? if ($setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-popular-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime'],
+                'cacheKey' => 'sets/render-popular-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+            ])?>
+        <? } ?>
+
+        <? $setParameters = SetsUpdater::getLastItemsParams(); ?>
+        <? if ($setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-last-viewed-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime'],
+                'cacheKey' => 'sets/render-last-viewed-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+            ])?>
+        <? } ?>
+
+        <? $setParameters = SetsUpdater::getWarehouseItemsParams(); ?>
+        <? if ($setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-warehouse-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime'],
+                'cacheKey' => 'sets/render-warehouse-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+            ])?>
+        <? } ?>
+
+        <? $setParameters = SetsUpdater::getReviewsItemsParams(); ?>
+        <? if ($setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-items-with-review-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime'],
+                'cacheKey' => 'sets/render-items-with-review-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+            ])?>
+        <? } ?>
+
+        <? $setParameters = SetsUpdater::getVendorsItemsParams(); ?>
+        <? if ($setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-vendor-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime']
+            ])?>
+        <? } ?>
+
+        <? $setParameters = SetsUpdater::getBrandsItemsParams(); ?>
+        <? if ($setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-brands-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime']
+            ])?>
+        <? } ?>
+
+        <?=ContentSection::getWidget([
+            'route' => 'shop-comments/render-last-comments',
+        ])?>
+
+        <?=General::viewFetch('controllers/index/advertising-banner')?>
+
+        <?=ContentSection::getWidget([
+            'route' => 'news/render-last-news',
+        ])?>
+
+        <?=ContentSection::getWidget([
+            'route' => 'blog/render-last-blog',
+        ])?>
+
+        <?=General::viewFetch('controllers/index/content')?>
+
+        <?=General::viewFetch('controllers/index/social-block') ?>
+    </div><!-- .content -->
+
+    <? AssetsMin::registerJsFile(General::getThemeWebDir() . '/js/pages/index.js')?>
+
+<?=General::runController('Footer')?>

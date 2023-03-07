@@ -1,0 +1,45 @@
+
+<? $page_count_print = General::getConfigValue('pager_count_print') ? General::getConfigValue('pager_count_print') : '2'; ?>
+<? $curpage = floor($from / $perpage) + 1 ?>
+<?
+if (isset($lastSearchProvider) && $lastSearchProvider['totalCount'] >= 20) {
+    $maxpage = $maximumPageCount; //ceil($lastSearchProvider['totalCount'] / $perpage) > 40 ? 40 : ceil($lastSearchProvider['totalCount'] / $perpage);
+    $baseUrl->DeleteKey('Provider')->DeleteKey('SearchMethod');
+    $lastProvider = explode("_", $lastSearchProvider['key']);
+    $baseUrl->Add('Provider', $lastProvider[0])->Add('SearchMethod', $lastProvider[1]);
+} else {
+    $maxpage = $maximumPageCount;
+    //$maxpage = ceil($maxCountPagination / $perpage);
+}
+
+?>
+
+<? if ($maxpage > 1) { ?>
+<nav>
+    <ul class="pagination">
+        <? if ($curpage > ($page_count_print + 1)) { ?>
+            <li><a href="<?=$baseUrl->DeleteKey('from')->Add('from',0)->Get()?>" class="search-click page-link">1</a></li>
+        <? } ?>
+        <? if ($curpage > ($page_count_print + 2)) { ?>
+            <li class="pagination_skip">...</li>
+        <? } ?>
+        <? for ($i = max(1, $curpage - $page_count_print); $i <= min($maxpage, $curpage + $page_count_print); $i++) { ?>
+            <? if ($curpage == $i) { ?>
+                <li class="page-item active"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($i - 1) * $perpage)->Get()?>" class="search-click page-link"><?=$i?></a></li>
+            <? } else { ?>
+                <li><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($i - 1) * $perpage)->Get()?>" class="search-click" page-link><?=$i?></a></li>
+            <? } ?>
+        <? } ?>
+        <? if ($curpage < $maxpage - ($page_count_print + 1)) { ?>
+            <li class="pagination_skip">...</li>
+        <? } ?>
+        <? if ($curpage < $maxpage - $page_count_print) { ?>
+            <li><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($maxpage - 1) * $perpage)->Get()?>" class="search-click page-link"><?=$maxpage?></a></li>
+        <? } ?>
+
+        <? if ($maxpage > 1 && !($curpage >= $maxpage)) { ?>
+            <li class="page-item"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',$from + $perpage)->Get()?>" class="search-click page-link next" aria-label="Next"></a></li>
+        <? } ?>
+    </ul>
+</nav>
+<? } ?>

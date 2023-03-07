@@ -1,0 +1,6 @@
+            <tr>
+                <td><%= transaction.TransDate %></td>
+                <td class="text-<%= (parseFloat(transaction.AmountCust) < 0 ? 'error' : 'success') %>"><%= transaction.AmountCust %> <%= transaction.CurrencySignCust %></td>
+                <td><%= transaction.Comment %></td>
+                <td><%= transaction.UserLogin %></td>
+            </tr>

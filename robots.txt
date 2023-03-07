@@ -1,0 +1,21 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /*p=item
+Disallow: /item
+Disallow: /*p=category
+Disallow: /category
+Disallow: /*p=subcategory
+Disallow: /subcategory
+Disallow: /*p=search
+Disallow: /search
+Disallow: /*p=search_ajax
+Disallow: /search_ajax
+Disallow: /*p=vendor
+Disallow: /*p=reviews
+Disallow: /reviews
+
+Allow: /calculator
+Disallow: /calculator?*
+
+#Sitemap: http://site.ru/sitemap.xml
+#Host: site.ru

@@ -1,0 +1,53 @@
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+<div class="control-group control-group-medium">
+<% } %>
+    <% if(typeof parameters.useLabel === 'undefined' || parameters.useLabel == 'true'){ %>
+        <label class="control-label" for="ot_sidebar_nav_display">
+            <% if (typeof parameters.label !== 'undefined' && parameters.label !== null) { %>
+                <%= parameters.label %>
+            <% } else { %>
+                <%= trans.get(name + '_label') %>
+            <% } %>
+            <% if( trans.get(name + '_hint') != (name + '_hint') ){ %>
+                <i class="icon-question-sign ot_inline_help"
+                   data-toggle="popover"
+                   data-content="<%= trans.get(name + '_hint') %>"
+                   title=""
+                   data-original-title=""
+                >
+                </i>
+           <% } %>
+            <div class="configLangVersions" id="configLangVersions_<%= name %>"></div>
+        </label>
+    <% } %>
+    <div class="controls">
+        <a class="ot_inline_editable"
+           href="#"
+            <% if (typeof parameters.pk !== 'undefined'){ %>
+                data-pk="<%= parameters.pk %>"
+            <% } else { %>
+                data-pk="1"
+            <% } %>
+            <% if(typeof parameters.inputClass !== 'undefined'){ %>
+                data-inputclass="<%= parameters.inputClass %>"
+            <% } %>
+           data-name="<%= name %>"
+           data-type="<%= type %>"
+		   <% if(typeof parameters.processSubmit === 'undefined' || parameters.processSubmit == 'false'){ %>
+                data-url="<%= saveUrl %>"
+		   <% } %>		   
+           data-original-title=""
+           data-value="<%= value %>"
+           >
+           <% if (typeof parameters.valuesList !== 'undefined' && parameters.valuesList[value].length > 0) { %>
+                <%= parameters.valuesList[value] %>
+           <% } else if (trans.get(name + '_value:' + value) == name + '_value:' + value) { %>
+                <%= trans.get(name + '_value:*') %>
+           <% } else { %>
+                <%= trans.get(name + '_value:' + value) %>
+           <% } %>
+        </a>
+    </div>
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+</div>
+<% } %>

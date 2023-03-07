@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Order Declaration <?=$order_id?></TITLE>
+	<STYLE>
+		<!-- 
+		BODY,DIV,TABLE,THEAD,TBODY,TFOOT,TR,TH,TD,P { font-family:"Calibri"; font-size:16px }
+		 -->
+	</STYLE>
+	
+</HEAD>
+
+<BODY TEXT="#000000">
+<TABLE CELLSPACING=0 COLS=5 RULES=NONE STYLE="border:1px solid #fff">
+	<COLGROUP><COL WIDTH=74><COL WIDTH=178><COL WIDTH=370><COL WIDTH=155><COL WIDTH=111></COLGROUP>
+	<TBODY>
+		<TR>
+			<TD WIDTH=74 HEIGHT=19><BR></TD>
+			<TD WIDTH=178><?=LangAdmin::get('date')?>:</TD>
+			<TD WIDTH=370><?=date('d.m.Y')?></TD>
+			<TD WIDTH=155><BR></TD>
+			<TD WIDTH=111><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19><BR></TD>
+			<TD><?=LangAdmin::get('sender')?>:</TD>
+			<TD><?=$sender?></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19><BR></TD>
+			<TD><?=LangAdmin::get('order_id')?>:</TD>
+			<TD>
+			<?=OrdersProxy::normalizeOrderId($order_id)?>
+			<?if ($logist_order_id){?> (<?=$logist_order_id?>)<?}?>
+			</TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19><BR></TD>
+			<TD><?=LangAdmin::get('Buyer-Recipient')?>:</TD>
+			<TD><?=$receiver?></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19><BR></TD>
+			<TD><?=LangAdmin::get('delivery_address')?>:</TD>
+			<TD><?=$address?></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19><BR></TD>
+			<TD><?=LangAdmin::get('phone')?>:</TD>
+			<TD><?=$phone?></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19><BR></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+		</TR>
+		<TR>
+			<TD STYLE="border: 1px solid #808080" HEIGHT=19 ALIGN=CENTER VALIGN=MIDDLE>№</TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=LangAdmin::get('pic')?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=LangAdmin::get('nomination')?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=LangAdmin::get('count')?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=LangAdmin::get('price')?> <?=$currency?></TD>
+		</TR>
+        <?$num = 0; foreach ($lines as $ii){ 
+            if ($ii['StatusCode'] > 10) continue;
+            $num++?>
+		<TR>
+			<TD STYLE="border: 1px solid #808080" HEIGHT=80 ALIGN=CENTER VALIGN=MIDDLE><?=$num?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><IMG SRC="<?=$ii['ItemImageURL'].'_80x80.jpg'?>" WIDTH=80 HEIGHT=80 HSPACE=47 VSPACE=0>
+			</TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=$ii['BriefDescrTrans']?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=$ii['Qty']?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=$ii['AmountCust']?></TD>
+		</TR>
+        <?}?>
+		<TR>
+			<TD STYLE="border: 1px solid #808080" HEIGHT=19 ALIGN=CENTER VALIGN=MIDDLE><?=LangAdmin::get('in_total')?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><BR></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=$count?></TD>
+			<TD STYLE="border: 1px solid #808080" ALIGN=CENTER VALIGN=MIDDLE><?=$sum?></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19><BR></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+			<TD><BR></TD>
+		</TR>
+		<TR>
+			<TD HEIGHT=19 COLSPAN=5><?=LangAdmin::get('broken_parcel_description')?></TD>
+		</TR>
+	</TBODY>
+</TABLE>
+</BODY>
+</HTML>

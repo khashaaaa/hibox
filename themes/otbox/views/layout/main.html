@@ -1,0 +1,178 @@
+<?=General::runController('Header')?>
+
+<div id="content">
+    <div class="so-page-builder">
+        <div class="container page-builder-ltr">
+            <div class="row row_i4fp  content-top ">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col_bxl4  main-left">
+                    <div class="row row_ybhn  row-megamenu ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_6d8l col-menu1">
+                            <?=General::runController('Categories','renderMenu')?>
+                            <?=General::getConfigValue('banner_widget')?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 col_tojp  main-right">
+                    <div class="row row_3kdz">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 col_bj7o col2">
+                            <div class="row row_2tr4  row-style ">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_606u col-style">
+                                    <div class="module sohomepage-slider ">
+                                        <div class="modcontent">
+                                            <div id="sohomepage-slider1">
+                                                <?=General::runController('Index','renderSections1')?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_gbcs col-style">
+                                    <div class="banners banners1">
+                                        <div class="row">
+                                            <?=General::runController('IndexBanner','renderIndexBanner')?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 col_jb98 col3">
+                            <? $setParameters = SetsUpdater::getVendorsItemsParams(); ?>
+                            <? if ($setParameters['count'] > 0) { ?>
+                                <?=ContentSection::getWidget([
+                                    'route' => 'sets/render-vendor-sets',
+                                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                                    'cache' => $setParameters['cacheTime']
+                                ])?>
+                            <? } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container page-builder-ltr">
+            <div class="row row_8wyu  row-main ">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_0xzg col-style">
+                    <div class="block-policy24 module">
+                        <ul>
+                            <li class="item-1 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="<?=UrlGenerator::generateContentUrl('delivery')?>" class="item-inner">
+                                    <div class="content">
+                                        <b><?=Lang::Get('worlwide_delivery')?></b>
+                                        <span><?=Lang::Get('worlwide_delivery_desc')?></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="item-2 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="<?=UrlGenerator::generateContentUrl('contacts')?>" class="item-inner">
+                                    <div class="content">
+                                        <b><?=Lang::Get('online_support')?></b>
+                                        <span><?=Lang::Get('online_support_desc')?></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="item-3 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="<?=UrlGenerator::generateContentUrl('payment')?>" class="item-inner">
+                                    <div class="content">
+                                        <b><?=Lang::Get('payment_method')?></b>
+                                        <span><?=Lang::Get('payment_method_desc')?></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="item-4 col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="<?=UrlGenerator::generateContentUrl('policy')?>" class="item-inner">
+                                    <div class="content">
+                                        <b><?=Lang::Get('money_guarantee')?></b>
+                                        <span><?=Lang::Get('money_guarantee_desc')?></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <? $setParameters = SetsUpdater::getCategoryItemsParams(); ?>
+            <? if (isset($setParameters[0]) && $setParameters[0]['count'] > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-categories-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => $setParameters[0]['cacheTime'],
+                    'cacheKey' => 'sets/render-categories-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+                ])?>
+            <? } ?>
+            
+            <? $setParameters = SetsUpdater::getBestItemsParams(); ?>
+            <? if ($setParameters['count'] > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-recommend-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => $setParameters['cacheTime'],
+                    'cacheKey' => 'sets/render-recommend-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+                ])?>
+            <? } ?>
+            
+            <? $setParameters = SetsUpdater::getPopularItemsParams(); ?>
+            <? if ($setParameters['count'] > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-popular-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => $setParameters['cacheTime'],
+                    'cacheKey' => 'sets/render-popular-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+                ])?>
+            <? } ?>
+            
+            <? $setParameters = SetsUpdater::getLastItemsParams(); ?>
+            <? if ($setParameters['count'] > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-last-viewed-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => $setParameters['cacheTime'],
+                    'cacheKey' => 'sets/render-last-viewed-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+                ])?>
+            <? } ?>
+            
+            <? $itemsCount = General::getConfigValue('items_with_pristroy', 8); ?>
+            <? if ($itemsCount > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-pristroy-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => 0
+                ])?>
+            <? } ?>
+            
+            <? $setParameters = SetsUpdater::getWarehouseItemsParams(); ?>
+            <? if ($setParameters['count'] > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-warehouse-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => $setParameters['cacheTime'],
+                    'cacheKey' => 'sets/render-warehouse-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+                ])?>
+            <? } ?>
+            
+            <? $setParameters = SetsUpdater::getReviewsItemsParams(); ?>
+            <? if ($setParameters['count'] > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-items-with-review-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => $setParameters['cacheTime'],
+                    'cacheKey' => 'sets/render-items-with-review-sets' . '/' . Session::getActiveLang() . '/' . User::getObject()->getCurrencyCode()
+                ])?>
+            <? } ?>
+
+            <? $setParameters = SetsUpdater::getBrandsItemsParams(); ?>
+            <? if ($setParameters['count'] > 0) { ?>
+                <?=ContentSection::getWidget([
+                    'route' => 'sets/render-brands-sets',
+                    'mode' => ContentSection::MODE_AJAX_LOAD,
+                    'cache' => $setParameters['cacheTime']
+                ])?>
+            <? } ?>
+        
+            <?=General::runController('Index','renderSections2')?>
+            <?= $result ?>
+
+        </div>
+    </div>
+</div>
+<?=General::runController('Footer')?>

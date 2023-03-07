@@ -1,0 +1,27 @@
+<?
+    $smtpDocLink = "https://docs-en.otcommerce.com/display/OTENGLISHDOCS/SMS+service+settings";
+    if (Session::getActiveAdminLang() == "ru") {
+        $smtpDocLink = "https://docs.otcommerce.com/pages/viewpage.action?pageId=31753707";
+    }
+?>
+<a href="<?=$smtpDocLink?>" target="_blank"><?=LangAdmin::get('Documentation')?> <i class="icon-external-link"></i></a><br/><br/>
+<div class="row-fluid" id="smsServiceInfo">
+    <div class="span12">
+        <? if (empty($smsServiceInfoList)) { ?>
+            <p><?=LangAdmin::get('List_is_empty')?></p>
+        <? } else { ?>
+            <?=MetaUI::render($smsServiceInfoList, $pageUrl)?>
+        <? } ?>
+    </div>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-config-system-email-server.js'); ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+    $(window).load(function () {
+        $('.smsService:first').click();
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

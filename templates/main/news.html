@@ -1,0 +1,30 @@
+<div class="wrap">
+    <div class="wrap b-post b-post-full main-content">
+        <? if ($news) { ?>
+            <div class="date"><?=$news['created']?></div>
+            <h1><?=$this->escape($news['title'])?></h1>
+            <div class="item-image">
+                <a href="<?=DigestRepository::getImage($news['image'], 'large')?>" class="pic cboxElement pictures" id="main-image-href">
+                    <i>
+                        <img id="main-image" src="<?=DigestRepository::getImage($news['image'], 'big')?>" default="css/i/default-image.gif" alt="">
+                    </i>
+                    <ins></ins>
+                </a>
+            </div>
+            <div id="content_area"><?=$text?></div>
+    	<? } else {?>
+	    	<h2 class="mb25"><span><?=Lang::get('empty_page')?></span></h2>
+		    <div class="flr col900 content">
+			    <?=Lang::get('empty_page_msg')?>
+		    </div>
+	    <? }?>
+    </div>
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".pictures").colorbox({rel:'group1'});
+});
+</script>
+<!--/noindex-->

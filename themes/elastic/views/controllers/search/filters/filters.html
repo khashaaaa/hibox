@@ -1,0 +1,9 @@
+<div id="searchAnchorScroll"></div>
+
+<?=General::viewFetch('controllers/search/filters/search-content_filters', array('vars' => array(
+    'searchResult' => $searchResult,
+    'activeSearchMethod' => $activeSearchMethod,
+    'searchParams' => $searchParams,
+    'baseUrl' => clone $baseUrl,
+)))?>
+<div class="clearfix"></div>

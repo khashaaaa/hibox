@@ -1,0 +1,113 @@
+<? $target = $isNewWindow ? '_blank' : '_self' ?>
+<form id="form_pay"
+      class="userform js-form-payment"
+      target="<?= $target ?>"
+      action="<?= $requestUrl ?>"
+      method="<?= $requestMethod ?>"
+>
+    <? if ($isImmediate) { ?>
+        <? foreach ($parameters as $parameter) { ?>
+            <? if ($parameter['isUserData']) { ?>
+                <div>
+                    <strong><?= $parameter['name'] ?>:</strong>
+                    <?= $parameter['value'] ?>
+                </div>
+            <? } elseif ($parameter['name'] === 'Comment') { ?>
+                <div>
+                    <strong><?= Lang::get('comment') ?>:</strong>
+                    <?= $parameter['value'] ?>
+                </div>
+            <? } ?>
+        <? } ?>
+    <? } elseif ($isIFrame) { ?>
+        <iframe class="js-payment-iframe payment-iframe" width="700"
+                src="<?= $requestUrl ?>?<?= $iFrameQuery ?>"
+        ></iframe>
+    <? } else { ?>
+        <? foreach ($parameters as $parameter) { ?>
+            <? if ($parameter['isUserData']) { ?>
+                <div>
+                    <strong><?= $parameter['name'] ?>:</strong>
+                    <?= $parameter['value'] ?>
+                </div>
+            <? } else { ?>
+                <input type="hidden" value="<?= $parameter['value']?>" name="<?= $parameter['name'] ?>">
+            <? } ?>
+        <? } ?>
+        <? if (OTBase::isTest()) { ?>
+            <span class="enter">
+                <input type="submit" value="<?= Lang::get('pay') ?>" class="btn_office">
+            </span>
+        <? } else { ?>
+        <div id="payment-state" class="js-payment-state">
+            <p id="preloader" class="js-payment-preloader" style="width: 32px; margin: 0 auto;">
+                <img src="/i/ajax-loader-transparent.gif" alt="transparent ajax loader">
+            </p>
+
+            <p id="state" class="js-payment-state-processing" style="text-align: center;">
+                <?= Lang::get('payment_processing') ?>
+            </p>
+            <p class="js-payment-state-text">
+                <?= isset($paymentStateText) ? $paymentStateText : "" ?>
+            </p>
+            <p class="js-payment-state-opened" style="display:none;">
+                <?= Lang::get('payment_page_opened') ?>
+            </p>
+            <div class="paymentForm" style="display: none">
+                <p id="state" class="js-payment-state-redirect" style="text-align: center;">
+                    <?= Lang::get('payment_page_redirect') ?>
+                </p>
+                <span class="enter">
+                    <input type="button" class="button js-open-payment" value="<?= Lang::get('get_payment') ?>">
+                </span>
+            </div>
+        </div>
+
+        <!--noindex-->
+        <script type="text/javascript">
+            $('.js-open-payment').on('click', function () {
+                $('.js-payment-state-opened').show();
+                $('.js-payment-state-redirect').hide();
+                $('.js-open-payment').hide();
+
+                $('.js-form-payment').submit();
+            })
+        </script>
+        <!--/noindex-->
+
+        <? if (!$isNewWindow) { ?>
+            <script type="text/javascript">
+                $('.js-form-payment').submit();
+            </script>
+        <? } ?>
+
+        <? } ?>
+    <? } ?>
+</form>
+
+<? if ($isNewWindow) { ?>
+    <? $privateOfficeLink = '<a href="' . UrlGenerator::generatePrivateOfficeUrl() . '">' . Lang::get('private_office') . '</a>' ?>
+    <? $paymentStateText = Lang::get('payment_in_new_window', array('privet_office' => $privateOfficeLink)) ?>
+
+    <? AssetsMin::jsBegin(); ?>
+    <script type="text/javascript">
+        $(function () {
+            let url = $('.js-form-payment').attr('action');
+            let newWin = window.open(url);
+            let $paymentState = $('.js-payment-state');
+            if(newWin) {
+                newWin.close();
+                $paymentState.find('.js-payment-preloader').remove();
+                $paymentState.find('.js-payment-state-processing').hide();
+                $paymentState.find('.js-payment-state-opened').show();
+                $('.js-form-payment').submit();
+            } else {
+                $paymentState.find('.js-payment-preloader').remove();
+                $paymentState.find('.js-payment-state-processing').hide();
+                $('.paymentForm').show();
+            }
+        });
+    </script>
+    <? $strScript = AssetsMin::jsEnd(); ?>
+    <? AssetsMin::registerJs($strScript); ?>
+<? } ?>

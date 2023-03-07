@@ -1,0 +1,222 @@
+<div class="file-widget">
+    <? if (!empty($options['displayName'])) { ?>
+        <label><?=$options['displayName']?></label>
+    <? } ?>
+    <div class="clearfix">
+        <div class="btn btn-success fileinput-button">
+            <i class="icon icon-plus"></i>
+            <?
+                if (empty($options['maxCount'])) {
+                    $buttonName = Lang::get('select_file_s');
+                } elseif ($options['maxCount'] > 1) {
+                    $buttonName = Lang::get('select_count_files', array('count' => $options['maxCount']));
+                } else {
+                    $buttonName = Lang::get('select_file');
+                }
+            ?>
+            <span><?=$buttonName?>...</span>
+            <input id="<?=$options['identifier']?>" type="file" name="files[]"
+                   <?= (!empty($options['acceptInputAttribute'])) ? 'accept="' . implode(', ', $options['acceptInputAttribute']) . '"' : '' ?>
+                   multiple>
+        </div>
+    </div>
+    <div class="files-container clearfix">
+        <? foreach ($options['uploadedFiles'] as $uploadedFile) { ?>
+            <? if (!empty($uploadedFile['url'])) { ?>
+                <div class="file-container">
+                <div class="overlay" style="display: none;"></div>
+
+                    <a title="<?=$uploadedFile['name']?>" href="<?=$uploadedFile['url']?>"
+                        <? if ($options['fileType'] === 'Image') { ?>
+                            class="colorBoxPicture" rel="<?=$options['identifier']?>"
+                        <? } else { ?>
+                            target="_blank"
+                        <? } ?>
+                        style="text-decoration: none;">
+                        <div class="img-wrap">
+                            <img src="<?=$uploadedFile['previewUrl']?>">
+                        </div>
+                        <div class="name"><?=$uploadedFile['name']?></div>
+                    </a>
+                    <div class="actions"><button class="btn btn-danger removeFile"><i class="icon icon-trash fa fa-trash-o"></i></button></div>
+                <input type="hidden" name="fileId[]" value="<?=$uploadedFile['fileId']?>"></div>
+            <? } ?>
+        <? } ?>
+    </div>
+</div>
+<script>
+    $(function () {
+        var errorMessageClass = '<?= General::getConfigValue('is_old_platform') ? 'text-error' : 'text-danger'?>';
+
+        $('.colorBoxPicture').colorbox({rel: $(this).attr('rel'), maxHeight:"85%", maxWidth: "85%"});
+
+        $('#<?=$options['identifier']?>')
+            .closest('.file-widget')
+            .find('.removeFile')
+            .on('click', function (e) {
+                e.preventDefault();
+                $(this).closest('.file-container').remove();
+            })
+            .css('display', '<?=$options["readOnly"] ? "none" : "inline-block"?>');
+
+        var saveUrl = '<?=$options['saveUrl']?>';
+
+        $('#<?=$options['identifier']?>')
+            .fileupload({
+                url: saveUrl,
+                dataType: 'json',
+                autoUpload: true,
+                <?= $options['acceptFileTypes'] ? 'acceptFileTypes: /(\.|\/)(' . implode('|', $options['acceptFileTypes']) . ')$/i,' : '' ?>
+                disableImagePreview: true
+            })
+            .on('fileuploadadd', function (e, data) { // Добавление файла
+                $('.modal-footer #confirm').attr('disabled','disabled');
+                data.formData = {language:'<?=$options['language']?>', fileType:'<?=$options['fileType']?>'};
+                var filesContainer = data.fileInputClone.closest('.file-widget').find('.files-container');
+                filesContainer.children('.file-container').remove();
+
+                /* ограничение на кол-во файлов */
+                var numberOfUploadedFiles = filesContainer.children('.file-container').length;
+                if (numberOfUploadedFiles >= <?=$options['maxCount']?> && <?=$options['maxCount']?> !== 0) {
+                    showMessage('<?=Lang::get('more_than_n_files_selected', array('count' => $options['maxCount']))?>');
+                    return false;
+                }
+
+                /* добавить флаг начала загрузки */
+                if (filesContainer.find('input[name="fileLoading"]').length === 0) {
+                    filesContainer.append('<input type="hidden" name="fileLoading"/>');
+                }
+
+                /* добавить контейнер для файла и запомнить его текущий селектор */
+                data.context = $('<div class="file-container"/>').appendTo(filesContainer);
+
+                $('<div class="overlay"/>').prependTo(data.context).css({'display': 'block'});
+                $.each(data.files, function (index, file) {
+                    data.context.append('<div class="name">' + file.name + '<div/>');
+                });
+
+            })
+            .on('fileuploadprocessalways', function (e, data) { // Завершение загрузки Успех/Ошибка на клиенте
+                var index = data.index,
+                    file = data.files[index];
+
+                if (data.context) {
+                    var removeButton = $('<button>')
+                        .addClass('btn btn-danger removeFile')
+                        .on('click', function (e) {
+                            e.preventDefault();
+                            $(this).closest('.file-container').remove();
+                        });
+                    removeButton.append('<i class="icon icon-trash fa fa-trash-o">');
+                    data.context.append(removeButton);
+                    removeButton.wrap('<div class="actions"/>');
+
+                    if (file.error) {
+                        var errorMessage = file.error;
+                        var errorElement = $('<span class="' + errorMessageClass + '"/>').text(errorMessage);
+                        data.context
+                            .attr('title', errorMessage)
+                            .addClass('error')
+                            .children('.name').html(errorElement);
+
+                        if($('#<?=$options['identifier']?>').fileupload('active') <= 1) { // Все файлы загружены
+                            data.context.closest('.files-container').children('input[name="fileLoading"]').remove(); // удалить флаг загрузки
+                        }
+                        $('.overlay', data.context).css('display','none');
+                        $('.modal-footer #confirm').removeAttr('disabled');
+                    }
+                }
+            })
+            .on('fileuploaddone', function (e, data) { // Загрузка завершена успешно
+
+                $.each(data.result.files, function (index, file) {
+                    if (file.fileId) {
+                        $('<input>')
+                            .attr({'type':'hidden', 'name':'fileId[]'})
+                            .val(file.fileId)
+                            .appendTo(data.context);
+                    }
+
+                    if (file.thumbnailUrl) {
+                        $('<div class="img-wrap"></div>')
+                            .prependTo(data.context)
+                            .prepend('<img src="' + file.thumbnailUrl + '">');
+                    } else {
+                        data.context.prepend('<img src="/i/noimg.png">');
+                    }
+
+                    if (file.url) {
+                        var link = $('<a>')
+                            .attr('title', file.name)
+                            .prop('href', file.url)
+                        <? if ($options['fileType'] === 'Image') { ?>
+                            .addClass('colorBoxPicture')
+                            .attr('rel', '<?=$options['identifier']?>')
+                            .colorbox({rel: $(this).attr('rel'), maxHeight:"85%", maxWidth: "85%"});
+                        <? } else { ?>
+                            .attr('target', '_blank');
+                        <? } ?>
+                        data.context.children().not('.actions').wrapAll(link);
+                    } else if (file.error) {
+                        var errorMessage = file.error;
+                        var errorElement = $('<span class="' + errorMessageClass + '"/>').text(errorMessage);
+                        data.context
+                            .attr('title', errorMessage)
+                            .addClass('error')
+                            .children('.name').html(errorElement);
+                    }
+
+                    if($('#<?=$options['identifier']?>').fileupload('active') <= 1) { // Все файлы загружены
+                        data.context.closest('.files-container').children('input[name="fileLoading"]').remove(); // удалить флаг загрузки
+                    }
+                    $('.overlay', data.context).css('display','none');
+                });
+                $('.modal-footer #confirm').removeAttr('disabled');
+            })
+            .on('fileuploadfail', function (e, data) { // Загрузка прервана, ошибка от сервера
+                $.each(data.files, function (index) {
+                    var errorMessage = data.files[index].name + ': ' + data._response.jqXHR.responseText;
+                    var errorElement = $('<span class="' + errorMessageClass + '"/>').text(errorMessage);
+                    data.context
+                        .attr('title', errorMessage)
+                        .addClass('error')
+                        .children('.name').html(errorElement);
+                    $('.overlay', data.context).css('display','none');
+
+                    if($('#<?=$options['identifier']?>').fileupload('active') <= 1) { // Все файлы загружены
+                        data.context.closest('.files-container').children('input[name="fileLoading"]').remove(); // удалить флаг загрузки
+                    }
+                });
+                $('.modal-footer #confirm').removeAttr('disabled');
+            })
+            .prop('disabled', <?=$options['readOnly']?>)
+            .parent().addClass(<?=$options['readOnly']?> ? 'disabled': undefined )
+            .css('display', '<?=$options["readOnly"] ? "none" : "inline-block"?>');
+
+        $('#<?=$options['identifier']?>').parents('form').eq(0)
+            .on('submit', function (e) {
+            var form = $('#<?=$options['identifier']?>').closest('form'),
+                required = <?=$options['required']?>,
+                uploaded = !form.find('input[name="fileLoading"]').length,
+                inModal = !!form.closest('.modal').length || !!form.closest('.ui-dialog').length;
+
+            if (!uploaded) {
+                showMessage('<?=Lang::get('wait_until_the_download_is_complete')?>', true);
+                if (!inModal) {
+                    $('body, html').animate({scrollTop: $('#<?=$options['identifier']?>').closest('.file-widget').offset().top + "px" }, "slow");
+                }
+                return false;
+            }
+            if (required) {
+                var numberOfUploadedFiles = form.find('.file-container').length;
+                if (numberOfUploadedFiles === 0) {
+                    showMessage('<?=Lang::get('choose_file')?>', true);
+                    if (!inModal) {
+                        $('body, html').animate({scrollTop: $('#<?=$options['identifier']?>').closest('.file-widget').offset().top + "px"}, "slow");
+                    }
+                    return false;
+                }
+            }
+        });
+    });
+</script>

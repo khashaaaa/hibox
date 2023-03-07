@@ -1,0 +1,32 @@
+<?php
+return [
+    'search' => 'search/default',
+    'vendor/<alias>' => 'search/vendor',
+    'vendor' => 'search/vendor',
+    'brand' => 'search/brand',
+    'category/<alias>' => 'search/category',
+    'category' => 'search/category',
+    'subcategory/<alias>' => 'search/category',
+    'subcategory' => 'search/category',
+    'reviews' => 'search/reviews',
+    'allcats' => 'categories/allCategories',
+    'post/<alias>' => 'blog/showPost',
+    'post' => 'blog/showPost',
+    'digest' => 'blog/default',
+    'allnews' => 'news/default',
+    'news' => 'news/showNew',
+    'userorder' => 'order/create',
+    'orderdetails' => 'order/orderinfo',
+    'shopreviews' => 'shop-comments/default',
+    'plugin/request/<pluginName>' => 'plugin/request',
+    'register' => 'authentication/register',
+    'login' => 'authentication/login',
+    'recovery' => 'authentication/recovery',
+
+    'pay/form/<orderId>' => 'pay/form',
+    'pay/form' => 'pay/form',
+    'pay' => 'pay/pay',
+
+    'favourite_vendors' => 'favourite-vendor/default',
+    'favourite_vendors/delete' => 'favourite-vendor/delete',
+];

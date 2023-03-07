@@ -1,0 +1,36 @@
+<?php /* @var $paginator \blocks\Paginator */ ?>
+<?php if ($paginator->pages() > 1) { ?>
+<div class="b-pager">
+        <? if ($paginator->hasPrevious()) {?>
+            <a href="<?=$paginator->query(array('page' => $paginator->page()-1))?>" class="btn btn-apper b-first-page"><span><?=Lang::get('prev_page')?></span></a>        
+        
+        <? } ?>
+        <? if ($paginator->hasNext()) { ?>
+            <a href="<?=$paginator->query(array('page' => $paginator->page()+1))?>" class="btn btn-apper b-last-page"><span><?=Lang::get('next_page')?></span></a>
+        <? } ?>
+        <ul class="b-list-page">
+            <? if ($paginator->page() > ($paginator->limit() + 1)) { ?>
+            <li class="b-item"><a href="<?=$paginator->query(array('page' => 1))?>" class="i-link">1</a></li>
+            <? } ?>
+            <? if ($paginator->page() > ($paginator->limit() + 2)) { ?>
+            <li class="b-item dotted">...</li>
+            <? } ?>
+            <? for ($i = max(1, $paginator->page() - $paginator->limit()); $i <= min($paginator->pages(), $paginator->page() + $paginator->limit()); $i++) { ?>
+            <? if ($paginator->page() == $i) { ?>
+                <li class="b-item active"><a href="<?=$paginator->query(array('page' => $i))?>" class="i-link"><?=$i?></a>
+                </li>
+                <? } else { ?>
+                <li class="b-item"><a href="<?=$paginator->query(array('page' => $i))?>" class="i-link"><?=$i?></a></li>
+                <? } ?>
+            <? } ?>
+
+            <? if ($paginator->page() < $paginator->pages() - ($paginator->limit() + 1)) { ?>
+            <li class="b-item dotted">...</li>
+            <? } ?>
+            <? if ($paginator->page() < $paginator->pages() - $paginator->limit()) { ?>
+            <li class="b-item"><a href="<?=$paginator->query(array('page' => $paginator->pages()))?>" class="i-link"><?=$paginator->pages()?></a></li>
+            <? } ?>
+        </ul>
+</div>
+<?php } ?>
+    

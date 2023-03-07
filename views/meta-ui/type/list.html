@@ -1,0 +1,160 @@
+<div class="well">
+    <legend>
+        <?=$displayName?>
+        <? if ($description) { ?>
+            <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+        <? } ?>
+    </legend>
+
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+            <? $i = 0; ?>
+            <? foreach ($currentValue->Item as $k => $item) { ?>
+                <? $i++; ?>
+                <li class="<?= ($i == 1) ? 'active' : ''?>">
+                    <a href="#tab-<?=$name?>" data-toggle="tab">
+                        <? if (!$isReadOnly) { ?>
+                            <button class="btn btn-mini btn-default remove-list-<?=$prefix?>" <?=$requireReload ? 'require-reload="true"' : '' ?>
+                                    data-name="<?=$prefix . MetaUI::NODES_SEPARATOR . MetaUI::encodeParametersString('Item' . MetaUI::ATTR_SEPARATOR . 'Action' . MetaUI::ATTR_VALUE_SEPARATOR . 'Remove' . MetaUI::ATTR_SEPARATOR . 'Id' . MetaUI::ATTR_VALUE_SEPARATOR . $item['Id'])?>"
+                                    data-value=""
+                                    data-type="<?=$field['Type']?>"><i class="icon-remove"></i></button>
+                        <? } ?>
+
+                        <?= !empty($item['DisplayName']) ? $item['DisplayName'] : 'Id: ' . $item['Id'] ?>
+                    </a>
+
+                </li>
+            <? } ?>
+            <? if (!$isReadOnly) { ?>
+                <li>
+                    <button class="btn btn-small btn-default add-list-<?=$prefix?>" style="margin-left: 7px;" <?=$requireReload ? 'require-reload="true"' : '' ?>
+                            data-name="<?=$prefix . MetaUI::NODES_SEPARATOR . MetaUI::encodeParametersString('Item' . MetaUI::ATTR_SEPARATOR . 'Action' . MetaUI::ATTR_VALUE_SEPARATOR . 'Add')?>"
+                            data-value=""
+                            data-type="<?=$field['Type']?>"><i class="icon-plus"></i></button>
+                    <? if ($nameCanByReset) { ?>
+                    <button type="submit" class="btn <?=$nameCanByReset?>"><i class="icon-refresh"></i></button>
+                    <? } ?>
+                </li>
+            <? } ?>
+        </ul>
+        <div class="tab-content">
+            <? $i = 0; ?>
+            <? foreach ($currentValue->Item as $item) { ?>
+                <? $i++; ?>
+                <div class="tab-pane" id="tab-<?=$name?>" <?= ($i == 1) ? 'style="display:block;"' : ''?>>
+                    <?= MetaUI::renderFields($field, $item, $prefix . MetaUI::NODES_SEPARATOR . MetaUI::encodeParametersString('Item' . MetaUI::ATTR_SEPARATOR . 'Id' . MetaUI::ATTR_VALUE_SEPARATOR . $item['Id']) . MetaUI::NODES_SEPARATOR) ?>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</div>
+<script>
+    $('body')
+        .on('click', '.add-list-<?=$prefix?>', function(){
+            var name = $(this).data('name');
+            var value = $(this).data('value');
+            var type = $(this).data('type');
+
+            var container = $(this).closest('div.meta-ui-container');
+            var updateSettingsUrl = container.attr('update-settings-url');
+
+            $.post(
+                updateSettingsUrl, {
+                    name: name,
+                    value: value,
+                    type: type
+                },
+                function(data) {
+                    location.reload();
+                }
+            );
+        })
+        .on('click', '.remove-list-<?=$prefix?>', function(){
+            var thisRemoveButton = $(this);
+
+            var callBack = function(){
+                var element = thisRemoveButton;
+                var requireReload = !!element.attr('require-reload');
+
+                var name = element.data('name');
+                var value = element.data('value');
+                var type = element.data('type');
+
+                var container = element.closest('div.meta-ui-container');
+                var updateSettingsUrl = container.attr('update-settings-url');
+
+                $.post(updateSettingsUrl, {
+                        name: name,
+                        value: value,
+                        type: type
+                    }, function(data) {
+                        if (! data.error) {
+                            if (requireReload) {
+                                location.reload();
+                            } else {
+                                var tabs = element.closest('ul.nav-tabs');
+                                element.parent().remove();
+                                tabs.find('li:first').click();
+                            }
+                        } else {
+                            showError(data);
+                        }
+                    }, 'json'
+                ).error(function(xhr, ajaxOptions, thrownError){
+                    showError(xhr.responseText);
+                });
+            };
+
+            modalDialog(trans.get('Confirm_delete'), trans.get('Confirm_delete'), callBack);
+        });
+
+    <? if ($nameCanByReset) { ?>
+        $('button.<?=$nameCanByReset?>').click(function () {
+            $('button.<?=$nameCanByReset?>').attr('disabled','disabled');
+            $('button.<?=$nameCanByReset?>').addClass('btn_preloader');
+            $('button.<?=$nameCanByReset?> i').hide();
+            $.post(
+                updateSettingsUrl,
+                {
+                    "name": '<?=$nameCanByReset?>',
+                    "value": 'true',
+                    "type": 'Text'
+                },
+                function (data) {
+                    if (!data.error) {
+                        showMessage(trans.get('Data_save_success'));
+                        $('button.<?=$nameCanByReset?>').removeClass('btn_preloader');
+                        $('button.<?=$nameCanByReset?>').addClass('disabled');
+                        $('button.<?=$nameCanByReset?> i').show();
+                        $('button.<?=$nameCanByReset?>').attr('disabled');
+
+
+                        if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                            var container = $('#<?=$name?>').closest('.allow-reload');
+                            var url = $(container).attr('reload-url');
+                            if (url) {
+                                $.post(url, {}, function (data) {
+                                    if (! data.error) {
+                                        $(container).html(data.html);
+                                    } else {
+                                        showError(data);
+                                    }
+                                }, 'json').error(function(xhr, ajaxOptions, thrownError){
+                                    showError(xhr.responseText);
+                                });
+                                return;
+                            }
+                        }
+                        location.reload();
+                    } else {
+                        showError(data);
+                        var container = $('#<?=$name?>').closest('.control-group');
+                        $('#<?=$name?>', container).addClass('error');
+                        return false;
+                    }
+                }, 'json'
+            );
+            return false;
+        });
+    <? } ?>
+</script>

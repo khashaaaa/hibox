@@ -1,0 +1,59 @@
+<div class="mobile-links">
+    <ul>
+        <li class="change-to-basic-version change-version"  data-version="basic">
+            <a href="javascript:void(0)">
+                <div class="mobile-links__img"><img src="<?=General::getThemeWebDir()?>/img/svg/laptop.svg" alt="img"></div>
+                <div class="mobile-links__text"><?=Lang::get('basic_version_of_the_site')?></div>
+            </a>
+        </li>
+        <li class="change-to-mobile-version change-version"  data-version="mobile">
+            <a href="javascript:void(0)">
+                <div class="mobile-links__img"><img src="<?=General::getThemeWebDir()?>/img/svg/smartphone.svg" alt="img"></div>
+                <div class="mobile-links__text"><?=Lang::get('mobile_version_of_the_site')?></div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    function getCookie (cookie_name) {
+        var results = document.cookie.match('(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
+
+        if (results) {
+            return unescape(results[2]);
+        } else {
+            return false;
+        }
+    }
+
+    function changeSiteVersion () {
+        if (getCookie('siteVersion')) {
+            $('body').addClass('basic');
+            $('meta[name="viewport"]').attr('content', 'width=1025, user-scalable=yes');
+        } else {
+            $('body').removeClass('basic');
+            $('meta[name="viewport"]').attr('content', 'width=device-width, initial-scale=1.0, user-scalable=no');
+        }
+    }
+
+    $(function () {
+        changeSiteVersion();
+
+        $('.change-version a').on('click', function () {
+            var version = $(this).closest('.change-version').data('version');
+
+            var cookie = 'siteVersion=basic; max-age=';
+            if (version === 'basic') {
+                cookie += '604800';  // 60 * 60 * 24 * 7 (week)
+            } else {
+                cookie += '-1';      // delete cookie
+            }
+            document.cookie = cookie;
+
+            changeSiteVersion();
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

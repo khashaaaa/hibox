@@ -1,0 +1,63 @@
+.userform .btn_office
+{
+    padding: 8px;
+    /*
+  background: #ef232b;
+  background: -moz-linear-gradient(top,  #ff5e65 0%, #fa4c54 42%, #f53940 49%, #ef232b 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff5e65), color-stop(42%,#fa4c54), color-stop(49%,#f53940), color-stop(100%,#ef232b));
+  background: -webkit-linear-gradient(top,  #ff5e65 0%,#fa4c54 42%,#f53940 49%,#ef232b 100%);
+  background: -o-linear-gradient(top,  #ff5e65 0%,#fa4c54 42%,#f53940 49%,#ef232b 100%);
+  background: -ms-linear-gradient(top,  #ff5e65 0%,#fa4c54 42%,#f53940 49%,#ef232b 100%);
+  background: linear-gradient(to bottom,  #ff5e65 0%,#fa4c54 42%,#f53940 49%,#ef232b 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5e65', endColorstr='#ef232b',GradientType=0 );
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .26);
+  border-radius: 5px;
+  border: 0;
+
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+
+  background-position: 0 0!important;
+}
+
+.userform .btn_office:hover
+{
+  background: #ef232b;
+  background: -moz-linear-gradient(top,  #ff5e65 0%, #fa4c54 20%, #f53940 30%, #ef232b 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff5e65), color-stop(20%,#fa4c54), color-stop(30%,#94a8ca), color-stop(100%,#ef232b));
+  background: -webkit-linear-gradient(top,  #ff5e65 0%,#fa4c54 20%,#f53940 30%,#ef232b 100%);
+  background: -o-linear-gradient(top,  #ff5e65 0%,#fa4c54 20%,#f53940 30%,#ef232b 100%);
+  background: -ms-linear-gradient(top,  #ff5e65 0%,#fa4c54 20%,#f53940 30%,#ef232b 100%);
+  background: linear-gradient(to bottom,  #ff5e65 0%,#fa4c54 20%,#f53940 30%,#ef232b 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5e65', endColorstr='#ef232b',GradientType=0 );
+  background-position: 0 0!important;*/
+}
+
+.userform .btn_office:active
+{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .26), inset 0 2px 5px rgba(0, 0, 0, .1)
+}
+
+.ie9 .btn_office
+{ filter: none }
+
+
+.userform .btn_office.btn_office_disabled,
+.userform .btn_office.btn_office_disabled:hover,
+.userform .btn_office.btn_office_disabled:active
+{
+    background-image: none;
+    background-color: #A5A5A5;
+    box-shadow: none;
+}
+
+.userform .btn_office.btn_office_disabled:hover {
+    cursor: default; }
+
+.ui-widget-overlay {
+    position: fixed;
+}

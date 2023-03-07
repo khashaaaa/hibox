@@ -1,0 +1,20 @@
+<? if (General::getConfigValue('elastic_advertising_banner_image') !== '') { ?>
+    <section class="advertising-baner">
+        <div class="center">
+                <a href="<?=General::getConfigValue('elastic_advertising_banner_link', 'javascript:void(0)')?>" class='advertising-baner__link' style="background-image: url(<?=General::getConfigValue('elastic_advertising_banner_image', General::getThemeWebDir() . '/img/baner-main.jpg', false)?>)">
+                <div class="advertising-baner__item">
+                    <div class="advertising-baner__text">
+                        <div class="advertising-baner__text-inside">
+                            <? if(General::getConfigValue('elastic_advertising_banner_title') !== '') { ?>
+                                <div class="banner-main__title"><?=General::getConfigValue('elastic_advertising_banner_title', Lang::get('advertising_banner_title'), false)?></div>
+                            <? } ?>
+                            <? if(General::getConfigValue('elastic_advertising_banner_subtitle') !== '') { ?>
+                                <div class="banner-main__subtitle"><?=General::getConfigValue('elastic_advertising_banner_subtitle', Lang::get('advertising_banner_subtitle'), false)?></div>
+                            <? } ?>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+<? } ?>

@@ -1,0 +1,96 @@
+<div class="content content-brands center">
+    <h1><?=Lang::get('brands')?></h1>
+
+    <div class="main-wrap d-flex flex-wrap">
+        <div class="aside aside-left">
+            <? if (@htmlspecialchars($_GET['letter']) || @htmlspecialchars($_GET['type'])) { ?>
+                <div class="panel-grey">
+                    <b><?=Lang::get('active_cond')?></b>
+                </div>
+
+                <div class="conditions">
+                    <? if(@htmlspecialchars($_GET['letter'])){ ?>
+                        <div class="list-data-wrap">
+                            <span><?=Lang::get('alphabetical')?>:&nbsp;&nbsp;</span>
+                            <span class="condition-value text-uppercase"><?=htmlspecialchars($_GET['letter'])?></span>
+                            <a href="<?=UrlGenerator::toRoute('brands', array('type' => @htmlspecialchars($_GET['type'])))?>" class="button button-delete fa fa-times button-little"></a>
+                        </div>
+                    <? } ?>
+                    <? if(@htmlspecialchars($_GET['type'])){ ?>
+                        <div class="list-data-wrap">
+                            <span><?=Lang::get('brand_type')?>:&nbsp;&nbsp;</span>
+                            <span class="condition-value"><?=Lang::get('brand_type'.$_GET['type'])?></span>
+                            <a href="<?=UrlGenerator::toRoute('brands', array('letter' => @htmlspecialchars($_GET['letter'])))?>" class="button button-delete fa fa-times button-little"></a>
+                        </div>
+                    <? } ?>
+                    <div class="list-data-wrap">
+                        <a href="<?=UrlGenerator::generateBrandsUrl()?>" class="button button-delete button-dropterms"><?=Lang::get('reset_cond')?></a>
+                    </div>
+                </div>
+            <? } ?>
+
+            <div class="panel-grey">
+                <b><?=Lang::get('brand_type')?></b>
+            </div>
+
+            <div class="properties-wrap">
+                <div class="alphabet">
+                    <div class="properties__property-border">
+                        <?
+                        for ($i=97; $i<=122; $i++) {
+                            $x = chr($i);
+                            $class = @htmlspecialchars($_GET['letter'])==$x ? 'class="active"' : '';
+                            $link = UrlGenerator::toRoute('brands', array('letter' => $x, 'type' => @htmlspecialchars($_GET['type'])));
+                            print "<a $class href='$link'>$x</a>";
+                            if ($i == 105 || $i == 114) print "</div><div class='properties__property-border'>";
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="brand_types">
+                    <div class="properties__property-border">
+                        <a class="<?=! @$_GET['type'] ? 'active' : ''?> "href="<?=UrlGenerator::toRoute('brands', array('letter' => @htmlspecialchars($_GET['letter'])))?>"><?=Lang::get('all')?></a>
+                    </div>
+                    <div class="properties__property-border">
+                        <a class="<?=@$_GET['type'] == 'Best' ? 'active' : ''?>" href="<?=UrlGenerator::toRoute('brands', array('letter' => @htmlspecialchars($_GET['letter']), 'type' => 'Best'))?>"><?=Lang::get('brand_typeBest')?></a>
+                    </div>
+                    <div class="properties__property-border">
+                        <a class="<?=@$_GET['type'] == 'Popular' ? 'active' : ''?>" href="<?=UrlGenerator::toRoute('brands', array('letter' => @htmlspecialchars($_GET['letter']), 'type' => 'Popular'))?>"><?=Lang::get('brand_typePopular')?></a>
+                    </div>
+                    <div class="properties__property-border">
+                        <a class="<?=@$_GET['type'] == 'Last' ? 'active' : ''?>" href="<?=UrlGenerator::toRoute('brands', array('letter' => @htmlspecialchars($_GET['letter']), 'type' => 'Last'))?>"><?=Lang::get('brand_typeLast')?></a>
+                    </div>
+                </div>
+
+                <a href="<?=UrlGenerator::generateBrandsUrl()?>" class="button"><?=Lang::get('all')?></a>
+            </div>
+        </div>
+
+        <div class="main list-items">
+            <? if (!empty($brandlist)) { ?>
+                <div class="listing-wrap">
+                    <? foreach ($brandlist as $item) { ?>
+                        <a href="<?=UrlGenerator::generateBrandUrl($item['id'])?>" class="list-items__link">
+                            <div class="item-block">
+                                <div class="item-inside">
+                                    <div class="item__image">
+                                        <img src="<?=ProductsHelper::getImage($item)?>" itemprop="image">
+                                    </div>
+
+                                    <div class="item-block__name">
+                                        <?=$this->escape($item['Name'])?>
+                                    </div>
+
+                                    <div class="glue"></div>
+                                </div>
+                            </div>
+                        </a>
+                    <? } ?>
+                </div>
+            <? } else { ?>
+                <h2><?=$emptymessage?></h2>
+            <? } ?>
+        </div>
+    </div>
+</div>

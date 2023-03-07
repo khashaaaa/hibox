@@ -1,0 +1,381 @@
+/*Ссылки----------------------------------------------------*/
+    
+    /* a:visited {
+        border-color: #e7bbe6;
+        border-color: rgba(174,29,172,.3);
+        color: #ae1dac;
+        -webkit-transition: all .2s ease-out;
+            -moz-transition: all .2s ease-out;
+              -o-transition: all .2s ease-out;
+                 transition: all .2s ease-out;
+    } */
+    a.pseudolink,
+    .pseudolink {
+        border-bottom-style: dashed;
+        border-bottom-width: 1px;
+        cursor: pointer;
+        -webkit-transition: all .4s ease-out;
+            -moz-transition: all .4s ease-out;
+              -o-transition: all .4s ease-out;
+                 transition: all .4s ease-out;
+    }
+    span.pseudolink {
+        border-color: #b2b2b2;
+        border-color: rgba(0,0,0,.3);
+    }
+    a:hover,
+    a.pseudolink:hover,
+    .pseudolink:hover {
+        border-color: #f7b2b7;
+        border-color: rgba(229,0,16,.3);
+        /* color: #e50010; */
+        -webkit-transition: all .05s ease-in;
+           -moz-transition: all .05s ease-in;
+             -o-transition: all .05s ease-in;
+                transition: all .05s ease-in;
+    }
+
+
+
+/*Для блоковых ссылок, имеющих отступы, в навигации например*/
+
+    a.solidLink,
+    a.solidLink:visited {
+        border: 0 none;
+    }
+
+    .solidLink .linkWrapper,
+    .solidLink:visited .linkWrapper {
+        border-bottom: 1px solid;
+        border-color: #b2c5e2;
+        border-color: rgba(0,64,159,.3);
+                color: #00409f;
+        margin: 0;
+        padding: 0;
+        -webkit-transition: all .4s ease-out;
+            -moz-transition: all .4s ease-out;
+              -o-transition: all .4s ease-out;
+                 transition: all .4s ease-out;
+    }
+
+    .solidLink:hover .linkWrapper {
+        border-color: #f7b2b7;
+        border-color: rgba(229,0,16,.3);
+        color: #e50010;
+        -webkit-transition: all .05s ease-in;
+           -moz-transition: all .05s ease-in;
+             -o-transition: all .05s ease-in;
+                transition: all .05s ease-in;
+    }
+
+/*--------------------------------------------------------------*/
+    
+    h1,h2,h3 {
+        color: #000;
+    }
+
+    body {
+        color: #000;
+        font-size: 13px;
+        line-height: 1.5em;
+    }
+
+
+/* Класс, запрещающий выделение*/
+    .noSelect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+         -khtml-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+}
+/*----------------------------*/
+
+    .reviewsList {
+        margin: 0 0 45px;
+    }
+
+
+    .reviewsItem {
+        display: block;
+        margin-top: 45px;
+    }
+
+    .reviewsItem:first-child {
+        margin-top: 0;
+    }
+
+    .reviewsCommentInfo {
+        display: inline-block;
+        float: left;
+        margin-right: 25px;
+        zoom: 1;
+    }
+
+    .reviewsAuthorName {
+        display: block;
+        font-weight: bold;
+    }
+
+    .reviewsCommentDate {
+        display: block;
+        font-size: 11px;
+    }
+
+    .reviewsCommentText {
+        display: inline-block;
+    }
+
+    .estimateBlock {
+        margin-top: 7px;
+        display: inline-block;
+        float: right;
+    }
+    
+    .estimateBlock li{
+        display: inline;
+    }
+
+    .estimateButton {
+        border: 1px solid #969696;
+        -webkit-border-radius: 16px;
+           -moz-border-radius: 16px;
+                border-radius: 16px;
+        display: inline-block;
+        color: #969696;
+        cursor: pointer;
+        font-size: 20px;
+        line-height: .8em;
+        text-align: center;
+        vertical-align: middle;
+        padding:  0;
+        width: 16px;
+        -webkit-transition: all .3s ease-out;
+           -moz-transition: all .3s ease-out;
+             -o-transition: all .3s ease-out;
+                transition: all .3s ease-out;
+        *display: inline;
+        zoom: 1;
+    }
+
+    .estimateButton:hover {
+        color: #fff;
+        -webkit-transition: all .1s ease-in;
+           -moz-transition: all .1s ease-in;
+             -o-transition: all .1s ease-in;
+                transition: all .1s ease-in;
+    }
+
+    .estimateButton.negative:hover {
+        background: #e23e3e;
+        border-color: #e23e3e;
+    }
+
+    .estimateButton.positive:hover {
+        background: #52a23f;
+        border-color: #52a23f;
+    }
+
+    .estimateBlock .estimateButton:active {
+        background: none;
+        background: rgba(255,255,255,0);
+        border: 1px solid #969696;
+        color: #969696;
+        -webkit-transition: all .07s ease-in;
+           -moz-transition: all .07s ease-in;
+             -o-transition: all .07s ease-in;
+                transition: all .07s ease-in;
+    }
+
+    .estimateRate {
+        cursor: default;
+        display: inline-block;
+        font-size: 16px;
+        vertical-align: middle;
+        text-align: center;
+        width: 50px;
+        *display: inline;
+        zoom: 1;
+    }
+
+    .estimateRate.negative {
+        color: #e23e3e;
+        font-weight: 900;
+    }
+
+    .estimateRate.positive {
+        color: #52a23f;
+        font-weight: 900;
+    }
+
+    .reviewsAnswer {
+        background: #fff;
+        border: 1px solid #ababab;
+        -webkit-border-radius: 6px;
+           -moz-border-radius: 6px;
+                border-radius: 6px;
+                display: inline-block;
+        margin-left: 8px;
+        margin-top: 15px;
+        padding: 7px 10px 10px;
+        position: relative;
+        zoom: 1;
+        width: 100%;
+    }
+
+    .reviewsAnswer:before {
+        background: url(../i/text_bubble_arrow_left.png) no-repeat;
+        bottom: 4px;
+        content: "";
+        left: -8px;
+        position: absolute;
+        height: 8px;
+        width: 9px
+    }
+
+    .commentAdding {
+        background: #edefef;
+        -webkit-border-radius: 6px;
+           -moz-border-radius: 6px;
+                border-radius: 6px;
+        padding: 20px;
+        margin: 60px -20px 0;
+    }
+
+    .commentAddingLabel {
+        display: inline-block;
+        float: left;
+        font-weight: bold;
+        margin-right: 15px;
+        width: 160px;
+        *display: inline;
+        zoom: 1;
+    }
+
+    .commentAddingWrapper {
+        margin-left: 175px;
+    }
+
+    textarea.commentAddingField {
+        border: 0 none;
+        -webkit-border-radius: 6px;
+           -moz-border-radius: 6px;
+                border-radius: 6px;
+        -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.3);
+           -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.3);
+                box-shadow: inset 0 1px 2px rgba(0,0,0,.3);
+        padding: 10px;
+        height: 110px;
+        width: 785px;
+    }
+
+    button.commentAddingButton {
+        margin-top: 10px;
+    }
+
+.voted {
+margin-right: 20px;
+}
+
+.review-sented {
+-webkit-box-shadow: 0px 0px 5px 0px #333;
+-moz-box-shadow: 0px 0px 5px 0px #333;
+box-shadow: 0px 0px 5px 0px #333;
+padding: 10px;
+left: 50%;
+top: 50%;
+width: 300px;
+height: 50px;
+padding: 10px;
+margin-left: -150px;
+margin-top: -25px;
+background: #fff;
+position: fixed;
+font-size: 15px;
+text-align: center;
+z-index: 100;
+}
+
+
+/* Пагинация-----------------------------------------------------------------------------------------------------*/
+
+
+    .pagination-shopreview {
+        text-align: left;
+    }
+
+    .pagination-shopreview span {
+        margin: 0;
+        padding: 0;
+    }
+
+    .paginationNumbers,
+    .paginationNumbersItem {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+    }
+
+    .paginationNumbers {
+        margin: 0 5px;
+    }
+
+    .paginationNumbersItem {
+        margin-left: 5px;
+        position: relative;
+    }
+
+    .paginationNumbersItem:first-child {
+        margin-left: 0;
+    }
+
+    .paginationNumbersItem.first:after {
+        content: "...";
+    }
+
+    .paginationNumbersItem.last:before {
+        content: "...";
+    }
+
+    .pagination-shopreview .paginationNumbersLink {
+        -webkit-border-radius: 2px;
+           -moz-border-radius: 2px;
+                border-radius: 2px;
+        display: inline-block;
+        font-size: 13px;
+        line-height: 1;
+        padding: 6px 8px;
+        margin: 0;
+    }
+
+    .paginationNumbersLink:hover {
+        background: #e2e2e2;
+    }
+
+    .paginationNumbersItem.active .paginationNumbersLink {
+        background: #b32340;
+    }
+
+    .paginationNumbersItem.active .paginationNumbersLink .linkWrapper {
+        border: 0 none;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .pagination-shopreview .paginationNav {
+        font-size: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .paginationNav .linkWrapper {
+        border: 0 none;
+    }
+/* Новые стили для ссылок */
+.blog a, .all_news a{
+color: #666;
+border-bottom: 1px solid rgba(174,29,172,.3); } 
+.blog a:hover, .all_news a:hover {
+color: #e50010!important;
+border-color: rgba(229,0,16,.3); }

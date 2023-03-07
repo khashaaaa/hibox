@@ -1,0 +1,14 @@
+<div class="crumbs">
+    <div class="wrap clrfix">
+        <a href="/"><?=Lang::get('home')?></a>
+        <? if (! empty($crumbs)) { ?>
+            <? foreach ($crumbs as $key => $crumb) { ?>
+                <? if (! empty($crumb['link'])) { ?>
+                    <a href="<?=$crumb['link']?>"><?=$crumb['title']?></a>
+                <? } else { ?>
+                    <span><?=$crumb['title']?></span>
+                <? } ?>
+            <? } ?>
+        <? } ?>
+    </div>
+</div>

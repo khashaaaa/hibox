@@ -1,0 +1,121 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('orders')?>" class="muted"><?=LangAdmin::get('orders')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('general')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<? XEditableFields::Init('order', $PageUrl); ?>
+
+<!-- ot-sub-sub-nav -->
+<div class="tabbable ot_sub_sub_nav">
+
+    <? require TPL_ABSOLUTE_PATH . 'site_config/inc/orders_submenu.php'; ?>
+
+</div><!-- /ot-sub-sub-nav -->
+
+<div class="row-fluid">
+
+    <div class="span10">
+        <h1><?=LangAdmin::get('general')?></h1>
+    </div>
+
+    <div class="span2 offset-top1">
+        <div id="activeLanguagesContainer"></div>
+    </div>
+
+</div>
+
+<!-- configuration -->
+<div class="well">
+
+        <form class="form-horizontal inline_editable_form ot_form">
+
+            <fieldset>
+
+                <div class="row-fluid">
+                    <? if (CMS::IsFeatureEnabled('Order')) { ?>
+                    <div class="span6">
+
+                        <? if ($orderSettingsMetaInfo) { ?>
+                            <?=MetaUI::render($orderSettingsMetaInfo, $updateOrderSettingsUrl)?>
+                        <? } ?>
+
+                        <div data-field="payment_in_cash"></div>
+                        <? XEditableFields::Register('payment_in_cash', $config->get('payment_in_cash')); ?>
+
+                        <div data-field="open_payment_in_new_window"></div>
+                        <? XEditableFields::Register('open_payment_in_new_window', $config->get('open_payment_in_new_window')); ?>
+
+                        <div data-field="origin_package"></div>
+                        <? XEditableFields::Register('origin_package', $config->get('origin_package')); ?>
+
+                        <div data-field="order_insurance_percent"></div>
+                        <? XEditableFields::Register('order_insurance_percent', $config->get('order_insurance_percent'), array('placeholder' => LangAdmin::get('Enter_procent_as_a_number'),'inputClass' => 'price')); ?>
+
+                        <div data-field="skip_reordering"></div>
+                        <? XEditableFields::Register('skip_reordering', $config->get('skip_reordering')); ?>
+                        
+                        <div data-field="hide_money_output"></div>
+                        <? XEditableFields::Register('hide_money_output', $config->get('hide_money_output')); ?>
+                        
+                        <div data-field="hide_step_weight_order"></div>
+                        <? XEditableFields::Register('hide_step_weight_order', $config->get('hide_step_weight_order')); ?>
+                        
+                        <div data-field="hide_step_delivery_order"></div>
+                        <? XEditableFields::Register('hide_step_delivery_order', $config->get('hide_step_delivery_order')); ?>
+
+                    </div>
+                    <? } ?>
+
+                    <div class="span6">
+
+                        <legend class="legend-mini"><?=LangAdmin::get('Sales_types')?></legend>
+
+                        <div data-field="IsAuctionTypeItemSellAllowed"></div>
+                        <? XEditableFields::Register('IsAuctionTypeItemSellAllowed', (string)$Showcase->Settings->IsAuctionTypeItemSellAllowed); ?>
+
+                        <div data-field="IsNotDeliverableItemSellAllowed"></div>
+                        <? XEditableFields::Register('IsNotDeliverableItemSellAllowed', (string)$Showcase->Settings->IsNotDeliverableItemSellAllowed); ?>
+
+                        <div data-field="IsSecondhandItemSellAllowed"></div>
+                        <? XEditableFields::Register('IsSecondhandItemSellAllowed', (string)$Showcase->Settings->IsSecondhandItemSellAllowed); ?>
+
+                        <div data-field="IsInStockItemSellAllowed"></div>
+                        <? XEditableFields::Register('IsInStockItemSellAllowed', (string)$Showcase->Settings->IsInStockItemSellAllowed); ?>
+
+                        <div data-field="IsNotSelectorSellAllowed"></div>
+                        <? XEditableFields::Register('IsNotSelectorSellAllowed', (string)$Showcase->Settings->IsNotSelectorSellAllowed); ?>
+
+                        <div data-field="IsFilteredItemsSellAllowed"></div>
+                        <? XEditableFields::Register('IsFilteredItemsSellAllowed', (string)$Showcase->Settings->IsFilteredItemsSellAllowed); ?>
+
+                        <div data-field="IsUnknownQuantityItemSellAllowed"></div>
+                        <? XEditableFields::Register('IsUnknownQuantityItemSellAllowed', (string)$Showcase->Settings->IsUnknownQuantityItemSellAllowed); ?>
+
+                        <div data-field="hide_item_for_restrictions"></div>
+                        <? XEditableFields::Register('hide_item_for_restrictions', $config->get('hide_item_for_restrictions')); ?>
+
+                        <? if ($сollectionsSettingsMetaInfo->MetaInfo) { ?>
+                            <legend class="legend-mini"><?=LangAdmin::get('Basket_and_favourites')?></legend>
+                            <?=MetaUI::render($сollectionsSettingsMetaInfo, $updateCollectionsSettingsUrl)?>
+                        <? } ?>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

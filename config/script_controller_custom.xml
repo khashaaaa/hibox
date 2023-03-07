@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controller>
+    <script name='index'>
+        <template name='indexnew' />
+        <blocks>
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='MenuShortNew' />
+            <block name='ItemSetsNew' />
+            <block name='NewsBlock' />
+            <block name='Banners' />
+            <block name='DigestBlock' />
+            <block name='ShopreviewsBlock' />
+        </blocks>
+    </script>
+    <script name='allcats'>
+        <template name='allcats' />
+        <blocks>
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='AllCats' />
+        </blocks>
+    </script>
+    <script name='sitemap'>
+        <template name='sitemap' />
+        <blocks>
+            <block name='HeaderNew' />
+            <block name='CrumbsNew' />
+            <block name='FooterNew' />
+            <block name='Sitemap' />
+        </blocks>
+    </script>
+    <script name='search'>
+        <template name='searchnew' />
+        <blocks>
+            <block name='ItemListNew' />
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+        </blocks>
+    </script>
+    <script name='category'>
+        <template name='categorynew' />
+        <blocks>
+            <block name='ItemListNew' />
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+        </blocks>
+    </script>
+    <script name='news'>
+        <template name='news' />
+        <blocks>
+            <block name='News' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='CrumbsNew' />
+        </blocks>
+    </script>
+    <script name='allnews'>
+        <template name='allnews' />
+        <blocks>
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='AllNews' />
+        </blocks>
+    </script>
+    <script name='pay_form_json' no_debug='1'>
+        <template name='pay' />
+        <blocks>
+            <block name="Pay" />
+        </blocks>
+    </script>
+    <script name='move_to_favourites'>
+        <template name='' />
+        <action block="BasketNew" action="moveToFavourites">
+            <param method="get" name="id" />
+        </action>
+    </script>
+    <script name='favourite_vendors'>
+        <template name='favourite_vendors' />
+        <blocks>
+            <block name='HeaderNew' />
+            <block name='CrumbsNew' />
+            <block name='FavouriteVendors' />
+            <block name='FooterNew' />
+        </blocks>
+    </script>
+    <script name='add_to_favourite_vendors'>
+        <template name='' />
+        <action block="FavouriteVendors" action="add"></action>
+    </script>
+    <script name='delete_from_favourite_vendors'>
+        <template name='' />
+        <action block="FavouriteVendors" action="delete">
+        </action>
+    </script>
+    <script name='add_to_basket'>
+        <template name='' />
+        <action block="BasketNew" action="add"></action>
+    </script>
+    <script name='delete_from_basket'>
+        <template name='' />
+        <action block="BasketNew" action="delete"></action>
+    </script>
+    <script name='delete_all_from_basket'>
+        <template name='' />
+        <action block="BasketNew" action="deleteAll"></action>
+    </script>
+    <script name='delete_group_from_basket'>
+        <template name='' />
+        <action block="BasketNew" action="deleteGroup"></action>
+    </script>
+    <script name='runbasketchecking'>
+        <template name='' />
+        <action block="BasketNew" action="runBasketChecking"></action>
+    </script>
+    <script name='checkbasket'>
+        <template name='' />
+        <action block="BasketNew" action="checkBasket"></action>
+    </script>
+    <script name='getDeliveryCost'>
+        <template name='' />
+        <action block="BasketNew" action="getDeliveryCost"></action>
+    </script>    
+    <script name='delete_from_favourites'>
+        <template name='' />
+        <action block="SupportListNew" action="deleteGroupOrItem"></action>
+    </script>
+    <script name='add_to_favourites'>
+        <template name='' />
+        <action block="SupportListNew" action="add"></action>
+    </script>
+    <script name='get_user_data_summary'>
+        <template name='' />
+        <action block="UserDataBlock" action="getUserDataSummary"></action>
+        <help>Не используется - устарело</help>
+    </script>
+    <script name="deleteAccount">
+        <template name="" />
+        <action action="deleteAccount" block="Profile" />
+    </script>
+    <script name="delete_delivery_profile">
+        <template name="" />
+        <action action="DeleteDeliveryProfile" block="Profile" />
+    </script>
+    <script name="getprice">
+        <template name="" />
+        <action action="GetTotalPrice" block="ItemInfoNew" />
+    </script>
+
+
+    <script name="personal_account_pay">
+        <template name="" />
+        <action action="PAPay" block="PrivateOffice" />
+    </script>
+    <script name="docancelorder">
+        <template name="" />
+        <action action="CancelOrder" block="PrivateOffice" />
+    </script>
+    <script name="confirmshipmentorder">
+        <template name="" />
+        <action action="ConfirmShipment" block="PrivateOffice" />
+    </script>
+    <script name="closelorder">
+        <template name="" />
+        <action action="CloselOrder" block="PrivateOffice" />
+    </script>
+    <script name="pay">
+        <template name='payform' />
+        <blocks>
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='PayForm' />
+            <block name='Menu' />
+        </blocks>
+    </script>
+    <script name='moneyinfo'>
+        <template name='moneyinfo' />
+        <blocks>
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='MoneyInfo' />
+            <block name='Menu' />
+        </blocks>
+    </script>
+    <script name='orderdetails'>
+        <template name='orderdetails' />
+        <blocks>
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='OrderDetails' />
+        </blocks>
+    </script>
+    <script name='userreferal'>
+        <template name='userreferal' />
+        <blocks>
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='Menu' />
+            <block name='UserReferal' />
+            <block name='Banners' />
+        </blocks>
+    </script>
+    <script name="confirmnewpriceorderitem">
+        <template name="" />
+        <action action="confirmNewItemPriceInOrder" block="PrivateOffice" />
+    </script>
+    <script name="dotransferoforders">
+        <template name="" />
+        <action action="setTransferedOrders" block="PrivateOffice" />
+    </script>
+    <script name='shopreviews'>
+        <template name='shopreviewsnew' />
+        <blocks>
+            <block name='Shopreviews' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+        </blocks>
+    </script>
+</controller>

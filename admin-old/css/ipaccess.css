@@ -1,0 +1,19 @@
+h4 {
+		display:block; font-size:14px; color:#FFF; background:#666; padding-left:5px;
+	}
+    #top_menu {
+		width:100%;  text-align:right; margin-bottom:5px;
+	}	
+	#right_col {
+		display:block; width:100%; float:left; padding:10px;
+	}	
+	#dialog-form {
+		display:none; position:absolute; z-index:50; width:300px; height:150px; top:50%; margin-top:-100px; left:50%; margin-left:-200px; background:#fff; border:#000 2px solid; padding:10px;
+	}			
+	#usr_list {
+		display:block; width:200px; height:40px; float:left; position:relative; border:#CCC 1px solid; margin:5px; padding:5px; text-align:left;
+	}
+	#usr_del_but {
+		position:absolute; top:0; left:195; background:#930;
+	}	
+	

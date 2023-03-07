@@ -1,0 +1,48 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "SiteConfiguration",
+        "do": "save"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        },
+        "textarea": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+    "fields": [
+        {
+            "name": "auth_to_private_office",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "IsEmailConfirmationUsed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveInstanceOptions"
+            }
+        },
+        {
+            "name": "simplified_registration",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        }
+    ]
+}

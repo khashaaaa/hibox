@@ -1,0 +1,87 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Promo', 'default')?>"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('referals')?></li>
+</ul><!--/.breadcrumb-->
+
+<? Session::clearError(); ?>
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'default'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('referals')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'config'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1>
+    <?=LangAdmin::get('referals')?>
+    <!--a href="<?=$PageUrl->AssignDo('addCategory')?>" class="btn btn-tiny btn-primary btn_preloader weight-normal offset-left2" data-loading-text="<?=LangAdmin::get('add_category')?>" autocomplete="off" title="Добавить категорию реферальной программы"><?=LangAdmin::get('add_category')?></a-->
+    <button title="<?=LangAdmin::get('Add_new_category')?>" type="submit" onclick="$(this).attr('disabled', 'disabled'); window.location.href = '<?=$PageUrl->AssignDo('addGroupForm', false)?>';" class="btn btn_preloader btn-primary offset-left2" data-loading-text="<?=LangAdmin::get('Adding')?>" autocomplete="off"><?=LangAdmin::get('add_group')?></button>
+</h1>
+
+<!-- possible system feedbacks -->
+<div style="display: none" id="success-message-tpl">
+    <div class="alert alert-success">
+        <i class="icon-ok"></i> <?=LangAdmin::get('User')?> <a href="/admin/index.php?sid=&cmd=users&do=userinfo&id=<%=userId%>" class="bold"><%=login%></a>
+        <?=LangAdmin::get('referral_add_user')?> «<a href="<?=$PageUrl->AssignDo('viewGroup', false)?>&id=<%=groupId%>" class="bold"><%=group%></a>»!
+    </div>
+</div>
+
+<!-- custom asker -->
+<div style="display: none" class="modal hide fade ot_3answer_dialog_modal">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <div class="modal-body">
+        <p><?=LangAdmin::get('replace_or_die')?> ("<?=$firstCat?>") <?=LangAdmin::get('replace_or_die2')?></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary pull-left" id="replace-link-confirm-ref"><?=LangAdmin::get('Replace')?></a>
+        <a href="#" class="btn btn-primary pull-left" id="delete-link-confirm-ref"><?=LangAdmin::get('Delete')?></a>
+        <a href="#" class="btn pull-right" data-dismiss="modal"><?=LangAdmin::get('Cancel')?></a>
+    </div>
+</div>
+<!-- ============= -->
+<div style="display: none" class="row-fluid">
+    <div class="span6 offset-bottom1" id="messages">
+    </div>
+</div>
+<!-- /possible system feedbacks -->
+
+<div class="row-fluid offset-bottom1">
+    <div class="span6">
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th class="span4"><?=LangAdmin::get('Name')?></th>
+                    <th class="span2"><?=LangAdmin::get('Actions')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <? foreach($categories as $category){ ?>
+                <tr>
+                    <td><a href="<?=$PageUrl->Add('id', $category['catId'])->Add('do', 'viewGroup')->Get()?>" title="<?=LangAdmin::get('referral_all_users')?>"><?=$category['groupName']?></a></td>
+                    <td>
+                        <div class="btn-group">
+                            <!-- add new user -->
+                            <a class="ot-add-users-typeahead" data-url="<?=$PageUrl->Add('id', $category['catId'])->Add('do', 'addUserToGroup')->Get()?>" href="#" data-toggle="tooltip" data-placement="bottom">
+                                <span class="btn btn-tiny">+ <i class="icon-user"></i></span>
+                            </a>
+                            <a class="btn btn-tiny" href="<?=$PageUrl->Add('id', $category['catId'])->Add('do', 'editGroupForm')->Get()?>" title="<?=LangAdmin::get('edit_group')?>"><i class="icon-edit"></i></a>
+                            <? if ($category['catId'] != ReferalSystem::DEFAULT_GROUP) { ?>
+                                <a href="<?=$PageUrl->Add('id', $category['catId'])->Add('do', 'delGroup')->Get()?>" href="#" class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('remove_category')?>" q_text="<?=LangAdmin::get('category2')?>"><i class="icon-remove-sign"></i></a>
+                            <? } ?>
+                        </div>
+                    </td>
+                </tr>
+                <? } ?>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-referral-categories.js') ?>

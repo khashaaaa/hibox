@@ -1,0 +1,65 @@
+/* crumbs (begin) */
+
+  .crumbs .wrap
+  {
+    padding: 5px 0;
+
+    color: #999;
+  }
+
+  .crumbs .wrap a,
+  .crumbs .wrap span
+  {
+    margin: 0 0 0 3px;
+    padding: 0;
+    background: none!important;
+
+    font-size: 11px;
+    text-decoration: none;
+  }
+
+  .crumbs .wrap span:before,
+  .crumbs .wrap a:before
+  {
+    display: inline-block;
+    margin: 0 4px 0 0;
+    height: 12px;
+    width: 12px;
+
+    color: #ccc;
+
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 20px;
+    content: '>';
+    vertical-align: -2px;
+  }
+
+  .crumbs .wrap a:first-child:before
+  { display: none }
+
+  .crumbs .wrap a:first-child
+  {
+    margin: 0;
+    background: none;
+  }
+
+
+  /*
+  * Style For Right To Left
+  * (Hebrew)
+  */
+
+  .rtl .crumbs .wrap a,
+  .rtl .crumbs .wrap span
+  {
+    float: right;
+    margin: 0 7px 0 0;
+  }
+
+  .rtl .crumbs .wrap a:before,
+  .rtl .crumbs .wrap span:before
+  { margin: 0 0 0 4px }
+
+
+/* crumbs (end) */

@@ -1,0 +1,10 @@
+<div class="container">
+  <div id="home-best-match-area" class="_new-home-best-match supply-products-section">
+    <div class="title"><?= Lang::get("only_for_you"); ?></div>
+
+    <? $params = array('items' => $data); ?>
+    <div class="product row">
+      <?= General::viewFetch('other/item/list', array('vars' => $params)) ?>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="content content-vendors center">
+    <h1><?=Lang::get('vendors')?></h1>
+
+    <div class="main-wrap d-flex flex-wrap">
+        <div class="aside aside-left">
+            <? if(@$_GET['letter'] || @$_GET['type']){ ?>
+                <div class="panel-grey">
+                    <b><?=Lang::get('active_cond')?></b>
+                </div>
+                <div class="conditions">
+                    <? if (@$_GET['letter']) { ?>
+                        <div class="list-data-wrap">
+                            <?=Lang::get('alphabetical')?>:&nbsp;&nbsp;<span class="condition-value text-uppercase"><?=$_GET['letter']?></span>
+                            <a href="<?=UrlGenerator::toRoute('all_vendors', array('type' => @$_GET['type']))?>" class="button button-delete fa fa-times button-little"></a>
+                        </div>
+                    <? } ?>
+                    <? if(@$_GET['type']){ ?>
+                        <div class="list-data-wrap">
+                            <?=Lang::get('brand_type')?>:&nbsp;&nbsp;<span class="condition-value"><?=Lang::get('brand_type'.$_GET['type'])?></span>
+                            <a href="<?=UrlGenerator::toRoute('all_vendors', array('letter' => @$_GET['letter']))?>" class="button button-delete fa fa-times button-little"></a>
+                        </div>
+                    <? } ?>
+                    <div class="list-data-wrap">
+                        <a href="<?=UrlGenerator::generateVendorsUrl()?>" class="button button-delete button-dropterms"><?=Lang::get('reset_cond')?></a>
+                    </div>
+                </div>
+            <? } ?>
+            <div class="panel-grey">
+                <b><?=Lang::get('vendor_type')?></b>
+            </div>
+            <div class="properties-wrap">
+                <div class="alphabet">
+                    <div class="properties__property-border">
+                        <?
+                        for ($i=97; $i<=122; $i++) {
+                            $x = chr($i);
+                            $class = @$_GET['letter']==$x ? 'class="active"' : '';
+                            $link = UrlGenerator::toRoute('all_vendors', array('letter' => $x, 'type' => @$_GET['type']));
+                            print "<a $class href='$link'>$x</a>";
+                            if ($i == 105 || $i == 114) print "</div><div class='properties__property-border'>";
+                        }
+                        ?>
+                    </div>
+                </div>
+                <? if (Session::getActiveLang()==='ru') { ?>
+                    <div class="alphabet">
+                        <div class="properties__property-border">
+                            <?
+                            $alphabet = explode(' ', 'а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ э ю я');
+                            for ($i = 0; $i < count($alphabet); $i++) {
+                                $x = $alphabet[$i];
+                                $class = @$_GET['letter'] == $x ? 'class="active"': '';
+                                $link = UrlGenerator::toRoute('all_vendors', array('letter' => $x, 'type' => @$_GET['type']));
+                                print "<a $class href='$link'>$x</a>";
+                                if (($i % 9)===8) print "</div><div class='properties__property-border'>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <? } ?>
+                <a href="<?=UrlGenerator::generateVendorsUrl()?>" class="button"><?=Lang::get('all')?></a>
+            </div>
+        </div>
+
+        <div class="main list-items">
+            <? if (!empty($vendor_list)) { ?>
+                <div class="listing-wrap">
+                    <? foreach ($vendor_list as $item) { ?>
+                        <a href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $item['id']])?>" class="list-items__link">
+                            <div class="item-block">
+                                <div class="item-inside">
+                                    <div class="item__image">
+                                        <img src="<?=ProductsHelper::getImage($item)?>" alt="<?=$this->escape($item['displayname'])?>" itemprop="image">
+                                    </div>
+
+                                    <div class="item-block__name">
+                                        <?=$this->escape($item['displayname'])?>
+                                    </div>
+
+                                    <div class="glue"></div>
+                                </div>
+                            </div>
+                        </a>
+                    <? } ?>
+                </div>
+            <? } else { ?>
+                <h2><?=$emptymessage?></h2>
+            <? } ?>
+        </div>
+    </div>
+</div>

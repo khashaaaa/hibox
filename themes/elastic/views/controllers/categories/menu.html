@@ -1,0 +1,46 @@
+<ul>
+    <? $firstLevelQuantity =  General::getConfigValue('menu_count_lvl1'); ?>
+    <? $categoriesCountFirst = 0; ?>
+    <? if (! empty($categories)) { ?>
+        <? foreach ($categories as $category) { ?>
+            <? if($firstLevelQuantity !== "") { ?>
+                <? if ($categoriesCountFirst == $firstLevelQuantity) break; ?>
+            <? } ?>
+            <li class="<?=empty($category['children']) ? 'without-children' : ''?>">
+                <a href="<?=$category['Url']?>">
+                    <? if (! empty($category['CategoryIconClass'])) { ?>
+                        <i class="<?=$category['CategoryIconClass']?>"></i>
+                    <? } ?>
+                    <span><?=$this->escape($category['Name'])?></span>
+                </a>
+                <? if (! empty($category['children'])) { ?>
+                    <? $categoriesCountSecond = 0; ?>
+                    <ul class="submenu">
+                        <? foreach ($category['children'] as $categorySecond) { ?>
+                            <div class="submenu-col">
+                                <a href="<?=$categorySecond['Url']?>" class="submenu-title">
+                                    <? if (! empty($categorySecond['Image'])) { ?>
+                                        <div class="block-img">
+                                            <img src="<?=$categorySecond['Image']?>" alt="img">
+                                        </div>
+                                    <? } ?>
+                                    <?=$this->escape($categorySecond['Name'])?>
+                                </a>
+
+                                <? if (! empty($categorySecond['children'])) { ?>
+                                    <ul>
+                                        <? foreach ($categorySecond['children'] as $thirdCategory) { ?>
+                                            <li><a href="<?=$thirdCategory['Url']?>"><?=$this->escape($thirdCategory['Name'])?></a></li>
+                                        <? } ?>
+                                    </ul>
+                                <? } ?>
+                            </div>
+                            <? $categoriesCountSecond++; ?>
+                        <? } ?>
+                    </ul>
+                <? } ?>
+            </li>
+            <? $categoriesCountFirst++; ?>
+        <? } ?>
+    <? } ?>
+</ul>

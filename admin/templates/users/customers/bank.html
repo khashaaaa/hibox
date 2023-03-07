@@ -1,0 +1,97 @@
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<div class="row-fluid">
+    <div class="span12">
+
+        <div class="span10">
+            <h1><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Configuration')?></a>
+                / <a href="<?=$PageUrl->AssignDo('orders')?>"><?=LangAdmin::get('orders')?></a>
+                / <?=LangAdmin::get('quittance_to_bank')?>
+            </h1>
+        </div>
+
+        <div class="span2">
+            <? require TPL_ABSOLUTE_PATH . 'site_config/inc/page_langs.php'; ?>
+        </div>
+
+    </div>
+</div>
+
+<!-- ot-sub-sub-nav -->
+<div class="tabbable ot_sub_sub_nav">
+
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'orders'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('orders')?>"><i class="icon-sitemap"></i> <span><?=LangAdmin::get('General')?></span></a></li>
+        <li <? if($PageUrl->GetAction() == 'bank'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('bank')?>"><i class="icon-file-alt"></i> <span><?=LangAdmin::get('Quittance_to_bank')?></span></a></li>
+    </ul>
+
+</div><!-- /ot-sub-sub-nav -->
+
+<!-- configuration -->
+<div class="box corner-all">
+
+    <div class="box-body">
+
+        <form class="form-horizontal ot_form" action="<?=$PageUrl->AssignDo('saveBank')?>">
+
+            <div class="control-group control-group-large">
+                <label class="control-label" for="ot_name_of_payee"><?=LangAdmin::get('name_of_payee')?></label>
+                <div class="controls">
+                    <input id="ot_name_of_payee" name="bank[name_of_payee]" value="<?=$Config->Get('name_of_payee')?>" placeholder="" class="input-xlarge" required="" type="text">
+                </div>
+            </div>
+
+            <div class="control-group control-group-large">
+                <label class="control-label" for="ot_INN_of_payee"><?=LangAdmin::get('INN_of_payee')?></label>
+                <div class="controls">
+                    <input id="ot_INN_of_payee" name="bank[INN_of_payee]" value="<?=$Config->Get('INN_of_payee')?>" placeholder="" class="input-xlarge" required="" type="text">
+                </div>
+            </div>
+
+            <div class="control-group control-group-large">
+                <label class="control-label" for="ot_account_number_of_payee"><?=LangAdmin::get('account_number_of_payee')?></label>
+                <div class="controls">
+                    <input id="ot_account_number_of_payee" name="bank[account_number_of_payee]" value="<?=$Config->Get('account_number_of_payee')?>" placeholder="" class="input-xlarge" required="" type="text">
+                </div>
+            </div>
+
+            <div class="control-group control-group-large">
+                <label class="control-label" for="ot_bank_name_of_payee"><?=LangAdmin::get('bank_name_of_payee')?></label>
+                <div class="controls">
+                    <input id="ot_bank_name_of_payee" name="bank[bank_name_of_payee]" value="<?=$Config->Get('bank_name_of_payee')?>" placeholder="" class="input-xlarge" required="" type="text">
+                </div>
+            </div>
+
+            <div class="control-group control-group-large">
+                <label class="control-label" for="ot_bank_identification_code"><?=LangAdmin::get('bank_identification_code')?></label>
+                <div class="controls">
+                    <input id="ot_bank_identification_code" name="bank[bank_identification_code]" value="<?=$Config->Get('bank_identification_code')?>" placeholder="" class="input-xlarge" required="" type="text">
+                </div>
+            </div>
+
+            <div class="control-group control-group-large">
+                <label class="control-label" for="ot_correspondent_bank_account"><?=LangAdmin::get('correspondent_bank_account')?></label>
+                <div class="controls">
+                    <input id="ot_correspondent_bank_account" name="bank[correspondent_bank_account]" value="<?=$Config->Get('correspondent_bank_account')?>" placeholder="" class="input-xlarge" required="" type="text">
+                </div>
+            </div>
+
+            <div class="control-group control-group-large">
+                <label class="control-label" for="ot_description_of_payment"><?=LangAdmin::get('description_of_payment')?></label>
+                <div class="controls">
+                    <input id="ot_description_of_payment" name="bank[description_of_payment]" value="<?=$Config->Get('description_of_payment')?>" placeholder="" class="input-xlarge" required="" type="text">
+                </div>
+            </div>
+
+            <div class="control-group control-group-large">
+                <div class="controls">
+                    <button type="button" class="btn btn-primary btn_preloader" id="bank-save" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+<? AssetsMin::registerJsFile('/admin/js/ot-save-bank-quittance.js'); ?>
+

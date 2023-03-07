@@ -1,0 +1,83 @@
+<section class="block-reviews">
+    <div class="center">
+        <? foreach ($comments as $comment) { ?>
+            <div class="col-lg-12">
+                <div class="review-item-list">
+                    <div class="review-item-list__top">
+                        <a name="review<?=$comment['review_id']?>"></a>
+                        <div class="review-item-list__user-name"><?=$this->escape($comment['name'])?></div>
+                        <div class="review-item_list__user-order"><?=TextHelper::date($comment['created']) ?></div>
+                        <div class="rating js-review-rating">
+                            <? if (User::getObject()->isAuthenticated()) { ?>
+                                <? if (!in_array ($comment['review_id'], $alreadyVoted)) { ?>
+                                    <a href="<?=UrlGenerator::toRoute('shop-comments', ['to' => $comment['review_id'], 'calc' => 'plus'])?>"><i class="fa fa-thumbs-o-up"></i></a>
+                                <? } ?>
+                            <? } ?>
+
+                            <? if ($comment['rating'] >= 0) { ?>
+                                <a href="#" class="badge badge-secondary rating_value" style="background: #ddedb1;color: #66801f; height: 20px; width: 45px">
+                                    <span class="badge_value"><?=$comment['rating'] ?></span>
+                                </a>
+                            <? } elseif ($comment['rating'] < 0) { ?>
+                                <a href="#" class="badge badge-success rating_value" style="background: #ffc3c3;color: #ce5252;  height: 20px; width: 45px">
+                                    <span class="badge_value"><?=$comment['rating'] ?></span>                                </a>
+                            <? } else { ?>
+                                <a href="#" class="badge badge-secondary rating_value"><span class="badge_value">0</span></a>
+                            <? } ?>
+
+                            <? if (User::getObject()->isAuthenticated()) { ?>
+                                <? if (!in_array ($comment['review_id'], $alreadyVoted)) { ?>
+                                    <a href="<?=UrlGenerator::toRoute('shop-comments', ['to' => $comment['review_id'], 'calc' => 'minus'])?>"><i class="fa fa-thumbs-o-down"></i></a>
+                                <? } ?>
+                            <? } ?>
+                        </div>
+                    </div>
+                    <div class="review-item__bottom">
+                        <div class="review-item-list__text">
+                            <?=TextHelper::htmlFromUser($this->escape($comment['text']))?>
+                        </div>
+                        <? if(!empty($comment['answer'])) { ?>
+                            <div class="col-md box-reviews_comment">
+                                <div class="box-reviews_commentator">
+                                    <span><?=Lang::get('Shop_comments_admin_asnwer')?></span>
+                                </div>
+                                <div class="box-reviews_commentator_answer">
+                                    <?=TextHelper::htmlFromUser($this->escape($comment['answer']))?>
+                                </div>
+                            </div>
+                        <? } ?>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+
+        <?=$paginator->display();?>
+
+        <? if (User::getObject()->isAuthenticated()) { ?>
+            <div class="col-lg-12">
+                    <form action="<?=UrlGenerator::toRoute('shop-comments')?>" method="post" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <h3><label class="comment__label"><?=Lang::get('your_review')?></label></h3>
+                    <textarea class="form-control" name="txt" cols="40" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" name="" type="submit" value="<?=Lang::get('send')?>" />
+                </div>
+                </form>
+            </div>
+        <? } ?>
+    </div>
+</section>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function() {
+        <? if ($shopReviewsAddedResult === 'Ok') { ?>
+            showMessage("<?=Lang::get('shop_comment_add')?>");
+        <? } elseif ($shopReviewsAddedResult === 'Error') {  ?>
+            showError("<?=Lang::get('shop_comment_error_add')?>");
+        <? } ?>
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

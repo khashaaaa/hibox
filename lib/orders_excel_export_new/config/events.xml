@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+    <event name="onRenderAdminOrdersList" pakage_path="../lib/orders_excel_export_new" class_name="ExportOrderNew" allow_other_handlers="1"></event>
+    <event name="onRenderOrder" pakage_path="../lib/orders_excel_export_new" class_name="ExportOrderNew" allow_other_handlers="1"></event>
+    <event name="onExportOrderNew" pakage_path="../lib/orders_excel_export_new" class_name="ExportOrderNew"></event>
+</events>

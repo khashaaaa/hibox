@@ -1,0 +1,157 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('/css/vendor/font-icomoon-categories/icomoon.eot');
+    src: url('/css/vendor/font-icomoon-categories/icomoon.svg');
+    src: url('/css/vendor/font-icomoon-categories/icomoon.ttf');
+    src: url('/css/vendor/font-icomoon-categories/icomoon.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icn-"], [class*=" icn-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icn-air-conditioner:before {
+    content: "\e900";
+}
+.icn-baby-boy:before {
+    content: "\e901";
+}
+.icn-blanket:before {
+    content: "\e903";
+}
+.icn-box:before {
+    content: "\e904";
+}
+.icn-calendar:before {
+    content: "\e905";
+}
+.icn-camera:before {
+    content: "\e906";
+}
+.icn-car:before {
+    content: "\e907";
+}
+.icn-chair:before {
+    content: "\e908";
+}
+.icn-chat:before {
+    content: "\e909";
+}
+.icn-cutlery:before {
+    content: "\e90a";
+}
+.icn-diaper:before {
+    content: "\e90b";
+}
+.icn-document:before {
+    content: "\e90c";
+}
+.icn-envelope:before {
+    content: "\e90d";
+}
+.icn-fashion:before {
+    content: "\e90f";
+}
+.icn-file:before {
+    content: "\e910";
+}
+.icn-flash:before {
+    content: "\e911";
+}
+.icn-fridge:before {
+    content: "\e912";
+}
+.icn-grocery:before {
+    content: "\e914";
+}
+.icn-guitar:before {
+    content: "\e915";
+}
+.icn-gym:before {
+    content: "\e916";
+}
+.icn-heart:before {
+    content: "\e917";
+}
+.icn-filter:before {
+    content: "\e918";
+}
+.icn-laptop:before {
+    content: "\e91c";
+}
+.icn-laptop2:before {
+    content: "\e91d";
+}
+.icn-makeup:before {
+    content: "\e91f";
+}
+.icn-padlock:before {
+    content: "\e922";
+}
+.icn-parquet:before {
+    content: "\e923";
+}
+.icn-pay:before {
+    content: "\e924";
+}
+.icn-phone-call:before {
+    content: "\e925";
+}
+.icn-photo-camera:before {
+    content: "\e926";
+}
+.icn-picture:before {
+    content: "\e927";
+}
+.icn-quality:before {
+    content: "\e928";
+}
+.icn-running:before {
+    content: "\e92a";
+}
+.icn-shopping:before {
+    content: "\e92c";
+}
+.icn-shopping-bag:before {
+    content: "\e92d";
+}
+.icn-shopping-cart:before {
+    content: "\e92e";
+}
+.icn-smartphone:before {
+    content: "\e92f";
+}
+.icn-smartphone2:before {
+    content: "\e930";
+}
+.icn-tent:before {
+    content: "\e931";
+}
+.icn-tools:before {
+    content: "\e932";
+}
+.icn-truck:before {
+    content: "\e934";
+}
+.icn-tv:before {
+    content: "\e935";
+}
+.icn-wallet:before {
+    content: "\e938";
+}
+.icn-wedding-planning:before {
+    content: "\e939";
+}

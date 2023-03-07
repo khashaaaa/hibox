@@ -1,0 +1,349 @@
+<div class="accordion-inner">
+    <form action="<?= $isQuickOrder ? UrlGenerator::getUrl('order/quick-order-create') : UrlGenerator::getUrl('order/create-order')?>" method="post" id="order-form">
+        <input type="hidden" name="order[weight]" id="totalOrderWeight" value="">
+        <input type="hidden" name="order[baseOrderId]" id="baseOrder" value="new">
+        <input type="hidden" id="Provider" name="type" value="<?=$provider?>">
+        <? if (!$isQuickOrder) { ?>
+            <input type="hidden" id="orderItems" name="order[items]" value="<?= implode(',', $items) ?>">
+        <? } ?>
+        <div class="accordion" id="accordion-delivery">
+            <div class="accordion-group" id="addressForm">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" href="javascript:void(0)">
+                        <div class="title"><i class="item-image icon-user"></i> <?=Lang::get('recipient')?>:</div>
+                        <?
+                        $profile = array();
+                        if (count($profiles)) {
+                            $profile = $profiles[0];
+                            ?>
+                            <? foreach ($profiles as &$p) {
+                                $countryName = '';
+                                foreach ($countries as $ctr) {
+                                    if ($ctr['Id'] == $p['CountryCode']) {
+                                        $p['CountryName'] = $ctr['Name'];
+                                        $p['countryname'] = $p['CountryName'];
+                                        $countryName = $ctr['Name'];
+                                        break;
+                                    }
+                                }
+                                if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') === "Disabled") {
+                                    $p['MiddleName'] = '';
+                                }
+                            } ?>
+                            <div>
+                                <select id="delivery_profile" name="Profile[Id]" placeholder="<?=Lang::get('select') . '...'?>"></select>
+                            </div>
+                            <div>
+                                <div id="profileActionButtons">
+                                    <i id="editProfile" class="btn icon-pencil"></i>
+                                    <? if (count($profiles) < OrderController::MAX_USER_PROFILES_COUNT) { ?>
+                                        <i id="addProfile" class="btn icon-plus"></i>
+                                    <? } ?>
+                                </div>
+                                <div id="profileSaveButtons" class="hidden">
+                                    <i id="cancelSaveProfile" class="btn btn-danger icon-remove"></i>
+                                    <i id="saveProfile" class="btn btn-success icon-ok" data-action="<?=UrlGenerator::getUrl('order/update-profile')?>"></i>
+                                </div>
+                            </div>
+                        <? } ?>
+                    </a>
+                </div>
+                <div id="delivery1" class="accordion-body collapse<?=count($profiles) > 0 ? '' : 'in'?>">
+                    <div class="accordion-inner">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-horizontal">
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("LastName")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("LastName")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="LastName" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="LastName" name="Profile[LastName]" data-default="<?=$userData['LastName']?>">
+                                        </div>
+                                    </div>
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("FirstName")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("FirstName")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="FirstName" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="FirstName" name="Profile[FirstName]" data-default="<?=$userData['FirstName']?>">
+                                        </div>
+                                    </div>
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("MiddleName")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("MiddleName")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="MiddleName" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="MiddleName" name="Profile[MiddleName]" data-default="<?=$userData['MiddleName']?>">
+                                        </div>
+                                    </div>
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("Phone")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Phone")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="Phone" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" data-type="integer" class="form-control" id="Phone" name="Profile[Phone]" data-default="<?=$userData['Phone']?>">
+                                        </div>
+                                    </div>
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("INN")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("INN")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="INN" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="INN" name="Profile[INN]">
+                                        </div>
+                                    </div>
+                                    <? if (CMS::IsFeatureEnabled('PassportData')) { ?>
+                                        <? $state = InstanceProvider::getObject()->GetProfileFieldState("PassportNumber")?>
+                                        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PassportNumber")?>
+                                        <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                            <label for="PassportNumber" class="col-sm-4 control-label"><?=$displayName?>
+                                                <? if ($state === "EnabledAndRequired") { ?>
+                                                    <span class="red">*</span>
+                                                <? } ?>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="PassportNumber" name="Profile[PassportNumber]">
+                                            </div>
+                                        </div>
+                                        <? $state = InstanceProvider::getObject()->GetProfileFieldState("RegistrationAddress")?>
+                                        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("RegistrationAddress")?>
+                                        <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                            <label for="RegistrationAddress" class="col-sm-4 control-label"><?=$displayName?>
+                                                <? if ($state === "EnabledAndRequired") { ?>
+                                                    <span class="red">*</span>
+                                                <? } ?>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="RegistrationAddress" name="Profile[RegistrationAddress]">
+                                            </div>
+                                        </div>
+                                        <? $state = InstanceProvider::getObject()->GetProfileFieldState("PassportIssueDate")?>
+                                        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PassportIssueDate")?>
+                                        <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                            <label for="PassportIssueDate" class="col-sm-4 control-label"><?=$displayName?>
+                                                <? if ($state === "EnabledAndRequired") { ?>
+                                                    <span class="red">*</span>
+                                                <? } ?>
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="PassportIssueDate" name="Profile[PassportIssueDate]">
+                                            </div>
+                                        </div>
+                                    <? } ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-horizontal">
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("CountryCode")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("CountryCode")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="Country" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <select name="Profile[CountryCode]" id="Country" class="form-control">
+                                                <? foreach($countries as $item) { ?>
+                                                    <? $countrySelected = ($item['Id']==User::getObject()->getCountryCode() && count($profiles)==0) || $item['Id'] == $profile['CountryCode']; ?>
+                                                    <option value="<?=$item['Id']?>" <?= $countrySelected ? 'selected="selected"' : '' ?>> <?=$item['Name']?></option>
+                                                <? } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("Region")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Region")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="Region" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="Region" name="Profile[Region]">
+                                        </div>
+                                    </div>
+                                    <? $state = InstanceProvider::getObject()->GetProfileFieldState("City")?>
+                                    <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("City")?>
+                                    <div class="form-group <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "" : ''?>">
+                                        <label for="CityCode" class="col-sm-4 control-label"><?=$displayName?>
+                                            <? if ($state === "EnabledAndRequired") { ?>
+                                                <span class="red">*</span>
+                                            <? } ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <select id="CityCode" name="Profile[CityCode]" autocomplete="off"></select>
+                                            <input type="hidden" id="City" name="Profile[City]"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb25">
+                            <div class="col-lg-12">
+                                <span class="red"><?=Lang::get('stars_inputs')?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group" id="delivery">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" href="javascript:void(0)">
+                        <div class="title"><i class="item-image icon-plane"></i> <?=Lang::get('delivery_method')?>:</div>
+                        <div id="externalDeliveriesContainer" data-deliveryid="<?=$deliveryId?>"></div>
+                    </a>
+                </div>
+                <div id="delivery2" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                        <div id="adressRow" class="row">
+                            <div class="col-lg-6">
+                                <div class="form-horizontal">
+                                    <div class="form-group required">
+                                        <label for="Address" class="col-sm-4 control-label"><?=Lang::get('delivery_address')?></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="Address" name="Profile[Address]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 hidden">
+                                <div class="form-horizontal">
+                                    <div class="form-group <?=(General::getConfigValue('is_postal_code_required')) ? 'required' : ''?>">
+                                        <label for="PostalCode" class="col-sm-4 control-label"><?=Lang::get('post_code')?></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="PostalCode" name="Profile[PostalCode]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="pickupPoints"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group" id="general">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" href="javascript:void(0)">
+                        <div class="title"><i class="item-image icon-flag"></i> <?=Lang::get('total')?>:</div>
+                    </a>
+                </div>
+                <div id="delivery3" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-12 notepad">
+                                        <div><?=Lang::get('comment_order')?>: <br/></div>
+                                        <textarea name="order[orderComment]"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <? if (General::getConfigValue('origin_package')) { ?>
+                                            <label><input type="checkbox" name="order[originPackage]"> <?=Lang::get('save_origin_package')?></label>
+                                            <br>
+                                        <? } ?>
+                                        <? $order_insurance = General::getConfigValue('order_insurance_percent') ? General::getConfigValue('order_insurance_percent') : 0; ?>
+                                        <? if ($order_insurance > 0) { ?>
+                                            <label><input type="checkbox" name="order[insurance]"> <?=Lang::get('order_insurance')?></label>
+                                        <? } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <dl id="order-summary" class="dl-horizontal">
+
+                                    <dt><?=Lang::get('total_weight')?></dt>
+                                    <dd><span class="total-weight" id="total-weight" data-weight="<?=(float)$totalWeight?>"><?=number_format((float)$totalWeight, 2, '.', " ")?></span>&nbsp;<?=Lang::get('weight_kg')?></dd>
+
+                                    <dt><?=Lang::get('delivery')?></dt>
+                                    <dd><span id="externalDeliveryMode"><?=Lang::get('Not_selected')?></span></dd>
+
+                                    <dt><?=Lang::get('delivery_cost')?></dt>
+                                    <dd><span id="delivery-price"><?=Lang::get('Not_selected')?></span></dd>
+
+                                    <dt><?=Lang::get('Total_items')?></dt>
+                                    <dd><span class="products-price" data-value="<?=$basketGroups['TotalCost']['value']?>" data-sign="<?=$basketGroups['TotalCost']['sign']?>"><?=TextHelper::formatPrice($basketGroups['TotalCost']['value'], $basketGroups['TotalCost']['sign'])?></span></dd>
+
+                                    <dt class="total"><?=Lang::get('total')?></dt>
+                                    <dd class="total"><span id="order-price"></span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+	                        <div class="col-lg-12">
+		                        <?=General::runController('GetBankAccount','renderOrderInfoDanger')?>
+	                        </div>
+                        </div>
+                        <div class="row">
+	                        <div class="col-lg-12">
+		                        <?=General::runController('GetBankAccount','renderOrderInfoInform')?>
+	                        </div>
+                        </div>                        
+                        <? if (!$isQuickOrder) { ?>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="clearfix">
+                                    <div class="pull-right actions-panel">
+                                        <a href="javascript:void(0)" class="btn btn-apper b-first-page back-button"><?=Lang::get('back')?></a>
+                                        <a href="javascript:void(0)" class="btn btn-success" onclick="javascript:void(0);" id="createorder"><?=Lang::get('make_order')?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <? } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<?=Lang::loadJSTranslation(array('Not_selected', 'not_filled_required_field', 'empty_deliveries', 'add', 'pickup_points', 'no_deliver_for_place_error'))?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var profiles = <?= json_encode($profiles) ?>;
+    var maxUserProfilesCount = <?= OrderController::MAX_USER_PROFILES_COUNT ?>;
+    var getExternalDeliveriesUrl = '<?= UrlGenerator::getUrl('order/getExternalDeliveries') ?>';
+    var getCitiesUrl = '<?= UrlGenerator::getUrl('order/getCities') ?>';
+    var getPickupPointsUrl = '<?= UrlGenerator::getUrl('order/getPickupPoints') ?>';
+    var getTotalCostsUrl = '<?= UrlGenerator::getUrl('order/get-total-cost') ?>';
+    var countries = <?= json_encode($countries) ?>;
+    var cities = <?= json_encode($cities) ?>;
+    var totalPrice = <?= $basketGroups['TotalCost']['value'] ?>;
+    var PRICE_ROUND_DECIMALS = <?=(int)General::getConfigValue('price_rounding')?>;
+    var requirePostalCode = <?= General::getConfigValue('is_postal_code_required') ? 'true' : 'false' ?>;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/js/vendor/selectize/selectize/dist/js/standalone/selectize.min.js')?>
+<? AssetsMin::registerCssFile('/js/vendor/selectize/selectize/dist/css/selectize.css')?>
+<? AssetsMin::registerJsFile('js/vendor/jquery.form.js') ?>
+<? AssetsMin::registerJsFile(General::getThemeWebDir() . '/js/ot-userorder.js')?>

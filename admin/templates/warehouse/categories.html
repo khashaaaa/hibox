@@ -1,0 +1,46 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('warehouse', 'default')?>" class="muted"><?=LangAdmin::get('Warehouse')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Warehouse_categories')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<div class="warehouse-wrapper">
+
+    <?=TabsGenerator::GetSubTabs('templates/warehouse/navigation/tabs.xml', $PageUrl)?>
+
+    <h1><?=LangAdmin::get('Warehouse_categories')?></h1>
+
+    <div class="well">
+		<span class="blink blink-iconed ot_show_crud_cat_item_window"><i class="icon-plus-sign"></i> <?=LangAdmin::get('Add_root_category')?></span>
+		<p></p>
+        <div id="jstree"></div>
+    </div>
+
+</div> <!-- /.warehouse-wrapper -->
+
+<div class="hide ot_crud_cat_item_window in">
+    <div class="modal-body">
+		<form method="post" action="" class="form-horizontal ot_form" onSubmit="return false;">
+                    <div class="control-group">
+                        <label class="control-label bold"><?=LangAdmin::get('Name')?></label>
+                        <div class="controls">
+                            <input id="categoryName" class="input-large" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                        </div>
+                    </div>
+        </form>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var WarehouseCategories = new Backbone.Collection();
+    WarehouseCategories.add(<?=json_encode($categories);?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/vendor/jstree/jquery.jstree.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-warehouse.js'); ?>

@@ -1,0 +1,125 @@
+
+<!-- active filters -->
+<div class="well ot_form_orders_filters_short" id="filtersShort" <?=(empty($applyFilters) ? 'style="display:none"' : '')?>>
+    <form class="form ot_form ot_form_orders_filters offset-vertical-none" action="" method="get">
+    <input type="hidden" name="cmd" value="orders" />
+    <input type="hidden" name="applyFilters" value="1" />
+    <? if (! empty($sorting)) foreach ($sorting as $name => $value) { ?>
+        <input type="hidden" name="sort[<?=$name?>]" value="<?=$value?>"/>
+    <? } ?>
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="row-fluid">
+                <div class="span2"><strong><?=LangAdmin::get('date')?></strong></div>
+                <div class="span10">
+                    <?=LangAdmin::get('from')?>
+                    <div class="input-append">
+                        <input name="filter[fromdate]" id="date-start-display-short" class="input-small" type="text" data-date-format="dd.mm.yyyy" data-date="05.02.2013" value="<?=isset($filter['fromdate']) ? $filter['fromdate'] : '';?>" />
+                        <span class="btn add-on" id="date-start-short"><i class="icon-calendar"></i></span>
+                    </div>
+
+                    <?=LangAdmin::get('to')?>
+                    <div class="input-append">
+                        <input name="filter[todate]" id="date-end-display-short" class="input-small" type="text" data-date-format="dd.mm.yyyy" data-date="12.02.2013" value="<?=isset($filter['todate']) ? $filter['todate'] : '';?>" />
+                        <span class="btn add-on" id="date-end-short" ><i class="icon-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"><strong><?=LangAdmin::get('Customer')?></strong></div>
+                <div class="span10">
+                    <? if (! empty($filter['client_id'])) { ?>
+                    <input name="filter[client_id]" placeholder="ID" class="input-large numeric" type="text" value="<?=$filter['client_id'];?>" />
+                    <? } ?>
+                    <? if (! empty($filter['client_surname'])) { ?>
+                    <input name="filter[client_surname]" placeholder="<?=LangAdmin::get('Last_name')?>" class="input-large" type="text"  title="<?=LangAdmin::get('Last_name')?>" value="<?=$filter['client_surname']?>" />
+                    <? } ?>
+                    <? if (! empty($filter['phone'])) { ?>
+                    <input name="filter[phone]" placeholder="<?=LangAdmin::get('phone_label')?>" class="input-large" type="text" title="<?=LangAdmin::get('phone_label')?>" value="<?=$filter['phone']?>" />
+                    <? } ?>
+                    <? if (! empty($filter['email'])) { ?>
+                    <input name="filter[email]" placeholder="<?=LangAdmin::get('Email')?>" class="input-large" type="text" title="<?=LangAdmin::get('Email')?>" value="<?=$filter['email']?>" />
+                    <? } ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"><strong><?=LangAdmin::get('Shipment')?></strong></div>
+                <div class="span10">
+                    <? if (! empty($filter['recipient_city'])) { ?>
+                    <input name="filter[recipient_city]" placeholder="<?=LangAdmin::get('City')?>" class="input-large" type="text" title="<?=LangAdmin::get('City')?>" value="<?=$filter['recipient_city']?>" />
+                    <? } ?>
+                    <select name="filter[delivery]" id="deliveryFilterShort" class="input-large">
+                        <option value=""><?=LangAdmin::get('All')?></option>
+                        <? foreach ($deliveries as $delivery) { ?>
+                            <option value="<?=$delivery['Id']?>"
+                                <?=(! empty($filter['delivery']) && $filter['delivery'] == $delivery['Id']) ? 'selected' : ''?>
+                                >
+                                <?=$delivery['Name']?>
+                            </option>
+                        <? } ?>
+                    </select>
+                </div>
+            </div>
+            <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+            <div class="row-fluid">
+                <div class="span2"><strong><?=LangAdmin::get('Provider')?></strong></div>
+                <div class="span10">
+                    <select name="filter[provider]" id="providerFilterShort" class="input-large">
+                        <option value=""><?=LangAdmin::get('All')?></option>
+                        <? foreach ($providers as $provider) { ?>
+                            <? if ($provider['IsEnabled']) { ?>
+                                <option value="<?=$provider['type']?>"
+                                <?=(! empty($filter['provider']) && $filter['provider'] == $provider['type']) ? 'selected' : ''?>
+                                >
+                                <?=$provider['DisplayName']?>
+                                </option>
+                            <? } ?>
+                        <? } ?>
+                    </select>
+                </div>
+            </div>
+            <? } ?>
+        </div>
+        <div class="span6">
+            <div class="row-fluid orders-filter">
+                <div class="span2"><strong><?=LangAdmin::get('Orders')?></strong></div>
+                <div class="span10">
+                    <? if (! empty($filter['orders_status']) && isset($ordersStatusList) && is_object($ordersStatusList)) { ?>
+                        <? foreach ($ordersStatusList as $status) { ?>
+                            <? if (! empty($filter['orders_status'][$status['Id']])) { ?>
+                            <label class="checkbox inline"><input name="filter[orders_status][<?=$status['Id']?>]" type="checkbox" value="<?=$status['Id']?>" checked="checked" /><?=$status['Name']?></label>
+                            <? } ?>
+                        <? } ?>
+                    <? } ?>
+                </div>
+            </div>
+            <div class="row-fluid goods-filter">
+                <div class="span2"><strong><?=LangAdmin::get('Products')?></strong></div>
+                <div class="span10">
+                    <? if (! empty($filter['items_status'])) { ?>
+                        <? foreach ($itemsStatusList as $status) { ?>
+                            <? if (! empty($filter['items_status'][$status['Id']])) { ?>
+                            <label class="checkbox inline"><input name="filter[items_status][<?=$status['Id']?>]" type="checkbox" value="<?=$status['Id']?>" checked="checked" /><?=$status['Name']?></label>
+                            <? } ?>
+                        <? } ?>
+                    <? } ?>
+                    <?=Plugins::runEvent('onAdminBeforeRenderOrdersFilterShortGoodsFilter', array('filter' => $filter))?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid offset-top1">
+        <div class="btn-group pull-left">
+            <button type="submit" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Apply')?>"><?=LangAdmin::get('Apply')?></button>
+            <button title="<?=LangAdmin::get('More')?>" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a title="<?=LangAdmin::get('Reset_filters')?>" href="<?=$PageUrl->generate(array('cmd'=>'orders', 'resetFilters'=>1))?>"><?=LangAdmin::get('Reset_filters')?></a></li>
+            </ul>
+        </div>
+
+        <a href="javascript:void(0)" class="pull-right offset-top1 blink" id="showAllFilters"><?=LangAdmin::get('All_parameters')?></a>
+    </div>
+    </form>
+</div>
+<!-- /active filters -->

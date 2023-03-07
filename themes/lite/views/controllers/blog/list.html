@@ -1,0 +1,48 @@
+<? if (! empty($blogCategories)) { ?>
+            <div class="wrap2">                
+		<aside class="box-sidebar" role="complementary">
+			<ul class="nav nav-pills nav-stacked text-pages-nav">
+                            <? foreach ($blogCategories as $category) { ?>
+                            <li class="<?=$currentCategory['alias'] == $category['cid'] ? 'active' : ''?>"><a href="<?=UrlGenerator::generateDigestUrl('digest',$category['cid'])?>"><?=$category['title']?></a></li>
+                            <? } ?>    
+			</ul>
+		</aside>
+		<main class="box-main main-content" role="main">
+<? } ?>
+			<h1>
+                            <? if (! empty($currentCategory)) { ?>
+                            <?=$currentCategory['title']?> / <?=Lang::get('digest')?>
+                            <? } else { ?>
+                            <?=Lang::get('digest')?>
+                            <? } ?>
+                        </h1>
+                        <? if ($blog !== -1) { ?>
+			<ul class="box-main_blog-ul">
+                            <? foreach ($blog as $post) { ?>
+                                <? $date = $post['created']; ?>
+				<li>
+					<a href="<?=UrlGenerator::generatPostUrl('post',$post['id'], $post['alias'])?>">
+						<h2><?=$post['title']?></h2>
+						<time datetime="<?= $date->format('d.m.Y')?>"><?= $date->format('d.m.Y')?></time>
+						<div class="img-wrap">
+							<img src="<?=DigestRepository::getImage($post['image'], 'thumb')?>" alt="<?=$post['title']?>">
+						</div>
+                                                <p>
+                                                    <?php if (!empty($post['brief'])) { ?>
+                                                        <?=$post['brief']?>
+					            <?php } else { ?>
+                                                        <?=$post['content']?>                            
+                                                    <?php } ?>
+                                                </p>
+					</a>
+				</li>
+                            <? } ?>
+			</ul>
+			<?php $paginator->display(); ?>
+                        <? } else { ?>
+                        <p><?=Lang::get('nothing_found')?></p>
+                        <? } ?>
+<? if (! empty($blogCategories)) { ?>
+		</main>
+	</div>
+<? } ?>

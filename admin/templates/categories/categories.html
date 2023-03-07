@@ -1,0 +1,326 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Categories')?></li>
+</ul><!--/.breadcrumb-->
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<? XEditableFields::Init('categories', $PageUrl); ?>
+<div class="categories-wrapper offset-bottom5_5">
+
+<input type="hidden" id="clipboard_op" >
+<input type="hidden" id="clipboard_category_external_id" >
+<input type="hidden" id="clipboard_category_id" >
+<input type="hidden" id="clipboard_category_name" >
+<input type="hidden" id="clipboard_category_parent_id" >
+
+<div class="row-fluid">
+
+    <div class="span6">
+        <h1><?=LangAdmin::get('Categories')?></h1>
+    </div>
+
+    <div class="span6 offset-top2 text-right">
+
+        <div class="btn-group">
+            <a class="btn btn-tiny" href="<?=$PageUrl->AssignCmdAndDo('categories', 'exportXml')?>" target="_blank"><i class="icon-download-alt"></i> <?=LangAdmin::get('Export_categories')?></a>
+        </div>
+
+        <button id="importCatalogBtn" class="btn btn-tiny offset-right05 dropdown-toggle" data-dropdown="#ot_import_cat" data-toggle="dropdown"><i class="icon-upload-alt"></i> <?=LangAdmin::get('Import_categories')?></button>
+
+        <div id="ot_import_cat" class="dropdown dropdown-tip dropdown-anchor-right">
+            <div class="dropdown-panel">
+                <form action="<?=$PageUrl->AssignCmdAndDo('categories', 'import')?>" method="post" enctype="multipart/form-data" id="import-upload-form">
+                    <input type="hidden" id="importСategotyId" name="categoryId" value="0">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="fileupload-preview fileupload-exists">
+                        </div>
+                        <span class="btn btn-file">
+                            <span class="fileupload-new"><?=LangAdmin::get('Select_file_to_import')?></span>
+                            <span class="fileupload-exists"><?=LangAdmin::get('Change')?></span>
+                            <input type="file" id="uploaded_file" name="uploaded_file" />
+                        </span>
+                    </div>
+                    <button class="btn btn-primary" id="btn-upload-file" data-loading-text="<?=LangAdmin::get('Uploading')?>">
+                        <span class="ladda-label"><?=LangAdmin::get('Upload')?></span>
+                        <i class="ot-preloader-micro" style="display: none;"></i>
+                    </button>
+                    <button class="btn btn-primary" id="btn-upload-file-import" style="display: none;">
+                        <span class="ladda-label"><?=LangAdmin::get('Import')?></span>
+                        <i class="ot-preloader-micro" style="display: none;"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- site language -->
+        <div class="btn-group pull-right">
+            <div id="catalogLanguagesContainer">
+                <?=$catalogLanguages;?>
+            </div>
+        </div>
+
+        <!-- /site language -->
+    </div>
+
+</div>
+<? if (count($categoryStructure)) { ?>
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="well well-small">
+                <b><?=LangAdmin::get('structure_type_title')?></b>:
+                <?=LangAdmin::get('structure_type_value:' . $categoryStructure['Name'])?>
+                <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=$categoryStructure['Desc']?>"></i>
+            </div>
+        </div>
+    </div>
+<? } ?>
+
+<div class="row-fluid offset-top1" id="categories-filter">
+    <form method="post" id="filter">
+        <input type="hidden" name="cmd" value="categories">
+        <input type="hidden" name="action" value="default">
+        <input type="hidden" name="show_hidden_categories" id="show_hidden_categories_value" value="<?=$filter['show_hidden_categories']?>">
+    </form>
+
+    <div class="span3">
+        <i class="icon-eye-close"></i> <div data-field="show_hidden_categories"></div>
+        <? XEditableFields::Register('show_hidden_categories', $filter['show_hidden_categories'], array('useWrapper' => false,'processSubmit'=>true)); ?>
+    </div>
+</div>
+
+<div class="well">
+    <span class="blink blink-iconed ot_show_crud_cat_item_window"><i class="icon-plus-sign"></i> <?=LangAdmin::get('Add_root_category')?></span>
+    <p></p>
+    <div id="jstree"></div>
+</div>
+
+</div>
+
+<!-- upload photos window -->
+<div class="modal hide fade ot_crud_cat_item_window" tabindex="-1">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><?=LangAdmin::get('Add_edit_category')?></h3>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="form-horizontal ot_form ot_category_form">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#ot_cat_data" data-toggle="tab"><?=LangAdmin::get('Category_data')?></a></li>
+            <li><a href="#ot_cat_content" class="ot_cat_content_toogle" data-toggle="tab"><?=LangAdmin::get('Contents')?></a></li>
+            <?php if(in_array('Seo2', General::$enabledFeatures)){ ?>
+                <li><a href="#ot_cat_meta" data-toggle="tab"><?=LangAdmin::get('Meta')?></a></li>
+            <?php } ?>
+            <li id="ot_cat_filters_head"><a href="#ot_cat_filters" data-toggle="tab"><?=LangAdmin::get('Filters')?></a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- cat data tab -->
+            <div class="tab-pane active" id="ot_cat_data">
+                    <div class="control-group">
+                        <label class="control-label bold"><?=LangAdmin::get('Name')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Category_name_hint')?>"></i></label>
+                        <div class="controls">
+                            <input id="categoryName" name="categoryName" class="input-large" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <label class="control-label bold"><?=LangAdmin::get('search_category_param_preDefineMode')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Category_predefine_mode_hint')?>"></i></label>
+                        <div class="controls">
+                            <select class="input-medium" name="preDefineMode" id="preDefineMode" disabled>
+                                <option value=""><?=LangAdmin::get('Choose_preDefineMode')?></option>
+                                <option value="category"><?=LangAdmin::get('category')?></option>
+                                <option value="search"><?=LangAdmin::get('search')?></option>
+                                <option value="virtual"><?=LangAdmin::get('virtual')?></option>
+                            </select>
+                        </div>
+                        <div class="controls" id="isProvider" style="display:none">
+                            <? foreach ($providerInfoList as $item) { ?>
+                                <input type="radio" name="provider" id="provider" value="<?=$item['Type']?>" categoryRoot="<?=$item['RootCategoryId']?>" сanSearchRootCategory="<?=$item['CanSearchRootCategory']?>" <?=$item['IsEnabled'] == 'false' ? 'disabled' : ''?>> <?=$item['DisplayName']?> <span id="<?=$item['Type']?>"></span><br>
+                            <? } ?>
+                        </div>
+                    </div>
+
+                    <div class="control-group preDefinedParams">
+
+                    </div>
+
+                    <div class="control-group" id="parent-category-typeahead">
+                        <label class="control-label bold"><?=LangAdmin::get('Parent_category')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Parent_category_hint')?>"></i></label>
+                        <div class="controls relative-typeahead-categories">
+                            <input class="input-large" type="text" name="parentCategory" id="parentCategory" data-provider="typeahead">
+                            <input type="hidden" name="parentCategoryId" id="parentCategoryId">
+                        </div>
+                    </div>
+
+                    <?php if(in_array('Metrologist', General::$enabledFeatures)){ ?>
+                    <div class="control-group">
+                        <label class="control-label bold"><?=LangAdmin::get('Approximate_weight')?></label>
+                        <div class="controls">
+                            <input class="input-mini weight" name="approxweight" id="approxweight" type="text" >
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php
+                        $hideAlias = '';
+                        if(!in_array('Seo2', General::$enabledFeatures)){
+                            $hideAlias = 'style="display:none;"';
+                        }
+                    ?>
+                    <div class="control-group category-alias" <?=$hideAlias?>>
+                        <label class="control-label bold"><?=LangAdmin::get('Category_address')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Category_address_hint')?>"></i></label>
+                        <div class="controls">
+                            <input class="input-large" type="text" name="alias" id="alias" alias-id="new" original-value="">
+                        </div>
+                    </div>
+
+            </div>
+
+            <!-- cat meta tab -->
+            <div class="tab-pane" id="ot_cat_meta">
+                <form method="post" action="" class="form-horizontal ot_form">
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Category_title')?></label>
+                        <div class="controls">
+                            <input class="input-large" type="text" name="meta_title" id="meta_title">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Category_title_prefix')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Category_title_prefix_hint')?>"></i></label>
+                        <div class="controls">
+                            <input class="input-medium" type="text" name="meta_title_prefix" id="meta_title_prefix">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Category_title_suffix')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Category_title_suffix_hint')?>"></i></label>
+                        <div class="controls">
+                            <input class="input-medium" type="text"  name="meta_title_suffix" id="meta_title_suffix">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Category_meta_keywords')?></label>
+                        <div class="controls">
+                            <textarea cols="20" rows="2" class="input-block-level"  name="meta_keywords" id="meta_keywords"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Category_meta_description')?></label>
+                        <div class="controls">
+                            <textarea cols="20" rows="2" class="input-block-level"  name="meta_description" id="meta_description"></textarea>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- cat content tab-->
+            <div class="tab-pane" id="ot_cat_content">
+                <form method="post" action="" class="form-horizontal ot_form" enctype="multipart/form-data">
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Image')?></label>
+                        <div class="ot-uploader">
+                            <img class="image-preview" default="/i/nobg.png" src=""/>
+                            <div class="actions">
+                                <span style="" class="btn btn-primary btn-new"><?=LangAdmin::get('Upload')?></span>
+                                <span style=">" class="btn btn-primary btn-exists"><?=LangAdmin::get('Change')?></span>
+                                
+                                <span style="" class="btn btn-primary btn-remove"><?=LangAdmin::get('Remove')?></span>
+                                <span style="display: none" class="btn btn-primary btn-save" action="<?=$PageUrl->AssignCmdAndDo('categories', 'uploadImage')?>"><i class="icon-ok icon-white"></i></span>
+                                    
+                                <input style="display: none" class="input-image" name="input_image" type="file" />
+                                <input type="hidden" name="delete_image" value="0" />                                
+                            </div>
+                        </div>
+                        <?=General::viewFetch('defaults/ot-image-urls', array(
+                            'path' => TPL_PATH,
+                            'vars' => array()
+                        ));?>
+                    </div>
+                </form>
+
+                <form method="post" action="" class="form-horizontal form-category-icon">
+                    <div class="control-group">
+                        <label class="control-label">
+                            <?=LangAdmin::get('Icon')?>:
+                        </label>
+                        <div class="form-category-icon__selected">
+                            <span></span>
+                        </div>
+                        <div class="actions">
+                            <span style="" class="btn btn-primary modal-check-category">
+                                <?=LangAdmin::get('Check')?>
+                            </span>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-category-icon__input" name="categoryIcon">
+                </form>
+
+                <div class="editableform-loading"></div>
+                <textarea id="seoText" name="seoText" cols="30" rows="10" class="input-block-level"></textarea>
+            </div>
+
+            <!-- cat filters tab -->
+            <div class="tab-pane" id="ot_cat_filters">
+                <h3><?=LangAdmin::get('Editing_categories_filters')?></h3>
+                <div id="totalCountOfItems" style="display:none">
+                    <?=LangAdmin::get('category_items_total_count')?> : <span> </span>
+                </div>
+                <div id="search_filters">
+                    <div class="editableform-loading" ></div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn_preloader btn-primary pull-left" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+        <a href="#" class="btn pull-right" data-dismiss="modal"><?=LangAdmin::get('Cancel')?></a>
+    </div>
+
+</div>
+
+<div class="check-category-icon-form" style="display: none">
+    <div class="modal-body">
+        <div class="category-icons-wrapper"></div>
+    </div>
+</div>
+<?=Lang::loadJSTranslation(array('category_deleted', 'category_parent_deleted', 'category_parent_hidden_deleted'));?>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var CategoriesCategories = new Backbone.Collection();
+    CategoriesCategories.add(<?=json_encode($categories);?>);
+    var isSeoActive = <?=$isSeoActive?>;
+    var isRatingListForCategoryActive = <?=$isRatingListForCategoryActive?>;
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+    var isMetrologistActive = false;
+    <?php if(in_array('Metrologist', General::$enabledFeatures)){ ?>
+    isMetrologistActive = true;
+    <?php } ?>
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/vendor/jstree/jquery.jstree.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-categories.js'); ?>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-uploader.js'); ?>

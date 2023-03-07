@@ -1,0 +1,51 @@
+<?php
+if (!$activeSearchMethod->GetFeatures() && !$activeSearchMethod->StuffStatus()) return '';
+?>
+<div class="search-content_features">
+	<div class="col-md-12">
+        <? if ($activeSearchMethod->GetFeatures()) { ?>
+            <? foreach ($activeSearchMethod->GetFeatures()->GetFeature() as $feature) { ?>
+                <? if (!$feature->CanBeTrue() && !$feature->CanBeFalse()) continue; ?>
+
+                <? $featureUrl = clone $baseUrl?>
+                <? $value = (! empty($searchParams['features'][$feature->GetName()])) ? $searchParams['features'][$feature->GetName()] : '' ?>
+                <? $featureUrl->DeleteKey(array('features', $feature->GetName()))->DeleteKey('page')->DeleteKey('perpage'); ?>
+                <?
+                $title = '';
+                $btnClass = '';
+                if ($value == '') {
+                    if ($feature->CanBeTrue()) {
+                        $featureUrl->Add('features[' . $feature->GetName() . ']', 'true');
+                    }
+                } elseif ($value == 'true') {
+                    if ($feature->CanBeFalse()) {
+                        $featureUrl->Add('features[' . $feature->GetName() . ']', 'false');
+                    }
+                    $title = $feature->GetDisplayNameForTrue();
+                    $btnClass = 'btn-success active-feature';
+                } elseif (($value == 'false')) {
+                    $title = $feature->GetDisplayNameForFalse();
+                    $btnClass = 'btn-danger active-feature';
+                }
+                ?>
+                <a href="<?=$featureUrl->Get()?>" title="<?=$title?>"
+                   class="btn btn-default search-click <?=$btnClass?> feature-<?= $feature->GetName() ?>">
+                    <?= $value == 'true' && $feature->CanBeTrue() ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+                    <?= $value == 'false' && $feature->CanBeFalse() ? '<span class="glyphicon glyphicon-remove"></span> ' : ''?>
+                    <?=$feature->GetDisplayName()?>
+                </a>
+            <? } ?>
+        <? } ?>
+
+		<? if ($activeSearchMethod->StuffStatus()) { ?>
+			<? $featureUrl = clone $baseUrl?>
+			<? $isActive = (! empty($searchParams['StuffStatus']))?>
+			<? $featureUrl->DeleteKey('StuffStatus')->DeleteKey('page')->DeleteKey('perpage'); ?>
+			<a href="<?=$isActive ? $featureUrl->Get() : $featureUrl->Add('StuffStatus', 'New')->Get()?>"
+			   class="btn btn-default search-click <?=$isActive ? 'btn-success active-feature' : ''?> feature-StuffStatus">
+				<?= $isActive ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+				<?=Lang::get('only_new')?>
+			</a>
+		<? } ?>
+	</div>
+</div>

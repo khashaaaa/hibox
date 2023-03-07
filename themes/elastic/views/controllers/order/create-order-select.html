@@ -1,0 +1,93 @@
+<? if ($orders['TotalCount'] && ! General::getConfigValue('skip_reordering')) { ?>
+    <div class="list-data-order">
+        <div class="panel-grey">
+            <b><?=Lang::get('merge_order_select')?></b>
+            <a href="<?=UrlGenerator::toRoute('basket')?>" class="button mobile-link-back"><?=Lang::get('back_to_basket')?></a>
+        </div>
+        <div class="list-data-wrap">
+            <div class="list-data__icon">
+                <i class="icon-box-file"></i>
+            </div>
+            <div class="list-data__content">
+                <div class="list-data-order_select">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="order-new" name="order" class="custom-control-input" value="new" checked="checked">
+                        <label class="custom-control-label" for="order-new"><?=Lang::get('create_new_order')?></label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="order-existing" name="order" class="custom-control-input" value="old">
+                        <label id="old-order-id" class="custom-control-label" for="order-existing"><?=Lang::get('select_from_exists')?></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<? } ?>
+
+<div class="modal" id="modal-select-order" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-my modal-select-order modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <b class="modal-title" ><?=Lang::get('click_order')?></b>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <table class="table list-data-orders">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th><?=Lang::get('number')?></th>
+                        <th><?=Lang::get('creation_date')?></th>
+                        <th><?=Lang::get('Goods_quantity')?></th>
+                        <th><?=Lang::get('cost_with_delivery')?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?  foreach ($orders['Content'] as $o => $order) { ?>
+                        <tr class="list-data-orders__line"
+                            data-id="<?=OrdersProxy::normalizeOrderId($order['Id'])?>"
+                            data-link="/?p=orderdetails&amp;orderid=<?=$order['Id']?>"
+                            data-creation-date="<?=date('Y-m-d H:i:s', strtotime($order['CreatedDateTime']))?>"
+                            data-items-count="<?=$order['ItemsCount']?>"
+                            data-total-amount="<?=$order['TotalAmount']?>"
+                        >
+                            <td>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio"
+                                           id="<?=$order['Id']?>"
+                                           name="exist-order"
+                                           class="custom-control-input"
+                                           value="<?=$order['Id']?>"
+                                    >
+                                    <label class="custom-control-label" for="<?=$order['Id']?>"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="/?p=orderdetails&amp;orderid=<?=$order['Id']?>" target="_blank">
+                                    <?=OrdersProxy::normalizeOrderId($order['Id'])?>
+                                </a>
+                            </td>
+                            <td><?=date('Y-m-d H:i:s', strtotime($order['CreatedDateTime']))?></td>
+                            <td><?=$order['ItemsCount']?></td>
+                            <td><span class="pr"><?=$order['TotalAmount']?></span></td>
+                        </tr>
+                    <? } ?>
+                </tbody>
+            </table>
+
+            <div class="modal-bottom">
+                <a href="javscript:void(0)" class="button button-small" id="merge-cancel"><?=Lang::get('cancel')?></a>
+                <a href="javscript:void(0)" class="button button-small" id="merge-orders"><?=Lang::get('merge_order')?></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="selected-order-data" class="hidden">
+    <?=Lang::get('number')?>: <a id="selected-order-id" target="_blank" style="text-decoration: underline;"></a><br>
+    <?=Lang::get('creation_date')?>: <span id="selected-order-creation-date"></span><br>
+    <?=Lang::get('Goods_quantity')?>: <span id="selected-order-items-count"></span><br>
+    <?=Lang::get('cost_with_delivery')?>: <span id="selected-order-total-amount" class="pr"></span><br>
+</div>

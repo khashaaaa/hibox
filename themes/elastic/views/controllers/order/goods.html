@@ -1,0 +1,209 @@
+<div class="list-products">
+    <div class="panel-grey">
+        <div class="list-products__checkbox">
+            <input class="checkAll" type="checkbox" id="all">
+            <label for="all"></label>
+        </div>
+
+        <b><?=Lang::get('goods_list')?></b>
+
+        <div class="panel-grey__buttons">
+            <div class="btn-group">
+                <button type="button"
+                        class="btn button dropdown-toggle btn-primary float-left mr-1"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                >
+                    <?=Lang::get('with_selected')?>
+                </button>
+
+                <div class="dropdown-menu" x-placement="bottom-start">
+                    <a href="javascript:void(0)" class="button-confirm-items dropdown-item" title="<?=Lang::get('confirm_new_price')?>">
+                        <?=Lang::get('confirm_new_price')?>
+                    </a>
+                    <a href="javascript:void(0)" class="button-delete-items dropdown-item" title="<?=Lang::get('delete_item')?>">
+                        <?=Lang::get('delete_item')?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <? if (CMS::IsFeatureEnabled('ItemReviews')) { ?>
+            <div class="panel-grey__text">
+                <?=Lang::get('order_info_reviews_why_need_text')?>
+            </div>
+        <? } ?>
+    </div>
+
+    <? foreach ($orderInfo->GetSalesLinesList()->GetSalesLine() as $item) { ?>
+    <?
+	$itemRowClass = '';
+	if ($item->GetStatusCode() == 13) { // canceled
+        $itemRowClass = 'canceled';
+    } else if ($item->GetStatusCode() == 10) { //got
+        $itemRowClass = 'finished';
+    }
+    ?>
+        <div class="list-products__row-item $itemRowClass <?= $item->GetStatusCode() == 3 ? 'need-confirm-item' : ''?>"
+             data-role="product"
+             data-order="<?=$orderInfo->GetSalesOrderInfo()->GetId()?>"
+             data-sales-line-id="<?=$item->GetId()?>"
+             data-item-id="<?=$item->GetItemId()?>"
+             data-config-id="<?=$item->GetConfigId()?>"
+             id="item<?=$item->GetId()?>"
+        >
+            <div class="list-products__col-img">
+                <div class="list-products__checkbox">
+                    <input type="checkbox" value="id" id="<?=$item->getId()?>" class="list-products__col-checkbox"
+                    <?=($item->GetStatusCode() == 13) ? 'disabled="disabled"' : ''?>>
+                    <label for="<?=$item->getId()?>"></label>
+                </div>
+
+                <a href="<?=UrlGenerator::generateItemUrl($item->GetItemId(), array('ConfigId' => $item->GetConfigId()))?>"
+                   class="pic"
+                   title="<?=$item->GetBriefDescrTrans()?>"
+                >
+                    <img src="<?=$item->GetItemImageURL()?>" alt="img">
+                </a>
+            </div>
+
+            <div class="list-products__col-2">
+                <div class="list-products__name">
+                    <a href="<?=UrlGenerator::generateItemUrl($item->GetItemId(), array('ConfigId' => $item->GetConfigId()))?>"
+                       title="<?=$item->GetBriefDescrTrans()?>"
+                       alt="<?=$item->GetBriefDescrTrans()?>"
+                    >
+                        <?=$item->GetBriefDescrTrans()?>
+                    </a>
+                </div>
+
+                <div class="list-products__link-group">
+                    <? if ($item->GetStatusCode() == 3) { ?>
+                        <a href="javascript:void(0)" class="button button-confirm-price" data-action="<?=UrlGenerator::getUrl('order/confirm-item-price')?>">
+                            <?=Lang::get('confirm_new_price')?>
+                        </a>
+                    <? } ?>
+
+                    <? if ($item->CanBeClosed()) { ?>
+                        <a href="javascript:void(0)" id="confirmReceiptGoods-<?=$item->GetId()?>" class="button button-confirm-receipt-of-goods">
+                            <?=Lang::get('confirm_receipt_of_goods')?>
+                        </a>
+                    <? } ?>
+
+                    <? if (! $item->IsPaid()) { ?>
+                        <br><a href="javascript:void(0)" class="button button-delete button-delete-line fa fa-times"  data-action="<?=UrlGenerator::getUrl('order/remove-order-item')?>">
+                            <?=Lang::get('delete_item')?>
+                        </a>
+                    <? } ?>
+
+                    <? if (CMS::IsFeatureEnabled('ItemReviews')) { ?>
+                        <a href="<?=UrlGenerator::getUrl('getReview')?>"
+                           class="button button-review button-my-review"
+                           data-review-id="<?=$item->GetReviewId()?>"
+                           style="display: <?=$item->GetReviewId() ? 'inline-block' : 'none'?>"
+                        >
+                            <i></i><?=lang::get('my_review')?>
+                        </a>
+                    <? } ?>
+
+                    <? if (CMS::IsFeatureEnabled('ItemReviews')) { ?>
+                        <a href="javascript:void(0)"
+                           class="button button-review button-add-review addItemReview"
+                           style="display: <?=($item->CanBeReviewed() && !$item->GetReviewId()) ? 'inline-block' : 'none'?>"
+                           data-itemid="<?=$item->GetItemId()?>"
+                        >
+                            <i></i><?=lang::get('add_item_review_in_item')?>
+                        </a>
+                    <? } ?>
+                </div>
+
+                <? $custComment = OrdersProxy::prepareOrderComment($item->GetCustComment()); ?>
+                <? if (! empty($custComment)) { ?>
+                    <div class="list-products__comment-user">
+                        <div class="list-products__comment-title"><?=Lang::get('comments_for_operator')?>:</div>
+                        <div class="list-products__comment-text"><?=TextHelper::htmlFromUser($custComment)?></div>
+                    </div>
+                <? } ?>
+
+                <!-- TODO: нет вывода картинок -->
+                <? $operatorComment = OrdersProxy::prepareOrderComment($item->GetOperatorComment()); ?>
+                <? if (! empty($operatorComment)) { ?>
+                    <div class="list-products__coment-operator">
+                        <div class="list-products__comment-title"><?=Lang::get('operator_comment')?>:</div>
+                        <div class="list-products__comment-text"><?=TextHelper::htmlFromUser($operatorComment)?></div>
+                    </div>
+                <? } ?>
+            </div>
+
+            <div class="list-products__col-3">
+                <div class="list-products-table">
+                    <div class="list-products-table__row">
+                        <div class="list-products-table__col1"><?=Lang::get('vendor')?>:</div>
+                        <div class="list-products-table__col2 list-products-table__vendor"><?= VendorHelper::generateLink($item->GetVendId(), $item->GetVendNick(), array('title' => $item->GetVendNick()))?></div>
+                    </div>
+
+                    <? $confText = $item->GetConfigText(); ?>
+                    <? if (! empty($confText)) { ?>
+                        <? foreach(explode(';', $confText) as $cfg){ ?>
+                            <? if ($cfg) { ?>
+                                <div class="list-products-table__row">
+                                    <? $cfg_array = explode(':',$cfg); ?>
+                                    <div class="list-products-table__col1"><?=current($cfg_array)?>:</div>
+                                    <div class="list-products-table__col2"><?=end($cfg_array)?></div>
+                                </div>
+                            <? } ?>
+                        <? } ?>
+                    <? } ?>
+
+                    <? if ($orderInfo->GetSalesOrderInfo()->GetWeight() > 0) {?>
+                        <div class="list-products-table__row">
+                            <div class="list-products-table__col1"><?=Lang::get('unit_weight_1')?>:</div>
+                            <div class="list-products-table__col2">
+                                <?=($item->GetWeight() != 0) ? $item->GetWeight() . ' ' . Lang::get('weight_kg') : '-' ?>
+                            </div>
+                        </div>
+                    <? } ?>
+
+                    <div class="list-products-table__row">
+                        <div class="list-products-table__col1"><?=Lang::get('price')?>:</div>
+                        <div class="list-products-table__col2">
+                            <? if (($item->GetStatusCode() == 3) && ($item->GetPriceCust() !== $item->GetNewPriceCust())) { ?>
+                                <del><?=TextHelper::formatPrice($item->GetPriceCust(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?></del>
+                                <?=TextHelper::formatPrice($item->GetNewPriceCust(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?>
+                            <? } else { ?>
+                                <?=TextHelper::formatPrice($item->GetPriceCust(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?>
+                            <? } ?>
+                        </div>
+                    </div>
+
+                    <div class="list-products-table__row">
+                        <div class="list-products-table__col1"><?=Lang::get('quantity')?>:</div>
+                        <div class="list-products-table__col2"><?=$item->GetQty()?></div>
+                    </div>
+
+                    <div class="list-products-table__row">
+                        <div class="list-products-table__col1"><?=Lang::get('Cost')?>:</div>
+                        <div class="list-products-table__col2">
+                            <? if (($item->GetStatusCode() == 3) && ($item->GetPriceCust() !== $item->GetNewPriceCust())) { ?>
+                                <del><?=TextHelper::formatPrice($item->GetAmountCust(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?></del>
+                                <?=TextHelper::formatPrice($item->GetNewPriceCust() * $item->GetQty(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?>
+                            <? } else { ?>
+                                <?=TextHelper::formatPrice($item->GetAmountCust(), $orderInfo->GetSalesOrderInfo()->GetCurrencySign())?>
+                            <? } ?>
+                        </div>
+                    </div>
+
+                    <div class="list-products-table__row">
+                        <div class="list-products-table__col1"><?=Lang::get('condition')?>:</div>
+                        <div class="list-products-table__col2">
+                            <b><span class="<?=$item->GetStatusCode() == 3 ? 'changed-status' : ''?>">
+                                <?=$item->GetStatusName()?>
+                            </span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+</div>

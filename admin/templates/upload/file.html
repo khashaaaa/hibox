@@ -1,0 +1,15 @@
+
+<div class="uploadbox fileupload clearfix fileupload-new" data-provides="fileupload">
+    <div class="fileupload-new thumbnail thumbnail-mini">
+        <div class="thumbnail-placeholder"><i class="icon-picture"></i></div>
+    </div>
+    <div class="span3 fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+    <span class="btn btn-primary btn-file">
+        <span class="fileupload-new"><%=trans.get("Select_image")%></span>
+        <span class="fileupload-exists"><%=trans.get("Change")%></span>
+        <input name="files[]" type="file" />
+    </span>
+    <span class="btn btn-warning fileupload-exists" data-dismiss="fileupload">
+        <%=trans.get("Remove")%>
+    </span>
+</div>

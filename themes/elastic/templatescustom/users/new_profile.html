@@ -1,0 +1,12 @@
+<div class="main profile__delivery">
+    <div class="bproduct mb30">
+        <h2><?=Lang::get('Add_new_profile')?></h2>
+        <div class="userform">
+            <?=General::viewFetch('/templatescustom/users/delivery_form', array('path' => General::getThemeDir(), 'vars' => [
+                'newOrder' => true,
+                'countries' => $countries,
+                'newDeliveryProfile' => true
+            ]))?>
+        </div>
+    </div>
+</div>

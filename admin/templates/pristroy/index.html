@@ -1,0 +1,295 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('pristroy')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<!-- ot-sub-sub-nav -->
+
+<div class="pristroy-wrapper">
+
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span10">
+                <h1>
+                    <?=LangAdmin::get('pristroy')?>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+	<!-- filters-->
+	<div class="row-fluid">
+
+		<div class="span7">
+
+			<div class="well well-small offset-bottom3">
+
+				<form class="form-horizontal ot_form" id="filters" method="get">
+					<input type="hidden" name="cmd" value="pristroy">
+					<input type="hidden" name="action" value="default">
+					<input type="hidden" name="perpage" value="<?=$paginator->limit();?>"/>
+					
+					<div class="control-group">
+						<label class="control-label bold" for=""><?=LangAdmin::get('User')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Pristroy_user_hint')?>" data-original-title="" title=""></i></label>
+						<div class="controls">
+							<input name="user" type="text" class="input-medium" data-provide="typeahead" id="ot_user_login_filter"  title="<?=LangAdmin::get('Enter_first_symbols')?>" <?php if($filter && $filter['user']) print 'value="'.$this->escape($filter['user']).'"';?> 	
+							>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label bold text-right"><?=LangAdmin::get('Statuses')?></label>
+						<div class="controls">
+								<?php
+									$onModerationFilterStatus = '';
+									$approvedFilterStatus = '';
+									$rejectedFilterStatus = '';
+									 
+									if ($filter && $filter['status']) {
+										foreach ($filter['status'] as $i) {
+											switch($i) {
+												case PristroyRepository::STATUS_ON_MODERATION: $onModerationFilterStatus=' checked="checked" '; break;
+												case PristroyRepository::STATUS_APPROVED: $approvedFilterStatus=' checked="checked" '; break;
+												case PristroyRepository::STATUS_REJECTED: $rejectedFilterStatus=' checked="checked" '; break;
+											}
+										} 
+									}
+								
+								?>
+							<label class="checkbox inline">
+								<input name="on_moderation" type="checkbox" <?=$onModerationFilterStatus?> ><?=LangAdmin::get('Pristroy_status_on_moderation')?>
+							</label>
+							<label class="checkbox inline">
+								<input name="rejected" type="checkbox" <?=$rejectedFilterStatus?> ><?=LangAdmin::get('Pristroy_status_rejected')?>
+							</label>
+							<label class="checkbox inline">
+								<input name="approved" type="checkbox" <?=$approvedFilterStatus?> ><?=LangAdmin::get('Pristroy_status_approved')?>
+							</label>
+						</div>
+					</div>
+
+					<div class="controls">
+						<button type="submit" class="btn btn-tiny btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Apply')?>" autocomplete="off"><?=LangAdmin::get('Apply')?></button>
+						<a href="<?=$PageUrl->AssignCmdAndDo('catalog', 'default')?>" type="button" class="btn btn-tiny pull-right"><?=LangAdmin::get('Reset_filters')?></a>
+					</div>
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div><!-- /filters-->
+
+
+<? if (! empty($list)) { ?>
+	
+	<!-- group actions, per page items -->
+	<div class="row-fluid">
+
+		<div class="span10 actions top-actions">
+
+			<div class="btn-group">
+				<button data-action="<?=$PageUrl->AssignCmdAndDo('pristroy', 'approveBulk')?>" class="actionButton approveItem btn btn-tiny" title="<?=LangAdmin::get('Approve_product')?>"><span class="text-success"><i class="icon-ok"></i> <?=LangAdmin::get('Approve')?></span></button>
+				<button data-action="<?=$PageUrl->AssignCmdAndDo('pristroy', 'rejectBulk')?>" class="actionButton btn btn-tiny offset-left05 rejectItem" title="<?=LangAdmin::get('Reject_product_without_reason')?>"><span class="text-error"><i class="icon-ban-circle"></i> <?=LangAdmin::get('Reject')?></span></button>
+			</div>
+
+			<button data-action="<?=$PageUrl->AssignCmdAndDo('pristroy', 'removeBulk')?>" class="actionButton btn btn-tiny offset-left2 ot_show_settle_item_dicline_window removeItem" title="<?=LangAdmin::get('Remove_product_from_sale')?>"><span><i class="icon-remove"></i> <?=LangAdmin::get('Remove_from_sale')?></span></button>
+		</div>
+
+		<div class="span2 text-right">
+            <!--label><?=LangAdmin::get('Show')?> -->
+                <select class="input-mini" id="perpage">
+                <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                    <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+                <? } ?>
+                </select>
+			<!--	<?=LangAdmin::get('per_page')?>
+            </label> -->
+		</div>
+
+	</div><!-- /group actions, per page items -->	
+
+    <div class="table-responsive">
+        <table class="table ot_pristroy_moderation" id="data_table_sorting">
+            <thead>
+                <tr>
+                    <th class="">
+                        <div class="btn-group">
+                            <label class="checkbox inline" id="checkAll" >
+                                <input type="checkbox" />
+                            </label>
+                        </div>
+                    </th>
+                    <th><?=LangAdmin::get('User')?></th>
+                    <th><?=LangAdmin::get('Product_title')?></th>
+                    <th class="td-2btn-width"></th>
+                    <th><?=LangAdmin::get('Product_quantity')?></th>
+                    <th><?=LangAdmin::get('Price')?></th>
+                    <th><?=LangAdmin::get('Status')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <? foreach ($list as $item) { ?>
+                    <tr id="<?=$item['id']?>">
+                        <td><input type="checkbox" name="ids[]" value="<?=$item['id']?>"/></td>
+                        <td><a target="_blank" href="<?=$PageUrl->generate(array('cmd'=>'users', 'do'=>'profile', 'id'=>$item['user_id']))?>"><?=$this->escape($item['user_login'])?></a></td>
+                        <td class="ot_pristroy_moderation">
+                            <div class="media">
+                                <div class="goods_pics" data-toggle="modal-gallery" data-target="#modal-gallery">
+                                    <? if (is_array($item['images']) && count($item['images']) && $item['default_image']) { ?>
+                                        <a href="<?=$item['default_image']?>" class="thumbnail thumbnail-mini" title="<?=LangAdmin::get('Image_zoom')?>" data-gallery="gallery">
+                                            <img src="<?=$item['default_image']?>">
+                                        </a>
+                                        <? foreach ($item['images'] as $key => $img) { ?>
+                                            <? if ($img!=$item['default_image']) { ?>
+                                                <a href="<?=$img?>" class="thumbnail thumbnail-mini" title="<?=LangAdmin::get('Image_zoom')?>" data-gallery="gallery">
+                                                    <img src="<?=$img?>">
+                                                </a>
+                                            <? } ?>
+                                        <? } ?>
+                                        <? if (count($item['images']) > 1) { ?>
+                                            <p class="all_numbers" title="<?=LangAdmin::get('Images_count')?>"><i class="icon-picture"></i> <?=count($item['images'])?></p>
+                                        <? } ?>
+                                    <? } else { ?>
+                                        <div class="thumbnail thumbnail-mini">
+                                            <div class="thumbnail-placeholder" title="<?=LangAdmin::get('Image_not_found')?>">
+                                                <i class="icon-picture"></i>
+                                            </div>
+                                        </div>
+                                    <? } ?>
+                                </div>
+                                <div class="media-body">
+                                    <div class="row-fluid">
+                                        <div class="span9">
+                                            <h5 class="media-heading"><a target="_blank" href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>" title="<?=LangAdmin::get('Item_page_on_site')?>"><?=$this->escape($item['title'])?></a>
+                                                (<a class="blink ot_show_settle_descr_window" href="#"><?=LangAdmin::get('Product_description')?> </a>)
+                                            </h5>
+
+                                            <?
+                                            $rejectFormVisible = "display: none;";
+                                            if (($item['status'] == PristroyRepository::STATUS_ON_MODERATION && empty($item['reject_reason']) ) || $item['status'] == PristroyRepository::STATUS_APPROVED){
+                                                $rejectFormVisible = "";
+                                            }
+                                            ?>
+                                            <form class="form-horizontal ot_form rejectForm" action="" style="<?=$rejectFormVisible?>">
+                                                <textarea cols="10" rows="1" class="span10 ot_autosized_textarea reject_reason" placeholder="<?=LangAdmin::get('Reject_reason_required')?>" style="overflow: hidden; word-wrap: break-word; resize: none; height: 30px;"></textarea>
+                                                <span class="actions">
+                                                    <button class="actionButton btn btn-tiny rejectItem" title="<?=LangAdmin::get('Reject')?>" data-action="<?=$PageUrl->AssignCmdAndDo('pristroy', 'reject')?>"><i class="icon-ban-circle"></i></button>
+                                                </span>
+                                            </form>
+
+                                            <?
+                                            $rejectedMessageVisible="display: none;";
+                                            if ($item['status'] == PristroyRepository::STATUS_REJECTED || ($item['status'] == PristroyRepository::STATUS_ON_MODERATION && strlen($item['reject_reason']) > 0))  {
+                                                $rejectedMessageVisible="";
+                                            }
+                                            ?>
+
+                                            <div class="well well-small offset-bottom0 rejectedMessage" style="<?=$rejectedMessageVisible?>">
+                                                <strong class="text-error"><?=LangAdmin::get('Reject_reason')?>:</strong> <span class="font-12"><?=$this->escape($item['reject_reason'])?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="productDescription" style="display: none;">
+                                        <?=$item['description']?>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="actions span3">
+                            <div class=" text-right">
+                                <?
+                                $approveVisible = "display: none;";
+                                    if ($item['status'] == PristroyRepository::STATUS_ON_MODERATION || $item['status'] == PristroyRepository::STATUS_REJECTED)
+                                $approveVisible = "";
+                                ?>
+                                <button style="<?=$approveVisible?>" class="actionButton btn btn-tiny approveItem" title="<?=LangAdmin::get('Approve')?>" data-action="<?=$PageUrl->AssignCmdAndDo('pristroy', 'approve')?>"><i class="icon-ok"></i></button>
+
+                                <a href="<?=$PageUrl->generate(array('cmd'=>'pristroy', 'do'=>'edit', 'id'=>$item['id']))?>" class="actionButton btn btn-tiny" title="<?=LangAdmin::get('Edit+product')?>"><i class="icon-pencil"></i></a>
+                                <? if ($item['status'] != PristroyRepository::STATUS_SOLD) { ?>
+                                    <button data-action="<?=$PageUrl->AssignCmdAndDo('pristroy', 'remove')?>" class="actionButton btn btn-tiny ot_show_settle_item_dicline_window removeItem" title="<?=LangAdmin::get('Remove_product_from_sale')?>"><i class="icon-remove"></i></button>
+                                <? } ?>
+                            </div>
+                        </td>
+                        <td><?=$this->escape($item['quantity'])?></td>
+                        <td><nobr><?=$item['display_price']?></nobr></td>
+                        <td class="itemStatus">
+                            <? if ($item['status'] == PristroyRepository::STATUS_ON_MODERATION) { ?>
+                                <span class="label weight-normal"><?=LangAdmin::get('Pristroy_status_on_moderation')?></span>
+                            <? } elseif ($item['status'] == PristroyRepository::STATUS_APPROVED) { ?>
+                                <span class="label label-success weight-normal"><?=LangAdmin::get('Pristroy_status_approved')?></span>
+                            <? } elseif ($item['status'] == PristroyRepository::STATUS_REJECTED) { ?>
+                                <span class="label label-important weight-normal"><?=LangAdmin::get('Pristroy_status_rejected')?></span>
+                            <? } elseif ($item['status'] == PristroyRepository::STATUS_SOLD) { ?>
+                                <span class="label label-info"><?=LangAdmin::get('Pristroy_status_sold')?></span>
+                            <? } ?>
+                        </td>
+                    </tr>
+                <? } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <? $paginator->display(); ?>
+
+<? } else { ?>
+    <?=LangAdmin::get('No_products_found')?>
+<? } ?>
+
+</div> <!-- /.pristroy-wrapper -->
+
+<!-- modal-gallery is the modal dialog used for the image gallery -->
+<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h3 class="modal-title"></h3>
+    </div>
+
+    <div class="modal-body"><div class="modal-image"></div></div>
+
+    <div class="modal-footer">
+
+        <div class="row-fluid">
+
+            <div class="span6 text-left">
+                <div class="btn-group">
+                    <button class="btn btn-primary modal-prev" title="<?=LangAdmin::get('Prev')?>"><i class="icon-arrow-left icon-white"></i></button>
+                    <button class="btn btn-primary modal-next" title="<?=LangAdmin::get('Next')?>"><i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+
+            <div class="span6 text-right">
+                <button href="#" class="btn" data-dismiss="modal"><?=LangAdmin::get('Close')?></button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><!-- /modal-gallery-->
+
+
+<div class="modal hide fade ot_settle_descr_window in" style="display: none;" aria-hidden="false">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3><?=LangAdmin::get('Product_description')?></h3>
+    </div>
+
+    <div class="modal-body">
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn pull-right" data-dismiss="modal"><?=LangAdmin::get('Close')?></button>
+    </div>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-pristroy.js'); ?>

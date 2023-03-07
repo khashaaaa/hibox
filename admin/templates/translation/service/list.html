@@ -1,0 +1,82 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('MultilingualSettings', 'default')?>"><?=LangAdmin::get('languages')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Service_translation')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<?=TabsGenerator::GetSubTabs('templates/translation/navigation/tabs.xml', $PageUrl)?>
+
+<div class="row-fluid">
+    <h1 class="pull-left"><?=LangAdmin::get('Service_translation')?></h1>
+    <div class="btn-group pull-right">
+        <?=$languageSelect?>
+    </div>
+</div>
+
+<div class="translations-view-wrapper">
+
+    <div class="row-fluid">
+        <div class="well">
+            <form class="form-inline" id="search-form" action="" method="get">
+                <input type="hidden" name="cmd" value="<?=$PageUrl->GetCmd()?>" />
+                <input type="hidden" name="do" value="<?=$PageUrl->GetAction()?>" />
+
+                <label class="control-label" for="TranslatableContent"><?=LangAdmin::get('Service_translation_translatable_content')?>:</label>
+                <select class="span3" name="TranslatableContent" id="TranslatableContent">
+                    <option value="" disabled selected><?=LangAdmin::get('Service_translation_translatable_content_select')?></option>
+                    <? foreach ($translatableList->GetItem() as $value) { ?>
+                        <option value="<?=$value->GetId()?>" <?= (RequestWrapper::get('TranslatableContent') == $value->GetId()) ? 'selected' : ''?>>
+                            <?=$value->GetDescription()?>
+                        </option>
+                    <? } ?>
+                </select>
+                <input class="span4" type="text" name="SearchText" value="<?=RequestWrapper::get('SearchText')?>" placeholder="<?=LangAdmin::get('Search_text')?>" />
+
+                <input class="btn btn-primary" type="submit" value="<?=LangAdmin::get('Find')?>" />
+            </form>
+        </div>
+    </div>
+
+    <? if ($translations) { ?>
+        <div class="row-fluid">
+            <div class="pull-right">
+                <? $paginator->displayPerpage(); ?>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="span6"><?=LangAdmin::get('Service_translation')?></th>
+                        <th class="span6"><?=LangAdmin::get('My_translation')?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <? if ($totalCount) { ?>
+                        <? foreach ($translations->GetItem() as $value) { ?>
+                            <tr>
+                                <td><?=$value->GetSystemTranslation()?></td>
+                                <td>
+                                    <form class="form-inline" action="<?=$PageUrl->AssignCmdAndDo('translations', 'serviceUpdate')?>" data-id="<?=$value->GetId()?>">
+                                        <input class="translationText" type="text" name="text" value="<?=$value->GetCustomTranslation()?>" />
+                                        <button class="btn translationSave" title="<?=LangAdmin::get('Save')?>" data-loading-text="<span class='ot-preloader-mini'></span>"><i class="icon-save"></i></button>
+                                        <button class="btn translationDelete" title="<?=LangAdmin::get('My_translation_delete_translation')?>" data-loading-text="<span class='ot-preloader-mini'></span>"><i class="icon-remove"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <? } ?>
+                    <? } else { ?>
+                        <tr>
+                            <td colspan="2"><?=LangAdmin::get('List_is_empty')?></td>
+                        </tr>
+                    <? } ?>
+                </tbody>
+            </table>
+
+            <? $paginator->display(); ?>
+        </div>
+    <? } ?>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-translations.js'); ?>

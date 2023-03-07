@@ -1,0 +1,58 @@
+<?=$Header?>
+
+<script type="text/javascript" src="js/service_calls.js"></script>
+<style>
+#stat_1,#stat_2,#stat_3,#stat_ano {
+	padding:10px;
+	border-left:#F00 2px solid;
+}
+
+</style>
+<div class="col700">
+    <div class="tuning">
+        <h1><?=Lang::get('service_stat')?></h1> 
+               
+        <div style="display:none" id="stat_ano">
+        <?=LangAdmin::get('service_tariff')?> : <b class="t_name"></b><br> 
+        <?=LangAdmin::get('service_limit')?> : <b class="t_limit"></b><br>       
+        <?=LangAdmin::get('service_procent')?> : <b class="t_procent"></b> % <br>  
+        <?=LangAdmin::get('service_price')?> : <b class="t_price"></b><br>     
+        </div>
+        
+        <table>
+            <tr>
+                <td><?=Lang::get('parameter_of_stat')?></td>
+                <td><?=Lang::get('per_day')?></td>
+                <td><?=Lang::get('per_month')?></td>
+                <td><?=Lang::get('total')?></td>
+            </tr>
+            <tr>
+                <td><?=Lang::get('number_of_requests_for_services_calls')?></td>
+                <td id="DailyCallCount" style="text-align: right"></td>
+                <td id="MonthlyCallCount" style="text-align: right"></td>
+                <td id="CallCount" style="text-align: right"></td>
+            </tr>
+            <tr>
+                <td><?=Lang::get('the_total_amount_translated_text_characters')?></td>
+                <td id="TotalLengthTranslatedTextsDailyCallCount" style="text-align: right"></td>
+                <td id="TotalLengthTranslatedTextsMonthlyCallCount" style="text-align: right"></td>
+                <td id="TotalLengthTranslatedTextsTotalCallCount" style="text-align: right"></td>
+            </tr>
+            <tr>
+                <td><?=Lang::get('amount_translated_automatic_external_translator_characters')?></td>
+                <td id="LengthExternalTranslatedTextsDailyCallCount" style="text-align: right"></td>
+                <td id="LengthExternalTranslatedTextsMonthlyCallCount" style="text-align: right"></td>
+                <td id="LengthExternalTranslatedTextsTotalCallCount" style="text-align: right"></td>
+            </tr>
+            <tr>
+                <td><?=Lang::get('efficiency_caching_source_goods_taobao')?></td>
+                <td id="CachedDailyCallCount" style="text-align: right"></td>
+                <td id="CachedMonthlyCallCount" style="text-align: right"></td>
+                <td id="CachedTotalCallCount" style="text-align: right"></td>
+            </tr>
+        </table>
+       
+    </div>
+</div>
+
+<?=$Footer?>

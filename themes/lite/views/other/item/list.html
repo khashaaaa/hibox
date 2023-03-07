@@ -1,0 +1,12 @@
+<ul class="item-list">
+    <? foreach ($items as $item) { ?>
+        <li class="col-md-4 col-xs-4 col-sm-4 col-lg-3 <?=ProductsHelper::formatFeatureListForCss($item['Features'])?>" title="<?=$this->escape($item['title'])?>">
+            <?=ProductsHelper::getHtmlFeatureListForLabel($item['Features'])?>
+            <? $params = array('item' => $item); ?>
+            <? if (isset($categoryId) && $categoryId) { ?>
+                <? $params['categoryId'] = $categoryId; ?>
+            <? } ?>
+            <?=General::viewFetch('other/item/item', array('vars' => $params))?>
+        </li>
+    <? } ?>
+</ul>

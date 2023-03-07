@@ -1,0 +1,43 @@
+<a href="javascript:void(0)" class="menu-aside">
+    <img src="<?=General::getThemeWebDir()?>/img/svg/icon-menu.svg" alt="img">
+</a>
+
+<div class="accordion accordion-menu accordion-menu-page" id="left-menu">
+    <? foreach ($menu as $item) { ?>
+        <div class="card">
+            <div class="card-header bg-white border-0 nopadding" id="heading-<?=$item['alias']?>">
+                <h5 class="mb-0">
+                    <button class="btn btn-link link pl-0 pr-0 <?=$item['active'] && !$item['hasActiveChildren'] ? 'active' : ''?> <?=$item['active'] || $item['hasActiveChildren'] ? '' : 'collapsed'?>"
+                            type="button" data-toggle="collapse" data-target="#<?=$item['alias']?>" aria-expanded="false" aria-controls="collapseTwo">
+                        <a href="<?=$item['url']?>" title="<?=$this->escape($item['title'])?>"><?=$this->escape($item['title'])?></a>
+                        <? if (!empty($item['children'])) { ?>
+                            <i></i>
+                        <? } ?>
+                    </button>
+                </h5>
+            </div>
+            <? if (!empty($item['children'])) { ?>
+                <div id="<?=$item['alias']?>" class="collapse <?=$item['active'] || $item['hasActiveChildren'] ? 'show' : ''?>" aria-labelledby="heading-<?=$item['alias']?>" data-parent="#left-menu">
+                    <div class="card-body pt-0 pb-0">
+                        <ul>
+                            <? foreach ($item['children'] as $child) { ?>
+                                <li><a href="<?=$child['url']?>" title="<?=$this->escape($child['title'])?>" class="<?=!(empty($child['active'])) ? 'active' : ''?>"><?=$this->escape($child['title'])?></a></li>
+                            <? } ?>
+                        </ul>
+                    </div>
+                </div>
+            <? } ?>
+        </div>
+    <? } ?>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        $('.card-header button a').on('click', function (e) {
+            e.stopPropagation();
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

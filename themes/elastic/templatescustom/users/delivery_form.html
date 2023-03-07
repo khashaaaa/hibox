@@ -1,0 +1,303 @@
+<form action="/?p=profile<?=(isset($newOrder) && $newOrder) ? '&new_profile' : '' ?>" method="post">
+    <? if (! $newOrder) { ?>
+        <input  type="hidden" name="Profile[Id]" value="<?=$profile['id']?>">
+        <input  type="hidden" name="save_delivery_profile" value="save_delivery_profile">
+    <? } ?>
+
+    <div class="form-row">
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("LastName")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("LastName")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="RecipientLastName<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <input type="text"
+                   class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                   name="Profile[LastName]"
+                   id="RecipientLastName<?=@$profile['id']?>"
+                   value="<?=@TextHelper::escape($profile['lastname'])?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+            >
+        </div>
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("FirstName")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("FirstName")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="RecipientFirstName<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <input type="text"
+                   class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                   name="Profile[FirstName]"
+                   id="RecipientFirstName<?=@$profile['id']?>"
+                   value="<?=@TextHelper::escape($profile['firstname'])?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+            >
+        </div>
+    </div>
+
+    <div class="form-row">
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("MiddleName")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("MiddleName")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+            <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                <label for="RecipientMiddleName<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+                <input type="text"
+                       class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                       name="Profile[MiddleName]"
+                       id="RecipientMiddleName<?=@$profile['id']?>"
+                       value="<?=@TextHelper::escape($profile['middlename'])?>"
+                        <?=$state === "EnabledAndRequired" ? "required" : ''?>
+
+                >
+            </div>
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("INN")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("INN")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+            <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                <label for="RecipientINN<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+                <input type="text"
+                       class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                       name="Profile[INN]"
+                       id="RecipientINN<?=@$profile['id']?>"
+                       value="<?=@TextHelper::escape($profile['inn'])?>"
+                        <?=$state === "EnabledAndRequired" ? "required" : ''?>
+                >
+            </div>
+    </div>
+
+    <div class="form-row">
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("CountryCode")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("CountryCode")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="ProfileCountry<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <select class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                    name="Profile[CountryCode]"
+                    id="ProfileCountry<?=@$profile['id']?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+            >
+                <? foreach($countries as $item) { ?>
+                    <? if (isset($newDeliveryProfile) && ($newDeliveryProfile)) { ?>
+                        <option value="<?=$item['Id']?>" <?= (User::getObject()->getCountryCode() === $item['id']) ? 'selected' : '' ?>>
+                            <?=$item['Name']?>
+                        </option>
+                    <? } else { ?>
+                        <option value="<?=$item['Id']?>" <?= (isset($profile) && $profile['countrycode'] == $item['id']) ? 'selected' : '' ?>>
+                            <?=$item['Name']?>
+                        </option>
+                    <? } ?>
+                <? } ?>
+            </select>
+        </div>
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("City")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("City")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="City<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <input type="text"
+                   class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                   name="Profile[City]"
+                   id="City<?=@$profile['id']?>"
+                   value="<?=@TextHelper::escape($profile['city'])?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+
+            >
+        </div>
+    </div>
+
+    <div class="form-row">
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("Address")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Address")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="Address<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <input type="text"
+                   class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                   name="Profile[Address]"
+                   id="Address<?=@$profile['id']?>"
+                   value="<?=@TextHelper::escape($profile['address'])?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+
+            >
+        </div>
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("PostalCode")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PostalCode")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="PostalCode<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <input type="text"
+                   class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                   name="Profile[PostalCode]"
+                   id="PostalCode<?=@$profile['id']?>"
+                   value="<?= (!empty($profile['postalcode']) && ($profile['postalcode'] != '000000')) ? $profile['postalcode'] : ''?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+            >
+        </div>
+    </div>
+
+    <div class="form-row">
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("Region")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Region")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="Region<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <input type="text"
+                   class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                   name="Profile[Region]"
+                   id="Region<?=@$profile['id']?>"
+                   value="<?=@TextHelper::escape($profile['region'])?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+
+            >
+        </div>
+        <? $state = InstanceProvider::getObject()->GetProfileFieldState("Phone")?>
+        <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("Phone")?>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+        <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+            <label for="Phone<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+            <input type="text"
+                   class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                   name="Profile[Phone]"
+                   id="Phone<?=@$profile['id']?>"
+                   data-type="integer"
+                   value="<?=@TextHelper::escape($profile['Phone'])?>"
+                   <?=$state === "EnabledAndRequired" ? "required" : ''?>
+
+            >
+        </div>
+    </div>
+
+    <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+        <div class="form-row">
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("PassportNumber")?>
+            <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PassportNumber")?>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+            <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                <label for="PassportNumber<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+                <input type="text"
+                       class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                       name="Profile[PassportNumber]"
+                       id="PassportNumber<?=@$profile['id']?>"
+                       value="<?=@TextHelper::escape($profile['passportnumber'])?>"
+                        <?=$state === "EnabledAndRequired" ? "required" : ''?>
+
+                >
+            </div>
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("RegistrationAddress")?>
+            <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("RegistrationAddress")?>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+            <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                <label for="RegistrationAddress<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+                <input type="text"
+                       class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                       name="Profile[RegistrationAddress]"
+                       id="RegistrationAddress<?=@$profile['id']?>"
+                       value="<?=@TextHelper::escape($profile['registrationaddress'])?>"
+                        <?=$state === "EnabledAndRequired" ? "required" : ''?>
+
+                >
+            </div>
+            <? $state = InstanceProvider::getObject()->GetProfileFieldState("PassportIssueDate")?>
+            <? $displayName = InstanceProvider::getObject()->GetProfileFieldDisplayName("PassportIssueDate")?>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group
+            <?=$state === "Disabled" ? "hidden" : ''?> <?=$state === "EnabledAndRequired" ? "required" : ''?>">
+                <label for="PassportIssueDate<?=@$profile['id']?>" class="control-label"><?=$displayName?></label>
+                <input type="text"
+                       class="form-control <?=$state === "EnabledAndRequired" ? "required" : ''?>"
+                       name="Profile[PassportIssueDate]"
+                       id="PassportIssueDate<?=@$profile['id']?>"
+                       value="<?= (!empty($profile['PassportIssueDate'])) ? $profile['PassportIssueDate'] : ''?>"
+                    <?=$state === "EnabledAndRequired" ? "required" : ''?>
+                >
+            </div>
+        </div>
+    <? } ?>
+
+    <div class="form-row" style="margin:15px; font-size: 16px">
+        <span class="red"><b><i><?=Lang::get('stars_inputs')?></i></b></span>
+    </div>
+
+    <div class="deleteAccount">
+        <label></label>
+        <div class="submit_button">
+            <input type="submit"
+                   name="save"
+                   value="<?=Lang::get('save')?>"
+                   class="btn btn-primary save-delivery-profile"
+            >
+
+            <? if (isset($newOrder) && $newOrder) { ?>
+                <input type="submit"
+                       name="cancel"
+                       value="<?=Lang::get('cancel')?>"
+                       class="btn btn-danger cancel_new_profile"
+                >
+            <? } else { ?>
+                <input type="submit"
+                       name="delete-delivery-profile"
+                       data-profile-id="<?=$profile['id']?>"
+                       value="<?=Lang::get('delete')?>"
+                       class="btn btn-danger delete-delivery-profile"
+                >
+            <? } ?>
+        </div>
+    </div>
+</form>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function() {
+        var validateDelivery = function(){
+            var requiredFields = $('.userform .profile-data:not(.hidden) form .form-group .required');
+            var validateSuccess = true;
+            requiredFields.each(function(){
+                if ($(this).val().trim() == '') {
+                    validateSuccess = false;
+                    $(this).addClass('required-field');
+                } else {
+                    $(this).removeClass('required-field');
+                }
+            });
+
+            if (validateSuccess == true) {
+                $('.save-delivery-profile').removeAttr('disabled');
+                $('.save-delivery-profile').removeClass('btn-secondary');
+            } else {
+                $('.save-delivery-profile').attr('disabled', 'disabled');
+                $('.save-delivery-profile').addClass('btn-secondary');
+            }
+        };
+
+        setInterval(validateDelivery, 1000);
+
+        $('.delete-delivery-profile').click(function(e) {
+            e.preventDefault();
+            var profile_id = $(this).attr('data-profile-id');
+
+            modalDialog(trans.get('confirm_needed'), trans.get('profile_will_be_removed'),
+                function () {
+                    $.ajax({
+                        url: "//"+window.location.hostname,
+                        data: {p: 'delete_delivery_profile', id: profile_id}
+                    })
+                        .success(function(data){
+                            data = JSON.parse(data);
+                            if(data.success) {
+                                window.location.href = '/?p=profile&mode=delivery';
+                            } else {
+                                showError(data.message);
+                            }
+                        })
+                        .error(function(jqXHR, textStatus, errorThrown){
+                            showError(textStatus + ' ' + errorThrown);
+                        });
+                }
+            );
+        });
+
+        $('.cancel_new_profile').click(function (e) {
+            e.preventDefault();
+            location.href = '/?p=profile&mode=delivery';
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <header>
+        <column>№ позиции в заказе</column>
+        <column>ФИО получателя</column>
+        <column>Адрес получателя</column>
+        <column>Номер заказа</column>
+        <column>Товар (ссылка)</column>
+        <column>Цвет</column>
+        <column>Размер</column>
+        <column>颜色分类 </column>
+        <column>尺码 </column>		
+        <column>Фото товара</column>
+        <column>Количество</column>
+        <column>Цена (оригинальная цена в юанях)</column>
+        <column>Цена (со скидкой в валюте сайта)</column>
+        <column>Доставка по Китаю (оригинальная цена в юанях за 1 шт. товара)</column>
+        <column>Общая стоимость доставки по Китаю для всех товаров</column>
+        <column>Общая цена товара со скидкой и доставкой (оригинальная в юанях)</column>
+        <column>Общая цена товара с доставкой (оригинальная в юанях)</column>
+    </header>
+    <other>
+        <column>№</column>
+        <column>Ссылка</column>
+        <column>Изображение</column>
+        <column>Артикул</column>
+        <column>描述</column>     <!--Конфигурация-->
+        <column>數</column>       <!--Количество-->
+        <column>價格, ¥</column>  <!--Цена-->
+        <column>交貨, ¥</column>  <!--Доставка-->
+        <column>量, ¥</column>    <!--Сумма-->
+        <column>Закуп р.</column>
+        <column>Оплачено р.</column>
+        <column>Разница</column>
+    </other>
+</config>

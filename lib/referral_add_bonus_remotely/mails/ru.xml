@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<translations>
+    <key name='subject_add_bonus'>Тема письма рефералу о получении реферальных бонусов</key>
+    <key name='subject_change_category'>Тема письма пользователю о смене реферальной категории</key>
+</translations>

@@ -1,0 +1,85 @@
+<? if (!isset($menu_ajax)) { ?>
+<div id="menu-short-complete<?=$menu_type?>" class="menu-dropdown-<?=$menu_type?>">
+<?
+$countRoot = 0;
+if($treeCats)
+foreach($treeCats as $rootCat){
+    if(!$rootCat['name']) continue;
+       if ($count_lvl1<>0) {
+       		if ($countRoot++ >= $count_lvl1) break;
+       }
+    ?>
+    <div class="bitem clrfix">
+        <h3><a
+            href="<?=General::generateUrl('subcategory', array_merge($rootCat))?>"><?= $this->escape($rootCat['name']) ?></a>
+        </h3>
+        <? if (count($rootCat['children']) > 0) {?>
+        <ul class="b-list b-list__category">
+            <?
+            $countSecond = 0;
+            foreach($rootCat['children'] as $secondCat){
+                if(!$secondCat['name']) continue;
+                 if  ($count_lvl2<>0) {
+                   if ($countSecond++ >= $count_lvl2) break;
+                 }
+                ?>
+                <li class="b-item b-item-inner">
+                    <a class="b-link" cid="<?= $secondCat['id'] ?>"
+                        href="<?=General::generateUrl('subcategory', array_merge($secondCat))?>">
+                        <?= $this->escape($secondCat['name']) ?>
+                    </a>
+					<? if (count($secondCat['children'])) { ?>
+                    <ul class="b-list__category">
+                        <?
+                        $countThird = 0;
+                        foreach($secondCat['children'] as $thirdCat){
+                            if(!$thirdCat['name']) continue;
+                            if  ($count_lvl2<>0) {
+                              if ($countThird++ >= $count_lvl2) break;
+                            }
+                            ?>
+                            <li class="b-item">
+                                <a class="b-link" cid="<?= $thirdCat['id'] ?>"
+                                   href="<?=General::generateUrl('subcategory', array_merge($thirdCat))?>">
+                                    <?= $this->escape($thirdCat['name']) ?>
+                                </a>
+                            </li>
+                            <?
+                        }
+                        ?>
+                    </ul>
+                    <? } ?>
+
+                </li>
+                <?
+            }
+            ?>
+        </ul>
+        <? } ?>
+    </div>
+    <?
+}
+?>
+</div>
+<? } else { ?>
+<!-- Нету кэша --->
+<!--noindex-->
+<script type="text/javascript">
+$(function(){
+    $("#menushortajax").html('<div align="center" style="margin-top:10px;"><img src="/css/i/ajax-loader.gif" width="32" height="32"/></div>');
+	$.ajax({
+  		url: "/?p=menushortajax&menu_ajax=1",
+  		cache: false,
+  		success: function(html){
+    		  $("#menushortajax").html(html);
+  		}
+	});
+});
+
+</script>
+<!--/noindex-->
+<div id="menushortajax">
+
+</div>
+
+<? } ?>

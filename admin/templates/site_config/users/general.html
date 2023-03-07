@@ -1,0 +1,57 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('config')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('users', $PageUrl); ?>
+
+<div class="users-form-wrapper">
+
+<h1><?=LangAdmin::get('config')?></h1>
+
+<div class="well">
+    <form class="form-horizontal inline_editable_form ot_form user-settings-form">
+
+        <fieldset>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div data-field="auth_to_private_office"></div>
+                    <? XEditableFields::Register('auth_to_private_office', General::getConfigValue('auth_to_private_office')); ?>
+
+                    <div data-field="IsEmailConfirmationUsed"></div>
+                    <? XEditableFields::Register('IsEmailConfirmationUsed', $IsEmailConfirmationUsed); ?>
+                    
+                    <? if (General::getConfigValue('simplified_registration') && $IsEmailConfirmationUsed == 'true') { ?>
+                        <div class="alert alert-error">
+                            <?=LangAdmin::get('simplified_registration_notice_help')?>
+                        </div>
+                    <? } ?>
+
+                    <? if (! General::onNewPlatformScript('userorder')) { ?>
+                        <div data-field="simplified_registration"></div>
+                        <? XEditableFields::Register('simplified_registration', General::getConfigValue('simplified_registration')) ?>
+                    <? } ?>
+
+                    <?= MetaUI::render($smsConfirmation, $smsConfirmationUrl) ?>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

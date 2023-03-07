@@ -1,0 +1,17 @@
+<? foreach ($listCategories as $item) { ?>
+    <li id="<?= $item->getId() ?>" type="Best">
+        <div class="thumbnail">
+            <header>
+                <span class="sortable_handler" title="<?= LangAdmin::get('Change_order') ?>"><i class="icon-move"></i></span>
+                <span class="pull-right">
+                    <button class="btn btn-mini ot_show_edit_category" title="<?= LangAdmin::get('Edit') ?>"><i class="icon-pencil"></i></button>
+                    <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?= LangAdmin::get('Delete') ?>"><i class="icon-remove"></i></button>
+                </span>
+            </header>
+            <a href="<?= UrlGenerator::generateSearchUrlByParams(array('cid' => $item->GetId())) ?>" target="_blank" title="<?= LangAdmin::get('Category_on_site') ?>" class="img_preview">
+                <img src="<?= $item->getIconImageUrl() ? $item->getIconImageUrl() : '/i/noimg.png' ?>" alt="<?= LangAdmin::get('Image') ?>">
+            </a>
+            <h3><?= $item->getName() ?></h3>
+        </div>
+    </li>
+<? } ?>

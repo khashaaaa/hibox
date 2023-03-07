@@ -1,0 +1,523 @@
+<div class="main">
+    <? if($accountinfo && ( !defined('CFG_HIDE_DEPOSIT_STATUS') || @!CFG_HIDE_DEPOSIT_STATUS )) {?>
+        <? $cur = $accountinfo['currencysign']; ?>
+    <? } ?>
+
+    <? if(!isset($_GET['orderstate'])) {?>
+        <h1><?=Lang::get('general_information')?></h1>
+    <? } else { ?>
+        <h1><?=Lang::get('orders')?></h1>
+    <? } ?>
+
+    <div class="general-information">
+        <? if(isset($_GET['orderstate'])) {?>
+            <?=General::viewFetch('../templatescustom/privateoffice/useraccount', array('vars' => [
+                'userinfo' => $userinfo,
+                'accountinfo' => $accountinfo,
+                'cur' => $cur
+            ]))?>
+        <? } else { ?>
+            <div class="general-information-private-office-wrapper">
+                <div class="general-information__col">
+                    <div class="general-information__col-header">
+                        <div class="general-information__col-img general-information__col-img1"></div>
+                        <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+                            <? $userName = $this->escape((string)$userinfo['lastname'] . ' ' . (string)$userinfo['firstname'] . ' '
+                            . (string)$userinfo['middlename']);?>
+                        <? } else { ?>
+                            <? $userName = $this->escape((string)$userinfo['lastname']) . ' ' . (string)$userinfo['firstname']?>
+                        <? } ?>
+                        <div class="general-information__col-name" title="<?= $userName ?>">
+                            <?= $userName ?>
+                        </div>
+                    </div>
+                    <div class="general-information__col-content">
+                        <div class="list-user-info orange-list">
+                            <div class="list-user-info__header">
+                                <div class="list-user-info__label"><?=Lang::get('account_number')?>:</div>
+                                <div class="list-user-info__text"><?=(string)$accountinfo['num']?></div>
+                            </div>
+                            <div class="list-user-info__body">
+                                <div class="list-user-info__row">
+                                    <div class="list-user-info__label"><?=Lang::get('on_account')?>:</div>
+                                    <div class="list-user-info__text">
+                                        <b><?=TextHelper::formatPrice((float)$accountinfo['availableamount'], $cur)?></b>
+                                    </div>
+                                </div>
+                                <div class="list-user-info__row">
+                                    <div class="list-user-info__label"><?=Lang::get('awaiting_payment')?>:</div>
+                                    <div class="list-user-info__text <?=((float)$accountinfo['paymwaitamount'] > 0) ? 'moneyplus' : 'money';?>">
+                                        <b><?=TextHelper::formatPrice((float)$accountinfo['paymwaitamount'], $cur)?></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-user-info__footer">
+                                <?= General::viewFetch('../templatescustom/privateoffice/payformbutton') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="general-information__col">
+                    <div class="general-information__col-header">
+                        <div class="general-information__col-img general-information__col-img3"></div>
+                        <div class="general-information__col-name"><?=Lang::get('name_address')?></div>
+                    </div>
+                    <div class="general-information__col-content">
+                        <div class="list-user-info grey-list">
+                            <div class="list-user-info__body">
+                                <div class="list-user-info__row">
+                                    <div class="list-user-info__label"><?=Lang::get('delivery_address')?>:</div>
+                                    <div class="list-user-info__text">
+                                        <?= (!empty($userinfo['postalcode']) && ($userinfo['postalcode'] != '000000')) ? $this->escape($userinfo['postalcode']) . ', ' : ''?>
+                                        <?=$userinfo['country']?$this->escape($userinfo['country']) . ', ' : ''?>
+                                        <?=$userinfo['region']?$this->escape($userinfo['region']) . ', ' : ''?>
+                                        <?=$userinfo['city']?$this->escape($userinfo['city']) . ', ' : ''?>
+                                        <?=$this->escape($userinfo['address'])?>
+                                    </div>
+                                </div>
+                                <div class="list-user-info__row">
+                                    <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+                                        <div class="list-user-info__label"><?=Lang::get('recipient')?>:</div>
+                                        <div class="list-user-info__text">
+                                            <b>
+                                                <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+                                                    <?=$this->escape($userinfo['recipientlastname'] . ' ' . $userinfo['recipientfirstname'] . ' ' . $userinfo['recipientmiddlename'])?>
+                                                <? } else { ?>
+                                                    <?=$this->escape($userinfo['recipientfirstname'] . ' ' . $userinfo['recipientlastname'])?>
+                                                <? } ?>
+                                            </b>
+                                        </div>
+                                    <? } ?>
+                                </div>
+                                <div class="list-user-info__row">
+                                    <div class="list-user-info__label"><?=Lang::get('contact_information')?>:</div>
+                                    <div class="list-user-info__text">
+                                        <b><?=$userinfo['phone']?$this->escape($userinfo['phone']).', ' : ''?><?=$this->escape($userinfo['email'])?></b>
+                                    </div>
+                                </div>
+                                <div class="list-user-info__row">
+                                    <div class="list-user-info__label"><?=Lang::get('member_since')?>:</div>
+                                    <div class="list-user-info__text">
+                                        <b><?=TextHelper::date($userinfo['registrationdate'])?></b>
+                                    </div>
+                                </div>
+                                <div class="list-user-info__row">
+                                    <div class="list-user-info__label">
+                                        <a href="/?p=profile" class="link"><?=Lang::get('change_data_recipient')?></a>
+                                    </div>
+                                    <div class="list-user-info__text"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <? if ($userDiscounts) {  ?>
+                    <div class="table-responsive general-information__col general-information__col-discounts">
+                        <div class="general-information__col-header">
+                            <div class="general-information__col-img general-information__col-img2"></div>
+                            <div class="general-information__col-name"><?=Lang::get('avlbl_discount')?></div>
+                        </div>
+
+                        <div class="general-information__col-content">
+                            <div class="list-user-info grey-list">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td><?=Lang::get('name_discount')?></td>
+                                            <td><?=Lang::get('desc_discount')?></td>
+                                            <td><?=Lang::get('discount')?></td>
+                                            <td><?=Lang::get('sum_for_discount')?></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <? foreach ($userDiscounts->GetItem() as $discount) { ?>
+                                            <tr>
+                                                <td><?=$discount->GetName()?></td>
+                                                <td><?=$discount->GetDescription()?></td>
+                                                <td><?=$discount->GetDiscount()->GetPercent()?>%</td>
+                                                <td><?=$discount->GetDiscountIdentificationParametr()->GetPurchaseVolume()?></td>
+                                            </tr>
+                                        <? } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <? } ?>
+            </div>
+
+            <div class="general-information__col">
+                <div class="general-information-cart">
+                    <div class="general-information-cart__title"><?=Lang::get('cart')?></div>
+                    <div class="general-information-cart__text"><?=Lang::get('Goods_in_cart')?>:</div>
+                    <div class="general-information-cart__amount"><?=User::getObject()->getCountInBasket()?></div>
+                    <div class="general-information-cart__button">
+                        <a href="/basket" class="button-white"><?=Lang::get('See_item')?></a>
+                    </div>
+                </div>
+
+                <div class="general-information-cart general-information-cart-red">
+                    <div class="general-information-cart__title"><?=Lang::get('favourites')?>:</div>
+                    <div class="general-information-cart__text"><?=Lang::get('favourites_goods')?>:</div>
+                    <div class="general-information-cart__amount"><?=User::getObject()->getCountInNote()?></div>
+                    <div class="general-information-cart__button">
+                        <a href="/supportlist" class="button-white"><?=Lang::get('See_item')?></a>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+    </div>
+
+    <? if(!isset($_GET['orderstate'])) {?>
+        <div class="subscribe_block_mobile">
+            <? if (!isset($_GET['orderstate'])) { ?>
+                <?=General::runBlock('Subscribe')?>
+            <? } ?>
+        </div>
+    <? } ?>
+
+    <? if(isset($_GET['orderstate'])) {?>
+        <nav class="navbar" style="display:contents !important;">
+            <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="true"><?=Lang::get('orders')?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="canceled_orders-tab" data-toggle="tab" href="#canceled_orders" role="tab" aria-controls="canceled_orders" aria-selected="false"><?=Lang::get('cancelled_goods')?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closed_orders" role="tab" aria-controls="closed_orders" aria-selected="false"><?=Lang::get('closed_orders')?></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="item_for_sell-tab" data-toggle="tab" href="#item_for_sell" role="tab" aria-controls="item_for_sell" aria-selected="false"><?=Lang::get('items_for_sale')?></a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                    <form method="post" action="/?p=userorder&step2">
+                        <? if(count($orders)){?>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th><?=Lang::get('number')?>/<?=Lang::get('date')?></th>
+                                            <th><?=Lang::get('status')?></th>
+                                            <th><?=Lang::get('sum')?></th>
+                                            <th><?=Lang::get('comment')?></th>
+                                            <th><?=Lang::get('Action')?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <? foreach($orders as $order){ ?>
+                                            <tr id="order<?=$order['id']?>">
+                                                <td>
+                                                    <a class="orderNumder" href="/?p=orderdetails&orderid=<?=$order['id']?>" title="<?=Lang::get('see_product_info')?>">
+                                                        <?=OrdersProxy::normalizeOrderId($order['id'])?>
+                                                    </a>
+                                                    <br>
+                                                    <?
+                                                    $order['createddatetime'] = strtotime($order['createddatetime']);
+                                                    $order['createddatetime'] = date('Y-m-d H:i:s', $order['createddatetime']);
+                                                    ?>
+                                                    <nobr class="orderDate"><?=$order['createddatetime']?></nobr>
+                                                    <br>
+                                                    <a class="goodsStatus" href="/?p=orderdetails&orderid=<?=$order['id']?>&tab=2">
+                                                        <?=Lang::get('statuses_product')?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <?=$order['statusname']?>
+                                                </td>
+                                                <td>
+                                                    <span class="pr">
+                                                        <?=TextHelper::formatPrice($order['totalamount']).' '.$order['currencysign'];?>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <?=$this->escape($order['comment'])?>
+                                                </td>
+                                                <td align="center"> <!--
+                                                                <? if((int)$order['cancancel']) {?>
+                                                                    <?=OrdersProxy::normalizeOrderId($order['id'])?>", "<?=$order['id']?>")'><span style="cursor:pointer"><img src="i/del.png" width="12" height="12" align="middle"/> &nbsp; <?=Lang::get('cancel_order')?></span></a>
+                                                                <? } ?> -->
+                                                    <? if(@(int)$order['canclose']) {?>
+                                                        <a class="btn-small fll" onclick='confirm_close("<?=OrdersProxy::normalizeOrderId($order[' id'])?>", "<?=$order['id']?>")'>
+                                                            <span style="cursor:pointer"><?=Lang::get('close_order')?></span>
+                                                        </a>
+                                                    <? } ?>
+                                                    <? if(@(int)$order['CanConfirmShipment']) {?>
+                                                        <a class="btn-small fll" onclick='confirm_shipping("<?=OrdersProxy::normalizeOrderId($order[' id'])?>", "<?=$order['id']?>")' title="<?=Lang::get('confirm_shipping_title')?>">
+                                                            <span style="cursor:pointer"><?=Lang::get('confirm_shipping')?></span>
+                                                        </a>
+                                                    <? } ?>
+                                                    <? if ($order['StatusCode']==10 || $order['StatusCode']==11) { // wait additional pay || wait pay?>
+                                                        <a class="btn-small fll" href="/?p=orderdetails&tab=3&orderid=<?=$order['id']?>">
+                                                            <span style="cursor:pointer"><?=Lang::get('pay_order')?></span>
+                                                        </a>
+                                                    <? } ?>
+                                                </td>
+                                            </tr>
+                                        <?  }  ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br/><br/>
+                        <? }  else {?>
+                            <h3 class="text-center">
+                                <div class="alert alert-empty-basket alert-empty-basket__md">
+                                    <?=Lang::get('Orders_not_found')?>
+                                </div>
+                            </h3>
+                        <? } ?>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade show" id="canceled_orders" role="tabpanel" aria-labelledby="canceled_orders-tab">
+                    <div id="cancel_orders" class="tab">
+                        <? $current_date = date(''); ?>
+                        <? if(count($orders_canceled)) { ?>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><?=Lang::get('number')?>/<?=Lang::get('date')?></th>
+                                        <th><?=Lang::get('quantity')?></th>
+                                        <th><?=Lang::get('price_simple')?></th>
+                                        <th><?=Lang::get('total_amount')?></th>
+                                        <th><?=Lang::get('paid')?></th>
+                                        <th><?=Lang::get('balance')?></th>
+                                        <th><?=Lang::get('status')?></th>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="bold">
+                                    <? if(is_array($orders_canceled)) foreach($orders_canceled as $order){ ?>
+                                        <? $cur = $order['currencysign']; ?>
+                                        <? $pay = round((float)$order['totalamount'] - (float)$order['remainamount'],2); ?>
+                                        <? $date_array = explode(' ', $order['createddatetime']); ?>
+                                        <? list($month, $day, $year) = explode('/', $date_array[0]); ?>
+                                        <? list($h, $m, $s) = explode(':', $date_array[1]); ?>
+                                        <? if ((time() - mktime($h, $m, $s, $month, $day, $year)) > 60*24*3600) { continue; }?>
+                                        <tr>
+                                            <td width="135px">
+                                                <a class="orderNumder" href="/?p=orderdetails&orderid=<?=$order['id']?>" title="<?=Lang::get('see_product_info')?>">
+                                                    <?=OrdersProxy::normalizeOrderId($order['id'])?>
+                                                </a>
+                                                <?
+                                                $order['createddatetime'] = strtotime($order['createddatetime']);
+                                                $order['createddatetime'] = date('Y-m-d H:i:s', $order['createddatetime']);
+                                                ?>
+                                                <nobr class="orderDate"><?=$order['createddatetime']?></nobr>
+                                                <a class="goodsStatus" href="/?p=orderdetails&orderid=<?=$order['id']?>&tab=2">
+                                                    <?=Lang::get('statuses_product')?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <?=(string)$order['itemscount']?>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice((float)$order['goodsamount'], $cur)?>
+                                                    / <?=TextHelper::formatPrice((float)$order['deliveryamount'], $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice((float)$order['totalamount'], $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice((float)$pay, $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice((float)$order['remainamount'], $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <?=$order['StatusName']?>
+                                            </td>
+                                            <td align="center"></td>
+                                        </tr>
+                                    <?  }  ?>
+                                </tbody>
+                            </table>
+                        <? } ?>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade show" id="closed_orders" role="tabpanel" aria-labelledby="closed_orders-tab">
+                    <div id="closed_orders" class="tab">
+                        <? if(count($orders_complited)) { ?>
+                            <table class="table" width="70%">
+                                <thead>
+                                    <tr>
+                                        <th><?=Lang::get('number')?>/<?=Lang::get('date')?></th>
+                                        <th><?=Lang::get('quantity')?></th>
+                                        <th><?=Lang::get('price_simple')?></th>
+                                        <th><?=Lang::get('total_amount')?></th>
+                                        <th><?=Lang::get('paid')?></th>
+                                        <th><?=Lang::get('balance')?></th>
+                                        <th><?=Lang::get('status')?></th>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="bold">
+                                    <? if(is_array($orders_complited)) foreach($orders_complited as $order){ ?>
+                                        <? $cur = $order['currencysign']; ?>
+                                        <? $pay = round((float)$order['totalamount'] - (float)$order['remainamount'],2); ?>
+                                        <tr class="<?=$order_type?>">
+                                            <td width="135px">
+                                                <a class="orderNumder" href="/?p=orderdetails&orderid=<?=$order['id']?>" title="<?=Lang::get('see_product_info')?>">
+                                                    <?=OrdersProxy::normalizeOrderId($order['id'])?>
+                                                </a>
+                                                <?
+                                                $order['createddatetime'] = strtotime($order['createddatetime']);
+                                                $order['createddatetime'] = date('Y-m-d H:i:s', $order['createddatetime']);
+                                                ?>
+                                                <nobr class="orderDate"><?=$order['createddatetime']?></nobr>
+                                                <a class="goodsStatus" href="/?p=orderdetails&orderid=<?=$order['id']?>&tab=2">
+                                                    <?=Lang::get('statuses_product')?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <?=(string)$order['itemscount']?>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice((float)$order['goodsamount'], $cur)?>
+                                                    / <?=TextHelper::formatPrice((float)$order['deliveryamount'], $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice((float)$order['totalamount'], $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice($pay, $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="pr">
+                                                    <?=TextHelper::formatPrice((float)$order['remainamount'], $cur)?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <?=$order['StatusName']?>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    <?  }  ?>
+                                </tbody>
+                            </table>
+                        <? } ?>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade show" id="item_for_sell" role="tabpanel" aria-labelledby="item_for_sell-tab">
+                    <? if (CMS::IsFeatureEnabled('FleaMarket')) { ?>
+                        <div id="item_to_sell" class="tab">
+                            <? if (! empty($SellingItems)) { ?>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td><?=Lang::get('Title')?>/<?=Lang::get('date')?></td>
+                                            <td><?=Lang::get('quantity')?></td>
+                                            <td><?=Lang::get('configuration')?></td>
+                                            <td><?=Lang::get('price_simple')?></td>
+                                            <td><?=Lang::get('Actions')?></td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="bold">
+                                        <? if(is_array($SellingItems)) foreach($SellingItems as $item){ ?>
+                                            <tr class="" id="item<?=$item['pristroy']['item_id']?>">
+                                                <td width="135px">
+                                                    <a class="orderNumder" href="<?=UrlGenerator::generatePristroyItemUrl($item['pristroy']['id'])?>">
+                                                        <?=TextHelper::truncate($item['pristroy']['title'])?>
+                                                    </a>
+                                                    <nobr class="orderDate"><?=$item['pristroy']['created_at']?></nobr>
+                                                </td>
+                                                <td><?=(string)$item['pristroy']['quantity']?></td>
+                                                <td class="goodConfig">
+                                                    <table class="info infoitem">
+                                                        <? if (isset($item['pristroy']['config_text'])) { ?>
+                                                            <? foreach(explode(';', $item['pristroy']['config_text']) as $cfg){ ?>
+                                                                <? if($cfg) {?>
+                                                                    <tr>
+                                                                        <? $cfg_array = explode(':',$cfg);?>
+                                                                        <td class="lgray"><?= current($cfg_array); ?>:</td>
+                                                                        <td><b><?=end($cfg_array);?></b></td>
+                                                                    </tr>
+                                                                <? } ?>
+                                                            <? } ?>
+                                                        <? } ?>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <span class="pr"><?=TextHelper::formatPrice((float)$item['pristroy']['price'], $cur)?></span>
+                                                </td>
+                                                <td class="pristroy_info">
+                                                    <? $pristroy_status = -1; ?>
+                                                    <? $pristroy_status = $item['pristroy']['status']; ?>
+
+                                                    <div <?=($pristroy_status == PristroyRepository::STATUS_ON_MODERATION ? 'style="display:block"' : '')?> class="pristroy_status on_moderation">
+                                                        <?=Lang::get('Pristroy_status_on_moderation')?>
+                                                    </div>
+
+                                                    <div <?=($pristroy_status == PristroyRepository::STATUS_REMOVED ? 'style="display:block"' : '')?> class="pristroy_status rejected">
+                                                        <?=Lang::get('Pristroy_status_removed')?>
+                                                    </div>
+
+                                                    <div <?=($pristroy_status == PristroyRepository::STATUS_APPROVED ? 'style="display:block"' : '')?> class="pristroy_status approved">
+                                                        <?=Lang::get('Pristroy_status_approved')?>
+                                                    </div>
+
+                                                    <div <?=($pristroy_status == PristroyRepository::STATUS_REJECTED ? 'style="display:block"' : '')?> class="pristroy_status rejected">
+                                                        <a title="<?=Lang::get('Show_reject_reason')?>" href="javascript:void(0)" class="show_reject_reason" data-id="<?=$item['id']?>">
+                                                            <?=Lang::get('Pristroy_status_rejected')?>
+                                                        </a>
+                                                    </div>
+
+                                                    <div <?=($pristroy_status == PristroyRepository::STATUS_SOLD ? 'style="display:block"' : '')?> class="pristroy_status sold">
+                                                        <?=Lang::get('Pristroy_status_sold')?>
+                                                    </div>
+
+                                                    <? if (! in_array($pristroy_status, array(PristroyRepository::STATUS_SOLD, PristroyRepository::STATUS_REMOVED))) { ?>
+                                                        <a href="javascript:void(0)"
+                                                           class="pristroy_btn btn-small edit_pristroy_item"
+                                                           data-id="<?=$item['id']?>"
+                                                        >
+                                                            <span><?=Lang::get('Edit')?></span>
+                                                        </a>
+                                                        <? if ($pristroy_status == PristroyRepository::STATUS_APPROVED) { ?>
+                                                            <a href="javascript:void(0)"
+                                                               class="pristroy_btn btn-small pristroy_item_is_sold"
+                                                               data-id="<?=$item['id']?>"
+                                                            >
+                                                                <span><?=Lang::get('Product_is_sold')?></span>
+                                                            </a>
+                                                        <? } ?>
+                                                    <? } ?>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        <? } ?>
+                                    </tbody>
+                                </table>
+                            <? } ?>
+                        </div>
+                    <? } ?>
+                </div>
+            </nav>
+        </div>
+    <? } ?>
+</div>

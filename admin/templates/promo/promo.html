@@ -1,0 +1,176 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('search_optimization')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+<? XEditableFields::Init('promo', $PageUrl); ?>
+ 
+<div class="row-fluid">
+    <div class="span10">
+        <h1><?=LangAdmin::get('search_optimization')?></h1>
+    </div>
+    <div class="span2 offset-top1">
+        <? if (! General::isSellFree(Session::getActiveAdminLang()) || OTBase::isTest()) { ?>
+            <div id="activeLanguagesContainer"></div>
+        <? } ?>
+    </div>
+</div>
+
+<div class="well">
+    <form class="form-horizontal inline_editable_form ot_form">
+
+        <div class="row-fluid">
+            <div class="span6">
+
+                <fieldset class="clearfix">
+
+                    <legend class="legend-small"><?=LangAdmin::get('general')?></legend>
+
+                    <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                        <div class="control-group">
+                            <div data-field="site_name"></div>
+                            <? XEditableFields::Register('site_name', $config->get('site_name'), array('useWrapper' => false)); ?>
+                        </div>
+                    <? } ?>
+
+                    <div class="control-group">
+                    	<div data-field="counter"></div>
+                        <? XEditableFields::Register('counter', $config->get('counter'), array('useWrapper' => false,'placeholder' => LangAdmin::get('Copy_code_to_field'), 'displayValue' => LangAdmin::get('Filled'))); ?>
+                    </div>
+
+                    <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                        <div class="control-group">
+                            <div data-field="category_prefix"></div>
+                            <? XEditableFields::Register('category_prefix', $config->get('category_prefix'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="category_suffix"></div>
+                            <? XEditableFields::Register('category_suffix', $config->get('category_suffix'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="brand_prefix"></div>
+                            <? XEditableFields::Register('brand_prefix', $config->get('brand_prefix'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="brand_suffix"></div>
+                            <? XEditableFields::Register('brand_suffix', $config->get('brand_suffix'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="seller_prefix"></div>
+                            <? XEditableFields::Register('seller_prefix', $config->get('seller_prefix'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="seller_suffix"></div>
+                            <? XEditableFields::Register('seller_suffix', $config->get('seller_suffix'), array('useWrapper' => false)); ?>
+                        </div>
+
+                    <? } ?>
+                </fieldset>
+            </div><!-- /.span6 -->
+
+            <div class="span6">
+                <fieldset class="clearfix">
+                    <legend class="legend-small"><?=LangAdmin::get('main_page')?></legend>
+                    
+                    <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                        <div class="control-group">
+                            <div data-field="title_for_home"></div>
+                            <? XEditableFields::Register('title_for_home', $config->get('title_for_home'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="description_for_home"></div>
+                            <? XEditableFields::Register('description_for_home', $config->get('description_for_home'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="keywords_for_home"></div>
+                            <? XEditableFields::Register('keywords_for_home', $config->get('keywords_for_home'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="footer_text_title"></div>
+                            <? XEditableFields::Register('footer_text_title', $config->get('footer_text_title'), array('useWrapper' => false)); ?>
+                        </div>
+                    <? } ?>
+
+                    <div class="control-group">
+                        <div data-field="footer_text"></div>
+                        <? XEditableFields::Register('footer_text', $config->get('footer_text'), array('useWrapper' => false, 'editable' => false)); ?>
+                    </div>
+
+                    <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('site_map_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('site_map_hint')?>"></i></label>
+                        <div class="controls inset-top04">
+                            <a target="blank" href="<?=UrlGenerator::generateContentUrl('sitemap')?>" title="<?=LangAdmin::get('site_map_html_hint')?>">html</a>,
+                            <a target="blank" href="/sitemap.xml"  title="<?=LangAdmin::get('site_map_html_hint')?>">xml</a>
+	                            <button action="<?=$PageUrl->AssignCmdAndDo('Promo', 'generateSiteMap')?>" id="updateSiteMap" class="btn btn-mini offset-left1" title="<?=LangAdmin::get('update_site_map')?>"><i class="icon-refresh"></i></button>
+	                            <button id="updatingSiteMap" style="display: none;" class="btn btn-mini disabled offset-left1" title="<?=LangAdmin::get('updating_site_map')?>">
+	                              <i class="icon-refresh icon-spin"></i>
+	                            </button>
+                        </div>
+                    </div>
+                    <? } ?>
+                </fieldset>
+            </div>
+        </div>
+        <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+            <div class="row-fluid">    
+                <div class="span6">
+                    <fieldset class="clearfix">
+                        <legend class="legend-small"><?=LangAdmin::get('Index_settings')?></legend>
+
+                        <div class="control-group">
+                            <div data-field="no_index_sets"></div>
+                            <? XEditableFields::Register('no_index_sets', $config->get('no_index_sets'), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="no_index_itemlists"></div>
+                            <? XEditableFields::Register('no_index_itemlists', $config->get('no_index_itemlists', 1), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="no_index_brand_itemlists"></div>
+                            <? XEditableFields::Register('no_index_brand_itemlists', $config->get('no_index_brand_itemlists', 1), array('useWrapper' => false)); ?>
+                        </div>
+
+                        <div class="control-group">
+                            <div data-field="no_index_iteminfo"></div>
+                            <? XEditableFields::Register('no_index_iteminfo', $config->get('no_index_iteminfo', 1), array('useWrapper' => false)); ?>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+        <? } ?>
+    </form>
+</div>
+
+<div class="footer-text-div" style="display: none;">
+    <textarea id="footer-text-tmp" class="editor"><?=$config->get('footer_text')?></textarea>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-promo.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+
+

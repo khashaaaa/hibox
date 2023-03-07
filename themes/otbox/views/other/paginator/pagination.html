@@ -1,0 +1,32 @@
+<? if ($paginator->pages() > 1) { ?>
+    <ul class="pagination">
+        <? if ($paginator->hasPrevious()) { ?>
+            <li class="pagination_prev"><a href="<?=$paginator->query(array('page' => $paginator->page()-1))?>">&laquo;</a></li>
+        <? } ?>
+
+        <? if ($paginator->page() > ($paginator->limit() + 1)) { ?>
+            <li><a href="<?=$paginator->query(array('page' => 1))?>">1</a></li>
+        <? } ?>
+        <? if ($paginator->page() > ($paginator->limit() + 2)) { ?>
+            <li class="pagination_skip disabled"><a href="javascript:void(0)"></a></li>
+        <? } ?>
+        <? for ($i = max(1, $paginator->page() - $paginator->limit()); $i <= min($paginator->pages(), $paginator->page() + $paginator->limit()); $i++) { ?>
+            <? if ($paginator->page() == $i) { ?>
+                <li class="active"><a href="<?=$paginator->query(array('page' => $i))?>"><?=$i?></a></li>
+            <? } else { ?>
+                <li><a href="<?=$paginator->query(array('page' => $i))?>"><?=$i?></a></li>
+            <? } ?>
+        <? } ?>
+
+        <? if ($paginator->page() < $paginator->pages() - ($paginator->limit() + 1)) { ?>
+            <li class="pagination_skip disabled"><a href="javascript:void(0)"></a></li>
+        <? } ?>
+        <? if ($paginator->page() < $paginator->pages() - $paginator->limit()) { ?>
+            <li><a href="<?=$paginator->query(array('page' => $paginator->pages()))?>"><?=$paginator->pages()?></a></li>
+        <? } ?>
+
+        <? if ($paginator->hasNext()) { ?>
+            <li class="pagination_next"><a href="<?=$paginator->query(array('page' => $paginator->page()+1))?>">&raquo;</a></li>
+        <? } ?>
+    </ul>
+<? } ?>

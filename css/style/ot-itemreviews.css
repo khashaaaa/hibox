@@ -1,0 +1,95 @@
+.paymshipReviews {
+    margin: 0;
+    padding: 15px 0;
+}
+.paymshipReviewsItem {
+    margin: 25px 0 0;
+    padding: 0;
+}
+.paymshipReviewsItem:first-child {
+    margin: 0;
+}
+
+/*======================== Action block ========================*/
+.item-review-block .reviewsAction div {
+    display: inline-block;
+}
+.item-review-block .reviewsAction div.right {
+    float: right;
+}
+
+/*======================== Text block ========================*/
+.item-review-block .paymshipReviewsPost {
+    line-height: 1.4em;
+    margin: 5px 0 0;
+}
+
+/*======================== Info block ========================*/
+
+.item-review-block .paymshipReviewsInformation .date {
+    color: #666;
+    font-size: 10px;
+}
+.item-review-block .paymshipReviewsInformation .author {
+    font-weight: bold;
+}
+.item-review-block .paymshipReviewsInformation .grade {
+    color: grey;
+    font-size: 14px;
+    cursor: default;
+    margin-left: 16px;
+}
+.item-review-block .paymshipReviewsInformation .grade > span {
+    margin-right: 5px;
+}
+.item-review-block .paymshipReviewsInformation .grade span.positive,
+.item-review-block .paymshipReviewsInformation .grade span.negative{
+    cursor: pointer;
+}
+.item-review-block .paymshipReviewsInformation .grade span.positive:hover,
+.item-review-block .paymshipReviewsInformation .grade span.positive.active{
+    color: #00e233;
+}
+.item-review-block .paymshipReviewsInformation .grade span.negative:hover,
+.item-review-block .paymshipReviewsInformation .grade span.negative.active{
+    color: red;
+}
+
+/* fix answer button (old template) */
+.ui-dialog .item-review-block .reviewsAction .collapseAnswer a {
+    color: #eaeaeb;
+}
+
+/*======================== Answer list (old template) ========================*/
+.item-review-block .reviewsAnswer {
+    background: #fff;
+    color: #454545;
+    border: 1px solid #ababab;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    margin-left: 8px;
+    margin-top: 15px;
+    padding: 7px 10px 10px;
+    position: relative;
+    zoom: 1;
+    width: 100%;
+}
+
+.item-review-block .reviewsAnswer .box-reviews_commentator {
+    font-weight: bold;
+}
+
+.item-review-block .reviewsAnswer:before {
+    background: url(../i/text_bubble_arrow_left.png) no-repeat;
+    bottom: 4px;
+    content: "";
+    left: -8px;
+    position: absolute;
+    height: 8px;
+    width: 9px
+}
+
+.box-reviews_text{
+    word-wrap: break-word;
+}

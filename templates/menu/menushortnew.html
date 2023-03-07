@@ -1,0 +1,103 @@
+<? if (!isset($menu_ajax)) { ?>
+<? if (defined('MY_GOODS_SYSTEM')) :
+
+
+    function htmlTreeMyCategory($categories, $parent_id=0, $level=0)
+    {
+        if (isset($categories[$parent_id])) {
+            echo '<ul>';
+            foreach ($categories[$parent_id] as $values) {
+            $url = General::generateUrl('mycategory', $values );
+            echo '<li><a mcid='
+                    , $values['id']
+                    , ' href="'
+                    , $url
+                    , '" style="margin-left:'
+                    , $level * 10
+                    , 'px">'
+                    , $values['name']
+                    , '</a></li>';
+                $level++;
+                htmlTreeMyCategory($categories, $values['id'], $level);
+                $level--;
+            }
+            echo '</ul>';
+        }
+    }
+
+?>
+
+     <?php if(@$my_cats[0]) foreach ($my_cats[0] as $item) : ?>
+     <div class="bitem">
+        <ul class="b-list b-list__category">
+            <h3><a href="<?=General::generateUrl('mycategory', $item )?>"><?= $this->escape($item['name']) ?></a></h3>
+            <?
+                htmlTreeMyCategory($my_cats, $item['id']);
+                echo '</ul></div>';
+                endforeach;
+            ?>
+
+
+    <? endif; ?>
+
+<div id="menu-short-complete<?=$menu_type?>" class="menu-dropdown-<?=$menu_type?>" data-info="side-menu-loaded">
+    <?
+    $countRoot = 0;
+    if($treeCats)
+        foreach($treeCats as $rootCat){
+            if(!$rootCat['name']) continue;
+            if ($count_lvl1 !== "") {
+                if ($countRoot++ >= $count_lvl1) break;
+            }
+            ?>
+            <div class="bitem clrfix">
+                <h3><a href="<?=General::generateUrl('subcategory', array_merge($rootCat))?>"><?= $this->escape($rootCat['name']) ?></a></h3>
+                <? if (count($rootCat['children']) > 0) { ?>
+                <ul class="b-list b-list__category">
+                    <?
+                    $countSecond = 0;
+                    foreach($rootCat['children'] as $secondCat){
+                        if(!$secondCat['name']) continue;
+                        if  ($count_lvl2 !== "") {
+                            if ($countSecond++ >= $count_lvl2) break;
+                        }
+                        ?>
+                        <li class="b-item">
+                            <a class="b-link" cid="<?= $secondCat['id'] ?>"
+                               href="<?=General::generateUrl('subcategory', array_merge($secondCat))?>">
+                                <?= $this->escape($secondCat['name']) ?>
+                            </a>
+                        </li>
+                    <?
+                    }
+                    ?>
+                </ul>
+                <? } ?>
+            </div>
+        <?
+        }
+    ?>
+</div>
+
+<? } else { ?>
+<!-- Нету кэша --->
+<!--noindex-->
+<script type="text/javascript">
+$(function(){
+    $("#menushortajax").html('<div align="center" style="margin-top:10px;"><img src="/css/i/ajax-loader.gif" width="32" height="32"/></div>');
+    $.ajax({
+        url: "/?p=menushortajax&menu_ajax=1",
+        cache: false,
+        success: function(html){
+              $("#menushortajax").html(html);
+        }
+    });
+});
+
+</script>
+<!--/noindex-->
+<div id="menushortajax">
+
+</div>
+
+<? } ?>

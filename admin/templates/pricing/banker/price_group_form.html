@@ -1,0 +1,279 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'banker')?>"><?=LangAdmin::get('Banker')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=$isNew ? LangAdmin::get('Adding_price_group') : LangAdmin::get('Editing_price_group')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=$isNew ? LangAdmin::get('Adding_price_group') : LangAdmin::get('Editing_price_group')?></h1>
+<div id="banker-wrapper">
+	<div class="well">
+	    <form id="priceGroupForm" method="post" action="<?=$PageUrl->AssignCmdAndDo('Pricing', 'savePriceGroup')?>" class="form-horizontal ot_form">
+            <div class="fieldset">
+
+                <input type="hidden" name="id" value="<?= $group['id'] && !$isNew ? $group['id'] : 0?>">
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('Price_group_name')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Price_group_name_hint')?>" title="" data-original-title=""></i></label>
+                    <div class="controls">
+                        <input id="name" name="name" data-check="Name" class="input-xlarge" type="text" required="required" value="<?=$this->escape($group['name'])?>" <?php //if(!$isNew) echo 'disabled="disabled"'?> >
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('Price_group_description')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Price_group_description_hint')?>" title="" data-original-title=""></i></label>
+                    <div class="controls">
+                        <input id="description" name="description" class="input-xlarge" type="text" value="<?=$this->escape($group['description'])?>">
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('Price_provider_type')?> </label>
+                    <div class="controls">
+                        <select class="input-xlarge" id="price-provider-type" name="priceProviderType" <?=(! $isNew) ? 'readonly' : ''?>>
+                        <? if (isset($providerInfoList)) foreach ($providerInfoList as $searchProvider) { ?>
+                        <? if ($searchProvider['IsEnabled'] == 'true') { ?>
+                        <option
+                                value="<?=$searchProvider['Type']?>"
+                        <?=((! $isNew) && ($searchProvider['Type'] == $group['ProviderType'])) ? 'selected="selected"' : ''?>
+                        <?=(($isNew) && ($searchProvider['Type'] == $currentInstanceSettings->GetDefaultItemProvider())) ? 'selected="selected"' : ''?>
+                        currency-code="<?=$searchProvider['CurrencyCode']?>"
+                        >
+                        <?=$searchProvider['DisplayName']?>
+                        </option>
+                        <? } ?>
+                        <? } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('Price_group_default')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Price_group_default_hint')?>" title="" data-original-title=""></i></label>
+                    <div class="controls">
+                        <input type="checkbox" id="default" name="default" <?php if ($group['isdefault'] == "true") echo 'checked="checked"'; ?> >
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <h3 style="float: left;"><?=LangAdmin::get('Price_intervals')?></h3>
+                    <div class="controls">
+                        <div class="input-append">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <fieldset>
+                    <table id="intervals" class="control-group">
+                        <tbody>
+                            <tr>
+                                <td><?=LangAdmin::get('Price_interval')?> <span class="provider-currency">Undefined</span>&nbsp;&nbsp;&nbsp;</td>
+                                <td width="50px"><?=LangAdmin::get('Percent_of_margin')?></td>
+                                <td width="50px"><?=LangAdmin::get('Size_of_margin')?> <span class="add-on provider-currency">Undefined</span></td>
+                                <td><?=LangAdmin::get('Group_delivery_value')?> <span class="provider-currency" style="margin-right: 20px;">Undefined</span></td>
+                                <td><?=LangAdmin::get('Fixed_margin_for_group')?> <span class="provider-currency" style="margin-right: 20px;">Undefined</span></td>
+                                <td></td>
+                            </tr>
+                            <tr style="border-top: 1px dotted #D3D3D3; height: 40px;" class="">
+                                <td colspan="3">
+                                    <?=LangAdmin::get('For_all_intervals')?>
+                                </td>
+                                <td>
+                                    <input id="delivery-all" name="delivery-all" class="input-small price" type="text" value="<?=$group['settings']['internaldeliveryprice']?>" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <input id="delivery-all-margin" name="delivery-all-margin" class="input-small price" type="text" value="<?=$group['settings']['totaldeliveryfixedprice']?>" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr style="border-top: 1px dotted #D3D3D3; height: 40px;" >
+                                <td colspan="6">
+                                    <a id="add-interval-btn" title="<?=LangAdmin::get('Add_price_interval')?>" > <?=LangAdmin::get('Add_price_interval')?> </a>
+                                </td>
+                            </tr>
+                            <?php
+                         if (!$isNew && array_key_exists('settings', $group) && array_key_exists('priceformationintervals', $group['settings'])) {
+                            foreach ($group['settings']['priceformationintervals'] as $interval) {  ?>
+                            <tr style="border-top: 1px dotted #D3D3D3; height: 40px;" class="price-group-interval">
+                                <td>
+                                    <input type="hidden" name="interval_id[]" value="<?=$interval['id']?>">
+                                    <div class="input-append">
+                                        <input type="text" name="limit[]" value="<?=$interval['minimumlimit']?>"  class="input-mini price interval-low-edge">
+                                        <span class="add-on">-</span>
+                                        <input type="text" class="input-mini price interval-high-edge" style="margin-right: 20px; border-radius: 0px;" readonly="readonly">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" name="margin[]" value="<?=((float)$interval['marginpercent'])>0 ?((float)$interval['marginpercent']-1)*100 : '0'?>" class="input-small price" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <input type="text" name="margin_fixed[]" value="<?=$interval['marginfixed']?>"  class="input-small price"  style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <input type="text" name="delivery[]" value="<?=$interval['internaldeliveryprice']?>" class="input-small price" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <input type="text" name="delivery_margin[]" value="<?=$interval['totaldeliveryfixedprice']?>" class="input-small price" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <div class="delete_interval" style="cursor: pointer;">
+                                        <i class="icon-remove remove-group" title="<?=LangAdmin::get('Delete')?>"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                        } else {
+                        ?>
+                            <tr class="price-group-interval">
+                                <td>
+                                    <input type="hidden" name="interval_id[]" value="">
+                                    <div class="input-append">
+                                        <input type="text" name="limit[]" value="<?=$interval['minimumlimit']?>"  class="input-mini price interval-low-edge">
+                                        <span class="add-on">-</span>
+                                        <input type="text" class="input-mini price interval-high-edge" style="margin-right: 20px; border-radius: 0px;" readonly="readonly">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" name="margin[]" value="" class="input-small price" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <input type="text" name="margin_fixed[]" value=""  class="input-small price"  style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <input type="text" name="delivery[]" value="" class="input-small price" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <input type="text" name="delivery_margin[]" value="" class="input-small price" style="margin-right: 20px;">
+                                </td>
+                                <td>
+                                    <div class="delete_interval" style="cursor: pointer;">
+                                        <i class="icon-remove  remove-group" title="<?=LangAdmin::get('Delete')?>"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+                
+             <? if (! empty($preselectedDelivery)) { ?>
+                <div class="box box-closed corner-all control-group control-group-medium">
+	        
+                    <fieldset class="offset-bottom1">
+        <legend><?=LangAdmin::get('Price_deliveries')?></legend>
+
+        <div class="row-fluid">
+
+        <div class="span5">
+
+            <p><strong><?=LangAdmin::get('Active_price_deliveries')?></strong></p>
+
+            <? $delivery_code = array(); ?>
+            <ol class="unstyled ot_sortable_list ot_sortable" id="chosenItems">
+                    <? foreach($group['DeliveryIds'] as $delivery) { ?>
+                        <? $delivery_code[] = $delivery['Id']; ?>
+                        <li data-code="<?=$delivery['Id']?>" data-name="<?=$delivery['Name']?>" ><span class="badge">
+                                <input type="hidden" name="delivery_code[]" value="<?=$delivery['Id']?>"/>
+                                <i class="icon-move" title="<?=LangAdmin::get('MoveTo')?>"></i>
+                                <?=$delivery['Name']?>
+                                <i data-name="<?=$delivery['Id']?>" class="icon-remove remove-delivery" title="<?=LangAdmin::get('Delete')?>"></i></span>
+                        </li>
+                    <? } ?>
+                </ol>
+        </div>
+
+        <div class="span7">
+            <p><strong><?=LangAdmin::get('Add_price_delivery')?></strong></p>
+                <div class="row-fluid">
+                    <select  class="input-large select_searched_list span2 external-delivery-list" name="new_delivery" tabindex="-1">
+                        <? foreach($preselectedDelivery as $delivery) { ?>
+                            <? if(in_array($delivery['Id'], $delivery_code)) continue; ?>
+                            <? if (in_array($group['ProviderType'], $delivery['ProviderTypes'])){ ?>
+                            <option value="<?=$delivery['Id']?>"><?=$delivery['Name']?></option>
+                            <? } else { ?>
+                            <option value="<?=$delivery['Id']?>" disabled><?=$delivery['Name']?></option>
+                            <? } ?>
+                        <? } ?>
+                    </select>
+                    <button type="submit" style="display:none"></button>
+                    <button type="button"  id="add-delivery" class="btn btn-small btn-primary offset-left1" href="#" title="<?=LangAdmin::get('Add_price_delivery')?>" data-loading-text="<i class='icon-plus'></i>" autocomplete="off"><i class="icon-plus"></i></button>
+                </div>
+        </div>
+
+    </div>
+        
+        </fieldset>
+            </div>
+            <? } ?> 
+            <div class="box box-closed corner-all control-group control-group-medium">
+	            <div class="box-header corner-top">
+	                <div class="header-control">
+	                    <a data-box="collapse"><i class="icon-caret-down"></i></a>
+	                </div>
+	                <span><?=LangAdmin::get('Complex_settings_delivery')?></span>
+	            </div>
+	
+	            <div class="box-body">
+                    <div class="control-group control-group-medium">
+                        <label class="control-label"><?=LangAdmin::get('Price_group_type')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Price_group_type_hint')?>"></i></label>
+                        <?php $description = ''; ?>
+                        <div class="controls">
+                            <select class="input-xlarge" id="price-group-type" name="price-group-type">
+                                <? foreach ($strategies as $type) {
+                                                            $selected = ''; 
+                                    if ($type['name'] == $group['strategytype']) { 
+                                                                    $selected = 'selected="selected"'; 
+                                                                    $description = $type['description']; 
+                                                            }
+                                ?>
+                                    <option value="<?=$type['name']?>" <?=$selected?> data-description="<?=$type['description']?>"><?=$type['name']?></option>
+                                <?php } ?>
+                            </select>
+                            <div class="price-group-type-description"><?=$description?></div>
+                        </div>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <label class="control-label"><?=LangAdmin::get('Availible_features')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Availible_features_hint')?>" title="" data-original-title=""></i></label>
+                        <div class="controls" id="feature_list">
+                            <div>
+                                <select multiple data-role="tagsinput" id="FeaturesTags">
+                                <? foreach ($group['Features'] as $value) { ?>
+                                    <option value="<?=$value?>"><?=$value?></option>
+                                <? } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+	            </div>
+
+
+	        </div>
+                
+	    </form>
+        <div class="controls">
+            <a id="SavePriceGroup" href="#" class="btn btn-primary btn_preloader btn_save" data-loading-text="<?=LangAdmin::get('Save')?>"><?=LangAdmin::get('Save')?></a>
+            <a href="<?=$PageUrl->AssignCmdAndDo('pricing', 'banker')?>" type="button" class="btn offset-left2 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+        </div>
+	</div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+    var strategiesByProviders = <?=json_encode($strategiesByProviders)?>;
+    <? if(!$isNew) { ?>
+        var currentStrategy = {'strategyType':"<?=$group['StrategyType']?>", 'description':"<?=$group['Description']?>"};
+    <? } ?>
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-pricing-banker.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/bootstrap-tagsinput.js')?>
+<? AssetsMin::registerCssFile('/css/vendor/bootstrap-tagsinput.css') ?>

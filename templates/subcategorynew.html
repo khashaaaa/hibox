@@ -1,0 +1,22 @@
+<?=$HeaderNew?>
+<?=$CrumbsNew?>
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <h1><?=$GLOBALS['pagetitle']?></h1>
+    </div>
+</div>
+<?=$SubCategoryNew?>
+
+<? if (General::IsFeatureEnabled('Seo2')) { ?>
+    <div class="main">
+        <div class="wrap clearfix mt20">
+            <? if (General::getSeoCategoryImage($_GET['cid'])) { ?>
+                <img class="category-image" src="<?=General::getSeoCategoryImage($_GET['cid'])?>" />
+            <? } ?>
+            <?=General::getSeoText($_GET['cid'], Session::getActiveLang())?>            
+        </div>
+    </div>
+<? } ?>
+
+<?=$FooterNew?>

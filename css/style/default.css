@@ -1,0 +1,140 @@
+/*
+* Add here if need default style
+*
+*
+*/
+
+.lcategory{
+    list-style: none;
+}
+
+.lcategory li{
+    margin: 0 5px 0 0;
+    display: inline-block;
+    vertical-align: top
+}
+
+.lcategory li a{
+    display: inline-block; //display: inline; zoom: 1;
+    position: relative;
+    padding-left: 10px;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.lcategory li.last{
+    padding: 0;
+    background: none;
+}
+
+.lcategory li a:before,
+.lcategory li small.before{
+    position: absolute;
+    left: 0;
+    top: -4px;
+    content: '\2022';
+    font-size: 18px;
+    color: #8bc53e;
+}
+
+/* ------ default style ------ */
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6{
+	line-height: 130%;
+	margin: 15px 0;
+}
+
+.content h1{
+	font-size: 2em;
+}
+
+.content h2{
+	font-size: 1.85em;
+}
+
+.content h3{
+	font-size: 1.65em;
+}
+
+.content h4{
+	font-size: 1.45em;
+}
+
+.content h5{
+	font-size: 1.35em;
+}
+
+.content h6{
+	font-size: 1.25em;
+}
+
+.content p{
+	margin: 0.5em 0 1em 0;
+}
+
+.content ul,
+.content ol{
+	padding: 0;
+	margin: 1em 0 1em 1.5em;
+}
+
+.content ul{
+	list-style: disc;
+}
+
+.content ol{
+	list-style: decimal;
+}
+
+.content ul li,
+.content ol li{
+	margin: 0.5em 0;
+}
+
+.content table{
+	max-width: 100%;
+	background-color: transparent;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.content table{
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.content table th,
+.content table td{
+	padding: 8px;
+	line-height: 20px;
+	text-align: left;
+	vertical-align: top;
+	border-top: 1px solid #dddddd;
+}
+
+#mce_fullscreen_container{
+	background-color: white;
+}
+#user_agreement_spoiler-toggler {
+    color: #3A74B5;
+    cursor:pointer;
+    font-weight:700;
+}
+#user_agreement_spoiler-toggler:hover {
+    color: #ed1c24;
+}
+.user_agreement_spoiler-text {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 150px;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+    border: 1px solid #CCC;
+    padding: 5px;
+    background: #fff;
+}

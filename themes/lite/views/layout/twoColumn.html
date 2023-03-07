@@ -1,0 +1,36 @@
+<?=General::runController('Header')?>
+
+<div class="wrap1">
+    <main class="box-main" role="main">
+
+        <?=General::runController('Crumbs')?>
+
+        <div class="bproduct">
+
+            <a href="javascript:void(0)" class="menu-aside">
+                <img src="<?=General::getThemeWebDir()?>/img/svg/icon-menu.svg" alt="img">
+            </a>
+
+            <? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>
+                <div class="aside-menu-items sidebar-for-text-pages accordion-menu-page">
+                    <?=General::runController('Content', 'getMenu')?>
+                </div>
+            <? } ?>
+
+            <div class="content-col">
+                <? if (!empty(General::$_page['title_h1'])) { ?>
+                    <h1 class="main__title"><?=General::$_page['title_h1']?></h1>
+                <? } ?>
+                <div id="content_area">
+                    <? if (!empty(General::$_page['text'])) { ?>
+                        <?=General::$_page['text']?>
+                    <? } ?>
+
+                    <?=$result?>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<?=General::runController('Footer')?>

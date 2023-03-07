@@ -1,0 +1,445 @@
+<?php
+if (!$searchProperties) return '';
+?>
+
+<style>
+    .search-content_properties {
+        width: 100%;        
+        position:relative;
+        margin-bottom: 5px;
+    }
+    
+    /* НАЧАЛО КНОПОК ФИЛЬТРОВ */
+    .inactive {
+        background:#edefef !important;
+        color:#CCC !important;
+    }
+
+    .filters-buttons {
+        position:absolute;
+        width:40px;
+        background:antiquewhite;
+        display:block;
+    }
+    .filters-buttons div {
+        position:relative;
+        height: 100%;
+        display: block;
+    }
+
+    .filters-buttons div button, .filters-buttons div a {
+        height: 100%;
+        width: 100%;
+        display: block;
+        text-decoration: none;
+        border: none;
+        color: inherit;
+        background: none;
+    }
+
+    .filters-buttons div button i, .filters-buttons div a i, .filters-buttons div a i:hover {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        text-align: center;
+        font-weight: 900;
+        font-size: 18px;
+        padding:0px;
+        margin:0px;
+        margin-top:-9px;
+    }
+    .filters-buttons.inactive div button, .filters-buttons.inactive div a {
+        cursor: default;
+    }
+    
+    .cancel-filter {
+        left:0px;
+        background:antiquewhite;
+        color:brown;
+    }
+    .submit-filter {
+        right:0px;
+        background:darkseagreen;
+        color:green;
+    }
+    
+    
+    
+    
+    /* КОНЕЦ КНОПОК ФИЛЬТРОВ */
+  
+    
+    .filter-form {
+        margin: 0px 50px 0px 50px;
+    }
+    
+    .search-content_properties .panel {
+        border: none;
+    }
+
+    .search-filter {
+        padding: 5px 10px;
+    }
+    .search-filter .panel-title {
+        font-size: 14px;
+    }
+    .search-params-filter {
+        display:inline-block;
+        padding-right:5px;
+    }
+    .search-params-filter a {
+        font-size: 12px;
+    }
+    .hidden {
+        display:none;
+    }
+    .shown {
+        display:inline-block !important;
+    }
+    .toogle-filters {
+        color:#5CB85C;
+    }
+    .active-filter-header{
+        margin:0px;
+        padding:10px 0px 10px 10px;
+    }
+    .properties-collapse{
+        color: #369BD7;
+        border-bottom: 1px dashed #0088CC;
+        cursor: pointer;
+    }
+    .properties-collapse:hover{
+        text-decoration: none;
+        border-bottom: 1px dashed #2a6496;
+    }
+    .caret.caret-reversed {
+        border-top-width: 0;
+        border-bottom: 4px solid;
+    }
+    #filters-collapse {
+        position: relative;
+    }
+    .properties-up {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        background: #edefef ;
+        height:25px;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="search-content_properties">
+    <? $formUrl = clone $baseUrl?>
+    <form class="filter-form" action="<?=$formUrl->DeleteKey('page')->DeleteKey('filters')->DeleteKey('brand')->Get()?>" method="get">
+    <div class="filters-buttons cancel-filter <?=(empty($searchProperties['active'])) ? 'inactive' : ''?>">            
+        <div>
+            <a href="<?=$formUrl->DeleteKey('cost')->DeleteKey('count')->DeleteKey('rating')->DeleteKey('page')->DeleteKey('perpage')->DeleteKey('filters')->DeleteKey('brand')->Get()?>" class="search-click" title="<?=Lang::get('reset_filters')?>">
+                <i class="glyphicon glyphicon-remove"></i>
+            </a>
+        </div>
+    </div>
+    <div class="filters-buttons submit-filter inactive">
+        <div>
+            <button type="submit" class="search-click" title="<?=Lang::get('apply')?>">
+                <i class="glyphicon glyphicon-ok"></i>
+            </button>
+        </div>
+    </div>    
+    <? $searchPropsBrand = false; ?>
+    <? if (! empty($searchProperties['active'])) { ?>
+        <h4 class="active-filter-header"><?=Lang::get('active_filters')?></h4>
+        <? foreach ($searchProperties['active'] as $property) { ?>
+            <? if ($property['isBrand']) { ?>
+                <?=General::viewFetch('controllers/search/filters/filter-item-brand', array('vars' => array(
+                    'property' => $property,
+                    'typeOfInput' => $typeOfInput,
+                    'baseUrl' => clone $baseUrl,
+                    'isActive' => true
+                )))?>
+                <? $searchPropsBrand = array_merge($property['values']['active'], $property['values']['other']); ?>
+                
+            <? } else { ?>
+                <?=General::viewFetch('controllers/search/filters/filter-item', array('vars' => array(
+                    'property' => $property,
+                    'typeOfInput' => $typeOfInput,
+                    'baseUrl' => clone $baseUrl,
+                    'isActive' => true
+                )))?>
+            <? } ?>
+        <? } ?>
+    <? } ?>
+    
+    <? if (! empty($searchProperties['other'])) { ?>
+        <div align="center" class="properties-down">
+            <a class="properties-collapse collapse-down" data-toggle="collapse" data-target="#filters-collapse">
+                <?=Lang::get('all_filters')?> (<?=count($searchProperties['other'])?>) <b class="caret"></b>
+            </a>
+        </div>
+        <div id="filters-collapse" class="collapse">
+            <h4 style="padding-left:10px"><?=Lang::get('filters')?></h4>
+            <? foreach ($searchProperties['other'] as $property) { ?>
+                <? if ($property['isBrand']) { ?>
+                    <?=General::viewFetch('controllers/search/filters/filter-item-brand', array('vars' => array(
+                        'property' => $property,
+                        'typeOfInput' => $typeOfInput,
+                        'baseUrl' => clone $baseUrl
+                    )))?>
+                    <? $searchPropsBrand = array_merge($property['values']['active'], $property['values']['other']); ?>
+                <? } else { ?>
+                    <?=General::viewFetch('controllers/search/filters/filter-item', array('vars' => array(
+                        'property' => $property,
+                        'typeOfInput' => $typeOfInput,
+                        'baseUrl' => clone $baseUrl
+                    )))?>
+                <? } ?>
+            <? } ?>
+            <br>
+            <br>
+            <div align="center" class="properties-up">
+                <a class="properties-collapse collapse-up" data-toggle="collapse" data-target="#filters-collapse">
+                <?=Lang::get('all_filters')?> (<?=count($searchProperties['other'])?>) <b class="caret caret-reversed"></b>
+                </a>
+            </div>
+        </div>
+        
+    <? } ?>
+    </form>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var typeOfInput = '<?=$typeOfInput?>';
+    var searchPropsBrand = <?=$searchPropsBrand ? json_encode($searchPropsBrand) : 'false' ?>;
+    var activeBrandFilters = <?=! empty($searchParams['filter']['filters'][20000]) ? json_encode($searchParams['filter']['filters'][20000]) : 'false' ?>;
+
+    //Построение списка брендов возле поля ввода - или выделеные или первых несолько штук
+    function predefinedBrandFilers() {
+        var shownBrands = 0;
+        var container = $('#brand-container');
+        if (activeBrandFilters) {
+            container.html("");
+            for(var i in activeBrandFilters){
+                if (shownBrands == 7) break;
+                for(var j in searchPropsBrand){
+                    if (searchPropsBrand[j].id == i) {
+                        if (typeOfInput=='checkbox') {
+                            container.append('<div class="search-params-filter"><input name="filters[20000][' + searchPropsBrand[j].id + ']" value="' + searchPropsBrand[j].id + '" type="' + typeOfInput +
+                            '" checked class="check-search-input"> <a href="' + searchPropsBrand[j].link + '" class="check-search">' + searchPropsBrand[j].name + '</a></div>');
+                        } else {
+                            container.append('<div class="search-params-filter"><input name="filters[20000]" value="' + searchPropsBrand[j].id + '" type="' + typeOfInput +
+                            '" checked class="check-search-input"> <a href="' + searchPropsBrand[j].link + '" class="check-search">' + searchPropsBrand[j].name + '</a></div>');
+                        }
+                        shownBrands++;
+                    }
+                }
+            }
+        } else {
+            for(var j in searchPropsBrand){
+                if (shownBrands == 7) break;
+                if (typeOfInput=='checkbox') {
+                    container.append('<div class="search-params-filter"><input name="filters[20000][' + searchPropsBrand[j].id + ']" value="' + searchPropsBrand[j].id + '" type="' + typeOfInput +
+                    '" class="check-search-input"> <a href="' + searchPropsBrand[j].link + '" class="check-search">' + searchPropsBrand[j].name + '</a></div>');
+                } else {
+                    container.append('<div class="search-params-filter"><input name="filters[20000]" value="' + searchPropsBrand[j].id + '" type="' + typeOfInput +
+                    '" class="check-search-input"> <a href="' + searchPropsBrand[j].link + '" class="check-search">' + searchPropsBrand[j].name + '</a></div>');
+                }
+                shownBrands++;
+            }
+        }
+        container.append('(' + shownBrands + ' <?=Lang::get("from2")?> ' + searchPropsBrand.length + ')');
+    }
+
+    $(document).ready(function(){
+        predefinedBrandFilers();
+        var filterConteiner = $('.search-content_properties');
+        var filterButtons = $('.filters-buttons');
+        var position = filterConteiner.offset();
+
+        filterButtons
+            .height(filterConteiner.height())
+            .on('click', function(e) { // Прерывание при нажатии на неактивную кнопку
+                if ($(this).hasClass('inactive')) {
+                    return false;
+                }
+            });
+
+        //Плаин вычисления высоты - надо унести отдельно
+        $.fn.visibleHeight = function() {
+            var elBottom, elTop, scrollBot, scrollTop, visibleBottom, visibleTop, _ref, _ref1;
+            scrollTop = $(window).scrollTop();
+            scrollBot = scrollTop + $(window).height();
+            elTop = this.offset().top;
+            elBottom = elTop + this.outerHeight();
+            visibleTop = elTop < scrollTop ? scrollTop : elTop;
+            visibleBottom = elBottom > scrollBot ? scrollBot : elBottom;
+            return visibleBottom - visibleTop
+        }
+        //Плаин автоскролала в нужную точку - надо унести отдельно
+        $.fn.scrollTo = function( target, options, callback ){
+            if(typeof options == 'function' && arguments.length == 2){ callback = options; options = target; }
+            var settings = $.extend({
+                scrollTarget  : target,
+                offsetTop     : 50,
+                duration      : 500,
+                easing        : 'swing'
+            }, options);
+            return this.each(function(){
+                var scrollPane = $(this);
+                var scrollTarget = (typeof settings.scrollTarget == "number") ? settings.scrollTarget : $(settings.scrollTarget);
+                var scrollY = (typeof scrollTarget == "number") ? scrollTarget : scrollTarget.offset().top + scrollPane.scrollTop() - parseInt(settings.offsetTop);
+                scrollPane.animate({scrollTop : scrollY }, parseInt(settings.duration), settings.easing, function(){
+                    if (typeof callback == 'function') { callback.call(this); }
+                });
+            });
+        }
+
+        //Вычисление позиций для кнопок фильтров
+        function scrollListener() {
+            if (filterButtons.length !== 0) {
+                if (position.top <= $(window).scrollTop()) {
+                    filterButtons.css('top', $(window).scrollTop() - position.top);
+                } else {
+                    filterButtons.css('top', 0);
+                }
+                var height = filterConteiner.visibleHeight();
+                filterButtons.css('height', height);
+
+                // Если фильтры не в текущем окне, скрываем кнопки включения и отключения фильтров
+                if (height < 20) {
+                    filterConteiner.find('.filters-buttons .search-click').hide();
+                } else {
+                    filterConteiner.find('.filters-buttons .search-click').show();
+                }
+
+                var activeFiltersHeight = filterConteiner.height() - $('#filters-collapse').height();
+                p = $(window).scrollTop() + $(window).height() - position.top - activeFiltersHeight - 30;
+                p2 = filterConteiner.height() - activeFiltersHeight - 30;
+
+                var windowWidth = $(window).width();
+                // Для дисплея шириной < 750px кнопку "Скрыть фильтры"
+                // зафиксировать внизу блока с фильтрами
+                if (windowWidth > 750) {
+                    if (p2 > p) {
+                        $('.properties-up').css('top', p);
+                    } else {
+                        $('.properties-up').css('top', p2);
+                    }
+                } else {
+                    $('.properties-up').css('top', '');
+                }
+            }
+        }
+
+        // Отслеживание показа/скрытия окна с фильтрами
+        $('#filters-collapse').on('shown.bs.collapse hidden.bs.collapse', function () {
+            position = filterConteiner.offset();
+            scrollListener();
+        });
+
+        // Отслеживание скрола/ресайза
+        $(window).on({
+            'scroll' : function () {
+                scrollListener();
+            },
+            'resize' : function () {
+                position = filterConteiner.offset();
+                scrollListener();
+            }
+        });
+
+        //Скрытие нижней кнопки скрыть фильтры
+        $('.collapse-down').click(function(e) {
+            $(this).hide();
+            e.preventDefault();
+        });
+        //Показ нижней кнопки скрыть фильтры
+        $('.collapse-up').click(function(e) {
+            $('.collapse-down').show();
+            $('html').scrollTo(filterConteiner.offset().top - 100);
+            e.preventDefault();
+        });
+        //Показать все опции фильтра
+        $('.toogle-more-filters').click(function() {
+            var el = $(this).parent().parent();
+            var searchFilter = $(el).closest('div.search-filter');
+            el.find(".toogle").each(function() {
+                $(this).removeClass("hidden").addClass("shown");
+            });
+            $('.toogle-more-filters', searchFilter).parent().hide();
+
+
+            return false;
+        });
+        //Скрыть все опции фильтра
+        $('.toogle-hide-more-filters').click(function() {
+            var el = $(this).parent().parent();
+            var searchFilter = $(el).closest('div.search-filter');
+            el.find(".toogle").each(function() {
+                $(this).removeClass("shown").addClass("hidden");
+            });
+            $('.toogle-more-filters', searchFilter).parent().show();
+            return false;
+        });
+
+        //Поиск брендов
+        $('#brandSearch').keyup(function(e) {
+            var container = $('#brand-container');
+            if ((e.keyCode != 40) && (e.keyCode != 38) && (e.keyCode != 13)) {
+                container.html("");
+                var input = $(this).val().toLowerCase();
+                var checked;
+                var findCount = 0;
+                if (input.length > 0) {
+                    for(var i in searchPropsBrand){
+                        if (searchPropsBrand[i].name.toLowerCase().indexOf(input) != -1) {
+                            checked = '';
+                            for(var j in activeBrandFilters) {
+                                if (searchPropsBrand[i].Id == j) {
+                                    checked = 'checked';
+                                    $('#'+searchPropsBrand[i].Id).attr('name', '');
+                                }
+                            }
+                            if (typeOfInput=='checkbox') {
+                                container.append('<div class="search-params-filter"><input name="filters[20000][' + searchPropsBrand[i].id + ']" value="1" type="' + typeOfInput +
+                                '"' + checked + 'class="check-search-input"> <a href="' + searchPropsBrand[i].link + '" class="check-search">' + searchPropsBrand[i].name + '</a></div>');
+                            } else {
+                                container.append('<div class="search-params-filter"><input name="filters[20000]" value="' + searchPropsBrand[i].id + '" type="' + typeOfInput +
+                                '"' + checked + 'class="check-search-input"> <a href="' + searchPropsBrand[i].link + '" class="check-search">' + searchPropsBrand[i].name + '</a></div>');
+                            }
+                            findCount++;
+                        }
+                    }
+                    container.append('(' + findCount + ' <?=Lang::get("from2")?> ' + searchPropsBrand.length + ')');
+
+                } else {
+                    for(var i in searchPropsBrand){
+						checked = '';
+						for(var j in activeBrandFilters) {
+						    if (searchPropsBrand[i].Id == j) {
+						        checked = 'checked';
+						        $('#'+searchPropsBrand[i].Id).attr('name', '');
+						    }
+						}
+                        if (typeOfInput=='checkbox') {
+                            container.append('<div class="search-params-filter"><input name="filters[20000][' + searchPropsBrand[i].id + ']" value="1" type="' + typeOfInput +
+                                '"' + checked + 'class="check-search-input"> <a href="' + searchPropsBrand[i].link + '" class="check-search">' + searchPropsBrand[i].name + '</a></div>');
+                        } else {
+                            container.append('<div class="search-params-filter"><input name="filters[20000]" value="' + searchPropsBrand[i].id + '" type="' + typeOfInput +
+                                '"' + checked + 'class="check-search-input"> <a href="' + searchPropsBrand[i].link + '" class="check-search">' + searchPropsBrand[i].name + '</a></div>');
+                        }
+						findCount++;
+						if (findCount > 6) {
+						    break;
+						}
+                    }
+                    container.append('(' + findCount + ' <?=Lang::get("from2")?> ' + searchPropsBrand.length + ')');
+                }
+            }
+        });
+
+
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

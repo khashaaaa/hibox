@@ -1,0 +1,15 @@
+<%
+    var half = (item.get('config').length / 2) - 1;
+    var configCode = item.get('configCode');
+    $.each(item.get('config'), function (i, configItem) {
+%>
+        <dt class="weight-normal"><%= $.trim(configItem[0]) %>:</dt>
+        <dd>
+            <% if (i <= half) { %>
+                <a data-name="<%= configItem[0] %>" data-code="<%= (typeof configCode[i] !== "undefined") ? configCode[i][0] : '' %>" 
+                   class="ot_change_product_config blink" href="javascript:void(0)">
+            <% } %>
+                <%= $.trim(configItem[1]) %>
+            <% if (i <= half) { %></a><% } %>
+        </dd>
+<%  }); %>

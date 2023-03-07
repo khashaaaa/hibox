@@ -1,0 +1,68 @@
+<?
+$vars = array(
+    'basketGroups' => $basketGroups,
+    'provider' => $provider,
+    'userdiscount' => $userdiscount,
+    'orders' => $orders,
+    'profiles' => $profiles,
+    'countries' => $countries,
+    'cities' => $cities,
+    'minOrderCost' => $minOrderCost,
+    'deliveryId' => $deliveryId,
+    'userData' => $userData,
+    'items' => $items,
+    'totalWeight' => $totalWeight,
+    'isQuickOrder' => false
+);
+?>
+<div class="center">
+    <div id="new-order-create">
+        <h1><?=Lang::get('reg_order')?></h1>
+
+        <div class="main-wrap d-flex flex-wrap">
+            <div class="content-center">
+                <?=General::viewFetch('controllers/order/create-order-select', array('vars' => $vars))?>
+
+                <?=General::viewFetch('controllers/order/delivery-tab', array('vars' => $vars))?>
+
+                <?=General::viewFetch('controllers/order/create-order-products', array('vars' => $vars))?>
+            </div>
+
+            <?=General::viewFetch('controllers/order/create-order-aside', array('vars' => $vars))?>
+        </div>
+    </div>
+</div>
+
+<?=Lang::loadJSTranslation(array(
+    'Not_selected',
+    'sure_delete',
+    'delete_item',
+    'delete',
+    'cancel',
+    'not_filled_required_field',
+    'empty_deliveries',
+    'click_order',
+    'select_order_to_merge',
+    'merge_order_with',
+    'merge_order',
+    'select_from_exists',
+    'continue',
+    'min_cost',
+    'add',
+    'pickup_points',
+    'no_deliver_for_place_error',
+    'make_order',
+    'weight_kg'
+))?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var PRICE_ROUND_DECIMALS = <?= (int)General::getConfigValue('price_rounding') ?>;
+    var ordersCount = <?=$orders['TotalCount'] ?>;
+    var allowMerge = <?= General::getConfigValue('skip_reordering') ? 'false' : 'true' ?>;
+    var PRICE_ROUND_DECIMALS = <?= (int)General::getConfigValue('price_rounding') ?>;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile(General::getThemeWebDir() . '/js/pages/userorder.js')?>

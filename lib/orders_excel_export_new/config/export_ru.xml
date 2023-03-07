@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <header>
+        <column>№ п/п</column>
+        <column>№ позиции в заказе</column>
+        <column>Ссылка</column>
+        <column>Изображение</column>
+        <column>Артикул</column>		
+        <column>Конфигурация</column>
+        <column>Количество</column>
+        <column>Цена, ¥</column>
+        <column>Доставка, ¥</column>
+        <column>Сумма, ¥</column>
+        <column>Закуп в валюте сайта</column>
+        <column>Оплачено в валюте сайта</column>
+        <column>Разница</column>
+    </header>
+</config>

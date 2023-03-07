@@ -1,0 +1,32 @@
+<div class="card">
+    <div class="card-header  nopadding panel-grey">
+        <h5 class="mb-0">
+            <button class="btn btn-link link pl-0 pr-0 collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#filter-<?=$property['id']?>"
+                    aria-expanded="false"
+                    aria-controls="collapse01">
+                <?= $property['name'] ?><i></i>
+            </button>
+        </h5>
+    </div>
+    <div id="filter-<?=$property['id']?>"
+         class="collapse <?=(isset($isActive) && $isActive) ? 'show' : ''?>"
+         aria-labelledby="heading01">
+        <div class="card-body">
+            <div class="search-filter">
+                <input type="text" id="brandSearch" placeholder="<?=Lang::get('input_brand_name')?>" style="display:inline-block">
+                <div id="brand-container" style="display:inline-block">
+
+                </div>
+            </div>
+            <div class="custom-control">
+                <ul class="ling-group">
+                    <li><a href="javascript:void(0)" class="link-apply"><?=Lang::get('apply')?></a></li>
+                    <li><a href="javascript:void(0)" class="link-reset"><?=Lang::get('reset')?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

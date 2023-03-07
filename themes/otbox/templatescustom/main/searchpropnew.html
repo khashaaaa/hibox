@@ -1,0 +1,251 @@
+<?
+$min_cost = (isset($_GET['cost']['from']) && ($_GET['cost']['from'] != '')) ? (float)$_GET['cost']['from'] : '';
+
+if (isset($_GET['cost']['from']) && ($_GET['cost']['from'] != '')) {
+    if (@General::getConfigValue('min_cost_goods') > @$_GET['cost']['from'])
+        $min_cost = @General::getConfigValue('min_cost_goods');
+}
+
+$max_cost = (isset($_GET['cost']['to']) && ($_GET['cost']['to'] != '')) ? $_GET['cost']['to'] : '';
+if (isset($_GET['cost']['to']) && ($_GET['cost']['to'] != '')) {
+    if (@General::getConfigValue('min_cost_goods') > @$_GET['cost']['to'])
+        $max_cost = @General::getConfigValue('min_cost_goods');
+}
+
+$min_firstLotRange = (isset($_GET['firstLotRange']['from']) && ($_GET['firstLotRange']['from'] != '')) ? (int)$_GET['firstLotRange']['from'] : '';
+$max_firstLotRange = (isset($_GET['firstLotRange']['to']) && ($_GET['firstLotRange']['to'] != '')) ? (int)$_GET['firstLotRange']['to'] : '';
+
+$min_count = (isset($_GET['count']['from']) && ($_GET['count']['from'] != '')) ? (int)$_GET['count']['from'] : '';
+$max_count = (isset($_GET['count']['to']) && ($_GET['count']['to'] != '')) ? (int)$_GET['count']['to'] : '';
+?>
+<?
+$url = new UrlWrapper();
+$url->Set(UrlGenerator::getHomeUrl() . current(explode('?', $_SERVER['REQUEST_URI'])));
+?>
+<form method="get" id="filterform" action="<?=$url->Get()?>">
+    <?if(RequestWrapper::get('Provider')){?>
+        <input type="hidden" name="Provider" id="SearchProvider" value="<?=RequestWrapper::get('Provider')?>">
+    <?}?>
+    <?if(RequestWrapper::get('SearchMethod')){?>
+        <input type="hidden" name="SearchMethod" id="SearchMethod" value="<?=RequestWrapper::get('SearchMethod')?>">
+    <?}?>
+    <?if(RequestWrapper::get('imageId')){?>
+        <input type="hidden" name="imageId" id="imageId" value="<?=RequestWrapper::get('imageId')?>">
+    <?}?>
+    <?
+    if(is_array($_GET['ignorefilters']))
+        foreach($_GET['ignorefilters'] as $v){
+            ?>
+            <input type="hidden" name="ignorefilters[]" value="<?=$v?>" />
+            <?
+        }
+    ?>
+
+    <input type="hidden" name="p" value="<?= @$_GET['p'] ?>"/>
+    <? if (isset($_GET['cid'])) { ?><input type="hidden" name="cid" value="<?=RequestWrapper::getValueSafe('cid')?>"/><? } ?>
+    <? if (isset($_GET['brand'])) { ?><input type="hidden" name="brand" value="<?=RequestWrapper::getValueSafe('brand')?>"/><? } ?>
+    <? if (isset($_GET['id'])) { ?><input type="hidden" name="id" value="<?=RequestWrapper::getValueSafe('id')?>"/><? } ?>
+    <? if (isset($_GET['search'])) { ?><input type="hidden" name="search" value="<?=RequestWrapper::getValueSafe('search')?>"/><? } ?>
+    <? if (isset($_GET['sort_by'])) { ?><input type="hidden" name="sort_by" value="<?= @$_GET['sort_by'] ?>"/><? } ?>
+    <? if (isset($_GET['per_page'])) { ?><input type="hidden" name="per_page" value="<?= @$_GET['per_page'] ?>"/><? } ?>
+    <? if (isset($_GET['tmall'])) { ?><input type="hidden" name="tmall" value="<?= @$_GET['tmall'] ?>"/><? } ?>
+    <? if (isset($_GET['discounts'])) { ?><input type="hidden" name="discounts" value="<?= @$_GET['discounts'] ?>"/><? } ?>
+
+    <? if ($searchprops || (!empty($logic) && $logic['Configurators'])){
+        $filtersExist = ! empty($logic) && ($logic['PriceRange'] == 'true' || $logic['VolumeRange'] == 'true' || $logic['VendorRatingRange'] == 'true');
+        ?>
+        <div class="modcontent">
+            <ul class="listitem filters">
+                <?
+                $searchParamsInner = General::getSearchParams();
+                $showSearchBar = true;
+                ?>
+                <? if ($showSearchBar) { ?>
+                    <li class="so-filter-options" data-option="search">
+                        <div class="so-filter-heading">
+                            <div class="so-filter-heading-text">
+                                <span><?=Lang::get('search_in_results')?></span>
+                            </div>
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="so-filter-content-opts" style="display: block;">
+                            <div class="so-filter-content-opts-container">
+                                <div class="so-filter-option" data-type="search">
+                                    <div class="so-option-container">
+                                        <div class="input-group">
+                                            <form style="margin: 0 !important;" action="<?=UrlGenerator::generateSearchUrl(false,true)?>" method="post">
+                                                <input class="form-control" type="text" name="searchInner" required="required" value="<?=RequestWrapper::getValueSafe('searchInner')?>" placeholder="<?=Lang::get('search_in_results')?>" tabindex="2">
+
+                                                    <input id="activeSearchProvider" type="hidden" value="<?=RequestWrapper::get('provider') ? RequestWrapper::get('provider') : Cookie::get('provider')?>"/>
+                                                    <?
+                                                    $searchParamsInner = General::getSearchParams();
+                                                    ?>
+                                                    <? if ($searchParamsInner['vid']) { ?>
+                                                        <input type="hidden" name="vid" value="<?=$searchParamsInner['vid']?>" />
+                                                    <? } ?>
+                                                    <? if ($searchParamsInner['brand']) { ?>
+                                                        <input type="hidden" name="brand" value="<?=$searchParamsInner['brand']?>" />
+                                                    <? } ?>
+                                                    <? if ($searchParamsInner['cid']) { ?>
+                                                        <input type="hidden" name="cid" id="searchCid" value="<?=$searchParamsInner['cid']?>" />
+                                                    <? } ?>
+                                                    <? if ($searchParamsInner['search']) { ?>
+                                                        <input type="hidden" name="search" value="<?=$searchParamsInner['search']?>" />
+                                                    <? } ?>
+                                                    <? if (RequestWrapper::getValueSafe('Provider')) { ?>
+                                                        <input type="hidden" name="Provider" value="<?=RequestWrapper::getValueSafe('Provider')?>">
+                                                    <? } ?>
+                                                    <? if (RequestWrapper::getValueSafe('SearchMethod')) { ?>
+                                                        <input type="hidden" name="SearchMethod" value="<?=RequestWrapper::getValueSafe('SearchMethod')?>">
+                                                    <? } ?>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <? } ?>
+                <li <? if (!$filtersExist) {?>style="display: none"<?} ?> class="so-filter-options" data-option="Price">
+                    <? if (! empty($logic) && $logic['PriceRange'] == 'true') { ?>
+                        <div class="so-filter-heading">
+                            <div class="so-filter-heading-text">
+                                <span><?=Lang::get('price_simple')?></span>
+                            </div>
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="so-filter-content-opts" style="display: block;">
+                            <div class="so-filter-content-opts-container">
+                                <div class="so-filter-content-wrapper so-filter-iscroll">
+                                    <div class="so-filter-options">
+                                        <div class="so-filter-option so-filter-price">
+                                            <div class="content_min_max">
+                                                <div class="put-min put-min_max">
+                                                    <span class="name-curent"><?=User::getObject()->getCurrencySign()?></span>
+                                                    <input onkeyup="checkIntValue(this)" type="text" name="cost[from]" class="input_min form-control" value="<?=$min_cost?>">
+                                                </div>
+                                                <div class="put-max put-min_max">
+                                                    <span class="name-curent"><?=User::getObject()->getCurrencySign()?></span>
+                                                    <input onkeyup="checkIntValue(this)" type="text" name="cost[to]" class="input_max form-control" value="<?=$max_cost?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <? if (! empty($logic)) { ?>
+                                <div style="margin-top: 10px;">
+                                    <input type="button" onclick="document.getElementById('filterform').submit(); return false;" value="<?=Lang::get('select')?>" class="btn-small button js-form-send vertical-middle" />
+                                    <a href="<?=$baseUrl->DeleteKey('cost')->DeleteKey('count')->DeleteKey('rating')->Get()?>" class="dotted vertical-middle"><span><?=Lang::get('reset')?></span></a>
+                                </div>
+                            <? } ?>
+                        </div>
+                    <? } ?>
+                </li>
+                <? if($searchprops) {
+                    $searchPropsBrand = false;
+                    foreach ($searchprops as $pid => $pvalue) {
+                        if(@in_array($pid, $_GET['ignorefilters'])){
+                            continue;
+                        }
+                        $curvalues = array();
+                        ?>
+                        <? if ($pvalue['Id'] == 20000) { ?>                    
+                        <? $searchPropsBrand = $pvalue['Values']; ?>
+                        <li class="item hidden">
+                            <a href="javascript:void(0)" class="many-filters-<?=$pid?> showHideFilter" data-type-open="i-plus" data-type-close="i-minus"><i class="i i-new i-plus"></i> <?= $pvalue['name'] ?> </a>
+                            <ul class="innerlist">
+                                <input type="text" name="brandSearch" id="brandSearch" filter-name="<?= $pvalue['name'] ?>" placeholder="<?=Lang::get('Start_input_name')?>" value="" class="form-field"/>                        
+                            </ul>
+                        </li>
+                        <? continue; } ?>
+                        <li class="so-filter-options" data-option="Checkbox">
+                            <div class="so-filter-heading">
+                                <div class="so-filter-heading-text">
+                                    <span><a href="javascript:void(0)" class="many-filters-<?=$pid?> showHideFilter" data-type-open="i-plus" data-type-close="i-minus"><?= $pvalue['name'] ?></a></span>
+                                    <? if(@$_GET['filters'][$pid]){ ?>
+                                        <a class="i-new i-delete" href="<?=$_SERVER['REQUEST_URI']?>" fid="<?=$pid?>"></a>
+                                    <? } ?>
+                                </div>
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                            <div class="so-filter-content-opts" style="display: none">
+                                <div class="so-filter-content-opts-container">
+                                        <?
+                                        $pvalue_sort = array();
+
+                                        foreach ($pvalue['Values'] as $value) {
+                                            if ($_GET['filters'][$pid][$value['id']] == $value['id']) {
+                                                $pvalue_sort[$value['id']] = $value;
+                                            }
+                                        }
+
+                                        foreach ($pvalue['Values'] as $value) {
+                                            if (!isset($pvalue_sort[$value['id']])) {
+                                                $pvalue_sort[$value['id']] = $value;
+                                            }
+                                        }
+
+                                        $pvalue['Values'] = $pvalue_sort;
+
+                                        foreach ($pvalue['Values'] as $value) {
+                                            $curvalues[] = $value['id'];
+                                            ?>
+                                            <div class="so-filter-option opt-select  opt_enable">
+                                                <div class="so-option-container">
+                                                <label for="ch<?= $value['id'] ?>">
+                                                    <input
+                                                        class="js-radio-filters"
+                                                        type="<?=(! empty($logic) && $logic['MultipleConfiguratorLogic'] == 'None')? 'radio' : 'checkbox' ?>"
+                                                        id="ch<?= $value['id'] ?>"
+                                                        name="filters[<?= $pvalue['Id'] ?>][<?= $value['id'] ?>]"
+                                                        value="1"
+                                                        <? if (isset($_GET['filters']) && $_GET['filters'][$pvalue['Id']][$value['id']] == 1) { ?>
+                                                            checked="checked"
+                                                        <? } ?>
+                                                        data-filter-name="<?= $value['name'] ?>"
+                                                        data-parent-filter-name="<?= $pvalue['name'] ?>"
+                                                    />
+                                                    <!--noindex--><?= $value['name'] ?><!--/noindex-->
+                                                </label>
+                                                </div>
+                                            </div>
+                                        <? } ?>
+                                </div>
+                            </div>
+                        </li>
+                    <? } ?>
+                <? } ?>
+            </ul>
+        </div>
+    <? } ?>
+    <div style="display:none" id="applyButton">
+        <i class="helpBox">
+            <input type="hidden" name="isAjax" id="isAjaxForm" value="1"/>
+            <a href="javascript:void(0)" class="search-filter-form-send applyHref"><?=Lang::get('apply')?></a>
+            <span class="microPreLoader"></span>
+        </i>
+    </div>
+</form>
+<script>
+    var typeOfInput = '<?=(! empty($logic) && $logic['MultipleConfiguratorLogic'] == 'None')? 'radio' : 'checkbox'?>';
+    var searchPropsBrand = <?=$searchPropsBrand ? json_encode($searchPropsBrand) : 'false' ?>;
+    var activeBrandFilters = <?=$activeBrandFilters ? json_encode($activeBrandFilters) : 'false' ?>
+</script>
+<script type="text/javascript">
+    jQuery(window).load(function($){
+        $ = typeof($ !== 'funtion') ? jQuery : $;
+        $(".so-filter-heading").on("click",function(){
+            if($(this).find(".fa").hasClass("fa-chevron-down")){
+                $(this).find(".fa-chevron-down").addClass('fa-chevron-right','slow').removeClass('fa-chevron-down','slow');
+            }else{
+                $(this).find(".fa-chevron-right").addClass('fa-chevron-down','slow').removeClass('fa-chevron-right','slow');
+            }
+            $(this).parent().children(".so-filter-content-opts").slideToggle("slow");
+        });
+
+    });
+</script>

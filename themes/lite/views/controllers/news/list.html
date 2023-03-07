@@ -1,0 +1,27 @@
+    <div>
+		<main role="main" class="main-content">
+			<h1>
+                            <?=Lang::get('allnews')?>
+                        </h1>
+                        <? if ($news !== -1) { ?>
+			<ul class="box-main_blog-ul">
+                            <? foreach ($news as $new) { ?>
+                                <li>
+					<a href="<?=UrlGenerator::generateNewsUrl($new['id'])?>">
+						<h2><?=$this->escape($new['title'])?></h2>
+						<time datetime="<?=$new['created']?>"><?=$new['created']?></time>
+						<div class="img-wrap">
+							<img src="<?=DigestRepository::getImage($new['image'], 'thumb')?>" alt="<?=$this->escape($new['title'])?>"/>
+						</div>
+                                                <p>
+                                                    <?=$new['brief']?>
+                                                </p>
+					</a>
+				</li>
+                            <? } ?>
+			</ul>
+                        <? } else { ?>
+                        <p><?=Lang::get('nothing_found')?></p>
+                        <? } ?>
+		</main>
+	</div>

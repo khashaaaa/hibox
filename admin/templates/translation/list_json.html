@@ -1,0 +1,61 @@
+<?
+$DeleteUrl = $PageUrl;
+$EditUrl = $PageUrl;
+$result = array();
+
+$currentLangCodes = array();
+
+foreach ($AvailableLanguages as $key => $lang) {
+    $currentLangCodes[] = $key;
+}
+
+foreach ($translations as $key => $trans) {
+    $labels = '';
+    $isContinue = false;
+    if ($sort) {
+        $isContinue = true;
+        foreach ($trans as $lang => $t) {
+            if ($sort == 'own' && ($t && $t['from'] != 'box')) {
+                $isContinue = false;
+            }
+            if ($sort == 'box' && ($t && $t['from'] == 'box')) {
+                $isContinue = false;
+            }
+            if ($sort == 'no' && (empty($t))) {
+                $isContinue = false;
+            }
+        }
+    }  
+    if ($isContinue) {
+        continue;
+    }
+    foreach ($trans as $lang => $t) {
+        if (! in_array($lang, $currentLangCodes)) {
+            continue;
+        }
+        
+        $labelClass = ($t && $t['from'] != 'box') ? 'label-success':
+            ($t ? '' : 'label-warning');
+        $labelTitle = ($t && $t['from'] != 'box') ? LangAdmin::get('Translation_exists'):
+            ($t ? LangAdmin::get('Translation_is_default') : LangAdmin::get('Translation_not_exists'));
+        $labels .= "<span class=\"label $labelClass\" data-key=\"$key\" title=\"$labelTitle\" data-lang='$lang'> $lang</span> ";
+    }
+
+    $buttons =
+         '<a class="btn" href="'. $DeleteUrl->DeleteKey('_')->Add('key', $key)->Add('do', 'edit')->Add('key', $key)->Get() .'" title="'.LangAdmin::get('Edit').'"><i class="icon-pencil"></i></a>'
+        .'<a class="btn" data-action="delete" data-key="'.$key.'"
+               href="'.$DeleteUrl->Add('key', $key)->Add('do', 'delete')->Get().'"
+               title="'.LangAdmin::get('Delete').'">
+                <i class="icon-trash">
+                    <img src="img/vendor/ajax-loaders/ajax-loader-1.gif" style="display: none;">
+                </i>
+            </a>';
+
+    $result[] = array(
+        $key,
+        $trans[$activeLang]['translation'],
+        $labels,
+        $buttons
+    );
+}
+print json_encode(array("aaData" => $result));

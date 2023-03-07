@@ -1,0 +1,8 @@
+<div class="control-group control-group-medium">
+    <label class="control-label"><?=$displayName?>
+        <? if ($description) { ?>
+            <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+        <? } ?>
+    </label>
+    <i class="icon-external-link"></i> <a href="<?=$currentValue?>" target="_blank" id="<?=$name?>"><?=$currentValue?></a>
+</div>

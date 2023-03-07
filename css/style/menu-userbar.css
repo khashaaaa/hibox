@@ -1,0 +1,324 @@
+/* userbar (begin) */
+
+	.userbar
+	{
+		height: 66px;
+	}
+
+	.userbar .wrap{
+		width: 960px;
+		height: 60px;
+		padding: 2px 20px 4px;
+		background: url('../i/background.png') no-repeat 0 0;
+		position: relative;
+	}
+
+	.uluserbar
+	{
+		display: table;
+		height: 60px;
+		width: 100%;
+	}
+
+	.uluserbar li.itemmenu
+	{
+		display: table-cell;
+    float: none!important;
+		height: 61px;
+
+		/* background: url('../i/background.png') no-repeat 0 -66px; Это лишнее */
+
+		vertical-align: middle;
+	}
+
+  .uluserbar .itemmenu.cats
+  { width: 255px }
+
+  .uluserbar .itemmenu.menu-item-user
+  { width: 150px }
+
+	.uluserbar .itemmenu:first-child
+	{ background: none }
+
+	.uluserbar .itemmenu-inner
+	{
+		display: inline-block;
+    position: relative;
+	}
+
+	.uluserbar .cats a
+	{
+		position: relative;
+		z-index: 4;
+		padding: 6px;
+
+		font-size: 1.2em;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	.uluserbar .cats .category
+	{
+		background-color: #FFF;
+		border: 1px solid #e6e6e6;
+		border-radius: 7px;
+	}
+
+	.uluserbar .cats .category:after{
+		margin-left: 5px;
+		content: '\25bc';
+		font-size: 10px;
+		color: #ED1C24;
+	}
+
+	.uluserbar .cats .category.active{
+		background-color: #ed1c24;
+
+		border: 1px solid #ed1c24;
+		border-radius: 7px 7px 0 0;
+
+		color: #fff;
+	}
+
+	.uluserbar .cats .category.active:after{
+		color: #fff;
+	}
+
+	.uluserbar a.mydata
+	{
+		display: block;
+		position: relative;
+    margin: 0;
+		padding: 20px 10px 20px 55px;
+    height: auto;
+
+		background: url('../i/icons.map.png');
+
+		font-size: 14px;
+    line-height: normal;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	.uluserbar a.favorites
+	{ background-position: 10px 14px}
+
+	.uluserbar a.basket
+	{ background-position: 10px -86px}
+
+  form.search
+	{
+		position: relative;
+		margin:  0 auto;
+		height: 30px;
+		width: 405px;
+
+		white-space: nowrap;
+	}
+
+  form.search .field
+	{
+		position: relative;
+		float: left;
+		margin: 0;
+		height: 30px;
+		width: 320px;
+
+		background: #fff;
+
+    box-shadow: inset 1px 1px 2px 0 rgba(0, 0, 0, .2);
+	}
+
+  form.search .field .in
+	{
+    background: none;
+	}
+
+	form.search .field .arrow,
+  form.search .field .selection{
+		float: left;
+		position: relative;
+    	margin: -1px 0 0 -1px;
+		padding: 6px 18px 6px 10px;
+		z-index: 3;
+    	height: auto;
+
+		background-color: #f2f2f2;
+		border-right: 1px solid #b2b2b2;
+
+		color: #808080;
+		font-size: 11px;
+		font-family: Arial, Helvetica, sans-serif;
+
+		text-decoration: none;
+		text-align: center;
+
+		vertical-align: top;
+		line-height: 16px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+  form.search .field .arrow span,
+  form.search .field .selection span
+  {
+		float: left;
+		width: 30px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		text-align: center;
+		padding-right: 5px;
+    line-height: normal;
+	}
+
+  form.search .field .arrow:after,
+  form.search .field .selection:after{
+		display: block;
+		width: 40px;
+		margin-left: 3px;
+		content: '\25bc';
+		font-size: 10px;
+		color: #808080;
+	}
+
+  form.search input[type="text"]
+	{
+		height: 20px;
+    padding: 3px 5px;
+		width: 220px;
+		background-color: transparent;
+		font-size: 12px;
+		font-family: Arial, Helvetica, sans-serif;
+		border: 0;
+		color: #808080;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
+  form.search .error
+	{ outline: 1px solid red }
+
+  form.search .btn
+	{
+		float: left;
+		position: relative;
+		margin: 0 0 0 -6px;
+		z-index: 1;
+	  	padding: 0 20px;
+    	text-align: center;
+	}
+
+  form.search .dropdown-search
+	{
+		top: 27px;
+		left: 3px;
+		z-index: 2;
+
+		border-width: 1px 1px 1px 0;
+		border-style: solid;
+		border-color: #b3b3b3;
+		box-shadow: none;
+		border-radius: 0 0 5px 5px;
+
+		white-space: normal;
+	}
+
+	form.search .selection-search li{
+		padding: 5px 10px 0 10px;
+		margin: 0 0 15px 0;
+		border-left: 0;
+		display: block;
+		height: auto;
+	}
+
+	.search .selection-search li li{
+		margin-bottom: 5px;
+		padding-left: 0;
+		padding-top: 0;
+		border-top: 0px;
+	}
+
+  .uluserbar a.mydata i.rounder
+  {    
+    position: absolute;
+    left: -25px;
+    top: -2px;
+    margin: 0;
+
+    color: #fff;
+    font-size: 10px;
+    line-height: 1.9;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+  }
+
+
+  /*
+  * Style For Right To Left
+  * (Hebrew)
+  */
+
+  .rtl .uluserbar .itemmenu:first-child
+  { background: url("../i/background.png") no-repeat scroll 0 -66px transparent }
+
+  .rtl .uluserbar .itemmenu:last-child
+  {
+    background: none repeat scroll 0 0 transparent;
+    border-left: 0;
+  }
+
+  .rtl .uluserbar .cats a.category
+  {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+
+  .rtl .uluserbar .mydata
+  { padding: 20px 55px 20px 10px }
+
+  .rtl .uluserbar .basket
+  { background-position: 82px -86px }
+
+  .rtl .uluserbar .favorites
+  { background-position: 104px 14px }
+
+  .rtl .uluserbar .mydata .rounder
+  {
+    right: -25px;
+    left: auto;
+  }
+
+  .rtl .search .dropdown-search
+  {
+    top: 27px;
+    left: auto;
+    right: 3px;
+    border-width: 1px 0 1px 1px;
+  }
+
+  .rtl .search .field,
+  .rtl .search .arrow span,
+  .rtl .search .selection span
+  { float: right }
+
+  .rtl .search .arrow,
+  .rtl .search .selection
+  {
+    float: right;
+
+    border-right: 0;
+    border-left: 1px solid #B2B2B2;
+  }
+
+  .rtl .uluserbar .cats .category:after
+  {
+    margin-left: 0;
+    margin-right: 5px;
+  }
+
+
+/* userbar (end) */

@@ -1,0 +1,183 @@
+<div class="content content-sitemap center">
+    <h1><?=Lang::get('site_map')?></h1>
+
+    <div class="main-wrap d-flex flex-wrap">
+        <? if (! empty($pages)) { ?>
+            <div class="panel-grey yellow2-panel"><?=Lang::get('site_pages')?></div>
+            <div class="accordion accordion-menu accordion-menu-page col-md-12" id="pages">
+                <div class="row">
+                    <div class="col-md-6">
+                        <? $count = count($pages); ?>
+                        <? $counter = 0; ?>
+                        <? foreach ($pages as $p) { ?>
+
+                            <? if ($counter == ceil(($count)/2)) { ?>
+                                </div><div class="col-md-6">
+                            <? } ?>
+                            <? $counter++; ?>
+
+                            <div class="card">
+                                <div class="card-header bg-white border-0 nopadding" id="heading-<?=$p['alias']?>">
+                                    <button type="button"
+                                            aria-expanded="false"
+                                            data-toggle="collapse"
+                                            aria-controls="collapseTwo"
+                                            data-target="#cat-<?=$p['alias']?>"
+                                            class="btn btn-link link pl-0 pr-0 collapsed"
+                                    >
+                                        <? if (! empty($p['subpages'])) { ?>
+                                            <i></i>
+                                        <? } ?>
+
+                                        <a href="<?=@UrlGenerator::generateContentUrl($p['alias'])?>">
+                                            <?=$this->escape($p['title'])?>
+                                        </a>
+                                    </button>
+                                </div>
+
+                                <? if (! empty($p['subpages'])) { ?>
+                                    <div id="cat-<?=$p['alias']?>"
+                                         class="collapse"
+                                         data-parent="#pages"
+                                         aria-labelledby="heading-<?=$p['alias']?>"
+                                    >
+                                        <div class="card-body pt-0 pb-0">
+                                            <ul>
+                                                <? foreach ($p['subpages'] as $sp) { ?>
+                                                    <li>
+                                                        <a href="<?=@UrlGenerator::generateContentUrl($sp['alias'])?>">
+                                                            <?=$this->escape($sp['title'])?>
+                                                        </a>
+                                                    </li>
+                                                <? } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            </div>
+                        <? } ?>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+
+        <? if (! empty($digest)) { ?>
+            <?// print '<pre>'; var_dump($digest); exit; ?>
+            <div class="panel-grey yellow2-panel"><?=Lang::get('digest')?></div>
+            <div class="accordion accordion-menu accordion-menu-page col-md-12" id="digest">
+                <div class="row">
+                    <div class="col-md-6">
+                        <? $count = count($digest); ?>
+                        <? $counter = 0; ?>
+                        <? foreach ($digest as $d) { ?>
+
+                            <? if ($counter == ceil(($count)/2)) { ?>
+                                </div><div class="col-md-6">
+                            <? } ?>
+                            <? $counter++; ?>
+
+                            <div class="card">
+                                <? if (!empty($d['articles']) && !empty($d['alias'])) { ?>
+                                    <div class="card-header bg-white border-0 nopadding" id="heading-<?=$d['alias']?>">
+                                        <button type="button"
+                                                aria-expanded="false"
+                                                data-toggle="collapse"
+                                                aria-controls="collapseTwo"
+                                                data-target="#cat-<?=$d['alias']?>"
+                                                class="btn btn-link link pl-0 pr-0 collapsed"
+                                        >
+                                            <i></i>
+
+                                            <a href="<?=UrlGenerator::generateDigestUrl('digest', $d['alias'])?>">
+                                                <?=$this->escape($d['title'])?>
+                                            </a>
+                                        </button>
+                                    </div>
+                                <? } ?>
+
+                                <? if (!empty($d['articles'])) { ?>
+                                    <div id="cat-<?=$d['alias']?>"
+                                         class="collapse"
+                                         data-parent="#digest"
+                                         aria-labelledby="heading-<?=$d['alias']?>"
+                                         <?=empty($d['alias']) ? 'style="display: block !important"' : ''?>
+                                    >
+                                        <div class="card-body pt-0 pb-0">
+                                            <ul>
+                                                <? foreach ($d['articles'] as $ad) { ?>
+                                                    <li>
+                                                        <a href="<?=UrlGenerator::generatPostUrl('post', $ad['id'], $ad['alias'])?>">
+                                                            <?=$this->escape($ad['title'])?>
+                                                        </a>
+                                                    </li>
+                                                <? } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            </div>
+                        <? } ?>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+
+        <? if (! empty($treeCats)) { ?>
+            <div class="panel-grey yellow2-panel"><?=Lang::get('subcategories_and_subsections')?></div>
+            <div class="accordion accordion-menu accordion-menu-page col-md-12" id="tree-cats">
+                <div class="row">
+                    <div class="col-md-6">
+                        <? $count = count($treeCats); ?>
+                        <? $counter = 0; ?>
+                        <? foreach ($treeCats as $cat) { ?>
+
+                            <? if ($counter == ceil(($count)/2)) { ?>
+                                </div><div class="col-md-6">
+                            <? } ?>
+                            <? $counter++; ?>
+
+                            <div class="card">
+                                <div class="card-header bg-white border-0 nopadding" id="heading-<?=$cat['id']?>">
+                                <button type="button"
+                                        aria-expanded="false"
+                                        data-toggle="collapse"
+                                        aria-controls="collapseTwo"
+                                        data-target="#<?=$cat['id']?>"
+                                        class="btn btn-link link pl-0 pr-0 collapsed"
+                                >
+                                    <? if (! empty($cat['children'])) { ?>
+                                        <i></i>
+                                    <? } ?>
+
+                                    <a href="<?=General::generateUrl('subcategory', $cat)?>">
+                                        <?=$this->escape($cat['Name'])?>
+                                    </a>
+                                </button>
+                            </div>
+                                <? if (! empty($cat['children'])) { ?>
+                                    <div id="<?=$cat['id']?>"
+                                     class="collapse"
+                                     data-parent="#tree-cats"
+                                     aria-labelledby="heading-<?=$cat['id']?>"
+                                    >
+                                        <div class="card-body pt-0 pb-0">
+                                            <ul>
+                                                <? foreach ($cat['children'] as $c) { ?>
+                                                    <li>
+                                                        <a href="<?=General::generateUrl('subcategory', $c)?>">
+                                                            <?=$this->escape($c['Name'])?>
+                                                        </a>
+                                                    </li>
+                                                <? } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            </div>
+                        <? } ?>
+                    </div>
+                </div>
+            </div>
+        <? } ?>
+    </div>
+</div>

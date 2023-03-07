@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controller>
+    <script name='userreferal'>
+        <template name='userreferal' />
+        <blocks>
+            <block name='CrumbsNew' />
+            <block name='HeaderNew' />
+            <block name='FooterNew' />
+            <block name='Menu' />
+            <block name='UserReferal' />
+            <block name='Banners' />
+        </blocks>
+    </script>
+</controller>

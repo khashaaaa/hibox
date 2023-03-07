@@ -1,0 +1,21 @@
+
+.lproduct .raiting
+{
+	display: block;
+	margin: 2px 0;
+        height: 20px;
+	text-align: right;
+}
+
+.big-title
+{ margin: 0 0 15px 0 }
+
+.big-title h1
+{ margin: 0 }
+
+
+.order-fix
+{
+  margin: -15px 0 0 0;
+  padding: 0 20px;
+}

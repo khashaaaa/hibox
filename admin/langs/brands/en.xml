@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Select_from_list">Select from list</key>
+    <key name="Show_brand">Enable brand page</key>
+    <key name="Hide_brand">Disable brand page</key>
+    <key name="Add_brand">Adding brand</key>
+    <key name="Edit_brand">Editing brand</key>
+    <key name="Really_delete_this_brand">Are you sure you want to delete this brand?</key>
+    <key name="Brand_name">Brand name</key>
+    <key name="Brand_taobao_id">Brand ID on Taobao</key>
+    <key name="Brand_find_by_name">Find by name</key>
+    <key name="Display_name">Displayed name</key>
+    <key name="Logo">Logo</key>
+    <key name="Description">Description</key>
+    <key name="Seo_attributes">SEO attributes</key>
+    <key name="Save_and_add">Save and add more</key>
+    <key name="Title">Title</key>
+    <key name="Prefix">Text before title</key>
+    <key name="Suffix">Text after title</key>
+    <key name="Meta_description">Description</key>
+    <key name="Keywords">Keywords</key>
+    <key name="Select">Select</key>
+    <key name="Change">Change</key>
+    <key name="Delete">Delete</key>
+    <key name="Enter_first_letters">Enter initial letters</key>
+    <key name="Brand_name_cannot_be_empty">Brand name cannot be empty</key>
+    <key name="Brand_saved_successfully">Brand saved successfully</key>
+    <key name="Brand_name_hint">Enter initial letters of searched brand name</key>
+    <key name="Brand_taobao_id_hint">ID of selected brand on Taobao</key>
+    <key name="Display_name_hint">Display of brand name can be changed</key>
+    <key name="Logo_hint">Upload brand image</key>
+    <key name="Description_hint">Brand description can be added to inform customers and index your website</key>
+    <key name="Seo_title_hint">Text to be displayed in browser page title. Brand name is default</key>
+    <key name="Prefix_hint">Text to be displayed in title before brand name</key>
+    <key name="Suffix_hint">Text to be displayed in title after brand name</key>
+    <key name="Keywords_hint">Keywords for improving page ranking</key>
+    <key name="Meta_description_hint">Brand description can be added to index your website</key>
+    <key name="Brand_already_exists">Brand is already on the list</key>
+    <key name="Taobao_id_cannot_be_empty">Taobao ID required</key>
+    <key name="Brands_not_selected">No brand is selected to be added</key>
+    <key name="incorrect_picture_url">Incorrect picture url</key>
+</translations>
+
+
+
+

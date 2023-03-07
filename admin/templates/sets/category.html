@@ -1,0 +1,150 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?= $PageUrl->AssignDo('default') ?>" class="muted"><?= LangAdmin::get('Catalog') ?></a><span class="divider">›</span></li>
+    <li><a href="<?= $PageUrl->AssignCmdAndDo('sets', 'default') ?>" class="muted"><?= LangAdmin::get('Sets') ?></a>
+        <span class="divider">›</span></li>
+    <li class="active"><?= LangAdmin::get('Recommended_categories') ?></li>
+</ul><!--/.breadcrumb-->
+
+<?= TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl) ?>
+<? include('templates/sets/navigation/sub-tabs.html'); ?>
+<h1><?=LangAdmin::get('Recommended_categories')?></h1>
+<div class="sets_wrapper offset-bottom1">
+    <div style="width: 25%; display: inline-block;">
+        <strong data-target=".ot_add_recommend_category" data-toggle="collapse" class="blink blink-iconed"><i class="icon-plus"></i><?= LangAdmin::get('Add') ?></strong>
+    </div>
+    <div class="sets-categories-btn pull-right">
+                <? if (count($languages) > 1) { ?>
+                    <!-- site language -->
+                    <a class="btn dropdown-toggle offset-top05" data-toggle="dropdown" href="#" title="<?= LangAdmin::get('Choose_lang_to_edit') ?>">
+                        <?= $activeLanguage ?>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <? foreach ($languages as $code => $lang) { ?>
+                            <li id="restriction_language" value="<?= $code ?>"><a href="<?= $PageUrl->Get() ?>&language=<?= $code ?>"><?= $lang ?></a></li>
+                        <? } ?>
+                    </ul>
+                    <!-- /site language -->
+                <? } ?>
+        <button class="ot_clear_set btn btn-tiny" data-type="<?= $type ?>" data-content-type="<?= $contentType ?>" data-cid="<?= $categoryId ?>"><?= LangAdmin::get('clear_set') ?></button>
+
+    </div>
+
+    <div class="ot_add_recommend_category collapse">
+        <form class="form-inline well" action="" data-link="<?= $PageUrl->AssignDo('categories') ?>">
+            <div class="well">
+                <div class="control-group">
+                    <div class="controls">
+                        <label for="categoryName"><?= LangAdmin::get('Choose_category') ?></label><br>
+                        <input class="span9 add-recommend-categories" type="text" name="categoryName" readonly>
+                        <input class="span9 recommend-categories_id" type="hidden" name="categoryId">
+                        <span type="button" data-toggle="button" class="btn show-categories" title="<?= LangAdmin::get('Set_catalog_section') ?>"><i class="icon-list-alt font-14"></i></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="button" class="btn btn-primary btn_preloader add-recommend-category" data-action="<?= $PageUrl->AssignDo('addRecommendedCategory') ?>" data-link="<?= $PageUrl->AssignDo('category') ?>" data-type="Category" data-loading-text="<?= LangAdmin::get('Add') ?>"><?= LangAdmin::get('Add') ?></button>
+                        <button type="button" class="btn offset-left05" data-target=".ot_add_recommend_category" data-toggle="collapse" title="<?= LangAdmin::get('Cancel') ?>"><?= LangAdmin::get('Cancel') ?></button>
+                    </div>
+                </div>
+            </div><!-- /.well -->
+        </form>
+    </div>
+</div>
+<ul id="category-sortable" type="Best" class="thumbnails ot_sortable_cols ot_sortable_categories">
+    <input type="hidden" id="total-count" value="<?= $totalCount ?>">
+    <input type="hidden" id="activeLanguage" value="<?= $activeLanguage ?>">
+    <div class="ot-item-template" style="display: none;">
+        <li id="categoryId" type="Best" picture="" originalPicture="">
+            <div class="thumbnail">
+                <a href="#" title="<?= LangAdmin::get('Item_page_on_site') ?>" target="_blank" class="img_preview"><img id="category_image" src="itemPictureUrl" alt=""></a>
+                <h3 title="itemTitle">itemTitle</h3>
+            </div>
+        </li>
+    </div>
+    <?php foreach ($listCategories as $item) { ?>
+        <li id="<?= $item->getId() ?>" type="Best" originalPicture="<?= $item->getIconImageUrl() ? $item->getIconImageUrl() : "/i/noimg.png" ?>" picture="<?= $item->getIconImageUrl()?$item->getIconImageUrl():"/i/noimg.png" ?>" value="<?= $item->getName(); ?>">
+            <div class="thumbnail">
+                <header>
+                    <span class="sortable_handler" title="<?= LangAdmin::get('Change_order') ?>"><i class="icon-move"></i></span>
+                    <span class="pull-right">
+                        <button class="btn btn-mini ot_show_edit_category" title="<?= LangAdmin::get('Edit') ?>"><i class="icon-pencil"></i></button>
+                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?= LangAdmin::get('Delete') ?>"><i class="icon-remove"></i></button>
+                    </span>
+                </header>
+                <a href="<?= UrlGenerator::generateSearchUrlByParams(array('cid' => $item->GetId())) ?>" target="_blank" title="<?=LangAdmin::get('Category_on_site')?>" class="img_preview">
+                    <img src="<?= $item->getIconImageUrl()?$item->getIconImageUrl():'/i/noimg.png' ?>" alt="<?=LangAdmin::get('Image')?>">
+                </a>
+                <h3><?= $this->escape($item->getName()) ?></h3>
+            </div>
+        </li>
+    <?php } ?>
+    <div class="items-overlay"></div>
+</ul>
+<div id="load-more-preloader" class="row-fluid" style="display: none;">
+    <div class="ot-preloader-mini"></div>
+</div>
+<?php if ($totalCount > count($listCategories)) { ?>
+    <a id="load-more-categories"><?= LangAdmin::get('Load_more_categories') ?></a>
+<?php } ?>
+
+<div class="modal hide fade ot_edit_selections_category_dialog_window">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3></h3>
+    </div>
+
+    <div class="modal-body">
+        <form class="form-vertical ot_form " action="<?= $PageUrl->AssignCmdAndDo('sets', 'updateSetsRecommendedCategory') ?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="itemId" name="itemId">
+            <input type="hidden" name="type" value="<?= $type ?>">
+            <input type="hidden" id="cid" name="cid" value="<?= $categoryId ?>">
+            <input type="hidden" name="language" id="currentLang" value="<?= $currentLang ?>" data-lang="<?= $currentLang ?>">
+
+            <div class="control-group">
+                <label class="control-label"><?= LangAdmin::get('Display_image') ?></label>
+                <div class="controls">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="fileupload-new thumbnail thumbnail-mini">
+                            <div class="thumbnail-placeholder"><img src="" alt=""></div>
+                        </div>
+                        <div class="fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+                        <div class="btn btn-success btn-tiny btn-file">
+                            <!--<span class="fileupload-new">Выбрать</span>-->
+                            <span class="fileupload-new"><?= LangAdmin::get('Change') ?></span>
+                            <span class="fileupload-exists"><?= LangAdmin::get('Change') ?></span>
+                            <input type="file" name="newImage">
+                            <input type="hidden" name="existingImage" id="existing_image" class="file_name"/>
+                            <input type="hidden" name="originalPicture" id="originalPicture"/>
+                        </div>
+                        <span class="btn btn-danger btn-tiny fileupload-exists" id="btnDelete"
+                              data-dismiss="fileupload"><?= LangAdmin::get('Delete') ?></span>
+                        <span class="btn btn-danger btn-tiny fileupload-new delete-existing-image"
+                              id="deleteImage" data-dismiss="fileupload"><?= LangAdmin::get('Delete') ?></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary pull-left btn_preloader" autocomplete="off" data-loading-text="<?= LangAdmin::get('Saving') ?>"><?= LangAdmin::get('Save') ?></button>
+        <button type="button" class="btn pull-right" data-dismiss="modal"><?= LangAdmin::get('Cancel') ?></button>
+    </div>
+
+</div>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var CategoriesCategories = new Backbone.Collection();
+    CategoriesCategories.add(<?= json_encode($categories); ?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/vendor/jstree/jquery.jstree.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-category.js'); ?>
+
+
+

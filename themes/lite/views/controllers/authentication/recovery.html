@@ -1,0 +1,62 @@
+<div class="mt15">
+    <ul class="tabs tabs1 clrfix">
+        <li><a href="<?=@UrlGenerator::generateContentUrl('login')?>"><span><?=Lang::get('private_office_login')?></span><i></i></a></li>
+        <li><a href="<?=@UrlGenerator::generateContentUrl('register')?>"><span><?=Lang::get('registration_tab')?></span><i></i></a></li>
+        <li class="active"><a href="<?=@UrlGenerator::generateContentUrl('recovery')?>"><span><?=Lang::get('pass_recovery')?></span><i></i></a></li>
+    </ul>
+</div>
+<div class="tabs-content">
+    <form action="<?=UrlGenerator::toRoute('recovery')?>" class="form js-authentication-recovery-form" method="post">
+        <div id="recover" class="userform">
+            <div class="form-row form-margin">
+                <label for="username" class="long_label"><?=Lang::get('login_or_email_or_phone')?></label>
+                <input id="username" type="text" name="username" class="form-field" required />
+            </div>
+
+            <div class="form-row">
+                <div class="error"><?= (!empty($error)) ? $error : '' ?></div>
+            </div>
+
+            <div class="form-row">
+                <div class="success"><?= (!empty($success)) ? $success : '' ?></div>
+            </div>
+
+            <div class="form-row recovery enter">
+                <label class="long_label">&nbsp;</label>
+                <input type="submit" id="submitb" value="<?=Lang::get('recover')?>" class="btn_office" data-loading-text="<?=Lang::get('loading')?>...">
+            </div>
+        </div>
+    </form>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        $('.js-authentication-recovery-form').submit(function(){
+            var form = $(this);
+            var btn = form.find('input[type="submit"]');
+            btn.button('loading');
+            form.find('.error').html('');
+
+            $.post(
+                form.attr('action'),
+                form.serialize(),
+                function (data) {
+                    if (data.error) {
+                        form.find('.error').html(data.message);
+                    } else if (data.message) {
+                        form.find('.success').html(data.message);
+                    } else if (data.redirect) {
+                        document.location = data.redirect;
+                    }
+                }, 'json'
+            ).complete(function () {
+                btn.button('reset');
+            });
+
+            return false;
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

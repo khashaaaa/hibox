@@ -1,0 +1,69 @@
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+<div class="control-group control-group-medium">
+<% } %>
+    <% if(typeof parameters.useLabel === 'undefined' || parameters.useLabel == 'true'){ %>
+    <label class="control-label">
+        <% if (typeof parameters.label !== 'undefined' && parameters.label !== null) { %>
+            <%= parameters.label %>
+        <% } else { %>
+            <%= trans.get(name + '_label') %>
+        <% } %>
+        <% if( trans.get(name + '_hint') != (name + '_hint') ){ %>
+            <i class="icon-question-sign ot_inline_help"
+               data-toggle="popover"
+               data-content="<%= trans.get(name + '_hint') %>"
+               title=""
+               data-original-title=""
+            >
+            </i>
+        <% } %>
+        <div class="configLangVersions" id="configLangVersions_<%= name %>"></div>
+    </label>
+    <% } %>
+    <% if(typeof parameters.useLinkWrapper === 'undefined' || parameters.useLinkWrapper == 'true'){ %>
+    <div class="controls">
+    <% } %>
+        <a class="ot_inline_editable"
+            href="javascript:void(0)" data-name="<%= name %>"
+            data-type="text"
+            <% if(typeof parameters.title !== 'undefined'){ %>
+                title="<%= parameters.title %>"
+            <% } %>
+            <% if(typeof parameters.emptytext !== 'undefined'){ %>
+                data-emptytext="<%= parameters.emptytext %>"
+            <% } %>
+            <% if(typeof parameters.pk !== 'undefined'){ %>
+                data-pk="<%= parameters.pk %>"
+            <% } else { %>
+                data-pk="1"
+            <% } %>
+            data-url="<%= saveUrl %>"
+            <% if(typeof parameters.inputClass !== 'undefined'){ %>
+                data-inputclass="<%= parameters.inputClass %>"
+            <% } %>
+            data-original-title=""
+            <% if (typeof parameters.placeholder !== 'undefined') { %>
+            data-placeholder="<%= parameters.placeholder %>"
+            <% } %>
+            <% if (typeof parameters.disabled !== 'undefined') { %>
+            data-disabled="<%= parameters.disabled %>"
+            <% } %>
+        >
+            <% if (value && (typeof parameters.displayValue !== 'undefined')){ %>
+                <%= parameters.displayValue %>
+            <% } else if (value){ %>
+                <% if (value.length > 40) { %>
+                    <%= value.substr(0, 40) %> ...
+                <% } else { %>
+                    <%= value %>
+                <% } %>                
+            <% } else if (typeof parameters.defaultValue !== 'undefined'){ %>
+                <%= parameters.defaultValue %>
+            <% } %>
+        </a>
+    <% if(typeof parameters.useLinkWrapper === 'undefined' || parameters.useLinkWrapper == 'true'){ %>
+    </div>
+    <% } %>
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+</div>
+<% } %>

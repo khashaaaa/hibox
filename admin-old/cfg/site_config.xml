@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<params>
+    <param name="phone" type="text" />
+    <param name="site_name" type="text" />
+    <param name="vkLikeWidget" type="textarea" />
+    <param name="fbLikeWidget" type="textarea" />
+    <param name="twitWidget" type="textarea" />
+    <param name="vk_link" type="text" />
+    <param name="fb_link" type="text" />
+    <param name="tw_link" type="text" />
+
+    <friendly_urls>
+        <param name="category_prefix" type="text" />
+        <param name="category_suffix" type="text" />
+    </friendly_urls>
+</params>

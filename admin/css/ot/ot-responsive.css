@@ -1,0 +1,121 @@
+
+/* ==========================================================================
+   custom responsive styles
+   ========================================================================== */
+
+/* Sticky footer, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+
+    header.header.fixed,
+    aside.side-left.fixed {
+        position: relative;
+        top: 0;
+        }
+
+    /** sidebar**/
+    aside.side-left{
+        position: relative;
+        top: auto;
+        width: 100%;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        display: block;
+        z-index: 1;
+        border-left: none;
+        border-right: none;
+        min-height: 60px;
+        }
+    .side-right{
+        position: relative;
+        display: table-cell;
+        z-index: 1;
+        margin: 10px auto 20px 0px;
+        top: 60px;
+        }
+
+    .ot_content {margin: 25px 0px 20px 0;}
+
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        }
+
+    /* main nav */
+    .ot_main_nav {
+        margin: auto;
+        display: table;
+        text-align: center;
+        }
+    .ot_main_nav > li{
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        white-space: nowrap;
+        }
+    .ot_main_nav > li.active:after, .ot_main_nav > li.active:before{
+        display: none;
+        }
+    .ot_main_nav > li.active:after{
+        display: none;
+        }
+    .ot_main_nav > li.active:before{
+        display: none;
+        }
+    .ot_main_nav > li{
+        width: auto;
+        margin: 4px 6px;
+        padding: 0;
+        }
+    .ot_main_nav > li > a {
+        font-size: 10px;
+        padding: 10px;
+        text-overflow: ellipsis;
+        }
+    .ot_main_nav a i {
+        display: block;
+        float: none;
+        font-size: 20px;
+        text-align: center;
+        width: auto;
+        }
+    .ot_main_nav > li > a > .badge,
+    .ot_main_nav > li > a > .label {
+        position: absolute;
+        top: 2px;
+        padding: 1px 4px;
+        margin-left: -10px;
+        font-size: 10px;
+        }
+
+    .navbar .brand_wrap {width: 36%;}
+    .box, .box-tab {margin-bottom: 20px;}
+
+}/* /@media (max-width: 767px)*/
+
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+    .ot_main_nav > li {text-align: center;}
+    .ot_main_nav > li > a {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: .85em;
+        }
+    .ot_main_nav a i {
+        display: block;
+        width: auto;
+        float: none;
+        }
+
+    } /* /@media (min-width: 768px) and (max-width: 979px)*/
+
+
+@media (max-width: 480px) {
+    /** main nav **/
+    .ot_main_nav > li.active:after,
+    .ot_main_nav > li.active:before{
+        display: none;
+        }
+    }

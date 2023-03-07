@@ -1,0 +1,63 @@
+.raiting {
+	display: inline-block;
+	color: white;
+	text-align: center!important;
+}
+
+.i-raiting {
+	display: block;
+	width: 90px;
+	height: 17px;
+}
+
+.rating_number {
+	display: block;
+	height: auto;
+	width: 100%;
+	color: white;
+	text-align: center!important;
+}
+.rating_number:before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 12px;
+	background: url('../../../../i/i.png') 0px -431px;
+}
+
+.raiting_0 {background: url('../../../i/hearts/level_0.gif') no-repeat;}
+.raiting_1 {background: url('../../../../i/hearts/level_1.gif') no-repeat;}
+.raiting_2 {background: url('../../../../i/hearts/level_2.gif') no-repeat;}
+.raiting_3 {background: url('../../../../i/hearts/level_3.gif') no-repeat;}
+.raiting_4 {background: url('../../../../i/hearts/level_4.gif') no-repeat;}
+.raiting_5 {background: url('../../../../i/hearts/level_5.gif') no-repeat;}
+.raiting_6 {background: url('../../../../i/hearts/level_6.gif') no-repeat;}
+.raiting_7 {background: url('../../../../i/hearts/level_7.gif') no-repeat;}
+.raiting_8 {background: url('../../../../i/hearts/level_8.gif') no-repeat;}
+.raiting_9 {background: url('../../../../i/hearts/level_9.gif') no-repeat;}
+.raiting_10 {background: url('../../../../i/hearts/level_10.gif') no-repeat;}
+.raiting_11 {background: url('../../../../i/hearts/level_11.gif') no-repeat;}
+.raiting_12 {background: url('../../../../i/hearts/level_12.gif') no-repeat;}
+.raiting_13 {background: url('../../../../i/hearts/level_13.gif') no-repeat;}
+.raiting_14 {background: url('../../../../i/hearts/level_14.gif') no-repeat;}
+.raiting_15 {background: url('../../../../i/hearts/level_15.gif') no-repeat;}
+.raiting_16 {background: url('../../../../i/hearts/level_16.gif') no-repeat;}
+.raiting_17 {background: url('../../../../i/hearts/level_17.gif') no-repeat;}
+.raiting_18 {background: url('../../../../i/hearts/level_18.gif') no-repeat;}
+.raiting_19 {background: url('../../../../i/hearts/level_19.gif') no-repeat;}
+.raiting_20 {background: url('../../../../i/hearts/level_20.gif') no-repeat;}
+
+
+.rating_number.raiting_0, .rating_number.raiting_1, .rating_number.raiting_2, .rating_number.raiting_3,
+.rating_number.raiting_4, .rating_number.raiting_5, .rating_number.raiting_6, .rating_number.raiting_7,
+.rating_number.raiting_8 {
+	background: #FF5F26;
+}
+.rating_number.raiting_9, .rating_number.raiting_10, .rating_number.raiting_11, .rating_number.raiting_12,
+.rating_number.raiting_13, .rating_number.raiting_14, .rating_number.raiting_15 {
+	background:  #F5BB29;
+}
+.rating_number.raiting_16, .rating_number.raiting_17, .rating_number.raiting_18, .rating_number.raiting_19,
+.rating_number.raiting_20 {
+	background:  #8CC63F;
+}

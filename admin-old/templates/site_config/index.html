@@ -1,0 +1,282 @@
+<?=$Header?>
+<script language="javascript" type="text/javascript" src="../js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    function ajaxfilemanager(field_name, url, type, win)
+    {
+        var ajaxfilemanagerurl = "/js/tiny_mce/plugins/ajaxfilemanager/ajaxfilemanager.php";
+        switch (type) {
+            case "image":
+                break;
+            case "media":
+                break;
+            case "flash":
+                break;
+            case "file":
+                break;
+            default:
+                return false;
+        }
+        tinyMCE.activeEditor.windowManager.open({
+            url: "/js/tiny_mce/plugins/ajaxfilemanager/ajaxfilemanager.php",
+            width: 782,
+            height: 440,
+            inline : "yes",
+            close_previous : "no"
+        },{
+            window : win,
+            input : field_name
+        });
+    }
+
+    <?
+    $logo = 'logo';
+    if ($current_lang != '') $logo .= '_' . $current_lang;
+    $logo = (@$siteConfig[1][$logo]) ? @$siteConfig[1][$logo] : '../css/i/logo.png';
+    ?>
+logo = '<?=$logo?>';
+langs = {
+    "select_picture": "<?=LangAdmin::get('select_a_picture')?>"
+};
+
+$(function(){
+    $('.choose-lang-btn').click(function(){
+        $('#choose-lang [name="lang"]').val($(this).attr('lang'));
+        $('#choose-lang').submit();
+    });
+});
+</script>
+<script type="text/javascript" src="js/site_configuration.js"></script>
+
+<style type="text/css">
+.spoiler-wrap {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin: 12px 6px;
+}
+.spoiler-head {
+    padding: 2px 18px;
+    cursor: pointer;
+    background: url('templates/i/spoiler-icon1.png') no-repeat 4px 14px;
+}
+.unfolded { background: url('templates/i/spoiler-icon2.png') no-repeat 4px 14px; }
+.spoiler-body {
+    margin: 5px;
+    display: none;
+}
+
+#choose-lang .active {
+    font-weight: bold;
+}
+</style>
+
+<div class="col700">
+    <div class="tuning">
+        <div style="margin-bottom: 10px;">
+            <form id="choose-lang" action="" method="get">
+                <input type="hidden" name="sid" value="<?=$GLOBALS['ssid']?>" />
+                <input type="hidden" name="lang" value="" />
+
+                <input type="button" value="<?=LangAdmin::get('all_langs')?>" lang="" class="choose-lang-btn<?php if ($current_lang == '') echo ' active'; ?>" />
+                <? foreach ($langs as $l) { ?>
+                    <input type="button" lang="<?= htmlspecialchars($l['lang_code'])?>" value="<?=$l['lang_name']?>" class="choose-lang-btn<?php if ($l['lang_code'] == $current_lang) echo ' active'; ?>" />
+                <? } ?>
+
+                <input type="hidden" name="cmd" value="siteConfiguration" />
+            </form>
+            <br />
+
+            <form action="<?=BASE_DIR;?>index.php?do=saveConfiguration&amp;cmd=siteConfiguration" method="post">
+
+                <div class="spoiler-wrap">
+                    <div class="spoiler-head unfolded">
+                        <h2 class="mt30"><?=LangAdmin::get('site_header_setting')?></h2>
+                    </div>
+                    <div class="spoiler-body spoiler-show">
+                        <label style="width: 100px; display: inline-block"><?=LangAdmin::get('change_logo')?></label>
+                        <div style="display: inline-block; width: 300px">
+                            <div id="file-uploader"></div>
+                            <input type="hidden" id="logo" name="logo<?php if ($current_lang != '') echo '_' . $current_lang; ?>" value="<?=$logo?>" />
+                        </div>
+                        <br />
+
+                <?
+                $xml = simplexml_load_file(dirname(__FILE__).'/parameters.xml');
+                foreach($xml as $p){
+                    if(isset($p['feature']) && !in_array((string)$p['feature'], General::$enabledFeatures)) continue;
+
+                    if (isset($p['multilingual']) && ($p['multilingual'] == "true") && ($current_lang != '')) {
+                        $p['name'] .= '_' . $current_lang;
+                    }
+
+                    switch ($p['type']) {
+                        case 'radiobutton': {
+                ?>
+                        <input type="radio"
+                                   name="<?=$p['name']?>"
+                                   value="<?=$p['value']?>"
+                                   <? if (isset($siteConfig[1][(string)$p['name']]) && ($siteConfig[1][(string)$p['name']] == $p['value'])) echo 'checked'?>
+                                   > <?=LangAdmin::get((string)$p['label'])?><br />
+                <?
+                        } break;
+                        case 'ajax_button': {
+                            ?>
+                            <label style="width: 100px; display: inline-block"><?=LangAdmin::get((string)$p['label'])?></label>
+                            <input class="ajax_button" type="button"
+                            	   data-action="<?=$p['action']?>"
+                                   name="<?=$p['name']?>"
+                                   value="<?=LangAdmin::get((string)$p['value'])?>"
+                                   >
+
+                            <img class="addspinner" src="<?=TPL_DIR;?>i/spinner.gif" style="width:17px; height:17px; display:none;" alt="">
+                            <span class="status">
+                            </span>
+                            <br />
+                            <?
+                        } break;
+                        case 'title': {
+                            //$spoiler_first = false;
+							?>
+								</div>
+							</div>
+							<div class="spoiler-wrap">
+								<div class="spoiler-head"><h2><?=LangAdmin::get((string)$p['label'])?></h2></div>
+								<div class="spoiler-body">
+							<?
+                        } break;
+                        default: {
+                            if ($p['type'] == 'text')
+                                @$siteConfig[1][(string)$p['name']] = htmlspecialchars(@$siteConfig[1][(string)$p['name']]);
+
+                            $onkeyup = '';
+                            if (isset($p['value_type']) && $p['value_type'] == 'int') {
+                                $onkeyup = "this.value=this.value.replace(/[^0-9]+/g,'');";
+                            }
+
+                            if (isset($p['max'])) {
+                                $onkeyup .= "check_value_limit(this, ". $p['max']. ");";
+                            }
+                            print str_replace(
+                                array('[+name+]', '[+value+]', '[+label+]', '[+message+]', '[+checked+]', '[+onkeyup+]'),
+                                array($p['name'], @$siteConfig[1][(string)$p['name']], LangAdmin::get((string)$p['label']),
+                                    LangAdmin::get((string)$p['message']), @$siteConfig[1][(string)$p['name']]?'checked':'', $onkeyup),
+                                file_get_contents(dirname(__FILE__).'/tpl/'.$p['type'].'.tpl'));
+                        } break;
+                    }
+                }
+                ?>
+                    </div>
+                </div>
+
+                <div class="spoiler-wrap">
+                    <div class="spoiler-head">
+                        <h2 class="mt30"><?=LangAdmin::get('other')?></h2>
+                    </div>
+                    <div class="spoiler-body">
+
+                    	<b><?=LangAdmin::get('left_menu')?></b>
+                        <br /><br />
+                        <div style="width: 200px; display: inline-block;"><?=LangAdmin::get('cat_menu_setting')?></div>
+                        <select name="menu_type">
+                            <option value="1"
+                            <?php if ((!isset($siteConfig[1]['menu_type'])) || ($siteConfig[1]['menu_type'] == '1')) { ?>selected<? }?>><?=LangAdmin::get('menu_lvl1')?></option>
+                            <option value="2" <?php if (@$siteConfig[1]['menu_type'] == '2') { ?>selected<? }?>><?=LangAdmin::get('menu_lvl2')?></option>
+                            <option value="3" <?php if (@$siteConfig[1]['menu_type'] == '3') { ?>selected<? }?>><?=LangAdmin::get('menu_lvl3')?></option>
+                        </select>
+                        <b><?=LangAdmin::get('clear_cache_please')?></b>
+                        <br /><br />
+
+
+                        <b><?=LangAdmin::get('item_list')?></b>
+                        <br /><br />
+                        <div style="width: 200px; display: inline-block;"><?=LangAdmin::get('pager_count_print')?></div>
+                        <select name="pager_count_print">
+<?php for ($i = 1; $i <=5; $i++) { ?>
+                            <option value="<?php echo $i; ?>"
+<?php if ((!isset($siteConfig[1]['pager_count_print']) && ($i == 3)) ||
+    (isset($siteConfig[1]['pager_count_print']) && ($siteConfig[1]['pager_count_print'] == $i))) echo ' selected'?>
+                                ><?php echo $i; ?></option>
+<?php } ?>
+                        </select>
+                        <br /><br />
+
+
+                        <div style="width: 200px; display: inline-block;"><?=LangAdmin::get('default_perpage')?></div>
+                        <select name="default_perpage">
+                            <option value="20"
+<?php if ((!isset($siteConfig[1]['default_perpage'])) || ($siteConfig[1]['default_perpage'] == '20')) { ?>selected<? }?>>20</option>
+                            <option value="40" <?php if (@$siteConfig[1]['default_perpage'] == '40') { ?>selected<? }?>>40</option>
+                            <option value="100" <?php if (@$siteConfig[1]['default_perpage'] == '100') { ?>selected<? }?>>100</option>
+                        </select>
+                        <br /><br />
+                        <div style="width: 200px; display: inline-block;"><?=LangAdmin::get('seacrh_category_mode')?></div>
+                        <select name="search_category_mode">
+                            <option value="External"
+                            <?php if ((!isset($siteConfig[1]['search_category_mode'])) || ($siteConfig[1]['search_category_mode'] == 'External')) { ?>selected<? }?>><?=LangAdmin::get('seacrh_category_mode_external')?></option>
+                            <option value="InternalLeaf" <?php if (@$siteConfig[1]['search_category_mode'] == 'InternalLeaf') { ?>selected<? }?>><?=LangAdmin::get('seacrh_category_mode_internal_leaf')?></option>
+                            <option value="Nothing" <?php if (@$siteConfig[1]['search_category_mode'] == 'Nothing') { ?>selected<? }?>><?=LangAdmin::get('seacrh_category_mode_nothing')?></option>
+                        </select>
+                        <br /><br />
+
+                        <b><?=LangAdmin::get('admin_letter_lang')?></b><br /><br />
+                        <label style="width: 200px; display: inline-block;"><?=LangAdmin::get('letter_lang')?></label>
+                       
+                        <select name="admin_letter_lang">
+                            <option value=""></option>
+                            <? foreach ($availLangsForNotification as $l) { ?>
+                                <? $selected = (isset($siteConfig[1]['admin_letter_lang']) && ($l['lang_code'] == $siteConfig[1]['admin_letter_lang'])) ? 'selected="selected"': '';?>
+                                <option value="<?=$l['lang_code']?>" <?=$selected?>><?=$l['lang_name']?></option>
+                            <? } ?>
+                        </select>
+
+                        <br /><br />
+
+                    </div>
+                </div>
+
+                <input type="submit" value="<?=LangAdmin::get('save')?>">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function(){
+var SBobj = '';
+
+$('.ajax_button').click(function(){
+
+	var obj = $(this);
+	var status = obj.parent().find('.status')
+	var loadicon = $(this).parent().find('.addspinner');
+	loadicon.show();
+
+	status.text('');
+
+	var url = document.URL+'&do='+$(this).data('action');
+	$.ajax({
+	  url: url,
+	  success: function(data) {
+	  	if(data=='ok'){
+			status.text('<?=LangAdmin::get("sitemap_success")?>');
+		}
+		else {
+			status.text(data);
+		}
+	  }
+	}).done(function() {
+  		loadicon.hide();
+	});
+
+});
+
+$('.spoiler-body').hide();
+$('.spoiler-show').show();
+$('.spoiler-head').click(function(){
+    $(this).toggleClass('unfolded');
+    SBobj = $(this).next();
+    if ($(SBobj).css('display') == 'none') $(SBobj).show(300); else $(SBobj).hide(300);
+    })
+});
+</script>
+
+<?=$Footer?>

@@ -1,0 +1,58 @@
+<?
+if (General::isSellFree()) {
+    $defaultLogo = '/i/sellfree-logo.png';
+} else {
+    $defaultLogo = '/i/logo.png';
+}
+?>
+<header id="header" class="variant typeheader-24" role="banner" itemscope itemtype="https://schema.org/Organization">
+    <?=General::viewFetch('main/header/user-navigation', array('vars' => array('langs' => $langs, 'cms' => new CMS(), 'topMenu' => $topMenu, 'controller' => $controller)))?>
+
+    <div class="header-middle hidden-compact">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-logo col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="logo">
+                        <a href="/">
+                            <? $title = $this->escape(General::getConfigValue('title_for_home', CFG_SITE_NAME . ' - ' . Lang::get('home'), false)); ?>
+                            <img class="lazyautosizes lazyloaded" data-sizes="auto" src="<?=(General::getConfigValue('logo', $defaultLogo, false));?>" data-src="<?=(General::getConfigValue('logo', $defaultLogo, false));?>" title="<?=$title?>" alt="<?=$title?>" sizes="303px"></a>
+                    </div>
+                </div>
+                <div class="middle2 col-lg-6 col-md-6 col-sm-5">
+                    <?=General::runController('Header', 'renderSearchBar')?>
+                </div>
+                <div class="middle3 col-lg-3 col-md-3 col-sm-4">
+                    <div class="shopping_cart">
+                        <div id="cart" class="btn-shopping-cart">
+                            <a href="<?=UrlGenerator::generateContentUrl('basket')?>" class="btn-group top_cart">
+                                <div class="shopcart">
+                                    <span class="icon-c"><i class="fa fa-shopping-basket"></i></span>
+                                    <div class="shopcart-inner">
+                                        <p class="text-shopping-cart">
+                                            <?=Lang::get('cart')?>
+                                        </p>
+                                        <span class="total-shopping-cart cart-total-full">
+                                            <span id="basket-items-count" class="items_cart"><?=$this->getUser()->getCountInBasket()?></span>
+                                            <span class="items_cart2"> <?=Lang::get('item_s')?></span>
+                                            <span class="items_carts"> - <?=$this->getUser()->getTotalPriceInBasket()?></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="wishlist-comp hidden-md hidden-sm hidden-xs">
+                        <li class="wishlist hidden-xs">
+                            <a href="<?=UrlGenerator::generateContentUrl('supportlist')?>" id="" class="top-link-wishlist" title="<?=Lang::get('favourites')?>"><i class="fa fa-heart"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?=General::viewFetch(
+        'main/header/top-menu',
+        array('vars' => array('topMenu' => $topMenu, 'controller' => $controller))
+    )?>
+</header>

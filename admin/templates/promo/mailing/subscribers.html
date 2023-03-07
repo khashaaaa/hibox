@@ -1,0 +1,128 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('mailing')?> <span class="divider">›</span></li>
+	<li class="active"><?=LangAdmin::get('subscribers')?></li>
+</ul>
+
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'mailing'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('mailing')?>"><?=LangAdmin::get('mailing_list')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'subscribers'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('subscribers')?>"><?=LangAdmin::get('subscribers')?></a></li>
+		<li <? if($PageUrl->GetAction() == 'config'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1><?=LangAdmin::get('subscribers')?></h1>
+
+
+<div class="row-fluid">
+
+    <div class="span7">
+
+        <div class="well well-small offset-bottom2">
+
+            <form class="offset-vertical-none" action="users/customers/update">
+
+                <div class="row-fluid offset-bottom05">
+
+                    <div class="span4">
+                        <label class="control-label" for="ot_user_login_filter"><?=LangAdmin::get('user_login')?></label>
+                        <input type="text" class="input-block-level" id="ot_user_login_filter" title="">
+
+                    </div>
+
+                    <div class="span4">
+                        <label class="control-label" for="ot_user_email_filter"><?=LangAdmin::get('user_email')?></label>
+                        <input type="text" class="input-block-level" id="ot_user_email_filter" title="">
+                    </div>
+
+                    <div class="span4 offset-top-lebel-1">
+                        <button type="button" class="btn btn-primary btn_preloader pull-right" data-loading-text="<?=LangAdmin::get('Apply_filter')?>" autocomplete="off"><?=LangAdmin::get('apply_filter')?></button>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+        <div class="row-fluid">
+
+            <div class="pull-left">
+
+                <!-- add new user -->
+                <span data-type="typeahead" data-pk="1" data-url="/post" data-placement="bottom"  class="ot-typehead-users editable-no-brd pull-right offset-top05" title="<?=LangAdmin::get('add_subscription_user')?>">
+                    <i class="icon-plus font-14 color-blue"></i>
+                    <span class="blink" title="<?=LangAdmin::get('add_subscription_user')?>">
+                        <?=LangAdmin::get('add_user')?>
+                    </span>
+                </span>
+
+
+            </div>
+
+            <div class="pull-right">
+
+                <button class="btn offset-bottom06" title="<?=LangAdmin::get('subscribers_export_xml')?>"><i class="icon-share"></i> <?=LangAdmin::get('export')?></button>
+                <button class="btn offset-bottom06 dropdown-toggle" data-dropdown="#ot_import_subscribers" data-toggle="dropdown" title="<?=LangAdmin::get('subscribers_import_xml')?>"><i class="icon-download-alt"></i> <?=LangAdmin::get('import')?></button>
+
+                <select class="input-mini offset-left1" title="<?=LangAdmin::get('add_subscription_user')?>">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="all"><?=LangAdmin::get('All')?></option>
+                </select>
+
+
+                <div id="ot_import_subscribers" class="dropdown dropdown-tip dropdown-anchor-right">
+                    <div class="dropdown-panel text-right">
+                        <button class="btn btn-primary ladda-button ladda-progress-button"><span class="ladda-label"><?=LangAdmin::get('subscribers_load_xml')?></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th class="span4"><?=LangAdmin::get('subscribers_user')?></th>
+                    <th class="span4"><?=LangAdmin::get('subscribers_email')?></th>
+                    <th class="span1"><?=LangAdmin::get('subscribers_actions')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td><a href="users/customers/user-profile" title="subscribers_user_profile">qweqwe</a></td>
+                    <td><a href="mailto:qwe@asd.com" title="subscribers_user_send_mail">qwe@asd.com</a></td>
+                    <td class="text-center">
+                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('subscribers_remove_user')?>"><i class="icon-remove"></i></button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="users/customers/user-profile" title="<?=LangAdmin::get('User_profile')?>">asdfjk</a></td>
+                    <td><a href="mailto:asdfjk@yahoo.com" title="<?=LangAdmin::get('Write_letter_to_user')?>">asdfjk@yahoo.com</a></td>
+                    <td class="text-center">
+                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Remove_user_from_subscription')?>"><i class="icon-remove"></i></button>
+                    </td>
+                </tr>
+
+
+            </tbody>
+    </table>
+
+
+    </div>
+</div>
+
+
+<? //include('inc/pager.php'); ?>

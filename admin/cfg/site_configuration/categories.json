@@ -1,0 +1,19 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "categories",
+        "do": "default"
+    },
+    "fields": [
+        {
+            "name": "show_hidden_categories",
+            "type": "select",
+			"showbuttons": false,
+			"processSubmit": true,
+			"submitHandler": "categories_filter_changed",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        }
+    ]
+}

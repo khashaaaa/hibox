@@ -1,0 +1,29 @@
+<? if (count($searchprops) > 0) { ?>
+	<? foreach ($searchprops as $key => &$prop) {
+ 	    if ($key == 20000) { // Brand
+			continue;
+		}
+
+		$name = $prop['name'];
+		$values = $prop['values'];
+
+        ?>
+        <div class="control-group">
+            <label class="control-label"><?= !empty($name) ? $name : $key?></label>
+            <div class="controls">
+                <? foreach ($values as $vkey => &$value) {
+					$id = $value['id'];
+					$valueName = $value['name'] ? $value['name'] : $vkey;
+                    ?>
+                    <label>
+                        <input type="checkbox" id="categoryFiltersByChecks" pid-vid="<?=$key?>::<?=$id?>" value='{"<?=$key?>:<?=$id?>" : {"pid" : "<?=$key?>", "vid" : "<?=$id?>", "name" : "<?=$name?>", "valueName" : "<?=$valueName?>"}}'/>
+                        <?=$valueName?>
+                    </label>
+			    <? } ?>
+            </div>
+        </div>
+    <? } ?>
+<?php
+} else {?>
+	<?=LangAdmin::get('Category_filters_not_found')?>
+<?php } ?>

@@ -1,0 +1,11 @@
+<? if (
+    count(InstanceProvider::getObject()->GetDisplayedMoneys()->GetCurrencyInfo()->toArray()) > 1 ||
+    (
+        CMS::IsFeatureEnabled('PreselectedDelivery') &&
+        count(InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem()->toArray()) > 1
+    )
+) { ?>
+    <li class="box-up-menu_userpreferences">
+        <?=General::viewFetch('main/header/user-navigation/box-up-menu_userpreferences_content')?>
+    </li>
+<? } ?>

@@ -1,0 +1,84 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'system')?>"><?=LangAdmin::get('system')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('update')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<?=TabsGenerator::GetSubTabs('templates/site_config/system/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('update')?>  <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('Update_warning')?>" title=""></i></h1>
+
+
+<div class="well">
+
+    <!-- В ситуации, когда текущая версия устарела и есть версия для обновления -->
+    <h3><?=LangAdmin::get('Automatic_update')?></h3>
+
+    <? if($allowUpdate === 'Ok'){ ?>
+        <p><strong class="label label-info"><?=$currentVersion ? $currentVersion->Version[0]->Number : LangAdmin::get('Undefined')?></strong> — <?=LangAdmin::get('current_version')?></p>
+        <p><strong class="label label-success" title="<?=LangAdmin::get('Update_available')?>"><?=$versions->Version[0]->Number?></strong> — <?=LangAdmin::get('last_available_version_for_update')?> (<a herf="#" data-target=".collapse-chengelog-111" data-toggle="collapse" class="blink"><?=LangAdmin::get('update_more')?></a>)</p>
+         <?=(!empty($updateNotice) ? '<p>' . $updateNotice . '</p>' : '');?>
+    <? } else { ?>
+        <p><strong class="label label-info"><?=$currentVersion ? $currentVersion->Version[0]->Number : LangAdmin::get('Undefined')?></strong> — <?=LangAdmin::get('current_version')?></p>
+        <p><strong class="label label-important"><?=$versions->Version[0]->Number?></strong> — <?=LangAdmin::get('last_available_version_for_update')?> (<a herf="#" data-target=".collapse-chengelog-111" data-toggle="collapse" class="blink"><?=LangAdmin::get('update_more')?></a>)</p>
+        <p><strong class="label label-important"><?=LangAdmin::get('Update_not_available')?></strong></p>
+    <? } ?>
+
+    <div class="collapse collapse-chengelog-111">
+        <h4><?=LangAdmin::get('Changes_description')?></h4>
+        <?=$versions->Version[0]->Description;?>
+    </div>
+    <? if($allowUpdate === 'Ok'){ ?>
+        <p class="offset-top2">
+            <button type="button" class="btn btn_preloader btn-primary" id="update" data-loading-text="<?=LangAdmin::get('UpdateProcess')?>" autocomplete="off"><?=LangAdmin::get('DoUpdate')?></button>
+        </p>
+    <? } ?>
+
+
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        var needConfirm = <?=json_encode($needConfirm)?>;
+
+        $('#update').click(function() {
+            var actionButton = $(this);
+            if (needConfirm) {
+                modalDialog(<?=json_encode(LangAdmin::get('update_confirm_title'))?>, <?=json_encode(LangAdmin::get('update_confirm_message'))?>, function () {
+                    runUpdate(actionButton);
+                });
+            } else {
+                runUpdate(actionButton);
+            }
+        });
+
+        function runUpdate(actionButton) {
+            actionButton.attr('disabled', 'disabled');
+
+            $.get('?cmd=Update&do=download', {}, function(data){
+                if (! data.error) {
+                    $.get('?cmd=Update&do=extract', function(dataEx){
+                        if (! dataEx.error) {
+                            window.location = window.location.href.replace(/admin.*$/, '')+'install/update.php';
+                        } else {
+                            showError(dataEx);
+                        }
+                        $('#update').button('reset');
+                        actionButton.removeAttr('disabled');
+                    });
+                } else {
+                    showError(data);
+                    $('#update').button('reset');
+                    actionButton.removeAttr('disabled');
+                }
+            });
+        }
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+

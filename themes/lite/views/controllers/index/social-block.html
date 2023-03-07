@@ -1,0 +1,31 @@
+<? $socialNetworksLinks = InstanceProvider::getObject()->GetSocialWithLinks() ?>
+<? $socialWithShareWidgets = InstanceProvider::getObject()->GetSocialWithShareWidgets() ?>
+
+<? if (!empty($socialWithShareWidgets) || !empty($socialNetworksLinks)) { ?>
+<section class="box-section box-main_soc-block">
+    <? if (!empty($socialWithShareWidgets)) { ?>
+        <div class="box-main_soc-block_share">
+            <div class="box-main_soc-block_share_title"><?=Lang::get('share_with_friends')?>:</div>
+                <? foreach($socialWithShareWidgets as $item) { ?>
+                    <?=$item->GetShareWidget(); ?>
+            <? } ?>
+        </div>
+    <? } ?>
+
+        <div class="box-main_soc-block_links">
+            <div class="box-main_soc-block_links_title"><?=Lang::get('follow_news')?>:</div>
+            <ul>
+                <? foreach($socialNetworksLinks as $item) { ?>
+                    <? if (!empty($item->GetLink())) { ?>
+                        <li>
+                            <a href="<?=$item->GetLink();?>" class="<?=$item->GetId(); ?>" target="_blank">
+                                <img src="<?=$item->GetIconUrl(); ?>" />
+                            </a>
+                        </li>
+                    <? } ?>
+                <? } ?>
+            </ul>
+        </div>
+
+</section>
+<? } ?>

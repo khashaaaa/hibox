@@ -1,0 +1,33 @@
+<? if (isset($list[0]) && CMS::IsFeatureEnabled('Warehouse')) { ?>
+<div class="bproduct <?=$type?>-rating-list rating-list">
+    <h2 class="mb25"><span><?=$title?></span></h2>
+    <ul class="lproduct flin w700 w160li <? if($displayAsCarousel){ ?> jcarousel-skin <? } ?> clrfix">
+        <? foreach ($list as $item) { ?>
+        <li title="<?= $this->escape($item['Title']) ?>">
+            <a class="pic" href="<?=UrlGenerator::generateItemUrl($item['Id'])?>">
+                <i><img src="<?= ProductsHelper::getMediumImage($item) ?>" width="160"></i>
+                <ins></ins>
+            </a>
+            <div class="price">
+                <div class="line"></div>
+                <a href="<?=UrlGenerator::generateItemUrl($item['Id'])?>">
+                    <span> <?=ProductsHelper::getPrice($item)?>
+                    </span>
+                </a>
+                <a href="<?=UrlGenerator::generateItemUrl($item['Id'])?>">
+                    <ins class="name"><?= $this->escape($item['Title']) ?></ins>
+                    <span class="glow"></span>
+                </a>
+
+            </div>
+            <? if (count($item['PromotionPrice'])>0) { ?>
+                <a href="<?=$itemUrl?>" style="text-align: center" class="wrapper_sale_item">
+                    <span class="old_price"><?=General::priceFormat($item['Price'], 2)?> USD</span><br>
+                    <!--span class="new_price"><?=General::getCurrencyPromoPrice($item)?></span-->
+                </a>
+                <? } ?>
+        </li>
+        <? } ?>
+    </ul>
+</div>
+<? } ?>

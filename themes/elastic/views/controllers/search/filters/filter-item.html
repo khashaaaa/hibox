@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="card-header nopadding panel-grey">
+        <h5 class="mb-0">
+            <button class="btn btn-link link pl-0 pr-0 collapsed" type="button" data-toggle="collapse" data-target="#filter-<?=md5($property['id'])?>" aria-expanded="false" aria-controls="collapse01">
+                <?= $property['name'] ?><i></i>
+            </button>
+        </h5>
+    </div>
+
+    <div id="filter-<?=md5($property['id'])?>"
+         class="collapse <?=(isset($isActive) && $isActive) ? 'show' : ''?>"
+         aria-labelledby="heading01">
+        <div class="card-body search-filter">
+            <?
+            $filterI = 0;
+            $filterCount = count($property['values']['active']) + count($property['values']['other']);
+            foreach ($property['values']['active'] as $value) {
+            ?>
+                <div class="custom-control custom-<?=$typeOfInput?>">
+                    <input id="filter-<?=$property['id']?>-<?=$value['id']?>"
+                           name="filters[<?=$property['id']?>]<?= $typeOfInput == 'checkbox' ? '[' . $value['id'] . ']' : '' ?>"
+                           value="<?=$value['id']?>" type="<?=$typeOfInput?>" checked="checked"
+                           class="custom-control-input" />
+                    <label class="custom-control-label" for="filter-<?=$property['id']?>-<?=$value['id']?>"><?=$value['name']?>
+                        <? if (!empty($value['itemCount'])) { ?>
+                            <span class="badge badge-primary"> <?=$value['itemCount'] ?></span>
+                        <? } ?>
+                    </label>
+
+                </div>
+                <? $filterI = $filterI + 1; ?>
+            <? } ?>
+            <? foreach ($property['values']['other'] as $value) { ?>
+                <? if ($filterI == 8 && $filterCount > 8) { ?>
+                    <div class="search-params-filter"><a href="" class="toogle-filters toogle-more-filters"><?=Lang::get('more')?></a> </div>
+                <? } ?>
+                <div class="custom-control custom-<?=$typeOfInput?> <?=($filterI > 7) ? 'toogle hidden' : '' ?>">
+                    <input id="filter-<?=$property['id']?>-<?=$value['id']?>"
+                           name="filters[<?=$property['id']?>]<?= $typeOfInput == 'checkbox' ? '[' . $value['id'] . ']' : '' ?>"
+                           value="<?=$value['id']?>" type="<?=$typeOfInput?>"
+                           class="custom-control-input" />
+                    <label class="custom-control-label" for="filter-<?=$property['id']?>-<?=$value['id']?>"><?=$value['name']?>
+                        <? if (!empty($value['itemCount'])) { ?>
+                            <span class="badge badge-primary"> <?=$value['itemCount'] ?></span>
+                        <? } ?>
+                    </label>
+                </div>
+                <? $filterI = $filterI + 1; ?>
+            <? } ?>
+            <? if ($filterCount > 8) { ?>
+                <div class="custom-control toogle hidden"><a href="" class="toogle-filters toogle-hide-more-filters"><?=Lang::get('hide')?></a> </div>
+            <? } ?>
+            <div class="custom-control">
+                <ul class="ling-group">
+                    <li><a href="javascript:void(0)" class="link-apply"><?=Lang::get('apply')?></a></li>
+                    <li><a href="javascript:void(0)" class="link-reset"><?=Lang::get('reset')?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

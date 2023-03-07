@@ -1,0 +1,159 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Service_statistics')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Service_statistics')?></h1>
+
+<div class="well inline-block">
+    <dl class="dl-horizontal dl-horizontal-large dl-ot-horizontal offset-vertical-none">
+        <dt><?=LangAdmin::get('Tariff')?>:</dt>
+        <dd><?=$tarif->Name?>&nbsp;</dd>
+
+        <dt><?=LangAdmin::get('Limit_calls')?>:</dt>
+        <dd><? print (($tarif->CallLimit === '') ? '&mdash;' : $tarif->CallLimit)?>&nbsp;</dd>
+
+        <dt><?=LangAdmin::get('Percentage_of_turnover')?>:</dt>
+        <dd><?=$tarif->TurnoverPercent?> %</dd>
+
+        <dt><?=LangAdmin::get('Cost_one_call')?>:</dt>
+        <dd><?=$tarif->CallPrice?>&nbsp;</dd>
+    </dl>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="width: 596px;"><?=LangAdmin::get('Parameter_statistics')?></th>
+            <th style="width: 130px;"><?=LangAdmin::get('Per_day')?></th>
+            <th style="width: 147px;"><?=LangAdmin::get('This_month')?></th>
+            <th style="width: 173px;"><?=LangAdmin::get('Total')?></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr id="OtapiAllCallStatistics" class="odd">
+            <td><?=LangAdmin::get('Total_quantity_of_references_to_services')?></td>
+            <td class="DailyCallCount"  ><?=number_format($statistic['OtapiAllCallStatistics']['DailyCallCount']  , 0, ',', ' ')?>&nbsp;</td>
+            <td class="MonthlyCallCount"><?=number_format($statistic['OtapiAllCallStatistics']['MonthlyCallCount'], 0, ',', ' ')?>&nbsp;</td>
+            <td class="TotalCount"      ><?=number_format($statistic['OtapiAllCallStatistics']['TotalCount']      , 0, ',', ' ')?>&nbsp;</td>
+        </tr>
+        <tr id="OtapiCallStatistics" class="even">
+            <td><?=LangAdmin::get('Paid_quantity_of_references_to_services')?></td>
+            <td class="DailyCallCount"  ><?=number_format($statistic['OtapiCallStatistics']['DailyCallCount']  , 0, ',', ' ')?>&nbsp;</td>
+            <td class="MonthlyCallCount"><?=number_format($statistic['OtapiCallStatistics']['MonthlyCallCount'], 0, ',', ' ')?>&nbsp;</td>
+            <td class="TotalCount"      ><?=number_format($statistic['OtapiCallStatistics']['TotalCount']      , 0, ',', ' ')?>&nbsp;</td>
+        </tr>
+        <tr id="TotalLengthTranslatedTexts" class="odd">
+            <td><?=LangAdmin::get('Total_volume_of_translated_texts')?></td>
+            <td class="DailyCallCount"  ><?=number_format($statistic['TotalLengthTranslatedTexts']['DailyCallCount']  , 0, ',', ' ')?>&nbsp;</td>
+            <td class="MonthlyCallCount"><?=number_format($statistic['TotalLengthTranslatedTexts']['MonthlyCallCount'], 0, ',', ' ')?>&nbsp;</td>
+            <td class="TotalCount"      ><?=number_format($statistic['TotalLengthTranslatedTexts']['TotalCount']      , 0, ',', ' ')?>&nbsp;</td>
+        </tr>
+        <tr id="LengthExternalTranslatedTexts" class="even">
+            <td><?=LangAdmin::get('Volume_of_texts_translated_automatic_external_compiler')?></td>
+            <td class="DailyCallCount"  ><?=number_format($statistic['LengthExternalTranslatedTexts']['DailyCallCount']  , 0, ',', ' ')?>&nbsp;</td>
+            <td class="MonthlyCallCount"><?=number_format($statistic['LengthExternalTranslatedTexts']['MonthlyCallCount'], 0, ',', ' ')?>&nbsp;</td>
+            <td class="TotalCount"      ><?=number_format($statistic['LengthExternalTranslatedTexts']['TotalCount']      , 0, ',', ' ')?>&nbsp;</td>
+        </tr>
+        <tr class="odd">
+            <td><?=LangAdmin::get('Caching_efficiency_source_of_goods')?></td>
+            <td id="CachedDailyCallCount"><?=$statistic['CachedDailyCallCount']?>%</td>
+            <td id="CachedMonthlyCallCount"><?=$statistic['CachedMonthlyCallCount']?>%</td>
+            <td id="CachedTotalCount"><?=$statistic['CachedTotalCount']?>%</td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<div id="calls-detail">
+    <h1><?=LangAdmin::get('Calls_detalization')?></h1>
+    <form action="<?=$PageUrl->AssignDo('default')?>">
+        <input type="hidden" name="cmd" value="Reports">
+        <input type="hidden" name="do" value="default">
+    <div class="well inline-table offset-bottom0 offset-left">
+        <p> <?=LangAdmin::get('Calls_detalization_for_period')?></p>
+        <?=LangAdmin::get('from')?>
+        <div class="input-append">
+            <input name="fromdate" id="date-start-display" class="input-small date" type="text" value="<?=$dateFrom?>">
+            <span class="btn add-on" id="date-start"><i class="icon-calendar"></i></span>
+        </div>
+        <?=LangAdmin::get('to')?>
+        <div class="input-append">
+            <input name="todate" id="date-end-display" class="input-small date" type="text" value="<?=$dateTo?>">
+            <span class="btn add-on" id="date-end" ><i class="icon-calendar"></i></span>
+        </div>
+        <?=LangAdmin::get('Time_period')?>
+        <div class="input-append">
+            <select name="timePeriod" id="calls-detail-type" class="input-small" >
+                <option value="Daily" <?=($timePeriod == 'Daily') ? 'selected="selected"' : '' ?>><?=LangAdmin::get('Daily')?></option>
+                <option value="Monthly" <?=($timePeriod == 'Monthly') ? 'selected="selected"' : '' ?>><?=LangAdmin::get('Monthly')?></option>
+            </select>
+        </div>
+        <div class="inline-block offset-left1">
+            <input type="submit" id="apply_button" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Applying_filters')?>" autocomplete="off" value="<?=LangAdmin::get('Apply')?>">
+        </div>
+        <div>
+	        <br/>
+	        <a href="<?=$PageUrl->AssignCmdAndDo('Reports', 'calls', true)?>&fromdate=<?=$dateFrom?>&todate=<?=$dateTo?>&timePeriod=<?=$timePeriod?>&method=">
+	            <?=LangAdmin::get('Calls_statistics')?>
+	        </a>
+        </div>
+    </div>
+    </form>
+</div>
+<br/>
+<table class="table table-bordered bootstrap-datatable datatable" id="calls-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;"><?=LangAdmin::get('Date')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Total_calls_count')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Error_calls_count')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Payed_calls_count')?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <? foreach ($callsCount as $date => $row) { ?>    
+        <tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'?>">
+            <td><?=  date("d.m.Y", strtotime($date)) ?></td>
+            <td><?= isset($row['totalCalls']) ? number_format($row['totalCalls']) : '-'?></td>
+            <td><?= isset($row['totalCalls']) ? number_format($row['errorCalls']) : '-'?></td>
+            <td><?= isset($row['payedCalls']) ? number_format($row['payedCalls']) : '-'?></td>
+        </tr>
+        <? } ?>
+        <tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'?>">
+            <td><strong><?=LangAdmin::get('in_total')?></strong></td>
+            <td><strong><?=number_format($totalCount)?></strong></td>
+            <td><strong><?=number_format($errorCount)?></strong></td>
+            <td><strong><?=number_format($payedCount)?></strong></td>
+        </tr>
+    </tbody>
+</table>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+$(document).ready(function(){
+    var options = {
+            columnDefs: [
+                {type: 'de_date', targets: 0 },
+                {},
+                {}
+            ]
+    };
+    if(currentAdminLang != 'en') {
+        options.language = {
+            url: '/admin/js/vendor/DataTables/js/i18n/' + currentAdminLang + '.lang.json'
+        }
+    }
+    $('#calls-table').DataTable(options);
+});
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-service-statistics.js'); ?>

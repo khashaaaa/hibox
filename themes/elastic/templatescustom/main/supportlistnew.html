@@ -1,0 +1,221 @@
+<style>
+    .item-product__rubric-wrap {
+        position: absolute;
+        z-index: 1;
+        top: 200px !important;
+        left: 10px !important;
+        font-size: 12px;
+        font-weight: normal;
+    }
+   
+    #favourites_items .disabled{
+        color: #fff;
+        border: none !important;
+        cursor: default;
+        padding: 2px 12px;
+    }
+    #favourites_items .button-favorite.disabled i {
+        background: url(/themes/elastic/img/svg/heart-white.svg) no-repeat center;
+        background-size: 15px;
+    }
+    #favourites_items .button-delete.disabled i {
+        background: url(/themes/elastic/img/svg/delete-white.svg) no-repeat center;
+        background-size: 15px;
+    }
+    #favourites_items .disabled:hover{  
+        background: #fc8215;
+    }
+  
+</style>
+<div class="wrapper">
+
+    <div class="content">
+
+        <section class="content-block">
+            <div class="center">
+
+                <div class="main-wrap d-flex flex-wrap">
+                    <div class="content-center" style="width: 100%">
+                        <div class="list-cart-wrap">
+                            <nav class="navbar">
+                                <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#favourites_items" role="tab" aria-controls="favourites_items" aria-selected="true"><?=Lang::get('favourite_items')?></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab" href="/?p=favourite_vendors" role="tab" aria-controls="favourites_items" aria-selected="false"><?=Lang::get('favourite_vendors')?></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="tab-content w-100" id="myTabContent">
+                                <? if (count($list)) { ?>
+                                <div class="tab-pane fade show active" id="favourites_items" role="tabpanel" aria-labelledby="favourites_items-tab">
+                                    <div class="list-cart__panel-main panel-grey">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input choose_all_items" id="c-1">
+                                            <label class="custom-control-label" for="c-1"><?=Lang::get('selected_unselect')?></label>
+                                        </div>
+
+                                        <a href="javascript:void(0)" class="button button-delete button-delete-selected" data-action="/?p=delete_from_favourites"><i></i><?=Lang::get('delete_selected')?></a>
+                                        <a href="javascript:void(0)" class="button button-favorite"><i></i><?=Lang::get('move_favourites_in_cart')?></a>
+                                        <a href="javascript:void(0)" class="button button-delete button-clear-favourites" data-action="<?=UrlGenerator::toRoute("/?p=delete_from_favourites")?>"><i></i><?=Lang::get('clear_favourites')?></a>
+                                    </div>
+                                    <div class="bgr-panel mb20">
+                                        <ul class="tableList">
+                                            <li><?=Lang::get('items_rus')?>: <b><?=count($list)?></b></li>
+                                            <li><?=Lang::get('shown')?>: <?=Lang::get('from')?> <b><? if ($from < $perpage){ echo 1; } else {echo ($from + 1); }?></b> <?=Lang::get('to')?>
+                                                <b><? if ($from + $perpage < count($list)) print $from + $perpage; else print count($list); ?></b> <?=Lang::get('from2')?>
+                                                <b><?=count($list)?></b></li>
+                                            <li style="width:50%">&nbsp;<br/></li>
+                                            <li>
+                                                <form method="post" id="per_page">
+                                                    <?=Lang::get('output_to')?>
+                                                    <select name="per_page" onchange="document.getElementById('per_page').submit();">
+                                                        <option value="20" <?if ($perpage == '20') { ?>selected<? }?>>20</option>
+                                                        <option value="40" <?if ($perpage == '40') { ?>selected<? }?>>40</option>
+                                                        <option value="100" <?if ($perpage == '100') { ?>selected<? }?>>100</option>
+                                                    </select>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <? $total_sum = 0;
+                                    $sign = '';
+                                    $page_count_print = General::getNumConfigValue('pager_count_print', 2);
+                                    $curpage = floor($from / $perpage) + 1;
+                                    $maxpage = ceil(count($list)/ $perpage);
+
+                                    for ($i = (($curpage - 1) * $perpage); $i <= (($curpage - 1) * $perpage + ($perpage - 1)); $i++){
+                                        if ($i < count($list)){
+                                            $item = $list[$i];
+                                            ?>
+
+                                            <? $options = array(); ?>
+                                            <? if (isset($item['ConfigurationId'])) { ?>
+                                                <? $options = array('ConfigId' => $item['ConfigurationId']); ?>
+                                            <? } ?>
+
+                                            <div class="list-cart-group">
+
+                                                <div class="list-cart-products">
+
+                                                    <div class="list-cart-products__row-item" data-rowid ="<?=$item['Id']?>">
+
+                                                            <div class="list-cart-products__col-1">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" name="deleter" class="custom-control-input checkbox-item" id="<?=$item['Id']?>" value="<?=$item['Id']?>">
+                                                                    <label class="custom-control-label" for="<?=$item['Id']?>"></label>
+                                                                </div>
+                                                                <div class="list-cart-products__col-img">
+                                                                    <a href="<?=UrlGenerator::generateItemUrl($item['ItemId'], $options)?>" class="pic" title="<?=Lang::get('Go_to_product_card')?>">
+                                                                        <i><img src="<?=ProductsHelper::getSmallImage($item)?>" class="item-img-favourite"></i>
+                                                                        <ins></ins>
+                                                                    </a>
+                                                                </div>
+
+                                                            <?=ProductsHelper::getHtmlFeatureListForLabel((array)$item['features'])?>
+
+                                                            <div class="list-cart-products__name">
+                                                                <a href="<?=UrlGenerator::toRoute('', ['p' => 'item', 'id' => $item['ItemId']])?>"><?=$item['ItemTitle']?></a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="list-cart-products__col-2">
+                                                            <div class="list-products-table">
+                                                                <div class="list-products-table__row">
+
+                                                                    <div class="list-products-table__col1"><?=Lang::get('good_code')?>:</div>
+                                                                    <div class="list-products-table__col2"><b><?= $item['ItemId'];?></b></div>
+                                                                </div>
+                                                                <div class="list-products-table__row">
+                                                                    <div class="list-products-table__col1"><?=Lang::get('vendor')?>:</div>
+                                                                    <div class="list-products-table__col2"><b><a href="<?=UrlGenerator::toRoute('', ['p' => 'vendor', 'id' => $item['VendorId'] ])?>"><?=$item['VendorId'];?></a></b></div>
+                                                                </div>
+                                                                <div class="list-products-table__row">
+                                                                    <div class="list-products-table__col1"><?= Lang::get('category') ?>:</div>
+                                                                    <div class="list-products-table__col2"><a href="/?p=category&cid=<?= $item['CategoryId'] ?>"><b><?= $item['CategoryName'] ?></b></a></div>
+                                                                </div>
+                                                                <? if (isset($item['ItemConfiguration'])) { ?>
+                                                                    <? foreach (explode(';', $item['ItemConfiguration']) as $cfg) { ?>
+                                                                        <? if ($cfg) { ?>
+                                                                            <? $configArray = explode(':', $cfg); ?>
+
+                                                                            <div class="list-products-table__row">
+                                                                                <div class="list-products-table__col1"><?= current($configArray); ?>:</div>
+                                                                                <div class="list-products-table__col2">
+                                                                                    <b><?= end($configArray); ?></b>
+                                                                                </div>
+                                                                            </div>
+                                                                        <? } ?>
+                                                                    <? } ?>
+                                                                <? } ?>
+                                                                <div class="list-products-table__row">
+                                                                    <div class="list-products-table__col1"><?= Lang::get('price') ?>:</div>
+                                                                    <div class="list-products-table__col2" id="price-1-<?=$item['Id']?>">
+                                                                        <b><?=TextHelper::formatPrice($item['Price'], $item['CurrencySign'])?></b>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="list-products-table__row">
+                                                                    <div class="list-products-table__col1"><?=Lang::get('quantity')?>:</div>
+                                                                    <div class="list-products-table__col2">
+                                                                        <div class="number">
+                                                                            <span class="number__minus" data-action="<?=UrlGenerator::toRoute("editnoteitemquantity")?>">-</span>
+
+                                                                            <input type="text" class="quantity" data-type="integer" data-action="<?=UrlGenerator::toRoute("editnoteitemquantity")?>" value="<?= $item['Quantity'] ?>" id="count-<?= $item['Id'] ?>" maxlength="10" />
+
+                                                                            <span class="number__plus" data-action="<?=UrlGenerator::toRoute("editnoteitemquantity")?>">+</span>
+
+                                                                        </div>
+                                                                        <div class="list-products-table__right-col" id="total-price-<?= $item['Id']; ?>">
+                                                                            <?=TextHelper::formatPrice($item['Quantity'] * (float)$item['Price'], $item['CurrencySign'])?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="list-cart-products__col-3">
+                                                            <label for=""><?= Lang::get('comments_for_operator') ?>:</label>
+                                                            <textarea class="form-control" placeholder="" itemid="<?= $item['Id']; ?>" data-action="<?=UrlGenerator::toRoute("editnoteitemcomment")?>" ><?=$item['Comment']?></textarea>
+                                                            <div class="link-group">
+                                                                <a href="javascript:void(0)" data-action="/?p=delete_from_favourites&del=<?=$item['Id']?> "&per_page="<?=$perpage?>" class="delete-item delete"></a>
+                                                                <a href="javascript:void(0)" class="basket-icon" data-itemid="<?=$item['Id'];?>" data-action="<?=UrlGenerator::toRoute("move_to_basket", ["id" => $item['Id']])?>">
+                                                                    <i class="fa fa-shopping-basket" aria-hidden="true" data-itemid="<?=$item['Id'];?>"></i>
+                                                                </a>
+                                                                <form action="/" id="add-to-basket-<?= $item['Id']; ?>">
+                                                                    <input type="hidden" name="p" value="MoveItemFromNoteToBasket" />
+                                                                    <input type="hidden" name="id" value="<?= $item['Id']; ?>" />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <? } ?>
+                                    <? } ?>
+                                <? } else { ?>
+                                    <h3 class="text-center">
+                                        <div class="alert alert-empty-basket" role="alert">
+                                            <?=Lang::get('empty_list')?>!
+                                        </div>
+                                    </h3>
+                                <? } ?>
+                                <?=$paginatorFav->display();?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+</div><!-- .content -->
+
+
+<?=Lang::loadJSTranslation(array('add_to_fav_error', 'attention_changes_in_the_basket', 'sure_clear_favourites', 'need_confirm', 'sure_delete', 'sure_delete_group', 'sure_to_basket', 'sure_move_favourites_in_cart'))?>
+
+<? AssetsMin::registerJsFile(General::getThemeWebDir() . '/js/favourite.js'); ?>
+
+<script>
+    var price_round_decimals = <?=(int)General::getNumConfigValue('price_rounding')?>;
+</script>

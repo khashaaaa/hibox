@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Service_statistics" action="default" cmd="Reports">
+        <page data-action="default" data-cmd="reports" />
+    </tab>
+    <tab title="Calls_statistics" action="calls" cmd="Reports">
+        <page data-action="calls" data-cmd="reports" />
+    </tab>
+    <tab title="Billing" action="billing" cmd="Reports">
+        <page data-action="billing" data-cmd="reports" />
+    </tab>
+    <tab title="Operation_log" action="operationLog" cmd="Reports">
+        <page data-action="operationLog" data-cmd="reports" />
+    </tab>
+    <tab title="Site_speed" action="siteSpeed" cmd="Reports">
+        <page data-action="siteSpeed" data-cmd="reports" />
+    </tab>
+    <tab title="Finance" action="finance" cmd="Reports" sub-tabs="templates/site_config/system/navigation/tabs.xml">
+        <page data-action="finance" data-cmd="reports" />
+        <page data-action="financeDetails" data-cmd="reports" />
+        <page data-action="calculation" data-cmd="reports" />
+    </tab>
+</tabs>

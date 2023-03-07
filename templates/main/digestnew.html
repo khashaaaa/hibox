@@ -1,0 +1,70 @@
+<div class="<? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>col690 bproduct<? } else { ?>col900 content<? } ?>">
+    <div class="bigtitle big-title">
+    	<ul class="tableList">
+	        <li>
+	        <h1><?=$this->escape(@$GLOBALS['pagetitle'])?></h1>
+	        </li>
+	        <li style="text-align: right;">
+	        <div class="text-right">
+	        	<form method="post" id="per_page" name="per_page">
+	        		<input type="hidden" name="p" value="digest">
+	        		<?=Lang::get('output_to')?>
+		        	<select class="input-mini" id="perpage" name="perpage" onchange="document.getElementById('per_page').submit();">
+		            	<?php
+		            		$perPageLimits = $paginator->perPageLimits();
+		            		if (!in_array($paginator->limit(), $perPageLimits)) {
+								$perPageLimits[] = $paginator->limit();
+							}
+							if(General::getNumConfigValue('blog_posts')) {
+			            		if (!in_array(General::getNumConfigValue('blog_posts'), $perPageLimits)) {
+									$perPageLimits[] = General::getNumConfigValue('blog_posts');
+								}
+							}
+							sort($perPageLimits);
+		            		foreach ($perPageLimits as $perPageLimit) { ?>
+		            			<option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+		                <? 	} ?>
+					</select>
+				</form>
+	        </div>
+	        </li>
+     	</ul>
+    </div>
+    <ul class="blog l-inner-blog main-content">
+        <? if(is_array($digest)) { foreach ($digest as $post) { ?>
+            <? $date = $post['created']; ?>
+             <li class="item">
+                <div class="post-info">
+                    <div class="post-date"><?= $date->format('d.m.Y')?></div>
+                    <div class="post-content">
+                        <div class="title"><a href="<?=UrlGenerator::generatPostUrl('post',$post['id'], $post['alias'])?>" class="i-link"><?=$post['title']?></a></div>
+                        <div class="content">
+                            <? if ($post['image'])  { ?>
+                            <div class="post-image">
+                                <a href="<?=UrlGenerator::generatPostUrl('post', $post['id'], $post['alias'])?>" class="i-link"><img alt="<?= $post['title'] ?>" src="<?=DigestRepository::getImage($post['image'], "thumb")?>" class="image"></a>
+                            </div>
+                            <? } 
+                            if (!empty($post['brief'])) { ?>
+                            	<?=$post['brief']?>
+							<?php } else { ?>
+                            	<?=$post['content']?>                            
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <? } ?>
+    </ul>
+    <table>
+        <tr>
+            <td colspan="6" class="pagination_digest">
+            	<?php $paginator->display(); ?>
+            </td>
+        </tr>
+    </table>
+
+    <? } else { ?>
+    <span><?=Lang::get('no_posts')?></span>
+    <? } ?>
+        
+

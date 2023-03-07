@@ -1,0 +1,22 @@
+<? if (SCRIPT_NAME != 'pay' || empty($_GET['print']))  { ?>
+<div class="crumbs">
+    <div class="wrap clrfix">
+        <a href="/"><?=Lang::get('catalog')?></a>
+        <? if($isbrand) {?>
+                <a href="<?=General::generateUrl('brands', 0 )?>"><?=Lang::get('brands')?></a>
+                <span><?=$this->escape($brandcrumb['name'])?></span>
+        <? } ?>
+        <? $i = 1;
+           if ($crumbs) foreach($crumbs as $crumb) { ?>
+            <? if (!$crumb['id'] || $crumb['last']) { ?>
+                <span><?=$this->escape($crumb['name'])?></span>
+            <? }elseif ($crumb['isparent'] == 'false') { ?>
+                    <a href="<?=General::generateUrl('category', array_merge(array('brand' => $brandcrumb['id']), $crumb) )?>"><?=$this->escape($crumb['name'])?></a>
+            <? } else { ?>
+                    <a href="<?=General::generateUrl('subcategory', array_merge(array('brand' => $brandcrumb['id'], 'root' => $i == 1), $crumb) )?>"><?=$this->escape($crumb['name'])?></a>
+            <? } ?>
+        <? $i++;
+           } ?>
+    </div>
+</div>
+<? } ?>

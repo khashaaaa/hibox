@@ -1,0 +1,104 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Banners')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Add_Edit_Banners')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'contents/inc/tabs.php'; ?>
+
+<div id="banners-wrapper">
+
+
+<h1><?=LangAdmin::get('Add_Edit_Banners')?></h1>
+
+<div class="well">
+
+    <form method="post" action="<?=$PageUrl->AssignDo('saveBanner')?>" class="form-horizontal ot_form" enctype="multipart/form-data">
+        <input type="hidden" name="bannerId" value="<?=! empty($bannerData['id']) ? $bannerData['id'] : ''?>">
+
+        <div class="control-group">
+            <label class="control-label bold">
+                <?=LangAdmin::get('Image')?>
+                <i data-placement="top"
+                   data-toggle="popover"
+                   data-content="<?=LangAdmin::get('Banner_image_help')?>"
+                   class="icon-question-sign ot_inline_help"
+                ></i>
+            </label>
+
+            <div class="controls">
+                <div id="fileupload">
+                    <div class="row fileupload-buttonbar fileupload-banner">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="span4 fileupload-preview fileupload-exists thumbnail" style="margin-bottom: 0 !important; display: inline-block; margin-right: 5px; min-height: 50px;">
+                                <img src="<?=! empty($bannerData['source']) ? $bannerData['source'] : ''?>"/>
+                            </div>
+                            <div class="">
+                                <span class="btn btn-file btn-primary fileinput-button disabled">
+                                    <span style="display: <?=(empty($bannerData['source']) ? 'inline-block' : 'none');?>" class="fileupload-new"><?=LangAdmin::get('Upload')?></span>
+                                    <span style="display: <?=(! empty($bannerData['source']) ? 'inline-block' : 'none');?>" class="fileupload-exists"><?=LangAdmin::get('Change')?></span>
+                                    <input id="uploaded_logo" name="uploaded_logo" type="file" disabled="disabled" style="cursor: default"/>
+                                </span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="existing_logo" id="existing_logo" value="<?=! empty($bannerData['source']) ? $bannerData['source'] : ''?>" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Link')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Banner_link_help')?>"></i></label>
+            <div class="controls">
+                <input class="input-xlarge" type="text" name="bannerUrl" value="<?=! empty($bannerData['url']) ? $this->escape($bannerData['url']) : False?>">
+                <!--div class="btn-group">
+                    <span type="button" data-toggle="button" class="btn" title="<?=LangAdmin::get('Choose_catalog_page')?>"><i class="icon-list-alt font-14"></i></span>
+                    <span type="button" data-toggle="button" class="btn" title="<?=LangAdmin::get('Choose_content_page')?>"><i class="icon-file-alt font-14"></i></span
+                </div-->
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Language')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Banner_lang_help')?>"></i></label>
+            <div class="controls">
+                <select class="input-medium" name="bannerLang">
+                        <? foreach ($languages->GetActiveLanguages() as $langCode => $langDesc) { ?>
+                            <option value="<?=$langCode?>" <?= (isset($currentLang) && $langCode == $currentLang) ? 'selected' : ''?>><?=$langDesc?></option>
+                        <? } ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Name')?> </label>
+            <div class="controls">
+                <textarea rows="10" class="input-xxlarge" id="bannerName" name="bannerName">
+                    <?= $bannerData['name'] ?>
+                </textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('blog::Content')?></label>
+            <div class="controls">
+                <textarea rows="10" class="input-xxlarge" id="bannerContent" name="bannerContent">
+                    <?= $bannerData['content'] ?>
+                </textarea>
+            </div>
+        </div>
+
+        <div class="controls">
+            <a href="#" class="btn btn-primary btn_preloader saveBanner" data-link="<?=$PageUrl->AssignDo('banners')?>" data-loading-text="<?=LangAdmin::get('Save')?>"><?=LangAdmin::get('Save')?></a>
+            <a href="<?=$PageUrl->AssignDo('banners')?>" type="button" class="btn offset-left2 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-banners.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

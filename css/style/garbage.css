@@ -1,0 +1,15 @@
+.lproduct li
+{position: relative}
+
+.cost-range-table
+{white-space: nowrap}
+
+.cost-range-table .item
+{
+  padding: 0 4px 0 0;
+
+  vertical-align: middle
+}
+
+.cost-range-table .form-field
+{ width: 65px }

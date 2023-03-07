@@ -1,0 +1,22 @@
+<form action="<?=UrlGenerator::toRoute('recovery')?>" method="post"
+      class="needs-validation js-authentication-recovery-form col-sm-12 col-xs-6" novalidate>
+    <div class="modal-row">
+        <label>
+            <?=Lang::get('login_or_email_or_phone')?>
+            <input type="text" name="username" class="form-control" required />
+        </label>
+    </div>
+
+    <div class="modal-row js-response">
+        <? if (!empty($error)) { ?>
+            <div class="alert alert-danger" role="alert"><?=$error?></div>
+        <? } ?>
+        <? if (!empty($success)) { ?>
+            <div class="alert alert-success" role="alert"><?=$success?></div>
+        <? } ?>
+    </div>
+
+    <div class="for-btn">
+        <button type="submit" class="btn button mx-auto js-submit" data-loading-text="<?=Lang::get('loading')?>..."><?=Lang::get('recover')?></button>
+    </div>
+</form>

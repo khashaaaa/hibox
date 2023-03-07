@@ -1,0 +1,29 @@
+<section class="featured-sellers">
+    <div class="center">
+        <div class="block__title">
+            <span><?= (isset($title) && $title) ? $title : Lang::get($type);?></span>
+            <? if (isset($seeAllLink) && $seeAllLink) { ?>
+                <a href="<?=$seeAllLink?>"><?=Lang::get('all_vendors')?></a>
+            <? } ?>
+        </div>
+
+        <div class="featured-sellers__wrap">
+            <? foreach ($list as $item) { ?>
+                <? $url = UrlGenerator::generateSearchUrlByParams(['vid' => $item['id']]) ?>
+                <? $vendorName = $this->escape(!empty($item['displayname']) ? $item['displayname'] : $item['name']); ?>
+                <div class="sellers-item" title="<?=$vendorName?>">
+                    <a href="<?=$url?>"class="sellers-item__img">
+                        <img class="check-noimg" src="<?= $item['DisplayPictureUrl'] ? $item['DisplayPictureUrl'] : "/i/noimg.png" ?>" alt="<?= $vendorName ?>">
+                    </a>
+                    <a href="<?=$url?>" class="sellers-item__text">
+                        <?= $vendorName ?>
+                    </a>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</section>
+
+
+
+<?=(isset($noIndex) && $noIndex) ? '<!--/noindex-->' : '' ?>

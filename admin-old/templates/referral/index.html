@@ -1,0 +1,87 @@
+<?=$Header?>
+
+<link rel="stylesheet" href="/admin/css/referallAdmin.css" type="text/css">
+
+
+<? Session::clearError(); ?>
+
+<h1><?=LangAdmin::get('Referral_system')?></h1>
+
+<!-- custom asker -->
+<div class="modal hide fade ot-add-users-typeahead">    
+    <div class="modal-body">
+        <?=LangAdmin::get('enter_login')?><br>
+        <input id="logininput" name="login" type="text" required="required" value="">
+        <div style="position:relative;">
+                <div id="showera"></div></div>
+        <p></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary pull-left" id="add-link-confirm-ref"><?=LangAdmin::get('Add')?></a>        
+        <a href="#" class="btn pull-right" onclick="$('.ot-add-users-typeahead').hide();"><?=LangAdmin::get('Cancel')?></a>
+    </div>
+</div>
+<!-- ============= -->
+<!-- custom asker -->
+<div class="modal hide fade ot_3answer_dialog_modal">    
+    <div class="modal-body">
+        <p><?=LangAdmin::get('replace_or_die')?> ("<?=$firstCat?>") <?=LangAdmin::get('replace_or_die2')?></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary pull-left" id="replace-link-confirm-ref"><?=LangAdmin::get('Replace')?></a>
+        <a href="#" class="btn btn-primary pull-left" id="delete-link-confirm-ref"><?=LangAdmin::get('Delete')?></a>
+        <a href="#" class="btn pull-right" onclick="$('.ot_3answer_dialog_modal').hide();"><?=LangAdmin::get('Cancel')?></a>
+    </div>
+</div>
+<!-- ============= -->
+
+
+<div class="row-fluid">
+    <div class="span6 offset-bottom1" id="messages">
+    </div>
+</div>
+<!-- /possible system feedbacks -->
+
+<div class="row-fluid offset-bottom1">
+    <div class="span6">
+        <table class="table table-bordered bootstrap-datatable">
+
+            <thead>
+            <tr>
+                <th class="span4"><?=LangAdmin::get('Name')?></th>
+                <th class="span2"><?=LangAdmin::get('Actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <? foreach($categories as $category){ ?>
+            
+                <tr>
+                    <td width="600px;"><a href="/admin/index.php?cmd=referralold&do=viewGroup&id=<?=$category['catId']?>" title="<?=LangAdmin::get('referral_all_users')?>"><?=$category['groupName']?></a></td>
+                    <td>
+                        <div class="btn-group pull-left">
+                            <a class="btn btn-mini" href="/admin/index.php?cmd=referralold&do=editGroupForm&id=<?=$category['catId']?>" title="<?=LangAdmin::get('edit_group')?>"><?=LangAdmin::get('edit_group')?></a>
+                            <? if($category['catId']!=1){ ?>
+                            <a class="btn btn-mini ot_show_3answer_dialog_modal" href="/admin/index.php?cmd=referralold&do=delGroup&id=<?=$category['catId']?>" title="<?=LangAdmin::get('del_group')?>" 2_url="/admin/index.php?cmd=referralold&do=replaceGroup&id=<?=$category['catId']?>" cat_id="<?=$category['catId']?>"><?=LangAdmin::get('del_group')?></a>                            
+                            <? } ?>
+                        </div>
+                        <!-- add new user -->
+                        <div class="pull-right">
+                            <a class="ot-add-users-typeahead_link" data-url="/admin/index.php?cmd=referralold&do=addUserToGroup&id=<?=$category['catId']?>" href="#" data-toggle="tooltip" data-placement="bottom">
+                                <span class="btn btn-mini btn-primary">+ <?=LangAdmin::get('Add_user')?></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            <? } ?>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<button title="<?=LangAdmin::get('add_group')?>" type="submit" onclick="$(this).attr('disabled', 'disabled'); window.location.href = '/admin/index.php?cmd=referralold&do=addGroupForm';" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Adding')?>" autocomplete="off"><?=LangAdmin::get('add_group')?></button>
+<script type="text/javascript" src="/admin/js/categories.js"></script>
+
+<?=$Footer?>

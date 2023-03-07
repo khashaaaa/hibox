@@ -1,0 +1,26 @@
+<div id="<?=$id?>">
+    <?=General::viewFetch('other/ajax-loader')?>
+</div>
+<? AssetsMin::jsBegin(); ?>
+    <script type="text/javascript">
+        $(function(){
+            var container = $('#<?=$id?>');
+
+            var lazyContentGetData = function() {
+                $.get("<?=$requestedUrl?>", {}, function(data){
+                    if (data.timeout) {
+                        setTimeout(lazyContentGetData, 5000);
+                    } else if (data.error) {
+                        container.html('');
+                        showError(data);
+                    } else {
+                        container.replaceWith(data.html);
+                    }
+                });
+            };
+
+            lazyContentGetData();
+        });
+    </script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

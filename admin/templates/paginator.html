@@ -1,0 +1,24 @@
+<?php /* @var $paginator \blocks\Paginator */ ?>
+<?php if ($paginator->pages() > 1) { ?>
+    <div class="pagination">
+        <ul>
+            <?php if ($paginator->hasPrevious()) { ?>
+                <li page="<?=$paginator->page()-1?>"><a href="<?=$paginator->query(array('page' => $paginator->page()-1))?>">←</a></li>
+            <?php } else { ?>
+                <li class="disabled"><a href="javascript:void(0)">←</a></li>
+            <?php } ?>
+            <?php foreach ($paginator->getRange() as $page) { ?>
+                <?php if ($paginator->page() == $page) { ?>
+                    <li class="active"><a href="javascript:void(0)" title="<?=$page?>"><?=$page?></a></li>
+                <?php } else { ?>
+                    <li page="<?=$page?>"><a href="<?=$paginator->query(array('page' => $page))?>" title="<?=$page?>"><?=$page?></a></li>
+                <?php }?>
+            <?php }?>
+            <?php if ($paginator->hasNext()) { ?>
+                <li page="<?=$paginator->page()+1?>"><a href="<?=$paginator->query(array('page' => $paginator->page()+1))?>">→</a></li>
+            <?php } else { ?>
+                <li class="disabled"><a class="disabled" href="javascript:void(0)">→</a></li>
+            <?php } ?>
+        </ul>
+    </div>
+<?php } ?>

@@ -1,0 +1,617 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('site_construction')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="row-fluid">
+
+    <div class="span10">
+        <h1><?=LangAdmin::get('site_construction')?></h1>
+    </div>
+
+    <div class="span2 offset-top1">
+        <div id="activeLanguagesContainer"></div>
+    </div>
+
+</div>
+
+<div class="config-wrapper" id="global-wrapper">
+
+<!-- item page configuration -->
+<div class="box corner-all">
+    <div class="box-header corner-top">
+        <div class="header-control">
+            <a data-box="collapse"><i class="icon-caret-up"></i></a>
+        </div>
+        <i class="icon-columns font-14"></i> <?=LangAdmin::get('Global_site_template')?>
+    </div>
+
+    <div class="box-body">
+
+
+        <form class="form-horizontal inline_editable_form ot_form"  enctype="multipart/form-data">
+            <div class="row-fluid">
+            <div class="span6">
+            <fieldset class="clearfix">
+                <legend class="legend-small"><?=LangAdmin::get('Site_header')?></legend>
+
+                <!-- В это поле будет добавлен плагин для загрузки изображений -->
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('Logo')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('logo_hint')?>" title=""></i></label>
+                    
+                    <div class="controls">
+                        <div class="ot-uploader">
+                            <img class="image-preview" default="/i/logo.png" src="<?=$config->get('logo', '/i/logo.png', false)?>"/>
+                            <div class="actions">
+                                <?php $isNew = ! $config->get('logo'); ?>
+                                <span style="display: <?=($isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-new"><?=LangAdmin::get('Upload')?></span>
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-exists"><?=LangAdmin::get('Change')?></span>
+                                
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-remove"><?=LangAdmin::get('Remove')?></span>
+                                <span style="display: none" class="btn btn-primary btn-save" action="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'saveLogo')?>"><i class="icon-ok icon-white"></i></span>
+                                    
+                                <input style="display: none" class="input-image" name="input_image" type="file" />
+                                <input type="hidden" name="delete_image" value="0" />                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group control-group-medium">
+                    <div data-field="header_text"></div>
+                    <? XEditableFields::Register('header_text', $config->get('header_text'), array('useWrapper' => false, 'displayValue' => LangAdmin::get('Filled'))); ?>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div data-field="phone"></div>
+                    <? XEditableFields::Register('phone', $config->get('phone'), array('useWrapper' => false, 'inputClass' => 'phone', 'displayValue' => LangAdmin::get('Filled'))); ?>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div data-field="store_email"></div>
+                    <? XEditableFields::Register('store_email', $config->get('store_email'), array('useWrapper' => false, 'inputClass' => 'store_email', 'displayValue' => LangAdmin::get('Filled'))); ?>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div data-field="work_shedule"></div>
+                    <? XEditableFields::Register('work_shedule', $config->get('work_shedule'), array('useWrapper' => false, 'displayValue' => LangAdmin::get('Filled'))); ?>
+
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div data-field="rtl"></div>
+                    <? XEditableFields::Register('rtl', $config->get('rtl')); ?>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div data-field="hide_operator"></div>
+                    <? XEditableFields::Register('hide_operator', $config->get('hide_operator'), array('useWrapper' => false)); ?>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div data-field="online_chat_code"></div>
+                    <? XEditableFields::Register('online_chat_code', $config->get('online_chat_code'), array('useWrapper' => false, 'displayValue' => LangAdmin::get('Connected'))); ?>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <div data-field="stock"></div>
+                    <? XEditableFields::Register('stock', $config->get('stock'), array('useWrapper' => false, 'editable' => false)); ?>
+                </div>
+            </fieldset>
+            </div>
+
+            <div class="span6">
+            <fieldset>
+                <legend class="legend-small"><?=LangAdmin::get('Text_pages_setting')?></legend>
+
+                <div data-field="left_menu_mode_for_content"></div>
+                <? XEditableFields::Register('left_menu_mode_for_content', $config->get('left_menu_mode_for_content')); ?>
+
+                <? if (General::getConfigValue('is_old_platform')) { ?>
+                    <div data-field="rtl"></div>
+                    <? XEditableFields::Register('rtl', $config->get('rtl')); ?>
+                <? } ?>
+
+                <div data-field="custom_head_code"></div>
+                <? XEditableFields::Register('custom_head_code', $config->get('custom_head_code'), array(
+                    'placeholder' => LangAdmin::get('Copy_code_to_field'), 'displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+                
+                <div data-field="html_for_footet"></div>
+                <? XEditableFields::Register('html_for_footet', $config->get('html_for_footet'), array(
+                    'placeholder' => LangAdmin::get('Copy_code_to_field'), 'displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+
+            </fieldset>
+            </div>
+            </div>
+        </form>
+        <form class="form-horizontal inline_editable_form ot_form" enctype="multipart/form-data">
+            <? if (General::getConfigValue('is_old_platform')) { ?>
+                <fieldset class="clearfix">
+
+                    <legend class="legend-small"><?=LangAdmin::get('Css_themes')?></legend>
+
+                    <ul class="thumbnails ot_sortable_cols offset-top2" data-toggle="modal-gallery" data-target="#modal-gallery">
+                        <?php foreach ($availableSiteThemes as $idx => $theme) { ?>
+                            <?php $isActive = $config->get('current_site_theme') == $theme['name']; ?>
+                            <li>
+                                <div class="thumbnail <?php if ($isActive) { ?>selected_item<?php } ?>">
+                                    <header>
+                                        <h3 title="<?=LangAdmin::get('mailing_subject')?> «<?=$this->escape($theme['title'])?>»" <?php if ($isActive) { ?>style="font-weight: bold"<?php } ?>>
+                                            <?=$this->escape($theme['title'])?>
+                                        </h3>
+                                    </header>
+                                    <a href="../<?=$this->escape($theme['image'])?>" title="<?=LangAdmin::get('mailing_subject')?> «<?=$this->escape($theme['title'])?>»" class="img_preview" data-gallery="gallery">
+                                        <img src="../<?=$this->escape($theme['image_preview'])?>" alt="">
+                                    </a>
+                                    <p class="offset-top03 ot-save-image-button-wrapper" data-theme="<?=$this->escape($theme['name'])?>">
+                                        <?php if ($isActive) { ?>
+                                            <span class="badge badge-success weight-normal offset-top04"><?=LangAdmin::get('Current_theme')?></span>
+                                        <?php } else { ?>
+                                            <button class="btn btn-mini btn_preloader ot-save-theme" data-theme="<?=$this->escape($theme['name'])?>" data-loading-text="<?=LangAdmin::get('Apply2')?>" autocomplete="off" title="<?=LangAdmin::get('Apply_theme')?>">
+                                                <i class="icon-ok"></i>
+                                                <span class="hidden-phone"><?=LangAdmin::get('Apply2')?></span>
+                                            </button>
+                                        <?php } ?>
+                                    </p>
+                                </div>
+                            </li>
+                        <?php } ?>
+                    </ul>
+
+                </fieldset>
+
+                <?php if (! empty($availableCustomSiteThemes)) { ?>
+                <fieldset class="clearfix">
+
+                    <legend class="legend-small"><?=LangAdmin::get('Custom_css_themes')?></legend>
+
+                    <ul class="thumbnails ot_sortable_cols offset-top2" data-toggle="modal-gallery" data-target="#modal-gallery">
+                        <?php foreach ($availableCustomSiteThemes as $idx => $theme) { ?>
+                            <?php $isActive = $config->get('current_site_theme') == $theme['name']; ?>
+                            <li>
+                                <div class="thumbnail <?php if ($isActive) { ?>selected_item<?php } ?>">
+                                    <header>
+                                        <h3 title="<?=LangAdmin::get('mailing_subject')?> «<?=$this->escape($theme['title'])?>»" <?php if ($isActive) { ?>style="font-weight: bold"<?php } ?>>
+                                            <?=$this->escape($theme['title'])?>
+                                        </h3>
+                                    </header>
+                                    <a href="../<?=$this->escape($theme['image'])?>" title="<?=LangAdmin::get('mailing_subject')?> «<?=$this->escape($theme['title'])?>»" class="img_preview" data-gallery="gallery">
+                                        <img src="../<?=$this->escape($theme['image_preview'])?>" alt="">
+                                    </a>
+                                    <p class="offset-top03 ot-save-image-button-wrapper" data-theme="<?=$this->escape($theme['name'])?>">
+                                        <?php if ($isActive) { ?>
+                                            <span class="badge badge-success weight-normal offset-top04"><?=LangAdmin::get('Current_theme')?></span>
+                                        <?php } else { ?>
+                                            <button class="btn btn-mini btn_preloader ot-save-theme" data-theme="<?=$this->escape($theme['name'])?>" data-loading-text="<?=LangAdmin::get('Apply2')?>" autocomplete="off" title="<?=LangAdmin::get('Apply_theme')?>">
+                                                <i class="icon-ok"></i>
+                                                <span class="hidden-phone"><?=LangAdmin::get('Apply2')?></span>
+                                            </button>
+                                        <?php } ?>
+                                    </p>
+                                </div>
+                            </li>
+                        <?php } ?>
+                    </ul>
+
+                </fieldset>
+                <?php } ?>
+            <? } ?>
+        </form>
+
+    </div>
+</div>
+
+<? if (file_exists(General::getThemeDir() . '/config/theme-configuration.html') && !General::getConfigValue('is_old_platform')) { ?>
+
+    <div class="box corner-all">
+        <div class="box-header corner-top">
+            <div class="header-control">
+                <a data-box="collapse"><i class="icon-caret-up"></i></a>
+            </div>
+            <i class="icon-tint font-14"></i> <?=LangAdmin::get('design_theme')?>
+        </div>
+
+        <div class="box-body">
+            <?=General::viewFetch('theme-configuration', [
+                'path' => General::getThemeDir() . '/config',
+                'vars' => [
+                    'PageUrl' => $PageUrl,
+                    'config' => $config,
+                ]
+            ]);?>
+        </div>
+    </div>
+<? } ?>
+
+    <? if (! General::isSellFree(Session::getActiveAdminLang()) || OTBase::isTest()) { ?>
+<!-- main page configuration -->
+<div class="box corner-all">
+    <div class="box-header corner-top">
+        <div class="header-control">
+            <a data-box="collapse"><i class="icon-caret-up"></i></a>
+        </div>
+        <i class="icon-home font-14"></i> <?=LangAdmin::get('Main_page')?>
+    </div>
+
+    <div class="box-body">
+
+        <form class="form-horizontal inline_editable_form ot_form">
+            <fieldset class="clearfix display_as_carousel-wrapper">
+                <legend class="legend-small"><?=LangAdmin::get('Display')?></legend>
+
+                <div data-field="display_as_carousel"></div>
+                <? XEditableFields::Register('display_as_carousel', $config->get('display_as_carousel')); ?>
+            </fieldset>
+
+
+            <fieldset class="clearfix">
+                <legend class="legend-small">
+                    <?=LangAdmin::get('Count_of_elements_in_blocks')?>
+
+                </legend>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div data-field="news_count_print"></div>
+                        <? XEditableFields::Register('news_count_print', General::getNumConfigValue('news_count_print', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <? if (CMS::IsFeatureEnabled('Digest')) { ?>
+                            <div data-field="blog_posts_index"></div>
+                            <? XEditableFields::Register('blog_posts_index', General::getNumConfigValue('blog_posts_index', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+                        <? } ?>
+
+                        <div data-field="items_with_comments"></div>
+                        <? XEditableFields::Register('items_with_comments', General::getNumConfigValue('items_with_comments', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <div data-field="items_with_vendor"></div>
+                        <? XEditableFields::Register('items_with_vendor', General::getNumConfigValue('items_with_vendor', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+                        <?php if (CMS::IsFeatureEnabled('ShopComments')) { ?>
+                            <div data-field="shopreviews_main"></div>
+                            <? XEditableFields::Register('shopreviews_main', General::getNumConfigValue('shopreviews_main', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <?php } ?>
+                    </div>
+
+                    <div class="span6">
+
+                        <div data-field="brand_with_best"></div>
+
+                        <? XEditableFields::Register('brand_with_best', General::getNumConfigValue('brand_with_best', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <div data-field="items_with_best"></div>
+                        <? XEditableFields::Register('items_with_best', General::getNumConfigValue('items_with_best', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <div data-field="items_with_popular"></div>
+                        <? XEditableFields::Register('items_with_popular', General::getNumConfigValue('items_with_popular', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <div data-field="items_with_last"></div>
+                        <? XEditableFields::Register('items_with_last', General::getNumConfigValue('items_with_last', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <?php if (CMS::IsFeatureEnabled('Warehouse')) { ?>
+                            <div data-field="warehouse_items"></div>
+                            <? XEditableFields::Register('warehouse_items', General::getNumConfigValue('warehouse_items', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+                        <?php } ?>
+
+                        <?php if (CMS::IsFeatureEnabled('FleaMarket')) { ?>
+                            <div data-field="items_with_pristroy"></div>
+
+                            <? XEditableFields::Register('items_with_pristroy', General::getNumConfigValue('items_with_pristroy', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <?php } ?>
+                    </div>
+
+                </div>
+            </fieldset>
+
+        </form>
+
+    </div>
+</div>
+<? } ?>
+
+<? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+<!-- item page configuration -->
+<div class="box corner-all">
+    <div class="box-header corner-top">
+        <div class="header-control">
+            <a data-box="collapse"><i class="icon-caret-up"></i></a>
+        </div>
+        <i class="icon-gift font-14"></i> <?=LangAdmin::get('Item_page_info')?>
+    </div>
+
+    <div class="box-body">
+
+        <form class="form-horizontal inline_editable_form ot_form">
+
+            <fieldset class="clearfix">
+                <legend class="legend-small"><?=LangAdmin::get('Elements_output')?></legend>
+                <div class="row-fluid">
+                    <div class="span6">
+
+                        <div data-field="hide_item_title"></div>
+                        <? XEditableFields::Register('hide_item_title', $config->get('hide_item_title')); ?>
+
+                        <div data-field="hide_item_info_status"></div>
+                        <? XEditableFields::Register('hide_item_info_status', $config->get('hide_item_info_status')); ?>
+
+                        <div data-field="hide_item_info_weight"></div>
+                        <? XEditableFields::Register('hide_item_info_weight', $config->get('hide_item_info_weight')); ?>
+
+                        <div data-field="hide_taobao_link"></div>
+                        <? XEditableFields::Register('hide_taobao_link', $config->get('hide_taobao_link')); ?>
+
+                        <div data-field="hide_item_info_price1"></div>
+                        <? XEditableFields::Register('hide_item_info_price1', $config->get('hide_item_info_price1')); ?>
+
+                        <div data-field="hide_item_info_price_local_delivery"></div>
+                        <? XEditableFields::Register('hide_item_info_price_local_delivery', $config->get('hide_item_info_price_local_delivery')); ?>
+
+                        <div data-field="show_user_history_views"></div>
+                        <? XEditableFields::Register('show_user_history_views', $config->get('show_user_history_views')); ?>
+
+                    </div>
+                    <div class="span6">
+
+                        <div data-field="hide_item_property_price_range"></div>
+                        <? XEditableFields::Register('hide_item_property_price_range', $config->get('hide_item_property_price_range')); ?>
+
+                        <div data-field="hide_item_site_responses"></div>
+                        <? XEditableFields::Register('hide_item_site_responses', $config->get('hide_item_site_responses')); ?>
+
+                        <div data-field="hide_item_info_in_existence"></div>
+                        <? XEditableFields::Register('hide_item_info_in_existence', $config->get('hide_item_info_in_existence')); ?>
+
+                        <!--div data-field="hide_item_info_sales_last30day"></div--->
+                        <?
+                        //XEditableFields::Register('hide_item_info_sales_last30day', $config->get('hide_item_info_sales_last30day'));
+                        ?>
+
+                        <div data-field="product_tabs"></div>
+                        <? XEditableFields::Register('product_tabs', $config->get('product_tabs')); ?>
+
+                        <div data-field="hide_item_external_links_in_description"></div>
+                        <? XEditableFields::Register('hide_item_external_links_in_description', $config->get('hide_item_external_links_in_description')); ?>
+
+                        <div data-field="hide_taobao_responses"></div>
+                        <? XEditableFields::Register('hide_taobao_responses', $config->get('hide_taobao_responses')); ?>
+
+                        <div data-field="product_allow_in_complete"></div>
+                        <? XEditableFields::Register('product_allow_in_complete', $config->get('product_allow_in_complete', 1)); ?>
+
+                        <div data-field="product_allow_deleted"></div>
+                        <? XEditableFields::Register('product_allow_deleted', $config->get('product_allow_deleted', 1)); ?>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+<? } ?>
+
+<!-- catalogue configuration -->
+<div class="box corner-all">
+    <div class="box-header corner-top">
+        <div class="header-control">
+            <a data-box="collapse"><i class="icon-caret-up"></i></a>
+        </div>
+        <i class="icon-list-alt font-14"></i> <?=LangAdmin::get('Catalog')?>
+    </div>
+
+    <div class="box-body">
+
+        <form class="form-horizontal inline_editable_form ot_form">
+            <fieldset class="clearfix"><div class="row-fluid">
+
+                <div class="span6">
+
+                    <legend class="legend-small"><?=LangAdmin::get('structure_type_title')?></legend>
+                    <div class="control-group control-group-medium">
+                        <div data-field="structure_type"></div>
+                            <? XEditableFields::Register('structure_type', $categoryStructureType); ?>
+                    </div>
+
+                    <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                        <legend class="legend-small"><?=LangAdmin::get('GoodsList')?></legend>
+                        <div data-field="search_category_mode"></div>
+                        <? XEditableFields::Register('search_category_mode', $config->get('search_category_mode')); ?>
+
+                        <div data-field="pager_count_print"></div>
+                        <? XEditableFields::Register('pager_count_print', $config->get('pager_count_print')); ?>
+
+                        <? if (! $newSearchSetting) { ?>
+                            <div data-field="default_perpage"></div>
+                            <? XEditableFields::Register('default_perpage', $config->get('default_perpage')); ?>
+
+                            <legend class="legend-small"><?=LangAdmin::get('default_perpage_label')?>
+                            <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('default_perpage_hint')?>" title=""></i>
+                            </legend>
+
+                            <? if (! empty($searchMethodsList['Taobao_Official'])) { ?>
+                                <div data-field="oficial_catalog_perpage"></div>
+                                <? XEditableFields::Register('oficial_catalog_perpage', General::getNumConfigValue('oficial_catalog_perpage', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric', 'label' => LangAdmin::get('search_type_perpage_label', array('name' => $searchMethodsList['Taobao_Official']['DisplayName'], 'count' => $searchMethodsList['Taobao_Official']['MaximumFrameSize'])))); ?>
+                            <? } ?>
+                            <? if (! empty($searchMethodsList['Taobao_Extended'])) { ?>
+                                <div data-field="extended_catalog_perpage"></div>
+                                <? XEditableFields::Register('extended_catalog_perpage', General::getNumConfigValue('extended_catalog_perpage', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric', 'label' => LangAdmin::get('search_type_perpage_label', array('name' => $searchMethodsList['Taobao_Extended']['DisplayName'], 'count' => $searchMethodsList['Taobao_Extended']['MaximumFrameSize'])))); ?>
+                            <? } ?>
+                            <? if (! empty($searchMethodsList['Taobao_ExtendedNew'])) { ?>
+                                <div data-field="extendedNew_catalog_perpage"></div>
+                                <? XEditableFields::Register('extendedNew_catalog_perpage', General::getNumConfigValue('extendedNew_catalog_perpage', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric', 'label' => LangAdmin::get('search_type_perpage_label', array('name' => $searchMethodsList['Taobao_ExtendedNew']['DisplayName'], 'count' => $searchMethodsList['Taobao_ExtendedNew']['MaximumFrameSize'])))); ?>
+                            <? } ?>
+                            <? if (! empty($searchMethodsList['Warehouse_Default'])) { ?>
+                                <div data-field="warehouse_catalog_perpage"></div>
+                                <? XEditableFields::Register('warehouse_catalog_perpage', General::getNumConfigValue('warehouse_catalog_perpage', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric', 'label' => LangAdmin::get('search_type_perpage_label', array('name' => $searchMethodsList['Warehouse_Default']['DisplayName'], 'count' => $searchMethodsList['Warehouse_Default']['MaximumFrameSize'])))); ?>
+                            <? } ?>
+
+                            <div data-field="pristroy_catalog_perpage"></div>
+                            <? XEditableFields::Register('pristroy_catalog_perpage', General::getNumConfigValue('pristroy_catalog_perpage', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                            <div data-field="comments_catalog_perpage"></div>
+                            <? XEditableFields::Register('comments_catalog_perpage', General::getNumConfigValue('comments_catalog_perpage', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+                        <? } ?>
+                    <? } ?>
+                </div>
+
+                <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                    <div class="span6">
+                        <legend class="legend-small"><?=LangAdmin::get('Navigation')?></legend>
+                        <div data-field="menu_type"></div>
+                        <? XEditableFields::Register('menu_type', $config->get('menu_type')); ?>
+
+                        <div data-field="menu_count_lvl1"></div>
+                        <? XEditableFields::Register('menu_count_lvl1', General::getNumConfigValue('menu_count_lvl1', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <div data-field="menu_count_lvl2"></div>
+                        <? XEditableFields::Register('menu_count_lvl2', General::getNumConfigValue('menu_count_lvl2', null, true, Session::get('active_lang_siteconfiguration')), array('inputClass' => 'numeric')); ?>
+
+                        <legend class="legend-small"><?=LangAdmin::get('Vendor_rating')?></legend>
+                        <div data-field="vendor_rating_view_as_number"></div>
+                        <? XEditableFields::Register('vendor_rating_view_as_number', $config->get('vendor_rating_view_as_number')); ?>
+
+                        <br/><br/><br/>
+                        <div data-field="limit_items_by_catalog"></div>
+                        <? $value = ($Showcase->Settings->LimitItemsByCatalog == 'true') ? 1 : 0;  ?>
+                        <? XEditableFields::Register('limit_items_by_catalog', $value, array('inputClass' => 'limit_items_by_catalog') ); ?>
+                    </div>
+                <? } ?>
+
+            </div></fieldset>
+        </form>
+
+    </div>
+</div>
+
+<? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+
+<? if ($newSearchSetting) { ?>
+    <div class="box corner-all">
+        <div class="box-header corner-top">
+            <div class="header-control">
+                <a data-box="collapse"><i class="icon-caret-up"></i></a>
+            </div>
+            <i class="icon-list-alt font-14"></i> <?=LangAdmin::get('Search')?>
+        </div>
+        <div class="box-body">
+            <form class="form-horizontal inline_editable_form ot_form">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div data-field="search_items_at_render_page"></div>
+                        <? XEditableFields::Register('search_items_at_render_page', $config->get('search_items_at_render_page')); ?>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<? } else { ?>
+<div class="box corner-all">
+    <div class="box-header corner-top">
+        <div class="header-control">
+            <a data-box="collapse"><i class="icon-caret-up"></i></a>
+        </div>
+        <i class="icon-list-alt font-14"></i> <?=LangAdmin::get('Search')?>
+    </div>
+    <div class="box-body">
+        <legend class="legend-small"><?=LangAdmin::get('Search_types')?>
+        </legend>
+        <div id="searchWrapper">
+            <a href="<?=$PageUrl->AssignCmdAndDo('ProviderConfiguration', 'searchType')?>#searchSort"><?=LangAdmin::get('providerconfiguration::Active_search_methods')?></a>
+            
+        </div>
+    <!--/div>
+    <div class="box-body"-->
+        <br/>
+        <legend class="legend-small"><?=LangAdmin::get('Multisearch')?>
+        </legend>
+
+        <form class="form-horizontal inline_editable_form ot_form">
+            <fieldset class="clearfix"><div class="row-fluid">
+                <div class="span6">
+                    <div data-field="use_multi_search"></div>
+                    <? XEditableFields::Register('use_multi_search', $config->get('use_multi_search')); ?>
+                </div>
+            </div></fieldset>
+            <fieldset class="clearfix">
+                <legend class="legend-small"><?=LangAdmin::get('default_perpage_label')?>
+                    <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('default_perpage_hint')?>" title=""></i>
+                </legend>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div data-field="simple_search_perpage"></div>
+                        <? XEditableFields::Register('simple_search_perpage', $config->get('simple_search_perpage'), array('label' => $searchMethodsList['Taobao_Extended']['DisplayName'] ? $searchMethodsList['Taobao_Extended']['DisplayName'] : LangAdmin::get('simple_search_perpage_label') )); ?>
+
+                        <div data-field="tmall_search_perpage"></div>
+                        <? XEditableFields::Register('tmall_search_perpage', $config->get('tmall_search_perpage'), array('label' => $searchMethodsList['Taobao_Official']['DisplayName'] ? $searchMethodsList['Taobao_Official']['DisplayName'] : LangAdmin::get('tmall_search_perpage_label') )); ?>
+
+                        <div data-field="promoted_search_perpage"></div>
+                        <? XEditableFields::Register('promoted_search_perpage', $config->get('promoted_search_perpage'), array('label' => $searchMethodsList['Taobao_Promoted']['DisplayName'] ? $searchMethodsList['Taobao_Promoted']['DisplayName'] : LangAdmin::get('promoted_search_perpage_label'))); ?>
+                    </div>
+
+                    <div class="span6">
+
+                        <? if (CMS::IsFeatureEnabled('Warehouse')) { ?>
+                        <div data-field="warehouse_search_perpage"></div>
+                        <? XEditableFields::Register('warehouse_search_perpage', $config->get('warehouse_search_perpage'), array('label' => $searchMethodsList['Warehouse_Default']['DisplayName'])); ?>
+                        <? } ?>
+
+                        <div data-field="comments_search_perpage"></div>
+                        <? XEditableFields::Register('comments_search_perpage', $config->get('comments_search_perpage')); ?>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<? } ?>
+
+<? } ?>
+
+</div>
+
+<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body"><div class="modal-image"></div></div>
+    <div class="modal-footer">
+        <div class="row-fluid">
+            <div class="span3 text-left">
+                <div class="btn-group">
+                    <button class="btn modal-prev" title="<?=LangAdmin::get('Prev')?>"><i class="icon-arrow-left icon-white"></i></button>
+                    <button class="btn modal-next" title="<?=LangAdmin::get('Next')?>"><i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+            <div class="span6 text-center">
+                <button class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Apply')?>" autocomplete="off"><?=LangAdmin::get('Apply')?></button>
+            </div>
+            <div class="span3 text-right">
+                <button href="#" class="btn" data-dismiss="modal"><?=LangAdmin::get('Close')?></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+    Themes = new Backbone.Collection;
+    Themes.add(<?=json_encode($availableSiteThemes)?>);
+    activeTheme = '<?=$config->get('current_site_theme')?>';
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-site-config.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-uploader.js'); ?>

@@ -1,0 +1,29 @@
+<? $itemUrl = UrlGenerator::generateItemUrl($item['Id']); ?>
+<div class="product-layout item-inner style1 ">
+    <div class="item-image">
+        <div class="item-img-info">
+            <a href="<?=$itemUrl?>" target="_self" title="<?=$this->escape($item['title'])?>">
+                <img data-sizes="auto" src="<?=ProductsHelper::getMediumImage($item)?>" data-src="<?=ProductsHelper::getMediumImage($item)?>" alt="<?=$this->escape($item['title'])?> class="lazyautosizes lazyloaded" sizes="80px">
+            </a>
+        </div>
+    </div>
+    <div class="item-info">
+        <div class="item-title">
+            <a href="<?=$itemUrl?>" target="_self" title="<?=$this->escape($item['title'])?>">
+                <?=$this->escape($item['title'])?>
+            </a>
+        </div>
+        <div class="content_price price">
+            <? if (isset($item['PromotionPrice']) && count($item['PromotionPrice']) > 0) { ?>
+                <span class="price-new product-price">
+                    <?=ProductsHelper::getPromoPrice($item, array('addItemprop' => true))?>
+                </span>
+                <span class="price-old"><?=ProductsHelper::getPrice($item)?></span>
+            <? } else {?>
+                <span class="price-new product-price">
+                    <?=ProductsHelper::getPrice($item, array('addItemprop' => true))?>
+                </span>
+            <? } ?>
+        </div>
+    </div>
+</div>

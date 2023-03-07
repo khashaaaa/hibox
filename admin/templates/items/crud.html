@@ -1,0 +1,177 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('categories', 'default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Items')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Edit_product')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+
+<h1><?=LangAdmin::get('Edit_product')?></h1>
+<div class="row-fluid offset-bottom1">
+    <?=AdminLanguage::getLanguageSelector(false)?>
+</div>
+
+<div class="well item_wrapper">
+
+    <form method="post" class="form-horizontal ot_form" action="<?=$PageUrl->AssignDo('saveItem')?>"  enctype="multipart/form-data">
+        <input type="hidden" id="id" name="id" value="<?=$id?>">
+        <input type="hidden" name="originalPicture" id="originalPicture" value="<?= $itemInfo['MainPictureUrl']?>">
+        <input type="hidden" name="existingImage" value="<?= ProductsHelper::getImage($itemInfo)?>">
+        <input type="hidden" name="language" id="currentLang" value="<?=$currentLang?>" data-lang="<?=$currentLang?>">
+        <input type="hidden" id="field" name="field" value="">
+
+        <div class="row-fluid">
+            <div class="span10">
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('Provider')?></label>
+                    <div class="controls">
+                        <img src="<?=$provider->GetIconImageUrl()?>" class="provider-icon <?=$provider->GetAlias()?>" />
+                        <?=$provider->GetDisplayName()?>
+                    </div>
+                </div>
+
+                <?php if (count($sets) > 0) { ?>
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('Sets')?></label>
+                    <div class="controls">
+                        <div class="editable-input" style="position: relative; width: 70%;">
+                            <ul>
+                                <? foreach ($sets as $set) { ?>
+                                <li><a href="<?=$set['url']?>"><?=$set['title']?></a></li>
+                                <? } ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+                <? if ($itemBrandId) { ?>
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('Brand')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=LangAdmin::get('for_search_use_brand_id')?>" title=""></i></label>
+                    <div class="controls">
+                        <?=$itemBrandName?> (ID: <?=$itemBrandId?>)
+                    </div>
+                </div>
+                <? } ?>
+                <div class="control-group">
+                    <label class="control-label bold">
+                        <?=LangAdmin::get('Title')?>
+                        <? if ($itemInfo['IsTitleManuallyTranslated']) { ?>
+                            <i class="icon-edit-sign item-title-edited-flag"
+                               title="<?= LangAdmin::get('manual_translation') ?>"
+                            ></i>
+                        <? } ?>
+                    </label>
+                    <div class="controls">
+                        <div class="editable-input" style="position: relative; width: 70%;">
+                            <input type="text" id="title" name="title" class="input-block-level" data-provide="typeahead" required="required"  value="<?=$this->escape($itemInfo['Title'])?>">
+                        </div>
+                        <div class="editable-buttons">
+                            <button data-field="title" type="submit" name="submit-name" data-loading-text="<?=LangAdmin::get('Saving')?>" class="btn btn-primary editable-submit save-item-btn"><i class="icon-ok icon-white"></i></button>
+                            <button data-field="title" type="button" name="reset-name" class="btn editable-cancel reset-item-btn" data-loading-text="<?=LangAdmin::get('loading')?>">По умолчанию</button>
+                        </div>
+                    </div>
+                </div>
+
+                <?=MetaUI::render($settings, $updateUrl) ?>
+
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('Display_image')?></label>
+                    <div class="controls">
+                        <div class="editable-input" style="position: relative; width: 70%;">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+
+                                <div class="fileupload-new thumbnail thumbnail-mini">
+                                    <div class="thumbnail-placeholder"><img src="<?= ProductsHelper::getSmallImage($itemInfo)?>" alt=""></div>
+                                </div>
+
+                                <div class="fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+                                <div class="btn btn-success btn-tiny btn-file">
+                                    <span class="fileupload-new"><?=LangAdmin::get('Change')?></span>
+                                    <span class="fileupload-exists"><?=LangAdmin::get('Change')?></span>
+                                    <input type="file" name="newImage">
+                                    <input type="hidden" name="existingImage" id="existing_image" class="file_name"/>
+                                </div>
+                                <span class="btn btn-danger btn-tiny fileupload-exists" data-dismiss="fileupload"><?=LangAdmin::get('Delete')?></span>
+                                <span class="btn btn-danger btn-tiny fileupload-new delete-existing-image" data-dismiss="fileupload"><?=LangAdmin::get('Delete')?></span>
+
+                            </div>
+                        </div>
+                        <div class="editable-buttons">
+                            <button data-field="image" type="submit" name="submit-name" data-loading-text="<?=LangAdmin::get('Saving')?>" class="btn btn-primary editable-submit save-item-btn"><i class="icon-ok icon-white"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('Description')?></label>
+                    <div class="controls">
+                        <div class="offset-bottom1">
+                            <button data-field="description" type="submit" name="submit-description" data-loading-text="<?=LangAdmin::get('Saving')?>" class="btn btn-primary editable-submit save-item-btn"><i class="icon-ok icon-white"></i></button>
+                            <button data-field="description" type="button" name="reset-description" class="btn editable-cancel reset-item-btn" data-loading-text="<?=LangAdmin::get('loading')?>">По умолчанию</button>
+                        </div>
+                        <div>
+                            <textarea rows="30" class="input-xxlarge" name="description" id="description"><?=$this->escape($itemDescription)?></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('product_tabs_value:1')?></label>
+                    
+                        
+                        
+                        <div class="accordion" id="ot_filters_rename_accordion">
+                        <? foreach ($itemInfo['properties'] as $key => $props) {
+                            if ($key == 20000) { // Brand
+                                continue;
+                            }
+                            $id = $props[0]['id'];
+                            $name = $props[0]['name'];
+                        ?>
+                        <div class="controls">
+                            <span class="ot_inline_editable editable editable-click editable-empty" data-name="ItemPropertyName" data-type="text" data-pk="1" data-url="/admin/?cmd=items&amp;do=saveFilter&amp;filterId=<?=$id?>" data-original-title=""><?=$name?></span>
+                            :
+                            <? foreach ($props as $prop) {
+                                $vid = $prop['vid'];
+                                $value = $prop['value'];
+                            ?>
+                            <a class="ot_inline_editable editable editable-click editable-empty item-property-value" href="javascript:void(0)" data-name="ItemPropertyValueName" data-type="text" data-pk="1" data-url="/admin/?cmd=items&amp;do=saveFilter&amp;filterId=<?=$vid?>" data-original-title=""><?=$value?></a>
+                            <? } ?>
+                        </div>
+
+                        <? } ?>
+                        </div>
+                     
+                </div>
+            </div><!-- /. span8 -->
+
+            <div class="span2">
+                <div id="selectorActions">
+                    <?php
+                    if (isset($cid)) {
+                    ?>
+                    <a href="/admin/?cmd=sets&do=items&type=Category&cid=<?=$cid?>" class="btn btn-primary"><?=LangAdmin::get('Go_to_Selector')?></a>
+                    <br><br>
+                    <button class="btn btn-danger ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"
+                            id="removeFromSelector" data-cid="<?=$cid?>" data-id="<?=$id?>" data-type="Category"><?=LangAdmin::get('Remove_from_Selector')?></button>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
+
+        </div><!-- /.row-fluid -->
+
+    </form>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-items.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+

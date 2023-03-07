@@ -1,0 +1,88 @@
+
+<!--noindex-->
+<script type="text/javascript">
+function showOverlay(){
+    var h = '33';
+    $('#overlay').css({
+        height: h+'px',
+        display: 'block'
+    });
+}
+
+var basketCount = 1;
+var isBusy = 0;
+var debug = <?=defined('NO_DEBUG') ? 0 : 1?>;
+
+function getBasketCount(){
+    if(debug)
+        console.log('getBasketCount start: '+basketCount);
+    if(!isBusy){
+        isBusy = 1;
+        $.post('/?p=getbasketcount',{}, function(data){
+            isBusy = 0;
+            basketCount = data;
+            if(debug)
+                console.log('getBasketCount end: '+basketCount);
+        });
+    }
+}
+function checkBasketCount(){
+    if(debug)
+        console.log('checkBasketCount: '+basketCount);
+    if(basketCount == '0'){
+        if(debug)
+            console.log('Basket is empty');
+
+        clearInterval(interval1);
+        clearInterval(interval2);
+
+        window.location = '/?p=privateoffice&message=success';
+    }
+}
+
+$(function(){
+    $( "#dialog-confirm:ui-dialog" ).dialog( "destroy" );
+
+    $("#dialog-confirm").dialog({
+        autoOpen: false,
+        modal: true,
+        buttons : {
+            "OK" : function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    showOverlay();
+    $.post('/?p=createorderajax',<?=json_encode($_POST)?>, function(data){
+        if(!data[0]){
+            $('#message').html(data[2]);
+            $('#dialog-confirm').dialog('open');
+            setTimeout("window.location = '/?p=privateoffice&errmessage=error';", 1000);
+        }
+        else{
+            setTimeout("window.location = '/?p=privateoffice&message=success';", 10);
+        }
+    }, 'json');
+
+    interval1 = setInterval(getBasketCount, 10000);
+    interval2 = setInterval(checkBasketCount, 1000);
+});
+</script>
+<!--/noindex-->
+    <div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="bigtitle"><div class="wrap clrfix">
+        <h1><?=Lang::get('order_processing_goes')?></h1>
+    </div></div>
+
+<div id="dialog-confirm" title="">
+    <span id="message"></span>
+</div>
+<!-- .main -->
+<div class="main"><div class="wrap clrfix">
+        <div id="overlay-wrapper" style="display: block; height: 5px; clear: both;">
+            <div id="overlay"><div>&nbsp;</div></div>
+        </div>
+    </div></div>
+<!-- /.main -->

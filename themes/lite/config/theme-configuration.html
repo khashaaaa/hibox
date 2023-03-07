@@ -1,0 +1,152 @@
+<form class="form-horizontal inline_editable_form ot_form" enctype="multipart/form-data">
+    <fieldset class="clearfix custom_css">
+        <div class="span6">
+            <legend class="legend-small"><?=LangAdmin::get('Control_design')?></legend>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_design_color_1_lite"></div>
+                <? XEditableFields::Register('custom_scss_design_color_1_lite', $config->get('custom_scss_design_color_1_lite', '#edefef'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_design_color_2_lite"></div>
+                <? XEditableFields::Register('custom_scss_design_color_2_lite', $config->get('custom_scss_design_color_2_lite', '#555656'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_body_text_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_body_text_color_lite', $config->get('custom_scss_body_text_color_lite', '#333333'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_headers_text_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_headers_text_color_lite', $config->get('custom_scss_headers_text_color_lite', '#555656'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_border_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_border_color_lite', $config->get('custom_scss_border_color_lite', '#c8cece'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_success_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_success_color_lite', $config->get('custom_scss_success_color_lite', '#5cb85c'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_info_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_info_color_lite', $config->get('custom_scss_info_color_lite', '#428bca'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_warning_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_warning_color_lite', $config->get('custom_scss_warning_color_lite', '#eea236'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_danger_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_danger_color_lite', $config->get('custom_scss_danger_color_lite', '#f63d45'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_after_scss_lite"></div>
+                <? XEditableFields::Register('custom_scss_after_scss_lite', $config->get('custom_scss_after_scss_lite'), array(
+                    'displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <div data-field="banner_widget"></div>
+                <? XEditableFields::Register('banner_widget', $config->get('banner_widget'), array(
+                    'displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <button id="compile-custom-scss" class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Save')?>" data-loading-text="<?=LangAdmin::get('Saving')?>" type="button">
+                    <?=LangAdmin::get('Save')?>
+                </button>
+                <button id="delete-custom-scss" class="btn btn-small btn-danger" href="javascript:void(0)" title="<?=LangAdmin::get('Delete_custom_css')?>" data-loading-text="<?=LangAdmin::get('loading')?>" type="button">
+                    <?=LangAdmin::get('Delete_custom_css')?>
+                </button>
+            </div>
+            <? if (OTBase::isTest()) { ?>
+                <div class="control-group control-group-medium">
+                    <button id="compile-scss" class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Compile_screen_scss')?>" data-loading-text="<?=LangAdmin::get('Saving')?>" type="button">
+                        <?=LangAdmin::get('Compile_screen_scss')?>
+                    </button>
+                </div>
+            <? } ?>
+        </div>
+        <div class="span6">
+            <legend class="legend-small"><?=LangAdmin::get('Background_image')?></legend>
+
+            <div class="control-group control-group-medium">
+                <div data-field="custom_scss_body_background_color_lite"></div>
+                <? XEditableFields::Register('custom_scss_body_background_color_lite', $config->get('custom_scss_body_background_color_lite', '#ffffff'), array('displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <form enctype="multipart/form-data">
+                    <div class="controls">
+                        <div class="ot-uploader">
+                            <img class="image-preview" default="/i/nobg.png" src="<?=$config->get('custom_scss_body_background_image_lite', '/i/nobg.png', false)?>"/>
+                            <div class="actions">
+                                <?php $isNew = ! $config->get('custom_scss_body_background_image_lite'); ?>
+                                <span style="display: <?=($isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-new"><?=LangAdmin::get('Upload')?></span>
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-exists"><?=LangAdmin::get('Change')?></span>
+
+                                <span style="display: <?=(! $isNew ? 'inline-block' : 'none');?>" class="btn btn-primary btn-remove"><?=LangAdmin::get('Remove')?></span>
+                                <span style="display: none" class="btn btn-primary btn-save" action="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'saveBackground')?>"><i class="icon-ok icon-white"></i></span>
+
+                                <input style="display: none" class="input-image" name="input_image" type="file" />
+                                <input type="hidden" name="delete_image" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div id="custom_scss_background_repeat_container" class="control-group control-group-medium">
+                <div data-field="custom_scss_background_repeat_lite"></div>
+                <? XEditableFields::Register('custom_scss_background_repeat_lite', $config->get('custom_scss_background_repeat_lite', 'no-repeat'), array(
+                    'displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div id="custom_scss_background_position_container" class="control-group control-group-medium">
+                <div data-field="custom_scss_background_position_lite"></div>
+                <? XEditableFields::Register('custom_scss_background_position_lite', $config->get('custom_scss_background_position_lite', 'center'), array(
+                    'displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+
+            <div id="custom_scss_background_attachment_container" class="control-group control-group-medium">
+                <div data-field="custom_scss_background_attachment_lite"></div>
+                <? XEditableFields::Register('custom_scss_background_attachment_lite', $config->get('custom_scss_background_attachment_lite', 'scroll'), array(
+                    'displayValue' => LangAdmin::get('Filled'),
+                )); ?>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<style>
+    .product_allow_in_complete-wrapper {
+        display: none;
+    }
+    .product_allow_deleted-wrapper {
+        display: none;
+    }
+</style>

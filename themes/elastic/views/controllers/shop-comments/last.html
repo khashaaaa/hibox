@@ -1,0 +1,74 @@
+<? if (!empty($comments)) { ?>
+    <section class="block-reviews">
+        <div class="center">
+            <div class="block__title">
+                <span><?=Lang::get('shopreviews')?></span>
+                <a href="<?=UrlGenerator::toRoute('shopreviews')?>"><?=Lang::get('Shop_comments_all_comments')?></a>
+            </div>
+
+            <div class="block-reviews__wrap">
+                <? foreach ($comments as $comment) { ?>
+                    <a href="<?=UrlGenerator::toRoute('shopreviews')?>#review<?=$comment['review_id']?>" class="reviews-link">
+                        <div class="review-item">
+                            <div class="review-item__top">
+                                <div class="review-item__user-name"><?=$this->escape($comment['name'])?></div>
+                                <div class="review-item__user-order"><?=TextHelper::date($comment['created']) ?></div>
+                            </div>
+                            <div class="review-item__bottom">
+                                <div class="review-item__text"><?=$this->escape($comment['text'])?></div>
+                            </div>
+                        </div>
+                    </a>
+                <? } ?>
+            </div>
+        </div>
+    </section>
+
+    <? AssetsMin::jsBegin(); ?>
+    <script>
+        $(function () {
+            $('.block-reviews div.review-item__text').expander({
+                expandText: '',
+            });
+
+            var shopreviewsCount = $('.reviews-link').length;
+
+            $('.block-reviews__wrap').slick({
+                dots: false,
+                speed: 500,
+                arrows: true,
+                autoplay: false,
+                fade: false,
+                vertical: false,
+                slidesToShow: shopreviewsCount < 5 ? shopreviewsCount : 5,
+                slidesToScroll: 1,
+                rtl: <?=(General::getConfigValue('rtl')) ? 'true' : 'false'?>,
+                responsive: [
+                    {
+                        breakpoint:1280,
+                        settings: {
+                            slidesToShow: shopreviewsCount < 4 ? shopreviewsCount : 4,
+                            arrows:false
+                        }
+                    },
+                    {
+                        breakpoint:1024,
+                        settings: {
+                            slidesToShow: shopreviewsCount < 3 ? shopreviewsCount : 3,
+                            arrows:false
+                        }
+                    },
+                    {
+                        breakpoint:480,
+                        settings: {
+                            slidesToShow: shopreviewsCount < 2 ? shopreviewsCount : 2,
+                            arrows:false
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+    <? $strScript = AssetsMin::jsEnd(); ?>
+    <? AssetsMin::registerJs($strScript); ?>
+<? } ?>

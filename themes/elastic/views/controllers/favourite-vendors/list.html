@@ -1,0 +1,97 @@
+<div class="content content-favourite-vendors">
+    <div class="content-block">
+        <h1><?= Lang::get('favourite_vendors') ?></h1><br>
+
+        <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a role="tab"
+                   id="home-tab"
+                   class="nav-link"
+                   aria-selected="true"
+                   aria-controls="favourites_items"
+                   href="<?=UrlGenerator::toRoute('supportlist')?>"
+                >
+                    <?=Lang::get('favourite_items')?>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a role="tab"
+                   id="profile-tab"
+                   class="nav-link active"
+                   aria-selected="false"
+                   aria-controls="favourites_items"
+                   href="<?=UrlGenerator::toRoute('favourite_vendor')?>"
+                >
+                    <?=Lang::get('favourite_vendors')?>
+                </a>
+            </li>
+        </ul>
+
+        <div class="content-favourite-vendors-list">
+            <? if (! empty($vendors)) { ?>
+                <? foreach ($vendors as $vendor) { ?>
+                    <? if (! $vendor->errorCode) { ?>
+                        <div class="favourite-vendor js-favourite-vendors-item">
+                            <div class="favourite-vendor-image">
+                                <?= $vendor->renderImage() ?>
+                            </div>
+
+                            <div class="favourite-vendor-data">
+                                <div class="favourite-vendor-data-row">
+                                    <span><?= Lang::get('vendor') ?>:</span>
+                                    <span>
+                                        <?= $vendor->renderName() ?>
+                                    </span>
+                                </div>
+                                <? foreach ($vendor->features as $feature) { ?>
+                                    <? $name = $feature->GetDisplayNameAttribute(); ?>
+                                    <? $type = $feature->GetDisplayTypeAttribute(); ?>
+                                    <? $value = $feature->asString(); ?>
+
+                                    <? if ($name) { ?>
+                                        <div class="favourite-vendor-data-row">
+                                            <? if ($type === 'TaobaoRating') { ?>
+                                                <span><?= $name ?>:</span>
+                                                <span class="rating">
+                                                    <i class="i-raiting raiting_<?= $value ?>"></i>
+                                                </span>
+                                            <? } elseif ($type === 'StarRating') { ?>
+                                                <span><?= $name ?>:</span>
+                                                <span class="rating">
+                                                    <span class="ratyScore js-favourite-vendors-item-raty-score"
+                                                          data-score="<?= $value ?>"
+                                                    ></span>
+                                                </span>
+                                            <? } elseif ($type === 'Label') { ?>
+                                                <span class="badge badge-pill badge-info"><?= $name ?></span>
+                                            <? } else { ?>
+                                                <span><?= $name ?>:</span>
+                                                <span><?= $value ?></span>
+                                            <? } ?>
+                                        </div>
+                                    <? } ?>
+                                <? } ?>
+                            </div>
+
+                            <a href="javascript:void(0)"
+                               class="button button-delete remove_vendor js-vendor-remove-favorites"
+                               title="<?= Lang::get('delete') ?>"
+                               data-id="<?=$vendor->id?>"
+                               data-action="<?= UrlGenerator::toRoute('favourite_vendors/delete') ?>"
+                            >
+                                <i class="trash-elastic" aria-hidden="true"></i>
+                                <i class="trash-fashi fa fa-trash-o"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+                <? } ?>
+            <? } ?>
+        </div>
+    </div>
+</div>
+
+<?= Lang::loadJSTranslation(array('drop_vendor_from_fav', 'sure_delete_vendor')) ?>
+
+<? AssetsMin::registerCssFile('css/vendor/jquery.raty.css')?>
+<? AssetsMin::registerJsFile('js/vendor/jquery.raty.js') ?>

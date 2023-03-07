@@ -1,0 +1,35 @@
+<?=General::runController('Header')?>
+
+<div class="content">
+    <?=General::runController('Crumbs')?>
+
+    <section class="content-block">
+        <div class="center">
+            <div class="aside">
+                <?=General::runController('Content', 'getMenu')?>
+
+                <?
+                    $socicalNetworks = InstanceProvider::GetSocialNetworkIds();
+                    $socialWithsubscribeWidgets = InstanceProvider::GetSocialWithSubscribeWidgets($socicalNetworks);
+                ?>
+                <? if (!empty($socialWithsubscribeWidgets)) { ?>
+                    <?=General::viewFetch('controllers/index/subscribe-widget', $socialWithsubscribeWidgets) ?>
+                <? } ?>
+            </div>
+
+            <div class="main js-content-main">
+                <? if (!empty(General::$_page['title_h1'])) { ?>
+                    <h1 class="content-block__title"><?=General::$_page['title_h1']?></h1>
+                <? } ?>
+
+                <? if (!empty(General::$_page['text'])) { ?>
+                    <div class="content-block__text"><?=General::$_page['text']?></div>
+                <? } ?>
+
+                <?=$result?>
+            </div>
+        </div>
+    </section>
+</div>
+
+<?=General::runController('Footer')?>

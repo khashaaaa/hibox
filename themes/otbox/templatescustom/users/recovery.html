@@ -1,0 +1,43 @@
+<div class="col-sm-6" id="content">
+    <form action="/?p=recovery" class="form-horizontal" method="post">
+        <div id="recover" class="userform">            
+            <? if($success_recovery){ ?>
+            <div class="success">
+                <?=$success_recovery?>
+            </div>
+            <? } ?>
+
+            <div class="form-row form-margin">
+                <label for="userid" class="col-sm-5 control-label"><?=Lang::get('login_or_email')?></label>
+                <div class="col-sm-7">
+                    <input id="userid" type="text" name="userid" class="form-control" />
+                    <br><br>
+                    <? if (Session::checkErrors()) { ?>
+                        <span style="color:red"> <?=Session::getErrorDescription()?></span>
+                    <? } ?>
+                </div>
+            </div>
+            <input type="hidden" name="recovery" value="<?=Lang::get('recover')?>" />
+            <input type="submit" id="submitb" value="<?=Lang::get('recover')?>" class="button">
+        </div>
+    </form>
+</div>
+<!--noindex-->
+<script type="text/javascript">
+    $(function () {
+        var checkrecovery = function () {
+            var f = true;
+            if ($('#userid').val() == '')
+                f = false;
+            if (!f) {
+                $('#submitb').attr('disabled', 'disabled');
+                $('#submitb').addClass('btn_office_disabled');
+            } else {
+                $('#submitb').removeAttr('disabled');
+                $('#submitb').removeClass('btn_office_disabled');
+            }
+        }
+        setInterval(checkrecovery, 1000);
+    });
+</script>
+<!--/noindex-->

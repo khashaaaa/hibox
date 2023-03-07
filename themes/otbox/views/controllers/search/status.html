@@ -1,0 +1,70 @@
+<?
+/**
+ * @var OtapiBatchItemSearchResult $searchResult
+ */
+?>
+<? $totalCount = $searchResult->GetItems()->GetItems()->GetTotalCount(); ?>
+<div class="search-content_status">
+    <div class="pull-left item">
+        <? if ($totalCount) { ?>
+            <span class="glyphicon glyphicon-ok-sign"></span>
+            <?=Lang::get('products_found')?> <b><?=$totalCount?></b>.
+        <? } else { ?>
+            <span class="glyphicon glyphicon-remove-sign"></span>
+            <?=Lang::get('products_not_found')?>
+        <? } ?>
+        <? if ($searchParams['searchWord']) { ?>
+            <?=Lang::get('request')?> &laquo;<b><?=$searchParams['searchWord']?></b>&raquo;
+            <? if ($searchResult->GetItems()->GetTranslatedItemTitle()) { ?>
+                (<?= $searchResult->GetItems()->GetTranslatedItemTitle() ?>)
+            <? } ?>
+            .
+            <? $url = clone $baseUrl ?>
+            <a href="<?=$url->DeleteKey('search')->Get()?>" title="<?=Lang::get('clear_search')?>">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        <? } ?>
+    </div>
+
+    <?
+    $searchParamsInner = General::getSearchParams();
+    $showSearchBar = General::isShowSearchBar();
+    if ($showSearchBar && $totalCount == 0 && !$searchParamsInner['search']) {
+        // пустой результат поиска без строки поиска
+        $showSearchBar = false;
+    }
+    if ($showSearchBar && !$activeSearchMethod->Text()) {
+        // активный способ поиска не поддерживает поиск по тексту
+        $showSearchBar = false;
+    }
+    ?>
+    <? if ($showSearchBar) { ?>
+        <div class="pull-left item box-category-search-form">
+            <form action="<?=$baseUrl->Get()?>" method="post">
+                <div class="input-group input-group-sm">
+                    <? if ($searchParamsInner['vid']) { ?>
+                        <input type="hidden" name="vid" value="<?=$searchParamsInner['vid']?>" />
+                    <? } ?>
+                    <? if ($searchParamsInner['brand']) { ?>
+                        <input type="hidden" name="brand" value="<?=$searchParamsInner['brand']?>" />
+                    <? } ?>
+                    <? if ($searchParamsInner['cid']) { ?>
+                        <input type="hidden" name="cid" value="<?=$searchParamsInner['cid']?>" />
+                    <? } ?>
+                    <? if ($searchParamsInner['search']) { ?>
+                        <input type="hidden" name="search" value="<?=$searchParamsInner['search']?>" />
+                    <? } ?>
+
+                    <input type="text" name="searchInner" class="form-control"
+                           value="<?=urldecode(RequestWrapper::getValueSafe('searchInner'))?>"
+                           required="required"
+                           placeholder="<?=Lang::get('search_in_results')?>" tabindex="1" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info"><i class="icon icon-search"></i></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    <? } ?>
+    <div class="clearfix"></div>
+</div>

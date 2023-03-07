@@ -1,0 +1,202 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "SiteConfiguration",
+        "do": "save"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        },
+        "textarea": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+    "fields": [
+        {
+            "name": "payment_in_cash",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "open_payment_in_new_window",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name": "notification_email",
+            "type": "text"
+        },
+        {
+            "name": "notification_send_from",
+            "type": "text"
+        },
+        {
+            "name": "notification_send_from_name",
+            "type": "text"
+        },
+        {
+            "name": "origin_package",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "order_insurance_percent",
+            "type": "text"
+        },
+        {
+            "name": "IsAuctionTypeItemSellAllowed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveShowcase"
+            }
+        },
+        {
+            "name": "IsNotDeliverableItemSellAllowed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveShowcase"
+            }
+        },
+        {
+            "name": "IsSecondhandItemSellAllowed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveShowcase"
+            }
+        },
+        {
+            "name": "IsInStockItemSellAllowed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveShowcase"
+            }
+        },
+        {
+            "name": "IsNotSelectorSellAllowed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveShowcase"
+            }
+        },
+        {
+            "name": "IsFilteredItemsSellAllowed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveShowcase"
+            }
+        },
+        {
+            "name": "IsUnknownQuantityItemSellAllowed",
+            "type": "select",
+            "valuesList": [
+                "true",
+                "false"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveShowcase"
+            }
+        },
+        {
+            "name": "hide_item_for_restrictions",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        
+        {
+            "name": "skip_reordering",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_money_output",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_money_output",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_step_weight_order",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_step_delivery_order",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "ot_sberbank_pay_active",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        }
+        
+    ]
+}

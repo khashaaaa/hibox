@@ -1,0 +1,146 @@
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('Seo')?></a> <span class="divider">›</span></li>
+    <li><a href="promo/referals"><?=LangAdmin::get('Referal_programs')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Category')?> «<?=LangAdmin::get('Middle_level')?>»</li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+
+<h1><?=LangAdmin::get('Category')?> «<?=LangAdmin::get('Middle_level')?>»
+    <a href="promo/referals/update" class="btn btn_preloader btn-primary btn-tiny offset-left2 weight-normal" data-loading-text="<?=LangAdmin::get('Edit')?>" autocomplete="off" title="<?=LangAdmin::get('Edit_category')?>"><?=LangAdmin::get('Edit')?></a>
+</h1>
+
+<div class="row-fluid">
+    <div class="span6">
+
+        <!-- add new user -->
+        <p class="offset-bottom2">
+            <span data-type="typeahead" data-pk="1" data-url="/post" data-placement="bottom"  class="ot-typehead-users editable-no-brd">
+                <i class="icon-plus font-14 color-blue"></i>
+                <span class="blink" title="<?=LangAdmin::get('add_category_user')?>">
+                    <?=LangAdmin::get('Add_user')?>
+                </span>
+            </span>
+        </p>
+
+        <!-- list of users in category group -->
+
+            <div class="row-fluid">
+
+                <div class="pull-right">
+                    <select class="input-mini" title="<?=LangAdmin::get('Elements_per_page')?>">
+                        <option value="10" selected="selected">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="all"><?=LangAdmin::get('All')?></option>
+                    </select>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered data_table_sorting">
+
+            <thead>
+                <tr>
+                    <th class="span5"><?=LangAdmin::get('User')?></th>
+                    <th class="span2"><?=LangAdmin::get('user_balance')?></th>
+                    <th class="span1"><?=LangAdmin::get('Actions')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr class="success">
+                    <td><a href="users/customers/user-profile" data-original-title="data-original-title" title="<?=LangAdmin::get('go_to_user_profile')?>">! <?=LangAdmin::get('User_successfully_added')?> <?=LangAdmin::get('User')?>!</a></td>
+                    <td>0.000</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-tiny info-discount-user" data-placement="top" title="<?=LangAdmin::get('user_information')?>"><i class="icon-info"></i></button>
+                            <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Remove_user')?>"><i class="icon-remove"></i></button>
+                        </div>
+                        <div class="user-discount-info">
+                            <dl class="dl-horizontal">
+                                <dt><?=LangAdmin::get('Login')?>:</dt>
+                                <dd><a href="#">VasiaPupkin</a></dd>
+                                <dt><?=LangAdmin::get('First_name')?>:</dt>
+                                <dd>Василий</dd>
+                                <dt><?=LangAdmin::get('Last_name')?>:</dt>
+                                <dd>Пупкин</dd>
+                                <dt><?=LangAdmin::get('Middle_name')?>:</dt>
+                                <dd>Елизарович</dd>
+                                <dt><?=LangAdmin::get('Account')?>:</dt>
+                                <dd>USR-0000000046</dd>
+                            </dl>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="users/customers/user-profile" title="<?=LangAdmin::get('go_to_user_profile')?>">NikitaGigurda</a></td>
+                    <td>0.000</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-tiny info-discount-user" data-placement="top" title="<?=LangAdmin::get('user_information')?>"><i class="icon-info"></i></button>
+                            <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Remove_user')?>"><i class="icon-remove"></i></button>
+                        </div>
+                        <div class="user-discount-info">
+                            <dl class="dl-horizontal">
+                                <dt><?=LangAdmin::get('Login')?>:</dt>
+                                <dd><a href="#">NikitaGigurda</a></dd>
+                                <dt><?=LangAdmin::get('First_name')?>:</dt>
+                                <dd>Никита</dd>
+                                <dt><?=LangAdmin::get('Last_name')?>:</dt>
+                                <dd>Джигурда</dd>
+                                <dt><?=LangAdmin::get('Middle_name')?>:</dt>
+                                <dd>Борисович</dd>
+                                <dt><?=LangAdmin::get('Account')?>:</dt>
+                                <dd>USR-0000000056</dd>
+                            </dl>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="users/customers/user-profile" title="<?=LangAdmin::get('go_to_user_profile')?>">qwe-qwe835-fdds-sdfsdfsdf</a></td>
+                    <td>0.000</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-tiny info-discount-user" data-placement="top" title="<?=LangAdmin::get('user_information')?>"><i class="icon-info"></i></button>
+                            <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Remove_user')?>"><i class="icon-remove"></i></button>
+                        </div>
+                        <div class="user-discount-info">
+                            <dl class="dl-horizontal">
+                                <dt><?=LangAdmin::get('Login')?>:</dt>
+                                <dd><a href="#">qwe-qwe835-fdds-sdfsdfsdf</a></dd>
+                                <dt><?=LangAdmin::get('Last_name')?>:</dt>
+                                <dd class="muted">—</dd>
+                                <dt><?=LangAdmin::get('First_name')?>:</dt>
+                                <dd class="muted">—</dd>
+                                <dt><?=LangAdmin::get('Middle_name')?>:</dt>
+                                <dd class="muted">—</dd>
+                                <dt><?=LangAdmin::get('Account')?>:</dt>
+                                <dd>USR-0000000056</dd>
+                            </dl>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div><!-- /.span6 -->
+
+</div><!-- /.row-fluid -->
+
+
+<? //include('inc/pager.php'); ?>
+
+<p><a href="promo/referals"><i class="icon-reply icon-linked"></i><?=LangAdmin::get('To_categories_list')?></a></p>
+
+

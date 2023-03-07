@@ -1,0 +1,287 @@
+<style>
+    label{
+        margin-bottom: 0;
+    }
+</style>
+<div class="main">
+    <h1><?=Lang::get('account')?></h1>
+    <?=Lang::loadJSTranslation(array('yes', 'no', 'Sure_to_delete_account', 'confirm_needed'))?>
+    <div id="confirm-profile-dialog-form" title="<?=Lang::get('message')?>">
+        <div id="message_info" ><?=Lang::get('profile_will_be_removed')?></div>
+        <br/><div class="error" id="error" style="color:red;"></div>
+        <input type="hidden" name="profile_id" value=""/>
+    </div>
+<div class="userform userBigLabel">
+    <? if($success){ ?>
+        <div class="alert alert-success">
+            <?=$success?>
+        </div>
+    <? } ?>
+    <? if($error){ ?>
+        <div class="alert alert-danger">
+            <?=$error?>
+        </div>
+    <? } ?>
+
+    <form action="/?p=profile" method="post" class="mb-7">
+        <div class="bproduct personal_info">
+            <h2 class="mb-2"><span><?=Lang::get('fullname')?></span></h2>
+
+            <div class="form-inline col-lg-12 col-sm-12">
+                <label id= "LastNameLabel" class="col-lg-1 col-sm-2" for="LastName"><?=Lang::get('last_name')?><span class="red">*</span></label>
+                <input id="LastName" type="text" name="LastName" value="<?=TextHelper::escape($LastName)?>" class="form-control col-lg-3 col-sm-2 required"/>
+
+                <label id="FirstNameLabel" class="col-lg-1 col-sm-2" for="FirstName"><?=Lang::get('name')?><span class="red">*</span></label>
+                <input id="FirstName" class="form-control col-lg-3 col-sm-2 required" type="text" name="FirstName" value="<?=TextHelper::escape($FirstName)?>"/>
+                <? $state = InstanceProvider::getObject()->GetProfileFieldState("MiddleName")?>
+                <? if ($state !== "Disabled") { ?>
+                    <label id="MiddleNameLabel" class= "col-lg-1 col-sm-2" for="MiddleName mt-2"><?=Lang::get('middle_name')?></label>
+                    <input id="MiddleName" type="text" name="MiddleName" value="<?=TextHelper::escape($MiddleName)?>" class="form-control col-lg-3 col-sm-2"/>
+                <? } ?>
+            </div>
+
+            <div class="form-inline col-sm-12" style="margin-top: 5px">
+
+                <!-- Phone -->
+                <label for="Phone"class="col-lg-1 col-sm-2"><?=Lang::get('phone_for_notifications')?></label>
+                <input id="Phone"
+                       type="text"
+                       name="Phone"
+                       value="<?=TextHelper::escape($Phone)?>"
+                       disabled="disabled"
+                       class="form-control col-lg-3 col-sm-2"
+                >
+                <input type="hidden" name="Phone" value="<?=TextHelper::escape($Phone)?>">
+                <!-- Email -->
+                <label for="Email" class="col-lg-1 col-sm-2">E-mail</label>
+                <input id="Email"
+                       type="text"
+                       value="<?=TextHelper::escape($Email)?>"
+                       disabled="disabled"
+                       class="form-control col-lg-3 col-sm-2"
+                >
+                <input type="hidden" name="Email" value="<?=TextHelper::escape($Email)?>">
+                <!-- Skype -->
+                <label for="Skype" class="col-lg-1 col-sm-2">Skype</label>
+                <input id="Skype"
+                       name="Skype"
+                       type="text"
+                       value="<?=TextHelper::escape($Skype)?>"
+                       class="form-control col-lg-3 col-sm-2"
+                >
+
+            </div>
+            <div class="form-inline mt-2 col-sm-12">
+                <label for="Sex" class="col-lg-1 col-sm-2"><?=Lang::get('gender')?><span class="red">*</span></label>
+                <select name="Sex" id="Sex" class="form-control col-lg-3 col-sm-2">
+                    <option value="Male" <? if($Sex=='Male') print 'selected'; ?>><?=Lang::get('male')?></option>
+                    <option value="Female" <? if($Sex=='Female') print 'selected'; ?>><?=Lang::get('female')?></option>
+                </select>
+
+            </div>
+            <div class="submit_button">
+                <input type="submit" name="save" value="<?=Lang::get('save')?>" class="btn btn-primary" style="margin-top: 20px"/>
+            </div>
+        </div>
+
+    </form>
+    <hr>
+
+    <form action="/?p=profile" method="post">
+        <div class="bproduct mb30">
+            <h2 class="mb-2"><span><?=Lang::get('changing_email')?></span></h2>
+
+            <? if($error_email){ ?>
+                <div class="alert alert-danger">
+                    <?=$error_email?>
+                </div>
+            <? } ?>
+
+            <? if (($IsEmailConfirmationUsed === 'true')) { ?>
+                <div class="alert alert-info">
+                    <?= Lang::get('Need_confirm_email_change') ?>
+                </div>
+            <? } ?>
+
+            <div class="form-inline mt-2 col-sm-11 change_email">
+                <label  class="col-lg-1 col-sm-3"><?=Lang::get('password')?></label>
+                <input  type="password" name="password" class="form-control col-lg-5 col-sm-3"/>
+
+                <label class="col-lg-1 col-sm-3"><?=Lang::get('new_email')?></label>
+                <input type="text" name="newEmail" class="form-control col-lg-5 col-sm-3"/>
+            </div>
+
+            <div class="submit_button">
+                <input type="submit" name="change_email" value="<?=Lang::get('save')?>" class="btn btn-primary" style="margin-top: 20px"/>
+            </div>
+        </div>
+    </form>
+    <hr>
+
+    <form action="/?p=profile" method="post" class="js-phone-field">
+        <div class="bproduct mb30">
+            <h2 class="mb-2"><span><?=Lang::get('changing_phone')?></span></h2>
+
+            <div class="alert alert-danger js-phone-error hidden"></div>
+
+            <div class="form-inline mt-2 col-sm-11">
+                <input type="hidden" name="change_phone" value="true">
+
+                <label  class="col-lg-1 col-sm-3"><?=Lang::get('password')?></label>
+                <input  type="password" name="password" class="form-control col-lg-5 col-sm-3"/>
+
+                <label class="col-lg-1 col-sm-3"><?=Lang::get('new_phone')?></label>
+                <input type="text" name="newPhone" class="form-control col-lg-5 col-sm-3"/>
+            </div>
+
+            <div class="submit_button">
+                <input type="submit" value="<?=Lang::get('save')?>" class="btn btn-primary" style="margin-top: 20px"/>
+            </div>
+        </div>
+    </form>
+
+    <form action="/?p=profile" method="post" class="js-phone-code hidden">
+        <div class="bproduct mb30">
+            <h2 class="mb-2"><?= Lang::get('confirmation_phone_tab') ?></h2>
+
+            <div class="alert alert-danger js-phone-error hidden"></div>
+
+            <div class="form-inline mt-2 col-sm-11">
+                <input type="hidden" name="confirm_phone" value="true">
+
+                <label class="col-lg-2 col-sm-4"><?=Lang::get('confirmation_phone_label')?></label>
+                <input type="text" name="confirmation_code" class="form-control col-lg-5 col-sm-3" autocomplete="off"/>
+            </div>
+
+            <div class="submit_button">
+                <input type="submit" value="<?=Lang::get('confirmation_phone_btn')?>" class="btn btn-primary" style="margin-top: 20px"/>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+    <form action="/?p=profile" method="post">
+
+        <div class="bproduct mb30 mt-2">
+            <h2 class="mb-2"><span><?=Lang::get('changing_password')?></span></h2>
+
+            <? if($error_password){ ?>
+                <div class="alert alert-danger">
+                    <?=$error_password?>
+                </div>
+            <? } ?>
+
+            <div class="form-inline mt-2 change_password col-lg-12 col-sm-12">
+                <label for="currentPassword" class="col-lg-1 col-sm-4"><?=Lang::get('current_password')?></label>
+                <input id="currentPassword" type="password" name="currentPassword" class="form-control col-lg-2 col-sm-7"/>
+
+                <label for="newPassword" class="col-lg-1 col-sm-4"><?=Lang::get('new_password')?></label>
+                <input id="newPassword" type="password" name="newPassword" class="form-control col-lg-2 col-sm-7"/>
+
+                <label for="newPasswordConfirm" class="col-lg-2 col-sm-4"><?=Lang::get('new_password_confirm')?></label>
+                <input id="newPasswordConfirm" type="password" name="newPasswordConfirm" class="form-control col-lg-2 col-sm-7"/>
+            </div>
+
+            <div class="submit_button">
+                <input type="submit" name="change_password" value="<?=Lang::get('save')?>" class="btn btn-primary" style="margin-top: 20px" />
+            </div>
+
+        </div>
+    </form>
+<hr>
+    <form id="deleteAccount" action="/?p=deleteAccount" method="post">
+        <div class="bproduct mb30 mt-2">
+            <h2 class="mb-2"><span><?=Lang::get('delete_self_account')?></span></h2>
+
+            <? if(Session::getErrorCode() == 'account_delete_error'){ ?>
+                <div class="alert alert-danger">
+                    <?=Session::getErrorDescription()?>
+                </div>
+            <? } ?>
+
+            <div class="form-inline col-sm-12">
+                <label for="password" class="col-lg-1 col-sm-3" ><?=Lang::get('current_password')?></label>
+                <input type="password" name="password" class="form-control col-lg-6 col-sm-7"/>
+            </div>
+            <div class="submit_button">
+                <input type="submit" class="btn btn-primary mb-2" name="delete_account"  style="margin-top: 20px" value="<?=Lang::get('delete')?>" 
+                       data-message="<?=Lang::get('Sure_to_delete_account')?>" data-title="<?=Lang::get('warning')?>" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+    $(function(){
+        $("#confirm-profile-dialog-form").dialog({
+            autoOpen:false,
+            modal:true,
+            width:350,
+            buttons:{
+                "<?=Lang::get('delete')?>":function () {
+                    var profile_id = $(this).find('input[name=profile_id]').val();
+                    $.ajax({
+                        url: "//"+window.location.hostname,
+                        data: {p: 'delete_delivery_profile', id: profile_id}
+                    })
+                        .success(function(data){
+                            data = JSON.parse(data);
+                            if(data.success) {
+                                window.location.href = '/?p=profile'
+                            } else {
+                                $('#confirm-profile-dialog-form #error').show();
+                                $('#confirm-profile-dialog-form #error').html(data.message);
+                            }
+                        })
+                        .error(function(jqXHR, textStatus, errorThrown){
+                            $('#confirm-profile-dialog-form #error').show();
+                            $('#confirm-profile-dialog-form #error').html(textStatus + ' ' + errorThrown);
+                        });
+                },
+                "<?=Lang::get('cancel')?>":function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $('input[name="delete_account"]').on('click', function (event) {
+            event.preventDefault();
+
+            modalDialog(trans.get('confirm_needed'), trans.get('Sure_to_delete_account'),
+                function () {
+                    $('#deleteAccount').submit();
+                }
+            );
+        });
+
+        $('.js-phone-field, .js-phone-code').on('submit', function (e) {
+            e.preventDefault();
+
+            var $form = $(e.currentTarget);
+            var action = $form.attr('action');
+            var data = $form.serializeArray();
+            var $error = $form.find('.js-phone-error');
+
+            $.post(
+                action,
+                data,
+                function (response) {
+                    $error.hide();
+
+                    if (response.error) {
+                        $error.show().html(response.error);
+                    }  else if (response.isPhoneVerificationUsed) {
+                        $('.js-phone-field').hide();
+                        $('.js-phone-code').show();
+                    } else if (response.redirectUrl) {
+                        window.location.href = response.redirectUrl;
+                    }
+                }
+            );
+        });
+    });
+</script>
+<!--/noindex-->
+</div>
+<?=Plugins::invokeEvent('onRenderProfile')?>

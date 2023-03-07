@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Site_construction" action="default" cmd="SiteConfiguration">
+        <page data-action="default" data-cmd="siteconfiguration" />
+        <page data-action="default" data-cmd="" />
+    </tab>
+    <tab title="Orders" action="orders" cmd="SiteConfiguration" hidesellfree="true">
+        <page data-action="orders" data-cmd="siteconfiguration" />
+        <page data-action="ordersProfile" data-cmd="siteconfiguration" />
+        <page data-action="bank" data-cmd="siteconfiguration" />
+    </tab>
+    <tab title="Shipment" action="internal" cmd="Shipment">
+        <page data-action="internal" data-cmd="shipment" />
+        <page data-action="tariffs" data-cmd="shipment" />
+        <page data-action="default" data-cmd="shipment" />
+        <page data-action="editDelivery" data-cmd="shipment" />
+        <page data-action="editdelivery" data-cmd="shipment" />
+        <page data-action="editTariff" data-cmd="shipment" />
+        <page data-action="addTariff" data-cmd="shipment" />
+        <page data-action="deliveryService" data-cmd="shipment" />
+    </tab>
+    <tab title="Languages" action="default" cmd="Translations" hidesellfree="true">
+        <page data-action="default" data-cmd="multilingualsettings" />
+        <page data-action="default" data-cmd="translations" />
+        <page data-action="edit" data-cmd="translations" />
+        <page data-action="service" data-cmd="translations" />
+        <page data-action="search" data-cmd="translations" />
+    </tab>
+    <tab title="Instance_configuration" action="default" cmd="ProviderConfiguration" hidesellfree="true">
+        <page data-action="default" data-cmd="providerconfiguration" />
+        <page data-action="searchType" data-cmd="providerconfiguration" />
+    </tab>
+    <tab title="Letters_templates" action="default" cmd="LettersTemplates" hidesellfree="true">
+        <page data-action="default" data-cmd="letterstemplates" />
+    </tab>
+    <tab title="System" action="system" cmd="SiteConfiguration" hidesellfree="true" sub-tabs="templates/site_config/system/navigation/tabs.xml">
+        <page data-action="system" data-cmd="siteconfiguration" />
+        <page data-action="security" data-cmd="siteconfiguration" />
+        <page data-action="default" data-cmd="cachesettings" />
+        <page data-action="default" data-cmd="update" />
+    </tab>
+    <tab title="System" action="security" cmd="SiteConfiguration" onlysellfree="true">
+        <page data-action="security" data-cmd="siteconfiguration" />
+    </tab>
+</tabs>

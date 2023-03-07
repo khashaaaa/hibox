@@ -1,0 +1,98 @@
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('mailing')?> <span class="divider">›</span></li>
+	<li class="active"><?=LangAdmin::get('config')?></li>
+</ul>
+
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'mailing'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('mailing')?>"><?=LangAdmin::get('mailing_list')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'subscribers'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('subscribers')?>"><?=LangAdmin::get('subscribers')?></a></li>
+		<li <? if($PageUrl->GetAction() == 'config'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1><?=LangAdmin::get('config')?></h1>
+
+        <div class="well">
+
+            <form class="form-horizontal ot_form">
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('config_messages_count')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Mailing_explain_notes')?>."></i></label>
+                    <div class="controls">
+                        <input type="text" class="input-mini" placeholder="10">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox inline" data-toggle="collapse" data-target=".ot-smtp-settings-form">
+                            <input type="checkbox"><?=LangAdmin::get('config_use_smtp_server')?>
+                        </label>
+                        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content=""></i>
+                    </div>
+                </div>
+
+                <div class="ot-smtp-settings-form collapse">
+
+                    <div class="control-group">
+                        <label class="control-label" for="ot_smtp_server"><?=LangAdmin::get('config_smpt_address')?></label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" id="ot_smtp_server">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="ot_smtp_server_port"><?=LangAdmin::get('config_smtp_port')?></label>
+                        <div class="controls">
+                            <input type="text" class="input-mini" id="ot_smtp_server_port">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="ot_smtp_server_port"><?=LangAdmin::get('config_smpt_login')?></label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" id="ot_smtp_server_user">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="ot_smtp_server_port"><?=LangAdmin::get('config_smpt_password')?></label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" id="ot_smtp_server_password">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox inline">
+                                <input type="checkbox"><?=LangAdmin::get('config_use_ssl')?>
+                            </label>
+                            <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content=""></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <span class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Save')?>"><?=LangAdmin::get('Save')?></span>
+                    </div>
+                </div>
+
+
+
+            </form>
+
+        </div>
+
+
+
+<? //include('inc/pager.php'); ?>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parameters>
+    <section name="Global_site_template" header_color="grd-orange">
+        <fieldset>
+            <parameter label="Con" name="hide_work_shedule" type="select">
+                <options>
+                    <option value="0" name="Show" />
+                    <option value="1" name="Hide" />
+                </options>
+            </parameter>
+        </fieldset>
+    </section>
+</parameters>

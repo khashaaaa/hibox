@@ -1,0 +1,27 @@
+<?=$HeaderNew?>
+<? if (!RequestWrapper::getValueSafe('print')) { ?>
+    <?=$CrumbsNew?>
+<? } ?>
+
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+<div class="main"><div class="wrap clrfix">
+    <? if (!RequestWrapper::getValueSafe('print')) { ?>
+        <div class="fll col240">
+            <?=$Menu?>
+            <?=$Subscribe?>
+        </div>
+    <? } ?>
+    <div class="<?=(RequestWrapper::getValueSafe('print'))?'fll':'flr'?> col690"><?=$PayForm?></div>
+</div></div>
+
+<? if (!RequestWrapper::getValueSafe('print')) { ?>
+    <?=$FooterNew?>
+<? } ?>
+
+<? if (RequestWrapper::getValueSafe('print')) { ?>
+    <script>
+        $('nav.box-up-menu, header, div.box-search, div.crumbs').hide();
+        $('.main .wrap').find('pre').hide();
+        $('.main .wrap').find('.col690').css('margin-left', 'calc( 50% - 345px )');
+    </script>
+<? } ?>

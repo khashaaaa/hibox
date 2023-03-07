@@ -1,0 +1,74 @@
+<? if ($bill) { ?>
+<h1> <?=LangAdmin::get('Bill_info')?></h1>
+<table width="800" border="1">
+  <tr>
+    <td> <?=LangAdmin::get('Creation_date')?></td>
+    <td> <?= date('d.m.Y', strtotime($bill->GetCreationDate())) ?> </td>
+  </tr>
+  <tr>
+    <td> <?=LangAdmin::get('Pay_date')?></td>
+    <td> <?= $bill->GetPaymentDate() ? date('d.m.Y', strtotime($bill->GetPaymentDate())) : '--' ?> </td>
+  </tr>
+  <tr>
+    <td> <?=LangAdmin::get('Url_to_pay')?></td>
+    <td> <a href="<?= $bill->GetPaymentUrl() ?>"><?= $bill->GetPaymentUrl() ?></a></td>
+  </tr>
+  <tr>
+    <td> <?=LangAdmin::get('Payed_amount')?></td>
+    <td> <?= $bill->GetPaidSumInUSD()->asString() ? $bill->GetPaidSumInUSD()->asString() : '--' ?></td>
+  </tr>
+  <tr>
+    <td> <?=LangAdmin::get('Amount_USD')?></td>
+    <td> <?= $bill->GetSumToPayInUSD()->asString() ?></td>
+  </tr>
+  <tr>
+    <td> <?=LangAdmin::get('Amount_RUB')?></td>
+    <td> <?= $bill->GetSumToPayInRUB()->asString() ?></td>
+  </tr>
+  <tr>
+    <td> <?=LangAdmin::get('Condition')?></td>
+    <td> <?= $bill->GetStatus()->GetDescription() ?></td>
+  </tr>
+  <tr>
+    <td> <?=LangAdmin::get('Bill_discription')?></td>
+    <td> <?= $bill->GetDescription() ?></td>
+  </tr>
+</table>
+<h1> <?=LangAdmin::get('Transactions_list')?></h1>
+<? if ($rent) { ?>
+<table border="1">
+    <thead>
+        <tr>
+                <th><?=LangAdmin::get('Date')?></th>
+                <th><?=LangAdmin::get('user_login')?></th>
+                <th><?=LangAdmin::get('Amount')?></th>
+                <th><?=LangAdmin::get('Description')?></th>
+        </tr>
+    </thead>
+    <tbody>  
+    <? foreach ($rent->GetTransactionInfo() as $transaction) { ?>        
+        <tr>
+            <td><?=date("d.m.Y H:i:s", strtotime($transaction->GetTransactionDateTime()))?></td>
+            <td><?=$transaction->GetUserLogin()?></td>
+            <td style="<?=$transaction->GetAmountInternal() < 0 ? '' : 'color:red' ?>"><?=$transaction->GetAmountInternal() * (-1)?></td>
+            <td><?=$transaction->GetTransactionType()->GetName()?> <?=$transaction->GetComment()?></td>            
+        </tr>
+    <? } ?>
+    </tbody>
+</table>
+<? } ?>
+
+<? } else { ?>
+   <?=LangAdmin::get('Bill_info_not_found')?>
+<? } ?>
+
+<? if ($autoPrint) { ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    window.print();
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? } ?>

@@ -1,0 +1,173 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('pristroy', 'default')?>" class="muted"><?=LangAdmin::get('pristroy')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('edit_product')?></li>
+</ul><!--/.breadcrumb-->
+
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<!-- ot-sub-sub-nav -->
+
+<h1><?=LangAdmin::get('edit_product')?></h1>
+
+<div class="pristroy-form-wrapper">
+<dl class="dl-horizontal dl-ot-horizontal">
+    <dt><?=LangAdmin::get('User')?></dt>
+    <dd><i class="icon-user"></i> <a target="_blank" href="<?=$PageUrl->generate(array('cmd'=>'users', 'do'=>'profile', 'id'=>$product['user_id']))?>"><?=$this->escape($product['user_login'])?></a></dd>
+    <dt><?=LangAdmin::get('Status')?></dt>
+    <dd>
+        <?php if ($product['status'] == PristroyRepository::STATUS_ON_MODERATION) { ?>
+			<span class="label weight-normal"><?=LangAdmin::get('Pristroy_status_on_moderation')?></span>
+        <?php } elseif ($product['status'] == PristroyRepository::STATUS_APPROVED) { ?>
+			<span class="label label-success weight-normal"><?=LangAdmin::get('Pristroy_status_approved')?></span>
+        <?php } elseif ($product['status'] == PristroyRepository::STATUS_REJECTED) { ?>
+            <span class="label label-important weight-normal"><?=LangAdmin::get('Pristroy_status_rejected')?></span>
+        <?php } elseif ($product['status'] == PristroyRepository::STATUS_SOLD) { ?>
+			<span class="label label-info"><?=LangAdmin::get('Pristroy_status_sold')?></span>
+        <?php } ?>
+	</dd>
+</dl>
+
+<div class="well">
+
+    <form class="form-horizontal" action="<?=$PageUrl->AssignCmdAndDo('pristroy', 'save')?>" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?=$product['id']?>">
+        <input type="hidden" name="status" value="<?=$product['status']?>">
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Title')?></label>
+            <div class="controls">
+                <input id="title" name="title" placeholder="<?=LangAdmin::get('Title')?>" value="<?=$this->escape($product['title'])?>" class="input-xxlarge input-text-clipped" required type="text">
+            </div>
+        </div>
+
+		<div class="control-group offset-bottom0">
+            <label class="control-label bold"><?=LangAdmin::get('Images')?></label>
+            <div class="controls">
+                <ul class="thumbnails ot_sortable_cols" data-toggle="modal-gallery" data-target="#modal-gallery">
+				
+					<li>
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <a href="<?=$product['default_image'] ? $product['default_image'] : '#'?>" class="fileupload-new thumbnail thumbnail-medium" <?=$product['default_image'] ? 'data-gallery="gallery"' : ''?> title="<?=LangAdmin::get('Image_zoom')?>">
+								<img src="<?=$product['default_image'] ? $product['default_image'] : 'https://www.placehold.it/100x100/EFEFEF/AAAAAA'?>" alt="">
+							</a>
+                            <a href="<?=$product['default_image'] ? $product['default_image'] : '#'?>" class="fileupload-preview fileupload-exists thumbnail thumbnail-medium" title="<?=LangAdmin::get('Image_zoom')?>">
+								<img src="<?=$product['default_image'] ? str_replace('uploaded/pristroy/','uploaded/pristroy/thumbnail_100_100/',$product['default_image']) : 'https://www.placehold.it/100x100/EFEFEF/AAAAAA'?>" alt="">
+							</a>
+                            <div class="offset-top05 text-center">
+                                <span class="btn btn-tiny btn-file">
+                                    <span class="fileupload-new"><i class="icon-pencil"></i></span>
+                                    <span class="fileupload-exists"><i class="icon-pencil"></i></span>
+									<input type="hidden" name="default_image" class="file_name" value="<?=$product['default_image']?>"/>
+									<input type="file" id="new_default_image" class="file"name="new_default_image" />
+                                </span>
+                                <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Remove')?>"><i class="icon-remove"></i></button>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <a href="<?=$product['uploaded_image'] ? $product['uploaded_image'] : '#'?>" class="fileupload-new thumbnail thumbnail-medium" <?=$product['uploaded_image'] ? 'data-gallery="gallery"' : ''?> title="<?=LangAdmin::get('Image_zoom')?>">
+								<img src="<?=$product['uploaded_image'] ? $product['uploaded_image'] : 'https://www.placehold.it/100x100/EFEFEF/AAAAAA'?>" alt="">
+							</a>
+                            <a href="<?=$product['uploaded_image'] ? $product['uploaded_image'] : '#'?>" class="fileupload-preview fileupload-exists thumbnail thumbnail-medium" title="<?=LangAdmin::get('Image_zoom')?>">
+								<img src="<?=$product['uploaded_image'] ? $product['uploaded_image'] : '#'?>" alt="">
+							</a>
+                            <div class="offset-top05 text-center">
+                                <span class="btn btn-tiny btn-file">
+                                    <span class="fileupload-new"><i class="icon-pencil"></i></span>
+                                    <span class="fileupload-exists"><i class="icon-pencil"></i></span>
+									<input type="hidden" name="uploaded_image" class="file_name" value="<?=$product['uploaded_image']?>"/>
+									<input type="file" id="new_uploaded_image" class="file" name="new_uploaded_image" />
+                                </span>
+                                <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Remove')?>"><i class="icon-remove"></i></button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>				
+				
+		
+		<div class="control-group offset-top-2">
+            <label class="control-label bold" for="price"><?=LangAdmin::get('Price')?></label>
+            <div class="controls">
+				<div class="input-append">
+					<input id="price" name="price" class="input-mini price" required type="text" value="<?=$this->escape($product['price'])?>" placeholder="<?=LangAdmin::get('pristroy_price_placeholder')?>">
+					<span class="add-on"><?=$this->escape($product['currency'])?></span>  
+				</div>
+            </div>
+        </div>		
+		
+		<div class="control-group">
+            <label class="control-label bold" for="quantity"><?=LangAdmin::get('Quantity')?></label>
+            <div class="controls">
+				<input id="quantity" name="quantity" class="input-mini numeric" required type="text" value="<?=$this->escape($product['quantity'])?>" placeholder="<?=LangAdmin::get('Quantity_placeholder')?>">
+            </div>
+        </div>
+		
+		<div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Description')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Description')?>"></i></label>
+            <div class="controls">
+				<textarea rows="10" id="description" name="description" class="input-xxlarge"><?=$product['description']?></textarea>
+            </div>
+        </div>
+
+		<?php if ($product['status'] == PristroyRepository::STATUS_REJECTED ) { ?>
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Reject_reason')?></label>
+            <div class="controls">
+                <textarea rows="2" class="input-xxlarge" placeholder="<?=LangAdmin::get('Enter_reject_reason')?>" id="reject_reason" name="reject_reason"><?=$product['reject_reason']?></textarea>
+            </div>
+        </div>
+		<?php } ?>
+
+        <div class="controls">
+		    <button id="submit_btn" class="btn btn-primary" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+            <a id="cancel_btn" href="<?=$PageUrl->AssignCmdAndDo('pristroy', 'default')?>" type="button" class="btn offset-left2 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+        </div>
+
+    </form>
+</div>
+</div>
+
+<!-- modal-gallery is the modal dialog used for the image gallery -->
+<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h3 class="modal-title"></h3>
+    </div>
+
+    <div class="modal-body"><div class="modal-image"></div></div>
+
+    <div class="modal-footer">
+
+        <div class="row-fluid">
+
+            <div class="span6 text-left">
+                <div class="btn-group">
+                    <button class="btn btn-primary modal-prev" title="<?=LangAdmin::get('Prev')?>"><i class="icon-arrow-left icon-white"></i></button>
+                    <button class="btn btn-primary modal-next" title="<?=LangAdmin::get('Next')?>"><i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+
+            <div class="span6 text-right">
+                <button href="#" class="btn" data-dismiss="modal"><?=LangAdmin::get('Close')?></button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><!-- /modal-gallery-->
+
+
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-pristroy-product-edit.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/bootstrap-fileupload.min.js'); ?>
+

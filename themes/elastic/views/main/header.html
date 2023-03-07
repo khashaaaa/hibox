@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="<?=Session::getActiveLang()?>" <?=(General::getConfigValue('rtl')) ? 'dir="rtl"' : ''?>>
+<head>
+    <?=General::runController('Header', 'renderHead')?>
+</head>
+
+<body class="<?=General::getConfigValue('current_site_theme')?>">
+<div class="wrapper">
+    <div class="modal left" id="modal-menu-mobile" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-my mobile-menu js-header" role="document">
+            <div class="modal-content">
+                <button type="button align-middle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <div class="mobile-menu__box">
+                    <ul>
+                        <li>
+                            <a href="/">
+                                <i class="icon1"></i>
+                                <?=Lang::get('home')?>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<?=UrlGenerator::toRoute('privateoffice', ['orderstate' => 1])?>">
+                                <i class="icon2"></i>
+                                <?=Lang::get('My_orders')?>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<?=UrlGenerator::generateContentUrl('basket')?>">
+                                <i class="icon3"></i>
+                                <?=Lang::get('cart')?> <b>(<?=$this->getUser()->getCountInBasket()?>)</b>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<?=UrlGenerator::generateContentUrl('supportlist')?>">
+                                <i class="icon4"></i>
+                                <?=Lang::get('favourites')?> <b>(<?=$this->getUser()->getCountInNote()?>)</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <?
+                $printCountry = (
+                    CMS::IsFeatureEnabled('PreselectedDelivery') &&
+                    InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem() &&
+                    count(InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem()->toArray()) > 1
+                );
+                $printLangs = $langs && count($langs) > 1;
+                $printCurrency = count(InstanceProvider::getObject()->GetDisplayedMoneys()->GetCurrencyInfo()->toArray()) > 1;
+                ?>
+
+                <div class="mobile-menu__box">
+                    <ul class="header-delivery">
+                        <? if ($printCountry && $this->getUser()->getCountryCode()) { ?>
+                            <li class="select-country">
+                                <a href="javascript:void(0)"><i class="icon5"></i><?=Lang::get('delivery')?>:</a>
+                                <div style="display: inline-block"
+                                     class="user-preference"
+                                     data-action="<?=UrlGenerator::getHomeUrl()?>/?p=userSetPreference"
+                                     data-preference="country"
+                                >
+                                    <? $countryList = InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem(); ?>
+
+                                    <a href="#"
+                                       id="select-country-mobile"
+                                       aria-haspopup="tree"
+                                       aria-expanded="false"
+                                       data-toggle="dropdown"
+                                       class="dropdown-toggle"
+                                    >
+                                        <span>
+                                            <? foreach ($countryList as $countryInfo) { ?>
+                                                <?=($countryInfo->GetId() == $this->getUser()->getCountryCode()) ? $countryInfo->GetName() : ''?>
+                                            <? } ?>
+                                        </span>
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="select-country-mobile">
+                                        <ul>
+                                            <? foreach ($countryList as $countryInfo) { ?>
+                                                <li data-value="<?=$countryInfo->GetId()?>">
+                                                    <?=$countryInfo->GetName()?>
+                                                </li>
+                                            <? } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        <? } ?>
+
+                        <? if ($printLangs) { ?>
+                            <li class="select-language">
+                                <a href="javascript:void(0)"><i class="icon6"></i><?=Lang::get('language')?>:</a>
+                                <div style="display: inline-block">
+                                    <a href="#"
+                                       id="select-language-mobile"
+                                       aria-haspopup="tree"
+                                       aria-expanded="false"
+                                       data-toggle="dropdown"
+                                       class="dropdown-toggle"
+                                    >
+                                        <? foreach ($langs as $lang) { ?>
+                                            <? if ($lang['name'] == User::getObject()->getActiveLang()) { ?>
+                                                <img src="<?=$lang['ImageUrl']?>" alt="<?=$lang['Description']?>">
+                                            <? } ?>
+                                        <? } ?>
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="select-language-mobile">
+                                        <ul>
+                                            <? foreach ($langs as $lang) { ?>
+                                                <li data-href="/?p=setlang&lang=<?=$lang['name']?>&from=<?=urlencode($_SERVER['REQUEST_URI'])?>">
+                                                    <img src="<?=$lang['ImageUrl']?>" alt="<?=$lang['Description']?>" >
+                                                </li>
+                                            <? } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        <? } ?>
+
+                        <? if ($printCurrency) { ?>
+                            <li class="select-money">
+                                <a href="javascript:void(0)"><i class="icon5"></i><?=Lang::get('Currency')?>:</a>
+                                <div style="display: inline-block"
+                                     class="user-preference"
+                                     data-action="<?=UrlGenerator::getHomeUrl()?>/?p=userSetPreference"
+                                     data-preference="currency"
+                                >
+                                    <? $currencyInfos = InstanceProvider::getObject()->GetDisplayedMoneys()->GetCurrencyInfo(); ?>
+
+                                    <a href="#"
+                                       id="select-currency-mobile"
+                                       aria-haspopup="tree"
+                                       aria-expanded="false"
+                                       data-toggle="dropdown"
+                                       class="dropdown-toggle"
+                                    >
+                                        <span>
+                                            <? foreach ($currencyInfos as $currencyInfo) { ?>
+                                                <?= ($currencyInfo->GetCode() == $this->getUser()->getCurrencyCode()) ? $currencyInfo->GetSign() : ''?>
+                                            <? } ?>
+                                        </span>
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="select-currency-mobile">
+                                        <ul>
+                                            <? foreach ($currencyInfos as $currencyInfo) { ?>
+                                                <li data-value="<?=$currencyInfo->GetCode()?>">
+                                                    <?=$currencyInfo->GetSign()?>
+                                                </li>
+                                            <? } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+
+                <? if((General::getConfigValue('how_to_order_link') !== '') || (General::getConfigValue('how_to_pay_link') !== '') || (General::getConfigValue('about_delivery_link') !== '') || (General::getConfigValue('about_guarantees_link') !== '')) { ?>
+                    <div class="mobile-menu__box">
+                        <ul>
+                            <? if(General::getConfigValue('how_to_order_link') !== '') { ?>
+                                <li>
+                                    <a href="<?=General::getConfigValue('how_to_order_link', 'how_to_order')?>">
+                                        <i class="block-acts__img1"></i>
+                                        <?=General::getConfigValue('how_to_order_title', Lang::get('how_to_make_order_default_title'))?>
+                                    </a>
+                                </li>
+                            <? } ?>
+
+                            <? if(General::getConfigValue('how_to_pay_link') !== '') { ?>
+                                <li>
+                                    <a href="<?=General::getConfigValue('how_to_pay_link', 'how_to_pay')?>">
+                                        <i class="block-acts__img2"></i>
+                                        <?=General::getConfigValue('how_to_pay_title', Lang::get('how_to_pay_default_title'))?>
+                                    </a>
+                                </li>
+                            <? } ?>
+
+                            <? if(General::getConfigValue('about_delivery_link') !== '') { ?>
+                                <li>
+                                    <a href="<?=General::getConfigValue('about_delivery_link', 'goods_delivery')?>">
+                                        <i class="block-acts__img3"></i>
+                                        <?=General::getConfigValue('about_delivery_title', Lang::get('about_delivery_default_title'))?>
+                                    </a>
+                                </li>
+                            <? } ?>
+
+                            <? if(General::getConfigValue('about_guarantees_link') !== '') { ?>
+                                <li>
+                                    <a href="<?=General::getConfigValue('about_guarantees_link', 'warranty')?>">
+                                        <i class="block-acts__img4"></i>
+                                        <?=General::getConfigValue('about_guarantees_title', Lang::get('about_guarantees_default_title'))?>
+                                    </a>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    </div>
+                <? } ?>
+
+                <? if (! empty($topMenu) && count($topMenu) > 1) { ?>
+                    <div class="mobile-menu__box">
+                        <ul>
+                            <? foreach ($topMenu as $topMenuItem) { ?>
+                                <? if ($topMenuItem['alias'] === 'index') continue; ?>
+                                <li>
+                                    <a href="<?=$topMenuItem['url']?>" <? if ($controller === $topMenuItem['alias']) { ?> class="active" <? } ?>>
+                                    <?=$topMenuItem['title']?>
+                                    </a>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    </div>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+
+<div class="modal left" id="modal-country-mobile" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-my mobile-country" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Страна</h5>
+                <button type="button align-middle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+                <div class="mobile-country-content">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="country1" name="country" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="country1"><img src="<?=General::getThemeWebDir()?>/img/russia.png" alt="img">Россия</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="country2" name="country" class="custom-control-input">
+                        <label class="custom-control-label" for="country2"><img src="<?=General::getThemeWebDir()?>/img/kazakhstan.png" alt="img">Казахстан</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="country3" name="country" class="custom-control-input">
+                        <label class="custom-control-label" for="country3"><img src="<?=General::getThemeWebDir()?>/img/ukraine.png" alt="img">Украина</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <?=General::viewFetch('main/stock_layout');?>
+
+    <header class="header js-header">
+        <?=General::viewFetch('main/header/header-top', [
+            'vars' => [
+                'topMenu' => $topMenu,
+                'controller' => $controller,
+                'langs' => $langs,
+                'printCountry' => $printCountry,
+                'printLangs' => $printLangs,
+                'printCurrency' => $printCurrency
+            ]
+        ])?>
+
+        <?=General::viewFetch('main/header/header-bottom', [
+                'vars' => [
+                    'isIndexPage' => $isIndexPage]
+        ])?>
+
+    </header><!-- .header-->

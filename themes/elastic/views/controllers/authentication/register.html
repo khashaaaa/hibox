@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-4">
+            <?=General::viewFetch('controllers/authentication/registration-form', ['vars' => [
+                'error' => $error,
+                'username' => $username,
+                'email' => $email,
+                'parentId' => $parentId,
+                'parentLogin' => $parentLogin,
+                'isPhoneRegistrationAllowed' => $isPhoneRegistrationAllowed,
+            ]]) ?>
+
+            <? if (General::IsFeatureEnabled('ExternalAuthentication')) { ?>
+                <?=General::runController('Authentication', 'renderAuthSystemList')?>
+            <? } ?>
+        </div>
+    </div>
+</div>

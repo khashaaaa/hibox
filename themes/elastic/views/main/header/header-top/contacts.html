@@ -1,0 +1,11 @@
+<div class="header-contacts">
+    <? $storeEmail = General::getConfigValue('store_email'); ?>
+    <? if ($storeEmail) { ?>
+        <a href="mailto:<?=$storeEmail?>" class="header-email"><?=$storeEmail?></a>
+    <? } ?>
+
+    <? $phone = General::getConfigValue('phone'); ?>
+    <? if ($phone) { ?>
+        <a href="tel:<?=$phone?>" class="phone-call"><?=$phone?></a>
+    <? } ?>
+</div>

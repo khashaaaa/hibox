@@ -1,0 +1,11 @@
+<div class="product-item hidden-item" itemscope itemtype="https://schema.org/Product">
+    <?
+    if ($item->errorCode === 'NotFound') {
+        print Lang::get('good_deleted');
+    } elseif ($item->errorCode === 'NotAvailable') {
+        print Lang::get('good_unavailable');
+    } else {
+        print Lang::get('error');
+    }
+    ?>
+</div>

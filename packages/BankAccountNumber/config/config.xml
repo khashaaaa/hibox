@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <title>Bank Account Number</title>
+    <description>Bank Account Number</description>
+    <version>1.0</version>
+    <events>
+        <event name="onAfterGeneralInit" />
+    </events>
+</plugin>

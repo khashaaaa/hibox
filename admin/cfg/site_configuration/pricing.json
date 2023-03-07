@@ -1,0 +1,24 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "pricing",
+        "do": "saveSettingsCB"
+    },
+    "fields": [
+        {
+            "name": "margin",
+            "type": "text"
+        },
+        {
+            "name": "margin_value",
+            "type": "text"
+        },
+        {
+            "name": "sync_cb",
+            "type": "select",
+            "valuesList": [
+                "No",
+                "WithCB"
+            ]
+        }
+    ]
+}

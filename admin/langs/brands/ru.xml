@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Select_from_list">Выбрать из списка</key>
+    <key name="Show_brand">Включить страницу бренда</key>
+    <key name="Hide_brand">Отключить страницу бренда</key>
+    <key name="Add_brand">Добавление бренда</key>
+    <key name="Edit_brand">Редактирование бренда</key>
+    <key name="Really_delete_this_brand">Действительно удалить это бренд?</key>
+    <key name="Brand_name">Название бренда</key>
+    <key name="Brand_taobao_id">ID на сайте провайдера</key>
+    <key name="Brand_find_by_name">Искать по названию</key>
+    <key name="Display_name">Отображаемое название</key>
+    <key name="Logo">Логотип</key>
+    <key name="Description">Описание</key>
+    <key name="Seo_attributes">Атрибуты поисковой оптимизации</key>
+    <key name="Save_and_add">Сохранить и добавить еще</key>
+    <key name="Title">Заголовок</key>
+    <key name="Prefix">Текст до заголовка</key>
+    <key name="Suffix">Текст после заголовка</key>
+    <key name="Meta_description">Описание</key>
+    <key name="Keywords">Ключевые слова</key>
+    <key name="Select">Выбрать</key>
+    <key name="Change">Изменить</key>
+    <key name="Delete">Удалить</key>
+    <key name="Enter_first_letters">Введите первые символы</key>
+    <key name="Brand_name_cannot_be_empty">Название бренда не может быть пустым</key>
+    <key name="Brand_saved_successfully">Бренд успешно сохранен</key>
+    <key name="Brand_name_hint">Введите первые буквы названия бренда для поиска</key>
+    <key name="Brand_taobao_id_hint">Идентификатор выбранного бренда на сайте провайдера (например Taobao)</key>
+    <key name="Display_name_hint">Можно изменить отображение имени бренда на сайте</key>
+    <key name="Logo_hint">Загрузите изображение бренда</key>
+    <key name="Description_hint">Можно добавить описание бренда для информирования покупателей и индексации поисковыми роботами</key>
+    <key name="Seo_title_hint">Текст для заголовка страницы в браузере (title), по умолчанию имя бренда</key>
+    <key name="Prefix_hint">Текст, который будет выводиться в title до имени бренда</key>
+    <key name="Suffix_hint">Текст, который будет выводиться в title после имени бренда</key>
+    <key name="Keywords_hint">Keywords, ключевые слова для лучшей индексации страницы</key>
+    <key name="Meta_description_hint">Можно добавить описание бренда для индексации поисковыми роботами</key>
+    <key name="Brand_already_exists">Бренд уже в списке</key>
+    <key name="Taobao_id_cannot_be_empty">ID провайдера должно быть заполнено</key>
+    <key name="Brands_not_selected">Ни один бренд не выделен для добавления</key>
+    <key name="incorrect_picture_url">Неверная ссылка на изображение</key>
+</translations>
+
+
+
+

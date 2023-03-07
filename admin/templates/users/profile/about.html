@@ -1,0 +1,140 @@
+<h2><?=LangAdmin::get('Customer_info')?></h2>
+
+<div class="well">
+    <div class="row-fluid">
+
+        <div class="span6">
+            <h3>
+                <?=$this->escape($user->getDisplayName());?>
+                <a href="<?=$PageUrl->Add('login', $user['Login'])->Add('do', 'loginAsUser')->Get()?>" target="_blank"><button class="btn btn-mini offset-left05" type="button" title="<?=LangAdmin::get('Authorize_as_user')?> (<?=LangAdmin::get('will_be_opened_in_new_window')?>)"><?=LangAdmin::get('Authorize')?> <i class="icon-external-link"></i></button></a>
+            </h3>
+
+            <dl class="dl-horizontal dl-ot-horizontal">
+                <dt><?=LangAdmin::get('Login')?></dt>
+                <input type="hidden" id="userLogin" value="<?=$this->escape($user['login'])?>"></input>
+                <? if (RightsManager::hasRight(RightsManager::RIGHT_EDITUSERS)) { ?>
+                <dd><?=$this->escape($user['login'])?> <span class="blink offset3 font-12" data-toggle="collapse" data-target=".user-pass-recover-form" title="<?=LangAdmin::get('Restore_user_password')?>"><?=LangAdmin::get('Restore_password')?></span></dd>
+                <? } ?>
+                <div class="collapse user-pass-recover-form">
+                    <form class="form-horizontal offset-top1 offset-bottom2">
+                        <dt class="text-success"><?=LangAdmin::get('New_password')?></dt>
+                        <dd>
+                            <div class="input-append" id="generatePassword">
+                                <input type="text" class="input-large" placeholder="<?=LangAdmin::get('Type_or_generate')?>">
+                                <span class="add-on blink"><i class="icon-cog" title="<?=LangAdmin::get('Generate_password')?>"></i></span>
+                            </div>
+                            <div class="offset-top05">
+                                <button id="saveNewPassword" autocomplete="off" data-loading-text="<?=LangAdmin::get('Save')?>" class="btn btn-tiny btn-primary btn_preloader" type="button"><?=LangAdmin::get('Save')?></button>
+                                <button id="cancelGeneratePassword" class="btn btn-tiny" type="button" data-toggle="collapse" data-target=".user-pass-recover-form"><?=LangAdmin::get('Cancel')?></button>
+                            </div>
+                        </dd>
+                    </form>
+                </div>
+
+                <dd class="collapse user-pass-recover-feedback-message">
+                    <p class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" title="<?=LangAdmin::get('Hide_notice')?>">×</button>
+                        <i class="icon-ok"></i> <?=LangAdmin::get('New_password_created_and_sent_to_user_email')?>.
+                    </p>
+                </dd>
+                <!--
+                TODO: after submit hide form and show system feedback message
+                -->
+
+                <!-- feedback messages -->
+                <!-- success -->
+                <!--                       <dt></dt>
+                                       <dd>
+                                           <p class="alert alert-success">
+                                               <button type="button" class="close" data-dismiss="alert" title="<?=LangAdmin::get('Hide_notice')?>">×</button>
+                                               <i class="icon-ok"></i> <?=LangAdmin::get('New_password_created_and_sent_to_user_email')?>.
+                                           </p>
+                                       </dd>
+                -->                       <!-- error -->
+                <!--                   <dt></dt>
+                                   <dd>
+                                       <p class="alert alert-error">
+                                           <button type="button" class="close" data-dismiss="alert" title="<?=LangAdmin::get('Hide_notice')?>">×</button>
+                                           <i class="icon-exclamation-sign"></i> <?=LangAdmin::get('Failed_to_create_password')?>.
+                                       </p>
+                                   </dd>
+                -->               <!-- /feedback messages -->
+
+                <dt><?=LangAdmin::get('Email')?></dt>
+                <dd><?=$this->escape($user['Email'])?>&nbsp;</dd>
+                <dt><?=LangAdmin::get('Phone')?></dt>
+                <dd><?=$this->escape($user['Phone'])?>&nbsp;</dd>
+                <dt><?=LangAdmin::get('Skype')?></dt>
+                <dd><?=$this->escape($user['Skype'])?>&nbsp;</dd>
+                <dt><?=LangAdmin::get('member_since')?></dt>
+                <dd><?=date('d.m.Y', strtotime($user['registrationdate']))?></dd>
+            </dl>
+
+        </div>
+
+        <div class="span6">
+            <div class="well well-transp">
+                <h4><?=LangAdmin::get('Address')?></h4>
+                <ul class="unstyled">
+                    <li><?=$this->escape($user['RecipientFirstName'])?> <?=$this->escape($user['RecipientLastName'])?></li>
+                    <li><?=$this->escape($user['country'])?></li>
+                    <?php
+                        $location = array();
+                        if ($user['city']) $location[] = $user['city'];
+                        if ($user['region']) $location[] = $user['region'];
+                        if ($user['PostalCode']) $location[] = $user['PostalCode'];
+                    ?>
+                    <li><?= $this->escape(implode(', ', $location)) ?></li>
+                    <li><?= $this->escape($user['address']) ?></li>
+                    <? if (!empty($user['PassportNumber']) && $user['PassportNumber']) { ?>
+                    <li><?=$this->escape($user['PassportNumber'])?></li>
+                    <? } ?>
+                    <? if (!empty($user['RegistrationAddress']) && $user['RegistrationAddress']) { ?>
+                    <li><?=$this->escape($user['RegistrationAddress'])?></li>
+                    <? } ?>
+                </ul>
+
+                <? if (! empty($user['additionalAddresses']) && is_array($user['additionalAddresses']) && count($user['additionalAddresses']) > 0 ) { ?>
+                <p><span class="blink" data-toggle="collapse" data-target=".other-user-delivery-addresses" title="<?=LangAdmin::get('Add_new_recipient')?>"><?=LangAdmin::get('Show_additional_addresses')?></span></p><!-- TODO: Show when there is any -->
+                <div class="collapse other-user-delivery-addresses">
+                    <ol>
+                        <? foreach ($user['additionalAddresses'] as $address) { ?>
+                        <li>
+                            <ul class="unstyled">
+                                <li><?=$this->escape($address['RecipientFirstName'])?> <?=$this->escape($address['RecipientLastName'])?></li>
+                                <li><?=$this->escape($address['country'])?></li>
+                                <?php
+                                    $location = array();
+                                    if ($address['city']) $location[] = $address['city'];
+                                    if ($address['region']) $location[] = $address['region'];
+                                    if ($address['PostalCode']) $location[] = $address['PostalCode'];
+                                ?>
+                                <li><?= $this->escape(implode(', ', $location)) ?></li>
+                                <li><?=$this->escape($address['address'])?></li>
+                                <li><?=$this->escape($address['phone'])?></li>
+                                <? if (! empty($address['INN'])) { ?>
+                                    <li class="profile-inn"><?=LangAdmin::get('inn')?>: <?=$this->escape($address['INN'])?></li>
+                                <? } ?>
+                                <? if (!empty($address['PassportNumber']) && $address['PassportNumber']) { ?>
+                                <li><?=$this->escape($address['PassportNumber'])?></li>
+                                <? } ?>
+                                <? if (!empty($address['RegistrationAddress']) && $address['RegistrationAddress']) { ?>
+                                <li><?=$this->escape($address['RegistrationAddress'])?></li>
+                                <? } ?>
+                            </ul>
+                        </li>
+                        <? } ?>
+                    </ol>
+                </div>
+                <? } ?>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <? if (RightsManager::hasRight(RightsManager::RIGHT_EDITUSERS)) { ?>
+    <a href="<?=$PageUrl->generate(array('do'=>'editUser', 'id'=>$user['id']))?>" class="btn btn-primary btn_preloader" title="<?=LangAdmin::get('Edit_user')?>"><?=LangAdmin::get('Edit')?></a>
+    <? } ?>
+
+</div>

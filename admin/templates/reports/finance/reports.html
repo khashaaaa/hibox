@@ -1,0 +1,27 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('finance')?>"><?=LangAdmin::get('Finance')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Reports')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+<?=TabsGenerator::GetSubTabs('templates/reports/finance/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Reports')?></h1>
+
+<div class="box">
+    <div class="box-body">
+        <form class="form-horizontal inline_editable_form ot_form">
+            <fieldset class="clearfix">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <?=MetaUI::render($metaInfo, $updateUrl) ?>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

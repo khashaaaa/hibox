@@ -1,0 +1,86 @@
+<div class="mt15">
+    <ul class="tabs tabs1 clrfix">
+        <li class="active"><a href="<?=@UrlGenerator::generateContentUrl('login')?>"><span><?=Lang::get('private_office_login')?></span><i></i></a></li>
+        <li><a href="<?=@UrlGenerator::generateContentUrl('register')?>"><span><?=Lang::get('registration_tab')?></span><i></i></a></li>
+        <li><a href="<?=@UrlGenerator::generateContentUrl('recovery')?>"><span><?=Lang::get('pass_recovery')?></span><i></i></a></li>
+    </ul>
+</div>
+<div class="tabs-content">
+    <div class="userform">
+
+        <form action="<?=@UrlGenerator::generateContentUrl('login')?>" method="post" class="form js-authentication-login-form">
+            <div class="form-row">
+                <div class="error"><?= (!empty($error)) ? $error : '' ?></div>
+            </div>
+
+            <div class="form-row">
+                <label for="username"><?=Lang::get('login_username')?></label>
+                <input id="username" type="text" name="username"  class="form-field" required />
+            </div>
+
+            <div class="form-row">
+                <label for="password"><?=Lang::get('password')?></label>
+                <input id="password" type="password" name="password" class="form-field" required />
+            </div>
+
+            <div class="form-row">
+                <label></label>
+                <label for="remember" class="remeber">
+                    <input class="checkbox" id="remember" type="checkbox" name="remember" value="remember" />
+                    <?=Lang::get('remember')?>
+                </label>
+            </div>
+
+            <? if ($captcha) { ?>
+                <div class="form-row">
+                    <label>&nbsp;</label>
+                    <?=OTCaptcha::getWidget(); ?>
+                </div>
+            <? } ?>
+
+            <div class="form-row enter">
+                <label></label>
+                <input type="submit" id="submitb" name="login" value="<?=Lang::get('login')?>" class="btn_office" data-loading-text="<?=Lang::get('loading')?>..." />
+            </div>
+        </form>
+
+        <? if (General::IsFeatureEnabled('ExternalAuthentication')) { ?>
+            <div class="form-row">
+                <?=General::runController('Authentication', 'renderAuthSystemList')?>
+            </div>
+        <? } ?>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        $('.js-authentication-login-form').submit(function(){
+            var form = $(this);
+            var btn = form.find('input[type="submit"]');
+            btn.button('loading');
+            form.find('.error').html('');
+
+            $.post(
+                form.attr('action'),
+                form.serialize(),
+                function (data) {
+                    if (data.error) {
+                        form.find('.error').html(data.message);
+                        if (typeof captchaRefresh == 'function') {
+                            captchaRefresh();
+                        }
+                    } else if (data.redirect) {
+                        document.location = data.redirect;
+                    }
+                }, 'json'
+            ).complete(function () {
+                btn.button('reset');
+            });
+
+            return false;
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

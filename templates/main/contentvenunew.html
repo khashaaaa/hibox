@@ -1,0 +1,46 @@
+            <? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>
+            <div class="fll col240 wrapper_sub_menu sidebar-for-text-pages">
+                <div class="bgr-block">
+                    <div class="titlecat bbn"><a href="/"><?=Lang::get('home')?></a></div>
+                </div>
+                <? if (isset($left_menu[0])) { ?>
+               
+                    <? foreach ($left_menu as $pageCurrent) { 
+						if (! array_key_exists('alias', $pageCurrent)) {
+							continue;	
+						}                    
+                    ?>
+                        <div class="bgr-block">
+                            <div class="titlecat bbn">
+                                <a href="<?=UrlGenerator::generateContentUrl($pageCurrent['alias'])?>"
+                                        <? print (@$pageCurrent['pagetitle']) ? 'title="'.$pageCurrent['pagetitle'].'"' : ''; ?>
+                                        <? if (($cur_page == $pageCurrent['alias']) and (empty($cur_page_digest))) { ?> class="active" <? } ?>
+                                        ><?=$this->escape($pageCurrent['title'])?></a>
+                            </div>
+                            <?if (($pageCurrent['children']) and ($pageCurrent['alias']!='digest')) { ?>
+                            <ul class="listitem">                            	                                
+                                
+                                <? foreach ($pageCurrent['children'] as $p) { ?>
+                                <li class="item">
+                                    <a href="<?=UrlGenerator::generateContentUrl($p['alias'])?>" <? if ($cur_page == $p['alias']){ ?> class="active" <? } ?>><?=$this->escape($p['title'])?></a>
+                                </li>                                
+                                <? } ?>
+                                
+                                
+                            </ul>
+                            <? } ?>
+                            <?if (($pageCurrent['children']) and ($cur_page=='digest') and ($pageCurrent['alias']=='digest')) { ?>
+                            <ul class="listitem">
+                                <? foreach ($pageCurrent['children'] as $p) { ?>
+                                <li class="item">
+                                    <a href="<?=UrlGenerator::generateDigestUrl('digest',$p['alias'])?>" <? if($cur_page_digest == $p['alias']){ ?> class="active" <? } ?> ><?=$p['title']?></a>
+                                </li>                                
+                                <? } ?>
+                            </ul>
+                            <? } ?>
+                        </div>
+                    <? } ?>
+                <? } ?>
+            </div>
+            <? } ?>      
+            

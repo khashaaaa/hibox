@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <title>Включение старого поиска</title>
+    <title lang="en">Enable of an old search</title>
+    <description>Включает старый поиск в новом шаблоне.</description>
+    <version>1.0.4</version>
+    <events>
+        <event name="onBuildRules" />
+        <event name="onAfterGeneralInit" />
+    </events>
+</plugin>

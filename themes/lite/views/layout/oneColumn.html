@@ -1,0 +1,19 @@
+<?=General::runController('Header')?>
+
+<div class="wrap1">
+    <main class="box-main" role="main">
+        <?=General::runController('Crumbs')?>
+
+        <? if (!empty(General::$_page['title_h1'])) { ?>
+            <h1><?=General::$_page['title_h1']?></h1>
+        <? } ?>
+
+        <? if (!empty(General::$_page['text'])) { ?>
+            <div class="box-section"><?=General::$_page['text']?></div>
+        <? } ?>
+
+        <?=$result?>
+    </main>
+</div> <!-- </one-column> -->
+
+<?=General::runController('Footer')?>

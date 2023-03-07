@@ -1,0 +1,25 @@
+<? $attributes = []; ?>
+<? foreach ($options['attributes'] as $attribute => $value) {?>
+    <? $attributes[] =  $attribute . '=' . $value; ?>
+<? } ?>
+
+<ul id="<?=$options['id']?>" class="<?=$options['class']?>" style="overflow: hidden" <?=implode(' ', $attributes)?>>
+    <? foreach ($items as $item) { ?>
+        <li>
+            <a href="<?=$item['url']?>" <? if ($defaultItem == $item['alias']) { ?> class="active" <? } ?>>
+                <?=$this->escape($item['title'])?>
+            </a>
+        </li>
+    <? } ?>
+</ul>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        $('#<?=$options["id"]?>').sliceMenu({
+            title: "<?=Lang::get('more_dotted')?>"
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

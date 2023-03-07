@@ -1,0 +1,512 @@
+<script src="/js/libs/jquery/jquery.ba-bbq.js?<?=CFG_SITE_VERSION;?>"></script>
+<?=Lang::loadJSTranslation(array('attention_changes_in_the_basket'))?>
+<div id="dialog-confirm" title="<?=Lang::get('need_confirm')?>" style="display:none;">
+    <span id="sure_delete"><?=Lang::get('sure_delete')?></span>
+    <span id="itemid" style="display:none;"></span>
+</div>
+<input type="hidden" id="good_added_to_fav" value="<?=Lang::get('good_added_to_fav')?>" />
+<input type="hidden" id="comment_saved" value="<?=Lang::get('all_changes_saved')?>" />
+<input type="hidden" id="close" value="<?=Lang::get('close')?>" />
+<div style="display:none;" class="addform" id="dialog-form" title="<?=Lang::get('message')?>">
+    <span id="message" ></span>
+</div>
+<div style="display:none;" class="addform" id="dialog-empty" title="<?=Lang::get('warning')?>">
+    <span id="message" ><?=Lang::get('Need_choose_items')?></span>
+</div>
+<div id="change-window" title="<?=Lang::get('need_confirm')?>" style="display:none;">
+    <span id="change-window-content">
+        <form action="/?p=basket" method="post" id="changeform">
+	        <input name="setconfig" id="setconfig" type="hidden" value="" />
+	        <input name="action" type="hidden" value="changeConfig" />
+	        <input name="newconfig" id="newconfig" type="hidden" value="" />
+	        <input name="item_id"  id="item_id" type="hidden"  value=""/>
+	        <input name="quantity"  id="quantity" type="hidden" value="" />
+	        <input name="itemTitle"  id="itemTitle" type="hidden" value="" />
+	        <input name="promoId"  id="promoId" type="hidden" value="" />
+	        <input name="categoryId"  id="categoryId" type="hidden" value="" />
+	        <input name="categoryName"  id="categoryName" type="hidden" value="" />
+	        <input name="currencyName"  id="currencyName" type="hidden" value="" />
+	        <input name="externalURL"  id="externalURL" type="hidden" value="" />
+	        <input name="pictureURL"  id="pictureURL" type="hidden" value="" />
+	        <input name="vendorId"  id="vendorId" type="hidden" value="" />
+	        <input name="weight"  id="weight" type="hidden" value="" />
+	        <input name="price"  id="price" type="hidden" value="" />
+	        <input name="itemConfiguration"  id="itemConfiguration" type="hidden" value="" />
+	        <input name="itemConfigurationChina"  id="itemConfigurationChina" type="hidden" value="" />
+	        <input name="currentProvider"  id="currentProvider" type="hidden" value="" />
+	        <input name="externalDeliveryId"  id="externalDeliveryId" type="hidden" value="" />
+	        <div id="ch_con"> </div>
+        </form>
+        <br><br>
+        <span style="color:red; font-size:10px;" class="alert-change-form"><?=Lang::get('attention_price')?></span><br>
+    </span>
+</div>
+
+<!-- .main -->
+<div class="bproduct" id="overlay-wrapper">
+    <div id="overlay"></div>
+    <div id="overlay-progressbar">
+        <p><?=Lang::get('please_wait_basket_checking');?></p>
+        <div id="progress" class="progress">
+            <div id="progressBar" class="progress-bar progress-bar-info progress-bar-striped active">0%</div>
+        </div>
+    </div>
+
+    <? if ($basket->count()) { ?>
+    <ul class="tabs clrfix">
+        <? foreach ($providers as $i => $provider) { ?>
+            <? $method = 'get' . $provider . 'ItemsCount'; ?>
+            <li <?=($provider == $currentProvider ? 'class="active"' : ''); ?> tab="<?=$provider?>"><a href="#" ><span><?=Lang::get($provider . '_cart_goods')?> (<?=$basket->$method()?>)</span><i></i></a></li>
+        <? } ?>
+    </ul>
+    <div class="tabs-content">
+        <? foreach ($providers as $i => $provider) { ?>
+            <? $methodItemsCount = 'get' . $provider . 'ItemsCount'; ?>
+            <? $methodItems = 'get' . $provider . 'Items'; ?>
+            <? $methodItemsTotalCost = 'get' . $provider . 'ItemsTotalCost'; ?>
+            <? $items = $basket->$methodItems(); ?>
+
+            <div <?=($provider == $currentProvider ? 'style="display: block;"' : ''); ?> class="tab selectedTab" id="<?=$provider?>" alias="<?=$aliases[$provider]?>">
+
+                <?php
+                // group by delivery id
+                $itemsByDelivery = array();
+                foreach ($items as $idx => $item) {
+                    if ( ! empty($item['externaldeliveryid'])) {
+                        if ( empty($itemsByDelivery[$item['externaldeliveryid']])) {
+                            $itemsByDelivery[$item['externaldeliveryid']] = array();
+                            $itemsByDelivery[$item['externaldeliveryid']]['name'] = $item['externaldeliveryname'];
+                            $itemsByDelivery[$item['externaldeliveryid']]['description'] = $item['externaldeliverydescription'];
+                            $itemsByDelivery[$item['externaldeliveryid']]['items'] = array();
+                        }
+                        if (empty($itemsByDelivery[$item['externaldeliveryid']]['items'][$item['GroupId']])) {
+                            $itemsByDelivery[$item['externaldeliveryid']]['items'][$item['GroupId']] = array();
+                        }
+                        $itemsByDelivery[$item['externaldeliveryid']]['items'][$item['GroupId']][] = $item;
+                    } else {
+                        if (empty($itemsByDelivery[0])) {
+                            $itemsByDelivery[0] = array();
+                            $itemsByDelivery[0]['name'] = Lang::get('Without_delivery');
+                            $itemsByDelivery[0]['description'] = '';
+                            $itemsByDelivery[0]['items'] = array();
+                        }
+                        if (empty($itemsByDelivery[0]['items'][$item['GroupId']])) {
+                            $itemsByDelivery[0]['items'][$item['GroupId']] = array();
+                        }
+
+                        $itemsByDelivery[0]['items'][$item['GroupId']][] = $item;
+                    }
+
+                    $sign = $item['CurrencySign'];
+                }
+                // ставим группу "Выбор доставки при оформлении" на первое место
+                if (isset($itemsByDelivery[0])) {
+                    $tmp = $itemsByDelivery[0];
+                    unset($itemsByDelivery[0]);
+                    array_unshift($itemsByDelivery, $tmp);
+                }
+
+                $elementsTotalCost = 0;
+                ?>
+                <div class="clrfix mb10">
+                    <a class="btn btn-primary btn-delete-group" href="#"><span><?=Lang::get('delete_selected')?></span></a>
+                    <a class="btn btn-primary btn-move-group" href="#"><span><?=Lang::get('move_selected_to_favorites')?></span></a>
+                    <a class="btn btn-primary btn-delete-item" href="#" item="item-1" onclick="confirm('clear'); return false;"><span><?=Lang::get('clear_cart')?></span></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td colspan="6">
+                                <input name="checbox-select-all" class="checbox-select-all"  type="checkbox" checked="checked"> <?=Lang::get('selected_unselect')?>
+                            </td>
+                        </tr>
+                        <? foreach ($itemsByDelivery as $deliveryId => $delivery) { ?>
+                            <tr style="display: none;">
+                                <td colspan="6" class="divider cart-devider"></td>
+                            </tr>
+                            <? if ($deliveryId !== 0) { ?>
+                                <tr class="delivery-tr" data-externaldeliveryid="<?=$deliveryId?>">
+                                    <td colspan="6" class="section-header">
+                                        <div style="font-size: 14px; font-weight: bold; color: #fff" class="delivery-name"><?=Lang::get('Delivery_name', array('deliveryName' => $delivery['name']))?></div>
+                                        <div style="font-size: 12px; font-weight: normal; color: #fff; margin-top: 5px;"><?=$delivery['description'] ?></div>
+                                    </td>
+                                </tr>
+                            <? } else if (count($itemsByDelivery) != 1) { ?>
+                                <tr class="delivery-tr" data-externaldeliveryid="<?=$deliveryId?>">
+                                    <td colspan="6" class="section-header">
+                                        <div style="font-size: 14px; font-weight: bold; color: #fff"><?=Lang::get('choose_shipping_when_ordering')?></div>
+                                    </td>
+                                </tr>
+                            <? } ?>
+                            <tr data-externaldeliveryid="<?=$deliveryId?>" style="display: none;">
+                                <td colspan="6" class="check-allitems-delivery">
+                                    <? if (count($itemsByDelivery) != 1) { ?>
+                                        <input class="checbox-deliveryId" deliveryId="<?=$deliveryId?>"  type="checkbox" checked="checked"> <?=Lang::get('selected_unselect_mini')?>
+                                    <? } ?>
+                                </td>
+                            </tr>
+
+                            <?
+                            $showOrderByIds = array(); // список уже отображенных заголовков групп
+                            $itemsByGroup = $delivery['items'];
+
+                            // ставим группу "0" на первое место
+                            if (isset($itemsByGroup[0])) {
+                                $tmp = $itemsByGroup[0];
+                                unset($itemsByGroup[0]);
+                                array_unshift($itemsByGroup, $tmp);
+                            }
+                            ?>
+                            <? foreach ($itemsByGroup as $vendorItems) { ?>
+                                <? foreach ($vendorItems as $item) { ?>
+                                    <?
+                                    $elementsTotalCost += $item['Cost'];
+                                    $elementsCurrencySign = $item['CurrencySign'];
+                                    $groupId = $item['GroupId'];
+                                    ?>
+
+                                    <? if (!empty($groupId) && !in_array($groupId, $showOrderByIds)) { ?>
+                                        <? $showOrderByIds[] = $groupId; ?>
+                                        <tr class="groupid-tr" data-groupid="<?=$groupId?>" data-addprice="<?=$item['GroupConvertedPriceList']['Internal'][0]?>">
+                                            <td colspan="6" class="section-header">
+                                        <span style="font-size: 14px; font-weight: bold; color: #333">
+                                            <?= ProductsHelper::getGroupDisplayName($item) ?>
+                                        </span>
+                                                <span style="float: right; font-size: 14px; font-weight: bold; color: #333">
+                                            <?= TextHelper::formatPrice(
+                                                $item['GroupConvertedPriceList']['Internal'][0],
+                                                $item['GroupConvertedPriceList']['Internal']['Sign']
+                                            )?>
+                                        </span>
+                                            </td>
+                                        </tr>
+                                    <? } ?>
+                                    <tr class="del-item-1 <?=ProductsHelper::formatFeatureListForCss((array)$item['features'])?>" id="item<?= $item['ItemId'] ?>" data-rowid="<?= $item['Id'] ?>">
+                                        <td class="item-to-order">
+                                            <input name="itemsToOrder[]" id="itemsToOrder" type="checkbox" checked="checked" data-vendor="<?= $item['VendorId'];?>" value="<?= $item['Id'] ?>" data-deliveryid="<?=$deliveryId?>" data-groupid="<?=$groupId?>">
+                                        </td>
+                                        <td class="text-center">
+                                            <? $options = array(); ?>
+                                            <? if (isset($item['configurationid'])) { ?>
+                                                <? $options = array('ConfigId' => $item['configurationid']); ?>
+                                            <? } ?>
+                                            <a href="<?=UrlGenerator::generateItemUrl($item['ItemId'], $options)?>" >
+                                                <img width="70" style="max-width: 70px;" class="img-thumbnail" src="<?=ProductsHelper::getSmallImage($item)?>">
+                                            </a>
+                                        </td>
+                                        <td class="text-left">
+                                            <smal><?=Lang::get('good_code')?>: <?= $item['ItemId']; ?></smal><br>
+                                            <? if (isset($item['ItemConfiguration'])) { ?>
+                                                <? foreach(explode(';', $item['ItemConfiguration']) as $cfg){ ?>
+                                                    <? if($cfg) {?>
+                                                        <? $tmp_var = explode(':',$cfg);?>
+                                                        <small><?= current($tmp_var); ?>: <?=end($tmp_var);?></small>
+                                                        <br>
+                                                    <? } ?>
+                                                <? } ?>
+                                            <? } ?>
+                                            <button class="btn change-config" itemid="<?=$item['ItemId'];?>" basketid="<?=$item['Id'];?>"><?=Lang::get('change_config')?></button>
+                                            <input name="<?=$item['Id'];?>_id"  id="<?=$item['Id'];?>_id" type="hidden" value="<?=$item['ItemId']?>" />
+                                            <input name="<?=$item['Id'];?>_quantity"  id="<?=$item['Id'];?>_quantity" type="hidden" value="<?=$item['Quantity']?>" />
+                                            <input name="<?=$item['Id'];?>_itemTitle"  id="<?=$item['Id'];?>_itemTitle" type="hidden" value="<?=$this->escape($item['ItemTitle'])?>" />
+                                            <input name="<?=$item['Id'];?>_promoId"  id="<?=$item['Id'];?>_promoId" type="hidden" value="<?=$item['PromoId']?>" />
+                                            <input name="<?=$item['Id'];?>_categoryId"  id="<?=$item['Id'];?>_categoryId" type="hidden" value="<?=$item['CategoryId']?>" />
+                                            <input name="<?=$item['Id'];?>_categoryName"  id="<?=$item['Id'];?>_categoryName" type="hidden" value="<?=$this->escape($item['CategoryName'])?>" />
+                                            <input name="<?=$item['Id'];?>_currencyName"  id="<?=$item['Id'];?>_currencyName" type="hidden" value="<?=$item['CurrencySign']?>" />
+                                            <input name="<?=$item['Id'];?>_externalURL"  id="<?=$item['Id'];?>_externalURL" type="hidden" value="<?=$item['ExternalURL']?>" />
+                                            <input name="<?=$item['Id'];?>_pictureURL"  id="<?=$item['Id'];?>_pictureURL" type="hidden" value="<?=$item['PictureURL']?>" />
+                                            <input name="<?=$item['Id'];?>_vendorId"  id="<?=$item['Id'];?>_vendorId" type="hidden" value="<?=$item['VendorId']?>" />
+                                            <input name="<?=$item['Id'];?>_weight"  id="<?=$item['Id'];?>_weight" type="hidden" value="<?=$item['Weight']?>" />
+                                            <input name="<?=$item['Id'];?>_ConfigurationId"  id="<?=$item['Id'];?>_ConfigurationId" type="hidden" value="<?=$item['ConfigurationId']?>" />
+                                            <input name="<?=$item['Id'];?>_price"  id="<?=$item['Id'];?>_price" type="hidden" value="<?=$item['Price']?>" />
+                                            <input name="<?=$item['Id'];?>_externalDeliveryId"  id="<?=$item['Id'];?>_externalDeliveryId" type="hidden" value="<?=$deliveryId?>" />
+                                            <?=ProductsHelper::getHtmlFeatureListForLabel((array)$item['features'])?>
+                                        </td>
+                                        <td class="text-left">
+                                            <nobr><?=Lang::get('price')?>:</nobr>
+
+                                            <? if (isset($userdiscount) && ($userdiscount['Discount'] != 0)) { ?>
+                                                <b><span class="ltr-for-rtl old-price">
+	                                                <?=TextHelper::formatPrice($item['fullpricewithoutdiscount']->__get('convertedpricelist')->__get('internal'), $item['CurrencySign'])?>
+	                                            </span></b><br>
+                                            <? } ?>
+                                            <b><span id="price-1-<?=$item['Id']?>" class="ltr-for-rtl">
+	                                        <?=TextHelper::formatPrice($item['Price'], $item['CurrencySign'])?>
+
+	                                        </span></b>
+
+                                            <? if (isset($userdiscount) && ($userdiscount['Discount'] != 0)) { ?>
+
+                                                <nobr><?=Lang::get('discount')?>:</nobr><b><?=$userdiscount['Discount']?> % </b>
+
+
+
+                                            <? } ?>
+
+
+                                        </td>
+                                        <td class="text-left">
+                                            <div class="calc">
+                                                <span class="lgray mr10"><?=Lang::get('quantity')?>:</span>
+                                                <b>
+                                                    <input type="text" value="<?=$item['Quantity']?>" class="w40 tar quantity input_numeric_only" id="count-<?= $item['Id'] ?>" minCount="<?= $item['firstlotquantity'] ?>" stepCount="<?= $item['nextlotquantity'] ?>" itemid="<?=$item['Id'];?>" style="width: 17%;text-align: center;"/>
+                                                </b>
+                                                <span class="num-controls" style="display: none">
+	                                                <span class="plus unselectable" rel="count-<?= $item['Id'] ?>" itemid="<?=$item['Id'];?>">+</span>
+	                                                <span class="minus unselectable" rel="count-<?= $item['Id'] ?>" itemid="<?=$item['Id'];?>">-</span>
+	                                            </span>=
+                                                <span class="ltr-for-rtl price" id="total-price-<?=$item['Id'];?>" price="<?=$item['Cost']?>">
+	                                                <?=TextHelper::formatPrice($item['Cost'], $item['CurrencySign'])?>
+	                                            </span>
+                                            </div>
+                                            <div class="mess_oper">
+                                                <label for="message" class="lgray"><?=Lang::get('comments_for_operator')?>:</label>
+                                                <textarea name="" class="form-control" itemid="<?=$item['Id'];?>"><?=TextHelper::escape(nl2br($item['comment']))?></textarea>
+                                                <i class="i copy" id="copy_<?=$item['Id'];?>" is-change-comment="false" itemid="<?=$item['Id'];?>" style="display: none;"></i>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <? $id = $item["Id"]; ?>
+
+                                            <div class="input-group btn-block" style="max-width: 200px;">
+                                                <span class="input-group-btn">
+                                                    <a data-toggle="tooltip" title="" class="btn-add add-to-favourites btn btn-primary" href="<?=General::generateUrl('basket', array('action' => 'move_to_favourites','id' => $id))?>" itemid="<?=$id;?>" data-original-title="<?=Lang::get('to_favourites')?>"><i class="fa fa-heart"></i></a>
+                                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-danger btn-delete-item" item="item-1" onclick="confirm('<?= $id; ?>'); return false;" data-original-title="<?=Lang::get('drop_item')?>"><i class="fa fa-times-circle"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="clrfix mb10" id="status_<?=$id?>"></div>
+                                        </td>
+                                    </tr>
+                                <? } ?>
+                            <? } ?>
+                            <? if (count($itemsByDelivery) != 1 || $deliveryId !== 0) { ?>
+                                <tr>
+                                    <td class="deliveryTotal" colspan="5">
+                                        <div align="right" class="delivery-cost-block" deliveryId="<?=$deliveryId?>">
+                                            <table>
+                                                <? if ($deliveryId !== 0) { ?>
+                                                    <tr>
+                                                        <td style="text-align:right"><?=Lang::get('delivery')?>:</td>
+                                                        <td style="text-align:left; padding-left: 5px"><span><?=$delivery['name']?></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:right"><?=Lang::get('delivery_cost')?>:</td>
+                                                        <td style="text-align:left; padding-left: 5px"><a href="javascript:void();" class="delivery-cost delivery-cost-link" deliveryId="<?=$deliveryId?>"><?=Lang::get('precalculation')?></a></td>
+                                                    </tr>
+                                                <? } ?>
+                                                <tr>
+                                                    <td style="text-align:right"><?=Lang::get('Product_cost')?>:</td>
+                                                    <td style="text-align:left; padding-left: 5px"><span class="deliveryTotal-<?=$deliveryId?>"></span> <?=$sign?></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <? if ($deliveryId !== 0) { ?>
+                                            <div align="right" class="itemsDeliveryTotal">
+                                                <?=Lang::get('total')?>: <span class="price basketTotal-<?=$deliveryId?>"></span> <br>
+                                            </div><br>
+                                        <? } ?>
+                                    </td>
+                                </tr>
+                            <? } ?>
+                        <? } ?>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        <? } ?>
+    </div>
+<?
+$tot = 0;
+$firstTabPrice = -1;
+foreach ($providers as $i => $provider) {
+    $methodItemsTotalCost = 'get' . $provider . 'ItemsTotalCost';
+    $tot = $tot + $basket->$methodItemsTotalCost();
+    if ($firstTabPrice == -1) {
+        $firstTabPrice = $basket->$methodItemsTotalCost();
+    }
+    break;
+}
+$tot = $tot + $total_GlobalDelivery;
+?>
+    <!-- Если есть минимальный заказ то показываем сообщение--->
+    <div id="minOrderCostError"style="display:<?=($minOrderCost && $firstTabPrice < $minOrderCost) ? 'block' : 'none'?>;height:30px; background:#CCC; border:#900 1px solid; padding:10px 10px 30px 10px;">
+        <?=Lang::get('min_cost')?>
+        <b>
+            <?=TextHelper::formatPrice(
+                $minOrderCost,
+                $sign
+            )?>
+        </b>
+        <br>
+    </div>
+
+    <div class="bgr-panel mt5" style="padding: 10px">
+        <div class="bigTotal bbprice ltr-for-rtl col-md-12">
+            <div class="col-md-9">
+
+                <span class="col-md-6"><?=Lang::get('total_weight')?>:</span>
+                <span class="col-md-6 value_part">
+                    <i id="items_total_weight"></i>
+                    <?=Lang::get('weight_kg')?>
+                </span>
+
+                <span class="col-md-6 delivery_methods"><?=Lang::get('delivery');?>:</span>
+                <span class="col-md-6 value_part delivery_methods">
+                    <input type="radio" name="deliveryMethod" class="delivery_method_input delivery_method_from_group" value="methodFromGroup">
+                    <span class="delivery_method_span delivery_method_from_group"></span>
+
+                    <input type="radio" name="deliveryMethod" class="delivery_method_input delivery_method_from_order" value="methodFromOrder">
+                    <span class="delivery_method_span delivery_method_from_order"><?=Lang::get('delivery_method_select_at_checkout')?></span>
+                </span>
+
+                <div class="delivery_cost" hidden>
+                    <span class="col-md-6"><?=Lang::get('delivery_cost')?>:</span>
+                    <span class="col-md-6 value_part">
+                        <i id="items_total_delivery_cost"></i>
+                    </span>
+                </div>
+
+                <span class="col-md-6"><?=Lang::get('Total_items')?>:</span>
+                <span class="col-md-6 value_part">
+                        <i id="items_total_cost"></i>
+                        <?=(! empty($GLOBALS['Basket']['CollectionSummaries'][$provider]['TotalCost'])) ? $GLOBALS['Basket']['CollectionSummaries'][$provider]['TotalCost']['ConvertedPriceList']['Internal']['Sign'] : $sign ?>
+                </span>
+
+                <span class="col-md-6 total"><?=Lang::get('total')?>:</span>
+                <span class="col-md-6 value_part total">
+                    <span class="total_price" sign="<?= (string)$sign ?> total">
+                                <i id="total-price-recount"> 0 </i>
+                        <?=(! empty($GLOBALS['Basket']['CollectionSummaries'][$provider]['TotalCost'])) ? $GLOBALS['Basket']['CollectionSummaries'][$provider]['TotalCost']['ConvertedPriceList']['Internal']['Sign'] : $sign ?>
+                    </span>
+                </span>
+
+            </div>
+        </div>
+
+        <div class="bgr-panel col-md-12 mt5">
+            <?
+            $userOrderUrl = UrlGenerator::getUrl('userorder', ['includeGet' => true, 'getParams' => ['step1' => 1]]);
+            $loginUrl = UrlGenerator::getUrl('login');
+            ?>
+            <? if ($minOrderCost) { ?>
+                <? if ($loggedIn || (General::getConfigValue('simplified_registration') && ! General::onNewPlatformScript('userorder')) ) { ?>
+                    <? if (($loggedIn && ! General::getConfigValue('skip_reordering')) || ($firstTabPrice > $minOrderCost)) {?>
+                        <a id="makeOrderBtn" style="display:block;" href="<?=$userOrderUrl?>" class="btn pull-right tostep1"><?= ($titleOrderButtonWithoutDelivery) ? Lang::get('make_order_and_choose_delivery') : Lang::get('make_order')?> <span></span></a>
+                        <a id="orderLoginBtn" href="<?=$loginUrl?>" class="btn pull-right" style="display: none;"><?=Lang::get('site_login')?></a>
+                    <? } else { ?>
+                        <a id="makeOrderBtn" style="display:none;" href="<?=$userOrderUrl?>" class="btn pull-right tostep1"><?= ($titleOrderButtonWithoutDelivery) ? Lang::get('make_order_and_choose_delivery') : Lang::get('make_order')?> <span></span></a>
+                        <a id="orderLoginBtn" href="<?=$loginUrl?>" class="btn pull-right"><?=Lang::get('site_login')?></a>
+                    <? } ?>
+                <? }else{ ?>
+                    <a id="makeOrderBtn" style="display:none;" href="<?=$userOrderUrl?>" class="btn pull-right tostep1"><?= ($titleOrderButtonWithoutDelivery) ? Lang::get('make_order_and_choose_delivery') : Lang::get('make_order')?> <span></span></a>
+                    <a id="orderLoginBtn" href="<?=$loginUrl?>" class="btn pull-right"><?=Lang::get('site_login')?></a>
+                <? } ?>
+            <? } else { ?>
+                <? if ($loggedIn || (General::getConfigValue('simplified_registration') && ! General::onNewPlatformScript('userorder')) ) { ?>
+                    <a id="makeOrderBtn" href="<?=$userOrderUrl?>" class="btn pull-right tostep1"><?= ($titleOrderButtonWithoutDelivery) ? Lang::get('make_order_and_choose_delivery') : Lang::get('make_order')?> <span></span></a>
+                    <a id="orderLoginBtn" href="<?=$loginUrl?>" class="btn pull-right" style="display: none;"><?=Lang::get('site_login')?></a>
+                <? }else{ ?>
+                    <a id="makeOrderBtn" style="display:none;" href="<?=$userOrderUrl?>" class="btn pull-right tostep1"><?= ($titleOrderButtonWithoutDelivery) ? Lang::get('make_order_and_choose_delivery') : Lang::get('make_order')?> <span></span></a>
+                    <a id="orderLoginBtn" href="<?=$loginUrl?>" class="btn pull-right"><?=Lang::get('site_login')?></a>
+                <? } ?>
+            <? } ?>
+
+        </div>
+        <? } else { ?>
+            <h3 class="lgray tagc"> <?=Lang::get('empty_cart')?>! </h3>
+        <? } ?>
+
+        <!-- /.basket -->
+
+    </div>
+
+    <?=Plugins::invokeEvent('onUserCartStatistics', array('basket' => $taobaoItems))?>
+
+    <!-- /.main -->
+    <?=Lang::loadJSTranslation(array('loading', 'change_options_gods','saving', 'attention_price', 'not_found_configuration', 'Given_product_configuration_is_not_in_stock', 'order_has_comments'))?>
+    <!--noindex-->
+    <script type="text/javascript">
+        var precalculation_lang = '<?=Lang::get('precalculation')?>';
+        var item_id = 0;
+        var price_round_decimals = <?=(int)General::getNumConfigValue('price_rounding')?>;
+        var min_order_cost = <?=$minOrderCost?>;
+        var simpleRegistration = <?=General::getConfigValue('simplified_registration') ? 'true' : 'false'?>;
+        var userOrder = <?=General::onNewPlatformScript('userorder') ? 'true' : 'false'?>;
+        var loggedIn = <?=$loggedIn ? 'true' : 'false'?>;
+        var isReOrder = <?=General::getConfigValue('skip_reordering') ? 'false' : 'true'?>;
+
+        $(function(){
+            $("#dialog-confirm:ui-dialog").dialog("destroy");
+            $("#dialog-confirm").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons : {
+                    "<?=Lang::get('yes')?>" : function() {
+                        $(".ui-dialog-buttonpane button").attr("disabled", true).addClass("ui-state-disabled");
+                        if (item_id=="clear") {
+                            document.location.href = '/?p=delete_all_from_basket';
+                        } else if ($.isArray(item_id)) {
+                            document.location.href = '/?p=delete_from_basket&del=' + item_id.join();
+                        } else {
+                            document.location.href = '/?p=delete_from_basket&del=' + item_id;
+                        }
+                    },
+                    "<?=Lang::get('no')?>" : function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+            $( "#dialog-form" ).dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    "<?=Lang::get('close')?>": function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+
+            $( "#dialog-empty" ).dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    "<?=Lang::get('close')?>": function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+
+            $("#change-window").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons : {
+                    "<?=Lang::get('save')?>" : function() {
+                        saveNewConfig();
+                    },
+                    "<?=Lang::get('cancel')?>" : function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+
+        function confirm(id) {
+            item_id = id;
+            if (id.length === 0) {
+                $("#dialog-empty").dialog("open");
+                return;
+            }
+            if (id == 'clear'){
+                $('#sure_delete').text('<?=Lang::get('sure_delete_all')?>');
+            } else {
+                $('#sure_delete').text('<?=Lang::get('sure_delete')?>');
+            }
+            $("#dialog-confirm").dialog("open");
+            return false;
+        }
+
+    </script>
+    <!--/noindex-->

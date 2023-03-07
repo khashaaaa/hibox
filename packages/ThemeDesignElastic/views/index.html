@@ -1,0 +1,42 @@
+<div class="js-plugin-page-wrapper"
+     data-post-url="?cmd=PluginsUtil&do=requestAdmin"
+     data-plugin-name="ThemeDesignElastic"
+>
+    <div class="btn-toolbar">
+        <button class="btn btn-primary js-btn-create-content">
+            <?= LangAdmin::get('create_default_content') ?>
+        </button>
+    </div>
+
+    <div class="js-create-content-success alert alert-success" style="display: none">
+        <?= LangAdmin::get('default_content_created_success') ?>
+    </div>
+
+    <script>
+        $(function () {
+            $('.js-btn-create-content').on('click', function (e) {
+                var $wrapper = $(e.currentTarget).closest('.js-plugin-page-wrapper');
+
+                modalDialog(
+                    trans.get('sure_continue') + '?',
+                    trans.get('sure_overwrite_content_description'),
+                    function () {
+                        $.post(
+                            $wrapper.data('postUrl'),
+                            {
+                                pluginName: $wrapper.data('pluginName')
+                            },
+                            function (data) {
+                                if (! data.error) {
+                                    $('.js-create-content-success').show();
+                                } else {
+                                    show_error(data.error);
+                                }
+                            }
+                        );
+                    }
+                );
+            });
+        });
+    </script>
+</div>

@@ -1,0 +1,91 @@
+<div class="main">
+    <h1><?=Lang::get('referral_system')?></h1>
+    <div id="support">
+        <div class="bproduct fs15 mb30">
+            <h2 class="mb20"><span><?=Lang::get('user_referal')?></span></h2>
+            <table class="notepad note_office">
+                <tbody>
+                <?if($RefSys){?>
+                    <tr>
+                        <td class="f11 lgray"><?=Lang::get('referal_link')?>:</td>
+                        <td>
+                            <?php
+                            $referrerPrefix = ReferalSystem::getReferrerKey();
+                            if (in_array('Seo2', General::$enabledFeatures)) {
+                                $referalUrl = 'http://'.IDN::decodeIDN($_SERVER['HTTP_HOST']) . '/register?' . $referrerPrefix . '=' . $link;
+                            } else {
+                                $referalUrl = 'http://'.IDN::decodeIDN($_SERVER['HTTP_HOST']) . '/?p=register&' . $referrerPrefix . '=' . $link;
+                            }
+                            ?>
+                            <b><?=$referalUrl?></b>
+                            <?=General::viewFetch('../templatescustom/referral/referal_link_copy', array(
+                                'vars' => array('referalUrl' => $referalUrl)
+                            ))?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f11 lgray"><?=Lang::get('referral_bonus')?>:</td>
+                        <td><b><?=number_format((float)$RefSys['balance'], (int)General::getNumConfigValue('price_rounding'), ",", " ")?></b></td>
+                    </tr>
+                    <tr>
+                        <td class="f11 lgray"><?=Lang::get('category')?>:</td>
+                        <td><b><?=$RefSys['category']->GetGroupName()?></b></td>
+                    </tr>
+                <? } else {?>
+                    <div>
+                        <?=Lang::get('no_data')?>
+                    </div>
+                <?}?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="support" class="mt-4">
+        <div class="bproduct fs15 mb30">
+            <h3><span><?=Lang::get('referal_new_user')?></span></h3>
+            <? if (!$nofoundusers) { ?>
+                <table class="table userreferal-table" width="100%">
+                    <? if ($UsersFromRef) { ?>
+                        <thead>
+                            <tr>
+                                <td><?=Lang::get('user')?></td>
+                                <td><?=Lang::get('orders')?></td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <? foreach($UsersFromRef as $user) { ?>
+                                <tr>
+                                    <td><?=$user['login']?></td>
+                                    <td>
+                                        <? if ($user['orders']) { ?>
+                                            <? foreach ($user['orders'] as $order) { ?>
+                                                <span><?=$order['date']?></span> - <?=Lang::get('summ_of_order')?> <?=number_format((float)$order['amount'], (int)General::getNumConfigValue('price_rounding'), ",", " ")?><br>
+                                            <? } ?>
+                                        <? } else { ?>
+                                            <?=Lang::get('notfoundreforders')?>
+                                        <? } ?>
+                                    </td>
+                                </tr>
+                            <? } ?>
+                        </tbody>
+                    <? } else { ?>
+                        <tbody>
+                            <h3 class="text-center">
+                                <div class="alert alert-empty-basket alert-empty-basket__md">
+                                    <?=Lang::get('no_data')?>
+                                </div>
+                            </h3>
+                        </tbody>
+                    <? } ?>
+                </table>
+            <? } else { ?>
+                <h3 class="text-center">
+                    <div class="alert alert-empty-basket alert-empty-basket__md" role="alert">
+                        <?=Lang::get('notfondrefusers')?>
+                    </div>
+                </h3>
+            <? } ?>
+        </div>
+    </div>
+</div>

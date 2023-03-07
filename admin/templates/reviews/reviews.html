@@ -1,0 +1,167 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('categories', 'default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('reviews::Products_reviews')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<?=TabsGenerator::GetSubTabs('templates/reviews/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('reviews::Products_reviews')?></h1>
+
+<div class="reviews_wrapper">
+
+    <div class="row-fluid">
+        <div class="span8">
+            <div class="well well-small offset-bottom1">
+                <form class="ot_form" id="filters" action="" method="get">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label bold" for=""><?=LangAdmin::get('User')?></label>
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <span class="add-on icon-user"></span>
+                                        <input name="user" autocomplete="off" placeholder="<?=LangAdmin::get('Account_number')?>" class="numeric" type="text" value="<?=RequestWrapper::get('user')?>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label bold" for="ot_order_number"><?=LangAdmin::get('Product')?></label>
+                                <div class="controls">
+                                    <input name="item" autocomplete="off" class="numeric" type="text" placeholder="<?=LangAdmin::get('item_ID')?>" value="<?=RequestWrapper::get('item')?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label bold" for="ot_order_number"><?=LangAdmin::get('Order_number')?></label>
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><?=OrdersProxy::normalizeOrderId('ORD-')?></span>
+                                        <input name="order" autocomplete="off" class="input-medium numeric" type="text" placeholder="<?=LangAdmin::get('Order_number')?>" value="<?=str_replace("ORD-", "", RequestWrapper::get('order'))?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label bold text-right"><?=LangAdmin::get('Condition')?></label>
+                                <div class="controls">
+                                    <label class="checkbox inline">
+                                        <input name="new" type="checkbox" <?=RequestWrapper::get('new')=='on' ? 'checked' : ''?>>
+                                        <?=LangAdmin::get('Pristroy_status_on_moderation')?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="controls offset-top-lebel-1">
+                                <input type="hidden" name="perpage" value="<?=$paginator->limit();?>">
+                                <input type="hidden" name="cmd" value="reviews"/>
+                                <button type="submit" class="btn btn_preloader btn-primary pull-right" data-loading-text="<?=LangAdmin::get('apply_filter')?>" autocomplete="off"><?=LangAdmin::get('apply_filter')?></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <button class="btn btn-tiny accept-items-btn" title="<?=LangAdmin::get('reviews::Accept_selected_reviews')?>"><span class="text-success"><i class="icon-ok"></i> <?=LangAdmin::get('reviews::Accept')?></span></button>
+                    <button class="btn btn-tiny delete-items-btn" title="<?=LangAdmin::get('reviews::Delete_selected_reviews')?>"><span class="text-error"><i class="icon-remove"></i> <?=LangAdmin::get('Delete')?></span></button>
+                </div>
+
+                <div class="span6 text-right">
+                    <select class="input-mini" id="perpage">
+                        <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                            <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+                        <? } ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-reviews">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label class="checkbox inline">
+                                    <input type="checkbox" class="rows-checkbox">
+                                </label>
+                            </th>
+                            <th><?=LangAdmin::get('reviews::Review')?></th>
+                            <th><?=LangAdmin::get('Login')?></th>
+                            <th><?=LangAdmin::get('Account_number')?></th>
+                            <th><?=LangAdmin::get('reviews::Created')?></th>
+                            <th class="td-3btn-width"><?=LangAdmin::get('reviews::Actions')?></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <? foreach ($reviews->GetItem() as $review) { ?>
+                            <tr id="<?=$review->GetId()->asString()?>">
+                                <td><input type="checkbox" class="row-checkbox"/></td>
+                                <td>
+                                    <div class="ot-review-text">
+                                        <span class="blink ot-show-review" title="<?=LangAdmin::get('show_review')?>">
+                                            <?=$this->escape($review->GetText())?>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="<?=$PageUrl->generate(array('cmd'=>'users', 'do'=>'profile', 'id'=>$review->GetUserId()->asString(), 'active_tab'=>'about'))?>" title="<?=LangAdmin::get('go_to_user_profile')?>">
+                                        <?=$this->escape($review->GetUserName())?>
+                                    </a>
+                                    <a href="<?=$PageUrl->generate(array('cmd'=>'users', 'do'=>'profile', 'id'=>$review->GetUserId()->asString(), 'active_tab'=>'account'))?>"
+                                    <?=!$review->IsRewarded() ? 'style="display: none"' : '' ?>
+                                    title="<?=LangAdmin::get('Bonus_credited')?>"
+                                    class="pull-right icon-gift"></a>
+                                </td>
+                                <td><?=$review->GetUserId()->asString()?></td>
+                                <? $date = strtotime($review->GetCreatedTime());?>
+                                <td><?=date('d.m.Y', $date)?>, <span class="muted"><?=date('h:i', $date)?></span></td>
+                                <td>
+                                    <span class="btn-group">
+                                        <a target="_blank" href="<?=UrlGenerator::generateItemUrl($review->GetItemId(), array('isAbsolute' => true))?>" class="btn btn-mini" title="<?=LangAdmin::get('reviews::Go_to_review')?>"><i class="icon-external-link"></i></a>
+                                        <? if (!$review->IsApproved()) { ?>
+                                            <button class="btn btn-mini accept-item-btn" title="<?=LangAdmin::get('reviews::Accept_review')?>"><i class="icon-ok"></i></button>
+                                        <? } ?>
+                                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('reviews::Delete_review')?>"><i class="icon-remove"></i></button>
+                                    </span>
+                                </td>
+                            </tr>
+                        <? } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="span4">
+            <div class="ot_review_view_topic">
+
+                <aside class="well">
+                    <h4><?=LangAdmin::get('Need_choose_review_to_see_information')?></h4>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <? $paginator->display(); ?>
+
+</div> <!-- wrapper -->
+
+<? AssetsMin::registerCssFile('/css/libs/jquery/jquery.colorbox/jquery-colorbox.css'); ?>
+<? AssetsMin::registerJsFile('/js/libs/jquery/jquery.colorbox/jquery.colorbox-min.js'); ?>
+<? AssetsMin::registerCssFile('/css/vendor/jquery.raty.css'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.raty.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-reviews.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>

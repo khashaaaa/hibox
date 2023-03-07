@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="add_new_banner">Добавить новый баннер</key>
+    <key name="remove">Удалить</key>
+    <key name="location">Расположение</key>
+    <key name="next_to_the_main_banner">Рядом с основным баннером</key>
+    <key name="under_the_main_banner">Под основным баннером</key>
+    <key name="title">Название</key>
+    <key name="link">Ссылка</key>
+    <key name="create">Создать</key>
+    <key name="you_have_not_selected_a_file">Вы не выбрали файл</key>
+    <key name="file_size_too_large">Размер файла слишком большой</key>
+    <key name="invalid_file_type">Недопустимый тип файла</key>
+    <key name="banner_created">Баннер создан</key>
+    <key name="banner_deleted">Баннер удален</key>
+    <key name="something_went_wrong_the_data_is_not_saved">Что-то пошло не так, данные не сохранены</key>
+</translations>

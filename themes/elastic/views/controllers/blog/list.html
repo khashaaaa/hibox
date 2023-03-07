@@ -1,0 +1,38 @@
+<? if($blog !== -1) { ?>
+<section class="block-news">
+        <div class="block-mews__wrap-content">
+            <? foreach ($blog as $post) { ?>
+                <div class="blog-item">
+                    <a href="<?=UrlGenerator::generatPostUrl('post', $post['id'], $post['alias'])?>" class="news-item__img" style="background-image: url(<?= ($post['image']) ? DigestRepository::getImage($post['image'], 'thumb') : '/i/noimg.png' ?>);"></a>
+                    <div class="news-item__text">
+                        <? $date = $post['created']; ?>
+                        <div class="news-item__date"><?=$date->format('d.m.Y')?></div>
+                        <a href="<?=UrlGenerator::generatPostUrl('post', $post['id'], $post['alias'])?>" class="news-item__title"><?=$this->escape($post['title'])?></a>
+                        <div class="brief_blog" style="display: none">
+                            <?php if (!empty($post['brief'])) { ?>
+                                <?=$post['brief']?>
+                            <?php } else { ?>
+                                <?=$post['content']?>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            <? } ?>
+        </div>
+</section>
+<? } else { ?>
+    <h3><?= Lang::get('nothing_found')?></h3>
+<? } ?>
+
+<?php $paginator->display(); ?>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        $('.brief_blog').css('display', 'block');
+        $('.block-news div.news-item__text').expander({
+            expandText: ''
+        })});
+</script>
+<? $script = AssetsMin::jsEnd() ?>
+<? AssetsMin::registerJs($script) ?>
+

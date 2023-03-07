@@ -1,0 +1,53 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'system')?>"><?=LangAdmin::get('system')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('caching')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'system'){ ?>class="active"<?} ?>>
+            <a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'system')?>">
+            <?=LangAdmin::get('General')?>
+            </a>
+        </li>
+        <li <? if($PageUrl->GetCmd() == 'CacheSettings'){ ?>class="active"<?} ?>>
+            <a href="<?=$PageUrl->AssignCmdAndDo('CacheSettings', 'default')?>">
+                <?=LangAdmin::get('Caching')?>
+            </a>
+        </li>
+        <li <? if($PageUrl->GetCmd() == 'Update'){ ?>class="active"<?} ?>>
+            <a href="<?=$PageUrl->AssignCmdAndDo('Update', 'default')?>">
+                <?=LangAdmin::get('Update')?>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- /ot-sub-sub-nav -->
+
+<h1><?=LangAdmin::get('Caching')?></h1>
+
+<!-- caching configuration -->
+<div class="well">
+
+    <form class="form-horizontal inline_editable_form ot_form cache-settings">
+        <div class="row-fluid">
+            <fieldset>
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('Reset_cache_label')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Reset_cache_hint')?>"></i></label>
+                    <div class="controls">
+                        <button id="cacheClean" type="button" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Reset_cache_clears')?>" autocomplete="off"><?=LangAdmin::get('Reset_cache_clean')?></button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-cache-settings.js'); ?>

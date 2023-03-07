@@ -1,0 +1,5 @@
+<select class="input-mini" id="perpage">
+    <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+        <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+    <? } ?>
+</select>

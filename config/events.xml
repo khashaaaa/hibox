@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+    <event name="onRenderAdminOrdersList" pakage_path="../lib/orders_excel_export" class_name="ExportOrder"></event>
+    <event name="onExportOrder" pakage_path="../lib/orders_excel_export" class_name="ExportOrder"></event>
+    <event name="onBatchExportOrders" pakage_path="../lib/orders_excel_export" class_name="ExportOrder"></event>
+    <event name="ExportOrderCut" pakage_path="../lib/orders_excel_export" class_name="OrderOutCancaled"></event>
+    <event name="ShowHistory" pakage_path="../lib/UserHistory" class_name="UserHistory"></event>
+    <event name="AddItemHistory" pakage_path="../lib/UserHistory" class_name="UserHistory"></event>
+    <event name="onRenderOrder" pakage_path="../lib/orders_excel_export_new" class_name="ExportOrderNew" allow_other_handlers="1"></event>
+    <event name="onExportOrderNew" pakage_path="../lib/orders_excel_export_new" class_name="ExportOrderNew"></event>
+    <event name="onBulkExportOrdersItems" pakage_path="../lib/orders_excel_export_new" class_name="ExportOrderNew"></event>
+    <event name="onRenderAdminHead" pakage_path="../lib/RenderAdminHead" class_name="RenderAdminHead"></event>
+    <event name="getImportantMessage" pakage_path="../lib/RenderAdminHead" class_name="RenderAdminHead"></event>
+</events>

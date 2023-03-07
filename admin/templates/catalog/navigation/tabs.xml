@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Categories" action="default" cmd="categories">
+        <page data-action="default" data-cmd="categories" />
+    </tab>
+    <tab title="Sets" action="default" cmd="sets">
+        <page data-action="default" data-cmd="sets" />
+        <page data-action="" data-cmd="sets" />
+        <page data-action="brands" data-cmd="sets" />
+        <page data-action="sellers" data-cmd="sets" />
+        <page data-action="items" data-cmd="sets" />
+        <page data-action="recommendedCategory" data-cmd="sets" />
+        <page data-action="categories" data-cmd="sets" />
+        <page data-action="categoriesSettings" data-cmd="sets" />
+        <page data-action="export" data-cmd="sets" />
+        <page data-action="autosets" data-cmd="sets" />
+    </tab>
+    <tab title="reviews::Products_reviews" action="default" cmd="reviews" get-params="new=on">
+        <page data-action="default" data-cmd="reviews" />
+        <page data-action="settings" data-cmd="reviews" />
+    </tab>
+    <tab title="Brands" action="default" cmd="brands">
+        <page data-action="" data-cmd="brands" />
+        <page data-action="default" data-cmd="brands" />
+        <page data-action="addBrand" data-cmd="brands" />
+        <page data-action="editBrand" data-cmd="brands" />
+    </tab>
+    <tab title="Pristroy" action="default" cmd="pristroy" feature="FleaMarket">
+        <page data-action="" data-cmd="pristroy" />
+        <page data-action="default" data-cmd="pristroy" />
+        <page data-action="edit" data-cmd="pristroy" />
+    </tab>
+    <tab title="Warehouse" action="default" cmd="warehouse" feature="Warehouse">
+        <page data-action="default" data-cmd="warehouse" />
+        <page data-action="" data-cmd="warehouse" />
+        <page data-action="import" data-cmd="warehouse" />
+        <page data-action="default" data-cmd="warehouseproducts" />
+        <page data-action="addProduct" data-cmd="warehouseproducts" />
+        <page data-action="editProduct" data-cmd="warehouseproducts" />
+    </tab>
+    <tab title="Restrictions" action="default" cmd="restrictions">
+        <page data-action="default" data-cmd="restrictions" />
+        <page data-action="" data-cmd="restrictions" />
+        <page data-action="categories" data-cmd="restrictions" />
+        <page data-action="sellers" data-cmd="restrictions" />
+        <page data-action="searches" data-cmd="restrictions" />
+        <page data-action="brands" data-cmd="restrictions" />
+    </tab>
+    <tab title="Items" action="default" cmd="items">
+        <page data-action="default" data-cmd="items" />
+        <page data-action="edit" data-cmd="items" />
+    </tab>
+</tabs>

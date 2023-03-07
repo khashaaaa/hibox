@@ -1,0 +1,117 @@
+<div id="add-item-review" title="<?=Lang::get('your_review')?>" style="display: none;">
+    <form id="reviewForm" action="<?='/?p=addItemReview'?>" class="reviewForm">
+        <? if (General::IsFeatureEnabled('ItemReviews')) { ?>
+            <div class="form-group">
+                <label><?=Lang::get('evaluation')?>: <span>*</span></label>
+                <div class="ratyScore ratyScore-lg"></div>
+            </div>
+
+            <div class="form-group">
+                <?=OTFileStorage::getWidget(array(
+                        'fileType' => 'Image',
+                        'displayName' => Lang::get('Images') . ': '
+                    )
+                )?>
+            </div>
+        <? } ?>
+        <div class="form-group">
+            <label><?=Lang::get('review_text')?>: <span>*</span></label>
+            <textarea class="form-control" name="text"></textarea>
+        </div>
+        <input name="itemId" type="hidden"/>
+        <input name="configId" type="hidden"/>
+        <input name="orderId" type="hidden"/>
+        <input name="orderLineId" type="hidden"/>
+        <div class="help"><?=Lang::get('stars_inputs')?></div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        <? if (General::getConfigValue('is_old_platform')) { ?>
+            $('.addItemReview').on('click', function () {
+                var currentRow = $(this).closest('tr');
+                var addReviewDialog = $("#add-item-review");
+                var reviewForm = addReviewDialog.children('form');
+                var itemId = $(this).data('itemid');
+
+                reviewForm.children('input[name="itemId"]').val(itemId);
+                reviewForm.children('input[name="configId"]').val(currentRow.data('config-id'));
+                reviewForm.children('input[name="orderId"]').val(currentRow.data('order-id'));
+                reviewForm.children('input[name="orderLineId"]').val(currentRow.data('order-line-id'));
+                reviewForm.children('textarea[name="text"]').val('');
+                reviewForm.children('div.ratyScore').raty();
+                reviewForm.find('.file-container').remove();
+                $('.ratyScore').raty();
+
+                addReviewDialog.dialog({
+                    autoOpen: false,
+                    modal: true,
+                    buttons : {
+                        '<?=Lang::get('save')?>' : function() {
+                            reviewForm.submit();
+                        },
+                        '<?=Lang::get('cancel')?>' : function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                }).dialog('open');
+            });
+
+            $("#add-item-review").on('submit', 'form', function (e) {
+                showOverlay();
+                var url = $(this).attr('action');
+                var buttons = $(this).closest('.ui-dialog').find('.ui-dialog-buttonset').find('button');
+                var dialog = $("#add-item-review");
+                var orderLineId = $(this).find('input[name="orderLineId"]').val();
+                var currentRow = $('#item' + orderLineId).closest('tr');
+
+                var errorFilled = false;
+                if ($(this).find('textarea[name="text"]').val().trim() === '')
+                    errorFilled = true;
+                if ($(this).find('input[name="score"]').length > 0 && $(this).find('input[name="score"]').val().trim() === '')
+                    errorFilled = true;
+
+                if (errorFilled) {
+                    hideOverlay();
+                    $().toastmessage('showToast', {'text': '<?=Lang::get('not_entered_required_data')?>', 'stayTime': 6000, 'type': 'error'});
+                    return false;
+                }
+
+                /* fix double click */
+                if(buttons.prop('disabled')) {
+                    return false;
+                }
+                buttons.prop('disabled', true);
+
+                var params = $(this).serializeArray();
+                $.post(url, params, function(data){
+                    buttons.prop('disabled', false);
+                    if (data.error) {
+                        hideOverlay();
+                        $().toastmessage('showToast', {'text': data.message, 'stayTime': 6000, 'type': 'error'});
+                        return false;
+                    }
+                    dialog.dialog("close");
+                    hideOverlay();
+                    $().toastmessage('showToast', {'text': trans.get('saved'), 'stayTime': 6000, 'type': 'success'});
+                    $('tr[data-order-line-id="' + currentRow.data('order-line-id') + '"]').find('.addItemReview').css('display', 'none');
+                    $('#myReview-' + currentRow.data('order-line-id')).data('review-id', data.id).css('display', 'block');
+                }, 'json');
+
+                if ($('li[tab="paymship"] a[attr="tab3"]')) {
+                    $('a[attr="tab3"]').trigger('click');
+                }
+                return false;
+            });
+        <? } ?>
+    });
+</script>
+
+<?=Lang::loadJSTranslation(array(
+        'new_review',
+        'save',
+        'cancel',
+        'not_entered_required_data'
+    )
+)?>

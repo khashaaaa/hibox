@@ -1,0 +1,17 @@
+<?=Lang::loadJSTranslation(array('Copy_link_succes', Lang::get('Copy_link_succes')))?>
+
+<script src="/js/vendor/clipboard.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var clipboard = new ClipboardJS('#copy_referal_link');
+        clipboard.on('success', function (e) {
+            $().toastmessage('showToast', {'text': trans.Copy_link_succes, 'stayTime': 6000, 'type': 'success'});
+            e.clearSelection();
+        });
+    });
+</script>
+
+<a class="btn-small referal_link_copy" id="copy_referal_link" href="javascript:void(0);"
+   data-clipboard-text="<?=$referalUrl?>">
+    <span><?=Lang::get('Copy')?></span>
+</a>

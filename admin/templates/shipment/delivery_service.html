@@ -1,0 +1,59 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('internal')?>"><?=LangAdmin::get('Delivery_small')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Delivery_service_system')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? require_once 'sub_nav.html'; ?>
+<!-- /ot-sub-sub-nav -->
+
+<div class="row-fluid">
+
+    <div class="span10">
+        <h1><?=LangAdmin::get('Delivery_service_system')?></h1>
+    </div>
+
+    <div class="span2 offset-top1">
+        <div id="activeLanguagesContainer"></div>
+    </div>
+
+</div>
+
+<!-- configuration -->
+<div class="well" id="deliverySystems">
+    <div class="row-fluid">
+        <div class="span12">
+            <br/>
+            <? if (empty($systems)) { ?>
+                <p><?=LangAdmin::get('List_is_empty')?></p>
+            <? } else { ?>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <? foreach ($systems as $system) { ?>
+                            <li>
+                                <a href="javascript:void(0)" class="event" data-type="<?=$system->GetIntegrationType()?>" action="<?=$PageUrl->Add('do', 'getDeliveryService')->Get()?>" data-loading-text="<span class='ot-preloader-mini'></span>">
+                                    <?=$system->GetName()?>
+                                </a>
+                            </li>
+                        <? } ?>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="deliverySystemsMetaUI" class="allow-reload"></div>
+                    </div>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+    <? ScriptIncluder::AddCustomScript('js/ot-delivery-service.js'); ?>
+    <script type="text/javascript">
+        $(window).load(function() {
+            $('.event:first').click();
+        });
+    </script>
+</div>
+
+

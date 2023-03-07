@@ -1,0 +1,71 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "pricing",
+        "do": "saveCost"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        },
+        "textarea": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+    "fields": [
+        {
+            "name": "persent",
+            "type": "text"
+        },
+        {
+            "name": "round_settings",
+            "type": "text"
+        },
+        {
+            "name": "price_rounding",
+            "type": "text"
+        },
+        {
+            "name": "minimummargin",
+            "type": "text"
+        },
+        {
+            "name": "usediscount",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name":"usevipdiscount",
+            "type":"select",
+            "valuesList":[
+                "1",
+                "0"
+            ]
+        },
+        {
+            "name":"discountmode",
+            "type":"select",
+            "valuesList":[
+                "Default",
+                "None",
+                "OnlyCache",
+                "OnlyWithFeature",
+                "All"
+            ]
+        },
+        {
+            "name":"hide_discont_lists",
+            "type":"select",
+            "valuesList":[
+                "1",
+                "0"
+            ]
+        }
+    ]
+}

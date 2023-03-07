@@ -1,0 +1,10 @@
+<script>
+    $(function() {
+        setTimeout(function() {
+            $.get('/?p=cron', function (response) {
+                if (response.error)
+                    showError(response);
+            });
+        }, 5000);
+    });
+</script>

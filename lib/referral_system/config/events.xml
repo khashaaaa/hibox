@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+    <event name="onLeftMenuRender" pakage_path="referral_system" class_name="ReferalSystem" />
+    <event name="onPrivateOfficeMainPageRender" pakage_path="referral_system" class_name="ReferalSystem" />
+    <event name="onUserRegister" pakage_path="referral_system" class_name="ReferalSystem" />
+    <event name="onRegisterFormRender" pakage_path="referral_system" class_name="ReferalSystem" />
+    <event name="onAdminNewMainMenuRender" pakage_path="referral_system" class_name="ReferalSystem" />
+    <event name="onAddAdminNewCustomAutoload" pakage_path="referral_system" class_name="ReferalSystem" />
+    <event name="onAddCustomAutoload" pakage_path="referral_system" class_name="ReferalSystem" />
+
+	<event name="onAdminMainMenuRender" pakage_path="referral_system" class_name="ReferalSystem" />
+	<event name="onAddAdminCustomAutoload" pakage_path="referral_system" class_name="ReferalSystem" />
+    <event name="onAppendCustomAutoload" pakage_path="referral_system" class_name="ReferalSystem" />
+</events>

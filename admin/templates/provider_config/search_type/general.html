@@ -1,0 +1,26 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('ProviderConfiguration', 'default')?>"><?=LangAdmin::get('Instance_configuration')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('providerconfiguration::Search_type_configuration')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+<!-- ot-sub-sub-nav -->
+
+<?=TabsGenerator::GetSubTabs('templates/provider_config/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('providerconfiguration::Search_type_configuration')?></h1>
+
+<?=$searchSettings?>
+
+<a name="searchSort"></a>
+<div class="row-fluid">
+    <div class="span12">
+        <? if ($searchTypesMetaInfo) { ?>
+            <div class="well">
+                <?=MetaUI::render($searchTypesMetaInfo, $updateSettingsUrl)?>
+            </div>
+        <? } ?>
+    </div>
+</div>

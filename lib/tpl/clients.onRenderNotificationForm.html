@@ -1,0 +1,25 @@
+<script type="text/javascript">
+$(function(){
+    $('#export').click(function() {
+        $('#sendform').submit();
+    });
+});
+</script>
+
+<form id="sendform" action="index.php?cmd=notification&do=sendemail&sid=" method="POST">
+    <div style="margin-left: 10px">
+        <p>
+            <label><?=Lang::get('Title')?><br/><br/></label>
+            <input name="title" type="text" value="" />
+        </p>
+        <p>
+            <label><?=Lang::get('message_text')?><br/><br/></label>
+            <textarea name="message" rows="10" cols="100" ></textarea>
+        </p>
+        <p>
+            <label>&nbsp;<br/><br/></label>
+            <input id="export" type="button" value="<?=Lang::get('send')?>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"/>
+        </p>
+    </div>
+</form>
+

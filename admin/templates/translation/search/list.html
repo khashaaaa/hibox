@@ -1,0 +1,108 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('MultilingualSettings', 'default')?>"><?=LangAdmin::get('languages')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Translations', 'default')?>"><?=LangAdmin::get('translations')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Search_translation')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+<?=TabsGenerator::GetSubTabs('templates/translation/navigation/tabs.xml', $PageUrl)?>
+<div class="row-fluid">
+    <h1 class="pull-left"><?=LangAdmin::get('Search_translation')?></h1>
+    <div class="btn-group pull-right">
+        <!-- site language -->
+        <?  if ($languages && (count($languages) > 1)) { ?>
+            <div class="btn-group pull-right">
+                <a class="btn dropdown-toggle offset-top05" data-toggle="dropdown" href="#" title="<?=LangAdmin::get('Language_select_for_edit')?>">
+
+                    <? $activeLang = false; ?>
+                    <? if ($languages) foreach ($languages as $key => $lang) { ?>
+                        <? if ((string)$lang['code'] == Session::get('active_lang_search_translations')) { ?>
+                            <? $activeLang = (string)$lang['code']; ?>
+                            <?=(string)$lang['name'] . " - " .$lang['providers']?>
+                        <? } ?>
+                    <? } ?>
+
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <? if ($languages) foreach($languages as $key => $lang) { ?>
+                        <? if ((string)$lang['code'] != $activeLang) { ?>
+                            <li>
+                                <a data-value="<?=(string)$lang['code']?>" href="<?=$PageUrl->AssignCmdAndDo('Translations', 'SetSearchTranslationsLang') . '&lang=' . $lang['code']?>">
+                                    <?=(string)$lang['name'] . " - " .$lang['providers']?>
+                                </a>
+                            </li>
+                        <? } ?>
+                    <? } ?>
+                </ul>
+            </div>
+        <? } ?>
+        <!-- /site language -->
+
+    </div>
+</div>
+<div class="translations-view-wrapper">
+
+    <div class="row-fluid">
+        <div class="well">
+            <form class="form-inline" action="?cmd=Translations&do=saveSearch" method="post">
+                    <div class="control-group">
+                        <div class="controls">
+                            <label><?=LangAdmin::get('Source_text')?></label>
+                            <input name="sourceText" class="input-xlarge" type="text" required>
+                            <label><?=LangAdmin::get('Translation')?></label>
+                            <input name="translation" class="input-xlarge" type="text">
+                            <input type="submit" class="btn btn-primary" value="<?=LangAdmin::get('Search_add')?>">
+                        </div>
+                    </div>
+            </form>
+            <form class="form-inline" id="search-form" action="" method="get">
+                <input type="hidden" name="cmd" value="<?=$PageUrl->GetCmd()?>" />
+                <input type="hidden" name="do" value="<?=$PageUrl->GetAction()?>" />
+
+                <input class="span4" type="text" name="SearchText" value="<?=RequestWrapper::get('SearchText')?>" placeholder="<?=LangAdmin::get('Search_text')?>" />
+                <input class="btn btn-primary" type="submit" value="<?=LangAdmin::get('Find')?>" />
+            </form>
+        </div>
+    </div>
+
+    <div class="list">
+
+            <? if (!empty($searchTranslations)) { ?>
+                <table class="table table-bordered">
+                    <thead>
+                        <th><?=LangAdmin::get("Source_text")?></th>
+                        <th><?=LangAdmin::get("Translation")?></th>
+                    </thead>
+                    <tbody>
+                        <? foreach ($searchTranslations->GetResult()->GetContent()->GetItem() as $searchTranslation) { ?>
+                            <tr data-id="<?=$searchTranslation->GetId()?>">
+                                <td><?=$searchTranslation->GetId()?></td>
+                                <td>
+                                    <form class="form-inline" action="<?=$PageUrl->AssignCmdAndDo('translations', 'searchUpdate')?>" data-id="<?=$searchTranslation->GetId()?>">
+                                        <input class="translationText" type="text" name="text" value="<?=$searchTranslation->GetCustomTranslation()?>" />
+                                        <button class="btn searchTranslationSave" title="<?=LangAdmin::get('Save')?>" data-loading-text="<span class='ot-preloader-mini'></span>"><i class="icon-save"></i></button>
+                                        <button class="btn searchTranslationDelete" title="<?=LangAdmin::get('My_translation_delete_translation')?>" data-loading-text="<span class='ot-preloader-mini'></span>"><i class="icon-remove"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <? } ?>
+                    </tbody>
+                </table>
+            <? } ?>
+
+    </div>
+
+    <? if ($searchTranslations) { ?>
+        <div class="row-fluid">
+            <div class="pull-right">
+                <? $paginator->displayPerpage(); ?>
+            </div>
+            <? $paginator->display(); ?>
+        </div>
+    <? } ?>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-translations.js'); ?>

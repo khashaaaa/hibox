@@ -1,0 +1,115 @@
+<table class="tinfo itemdesc">
+<? if (! empty($error)) { ?>
+    <tr class="error-message"><td> <?=$error?></td></tr>
+    <tr>
+        <td>
+            <a href="javascript:void(0)" from="<?=$from?>" class="trade-comments-page i-link"><?=Lang::get('try_again')?></a>
+        </td>
+    </tr>
+<? } else { ?>
+    <? if(empty($itemdescription['Content'])) { ?>
+        <?=Lang::get('empty_list')?>.
+    <? } else { ?>
+        <? foreach($itemdescription['Content'] as $item){ ?>
+            <tr class="trade-comment"><td>
+                <?= ! empty($item['UserNick']) ? '<b>'.Lang::get('author').': '.$item['UserNick'].'</b><br/>' : '';?>
+                <?= ! empty($item['CreatedDate']) ? '<b>'.Lang::get('date').': '.date('Y-m-d H:i',strtotime((string)$item['CreatedDate'])).'</b><br/>' : ''; ?>
+                <?=$item['Content'];?><br>
+                <? if (! empty($item['Images'])) { ?>
+                <div class="comment-pictures"> 
+                    <? foreach($item['Images'] as $pic){ ?>
+                        <span class="mr15">
+                            <a href="<?=$pic?>" rel="commentpic" title="<?= ! empty($item['CreatedDate']) ? Lang::get('date').': '.date('Y-m-d H:i',strtotime((string)$item['CreatedDate'])) : ''; ?> <?= ! empty($item['UserNick']) ? Lang::get('author').': '.$item['UserNick']: '';?>" class="comment-picture">
+                            <i><img src="<?=$pic?>" alt="" height="140" /></i>
+                            <ins></ins>
+                            </a>
+                        </span>
+                    <? } ?>
+        
+                    <div style="clear:both"></div>
+                </div>
+                <? } ?>
+                <br>
+            </td></tr>
+
+        <? } ?>
+        <tr>
+            <td>
+                <div class="b-pager">
+                    <? $perpage = 20; ?>
+                    <? $page_count_print = General::getConfigValue('pager_count_print') ? General::getConfigValue('pager_count_print') : '2'; ?>
+                    <? $curpage = floor($from / $perpage) + 1; ?>
+                    <? $maxpage = $itemdescription['TotalCount'] < 5000 ? ceil($itemdescription['TotalCount'] / $perpage) : ceil(5000 / $perpage); ?>
+                    <? if ($maxpage > 1) { ?>
+                        <ul class="b-list-page">
+                            <? if ($curpage > ($page_count_print + 1)) { ?>
+                                <li class="b-item"><a href="javascript:void(0)" from="0" class="trade-comments-page i-link">1</a></li>
+                            <? } ?>
+                            <? if ($curpage > ($page_count_print + 2)) { ?>
+                                <li class="b-item dotted">...</li>
+                            <? } ?>
+                            <? for ($i = max(1, $curpage - $page_count_print); $i <= min($maxpage, $curpage + $page_count_print); $i++) { ?>
+                                <? if ($curpage == $i) { ?>
+                                    <li class="b-item active"><a href="javascript:void(0)" from="<?=($i - 1) * $perpage?>" class="trade-comments-page i-link"><?=$i?></a>
+                                    </li>
+                                <? } else { ?>
+                                    <li class="b-item"><a href="javascript:void(0)" from="<?=($i - 1) * $perpage?>" class="trade-comments-page i-link"><?=$i?></a></li>
+                                <? } ?>
+                            <? } ?>
+                            <? if ($curpage < $maxpage - ($page_count_print + 1)) { ?>
+                                <li class="b-item dotted">...</li>
+                            <? } ?>
+                            <? if ($curpage < $maxpage - $page_count_print) { ?>
+                                <li class="b-item"><a href="javascript:void(0)" from="<?=($maxpage - 1) * $perpage?>" class="trade-comments-page i-link"><?=$maxpage?></a></li>
+                            <? } ?>
+                        </ul>
+                    <? } ?>
+                </div>
+            </td>
+        </tr>
+    <? } ?>
+<? } ?>
+</table>
+<script type="text/javascript">
+
+        var comentPictureSelector = $(".comment-picture");
+
+        comentPictureSelector.colorbox({rel: $(this).attr('rel')});
+
+        comentPictureSelector.on("click", function (event) {
+        event.preventDefault();
+        $.colorbox({
+            href: $(this).attr("href"),
+            innerHeight: 'auto',
+            innerWidth: 'auto',
+            opacity: 0.3,
+            title: $(this).attr("title"),
+            rel: $(this).attr('rel'),
+            onOpen: function(){
+                $("#colorbox").addClass("comment-picture-title");
+            }
+        });
+    });
+    
+    $(".trade-comments-page").on("click", function (event) {
+        event.preventDefault();
+        $('#TAOBAOcomments').html('<div class="spinner"></div>');
+        $.ajax({
+                url: '/?p=itemtraderateinfo&itemid=' + $('#TAOBAOcomments').attr('item_id') + '&from=' + $(this).attr("from"),
+                success: function(data) {
+                    $('#TAOBAOcomments').html(data);
+                }
+        });
+    });
+
+    /**
+     * Ресайз колорбокса для ситуации с
+     * наезжанием картинок и кнопок,
+     * если картинка уже 200px
+     */
+    $(document).bind('cbox_complete', function(){
+        if ($("#colorbox").width() < 200) {
+            $.colorbox.resize({ width: 200 });
+        }
+    });
+</script>

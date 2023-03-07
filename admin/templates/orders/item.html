@@ -1,0 +1,85 @@
+<div class="well well-transp item-details-loaded">
+
+    <div class="row-fluid">
+
+        <div class="span1">
+
+            <a href="#<%= item.get("ordernumericid") %>-<%= item.get("id") %>-img" class="thumbnail"
+                data-toggle="lightbox" title="<%= trans.get("Enlarge_image") %>"><img src="<%= item.get("imagePreview") %>" alt=""></a>
+            <div id="<%= item.get("ordernumericid") %>-<%= item.get("id") %>-img" class="lightbox hide fade"
+                tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="lightbox-header">
+                    <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true"  title="<%= trans.get("Close") %>"><i class="icon-remove-sign"></i></button>
+                </div>
+                <div class="lightbox-content">
+                    <img src="<%= item.get("itemimageurl") %>">
+                    <div class="lightbox-caption"><p class="text-clipped-general"><%= item.get("briefdescrtrans") %></p></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="span4">
+            <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none">
+                <dt><?=LangAdmin::get('Original')?>:</dt>
+                <dd>
+                    <% if (item.get("itemexternalurl")) { %>
+                        <a target="_blank" href="<%= item.get("itemexternalurl") %>" title="<%= trans.get("Product_taobao_page") %>">
+                            <%= item.get("itemid") %>
+                        </a>
+                    <% } else { %>
+                        <%= item.get("itemid") %>
+                    <% } %>
+                </dd>
+                <dt><%= trans.get("Vendor") %>:</dt>
+                <dd><a target="_blank" href="<%= item.get("vendurl") %>"><%= item.get("vendnick") %></a></dd>
+            </dl>
+            <dl>
+                <p><strong><%= trans.get("Full_description") %>:</strong> <%= item.get("briefdescrtrans") %></p>
+            </dl>
+        </div>
+
+        <div class="span7">
+
+            <div class="row-fluid">
+
+                <div class="span5">
+                    <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none">
+                        <dt><%= trans.get("Configuration") %>:</dt>
+                        <dd><%= item.get("config").join("</dd><dd>") %></dd>
+                    </dl>
+                </div>
+
+                <div class="span5 offset2">
+                    <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none">
+                        <dt><%= trans.get("Weight") %>:</dt>
+                        <dd><%= item.get("weight") %> <%= trans.get("kg") %>.</dd>
+                        <dt><%= trans.get("price") %>:</dt>
+                        <dd class="editablePrice"></dd>
+                        <dt><%= trans.get("count") %>:</dt>
+                        <dd><%= item.get("qty") %></dd>
+                        <dt><%= trans.get("Amount") %>:</dt>
+                        <dd class="amountcust">
+                            <span class="label weight-normal font-12">
+                                <%= item.get("NewAmountCust") %>&nbsp;<%= item.get("internalpricecurrencycode") %>
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+
+            </div>
+
+            <div class="comments-container">
+                <hr>
+
+                <p><i class="icon-comments-alt"></i> <strong><%= trans.get("Comments") %></strong></p>
+                    <%= escapeData(item.get("custcomment")) %>
+                <div class="row-fluid comments-list"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button type="button" class="close close-well" data-toggle="collapse" data-target=".<%= item.get("ordernumericid") %>-<%= item.get("id") %>-more-info" title="<%= trans.get("Hide2") %>">&times;</button>
+</div><!-- /.well-->

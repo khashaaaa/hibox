@@ -1,0 +1,109 @@
+
+<!-- upload photos window -->
+<div class="modal hide fade addOrderItemPhotos">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><?=LangAdmin::get('Add_order_item_photos')?></h3>
+    </div>
+
+    <div class="modal-body">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#web-cam-photo" data-toggle="tab"><?=LangAdmin::get('Add_webcam_photo')?></a></li>
+            <li><a href="#upload-photo" data-toggle="tab"><?=LangAdmin::get('Upload')?></a></li>
+            <li><a href="#link-photo" data-toggle="tab"><?=LangAdmin::get('Link')?></a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- web-cam-photo tab -->
+            <div class="tab-pane active" id="web-cam-photo">
+
+                <input type="hidden" name="itemId" value=""/>
+
+                <div class="offset-bottom05 web-cam-container">
+                    <div id="camera">
+                        <div id="screen"></div>
+                    </div>
+                    <span class="settings"></span>
+                </div>
+
+                <div class="text-center">
+                    <div class="hide preloader" style="line-height: 28px;">
+                        <img src="img/design/preloaders/preloader-1.gif" alt="" />
+                    </div>
+                    <button id="shootButton" href="#" class="btn btn-primary hide">
+                        <i class="icon-camera"></i> <?=LangAdmin::get('Make_a_shot')?>
+                    </button>
+                    <button id="uploadButton" href="#" class="btn btn-primary hide"><?=LangAdmin::get('Upload')?></button>
+                    <button id="cancelButton" href="#" class="btn offset-left1 hide"><?=LangAdmin::get('Cancel')?></button>
+                </div>
+            </div>
+
+            <!-- upload-photo tab-->
+            <div class="tab-pane" id="upload-photo">
+
+                <form   action="<?=$PageUrl->AssignCmdAndDo('orders', 'uploadOrderItemImage')?>"
+                        method="post"
+                        enctype="multipart/form-data"
+                >
+                    <input type="hidden" name="itemId" value=""/>
+                    <input type="hidden" name="orderId" value=""/>
+                    <div class="uploadbox fileupload clearfix fileupload-new" data-provides="fileupload">
+                        <div class="fileupload-new thumbnail thumbnail-mini">
+                            <div class="thumbnail-placeholder"><i class="icon-picture"></i></div>
+                        </div>
+                        <div class="span3 fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+                        <span class="btn btn-primary btn-file">
+                            <span class="fileupload-new"><?=LangAdmin::get('Select_image')?></span>
+                            <span class="fileupload-exists"><?=LangAdmin::get('Change')?></span>
+                            <input name="files[]" type="file" />
+                        </span>
+                        <span class="btn btn-warning fileupload-exists" data-dismiss="fileupload">
+                            <?=LangAdmin::get('Remove')?>
+                        </span>
+                    </div>
+                </form>
+
+                <i class="icon-plus color-blue"></i> <a href="javascript:void(0)" id="uploadMoreBtn" class="blink offset-bottom05" title="<?=LangAdmin::get('Add_one_more_image')?>"><?=LangAdmin::get('Upload_more')?></a>
+
+                <button id="sendToServerBtn" href="#" class="btn btn-primary pull-right" data-loading-text="<?=LangAdmin::get('Upload')?>">
+                    <?=LangAdmin::get('Upload')?>
+                </button>
+
+            </div>
+
+            <!-- link-photo tab -->
+            <div class="tab-pane" id="link-photo">
+                <form action="<?=$PageUrl->AssignCmdAndDo('orders', 'uploadOrderItemImage')?>" method="post"
+                    onsubmit="$(this).find('button').trigger('click'); return false;">
+
+                    <div class="control-group offset-bottom2" id="fields">
+
+                        <div class="imageLinkBlock clearfix">
+                            <input autocomplete="off" class="span9" name="imagesLinks[]" type="text" placeholder="<?=LangAdmin::get('Enter_image_url')?>" />
+                            <div style="display:none" class="span2 fileupload-preview thumbnail pull-right"></div>
+                        </div>
+                        <i class="icon-plus color-blue"></i>
+                        <span class="blink offset-bottom05" type="button" title="<?=LangAdmin::get('Add_one_more_field')?>">
+                            <?=LangAdmin::get('Add_more')?>
+                        </span>
+
+                    </div>
+
+                    <button type="button" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" class="btn pull-right" data-dismiss="modal"><?=LangAdmin::get('Close')?></a>
+    </div>
+
+</div>
+
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

@@ -1,0 +1,38 @@
+<?php if (count($orders) > 0) { ?>
+
+    <table class="table table-not-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th><?=LangAdmin::get('Order_number')?></th>
+            <th><?=LangAdmin::get('Creation_date')?></th>
+            <th><?=LangAdmin::get('Order_status')?></th>
+            <th><?=LangAdmin::get('Amount')?><br> <span class="font-11">(<?=LangAdmin::get('Paid')?>)</span></th>
+            <th><?=LangAdmin::get('Customer')?>/ <br><span class="font-11"><?=LangAdmin::get('user_balance')?></span></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <? foreach ($orders as $order) { ?>
+            <tr>
+                <td><input type="radio" id="<?=$order['id']?>" name="order"></td>
+                <td><?=OrdersProxy::normalizeOrderId($order['id'])?></td>
+                <td><?=date('d.m.y', strtotime($order['createddatetime']))?><br> <span class="muted font-11">(<?=date('H:i:s', strtotime($order['createddatetime']))?>)</span></td>
+                <td><?=$order['statusname']?></td>
+                <td><nobr><?=round((float)$order['totalamount'], 2) . ' ' . $order['currencysign']; ?></nobr> <br>(<nobr><?=round((float)$order['totalamount'] - (float)$order['remainamount'], 2) . ' ' . $order['currencysign']; ?></nobr>)</td>
+                <td>
+                    <? if (Permission::show_order_field('link_to_user')) {  ?>
+                        <a target="_blank" href="<?=$PageUrl->generate(array('cmd'=>'users', 'do'=>'profile', 'id'=>$order['custid']))?>" title="<?=LangAdmin::get('User_profile')?>"><?=$this->escape($order['custname'])?></a>
+                    <? } else { ?>
+                        <?=$this->escape($order['custname'])?>
+                    <? } ?>
+                    <br/> <?=$order['useraccountavailableamount'] . $order['currencysign']; ?>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+
+<?php } else { ?>
+    <?=LangAdmin::get('No_orders_for_merge')?>
+<?php } ?>

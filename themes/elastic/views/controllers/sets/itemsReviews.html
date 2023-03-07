@@ -1,0 +1,150 @@
+<? // скрыть подборку от индексации ?>
+<?=(isset($noIndex) && $noIndex) ? '<!--noindex-->' : '' ?>
+<section class="<?=(General::getConfigValue('display_as_carousel')) ? 'block-slider' : 'block-list'?>">
+    <div class="center">
+        <div class="listing-wrap">
+            <div class="block-slider__title">
+                <span><?= (isset($title) && ! empty($title)) ? $title : Lang::get($type);?></span>
+                <? if (isset($seeAllLink) && $seeAllLink) { ?>
+                    <a href="<?=$seeAllLink?>"><?=Lang::get('all_categories_goods')?></a>
+                <? } ?>
+            </div>
+            <div class="block-slider__wrap">
+                <?
+                /**
+                 * @var Product[] $list
+                 */
+                ?>
+                <? foreach ($list as $item) { ?>
+                    <a href="<?=$item->url?>"
+                       data-product-id="<?=$item->id?>"
+                       data-product-url="<?=UrlGenerator::toRoute('item', ['id' => $item->id])?>"
+                       class="item-product js-product-item <?=ProductsHelper::formatFeatureListForCss($item->features)?>"
+                       title="<?=$this->escape($item->title)?>"
+                    >
+                        <div class="item-product-inside">
+                            <?=ProductsHelper::getHtmlFeatureListForLabel($item->features)?>
+                            <div class="item-product__img">
+                                <div class="item-product__img-a">
+                                    <img class="check-noimg" src="<?=$item->getMediumImage()?>" alt="<?=$this->escape($item->title)?>">
+                                </div>
+                                <div class="item-product__img_hover">
+                                    <div class="button btn-quick-look js-product-btn-quick-look"><?=Lang::get('quick_look')?></div>
+                                </div>
+                            </div>
+
+                            <div class="item-product__title"><?=$this->escape($item->title)?></div>
+                            <div class="item-product__price">
+                                <? if ($item->getDisplayPromoPrice()) { ?>
+                                    <div class="item-product__price_new"><?=$item->getDisplayPromoPrice()?></div>
+                                    <div class="price-old__wrap">
+                                        <div class="item-product__price_old"><span><?=$item->getDisplayPrice()?></span></div>
+                                        <? if ($item->promotionPricePercent) { ?>
+                                            <div class="item-product__price_discount">- <?=$item->promotionPricePercent?>%</div>
+                                        <? } ?>
+                                    </div>
+                                <? } else {?>
+                                    <div class="item-product__price_new"><?=$item->getDisplayPrice()?></div>
+                                <? } ?>
+                            </div>
+                            <? if ($item->salesInLast30Days !== null) { ?>
+                                <div class="item-product__sold">
+                                    <div class="sold-block">
+                                        <span title="<?=Lang::get('sales_volume1')?>"><?=Lang::get('sold')?>: <?=$item->salesInLast30Days?></span>
+                                    </div>
+                                </div>
+                            <? } ?>
+
+
+                            <? if ($item->vendorScore) { ?>
+                                <div class="item-product__rating">
+                                    <span><?=Lang::get('vendor_rating_baserus')?>:</span>
+                                    <div class="product-raiting">
+                                        <? if (! General::getConfigValue('vendor_rating_view_as_number')) { ?>
+                                            <span class="raiting">
+                                                <i class="i-raiting raiting_<?=$item->vendorScore?>"></i>
+                                            </span>
+                                        <? } else { ?>
+                                            <span class="raiting">
+                                                <span class="rating_number raiting_<?=$item->vendorScore?>">
+                                                    <?=$item->vendorScore?>
+                                                </span>
+                                            </span>
+                                        <? } ?>
+                                    </div>
+                                </div>
+                            <? } ?>
+                            <div class="item-product__bottom-block">
+                                <div class="item-product-bottom-inside">
+                                    <div class="item-product__seller"><?=Lang::get('vendor')?>: <?=$this->escape($item->vendorName)?></div>
+                                    <? if (count($item->pictures) > 1) { ?>
+                                        <ul class="more-photos">
+                                            <? $i = 0; ?>
+                                            <? foreach ($item->pictures as $picture) { ?>
+                                                <li img-src="<?=$picture['medium']?>"
+                                                    class="other-photo"
+                                                    style="background-image: url(<?=$picture['small']?>)"
+                                                ></li>
+                                            <?
+                                            if ($i >= 3) break;
+                                            $i++;
+                                            ?>
+                                            <? } ?>
+                                        </ul>
+                                    <? } ?>
+                                    <!--
+                                    <div class="item-product__add">
+                                        <div class="add-favorite"><i></i><? // Lang::get('Add_item_to_fav')?></div>
+                                    </div>
+                                    -->
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+<? // если необходимо вывести товары каруселькой ?>
+<? if (General::getConfigValue('display_as_carousel')) { ?>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        var sliderBlocks = $('.block-slider__wrap').not('.slick-initialized');
+        $.each(sliderBlocks, function (i, block) {
+            if ($(block).children('a.item-product').length >= 5) {
+                $(block).slick({
+                    dots: false,
+                    speed: 500,
+                    arrows: true,
+                    autoplay: true,
+                    fade: false,
+                    vertical: false,
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    rtl: <?=(General::getConfigValue('rtl')) ? 'true' : 'false'?>,
+                    // the magic
+                    responsive: [{
+                        breakpoint:1024,
+                        settings: {
+                            slidesToShow: 4,
+                        }
+                    },
+                    {
+                        breakpoint:480,
+                        settings: {
+                            slidesToShow: 3,
+                        }
+                    }]
+                })
+            }
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+<? } ?>
+
+<?=(isset($noIndex) && $noIndex) ? '<!--/noindex-->' : '' ?>

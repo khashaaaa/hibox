@@ -1,0 +1,108 @@
+<div class="header-delivery">
+    <? if ($printCountry && $this->getUser()->getCountryCode()) { ?>
+        <div class="select-country">
+            <div class="select-text">
+                <span>
+                    <?=Lang::get('delivery')?>:
+                </span>
+            </div>
+            <div style="display: inline-block"
+                 class="user-preference"
+                 data-action="<?=UrlGenerator::getHomeUrl()?>/?p=userSetPreference"
+                 data-preference="country"
+            >
+                <? $countryList = InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem(); ?>
+
+                <a href="#"
+                   id="select-country"
+                   aria-haspopup="tree"
+                   aria-expanded="false"
+                   data-toggle="dropdown"
+                   class="dropdown-toggle"
+                >
+                    <span>
+                        <? foreach ($countryList as $countryInfo) { ?>
+                            <?=($countryInfo->GetId() == $this->getUser()->getCountryCode()) ? $countryInfo->GetName() : ''?>
+                        <? } ?>
+                    </span>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="select-country">
+                    <ul>
+                        <? foreach ($countryList as $countryInfo) { ?>
+                            <li data-value="<?=$countryInfo->GetId()?>">
+                                <?=$countryInfo->GetName()?>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+
+    <? if ($printCurrency) { ?>
+        <div class="select-money">
+            <div style="display: inline-block"
+                 class="user-preference"
+                 data-action="<?=UrlGenerator::getHomeUrl()?>/?p=userSetPreference"
+                 data-preference="currency"
+            >
+                <? $currencyInfos = InstanceProvider::getObject()->GetDisplayedMoneys()->GetCurrencyInfo(); ?>
+
+                <a href="#"
+                   id="select-currency"
+                   aria-haspopup="tree"
+                   aria-expanded="false"
+                   data-toggle="dropdown"
+                   class="dropdown-toggle"
+                >
+                    <span>
+                        <? foreach ($currencyInfos as $currencyInfo) { ?>
+                            <?= ($currencyInfo->GetCode() == $this->getUser()->getCurrencyCode()) ? $currencyInfo->GetSign() : ''?>
+                        <? } ?>
+                    </span>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="select-country">
+                    <ul>
+                        <? foreach ($currencyInfos as $currencyInfo) { ?>
+                            <li data-value="<?=$currencyInfo->GetCode()?>">
+                                <?=$currencyInfo->GetSign()?>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+
+    <? if ($printLangs) { ?>
+        <div class="select-language">
+            <div style="display: inline-block">
+                <a href="#"
+                   id="select-language"
+                   aria-haspopup="tree"
+                   aria-expanded="false"
+                   data-toggle="dropdown"
+                   class="dropdown-toggle"
+                >
+                    <? foreach ($langs as $lang) { ?>
+                        <? if ($lang['name'] == User::getObject()->getActiveLang()) { ?>
+                            <img src="<?=$lang['ImageUrl']?>" alt="<?=$lang['Description']?>">
+                        <? } ?>
+                    <? } ?>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="select-language">
+                    <ul>
+                        <? foreach ($langs as $lang) { ?>
+                            <li data-href="/?p=setlang&lang=<?=$lang['name']?>&from=<?=urlencode($_SERVER['REQUEST_URI'])?>">
+                                <img src="<?=$lang['ImageUrl']?>" alt="<?=$lang['Description']?>" >
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+</div>

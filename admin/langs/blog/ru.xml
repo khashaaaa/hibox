@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Content">Содержание</key>
+    <key name="Image">Изображение</key>
+
+    <key name="Title">Заголовок</key>
+    <key name="Language">Язык</key>
+    <key name="Actions">Действия</key>
+    <key name="Add">Добавить</key>
+    <key name="Edit">Редактировать</key>
+    <key name="Delete">Удалить</key>
+    <key name="Select">Выбрать</key>
+    <key name="Change">Изменить</key>
+    <key name="Go_to_news">Перейти к новости</key>
+    <key name="Go_to_post">Перейти к посту</key>
+
+    <key name="Blog">Блог</key>
+    <key name="Add_post">Добавление поста</key>
+    <key name="Edit_post">Редактирование поста</key>
+    <key name="Date">Дата</key>
+    <key name="Select_category">Выберите категорию</key>
+    <key name="Category">Категория</key>
+    <key name="Really_remove_this_post">Действительно удалить этот пост?</key>
+    <key name="Post_saved_successfully">Пост успешно сохранен</key>
+    <key name="Really_remove_selected_category">Действительно удалить выделенную категорию?</key>
+    <key name="Empty_category_name">Не заполнено название категории</key>
+    <key name="Empty_category_description">Не заполнено описание категории</key>
+    <key name="Blog_category_saved_successfully">Категоря успешно сохранена</key>
+    <key name="Add_product">Вставить продукт</key>
+    <key name="Enter_product_id">Введите Id продукта</key>
+    <key name="no_posts">Записей нет</key>
+    <key name="add_blog_post">Добавить пост</key>
+    <key name="No_category">Нет категории</key>
+    <key name="Articles">Статьи</key>
+    <key name="Settings">Настройки</key>
+    <key name="Page_saved_successfully">Пост успешно сохранен</key>
+    <key name="announcement">Описание</key>
+</translations>

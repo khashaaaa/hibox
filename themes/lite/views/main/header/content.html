@@ -1,0 +1,82 @@
+<?
+if (General::isSellFree()) {
+    $defaultLogo = UrlGenerator::getHomeUrl() . '/i/sellfree-logo.png';
+} else {
+    $defaultLogo = UrlGenerator::getHomeUrl() . '/i/logo.png';
+}
+?>
+<header class="row box-header" role="banner" itemscope itemtype="https://schema.org/Organization">
+    <a href="/" class="col-md box-header_logo" itemprop="url">
+        <? $title = $this->escape(General::getConfigValue('title_for_home', CFG_SITE_NAME . ' - ' . Lang::get('home'), false)); ?>
+        <img src="<?=(General::getConfigValue('logo', $defaultLogo, false));?>" alt="<?=$title?>" title="<?=$title?>">
+    </a>
+    <div class="col-md pull-right box-header_contact-info">
+        <ul id="login-register-lang">
+            <? if ($langs && count($langs) > 1) { ?>
+            <li id="langSelectActive" class="box-up-menu_lang-change">
+                <a href="#" class="dropdown-toggle lang" data-toggle="dropdown" title="<?=$cms->getLangDescrByCode(User::getObject()->getActiveLang())?>">
+                    <i class="<?=User::getObject()->getActiveLang()?>">
+                        <? foreach ($langs as $l) { ?>
+                            <? if ($l['name'] == User::getObject()->getActiveLang()) { ?>
+                                <img src="<?=$l['ImageUrl']?>" alt="<?=$this->escape($l['Description'])?>">
+                            <? } ?>
+                        <? } ?>
+                    </i>
+                    <b class="caret"></b>
+                </a>
+                <ul id="langSelectUI" class="dropdown-menu">
+                    <? foreach($langs as $l){ ?>
+                    <li>
+                        <a href="/?p=setlang&lang=<?=$l['name']?>&from=<?=urlencode($_SERVER['REQUEST_URI'])?>" class="lang" title="<?=$cms->getLangDescrByCode($l['name'])?>">
+                            <i class="<?=$l['name']?>"><img src="<?=$l['ImageUrl']?>" alt="<?=$this->escape($l['Description'])?>"></i>
+                        </a>
+                    </li>
+                    <? } ?>
+                </ul>
+            </li>
+            <? } ?>
+            <? if (! $this->getUser()->isAuthenticated()) { ?>
+            <li class="box-up-menu_username">
+                <a href="<?=UrlGenerator::generateContentUrl('register')?>">
+                    <span><?=Lang::get('registration_tab')?></span>
+                </a>
+            </li>
+            <li class="box-up-menu_separator">|</li>
+            <li class="box-up-menu_username">
+                <a href="<?=UrlGenerator::generateContentUrl('login')?>">
+                    <span><?=Lang::get('login')?></span>
+                </a>
+            </li>
+            <? } ?>
+        </ul>
+        <div class="box-header_contact-info_phone-work-time">
+            <? if (General::getConfigValue('phone')) { ?>
+            <div class="box-header_contact-info_phone-num" itemprop="telephone">
+                <?=General::getConfigValue('phone')?>
+            </div>
+            <? } ?>
+            <? if (General::getConfigValue('store_email')) { ?>
+                <div class="box-header_contact-info_email">
+                    <a href="mailto:<?=General::getConfigValue('store_email')?>">
+                        <?=General::getConfigValue('store_email')?>
+                    </a>
+                </div>
+            <? } ?>
+            <? if (General::getConfigValue('work_shedule')) { ?>
+            <div class="box-header_contact-info_work-time">
+                <?=General::getConfigValue('work_shedule')?>
+            </div>
+            <? } ?>
+        </div>
+    </div>
+    <div class="col-md box-header_description" role="note">
+        <?
+        if (General::isSellFree()) {
+            $defaultHeaderText = Lang::get('sellfree_header_text');
+        } else {
+            $defaultHeaderText = Lang::get('header_text');
+        }
+        ?>
+        <span><?=(General::getConfigValue('header_text', $defaultHeaderText, false));?></span>
+    </div>
+</header>

@@ -1,0 +1,8 @@
+<? if (CMS::IsFeatureEnabled('Newsletter')) { ?>
+<div class="subscribe">
+	<h3><?=Lang::get('news_subscribe')?></h3>
+	<a class="btn_off" href="<?=@UrlGenerator::generateContentUrl('privateoffice')?><?=CMS::IsFeatureEnabled('Seo2')?'?':'&';?>subscribe=<?=$subscribed?'0':'1'?>">
+		<span><?=$subscribed?Lang::get('decline_subscribe'):Lang::get('accept_subscribe')?></span>
+	</a>
+</div>
+<? } ?>

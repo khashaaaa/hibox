@@ -1,0 +1,75 @@
+
+<?php
+    if (! empty($banners)) {
+        $bannersCount = count($banners);
+?>
+        <div class="col col690 bannersnew">
+            <div class="bdwhite brwhite">
+                <div class="promoimg">
+                    <a id="actions_banner" 
+                        href="<?=($banners[0]['url'] ? $this->escape($banners[0]['url']) : 'javascript:void(0)')?>">
+                        <? if (strpos(strtolower($banner[0]['source']), '.swf')) { ?>
+                            <object width="695" height="330">
+                                <param name="movie" value="<?=$banners[0]['source']?>">
+                                <embed src="<?=$banners[0]['source']?>" width="695" height="330">
+                                </embed>
+                            </object>
+                        <? } else { ?>
+                            <img src="<?=$banners[0]['source']?>" alt="<?=$this->escape($banners[0]['name'])?>" class="fll"/>
+                        <? } ?>
+                    </a>
+                </div>
+                <table class="promolist">
+                    <tr id="actions_navigation">
+                        <? foreach ($banners as $banner) { ?>
+                        <td>
+                            <a href="<?=($bannersCount > 1 ? $banner['source'] : 'javascript:void(0)')?>" 
+                                rel="<?=($banner['url'] ? $this->escape($banner['url']) : 'javascript:void(0)')?>">
+                                <?=$this->escape($banner['name'])?>
+                            </a>
+                        </td>
+                        <? } ?>
+                    </tr>
+                </table>
+            </div>
+        </div>
+<?php } ?>
+<!--noindex-->
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    next_banner = function (new_banner) {
+        $('#actions_navigation td.active').removeClass('active');
+        $(new_banner).parent().addClass('active');
+        $('#actions_banner').attr('href', new_banner.attr('rel'));
+        if (!new_banner.attr('href')) return;
+        var img = new_banner.attr('href');//.toLowerCase();
+        if (img.indexOf('.swf') + 1) {
+            $('#actions_banner').html('<object width="695" height="330">' + 
+                '<param name="movie" value="' + img + '">' +
+                '<embed src="' + img + '" width="695" height="330">' +
+                '</embed>' + '</object>');
+        } else {
+            $('#actions_banner').html('<img src="'+ img + '" alt="" class="fll"/>'); 
+        }
+    };
+
+    if($('#actions_navigation td').length > 1){
+        banner_interval_id = setInterval(function () {
+            newli = $('#actions_navigation td.active').next().find('a');
+            if (newli.size() < 1) {
+                newli = $($('#actions_navigation a')[0]);
+            }
+            if (newli) next_banner(newli);
+        }, 5000);
+
+        $("#actions_navigation > td > a").click(function () {
+            next_banner($(this));
+            clearInterval(banner_interval_id);
+            return false;
+        });
+    }
+})
+</script>
+<!--/noindex-->

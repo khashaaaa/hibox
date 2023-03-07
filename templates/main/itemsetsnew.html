@@ -1,0 +1,75 @@
+<?=General::getConfigValue('no_index_sets') ? '<!--noindex-->' : '' ?>
+<?
+if (isset($categories) && count($categories) > 0) {
+    foreach ($categories as $catId => $category) {
+        print View::fetchTemplate('items-category', 'items', '/blocks/rating_lists/', 
+        array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'list' => $category['items'],
+        'type' => 'category', 'title' => $category['name'], 'categoryId' => $catId));
+    }    
+}
+?>
+<?=General::getConfigValue('no_index_sets') ? '<!--/noindex-->' : '' ?>
+
+<?=General::getConfigValue('no_index_sets') ? '<!--noindex-->' : '' ?>
+<?=View::fetchTemplate('items-recommend', 'items', '/blocks/rating_lists/',
+    array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'list' => $best_items,
+        'type' => 'recom_goods'))?>
+<?=General::getConfigValue('no_index_sets') ? '<!--/noindex-->' : '' ?>
+
+<!--noindex-->
+<?=View::fetchTemplate('items-popular', 'items', '/blocks/rating_lists/',
+    array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'list' => $popular_items,
+        'type' => 'popular_goods'))?>
+<!--/noindex-->
+
+<?=General::getConfigValue('no_index_sets') ? '<!--noindex-->' : '' ?>
+<? if (! empty($pristroy_items)) {
+    echo View::fetchTemplate('items-pristroy', 'pristroy', '/blocks/rating_lists/', array(
+        'displayAsCarousel' => General::getConfigValue('display_as_carousel'),
+        'list' => $pristroy_items,
+        'type' => 'Pristroy',
+        'currency' => $currency,
+    ));
+} ?>
+<?=General::getConfigValue('no_index_sets') ? '<!--/noindex-->' : '' ?>
+
+<!--noindex-->
+<?=View::fetchTemplate('items-last-viewed', 'items', '/blocks/rating_lists/',
+    array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'list' => $last_viewed_items,
+        'type' => 'last_viewed_goods'))?>
+<!--/noindex-->
+
+<!--noindex-->
+<?=View::fetchTemplate('items-with-reviews', 'itemsReviews', '/blocks/rating_lists/',
+    array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'list' => $items_with_comments,
+        'type' => 'with_reviews', 'categoryId' => 'with_reviews'))?>
+<!--/noindex-->
+
+<?=General::getConfigValue('no_index_sets') ? '<!--noindex-->' : '' ?>
+<?=View::fetchTemplate('items-warehouse', 'warehouse', '/blocks/rating_lists/',
+    array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'list' => $warehouse_items,
+        'type' => 'warehouse_items', 'title' => $warehouse_title))?>
+<?=General::getConfigValue('no_index_sets') ? '<!--/noindex-->' : '' ?>
+
+
+</div></div></div>
+
+<?=View::fetchTemplate('best-brands', 'brands', '/blocks/rating_lists/',
+    array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'list' => $brands_list,
+        'type' => 'popular_brands'))?>
+
+<?=View::fetchTemplate('best-vendors', 'vendors', '/blocks/rating_lists/',
+    array('displayAsCarousel' => General::getConfigValue('display_as_carousel'), 'vendors' => $vendors,
+        'type' => 'best_vendors'))?>
+
+<? if(General::getConfigValue('display_as_carousel')){?>
+<!--noindex-->
+<script type="text/javascript">
+$(function(){
+    var carousel = $('.jcarousel-skin');
+
+    carousel.jcarousel({});
+})
+</script>
+<!--/noindex-->
+<? } ?>

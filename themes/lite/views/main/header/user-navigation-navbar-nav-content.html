@@ -1,0 +1,35 @@
+<? if ($this->getUser()->isAuthenticated()) { ?>
+    <li class="box-up-menu_username">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            <span class="box-up-menu_username_login"><?=$this->getUser()->GetLogin()?></span>
+            <span class="box-up-menu_username_available-amount">(<?=$this->getUser()->getAvailableAmountAsText()?>)</span>
+            <b class="caret"></b>
+        </a>
+        <ul id="user-menu" class="dropdown-menu">
+            <li class="">
+                <a href="<?=UrlGenerator::generateContentUrl('privateoffice')?>">
+                    <? if (isset($l['name'])) { ?>
+                    <i class="<?=$l['name']?>"></i>
+                    <? } ?>
+                    <span><?=Lang::get('private_office')?></span>
+                </a>
+            </li>
+            <li class="box-up-menu_exit-btn">
+                <button onclick="location.href='<?=UrlGenerator::generateContentUrl('logout')?>'" type="button" class="btn navbar-btn"><?=Lang::get('logout')?></button>
+            </li>
+        </ul>
+    </li>
+<? } ?>
+
+<? if (
+    count(InstanceProvider::getObject()->GetDisplayedMoneys()->GetCurrencyInfo()->toArray()) > 1 ||
+    (
+        CMS::IsFeatureEnabled('PreselectedDelivery') &&
+        count(InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem()->toArray()) > 1
+    )
+) { ?>
+    <li class="box-up-menu_userpreferences">
+        <?=General::viewFetch('main/header/user-navigation/box-up-menu_userpreferences_content')?>
+    </li>
+<? } ?>

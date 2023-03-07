@@ -1,0 +1,195 @@
+
+
+/*------------------------
+	Область фотогалереи
+-------------------------*/
+#PhotosBlock{
+	display:none;	
+	border:2px solid #f0f0f0;
+	background:#CCC;
+	height:auto;
+	width:620px;
+	position:fixed;
+	top:40%;
+	margin-top:-200px;
+	left:50%;
+	margin-left:-310px;
+	padding:10px;
+	-moz-border-radius:4px 4px 0 0;
+	-webkit-border-radius:4px 4px 0 0;	
+	
+	-moz-box-shadow:0 0 4px rgba(0,0,0,0.6);
+	-webkit-box-shadow:0 0 4px rgba(0,0,0,0.6);
+	box-shadow:0 0 4px rgba(0,0,0,0.6);
+}
+
+#photos{
+	margin: 60px auto 100px;
+	overflow: hidden;
+	width: 100%;
+}
+#loading {
+	display:none;
+}
+
+
+
+#onephoto,
+#loadMore{	
+	background-color: rgba(14, 14, 14, 0.3);
+	float: left;
+	height: 102px;
+	
+	margin: 5px;
+	overflow: hidden;
+	width: 145px;
+    border: 1px solid #000;
+	position:relative;
+	
+	-moz-transition:0.25s;
+	-webkit-transition:0.25s;
+	-o-transition:0.25s;
+	transition:0.25s;
+}
+#onephoto a {	
+	background-position: center center;
+	height: 102px;	
+	width: 145px;
+	display:block;
+}
+
+#onephoto:hover{
+	border: 1px solid #F00;
+}
+
+#loadMore{
+	cursor: pointer;
+	line-height: 110px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size:10px;
+}
+
+#loadMore:hover{
+	color:#fff;
+	text-shadow:0 0 4px #fff;
+}
+
+#photodel {
+	position:absolute; top:0px; left:120px; z-index.999; background-color:#F00; border:#000 1px solid; width:25px; color:#FFF; cursor:pointer;
+}
+#photodel:hover {
+	 background-color:#fff; color:#000; 
+}
+
+/*-----------------------------------
+	Выскальзывающая панель камеры
+------------------------------------*/
+
+
+#camera{
+	display:none;	
+	border:2px solid #f0f0f0;
+	background:#CCC;
+	height:525px;
+	width:598px;
+	position:fixed;
+	top:50%;
+	margin-top: -260px;
+	left:50%;
+	margin-left:-300px;
+	padding:10px;
+
+	-moz-border-radius:4px 4px 0 0;
+	-webkit-border-radius:4px 4px 0 0;
+	border-radius:4px 4px 0 0;
+	
+	-moz-box-shadow:0 0 4px rgba(0,0,0,0.6);
+	-webkit-box-shadow:0 0 4px rgba(0,0,0,0.6);
+	box-shadow:0 0 4px rgba(0,0,0,0.6);
+}
+
+
+.settings{
+	background:url('../img/settings.png') no-repeat;
+	cursor: pointer;
+	height: 28px;
+	position: absolute;
+	right: 37px;
+	top: 448px;
+	width: 30px;
+}
+
+.settings:hover{
+	background-position:left bottom;
+}
+
+#screen{
+	width:520px;
+	height:370px;
+	margin: 66px auto 22px;
+	background:#ccc;
+	
+	line-height: 360px;
+    text-align: center;
+	color:#666;
+}
+
+.buttonPane{
+	text-align: center;
+}
+
+.tooltip{
+	background:url('../img/tooltip.png') no-repeat;
+	position:absolute;
+	width:177px;
+	height:146px;
+	right: 38px;
+	top: -140px;
+}
+
+.blueButton,
+.greenButton{
+	background:url('../img/buttons.png') no-repeat;
+	text-shadow:1px 1px 1px #277c9b;
+	color:#fff !important;
+	width:90px;
+	height:30px;
+	border:none;
+	text-decoration:none;
+	display:inline-block;
+	font-size: 16px;
+	line-height: 32px;
+	text-align: center;
+	margin: 0 4px;
+}
+
+.greenButton{
+	background:url('../img/buttons.png') no-repeat right top;
+	text-shadow:1px 1px 1px #498917;
+}
+
+.blueButton:hover,
+.greenButton:hover{
+	background-position:left bottom;
+	text-decoration:none !important;
+}
+
+.greenButton:hover{
+	background-position:right bottom;
+}
+
+.blueButton:active,
+.greenButton:active{
+	position:relative;
+	bottom:-1px;
+}
+
+.hidden{
+	display:none;
+}
+
+#HideCamera,
+#HidePhotos {
+	border:#000 1px solid; width:80px; margin-top:10px; padding:5px; background:#CCC; height:20px; cursor:pointer; margin-left:550px;
+}

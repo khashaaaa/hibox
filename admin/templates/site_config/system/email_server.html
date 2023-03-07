@@ -1,0 +1,42 @@
+<?
+    $smtpDocLink = "http://en.docs.otcommerce.com/display/OTENGLISHDOCS/SMTP+settings";
+    if (Session::getActiveAdminLang() == "ru") {
+        $smtpDocLink = "http://docs.otcommerce.com/pages/viewpage.action?pageId=25034827";
+    }
+?>
+<a href="<?=$smtpDocLink?>" target="_blank"><?=LangAdmin::get('Documentation')?> <i class="icon-external-link"></i></a><br/><br/>
+<div class="row-fluid" id="emailServerInfo">
+    <div class="span12">
+        <? if (empty($emailServerInfoList)) { ?>
+            <p><?=LangAdmin::get('List_is_empty')?></p>
+        <? } else { ?>
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs">
+                    <? foreach ($emailServerInfoList as $emailServerInfo) { ?>
+                        <li>
+                            <a href="javascript:void(0)" class="emailServer"  data-id="<?=$emailServerInfo->GetId()?>" action="<?=$PageUrl->Add('do', 'getEmailServerInfo')->Get()?>" data-loading-text="<span class='ot-preloader-mini'></span>">
+                                <? if (General::getConfigValue('email_smtp_server_id') == $emailServerInfo->GetId()) { ?>
+                                    <i class="icon-ok"></i>
+                                <? } ?>
+                                <?=$emailServerInfo->GetDisplayName()?>
+                            </a>
+                        </li>
+                    <? } ?>
+                </ul>
+                <div class="tab-content">
+                    <div id="emailServerMetaUI"></div>
+                </div>
+            </div>
+        <? } ?>
+    </div>
+</div>
+<? AssetsMin::registerJsFile('/admin/js/ot-config-system-email-server.js'); ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+$(window).load(function() {
+    $('.emailServer:first').click();
+});
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

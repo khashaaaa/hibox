@@ -1,0 +1,259 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('sets', 'default')?>" class="muted"><?=LangAdmin::get('Sets')?></a> <span class="divider">›</span></li>    
+    <li class="active"><?=LangAdmin::get('Sellers')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<? include('templates/sets/navigation/sub-tabs.html'); ?>
+
+<h1><?=LangAdmin::get('Sellers')?></h1>
+<div class="sets_wrapper">
+<div class="row-fluid offset-bottom1">
+
+    <div class="span4">
+        <strong data-target=".ot_add_seller_to_selection" data-toggle="collapse" class="blink blink-iconed"><i class="icon-plus"></i><?=LangAdmin::get('Add')?></strong>
+    </div>
+
+    <div class="span4">
+        <button id="save-order" itemType="Best" itemContentType="Vendor" class="btn btn-tiny disabled" data-loading-text="<i class='icon-sort-by-attributes-alt icon-rotate-270 font-14'></i> <?=LangAdmin::get('Saving_order')?>" title="<?=LangAdmin::get('Save_order')?>"><i class="icon-sort-by-attributes-alt icon-rotate-270 font-14"></i> <?=LangAdmin::get('Save_order')?></button>
+    </div>
+    
+    <div class="span2">
+        <? if (count($languages) > 1) { ?>
+        <!-- site language -->
+        <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle offset-top05" data-toggle="dropdown" href="#" title="<?=LangAdmin::get('Choose_lang_to_edit')?>">
+                <?=$currentLang?>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <? foreach ($languages as $code => $lang) { ?>
+                    <li><a href="<?=$PageUrl->AssignDo('sellers')?>&language=<?=$code?>"><?=$lang?></a></li>
+                <? } ?>
+            </ul>
+        </div>
+        <!-- /site language -->
+        <? } ?>
+    </div>
+    <div class="span2">
+        <button class="ot_clear_set btn btn-tiny" data-type="<?=$type?>" data-content-type="<?=$contentType?>"><?=LangAdmin::get('clear_set')?></button>
+    </div>
+
+</div>
+
+
+<div class="ot_add_seller_to_selection collapse">
+    <div class="well">
+
+        <form class="form-horizontal ot_form js-add-vendor_form" action="<?=$PageUrl->AssignCmdAndDo('sets', 'addSetsSeller')?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="language" id="currentLang" value="<?=$currentLang?>" data-lang="<?=$currentLang?>">
+            <div class="row-fluid">
+                <div class="span6 add_seller_column">
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Link_id_or_seller_name')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Addition_of_seller_by_name_id_or_link')?>"></i></label>
+                        <div class="controls">
+                            <input name="sellerId" id="sellerId" class="input-xlarge" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Display_image')?></label>
+                        <div class="controls">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+                                <div class="seller-image-upload-btn btn-file"> <!--class="btn btn-success btn-tiny btn-file"-->
+                                    <span class="fileupload-new btn btn-success btn-tiny btn-file"><?=LangAdmin::get('choose')?></span>
+                                    <!--span class="fileupload-exists"><?=LangAdmin::get('Change')?></span-->
+                                    <input type="file" name="seller_image" id="seller_image">
+                                </div>
+                                <span class="btn btn-danger btn-tiny fileupload-exists" data-dismiss="fileupload"><?=LangAdmin::get('Delete')?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6 add_seller_column">
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Display_name')?></label>
+                        <div class="controls">
+                            <input name="displayName" id="displayName" class="input-large" type="text">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="box box-blinked box-closed offset-top0 offset-bottom0">
+
+                <div class="box-header corner-top">
+                    <i class="icon-caret-right font-13"></i>
+                    <a href="#" data-box="collapse" class="font-13 bold">
+                        <?=LangAdmin::get('Seller_seo_attributes')?>
+                    </a>
+                </div>
+
+                <div class="box-body inset-horizontal-none inset-bottom0">
+
+                    <div class="control-group offset-top1">
+                        <label class="control-label"><?=LangAdmin::get('Seller_seo_title')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Seller_seo_title_hint')?>"></i></label>
+                        <div class="controls">
+                            <input class="input-xlarge" id="pagetitle" name="pagetitle" type="text" value="<?=$this->escape($sellerInfo['seo']['pagetitle'])?>">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Seller_seo_keywords')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Seller_seo_keywords_hint')?>"></i></label>
+                        <div class="controls">
+                            <textarea cols="20" rows="2" class="input-xxlarge" id="seo-keywords" name="seo-keywords"><?=$this->escape($sellerInfo['seo']['seo_keywords'])?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Seller_seo_description')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Seller_seo_description_hint')?>"></i></label>
+                        <div class="controls">
+                            <textarea cols="20" rows="2" class="input-xxlarge" id="seo-description" name="seo-description"><?=$this->escape($sellerInfo['seo']['seo_description'])?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><?=LangAdmin::get('Seller_url')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Seller_url_hint')?>"></i></label>
+                        <div class="controls">
+                            <input class="input-xlarge" type="text" name="alias" id="alias" value="<?=$url?>">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <br>
+
+
+            <div class="controls">
+                <button type="submit" class="btn btn-primary btn_preloader js-add-vendor" data-loading-text="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></button>
+                <button type="button" class="btn offset-left05 cancel-btn" data-target=".ot_add_seller_to_selection" data-toggle="collapse" title="<?=LangAdmin::get('Cancel_hide_form')?>"><?=LangAdmin::get('Cancel')?></button>
+            </div>
+
+        </form>
+
+    </div><!-- /.well -->
+
+</div><!-- /.ot_add_seller_to_selection .collapse-->
+
+<ul id="sellers-sortable" class="thumbnails ot_sortable_cols ot_sortable_sellers">
+    <input type="hidden" id="total-count" value="<?=$totalCount?>">
+    <input type="hidden" id="current-count" value="<?=count($sellers)?>">
+    <div class="ot-seller-template" style="display:none;">
+        <li class="seller-item" id="<?=$seller['id']?>" display-name="<?=$seller['DisplayName']?>" display-image="<?=$seller['DisplayPictureUrl']?>" type="Seller">
+            <div class="thumbnail">
+                <header>
+                    <span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span>
+                    <span class="pull-right">
+                        <a class="btn btn-mini ot_show_edit_seller" title="<?=LangAdmin::get('Edit')?>" target="_blank"><i class="icon-pencil"></i></a>
+                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+                    </span>
+                </header>
+                <a href="#" title="<?=LangAdmin::get('To_seller_page')?>" class="img_preview"><img src="" alt=""></a>
+                <h3 title="sellerName">sellerName</h3>
+            </div>
+        </li>
+   </div>
+
+   <?php foreach ($sellers as $i => $seller) {
+        $displayName = $seller['DisplayName'] ? $seller['DisplayName'] : $seller['Name']; 
+   ?>
+       <li class="seller-item" id="<?=$seller['id']?>" display-name="<?=$seller['DisplayName']?>" picture="<?=$seller['DisplayPictureUrl']?>" originalPicture="<?=$seller['PictureUrl']?>" type="Seller">
+            <div class="thumbnail">
+                <header>
+                    <span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span>
+                    <span class="pull-right">
+                        <a href="<?= $pageUrl->AssignCmdAndDo('sets', 'editSeller') . '&id=' . $seller['id'] ?>" target="_blank" class="btn btn-mini ot_show_edit_seller" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></a>
+                        <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+                    </span>
+                </header>
+                <a href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $seller['id']])?>"
+                    target="_blank"
+                    title="<?=LangAdmin::get('To_seller_page')?>"
+                    class="img_preview"
+                >
+                    <img src="<?=$seller['DisplayPictureUrl'] ? $seller['DisplayPictureUrl'] : $seller['PictureUrl']?>" alt="">
+                </a>
+                <h3 title="<?=$displayName?>"><?=$displayName?></h3>
+            </div>
+        </li>
+    <?php } ?>
+</ul>
+
+<div id="load-more-preloader" class="row-fluid" style="display: none;">
+    <div class="ot-preloader-mini"></div>
+</div>
+
+<?php if ($totalCount > count($sellers)) {?>
+    <a id="load-more-sellers"><?=LangAdmin::get('Load_more_sellers')?></a>
+<?php } ?>
+
+
+<!-- edit item window -->
+<div class="modal hide fade ot_edit_seller_dialog_modal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3><?=LangAdmin::get('Edit_seller')?></h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal ot_form " method="post" action="<?=$PageUrl->AssignCmdAndDo('sets', 'updateSetsSeller')?>" method="post" enctype="multipart/form-data" >
+            <input type="hidden" id="sellerId" name="sellerId">
+            <input type="hidden" name="language" id="currentLang" value="<?=$currentLang?>" data-lang="<?=$currentLang?>">
+            <div class="control-group">
+                <label class="control-label"><?=LangAdmin::get('Display_image')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="" data-original-title="" title=""></i></label>
+                <div class="controls">
+                
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+
+                                <div class="fileupload-new thumbnail thumbnail-mini">
+                                    <div class="thumbnail-placeholder"><img src="" alt=""></div>
+                                </div>
+
+                                <div class="fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+                                <div class="btn btn-success btn-tiny btn-file">
+                                    <!--<span class="fileupload-new">Выбрать</span>-->
+                                    <span class="fileupload-new"><?=LangAdmin::get('Change')?></span>
+                                    <span class="fileupload-exists"><?=LangAdmin::get('Change')?></span>
+                                    <input type="file" name="newImage">
+                                    <input type="hidden" name="existingImage" id="existing_image" class="file_name"/>
+                                    <input type="hidden" name="originalPicture" id="originalPicture"/>                                    
+                                </div>
+                                <span class="btn btn-danger btn-tiny fileupload-exists" data-dismiss="fileupload"><?=LangAdmin::get('Delete')?></span>
+                                <span class="btn btn-danger btn-tiny fileupload-new delete-existing-image" data-dismiss="fileupload"><?=LangAdmin::get('Delete')?></span>
+
+                            </div>
+                     
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label"><?=LangAdmin::get('Display_name')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content=""></i></label>
+                <div class="controls">
+                    <input id="displayName" name="displayName" class="input-large" type="text">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary pull-left btn_preloader" autocomplete="off" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+        <button type="button" class="btn pull-right" data-dismiss="modal"><?=LangAdmin::get('Cancel')?></button>
+    </div>
+
+</div><!-- /edit item window -->
+</div>
+<? AssetsMin::registerJsFile('/admin/js/ot-sets.js'); ?>
+
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/bootstrap-fileupload.min.js'); ?>
+
+

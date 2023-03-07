@@ -1,0 +1,89 @@
+<div class="main">
+<div class="userform newmessage">
+    <form action="/?p=support&mode=new" method="post" id="postform" onsubmit="return ChechSupportForm()">
+        <? if($success){ ?>
+            <div class="success">
+                <?=$success?>
+            </div>
+        <? } ?>
+        <? if($error){ ?>
+            <div class="error">
+                <?=$error?>
+            </div>
+        <? } ?>
+
+        <div class="form-group col-8" style="margin: 0 auto">
+            <label for="Subject"><?=Lang::get('subject')?><i class="glyphicon glyphicon-asterisk"></i></label>
+            <span class="input">
+                <input id="Subject" class="form-control col-lg-12" type="text" name="Subject" value="<?=$this->escape($subject)?>" onkeypress="EnableSubmit('new_ticket_button','postform')"/>
+            </span>
+
+
+            <label for="SalesId"><?=Lang::get('order_number')?></label>
+            <span class="input">
+                <select id="SalesId" name="SalesId" class="form-control col-lg-12">
+                    <option value=""><?=Lang::get('click_order')?></option>
+                    <? foreach($orders as $c){ ?>
+                        <option value="<?=$c['Id']?>" <? if ($orderId==$c['Id']) {?> selected <?} ?>><?=(defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, $c['Id']):(string)$c['Id'])?></option>
+                    <? } ?>
+                </select>
+            </span>
+
+            <label for="CategoryId"><?=Lang::get('category')?><i class="glyphicon glyphicon-asterisk"></i></label>
+            <span class="input">
+                <select id="CategoryId" name="CategoryId" onchange="EnableSubmit('new_ticket_button','postform')" class="form-control col-lg-12">
+                    <option value=""><?=Lang::get('select_category')?></option>
+                    <? foreach($cats as $c){ ?>
+                        <option value="<?=$c['CategoryId']?>" <? if ($categoryId==$c['CategoryId']) {?> selected <?} ?>><?=$c['Name']?></option>
+                    <? } ?>
+                </select>
+            </span>
+
+            <label for="Text"><?=Lang::get('message_text')?>:<i class="glyphicon glyphicon-asterisk"></i></label>
+            <span class="input">
+                <textarea id="Text" name="Text" class="form-control" onkeypress="EnableSubmit('new_ticket_button','postform');"><?=$this->escape($_POST['Text'])?></textarea>
+            </span>
+
+            <input type="button" name="send" value="<?=Lang::get('send_message')?>" class="btn btn-primary mt-2"  id="new_ticket_button" onclick="DisableSubmit('new_ticket_button','postform');"/>
+        </div>
+    </form>
+</div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    function DisableSubmit(id_button,form){
+        $('#'+id_button).attr("disabled", "disabled");
+        $('#'+id_button).css("color", "#999");
+        $('#'+form).submit();
+    }
+
+    function EnableSubmit(id_button){
+        $('#'+id_button).removeAttr("disabled style");
+    }
+
+    function ChechSupportForm(){
+        var can = true;
+        var str = $('#Subject').val();
+        str = str.replace(/\s/g, '');
+        if (str.length==0) {
+            $('#Subject').css('border-color','red');
+            can = false;
+        }
+        str = $('#Text').val();
+        str = str.replace(/\s/g, '');
+        if (str.length==0) {
+            $('#Text').css('border-color','red');
+            can = false;
+        }
+        str = $('#CategoryId').val();
+        str = str.replace(/\s/g, '');
+        if (str.length==0) {
+            $('#CategoryId').css('border-color','red');
+            can = false;
+        }
+        return can;
+    }
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

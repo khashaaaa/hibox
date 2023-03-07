@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="<?=Session::getActiveLang()?>">
+<head>
+    <?=General::runController('Header', 'renderHead')?>
+</head>
+<body class="
+<?=General::getConfigValue('current_site_theme')?>
+<?=(General::getConfigValue('rtl')) ? 'rtl' : ''?>
+<?=(General::getScriptName()) ? 'controller-'.General::getScriptName() : ''?>
+">
+
+<?=General::viewFetch('main/js-off')?>
+    
+<?=General::viewFetch('main/header/user-navigation', array('vars' => array('langs' => $langs, 'cms' => new CMS(), 'topMenu' => $topMenu, 'controller' => $controller)))?>
+
+<?=General::viewFetch('main/header/content', array('vars' => array('langs' => $langs, 'cms' => new CMS())))?>
+
+<?=General::runController('Header', 'renderSearchBar')?>
+
+<div id="error-dialog" style="display: none" title="<?=Lang::get('error')?>"></div>
+<div id="dialog-error" title="<?=Lang::get('error')?>">
+    <span class="error"></span>
+</div>

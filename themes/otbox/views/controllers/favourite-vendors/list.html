@@ -1,0 +1,74 @@
+<div class="content content-favourite-vendors">
+    <div class="content-block">
+        <h1><?= Lang::get('favourite_vendors') ?></h1><br>
+
+        <ul class="tabs tabs1 clrfix">
+            <li><a href="/?p=supportlist"><span><?=Lang::get('favourite_items')?></span><i></i></a></li>
+            <li class="active"><a href="/?p=favourite_vendors"><span><?=Lang::get('favourite_vendors')?></span><i></i></a></li>
+        </ul>
+
+        <div class="content-favourite-vendors-list">
+            <? if (! empty($vendors)) { ?>
+                <? foreach ($vendors as $vendor) { ?>
+                    <? if (! $vendor->errorCode) { ?>
+                        <div class="favourite-vendor js-favourite-vendors-item">
+                            <div class="favourite-vendor-image">
+                                <?= $vendor->renderImage() ?>
+                            </div>
+
+                            <div class="favourite-vendor-data">
+                                <div class="favourite-vendor-data-row">
+                                    <span><?= Lang::get('vendor') ?>:</span>
+                                    <span>
+                                        <?= $vendor->renderName() ?>
+                                    </span>
+                                </div>
+                                <? foreach ($vendor->features as $feature) { ?>
+                                    <? $name = $feature->GetDisplayNameAttribute(); ?>
+                                    <? $type = $feature->GetDisplayTypeAttribute(); ?>
+                                    <? $value = $feature->asString(); ?>
+
+                                    <? if ($name) { ?>
+                                        <div class="favourite-vendor-data-row">
+                                            <? if ($type === 'TaobaoRating') { ?>
+                                                <span><?= $name ?>:</span>
+                                                <span class="rating">
+                                                    <i class="i-raiting raiting_<?= $value ?>"></i>
+                                                </span>
+                                            <? } elseif ($type === 'StarRating') { ?>
+                                                <span><?= $name ?>:</span>
+                                                <span class="rating">
+                                                    <span class="ratyScore js-favourite-vendors-item-raty-score"
+                                                          data-score="<?= $value ?>"
+                                                    ></span>
+                                                </span>
+                                            <? } elseif ($type === 'Label') { ?>
+                                                <span class="badge badge-pill badge-info"><?= $name ?></span>
+                                            <? } else { ?>
+                                                <span><?= $name ?>:</span>
+                                                <span><?= $value ?></span>
+                                            <? } ?>
+                                        </div>
+                                    <? } ?>
+                                <? } ?>
+                            </div>
+
+                            <a href="javascript:void(0)"
+                               class="btn-small btn-remove btn-delete-item remove_vendor js-vendor-remove-favorites"
+                               data-action="<?= UrlGenerator::toRoute('favourite_vendors/delete', ['id' => $vendor->id]) ?>"
+                            >
+                                <span><?=Lang::get('drop_vendor') ?></span>
+                            </a>
+                        </div>
+                    <? } ?>
+                <? } ?>
+            <? } ?>
+        </div>
+    </div>
+</div>
+
+<?= Lang::loadJSTranslation(array('drop_vendor_from_fav', 'sure_delete_vendor')) ?>
+
+<? AssetsMin::registerCssFile('css/vendor/jquery.raty.css')?>
+<? AssetsMin::registerJsFile('js/vendor/jquery.raty.js') ?>
+<? AssetsMin::registerJsFile('js/pages/vendor.js'); ?>

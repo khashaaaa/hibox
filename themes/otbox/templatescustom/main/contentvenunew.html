@@ -1,0 +1,39 @@
+<? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>
+    <div class="so_filter_wrap block-shopby">
+        <div class="list-group">
+            <a href="/" class="list-group-item"><?=Lang::get('home')?></a>
+            <? if (isset($left_menu[0])) { ?>
+
+                <? foreach ($left_menu as $pageCurrent) {
+                    if (! array_key_exists('alias', $pageCurrent)) {
+                        continue;
+                    }
+                    ?>
+                    <a href="<?=UrlGenerator::generateContentUrl($pageCurrent['alias'])?>" <? print (@$pageCurrent['pagetitle']) ? 'title="'.$pageCurrent['pagetitle'].'"' : ''; ?>class="list-group-item <? if (($cur_page == $pageCurrent['alias']) and (empty($cur_page_digest))) { ?> active<? } ?>"><?=$this->escape($pageCurrent['title'])?></a>
+
+                    <?if (($pageCurrent['children']) and ($pageCurrent['alias']!='digest')) { ?>
+                        <ul class="listitem">
+
+                            <? foreach ($pageCurrent['children'] as $p) { ?>
+                                <li class="item">
+                                    <a href="<?=UrlGenerator::generateContentUrl($p['alias'])?>" <? if ($cur_page == $p['alias']){ ?> class="active" <? } ?>><?=$this->escape($p['title'])?></a>
+                                </li>
+                            <? } ?>
+
+
+                        </ul>
+                    <? } ?>
+                    <?if (($pageCurrent['children']) and ($cur_page=='digest') and ($pageCurrent['alias']=='digest')) { ?>
+                        <ul class="listitem">
+                            <? foreach ($pageCurrent['children'] as $p) { ?>
+                                <li class="item">
+                                    <a href="<?=UrlGenerator::generatDigestUrl('digest',$p['alias'])?>" <? if($cur_page_digest == $p['alias']){ ?> class="active" <? } ?> ><?=$p['title']?></a>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    <? } ?>
+                <? } ?>
+            <? } ?>
+        </div>
+    </div>
+<? } ?>

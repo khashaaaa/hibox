@@ -1,0 +1,11 @@
+<li id="<?=$category['Id']?>" title="<?=$this->escape($category['Name'])?>">
+    <span class="allcats_expand_button <?= $category['IsParent'] ? 'allcats_category_isparent' : ''?>">
+        <? if ($category['IsParent'] == 'true') { ?>
+            <i class="fa fa-chevron-right"></i>
+        <? } ?>
+    </span>
+    <a href="<?=General::generateUrl('subcategory', $category)?>">
+        <?=$this->escape($category['Name'])?>
+    </a>
+    <span class="allcats_subcategories"></span>
+</li>

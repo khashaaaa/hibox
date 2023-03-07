@@ -1,0 +1,135 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('calls')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Calls_statistics')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+<br/>
+    <ul class="nav nav-tabs">
+        <? if (empty($method)) { ?>
+	        <li class="active">
+	           <a href="javascript:void(0)"><?=LangAdmin::get('All_calls_statistics')?></a>
+	        </li>
+        <? } else { ?>
+            <li>
+                <a href="<?=$PageUrl->AssignCmdAndDo('Reports', 'calls', true)?>&fromdate=<?=$dateFrom?>&todate=<?=$dateTo?>&timePeriod=<?=$timePeriod?>&method=">
+                    <?=LangAdmin::get('All_calls_statistics')?>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#method-calls"><?=LangAdmin::get('Method_calls_statistics')?> <?=$method?></a>
+            </li>
+        <? } ?>
+    </ul>
+<br/>
+
+<div <?= !empty($method) ? 'id="method-calls"' : '' ?> class="<?= !empty($method) ? 'tab-pane active' : ''?>" >
+    <form action="<?=$PageUrl->AssignDo('default')?>">
+        <input type="hidden" name="cmd" value="Reports">
+        <input type="hidden" name="do" value="calls">
+        <input type="hidden" name="method" value="<?=$method?>">
+	    <div class="well inline-table offset-bottom0 offset-left">
+	        <p> <?=LangAdmin::get('Calls_detalization_for_period')?></p>
+	        <?=LangAdmin::get('from')?>
+	        <div class="input-append">
+	            <input name="fromdate" id="date-start-display" class="input-small date" type="text" value="<?=$dateFrom?>">
+	            <span class="btn add-on" id="date-start"><i class="icon-calendar"></i></span>
+	        </div>
+	        <?=LangAdmin::get('to')?>
+	        <div class="input-append">
+	            <input name="todate" id="date-end-display" class="input-small date" type="text" value="<?=$dateTo?>">
+	            <span class="btn add-on" id="date-end" ><i class="icon-calendar"></i></span>
+	        </div>
+	        <?=LangAdmin::get('Time_period')?>
+	        <div class="input-append">
+	            <select name="timePeriod" id="calls-detail-type" class="input-small" >
+	                <option value="Daily" <?=($timePeriod == 'Daily') ? 'selected="selected"' : '' ?>><?=LangAdmin::get('Daily')?></option>
+	                <option value="Monthly" <?=($timePeriod == 'Monthly') ? 'selected="selected"' : '' ?>><?=LangAdmin::get('Monthly')?></option>
+	            </select>
+	        </div>
+	        <div class="inline-block offset-left1">
+	            <input type="submit" id="apply_button" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Applying_filters')?>" autocomplete="off" value="<?=LangAdmin::get('Apply')?>">
+	        </div>
+	    </div>
+    </form>
+</div>
+<br/>
+<? if (empty($method)) { ?>
+<table class="table table-bordered bootstrap-datatable datatable" id="calls-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;"><?=LangAdmin::get('Method_name')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Total_calls_count')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Error_calls_count')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Payed_calls_count')?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <? foreach ($callsCount as $method => $row) { ?>    
+        <tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'?>">
+            <td><a href="<?=$PageUrl->AssignCmdAndDo('Reports', 'calls', true)?>&fromdate=<?=$dateFrom?>&todate=<?=$dateTo?>&timePeriod=<?=$timePeriod?>&method=<?=$method?>"><?=$method?></a></td>
+            <td><?= isset($row['totalCalls']) ? number_format($row['totalCalls']) : '-'?></td>
+            <td><?= isset($row['errorCalls']) ? number_format($row['errorCalls']) : '-'?></td>
+            <td><?= isset($row['payedCalls']) ? number_format($row['payedCalls']) : '-'?></td>
+        </tr>
+        <? } ?>
+        <tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'?>">
+            <td><strong><?=LangAdmin::get('in_total')?></strong></td>
+            <td><strong><?=number_format($totalCount)?></strong></td>
+            <td><strong><?=number_format($errorCount)?></strong></td>
+            <td><strong><?=number_format($payedCount)?></strong></td>
+        </tr>
+    </tbody>
+</table>
+<? } else { ?>
+<table class="table bootstrap-datatable datatable" id="calls-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;"><?=LangAdmin::get('Date')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Total_calls_count')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Error_calls_count')?></th>
+            <th style="width: 150px;"><?=LangAdmin::get('Payed_calls_count')?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <? foreach ($callsCount as $date => $row) { ?>    
+        <tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'?>">
+            <td><?=  date("d.m.Y", strtotime($date)) ?></td>
+            <td><?= isset($row['totalCalls']) ? number_format($row['totalCalls']) : '-'?></td>
+            <td><?= isset($row['payedCalls']) ? number_format($row['errorCalls']) : '-'?></td>
+            <td><?= isset($row['payedCalls']) ? number_format($row['payedCalls']) : '-'?></td>
+        </tr>
+        <? } ?>
+        <tr class="<?= ($i % 2 == 0) ? 'odd' : 'even'?>">
+            <td><strong><?=LangAdmin::get('in_total')?></strong></td>
+            <td><strong><?=number_format($totalCount)?></strong></td>
+            <td><strong><?=number_format($errorCount)?></strong></td>
+            <td><strong><?=number_format($payedCount)?></strong></td>
+        </tr>
+    </tbody>
+</table>
+<? } ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+$(document).ready(function(){
+    var options = {
+            columnDefs: [
+                {type: 'de_date', targets: 0 },
+                {},
+                {}
+            ]
+    };
+    if(currentAdminLang != 'en') {
+        options.language = {
+            url: '/admin/js/vendor/DataTables/js/i18n/' + currentAdminLang + '.lang.json'
+        }
+    }
+    $('#calls-table').DataTable(options);
+});
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

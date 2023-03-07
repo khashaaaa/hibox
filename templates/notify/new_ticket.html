@@ -1,0 +1,9 @@
+<div <?=General::getConfigValue('rtl') ? 'style="direction: rtl"': ''?>>
+    <?=Lang::get('hello')?>,<br />
+    <? if ($id) { ?>
+    <?=Lang::get('new_message_in_ticket')?> <?=$id?> <br />
+    <? }else{ ?>
+    <?=Lang::get('new_ticket_created_from_user')?> <a href="<?=UrlGenerator::getHomeUrl()?>/admin/index.php?sid=&cmd=users&do=userinfo&id=<?=$userid?>"><?=$login?></a><br />
+    <? } ?>
+    <?=Lang::get('enter_to_admin_panel')?> <a href="<?=UrlGenerator::getHomeUrl()?>/admin/"><?=UrlGenerator::getHomeUrl()?>/admin/</a>
+</div>

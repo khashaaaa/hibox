@@ -1,0 +1,23 @@
+<?php foreach ($items as $i => $item) {  ?>
+<li cid="<?=$categoryId?>" id="<?=$item['Id']?>" type="<?=$type?>" picture="<?= ProductsHelper::getImage($item)?>" originalPicture="<?= $item['MainPictureUrl']?>"> 
+    <div class="thumbnail">
+        <header>
+            <? if ($isOrderEditable) { ?>
+            <span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span>
+            <? } ?>
+            <span class="pull-right">
+                <button class="btn btn-mini ot_show_edit_selections_product_window ot_show_edit_selections_product_window" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></button>
+                <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+            </span>
+        </header>
+
+            <? $paramsByItemUrl = array();?>
+            <? if (isset($categoryId) && $categoryId) { ?>
+                <? $paramsByItemUrl['categoryId'] = $categoryId; ?>
+            <? } ?>
+            <? $itemUrl = UrlGenerator::generateItemUrl($item['Id'], $paramsByItemUrl); ?>
+        <a href="<?=$itemUrl?>" target="_blank" title="<?=LangAdmin::get('Item_page_on_site')?>" class="img_preview"><img id="img_preview" src="<?= ProductsHelper::getImage($item) ?>" alt=""></a>
+        <h3 title="<?=$item['Title']?>"><?=$item['Title']?></h3>
+    </div>
+</li>
+<?php } ?>

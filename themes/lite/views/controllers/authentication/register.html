@@ -1,0 +1,214 @@
+<div class="mt15">
+    <ul class="tabs tabs1 clrfix">
+        <li><a href="<?=@UrlGenerator::generateContentUrl('login')?>"><span><?=Lang::get('private_office_login')?></span><i></i></a></li>
+        <li class="active"><a href="<?=@UrlGenerator::generateContentUrl('register')?>"><span><?=Lang::get('registration_tab')?></span><i></i></a></li>
+        <li><a href="<?=@UrlGenerator::generateContentUrl('recovery')?>"><span><?=Lang::get('pass_recovery')?></span><i></i></a></li>
+    </ul>
+</div>
+<div class="tabs-content">
+    <div class="userform">
+        <form action="<?=UrlGenerator::toRoute('register')?>" method="post" id="register" class="form js-authentication-registration-form">
+            <div class="form-row">
+                <div class="error"><?= (!empty($error)) ? $error : '' ?></div>
+            </div>
+
+
+            <? if ($isPhoneRegistrationAllowed) { ?>
+                <div class="form-row">
+                    <a href="javascript:void(0)"
+                       class="js-authentication-change js-authentication-email auth-change"
+                       data-method="phone"
+                    ><?=Lang::get('registration_by_sms')?></a>
+
+                    <a href="javascript:void(0)"
+                       class="js-authentication-change js-authentication-phone auth-change"
+                       data-method="email"
+                       style="display: none"
+                    ><?=Lang::get('registration_by_email')?></a>
+                </div>
+            <? } ?>
+
+            <div class="form-row">
+                <label for="username">
+                    <?=Lang::get('login_username')?> *
+                </label>
+
+                <input id="username"
+                       type="text"
+                       name="username"
+                       value="<?=!empty($username) ? $this->escape($username) : ''?>"
+                       class="form-field required-field"
+                       maxlength="50"
+                       required
+                >
+            </div>
+
+            <div class="form-row">
+                <div class="js-authentication-method js-authentication-email">
+                    <label for="email">Email *</label>
+                    <input id="email" type="text" name="email" value="<?=!empty($email) ? $this->escape($email) : ''?>" class="form-field required-field js-authentication-method-input" required />
+                </div>
+
+                <? if ($isPhoneRegistrationAllowed) { ?>
+                    <input type="hidden" name="authenticationMethod" value="email" class="js-authentication-method-chosen">
+                    <div class="js-authentication-method js-authentication-phone" style="display: none">
+                        <label for="phone"><?=Lang::get('phone')?> *</label>
+                        <input id="phone" type="text" name="phone" value="<?=!empty($phone) ? $this->escape($phone) : ''?>" class="form-field required-field js-authentication-method-input" required />
+                    </div>
+                <? } ?>
+            </div>
+
+            <div class="form-row">
+                <label for="password"><?=Lang::get('password')?> *</label>
+                <input id="password" type="password" name="password" class="required-field form-field" required /><br/>
+                <small><?=Lang::get('password_desc')?></small>
+            </div>
+
+            <? if (General::IsFeatureEnabled('ReferralProgram')) { ?>
+                <div class="form-row">
+                    <label for="parent"><?=Lang::get('login_of_friend')?><br/><small><?=Lang::get('no_matter')?></small></label>
+
+                    <? if (empty($parentLogin)) { ?>
+                        <input id="parent" type="text" class="form-field" name="parent" /><br/>
+                    <? } else { ?>
+                        <input type="text" class="form-field" value="<?=$parentLogin?>" disabled /><br/>
+                        <input id="parent" type="hidden" name="parent" value="<?=$parentLogin?>"/>
+                    <? } ?>
+
+                    <small><?=Lang::get('referal_register_desc')?></small>
+
+                    <input id="parent_id" type="hidden" name="parent_id" value="<?=!empty($parentId) ? $parentId : ''?>" />
+                </div>
+            <? } ?>
+
+            <? if (!OTCaptcha::isCaptchaUnavailable()) { ?>
+                <div class="form-row">
+                    <label>&nbsp;</label>
+                    <?=OTCaptcha::getWidget(); ?>
+                </div>
+            <? } ?>
+
+            <div class="form-row">
+                <label>&nbsp;</label>
+                <label for="agree" class="agree">
+                    <input id="agree" type="checkbox" class="required-field checkbox" name="agree" value="agree" required />
+                    <?=Lang::get('agree_with')?> <a href="<?=UrlGenerator::toRoute('terms_of_use')?>" target="_blank"><?=Lang::get('user_agreement_l')?></a>
+                </label>
+            </div>
+
+            <?=Lang::get('required_fields')?><br/><br/>
+
+            <div class="form-row register">
+                <label>&nbsp;</label>
+                <input type="submit" id="submitb" name="login" value="<?=Lang::get('registration_label')?>"class="btn_office" />
+            </div>
+        </form>
+
+        <? if (General::IsFeatureEnabled('ExternalAuthentication')) { ?>
+            <div class="form-row">
+                <?=General::runController('Authentication', 'renderAuthSystemList')?>
+            </div>
+        <? } ?>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function(){
+        $('.js-authentication-registration-form').submit(function(){
+            var form = $(this);
+            var btn = form.find('input[type="submit"]');
+            btn.button('loading');
+            form.find('.error').html('');
+
+            $.post(
+                form.attr('action'),
+                form.serialize(),
+                function (data) {
+                    if (data.error) {
+                        form.find('.error').html(data.message);
+                        if (typeof captchaRefresh == 'function') {
+                            captchaRefresh();
+                        }
+                    } else if (data.redirect) {
+                        document.location = data.redirect;
+                    } else if (data.redirectConfirmation) {
+                        document.location = data.redirectConfirmation;
+                    }
+                }, 'json'
+            ).complete(function () {
+                btn.button('reset');
+            });
+
+            return false;
+        });
+
+        var checkregister = function() {
+            var f = true;
+            if ($('#username').val() == '') {
+                $('#username').addClass('required-field');
+                f = false;
+            } else {
+                $('#username').removeClass('required-field');
+            }
+
+            var $authenticationMethod = $('.js-authentication-method-chosen');
+
+            if ($authenticationMethod.length && $authenticationMethod.val() === 'phone') {
+                if ($('#phone').val() === '') {
+                    $('#phone').addClass('required-field');
+                    f = false;
+                } else {
+                    $('#phone').removeClass('required-field');
+                }
+            } else {
+                if ($('#email').val() === '') {
+                    $('#email').addClass('required-field');
+                    f = false;
+                } else {
+                    $('#email').removeClass('required-field');
+                }
+            }
+
+            if ($('#password').val() == '') {
+                $('#password').addClass('required-field');
+                f = false;
+            } else {
+                $('#password').removeClass('required-field');
+            }
+
+            if ($('#register .googleReCaptcha').length) {
+                if (! grecaptcha.getResponse().length) {
+                    $('#register .googleReCaptcha').addClass('required-field');
+                    f = false;
+                } else {
+                    $('#register .googleReCaptcha').removeClass('required-field');
+                }
+            }
+
+            if ($('#register .gdcaptcha').length) {
+                if ($('#register .gdcaptcha').val() == '') {
+                    $('#register .gdcaptcha').addClass('required-field');
+                    f = false;
+                } else {
+                    $('#register .gdcaptcha').removeClass('required-field');
+                }
+            }
+
+            if ($('#agree:checked').length == 0) f = false;
+            if (!f) {
+                $('#submitb').attr('disabled', 'disabled');
+                $('#submitb').addClass('btn_office_disabled');
+            } else {
+                $('#submitb').removeAttr('disabled');
+                $('#submitb').removeClass('btn_office_disabled');
+            }
+        };
+
+        setInterval(checkregister, 1000);
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/js/pages/authetication-phone.js'); ?>

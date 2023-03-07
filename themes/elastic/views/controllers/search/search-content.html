@@ -1,0 +1,195 @@
+<?=General::viewFetch('controllers/search/filters/image', array('vars' => array(
+    'searchResult' => $searchResult,
+    'searchProperties' => $searchProperties
+)))?>
+
+<?=General::viewFetch('controllers/search/status', array('vars' => array(
+    'searchResult' => $searchResult,
+    'searchParams' => $searchParams,
+    'activeSearchMethod' => $activeSearchMethod,
+    'searchProperties' => $searchProperties,
+    'baseUrl' => clone $baseUrl,
+)))?>
+
+<?=General::viewFetch('controllers/search/filters/filters', array('vars' => array(
+    'searchResult' => $searchResult,
+    'searchParams' => $searchParams,
+    'activeSearchMethod' => $activeSearchMethod,
+    'baseUrl' => clone $baseUrl,
+)))?>
+
+<div class="aside">
+    <div id="filter-menu" class="block-filter-mobile">
+
+        <?=General::viewFetch('controllers/search/vendor-info', array('vars' => array(
+            'searchResult' => $searchResult
+        )))?>
+
+        <?=General::viewFetch('controllers/search/brand-info', array('vars' => array(
+            'searchResult' => $searchResult
+        )))?>
+
+        <div class="filters-menu-inner">
+            <?=General::viewFetch('controllers/search/filters/search-method', array('vars' => array(
+                'availableSearchMethodList' => $availableSearchMethodList,
+                'searchParams' => $searchParams,
+                'activeSearchMethod' => $activeSearchMethod,
+            )))?>
+
+            <div class="accordion accordion-menu">
+                <?=General::viewFetch('controllers/search/filters/categories', array('vars' => array(
+                    'id' => 'search-content_categories-interested_categories',
+                    'title' => Lang::get('suitable_category'),
+                    'categories' => $categories,
+                    'searchParams' => $searchParams,
+                    'resetSearchContext' => false,
+                )))?>
+
+                <?=General::viewFetch('controllers/search/filters/categories', array('vars' => array(
+                    'id' => 'search-content_categories-hint_categories',
+                    'title' => Lang::get('Perhaps_you_are_interested'),
+                    'categories' => $hintCategories,
+                    'searchParams' => $searchParams,
+                    'resetSearchContext' => true,
+                )))?>
+
+                <?=General::viewFetch('controllers/search/filters/categories', array('vars' => array(
+                    'id' => 'search-content_categories-sub_categories',
+                    'title' => Lang::get('subcategories'),
+                    'categories' => $subCategories,
+                    'searchParams' => $searchParams,
+                    'resetSearchContext' => false,
+                )))?>
+            </div>
+
+            <?=General::viewFetch('controllers/search/filters/properties', array('vars' => array(
+                'searchProperties' => $searchProperties,
+                'searchParams' => $searchParams,
+                'baseUrl' => clone $baseUrl,
+                'activeSearchMethod' => $activeSearchMethod,
+                'typeOfInput' => ($activeSearchMethod->GetMultipleConfiguratorLogic() == 'None') ? 'radio' : 'checkbox'
+            )))?>
+        </div>
+    </div>
+</div> <!-- /fll col240 -->
+
+<div class="main">
+
+    <? if (! empty($products)) { ?>
+        <?=General::viewFetch('other/product/list-' . $searchParams['layout'], array('vars' => array(
+            'products' => $products
+        )))?>
+
+        <?=General::viewFetch('controllers/search/filters/pagination', array('vars' => array(
+            'from' => $searchParams['filter']['from'],
+            'perpage' => $searchParams['filter']['perPage'],
+            'maximumPageCount' => $searchResult->GetItems()->GetMaximumPageCount(),
+            'baseUrl' => clone $baseUrl,
+        )))?>
+    <? } else { ?>
+        <div class="alert alert-info">
+            <?=Lang::get('products_not_found')?>
+        </div>
+    <? } ?>
+
+    <?=General::viewFetch('controllers/search/banner-listing', array('vars' => array(
+        'availableSearchMethodList' => $availableSearchMethodList,
+        'searchParams' => $searchParams,
+        'activeSearchMethod' => $activeSearchMethod,
+    )))?>
+
+</div>
+
+<div class="clearfix"></div>
+
+<div class="modal" id="modal-filter" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-filter  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button align-middle" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <?=General::viewFetch('controllers/search/status', array('vars' => array(
+                'searchResult' => $searchResult,
+                'searchParams' => $searchParams,
+                'activeSearchMethod' => $activeSearchMethod,
+                'searchProperties' => $searchProperties,
+                'baseUrl' => clone $baseUrl,
+            )))?>
+
+            <div class="panel-grey panel-product">
+                <div class="buttons-group">
+                    <? if ($activeSearchMethod->GetFeatures()) { ?>
+                        <? foreach ($activeSearchMethod->GetFeatures()->GetFeature() as $feature) { ?>
+                            <? if (!$feature->CanBeTrue()) continue; ?>
+
+                            <? $featureUrl = clone $baseUrl?>
+                            <? $isActive = (! empty($searchParams['features'][$feature->GetName()]))?>
+                            <? $featureUrl->DeleteKey(array('features', $feature->GetName()))->DeleteKey('page')->DeleteKey('perpage'); ?>
+                            <a href="<?=$isActive ? $featureUrl->Get() : $featureUrl->Add('features[' . $feature->GetName() . ']', 'true')->Get()?>"
+                               class="btn btn-grey search-click <?=$isActive ? 'active' : ''?> feature-<?= $feature->GetName() ?>">
+                                <?= $isActive ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+                                <?=$feature->GetDisplayNameForTrue()?>
+                            </a>
+                        <? } ?>
+                    <? } ?>
+
+                    <? if ($activeSearchMethod->StuffStatus()) { ?>
+                        <? $featureUrl = clone $baseUrl?>
+                        <? $isActive = (! empty($searchParams['StuffStatus']))?>
+                        <? $featureUrl->DeleteKey('StuffStatus')->DeleteKey('page')->DeleteKey('perpage'); ?>
+                        <a href="<?=$isActive ? $featureUrl->Get() : $featureUrl->Add('StuffStatus', 'New')->Get()?>"
+                           class="btn btn-grey search-click <?=$isActive ? 'active' : ''?> feature-StuffStatus">
+                            <?= $isActive ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+                            <?=Lang::get('only_new')?>
+                        </a>
+                    <? } ?>
+                </div>
+            </div>
+
+            <div id="modal-filter-menu" class="accordion accordion-menu modal-filter-menu">
+                <div class="filters-menu-inner"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search-content-info">
+    <?= !empty($contentInfo) ? $contentInfo : '' ?>
+</div>
+
+<?= Lang::loadJSTranslation(array(
+    'vendor_score_filter_min',
+    'vendor_score_filter_max'
+)) ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+$('div.ratyScore').raty({
+readOnly: true
+});
+
+$(document).ready(function() {
+    var asideMenu = $('.aside').find('.filters-menu-inner');
+
+    $(".icon-filter").on("click", function(){
+        $('#modal-filter').modal('show');
+    });
+    $('#modal-filter').on('show.bs.modal', function () {
+        $('#modal-filter .filters-menu-inner').detach();
+        asideMenu.prependTo('#modal-filter-menu');
+    });
+
+    $(".modal-filter .close").on("click", function(){
+        $('#modal-filter').modal('hide');
+    });
+    $('#modal-filter').on('hide.bs.modal', function () {
+        $('#filter-menu .filters-menu-inner').detach();
+        asideMenu.prependTo('#filter-menu');
+    });
+});
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

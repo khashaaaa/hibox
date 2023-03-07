@@ -1,0 +1,7 @@
+<? if(isset($_GET['deposit']) && !isset($_GET['orderid'])){ ?>
+<!--<h2><?//=Lang::get('deposit_funds')?></h2>-->
+<? } else { ?>
+<h2><?=Lang::get('payment_order')?></h2>
+<? } ?>
+
+<?=$Pay?>

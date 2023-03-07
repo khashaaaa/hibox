@@ -1,0 +1,187 @@
+<div id="order">
+	<!-- Nav tabs -->
+	<div class="order-navbar">
+		<ul class="nav nav-tabs " role="tablist">
+			<li class="done"><?=Lang::get('reg_order')?>
+				<div class="arrow-left"></div>
+			</li>
+			<li role="presentation" class="
+                            <?= ($mode=='pay') && (! $orderInfo->GetSalesOrderInfo()->IsPaid()) ?'active selected ': ' '?>
+                            <?= (! $orderInfo->GetSalesOrderInfo()->IsPaid()) ? 'order-notpayed ' : 'done';?> 
+                            ">
+			    <? if (! $orderInfo->GetSalesOrderInfo()->IsPaid()) { ?>
+				<a href="#pay" id="arrow-pay" aria-controls="pay" role="tab" data-toggle="tab">
+					<div class="white-arrow-left"></div> <?=Lang::get('payment')?>
+					<div class="arrow-left"></div>
+                                </a>
+			    <? } else { ?>
+                                <div class="white-arrow-left"></div> <?=Lang::get('payment')?>
+                                <div class="arrow-left"></div>
+			    <? } ?>
+			</li>
+			<? $myOrderClass = 'selected';
+                if ($orderInfo->GetSalesOrderInfo()->GetRemainAmount() > 0) {
+                    $myOrderClass = 'notpayed'; //gray
+                } elseif ($orderInfo->GetSalesOrderInfo()->IsCancelled()) {
+                    $myOrderClass = 'canceled'; //gray
+                } elseif ($orderInfo->GetSalesOrderInfo()->IsCompleted()) {
+                    $myOrderClass = 'done'; //finished
+                }
+			?>
+			<li role="presentation" class="<?= ($mode=='info') ? 'active': ''; ?> <?=$myOrderClass?>">
+			     <a id="arrow-info" href="#info" aria-controls="info" role="tab" data-toggle="tab">
+					<div class="white-arrow-left"></div> <?=Lang::get('my_order')?>
+			     </a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel"
+			class="tab-pane <?= ($mode=='pay') ? 'active' : ''; ?>" id="pay">
+			<?=General::viewFetch('controllers/order/pay', array('vars' => $vars))?>
+		</div>
+		<div role="tabpanel"
+			class="tab-pane <?= ($mode=='info') ? 'active' : ''; ?>" id="info">
+			<?=General::viewFetch('controllers/order/orderinfo', array('vars' => $vars))?>
+		</div>
+	</div>
+</div>
+
+<style>
+/*  Tabs  */
+#order .order-navbar {
+	margin-bottom: 20px;
+}
+
+#order .disabled-li {
+	background: #edefef !important;
+	color: black !important;
+}
+
+#order .navbar {
+	margin-bottom: 0px;
+}
+
+#order .nav-tabs {
+	border: none;
+}
+
+#order .nav-tabs>li>a {
+	border: none;
+	background: none;
+	height: 30px;
+	line-height: 30px;
+}
+
+#order .order-navbar .nav>li.selected {
+	background: #FF9900 ;
+	color: white !important;
+}
+
+#order .order-navbar .nav>li {
+	float: left;
+	width: 33.33%;
+	text-align: center;
+	background: #5cb85c;
+	color: white;
+	font-weight: bold;
+	height: 30px;
+	line-height: 30px;
+	opacity: 0.7;
+}
+
+#order .order-navbar .nav>li a, #order .order-navbar .nav>li a:hover {
+	padding: 0px;
+	color: white;
+	background: none;
+}
+
+#order .order-navbar .nav>li.done {
+	color: white;
+	background: #5cb85c;
+}
+
+#order .order-navbar .nav>li a, #order .order-navbar .nav>li a:hover {
+	color: white !important;
+}
+
+
+#order .order-navbar .nav>li.notactive, 
+#order .order-navbar .nav>li.notactive:hover,
+#order .order-navbar .nav>li.notactive:focus {
+    background: rgba(255, 153, 0, 0.7);
+    color: white!important;
+    text-shadow: none; 
+    opacity: 1;
+}
+
+#order .order-navbar .nav>li.active, 
+#order .order-navbar .nav>li.active:hover,
+#order .order-navbar .nav>li.active:focus {
+    background: #FF9900;
+    color: white!important;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 1);
+    opacity: 1;
+}
+
+
+#order .order-navbar .nav>li.active a{
+/*    color: black!important;
+    /*text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5)!important;*/
+}
+
+#order .arrow-left {
+	border: 15px solid transparent;
+	width: 0;
+	height: 0;
+	border-left-color: #5cb85c;
+	border-right: 0;
+	display: block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background: white;
+	margin-right: -2px;
+}
+
+#order .selected .arrow-left {
+	border: 15px solid transparent; width : 0; height : 0;
+	border-left-color: #FF9900;
+	border-right: 0;
+	display: block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background: white;
+	margin-right: -2px;
+	width: 0;
+	height: 0;
+}
+
+#order .white-arrow-left {
+	border: 15px solid transparent;
+	width: 0;
+	height: 0;
+	border-left-color: white;
+	border-right: 0;
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#order .order-navbar .nav>li.notactive .arrow-left {
+    border-left-color: rgba(255, 153, 0, 0.7);
+}
+
+#order .order-navbar .nav>li.notpayed{
+    background: silver;
+}
+
+#order .order-navbar .nav>li.canceled{
+    background: #d9534f!important;
+}
+
+</style>

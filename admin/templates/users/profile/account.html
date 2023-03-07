@@ -1,0 +1,179 @@
+<? if (empty($ajax)) { ?>
+<h2><?=LangAdmin::get('Account')?></h2>
+
+<!--
+TODO: show system messages after submit redirect
+-->
+
+<!-- System feedback messages-->
+
+<!--
+    <p class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert" title="<?=LangAdmin::get('Hide_notice')?>">×</button>
+        <i class="icon-ok"></i> <?=LangAdmin::get('Money_credited_to_user_account')?>.
+    </p>
+
+    <p class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert" title="<?=LangAdmin::get('Hide_notice')?>">×</button>
+        <i class="icon-exclamation-sign"></i> <?=LangAdmin::get('Failed_to_creadit_user_account')?>.
+    </p>
+
+    <p class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert" title="<?=LangAdmin::get('Hide_notice')?>">×</button>
+        <i class="icon-ok"></i> <?=LangAdmin::get('Money_successfully_withdrawn_from_user_account')?>.
+    </p>
+
+    <p class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert" title="<?=LangAdmin::get('Hide_notice')?>">×</button>
+        <i class="icon-exclamation-sign"></i> <?=LangAdmin::get('Failed_to_withdraw')?>.
+    </p>
+-->
+
+<!-- /System feedback messages-->
+<div id="ajax-account-content">
+    <? } ?>
+
+    <? if (empty($ajax) && $activeTab !== 'account') { ?>
+    <div class="text-center"><div class="ot-preloader-small"></div></div>
+    <? } else { ?>
+    <div class="well">
+
+        <h3><?=$this->escape($user->getDisplayName());?></h3>
+
+        <dl class="dl-horizontal dl-ot-horizontal">
+
+            <dt><?=LangAdmin::get('Account_number')?></dt>
+            <dd><?=(string)$userAccount['id']?></dd>
+
+            <dt><?=LangAdmin::get('Funds')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('Enter_the_amount_to_enroll_or_withdraw_from_the_account')?>"></i></dt>
+            <dd>
+                <span id="accountAvailableAmount" class="badge weight-normal font-13"><?=$userAccount['AvailableCust']?> <?=$userAccount['CurrencySignCust']?></span>
+
+                <div class="inline-block offset1" data-toggle="buttons-radio">
+                    <button id="toggleEnrollForm" type="button" class="btn btn-tiny" data-toggle="collapse" data-target=".credit-user-account-form" title="<?=LangAdmin::get('Recharge_user_account')?>"><i class="icon-plus-sign color-green"></i> <?=LangAdmin::get('Enroll')?></button>
+                    <button id="toggleWithdrawForm" type="button" class="btn btn-tiny" data-toggle="collapse" data-target=".debit-user-account-form" title="<?=LangAdmin::get('Withdraw_funds_from_the_user_account')?>"><i class="icon-minus-sign color-red"></i> <?=LangAdmin::get('Withdraw')?></button>
+                </div>
+            </dd>
+
+            <!--
+            TODO:
+            1) Show only one form at once when clickin' «credit-debit» buttons
+            2) Remove pressing effect at «credit-debit» buttons after pressing cancel button on one of the forms, as well as unpress the same control button
+            -->
+
+            <!--credit-user-account-form-->
+            <div class="collapse credit-user-account-form">
+                <form class="form-horizontal offset-top1 offset-bottom2">
+                    <h4><?=LangAdmin::get('Enrolling_funds')?></h4>
+                    <dt class="text-success">
+                        <?=LangAdmin::get('Amount')?>
+                        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('For_example', array('example' => '1000.23'))?>"></i>
+                    </dt>
+                    <dd>
+                        <input name="amount" type="text" class="input-mini price">
+                    </dd>
+                    <dt class="text-success"><?=LangAdmin::get('Notice')?></dt>
+                    <dd>
+                        <textarea name="comment" class="input-xlarge" rows="2"></textarea>
+                    </dd>
+                    <dd>
+                        <div class="offset-top05">
+                            <button id="enrollMoneyBtn" autocomplete="off" data-loading-text="<?=LangAdmin::get('Enroll')?>" class="btn btn-primary btn_preloader" type="button"><?=LangAdmin::get('Enroll')?></button>
+                            <button class="btn" type="button" data-toggle="collapse" data-target=".credit-user-account-form"><?=LangAdmin::get('Cancel')?></button>
+                        </div>
+                    </dd>
+                    <input name="isDebit" type="hidden" value="true"/>
+                </form>
+            </div>
+
+            <!--debit-user-account-form-->
+            <div class="collapse debit-user-account-form">
+                <form class="form-horizontal offset-top1 offset-bottom2">
+                    <h4><?=LangAdmin::get('Withdrawing_funds')?></h4>
+                    <dt class="text-error">
+                        <?=LangAdmin::get('Amount')?>
+                        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="right" data-content="<?=LangAdmin::get('For_example', array('example' => '1000.23'))?>"></i>
+                    </dt>
+                    <dd>
+                        <input name="amount" type="text" class="input-mini price">
+                    </dd>
+                    <dt class="text-error"><?=LangAdmin::get('Notice')?></dt>
+                    <dd>
+                        <textarea name="comment" class="input-xlarge" rows="2"></textarea>
+                    </dd>
+                    <dd>
+                        <div class="offset-top05">
+                            <button id="withdrawMoneyBtn" autocomplete="off" data-loading-text="<?=LangAdmin::get('Withdraw')?>" class="btn btn-primary btn_preloader" type="button"><?=LangAdmin::get('Withdraw')?></button>
+                            <button class="btn" type="button" data-toggle="collapse" data-target=".debit-user-account-form"><?=LangAdmin::get('Cancel')?></button>
+                        </div>
+                    </dd>
+                    <input name="isDebit" type="hidden" value="false"/>
+                </form>
+            </div>
+
+        </dl>
+
+    </div><!-- ./well-->
+
+
+    <h4><?=LangAdmin::get('Operations')?></h4>
+
+    <? if(RightsManager::hasRight(RightsManager::RIGHT_VIEWINSTANCEUSERACTIONSLOG)) {  ?>
+    <p>
+        <button id="showUserLogBtn" class="btn btn-primary">
+            <?=LangAdmin::get('Show_operator_actions')?>
+        </button>
+        <button id="hideUserLogBtn" class="btn btn-primary hidden">
+            <?=LangAdmin::get('Hide_operator_actions')?>
+        </button>
+    </p>
+    <? } ?>
+
+    <table id="accountOperationsHistory" class="table table-bordered" style="visibility: <?=(!empty($moneyHistory['TransList']) ? 'visible' : 'hidden');?>">
+        <thead>
+        <tr>
+            <th><?=LangAdmin::get('Date')?></th>
+            <th><?=LangAdmin::get('Amount')?></th>
+            <th><?=LangAdmin::get('Notice')?></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <? if (! empty($moneyHistory['TransList'])) { ?>
+        <? foreach ($moneyHistory['TransList'] as $transaction) { ?>
+        <tr>
+            <? $date = strtotime($transaction['TransDate']);?>
+            <td><?=date("d.m.Y", $date)?> <span class="muted">(<?=date("H:i:s", $date)?>)</span></td>
+            <td class="text-<?=((float)$transaction['AmountCust'] < 0 ? 'error' : 'success')?>"><?=$transaction['AmountCust']?> <?=$transaction['CurrencySignCust']?></td>
+            <td><?=OrdersProxy::normalizeOrderId($transaction['Comment'])?></td>
+        </tr>
+        <? } ?>
+        <? } ?>
+        </tbody>
+    </table>
+
+    <? if (empty($moneyHistory['TransList'])) { ?>
+    <p class="alert alert-info" id="noAccountOperationsFound"><?=LangAdmin::get('No_account_operations_found')?></p>
+    <? } ?>
+    <? } ?>
+
+    <? if (empty($ajax)) { ?>
+</div>
+<? } ?>
+
+
+<? if(RightsManager::hasRight(RightsManager::RIGHT_VIEWINSTANCEUSERACTIONSLOG)) {  ?>
+<div id="userLogWrapper" class="hidden">
+    <table class="table table-striped display" id="userLog">
+        <thead>
+        <tr>
+            <th><?=LangAdmin::get('Date')?></th>
+            <th><?=LangAdmin::get('Action')?></th>
+            <th><?=LangAdmin::get('Operator')?></th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<? } ?>

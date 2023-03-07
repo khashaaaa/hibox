@@ -1,0 +1,632 @@
+<style>
+
+    /* main styles*/
+
+    .debug {
+        font-size: 13px;
+        font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+        direction: ltr;
+        text-align: left;
+        z-index: 6000000;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-top: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: #fff;
+        color: #000;
+        line-height: 1;
+        letter-spacing: normal;
+    }
+    .debug * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-weight: normal;
+        text-decoration: none;
+        clear: initial;
+        width: auto;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+    .debug a {
+        cursor: pointer;
+    }
+    .debug ul {
+        list-style: none;
+    }
+    .debug code,
+    .debug pre,
+    .debug samp {
+        background: none;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        font-size: 1em;
+        border: 0;
+        padding: 0;
+        line-height: 20px;
+    }
+    .debug code span {
+        color: #888;
+    }
+    .debug-panel {
+        overflow: auto;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        padding: 10px;
+    }
+    .debug-panel table {
+        margin: 10px 0 !important;
+        width: 100% !important;
+    }
+
+    /* debug top border */
+
+    .debug-mini {
+        background: #fff;
+        border-top: 3px solid #fa5661;
+        cursor: pointer;
+        right: 0;
+        bottom: 0;
+        padding: 5px 10px;
+        position: fixed;
+    }
+
+    /* debug header styles */
+
+    .debug-header {
+        min-height: 35px;
+        line-height: 20px;
+        border-top: 3px solid #fa5661;
+    }
+    .debug-header a {
+        color: #000;
+    }
+    .debug-header > div > * {
+        padding: 5px 5px;
+        font-size: 13px;
+    }
+    .debug-tab {
+        min-height: 35px;
+        margin-bottom: -1px;
+        vertical-align: middle;
+        line-height: 30px;
+        padding: 0 8px !important;
+        border-left: 1px solid #ddd;
+    }
+    .debug-tab:first-of-type {
+        border-left: 0;
+    }
+    .debug-tab .debug-badge {
+        vertical-align: 0;
+        padding: 2px 8px 3px 8px;
+        text-align: center;
+        background: #fa5661;
+        font-size: 11px;
+        font-family: monospace;
+        color: #fff;
+        text-shadow: 1px 1px #bf3039;
+        border-radius: 10px;
+        top: -1px;
+        position: relative;
+    }
+    .debug-tab.active {
+        background: #fa5661;
+        color: #fff !important;
+        text-shadow: 1px 1px #bf3039;
+    }
+    .debug-tab.active .debug-badge {
+        color: #fa5661;
+        background: #fff;
+        text-shadow: none;
+    }
+    .debug-header-right > * {
+        float: right;
+    }
+    .debug-header-left > * {
+        float: left;
+    }
+    /* header right blocks */
+    .debug-indicator {
+        border-left: 1px solid #ddd;
+        padding: 6px 5px 9px 5px !important;
+    }
+    .debug-indicator:first-of-type {
+        border-right: 1px solid #ddd;
+    }
+    /* debug collapse btn styles */
+    .debug-collapse-btn {
+        display: block;
+        margin-left: 4px;
+        padding: 5px 10px;
+    }
+    .debug-collapse-btn .arrow {
+        border: solid black;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        float: left;
+        margin-top: 11px;
+        padding: 3px;
+    }
+    .debug-collapse-btn .arrow.up {
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+    }
+    .debug-collapse-btn .arrow.down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        position: relative;
+        bottom: 4px;
+    }
+    /* debug close btn styles */
+    .debug-close-btn span {
+        font-size: 20px !important;
+        float: left !important;
+    }
+
+    /* body styles */
+
+    .debug-widgets-list {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    }
+    .debug-widgets-list .debug-widgets-list-item {
+        padding: 3px 6px;
+        border: none;
+        border-bottom: 1px solid #eee;
+        font-family: inherit;
+        overflow: hidden;
+        position: relative;
+    }
+    .debug-panel .debug-widgets-status {
+        padding: 9px 20px !important;
+        width: calc(100% - 20px);
+        margin-left: -10px;
+        margin-top: -10px;
+        line-height: 11px !important;
+        font-weight: bold !important;
+        background: #f5f5f5 !important;
+        border-bottom: 1px solid #cecece !important;
+    }
+    .debug-panel table .debug-widgets-name {
+        font-size: 13px;
+    }
+    .debug-widgets-timeline {
+        width: calc(100% + 20px);
+        margin-left: -10px !important;
+        margin-top: -20px !important;;
+    }
+    .debug-widgets-timeline .debug-widgets-timeline-row {
+        width: 100%;
+        float: left;
+        margin-bottom: -1px;
+    }
+    .debug-widgets-timeline .debug-widgets-timeline-row * {
+        box-sizing: border-box;
+        position: relative;
+        float: left;
+    }
+    .debug-widgets-timeline .debug-widgets-measure {
+        position: relative;
+        border: none;
+        display: block;
+        width: 100%;
+        height: 30px;
+    }
+    .debug-widgets-timeline .debug-widgets-measure .debug-widgets-value {
+        height: 20px;
+        background: #3db9ec;
+        margin-top: 5px;
+    }
+    .debug-widgets-timeline .debug-widgets-params {
+        display: none;
+        width: 70%;
+        margin: 10px;
+        border: 1px solid #ddd;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        border-collapse: collapse;
+    }
+    .debug-widgets-timeline .debug-widgets-params .debug-widgets-name {
+        width: 20%;
+        font-weight: bold;
+        line-height: 30px;
+    }
+    .debug-widgets-timeline .debug-widgets-params td {
+        border: 1px solid #ddd;
+        border-right: 0;
+        padding: 0 5px;
+    }
+    .debug-widgets-timeline .debug-widgets-value {
+        width: calc(80% + 1px);
+        height: 32px;
+        margin-left: -1px;
+        border-bottom: 2px solid #477e96;
+        display: block;
+        border-radius: 2px;
+        min-width: 1px;
+    }
+    .debug-widgets-timeline .debug-widgets-label {
+        position: absolute;
+        font-size: 12px;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        color: #fff;
+        top: 7px;
+        left: 5px;
+        background: none;
+        font-weight: normal;
+        white-space: pre;
+        text-shadow: 1px 1px #000;
+    }
+    .debug-widgets-queries .debug-widgets-status {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        padding: 6px 6px;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+        color: #555;
+        background: #fafafa;
+    }
+    .debug-widgets-queries .debug-widgets-list-item-info {
+        float: left;
+        width: calc(100% - 200px);
+    }
+    .debug-widgets-queries .debug-widgets-duration {
+        color: #888;
+        margin: 0;
+        float: right;
+        width: 200px;
+        text-align: left;
+    }
+    .debug-widgets-queries .log-additional {
+        margin-top: 5px;
+        color: #777;
+    }
+    .debug-widgets-queries .log-additional-row {
+        margin-bottom: 5px;
+        float: left;
+        width: 100%;
+        color: #888;
+    }
+    .debug-widgets-queries .additional-more {
+        cursor: pointer;
+    }
+
+    /* styles for modal dialogs*/
+
+    .modal-body .debug {
+        position: relative;
+        float: left;
+    }
+    .modal-body .debug-wrapper {
+        float: left;
+        width: calc(100% + 30px);
+        margin: -15px;
+    }
+    /* .modal-content exists not in every modal*/
+    .modal-content .debug-wrapper {
+        width: calc(100% + 2rem);
+        margin: -1rem;
+    }
+    .modal-body .debug-mini {
+        position: relative;
+    }
+    .debug-body {
+        height: 300px;
+        float: left;
+        width: 100% !important;
+    }
+    .closed {
+        display: none !important;
+    }
+
+    /* adaptivity */
+
+    @media screen and (max-width: 480px) {
+        .debug-text {
+            font-size: 8px;
+        }
+        .a.debug-tab span.debug-badge {
+            font-size: 8px;
+        }
+    }
+</style>
+
+<? $wrapperUniqSelector = 'js-debug-wrapper-' . $uniqId; ?>
+<? $memoryUsage = Debugger::getMemoryUsage(); ?>
+<? $fullTime = Debugger::calculateTime($logsAll); ?>
+<? $roundingPrecision = 5; ?>
+
+<div class="debug-wrapper js-debug-wrapper <?= $wrapperUniqSelector ?>"
+    data-use-states="<?= ! RequestWrapper::isAjax() ? 'true' : 'false' ?>"
+>
+    <div class="debug">
+        <div class="debug-mini js-debug-mini closed">
+            <?= number_format($fullTime, $roundingPrecision) ?> сек. &nbsp;
+            <?= number_format($memoryUsage, $roundingPrecision) ?> MB
+        </div>
+
+        <div class="debug-content js-debug-content closed">
+            <div class="debug-header">
+                <div class="debug-header-left">
+                    <a class="debug-tab js-debug-tab active" id="debugTab-all" data-type="all">
+                        <span class="debug-text">Все запросы</span>
+                    </a>
+
+                    <? foreach ($logs as $logsType => $logsOfType) { ?>
+                        <a class="debug-tab js-debug-tab" id="debugTab-<?= $logsType ?>" data-type="<?= $logsType ?>">
+                            <span class="debug-text">
+                                <?= Lang::get(strtolower($logsType)) ?>
+                            </span>
+
+                            <span class="debug-badge">
+                                <?= count($logsOfType) ?>
+                            </span>
+                        </a>
+                    <? } ?>
+
+                    <a class="debug-tab js-debug-tab" id="debugTab-timeline" data-type="timeline">
+                        <span class="debug-text">График</span>
+                    </a>
+                </div>
+
+                <div class="debug-header-right">
+                    <a class="debug-close-btn">
+                        <span class="js-debug-close" aria-hidden="true">&times;</span>
+                    </a>
+
+                    <a class="debug-collapse-btn js-debug-collapse-open closed">
+                        <span class="arrow up"></span>
+                    </a>
+
+                    <a class="debug-collapse-btn js-debug-collapse-close closed">
+                        <span class="arrow down"></span>
+                    </a>
+
+                    <span class="debug-indicator">
+                        <span class="debug-text">
+                            <?= number_format($fullTime, $roundingPrecision) ?> сек.
+                        </span>
+                    </span>
+
+                    <span class="debug-indicator">
+                        <span class="debug-text">
+                            <?= number_format($memoryUsage, $roundingPrecision) ?> MB
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="debug-body js-debug-body closed">
+                <div class="debug-panel js-debug-body-panel" data-type="all">
+                    <div class="debug-widgets-queries">
+                        <?= General::viewFetch('main/debug_list', [
+                            'path' => CFG_APP_ROOT . '/views',
+                            'vars' => [
+                            'logs' => $logsAll,
+                                'roundingPrecision' => $roundingPrecision,
+                            ],
+                        ]) ?>
+                    </div>
+                </div>
+
+                <? foreach ($logs as $logsType => $logsOfType) { ?>
+                    <div class="debug-panel js-debug-body-panel closed" data-type="<?= $logsType ?>">
+                        <div class="debug-widgets-queries">
+                            <?= General::viewFetch('main/debug_list', [
+                                'path' => CFG_APP_ROOT . '/views',
+                                'vars' => [
+                                'logs' => $logsOfType,
+                                    'roundingPrecision' => $roundingPrecision,
+                                ],
+                            ]) ?>
+                        </div>
+                    </div>
+                <? } ?>
+
+                <div class="debug-panel js-debug-body-panel closed" data-type="timeline">
+                    <ul class="debug-widgets-timeline">
+                        <li>
+                            <table style="display: table; border: 0; width: 99%" class="debug-widgets-params">
+                                <? foreach ($logs as $logsType => $logsOfType) { ?>
+                                    <? $time = Debugger::calculateTime($logsOfType); ?>
+                                    <? $timePercent = ($time / $fullTime) * 100; ?>
+                                    <? $timePercent = round($timePercent, 2); ?>
+
+                                    <tr class="debug-widgets-timeline-row">
+                                        <td class="debug-widgets-name">
+                                            <?= Lang::get(strtolower($logsType)) ?> (<?= $timePercent ?>%)
+                                        </td>
+                                        <td class="debug-widgets-value">
+                                            <div class="debug-widgets-measure">
+                                                <span class="debug-widgets-value" style="width:<?= $timePercent ?>%"></span>
+                                                <span class="debug-widgets-label"><?= round($time, $roundingPrecision) ?> сек.</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <? } ?>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Debugger ($wrapper) {
+        let innerDebugger = {
+            events: {
+                click: {
+                    '.js-debug-tab': 'showTab',
+
+                    '.js-debug-collapse-open': 'setStateFullOpenProxy',
+                    '.js-debug-collapse-close': 'setStatePartOpenProxy',
+
+                    '.js-debug-close': 'setStateCloseProxy',
+                    '.js-debug-mini': 'setStatePartOpenProxy',
+
+                    '.js-debug-body-row-additional-more': 'showAdditional',
+                }
+            },
+
+            initialize: function ($wrapper)
+            {
+                this.getState($wrapper);
+                this.bindEvents($wrapper);
+            },
+
+            bindEvents: function ($wrapper)
+            {
+                let self = this;
+
+                for (let [event, bindings] of Object.entries(this.events)) {
+                    for (let [element, method] of Object.entries(bindings)) {
+                        self.bindEvent($wrapper, element, event, method);
+                    }
+                }
+            },
+
+            bindEvent: function ($wrapper, el, event, method)
+            {
+                let self = this;
+
+                $wrapper.find(el).on(event, function (e) {
+                    self[method](e);
+                });
+            },
+
+            getState: function ($wrapper)
+            {
+                let state = '';
+
+                if (this.useStates($wrapper)) {
+                    state = localStorage.debugState ? localStorage.debugState : 'partOpen';
+                }
+
+                switch (state) {
+                    case 'close':
+                        this.setStateClose($wrapper);
+                        break;
+                    case 'partOpen':
+                        this.setStatePartOpen($wrapper);
+                        break;
+                    default:
+                        this.setStateFullOpen($wrapper);
+                        break;
+                }
+            },
+
+            setStateFullOpenProxy: function (e)
+            {
+                this.setStateFullOpen(this.getWrapper(e));
+            },
+
+            setStateFullOpen: function ($wrapper)
+            {
+                this.dropState($wrapper);
+                this.openElement($wrapper.find('.js-debug-body'));
+                this.openElement($wrapper.find('.js-debug-content'));
+                this.openElement($wrapper.find('.js-debug-collapse-close'));
+                this.saveState($wrapper, 'fullOpen');
+            },
+
+            setStatePartOpenProxy: function (e)
+            {
+                this.setStatePartOpen(this.getWrapper(e));
+            },
+
+            setStatePartOpen: function ($wrapper)
+            {
+                this.dropState($wrapper);
+                this.openElement($wrapper.find('.js-debug-content'));
+                this.openElement($wrapper.find('.js-debug-collapse-open'));
+                this.saveState($wrapper, 'partOpen');
+            },
+
+            setStateCloseProxy: function (e)
+            {
+                this.setStateClose(this.getWrapper(e));
+            },
+
+            setStateClose: function ($wrapper)
+            {
+                this.dropState($wrapper);
+                this.openElement($wrapper.find('.js-debug-mini'));
+                this.saveState($wrapper, 'close');
+            },
+
+            saveState: function ($wrapper, state)
+            {
+                if (this.useStates($wrapper)) {
+                    localStorage.debugState = state;
+                }
+            },
+
+            dropState: function ($wrapper)
+            {
+                this.closeElement($wrapper.find('.js-debug-body'));
+                this.closeElement($wrapper.find('.js-debug-mini'));
+                this.closeElement($wrapper.find('.js-debug-collapse-open'));
+                this.closeElement($wrapper.find('.js-debug-collapse-close'));
+                this.closeElement($wrapper.find('.js-debug-content'));
+            },
+
+            /* other methods */
+
+            showTab: function (e)
+            {
+                let $tab = $(e.currentTarget);
+                let $wrapper = this.getWrapper(e);
+
+                let $panels = $wrapper.find('.js-debug-body-panel');
+                let panelType = $tab.data('type');
+
+                $wrapper.find('.js-debug-tab').removeClass('active');
+                $tab.addClass('active');
+
+                this.closeElement($panels);
+                this.openElement($panels.filter('[data-type=' + panelType + ']'));
+
+                this.setStateFullOpen($wrapper);
+            },
+
+            showAdditional: function (e) {
+                let $el = $(e.currentTarget);
+                let $additional = $el.closest('.js-debug-body-row').find('.js-debug-body-row-additional');
+
+                this.closeElement($el);
+                this.openElement($additional);
+            },
+
+            /* helper methods */
+
+            getWrapper: function (e)
+            {
+                return $(e.currentTarget).closest('.js-debug-wrapper');
+            },
+
+            closeElement: function ($el)
+            {
+                this.openElement($el).addClass('closed');
+                return $el;
+            },
+
+            openElement: function ($el)
+            {
+                $el.removeClass('closed');
+                return $el;
+            },
+
+            useStates: function ($wrapper)
+            {
+                return $wrapper.data('useStates') === true;
+            }
+        };
+
+        innerDebugger.initialize($wrapper)
+        return innerDebugger;
+    }
+
+    $(function(){
+        debug = Debugger($('.<?= $wrapperUniqSelector ?>'));
+    });
+</script>

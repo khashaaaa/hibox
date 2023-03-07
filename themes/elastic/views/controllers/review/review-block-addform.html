@@ -1,0 +1,42 @@
+<div id="add-item-review" title="<?=Lang::get('your_review')?>" style="display: none;">
+    <form id="reviewForm" action="<?='/?p=addItemReview'?>" class="reviewForm">
+        <? if (General::IsFeatureEnabled('ItemReviews')) { ?>
+            <div class="form-group">
+                <label><?=Lang::get('evaluation')?>: <span>*</span></label>
+                <div class="ratyScoreReview ratyScore-lg"></div>
+            </div>
+
+            <div class="form-group">
+                <?=OTFileStorage::getWidget(array(
+                    'fileType' => 'Image',
+                    'displayName' => Lang::get('Images') . ': '
+                ))?>
+            </div>
+        <? } ?>
+        <div class="form-group">
+            <label><?=Lang::get('review_text')?>: <span>*</span></label>
+            <textarea class="form-control" name="text"></textarea>
+        </div>
+        <input name="itemId" type="hidden"/>
+        <input name="configId" type="hidden"/>
+        <input name="orderId" type="hidden"/>
+        <input name="orderLineId" type="hidden"/>
+        <div class="help"><?=Lang::get('stars_inputs')?></div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('div.ratyScore').raty({
+            readOnly: true
+        });
+    });
+</script>
+
+<?=Lang::loadJSTranslation(array(
+        'new_review',
+        'save',
+        'cancel',
+        'not_entered_required_data'
+    )
+)?>

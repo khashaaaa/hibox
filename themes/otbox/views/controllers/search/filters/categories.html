@@ -1,0 +1,41 @@
+<? if (!empty($categories)) { ?>
+    <div class="panel panel-default search-content_categories">
+        <h4 class="panel-heading"><?=$title?>
+            <button class="pull-right navbar-toggle" data-toggle="collapse" data-target="#<?=$id?>">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </h4>
+        <ul class="panel-body" id="<?=$id?>">
+            <? foreach ($categories as $cat) { ?>
+                <li>
+                    <a href="<?=UrlGenerator::generateSearchUrlByParams(array(
+                        'SearchMethod' => $searchParams['SearchMethod'],
+                        'vid' => $searchParams['vid'],
+                        'brand' => $searchParams['brand'],
+                        'cid' => $cat->GetId(),
+                        'search' => $searchParams['searchWord'],
+                        'OtapiCategory' => $cat,
+                    ))?>" class="search-click"><?=$cat->GetName()?></a>
+                </li>
+            <? } ?>
+        </ul>
+    </div>
+<? } ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(document).ready(function(){
+        //Отслеживание ресайза
+        $(".search-content_categories").resize(function(e){
+            if ($(window).width() > 768) {
+                $('#<?=$id?>').removeClass('collapse').removeClass('in');
+                $('#<?=$id?>').attr('aria-expanded', true);
+                $('#<?=$id?>').css('height', '');
+            }
+        });
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

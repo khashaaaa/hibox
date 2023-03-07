@@ -1,0 +1,56 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('MultilingualSettings', 'default')?>"><?=LangAdmin::get('languages')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('translations')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<?=TabsGenerator::GetSubTabs('templates/translation/navigation/tabs.xml', $PageUrl)?>
+
+<div class="row-fluid">
+    <h1 class="pull-left"><?=LangAdmin::get('translations')?></h1>
+    <a href="<?=$PageUrl->AssignCmdAndDo('Translations', 'add')?>" autocomplete="off" data-loading-text="<?=LangAdmin::get('Adding')?>" class="btn btn_preloader pull-right offset-top1" type="button"><i class="icon-plus"></i> <?=LangAdmin::get('Add_translation')?></a>
+</div>
+
+<div class="row-fluid offset-bottom2">
+
+    <div class="well span11">
+
+        <form class="form-inline">
+            <select class="span6" id="languages-filter">            
+                <? foreach($AvailableLanguages as $key => $lang){ ?>
+                    <option value="<?=$key?>"><?=$lang?></option>
+                <? } ?>
+            </select>
+            <select class="span6" id="translations-type-filter">
+                <option value=""><?=LangAdmin::get('All_options')?></option>
+                <option value="own"><?=LangAdmin::get('Own_translations')?></option>
+                <option value="box"><?=LangAdmin::get('Box_translated')?></option>
+                <option value="no"><?=LangAdmin::get('Not_translated')?></option>
+            </select>
+        </form>
+    </div>
+
+</div>
+
+<div class="row-fluid sortable" id="translation_area">
+
+    <table class="table table-bordered bootstrap-datatable datatable" id="translations_table">
+        <thead>
+        <tr>
+            <th class="span4"><?=LangAdmin::get('Key')?></th>
+            <th class="span4"><?=LangAdmin::get('Text')?></th>
+            <th class="span2"><?=LangAdmin::get('Language')?></th>
+            <th class="span2"><?=LangAdmin::get('Actions')?></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+    </table>
+
+</div><!--/row-->
+
+<? AssetsMin::registerJsFile('/admin/js/ot-translations.js'); ?>

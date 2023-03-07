@@ -1,0 +1,14 @@
+<?=Lang::get('Hi_user', array('username' => $username))?>
+
+<?=Lang::get('order_line_status_was_changed', array(
+    'item' =>$item,
+    'orderid' =>$orderid,
+    'oldstatus' => $oldstatus,
+    'newstatus' => $newstatus
+))?>
+
+<?=Lang::get('link_to_order_info', array(
+    'link' => UrlGenerator::generateOrderDetailsUrl(OrdersProxy::originOrderId($orderid), array(), true)
+))?>
+
+<?=Lang::get('with_respect_site_administration', array('site_name' => UrlGenerator::getHomeUrl()))?>

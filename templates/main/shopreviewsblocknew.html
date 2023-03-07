@@ -1,0 +1,59 @@
+<? if (!empty($allPosts))  { ?>
+<div class="brands">
+	<div class="wrap clrfix">
+        <div class="bproduct">
+        <h2 class="mb25"><span><?=Lang::get('shopreviews')?></span></h2>
+            <? if(is_array($allPosts)) { ?>
+                <div class="reviews shopReviews">
+                    <ul class="reviewsList">
+                        <? foreach ($allPosts as $post) { ?>     
+                            <li class="reviewsItem">
+                                <div class="reviewsComment clrfix">
+                                    <div class="reviewsCommentInfo author">
+                                        <span class="reviewsAuthorName"><?=$post['name']?></span>
+                                        <span class="reviewsCommentDate"><?=$post['created']?></span>
+
+                                        <div class="estimateBlock noSelect">
+                                            <? $class = ((int)$post['rating'] < 0) ? 'negative' : 'positive'; ?>
+                                            
+                                            <? if (User::getObject()->isAuthenticated()) { ?>
+                                            <? if (!@in_array ($post['review_id'], $_SESSION['shop_rating'])) { ?>
+                                                <a href="/?p=shopreviews&to=<?=$post['review_id']?>&calc=minus" style="border-bottom: none;"><span class="estimateButton negative">−</span></a>
+                                            
+                                            <span class="estimateRate <?=$class?>"><?=$post['rating']?></span>
+                                            
+                                                <a href="/?p=shopreviews&to=<?=$post['review_id']?>&calc=plus" style="border-bottom: none;">
+                                                <span class="estimateButton positive">+</span>
+                                                </a>
+                                            <? } else { ?>
+                                                <span class="estimateRate <?=$class?>" voted><?=$post['rating']?></span>
+                                            <? } ?>
+                                            <? } ?>
+                                        </div>
+                                    </div>
+                                    <p class="reviewsCommentText author"><?=TextHelper::htmlFromUser($this->escape($post['text']))?></p>
+                                </div>
+
+                                <? if (! empty($post['answer'])) { ?>
+                                    <div class="reviewsAnswer clrfix">
+                                        <div class="reviewsCommentInfo author">
+                                            <span class="reviewsCommentDate admin">
+                                                <? if (isset($post['answer_date'])) { ?>
+                                                    <?=$post['answer_date']?>
+                                                <? } ?>
+                                            </span>
+                                        </div>
+                                        <p class="reviewsCommentText admin"><?=TextHelper::htmlFromUser($post['answer'])?></p>
+                                    </div>
+                                <? } ?>      
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            <? } ?>
+	<br clear="all"/>
+    <div class="all_news"><a href="<?=@UrlGenerator::generateContentUrl('shopreviews')?>"><?=Lang::get('shopreviews')?></a></div>
+</div>
+</div>
+</div>
+<? } ?>

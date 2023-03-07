@@ -1,0 +1,27 @@
+<% if ("undefined" === oneImageOnly || !oneImageOnly) { %>
+    <!-- product images carousel -->
+    <div id="img-carousel-<%=orderId%>-<%=itemId%>" class="carousel slide ot_product_img_carousel">
+
+        <!-- Carousel items -->
+        <ul class="carousel-inner" data-toggle="modal-gallery" data-target="#modal-gallery">
+<% } %>
+
+        <% $.each(urls, function(i, url) { %>
+            <li class="item">
+                <div class="row-fluid">
+                    <a href="<%=url%>" class="thumbnail" data-gallery="gallery" title="<%=trans.get("Enlarge_image")%>">
+                        <img src="<%=url%>" alt="" />
+                    </a>
+                    <i class="icon-remove-sign ot_delete_img" title="<%=trans.get("Remove_image")%>"></i>
+                </div>
+            </li><!--/item-->
+        <% }); %>
+
+<% if ("undefined" === oneImageOnly || !oneImageOnly) { %>
+        </ul><!--/carousel-inner-->
+
+        <a class="left carousel-control" href="#img-carousel-<%=orderId%>-<%=itemId%>" data-slide="prev">‹</a>
+        <a class="right carousel-control" href="#img-carousel-<%=orderId%>-<%=itemId%>" data-slide="next">›</a>
+
+    </div><!--/.ot_product_img_carousel-->
+<% } %>

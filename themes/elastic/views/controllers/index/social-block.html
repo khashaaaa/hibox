@@ -1,0 +1,34 @@
+<?
+    $socicalNetworks = InstanceProvider::GetSocialNetworkIds();
+    $socialWithsubscribeWidgets = InstanceProvider::GetSocialWithSubscribeWidgets($socicalNetworks);
+    $socialWithShareWidgets = InstanceProvider::GetSocialWithShareWidgets($socicalNetworks);
+?>
+
+<? if (!empty($socialWithsubscribeWidgets) || !empty($socialWithShareWidgets)) { ?>
+<section class="block-social">
+    <div class="center">
+        <? if (!empty($socialWithsubscribeWidgets)) { ?>
+            <div class="social-box">
+                <div class="social-arrow-top">
+                    <img src="<?=General::getThemeWebDir()?>/img/arrow-top.png" alt="img">
+                    <span><?=Lang::get('subscribe_us')?></span>
+                </div>
+
+                <?=General::viewFetch('controllers/index/subscribe-widget', $socialWithsubscribeWidgets) ?>
+            </div>
+        <? } ?>
+
+        <? if (!empty($socialWithShareWidgets)) { ?>
+            <div class="social-panel">
+                <? foreach($socialWithShareWidgets as $item) { ?>
+                        <span class="<?=$item->GetId(); ?>"><?=$item->GetShareWidget(); ?></span>
+                <? } ?>
+                <div class="social-arrow-bottom">
+                    <span><?=Lang::get('share_with_friends')?></span>
+                    <img src="<?=General::getThemeWebDir()?>/img/arrow-down.png" alt="img">
+                </div>
+            </div>
+        <? } ?>
+    </div>
+</section>
+<? } ?>

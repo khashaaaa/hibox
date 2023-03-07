@@ -1,0 +1,99 @@
+<? $salesShippingInfo = $shippingInfo->GetSalesShippingInfo(); ?>
+<? if (! empty($salesShippingInfo)) { ?>
+    <? $i = 1 ?>
+    <div id="accordion">
+        <div class="shipping_rows">
+            <? foreach ($salesShippingInfo as $package) { ?>
+                <div class="card">
+                    <div class="card-header" id="heading<?=$i?>" data-toggle="collapse" data-target="#package<?=$i?>" aria-controls="package<?=$i?>">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link">
+                                <?=Lang::get('package_number') . ' ' . $package->GetId() . ' '?><span class="status">(<?=$package->GetStatusName()?>)</span>
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="package<?=$i?>" class="collapse" aria-labelledby="heading<?=$i?>">
+                        <div class="card-body">
+                            <div class="row shipping_row">
+                                <div class="shipping_labels"><?=Lang::get('delivery_method')?></div>
+                                <div class=""><?=$package->GetDeliveryModeName()?></div>
+                            </div>
+                            <div class="row shipping_row">
+                                <div class="shipping_labels"><?=Lang::get('delivery_address')?></div>
+                                <div class="">
+                                    <?=$package->GetDeliveryAddress()?> <br/><?=$package->GetDeliveryContactName()?>
+                                    <? if ($package->GetDeliveryContactINN()) { ?>
+                                        <br><?=Lang::get('inn')?>: <?=$package->GetDeliveryContactINN()?>
+                                    <? } ?>
+                                    <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+                                        <br/><?=Lang::get('passport')?>: <?=$package->GetDeliveryContactPassportNumber()?>
+                                        <br/><?=Lang::get('registrationaddress')?>: <?=$package->GetDeliveryContactRegistrationAddress()?>
+                                    <? } ?>
+                                </div>
+                            </div>
+                            <div class="row shipping_row">
+                                <div class="shipping_labels"><?=Lang::get('weight_of_parcel')?></div>
+                                <div class=""><?=$package->GetWeight()?> <?=Lang::get('kg')?></div>
+                            </div>
+                            <div class="row shipping_row">
+                                <div class="shipping_labels"><?=Lang::get('Tracking-number')?></div>
+                                <div class="">
+
+                                    <? if ($package->CanBeTracking()) { ?>
+                                        <a href="javascript:void(0)"
+                                           data-action="<?= UrlGenerator::toRoute('order/getPackageTracking') ?>"
+                                           data-package-id="<?= $package->GetId() ?>"
+                                           class="js-package-tracking"
+                                        >
+                                            <?= $package->GetMailTrackingNum() ? $package->GetMailTrackingNum() : Lang::get('track_down') ?>
+                                            &nbsp;<i class="fa fa-external-link"></i>
+                                        </a>
+
+                                        <table class="js-package-tracking-table package-tracking-table table table-borderless"
+                                               style="display: none"
+                                        >
+                                            <thead class="table-parcels__row_top">
+                                            <tr>
+                                                <th><?= Lang::get('Date_and_time') ?></th>
+                                                <th><?= Lang::get('condition') ?></th>
+                                                <th><?= Lang::get('geo') ?></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="js-package-tracking-table-lines">
+                                            <tr class="js-package-tracking-table-line" style="display: none">
+                                                <td class="js-package-tracking-table-line-time"></td>
+                                                <td class="js-package-tracking-table-line-status"></td>
+                                                <td class="js-package-tracking-table-line-location"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <?= Lang::loadJSTranslation(array('tracking', 'close', 'no_tracking')) ?>
+                                    <? } else { ?>
+                                        <?= $package->GetMailTrackingNum() ?>
+                                    <? } ?>
+                                </div>
+                            </div>
+                            <div class="row shipping_row">
+                                <div class="shipping_labels"><?=Lang::get('creation_date')?></div>
+                                <div class=""><?=date("j.m.Y", strtotime($package->GetCreationDate()))?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <? $i++;  ?>
+            <? } ?>
+        </div>
+    </div>
+<? } else { ?>
+    <p class="alert-heading"><?=Lang::get('no_parcels_in_order')?></p>
+<? } ?>
+
+<? if (! empty($orderComment)) {?>
+    <div class="list-parcels__footer">
+        <div class="list-user__img-icon"></div>
+        <div class="list-user-info__label"><?=Lang::get('comment_order')?></div>
+        <div class="list-user-info__text"><?=TextHelper::htmlFromUser($orderComment)?></div>
+    </div>
+<? } ?>

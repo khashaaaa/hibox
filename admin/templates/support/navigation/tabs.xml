@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Support_orders" action="default" cmd="Support" get-params="ticket_new=on;ticket_notanswer=on">
+        <page data-action="default" data-cmd="support" />
+    </tab>
+    <tab title="Support_other" action="other" cmd="Support" get-params="ticket_new=on;ticket_notanswer=on">
+        <page data-action="other" data-cmd="support" />
+    </tab>
+</tabs>

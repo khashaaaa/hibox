@@ -1,0 +1,49 @@
+<? $itemUrl = UrlGenerator::generateItemUrl($item['Id']); ?>
+
+<div class="product-item-container">
+    <div class="left-block">
+        <div class="product-image-container 	">
+            <a href="<?=$itemUrl?>" target="_self" title="<?=$this->escape($item['title'])?>">
+                <img data-sizes="auto" alt="<?=$this->escape($item['title'])?>" data-src="<?=ProductsHelper::getMediumImage($item)?>" alt="<?=$this->escape($item['title'])?>" alt="<?=$this->escape($item['title'])?>" class="lazyload" sizes="226px">
+            </a>
+        </div>
+        <? if ((count($item['PromotionPrice'])>0) and (!General::getSiteConfig('hide_discont_lists'))) {
+            $skidka = (((int)($item['PromotionPrice'][0]['Val']))/((int)($item['convertedpricewithoutsign'])));
+            $skidka = 1 - $skidka;
+            $skidka = $skidka * 100;
+            $skidka = round($skidka,0);
+            if ($skidka > 0) { ?>
+                <div class="box-label">
+                    <span class="label-product label-sale">-<?=$skidka?>%</span>
+                </div>
+            <? } } ?>
+    </div>
+    <div class="right-block">
+        <div class="caption">
+            <h4>
+                <a href="<?=$itemUrl?>" target="_self" title="<?=$this->escape($item['title'])?>">
+                    <?=$this->escape($item['title'])?>
+                </a>
+            </h4>
+            <div class="rating">
+                <img src="/i/hearts_gif/level_<?=$item['vendorscore']?>.gif">
+            </div>
+            <div class="price">
+                <? if (isset($item['PromotionPrice']) && count($item['PromotionPrice']) > 0) { ?>
+                    <span class="price-new">
+                        <?=ProductsHelper::getPromoPrice($item, array('addItemprop' => true))?>
+                    </span>
+                    <span class="price-old"><?=ProductsHelper::getPrice($item)?></span>
+                <? } else {?>
+                    <span class="price-new">
+                        <?=ProductsHelper::getPrice($item, array('addItemprop' => true))?>
+                    </span>
+                <? } ?>
+            </div>
+        </div>
+        <a class="addToCart btn-button" title="<?=Lang::get('add_to_cart')?>" href="<?=$itemUrl?>">
+            <i class="fa fa-shopping-cart"></i>
+            <span><?=Lang::get('add_to_cart')?></span>
+        </a>
+    </div>
+</div>

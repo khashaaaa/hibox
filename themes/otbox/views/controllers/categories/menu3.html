@@ -1,0 +1,155 @@
+<div class="responsive megamenu-style-dev">
+    <div class="so-vertical-menu no-gutter">
+        <nav class="navbar-default">
+            <div class=" container-megamenu container vertical">
+                <div id="menuHeading">
+                    <div class="megamenuToogle-wrapper">
+                        <div class="megamenuToogle-pattern">
+                            <div class="container">
+                                <div><span></span><span></span><span></span><span></span></div>
+                                <?=Lang::Get('all_categories_top')?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-header">
+                    <button type="button" id="show-verticalmenu" data-toggle="collapse" class="navbar-toggle">
+                        <!-- <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> -->
+                        <i class="fa fa-bars"></i>
+                        <span><?=Lang::Get('all_categories_top')?></span>
+                    </button>
+                </div>
+                <div class="vertical-wrapper">
+                    <span id="remove-verticalmenu" class="fa fa-times"></span>
+                    <div class="megamenu-pattern">
+                        <div class="container">
+                            <ul class="megamenu" data-transition="slide" data-animationtime="300">
+                                <?
+                                if($categories) {
+                                    $countFirst = 0;
+                                    foreach($categories as $rootCat) {
+                                        if ($level1MaxCount <> 0) {
+                                            if ($countFirst++ >= $level1MaxCount) {
+                                                break;
+                                            }
+                                        }
+                                        ?>
+                                        <li class="item-vertical <? if (count($rootCat['children']) > 0) {?>with-sub-menu hover<? } ?>">
+                                            <p class="close-menu"></p>
+                                            <a href="<?=General::generateUrl('subcategory', array_merge($rootCat))?>" class="clearfix">
+                                                <strong><?= $this->escape($rootCat['name']) ?></strong>
+                                                <? if (count($rootCat['children']) > 0) {?>
+                                                    <b class="fa fa-angle-right"></b>
+                                                <? } ?>
+                                            </a>
+                                            <? if (count($rootCat['children']) > 0) {
+                                                $countSecond = 0; ?>
+                                                <div class="sub-menu" style="width: 720px">
+                                                    <div class="content">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="categories">
+                                                                    <div class="row">
+                                                                        <?  foreach($rootCat['children'] as $subItem) {
+                                                                            if (! $subItem['name']) {
+                                                                                continue;
+                                                                            }
+                                                                            if ($level2MaxCount <> 0) {
+                                                                                if ($countSecond++ >= $level2MaxCount) {
+                                                                                    break;
+                                                                                }
+                                                                            }
+                                                                            ?>
+                                                                            <div class="col-sm-6 static-menu">
+                                                                                <div class="menu">
+                                                                                    <ul>
+                                                                                        <li>
+                                                                                            <a mcid="<?=$subItem['id']?>" href="<?=General::generateUrl('subcategory', $subItem )?>" class="main-menu"><?= $this->escape($subItem['name']) ?></a>
+                                                                                            <? if (count($subItem['children'])) { ?>
+                                                                                                <ul>
+                                                                                                    <?
+                                                                                                    $countThird = 0;
+                                                                                                    foreach($subItem['children'] as $thirdItem){
+                                                                                                        if (! $thirdItem['name']) {
+                                                                                                            continue;
+                                                                                                        }
+                                                                                                        if ($level2MaxCount <> 0) {
+                                                                                                            if ($countThird++ >= $level2MaxCount) {
+                                                                                                                break;
+                                                                                                            }
+                                                                                                        }
+                                                                                                        ?>
+                                                                                                        <li>
+                                                                                                            <a cid="<?= $thirdItem['id'] ?>" href="<?=General::generateUrl('subcategory', array_merge($thirdItem))?>"><?= $this->escape($thirdItem['name']) ?></a>
+                                                                                                        </li>
+                                                                                                        <?
+                                                                                                    }
+                                                                                                    ?>
+                                                                                                </ul>
+                                                                                            <? } ?>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        <?  } ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <? } ?>
+                                        </li>
+                                    <? } ?>
+                                <? } ?>
+                                <li class="item-vertical">
+                                    <a href="<?=UrlGenerator::getUrl('allcats')?>"><strong><?=Lang::Get('all_categories')?></strong></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<script type="text/javascript">
+/*
+    $(document).ready(function() {
+        var itemver =  13;
+        if(itemver <= $( ".vertical ul.megamenu >li" ).length)
+            $('.vertical ul.megamenu').append('<li class="loadmore"><i class="fa fa-plus-square"></i><span class="more-view"> <?=Lang::Get("more_categories")?></span></li>');
+        $('.horizontal ul.megamenu li.loadmore').remove();
+
+        var show_itemver = itemver-1 ;
+        $('ul.megamenu > li.item-vertical').each(function(i){
+            if(i>show_itemver){
+                $(this).css('display', 'none');
+            }
+        });
+        $(".megamenu .loadmore").click(function(){
+            if($(this).hasClass('open')){
+                $('ul.megamenu li.item-vertical').each(function(i){
+                    if(i>show_itemver){
+                        $(this).slideUp(200);
+                        $(this).css('display', 'none');
+                    }
+                });
+                $(this).removeClass('open');
+                $('.loadmore').html('<i class="fa fa-plus-square"></i><span class="more-view"><?=Lang::Get("more_categories")?></span>');
+            }else{
+                $('ul.megamenu li.item-vertical').each(function(i){
+                    if(i>show_itemver){
+                        $(this).slideDown(200);
+                    }
+                });
+                $(this).addClass('open');
+                $('.loadmore').html('<i class="fa fa-minus-square"></i><span class="more-view"><?=Lang::Get("close_categories")?></span>');
+            }
+        });
+    });
+*/
+</script>

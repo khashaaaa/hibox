@@ -1,0 +1,22 @@
+<section class="box-section <?=(isset($cssWrapper) && ! empty($cssWrapper)) ? $cssWrapper.' ' : '' ?>supply-products-section recommended-vendors-section">
+    <h2><?= (isset($title) && $title) ? $title : Lang::get($type);?></h2>
+    <ul class="item-list">
+        <? foreach ($list as $item) { 
+            $vendorName = $this->escape(!empty($item['vendor_name']) ? $item['vendor_name'] : $item['name']);
+        ?>
+	        <li class="col-md" title="<?= $vendorName ?>">
+                <a href="<?=UrlGenerator::generateVendorUrl($item['id'])?>" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+                    <div class="item-list_img-wrap">
+					   <img class="check-noimg" src="<?= $item['DisplayPictureUrl'] ? $item['DisplayPictureUrl'] : "/i/noimg.png" ?>" alt="<?= $vendorName ?>" itemprop="image">
+                    </div>
+					<!--h3 itemprop="name"><?//= $vendorName ?></h3-->
+				</a>
+	        </li>
+        <? } ?>
+    </ul>
+    <? if (isset($seeAllLink) && $seeAllLink) { ?>
+        <div class="col-md-12 clearfix">
+            <a href="<?=$seeAllLink?>" class="btn" style="width: 100%;margin-top: 20px;"><?=Lang::get('all_vendors')?></a>
+        </div>
+    <? } ?>
+</section> 

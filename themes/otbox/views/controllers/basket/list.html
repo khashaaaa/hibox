@@ -1,0 +1,518 @@
+<? if (! empty($providers)) { ?>
+    <div class="overlay-wrapper bproduct js-basket-content">
+        <div class="bgr clrfix">
+            <ul class="tabs clrfix">
+                <? foreach ($providers as $providerName => $provider) { ?>
+                    <li class="js-basket-provider-link js-basket-provider-link-<?= $providerName ?> <?= $provider['isCurrent'] ? 'active' : '' ?>"
+                        id="<?= $providerName ?>-tab"
+                        data-container=".js-basket-provider-<?= $providerName ?>"
+                        data-name="<?= $providerName ?>"
+                        data-alias="<?= $provider['alias'] ?>"
+                    >
+                        <a href="javascript:void(0)">
+                            <span>
+                                <?=Lang::get($providerName . '_cart_goods')?>
+                                (<?= $provider['itemsQuantity'] ?>)
+                            </span>
+                            <i></i>
+                        </a>
+                    </li>
+                <? } ?>
+            </ul>
+        </div>
+
+        <div class="tabs-content">
+            <div class="basket">
+                <? foreach ($providers as $providerName => $provider) { ?>
+                    <div data-name="<?= $providerName ?>"
+                         data-alias="<?= $provider['alias'] ?>"
+                         class="tab
+                            selectedTab
+                            js-basket-checkbox-wrapper
+                            js-basket-provider
+                            <?= $provider['isCurrent'] ? 'active show' : '' ?>
+                            js-basket-provider-<?= $providerName ?>"
+                    >
+                        <div class="clrfix mb10">
+                            <a class="btn btn-primary btn-delete-group fll inline-buttons js-basket-btn-delete js-basket-panel-button hidden-xs"
+                               href="javascript: void(0)"
+                               data-action="<?= UrlGenerator::toRoute('basket/delete') ?>"
+                            >
+                                <span><?=Lang::get('delete_selected')?></span>
+                            </a>
+
+                            <a class="btn btn-primary btn-move-group fll inline-buttons js-basket-btn-favorite js-basket-panel-button hidden-xs"
+                               href="javascript: void(0)"
+                               data-action="<?= UrlGenerator::toRoute('basket/moveToFavorite') ?>"
+                            >
+                                <span><?=Lang::get('move_selected_to_favorites')?></span>
+                            </a>
+
+                            <a class="btn btn-primary btn-delete-item fll inline-buttons js-basket-btn-clear js-basket-panel-button hidden-xs"
+                               href="javascript: void(0)"
+                               data-action="<?= UrlGenerator::toRoute('basket/clear') ?>"
+                            >
+                                <span><?=Lang::get('clear_cart')?></span>
+                            </a>
+                        </div>
+
+                        <div class="basket tsimple">
+                            <div class="js-basket-checkbox-main">
+                                <input class="checkbox-select-all js-basket-checkbox js-basket-checkbox-multiple"
+                                       id="choose_all_items_<?= $providerName ?>"
+                                       type="checkbox"
+                                        <?= $checked[$providerName] ? 'checked' : '' ?>
+                                >
+                                <label for="choose_all_items_<?= $providerName ?>">
+                                    <?=Lang::get('selected_unselect')?>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="js-basket-checkbox-children">
+                            <? foreach ($provider['groups'] as $groupId => $group) { ?>
+                                <div class="clrfix mb10"></div>
+
+                <div class="groupid-tr js-basket-checkbox-wrapper js-basket-group"
+                     data-group-price="<?= $group['convertedPriceList']['value'] ?>"
+                     data-group-id="<?= $groupId ?>"
+                >
+                    <? if ($groupId !== 0) { ?>
+                        <div class="groupid-tr">
+                            <div class="section-header">
+                                <span style="font-size: 14px; font-weight: bold; color: #fff">
+                                    <?= $group['displayName'] ?>
+                                </span>
+
+                                <span style="float: right; font-size: 14px; font-weight: bold; color: #fff">
+                                    <?=
+                                    TextHelper::formatPrice(
+                                        $group['convertedPriceList']['value'],
+                                        $group['convertedPriceList']['sign']
+                                    )
+                                    ?>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="js-basket-checkbox-main check-allitems-group">
+                            <input type="checkbox"
+                                   id="<?= $groupId . md5($groupId) ?>"
+                                   class="checkbox-deliveryId
+                                          js-basket-checkbox
+                                          js-basket-checkbox-multiple"
+                                    <?= $checked[$groupId] ? 'checked' : '' ?>
+                            >
+                            <?= Lang::get('selected_unselect_mini') ?>
+                        </div>
+                    <? } ?>
+
+                                    <div class="js-basket-checkbox-children">
+                                        <? foreach ($group['items'] as $lineId => $item) { ?>
+                                            <div class="js-basket-line js-basket-line-<?= $lineId ?>"
+                                                 data-line-id="<?= $lineId ?>"
+                                                 data-item-id="<?= $item->id ?>"
+                                                 data-item-url="<?= $item->url ?>"
+                                                 data-item-comment="<?= $item->comment ?>"
+                                                 data-item-quantity="<?= $item->quantity ?>"
+                                                 data-item-config-id="<?= $item->configurationId ?>"
+                                                 data-item-external-delivery-id="<?= $item->externalDeliveryId ?>"
+                                                 data-item-external-delivery-name="<?= $item->externalDeliveryName ?>"
+                                            >
+                                                <div class="divider cart-divider" style="height: 4px"></div>
+
+                                                <? if ($item->weight) { ?>
+                                                    <span class="js-basket-line-weight"
+                                                          style="display: none"
+                                                          data-total-weight="<?= $item->getTotalWeight() ?>"
+                                                          data-item-weight="<?= $item->weight ?>"
+                                                    ></span>
+                                                <? } ?>
+
+                                                <table style="width: 55%; float:left" class="cTb1">
+                                                    <tr>
+                                                        <td class="item-to-order">
+                                                            <input type="checkbox"
+                                                                   class="js-basket-checkbox js-basket-checkbox-item"
+                                                                    <?= $checked[$lineId] ? 'checked' : '' ?>
+                                                            >
+                                                        </td>
+                                                        <td class="w100">
+                                                            <ul class="lproduct w100li">
+                                                                <li>
+                                                                    <a class="pic"
+                                                                       rel="noreferrer noopener"
+                                                                       target="_blank"
+                                                                       href="<?= UrlGenerator::generateItemUrl($item->id, array('ConfigId' => $item->configurationId)) ?>"
+                                                                    >
+                                                                        <i>
+                                                                            <img width="100"
+                                                                                 height="100"
+                                                                                 src="<?= $item->getSmallImage() ?>"
+                                                                                 alt="item image"
+                                                                            >
+                                                                        </i>
+                                                                        <ins></ins>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+
+                                                        <td class="itemConfiguration">
+                                                            <div class="w80 block">
+                                                                <p class="mb10">
+                                                                    <span class="lgray"><?= Lang::get('good_code') ?></span>
+                                                                    <b><?= $item->id ?></b>
+                                                                </p>
+
+                                                                <!--p class="mb5">
+                                                                    <span class="lgray"><?//= Lang::get('vendor') ?></span>
+                                                                    <?//= VendorHelper::generateLink($item->vendorId, '<b>' . $item->vendorId . '</b>')?>
+                                                                </p>
+
+                                                                <p class="mb5">
+                                                                    <span class="lgray"> <?//=Lang::get('category')?> </span>
+                                                                    <a href="/?p=category&cid=<?//= $item->categoryId ?>">
+                                                                        <b><?//= $this->escape($item->categoryName) ?></b>
+                                                                    </a>
+                                                                </p-->
+                                                                
+                                                                <? $configs = $item->getConfiguration(); ?>
+                                                                <? if (! empty($configs)) { ?>
+                                                                    <? foreach ($configs as $config) { ?>
+                                                                        <p class="mb10">
+                                                                            <span class="lgray"><?= $config['name'] ?> &#47; <?= $config['originalName'] ?>:</span>
+                                                                            <b><?= $config['value'] ?> &#47; <?= $config['originalValue'] ?></b>
+                                                                        </p>
+                                                                    <? } ?>
+                                                                <? } else { ?>
+                                                                    <? $configName = $item->getConfigurationName(); ?>
+                                                                    <? foreach (explode(';', $configName) as $config) { ?>
+                                                                        <? $tmpConfig = explode(':', $config); ?>
+                                                                        <p class="mb10">
+                                                                            <span class="lgray"><?= current($tmpConfig) ?>:</span>
+                                                                            <b><?= end($tmpConfig) ?></b>
+                                                                        </p>
+                                                                    <? } ?>
+                                                                <? } ?>
+                                                                <p class="mb10">
+                                                                    <a class="btn fll change-config js-basket-config">
+                                                                        <span><?= Lang::get('change_config') ?></span>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+  
+                                                            <?=ProductsHelper::getHtmlFeatureListForLabel($item->features)?>
+                                                        </td>
+                                                        <td class="hidden-xs DisplayPrice">
+                                                            <p class="mb10">
+                                                                <span class="lgray">
+                                                                    <nobr><?= Lang::get('price') ?>:</nobr>
+                                                                </span>
+                                                            
+                                                                <? if ($item->getDisplayPromoPrice()) { ?>
+                                                                    <b>
+                                                                        <span class="ltr-for-rtl old-price">
+                                                                            <?= $item->getDisplayPrice() ?>
+                                                                        </span>
+                                                                    </b><br>
+                                                                    <b>
+                                                                        <span class="ltr-for-rtl">
+                                                                            <?= $item->getDisplayPromoPrice() ?>
+                                                                        </span>
+                                                                    </b>
+                                                                <? } else { ?>
+                                                                    <b>
+                                                                        <span class="ltr-for-rtl">
+                                                                            <?= $item->getDisplayPrice() ?>
+                                                                        </span>
+                                                                    </b>
+                                                                <? } ?>
+                                                            </p>
+                                                            
+                                                            <? if ($item->promotionPricePercent) { ?>
+                                                                <p class="mb10">
+                                                                    <span class="lgray">
+                                                                        <nobr><?=Lang::get('discount')?>:</nobr>
+                                                                    </span>
+                                                                    <b>
+                                                                        <?= $item->promotionPricePercent ?> %
+                                                                        <? if ($item->promotionGroupName) { ?>
+                                                                            - <?= $item->promotionGroupName ?>
+                                                                        <? } ?>
+                                                                    </b>
+                                                                </p>
+                                                            <? } ?>                                                            
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <table style="width: 45%; float:left" class="cTb2">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="calc">
+                                                                <span class="lgray mr10"><?=Lang::get('quantity')?>:</span>
+
+                                                                <b>
+                                                                    <input type="text"
+                                                                           value="<?= $item->quantity ?>"
+                                                                           data-type="integer"
+                                                                           data-quantity="<?= $item->quantity ?>"
+                                                                           class="w40 tar quantity input_numeric_only js-basket-line-quantity js-item-quantity"
+                                                                           id="<?= $lineId ?>_quantity"
+                                                                    >
+                                                                </b>
+
+                                                                <span class="num-controls">
+                                                                    <span class="plus unselectable js-basket-line-quantity-btn"
+                                                                          data-action="plus"
+                                                                          rel="count-<?= $item->id ?>"
+                                                                          itemid="<?= $item->id ?>"
+                                                                    >+</span>
+                                                                    <span class="minus unselectable js-basket-line-quantity-btn"
+                                                                          data-action="minus"
+                                                                          rel="count-<?= $item->id ?>"
+                                                                          itemid="<?= $item->id ?>"
+                                                                    >-</span>
+                                                                </span>
+                                                            </div>
+
+                                                            <p>
+                                                                <?= Lang::get('delivery') ?>:
+
+                                                                <? unset($deliveryMode); ?>
+                                                                <? if ($item->deliveryModes) { ?>
+                                                                    <?
+                                                                    if ($item->externalDeliveryId) {
+                                                                        $deliveryMode = DeliveryHelper::getDeliveryMode(
+                                                                            $item->externalDeliveryId,
+                                                                            $item->deliveryModes
+                                                                        );
+                                                                    } else {
+                                                                        $deliveryMode = array(
+                                                                            'Id' => 0,
+                                                                            'Cost' => array(
+                                                                                'Sign' => User::getObject()->getCurrencyCode(),
+                                                                                'Val' => 0
+                                                                            ),
+                                                                        );
+                                                                    }
+                                                                    ?>
+                                                                    <a href="javascript:void(0)"
+                                                                       class="js-basket-line-delivery-change"
+                                                                       data-delivery-id="<?= $deliveryMode['Id'] ?>"
+                                                                    >
+                                                                        <? if ($deliveryMode['Id'] === 0) { ?>
+                                                                            <?= Lang::get('select_at_order') ?>
+                                                                        <? } else { ?>
+                                                                            <?= $deliveryMode['Name'] ?><br>
+                                                                            <?= $deliveryMode['Description'] ?>
+                                                                        <? } ?>
+                                                                    </a>
+
+                                                                    <div style="display: none">
+                                                                        <? foreach ($item->deliveryModes as $mode) { ?>
+                                                                            <div class="js-basket-line-delivery-mode"
+                                                                                 data-id="<?= $mode['Id'] ?>"
+                                                                                 data-name="<?= $mode['Name'] ?>"
+                                                                                 data-description="<?= $mode['Description'] ?>"
+                                                                                 data-cost-sign="<?= $mode['Cost']['Sign'] ?>"
+                                                                                 data-cost-val="<?= $mode['Cost']['Val'] ?>"
+                                                                            ></div>
+                                                                        <? } ?>
+                                                                    </div>
+                                                                <? } else { ?>
+                                                                    <span>
+                                                                        <?= Lang::get('select_at_order') ?>
+                                                                    </span>
+                                                                <? } ?>
+                                                            </p>
+
+                                                            <br>
+                                                            <table class="table basket-item-summary-data">
+                                                                <tbody>
+                                                                    <tr class="list-cart-products__item-summary">
+                                                                        <td>
+                                                                            <?= Lang::get('Total_items')?>:
+                                                                        </td>
+                                                                        <td class="js-basket-line-summary-price-item">
+                                                                            <?= $item->getFullTotalCost() ?>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <? if (isset($deliveryMode) && $deliveryMode['Id'] !== 0) { ?>
+                                                                        <tr class="list-cart-products__item-summary">
+                                                                            <td>
+                                                                                <?= Lang::get('delivery_cost')?>:
+                                                                            </td>
+                                                                            <td class="js-basket-line-summary-price-delivery">
+                                                                                <?= General::getHtmlPrice($deliveryMode['Cost'], array('addItemprop' => true)) ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <? } ?>
+
+                                                                    <tr class="list-cart-products__item-summary">
+                                                                        <td>
+                                                                            <?= Lang::get('To_pay')?>:
+                                                                        </td>
+                                                                        <td class="js-basket-line-summary-price" style="font-weight: bold;font-size: 14px;">
+                                                                            <img src="/css/i/ajax-loader.gif" height="23" alt="ajax-loader">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            
+                                                            <!--a href="javascript:void(0)" class="js-basket-comment-btn">
+                                                                <?//= Lang::get('comment_order') ?>
+
+                                                                <span style="display: none" class="js-basket-line-comment">
+                                                                    : <span class="js-basket-line-comment-text comment-text"></span>
+                                                                </span>
+
+                                                                <span style="display: none" class="js-basket-line-comment-add">
+                                                                    &nbsp;+
+                                                                </span>
+                                                            </a-->
+                                                            <div>
+                                                                <img style="display: none"
+                                                                     class="preloader comment-preloader js-basket-preloader"
+                                                                     src="/i/ajax-loader-transparent.gif"
+                                                                     alt="preloader"
+                                                                >
+
+                                                                <textarea style=" width:100%;"class="fs11 comment-area js-basket-comment-textarea" placeholder="<?=Lang::get('comments_for_operator')?>"><?= $item->comment ?></textarea>
+                                                            </div>
+                                                            
+                                                        </td>
+                                                        <td class="w168 pr0">
+                                                            <div class="input-group btn-block">
+                                                                <span class="input-group-btn">
+                                                                    <a class="btn btn-primary btn-add fll js-basket-btn-favorite-item"
+                                                                       href="javascript:void(0)"
+                                                                       data-line-id="<?= $lineId ?>"
+                                                                       data-action="<?= UrlGenerator::toRoute('basket/moveToFavorite') ?>"
+                                                                    >
+                                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                    </a>
+                                                                    
+                                                                    <a class="btn btn-danger fll js-basket-btn-delete-item"
+                                                                       href="javascript:void(0)"
+                                                                       data-line-id="<?= $lineId ?>"
+                                                                       data-action="<?= UrlGenerator::toRoute('basket/delete') ?>"
+                                                                    >
+                                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                            <div class="clrfix mb10 js-basket-notification"></div>
+                                                            <div class="clrfix mb10"></div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        <? } ?>
+                                    </div>
+                                </div>
+                            <? } ?>
+                        </div>
+                    </div>
+                <? } ?>
+            </div>
+        </div>
+
+        <div class="bgr-panel mt5 col-md-12" style="padding: 10px">
+            <div class="js-basket-aside-preloader basket-total-preloader" style="display: none">
+                <img src="css/i/ajax-loader.gif" alt="preloader">
+            </div>
+
+            <div class="bigTotal bbprice ltr-for-rtl col-md-12">
+                <div class="col-md-9">
+                    <div class="js-basket-sidebar-body col-md-12">
+                        <div class="row">
+                            <div class="js-basket-lines-total-weight col-md-12" style="display: none">
+                                <div class="row">
+                                    <span class="col-md-6">
+                                        <?= Lang::get('total_weight') ?>:
+                                    </span>
+                                    <span class="col-md-6 value_part">
+                                        <span>
+                                            <i class="js-basket-lines-total-weight-value"></i>
+                                            <?= Lang::get('weight_kg') ?>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="delivery-wrapper col-md-12">
+                                <div class="row">
+                                    <span class="col-md-6 delivery_methods">
+                                        <?= Lang::get('delivery') ?>:
+                                    </span>
+
+                                    <span class="js-basket-delivery-method-choose js-basket-delivery-method-choose-dummy col-md-6 value_part">
+                                        <input class="js-basket-delivery-method-choose-input" type="hidden" name="deliveryMethod">
+                                        <a href="javascript: void(0)" class="js-basket-delivery-method-choose-text js-basket-delivery-method-choose-text-clickable"></a>
+                                        <span class="js-basket-delivery-method-choose-text js-basket-delivery-method-choose-text-not-clickable"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="js-basket-lines-total-delivery-cost col-md-12" style="display: none">
+                                <div class="row">
+                                    <span class="col-md-6"><?= Lang::get('delivery_cost') ?>:</span>
+                                    <span class="col-md-6 value_part">
+                                        <i class="js-basket-lines-total-delivery-cost-value" data-cost="0"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="js-basket-lines-total-cost col-md-12" style="display: none">
+                                <div class="row">
+                                    <span class="col-md-6"><?= Lang::get('Total_items') ?>:</span>
+                                    <span class="col-md-6 value_part">
+                                        <i class="js-basket-lines-total-cost-value"
+                                           data-currency
+                                           data-total-cost
+                                        ></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="col-md-6 total"><?= Lang::get('total') ?>:</span>
+                    <span class="col-md-6 value_part total">
+                    <span class="total_price js-basket-total-cost"></span>
+                </span>
+                </div>
+            </div>
+
+            <div class="bgr-panel col-md-12 mt5">
+                <? if ($userAuthenticated) { ?>
+                    <a href="javascript:void(0)"
+                       class="js-basket-make-order-button btn flr"
+                    ><?= Lang::get('make_order') ?></a>
+                <? } else { ?>
+                    <a href="<?= UrlGenerator::toRoute('login') ?>"
+                       class="flr btn"
+                    ><?= Lang::get('site_login') ?></a>
+                <? } ?>
+
+                <div class="min-order-total-cost-message js-min-order-total-cost-error-message"
+                     data-min-order-total-cost="<?= $minOrderTotalCost ?>"
+                >
+                    <?= Lang::get('min_cost') ?>: <?= General::getHtmlPrice(array('Val' => $minOrderTotalCost, 'Sign' => $currencySign)) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<? } else { ?>
+    <div class="col-md-12">
+        <h3 class="text-center">
+            <div class="alert alert-empty-basket" role="alert">
+                <?= Lang::get('empty_cart') ?>!
+            </div>
+        </h3>
+    </div>
+<? } ?>

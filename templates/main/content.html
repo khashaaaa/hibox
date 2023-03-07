@@ -1,0 +1,15 @@
+<div class="flr <? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>col690 bproduct<? } else { ?>col900 content<? } ?> ">
+    <? if ($page) { ?>
+        <h1> <?=empty($page['title_h1']) ? $this->escape($page['title']) : $this->escape($page['title_h1'])?> </h1>
+        <div align="justify" class="flr <? if (General::getConfigValue('left_menu_mode_for_content', 2) != 3) { ?>col690 bproduct<? } else { ?>col900 content<? } ?> main-content">
+            <div id="content_area"><?=$text?></div>
+        </div>
+    <? } else {?>
+        <div class="bgr-panel mb20">
+            <h2 class="mb25"><span><?=Lang::get('empty_page')?></span></h2>
+        </div>
+        <div align="justify">
+            <?=Lang::get('empty_page_msg')?>
+        </div>
+    <? } ?>
+</div>

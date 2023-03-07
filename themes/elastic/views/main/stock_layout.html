@@ -1,0 +1,11 @@
+<? if(General::getConfigValue('stock') !== '') { ?>
+    <div class="panel-top">
+        <div class="center">
+            <? if(Session::getActiveLang() == 'ru' ) { ?>
+                <?= General::getConfigValue('stock','<b>Акция «Предновогодняя доставка», скидка на доставку 30%!</b> <a href="javascript:void(0)">Узнать подробнее</a>');?>
+            <? } else { ?>
+                <?= General::getConfigValue('stock','<b>Hurrah! Our online store opened and waits for customers!</b>');?>
+            <? } ?>
+        </div>
+    </div>
+<? } ?>

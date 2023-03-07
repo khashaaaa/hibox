@@ -1,0 +1,66 @@
+<?php
+
+$theme = basename(dirname(dirname(__FILE__)));
+$themeDir = 'themes/' . $theme;
+
+return array(
+    'style.css' => array(
+        '//css/style/reset.css',
+        '//css/style/ot-custom.css',
+        '//css/style/default.css',
+        '//css/style/grid.css',
+        '//css/style/icons.control.css',
+        '//css/style/button.css',
+        '//css/style/messages.css',
+        '//css/style/form.css',
+        '//css/style/rtl.css',
+        '//css/style/reformat.css',
+        '//css/style/raiting.css',
+        '//css/style/blog.style.css',
+        '//css/style/ie.lte9.css',
+        '//css/style/garbage.css',
+        '//css/libs/jquery/jquery.carousel/jquery-carosuel.css',
+        '//css/libs/jquery/jquery.coin-slider/coin-slider-styles.css',
+        '//css/libs/jquery/jquery.ui/jquery-ui.css',
+        '//css/libs/jquery/jquery.colorbox/jquery-colorbox.css',
+        '//css/style.content.css',
+        '//css/libs/jquery/jquery.toastmessage/jquery.toastmessage.css',
+        '//css/vendor/jquery.pnotify.css',
+        '//css/vendor/font-awesome.min.css',
+        '//css/vendor/bootstrap.min.css',
+        '//css/vendor/bootstrap-select.min.css',
+        '//' . $themeDir . '/css/screen.css',
+        '//js/vendor/jquery-ui-1.11.4/jquery-ui.min.css',
+        '//js/vendor/jquery-ui-1.11.4/jquery-ui.structure.min.css',
+        '//js/vendor/jquery-ui-1.11.4/jquery-ui.theme.min.css'
+    ),
+    'custom.new.css' => array(
+        '//css/style/form.css',
+        '//css/style/menu-navigation.css',
+        '//css/style/one-rules.css',
+        '//css/style/menu-userbar.css',
+        '//css/style/menu-crumbs.css',
+        '//css/style/product.css',
+        '//css/style/paginator.css',
+        '//css/style/footer.css',
+        '//css/custom.new.content.css'
+    ),
+    'general.js' => array(
+        '//js/vendor/underscore-min.js',
+        '//js/vendor/backbone-min.js',
+        '//js/libs/jquery/jquery.colorbox/jquery.colorbox-min.js',
+        '//js/libs/jquery/jquery.ba-bbq.js',
+        '//js/vendor/jquery.alphanumeric.js',
+        '//js/vendor/jquery.numeric.js',
+        '//js/vendor/jquery.livequery.min.js',
+        '//js/vendor/jquery.toastmessage.js',
+        '//js/vendor/jquery.pnotify.js',
+        '//js/vendor/bootstrap.min.js',
+        '//js/vendor/jquery.jcarousel.min.js',
+        '//js/vendor/bootstrap-select.min.js',
+        '//js/general.js',
+        '//js/common.js',
+        '//' . $themeDir . '/js/general.js',
+        '//js/vendor/jquery.redirect.js',
+    ),
+);

@@ -1,0 +1,62 @@
+<h3>
+    <?= (!empty($reviews)) ? Lang::get('new_item_comment_txt') : Lang::get('no_comments_to_good')?>
+</h3>
+<? if (User::getObject()->isAuthenticated()) { ?>
+    <a class="btn item-btn <?=General::getConfigValue('is_old_platform') ? 'fll' : 'item-btn';?> addItemReview"  href="javascript:void(0);" data-itemid="<?=$itemId?>">
+        <span><?=Lang::get('add_item_review_in_item')?></span>
+    </a>
+    <br><br>
+<? } ?>
+<? if (!empty($reviews)) { ?>
+    <? if ($showAllReviewsButton) { ?>
+        <div class="mb10"><a href="javascript:void(0)" id="showAllReviews"><?=Lang::get('back_to_all_reviews')?></a></div>
+    <? } ?>
+
+    <?=General::viewFetch('reviews/review-block', array('vars' => array('reviews' => $reviews), 'path' => CFG_VIEW_ROOT))?>
+
+    <? if ($totalCount > $perpage) { ?>
+        <div class="b-pager">
+            <? $page_count_print = General::getConfigValue('pager_count_print') ? General::getConfigValue('pager_count_print') : '2'; ?>
+            <? $curpage = floor($from / $perpage) + 1; ?>
+            <? $maxpage = ceil($totalCount / $perpage); ?>
+            <? if ($maxpage > 1) { ?>
+                <ul class="b-list-page">
+                    <? if ($curpage > ($page_count_print + 1)) { ?>
+                        <li class="b-item"><a href="javascript:void(0)" from="0" class="item-review-page i-link" data-action="<?=UrlGenerator::toRoute('itemcomments')?>">1</a></li>
+                    <? } ?>
+                    <? if ($curpage > ($page_count_print + 2)) { ?>
+                        <li class="b-item dotted">...</li>
+                    <? } ?>
+                    <? for ($i = max(1, $curpage - $page_count_print); $i <= min($maxpage, $curpage + $page_count_print); $i++) { ?>
+                        <? if ($curpage == $i) { ?>
+                            <li class="b-item active"><a href="javascript:void(0)" from="<?=($i - 1) * $perpage?>" class="item-review-page i-link" data-action="<?=UrlGenerator::toRoute('itemcomments')?>"><?=$i?></a>
+                            </li>
+                        <? } else { ?>
+                            <li class="b-item"><a href="javascript:void(0)" from="<?=($i - 1) * $perpage?>" class="item-review-page i-link" data-action="<?=UrlGenerator::toRoute('itemcomments')?>"><?=$i?></a></li>
+                        <? } ?>
+                    <? } ?>
+                    <? if ($curpage < $maxpage - ($page_count_print + 1)) { ?>
+                        <li class="b-item dotted">...</li>
+                    <? } ?>
+                    <? if ($curpage < $maxpage - $page_count_print) { ?>
+                        <li class="b-item"><a href="javascript:void(0)" from="<?=($maxpage - 1) * $perpage?>" class="item-review-page i-link" data-action="<?=UrlGenerator::toRoute('itemcomments')?>"><?=$maxpage?></a></li>
+                    <? } ?>
+                </ul>
+            <? } ?>
+        </div>
+    <? } ?>
+
+<? } ?>
+
+<? if (User::getObject()->isAuthenticated()) { ?>
+    <?=General::viewFetch('reviews/review-block-addform', ['path' => CFG_VIEW_ROOT])?>
+<? } ?>
+
+<script>
+    $('#showAllReviews').on('click', function () {
+        $('[attr="tab3"]').data('review-id', '').click();
+    });
+    $('div.ratyScore').raty({
+        readOnly: true
+    });
+</script>

@@ -1,0 +1,90 @@
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="bproduct">
+            <div id="review-sented" style="display:none;"><?=Lang::get('shop_comment_add')?></div>
+            <div id="review-sented-error" style="display:none;"><?=Lang::get('shop_comment_error_add')?></div>
+            <h1 class="mb25"><?=Lang::get('shopreviews')?></h1>
+
+            <? if(is_array($comments)) { ?>
+                <div class="reviews shopReviews">
+                    <ul class="reviewsList">
+                        <?php foreach ($comments as $comment) {?>
+                            <li class="reviewsItem">
+                                <div class="row">
+                                    <div class="col-md box-reviews_commentator">
+                                        <span><?=$comment['name']?></span>
+                                        <time datetime="<?=$comment['created']?>"><?=$comment['created']?></time>
+                                    </div>
+                                    <p class="reviewsCommentText author"><?=TextHelper::htmlFromUser($this->escape($comment['text']))?></p>
+                                    <ul class="col-md box-reviews_vote estimateBlock noSelect">
+                                        <? $ratingClass = ((int)$comment['rating'] < 0) ? 'negative' : 'positive'; ?>
+                                        <? if (User::getObject()->isAuthenticated()) { ?>
+                                            <li>
+                                                <? if (!@in_array ($comment['review_id'], $_SESSION['shop_rating'])) { ?>
+                                                    <? if (User::getObject()->isAuthenticated()) { ?>
+                                                        <a href="<?=UrlGenerator::toRoute('shop-comments', ['to' => $comment['review_id'], 'calc' => 'minus'])?>" style="border-bottom: none;"><span class="estimateButton negative">−</span></a>
+                                                    <? } ?>
+                                                <? } ?>
+                                            </li>
+                                            <li><a href="javascript:void(0)"><span class="estimateRate <?=$ratingClass?>"><?=$comment['rating']?></span></a></li>
+                                            <li>
+                                                <? if (!@in_array ($comment['review_id'], $_SESSION['shop_rating'])) { ?>
+                                                    <? if (User::getObject()->isAuthenticated()) { ?>
+                                                        <a href="<?=UrlGenerator::toRoute('shop-comments', ['to' => $comment['review_id'], 'calc' => 'plus'])?>" style="border-bottom: none;"><span class="estimateButton positive">+</span></a>
+                                                    <? } ?>
+                                                <? } ?>
+                                            </li>
+
+                                        <? } else { ?>
+                                            <li><a href="javascript:void(0)"><span class="<?=$ratingClass?>"><?=$comment['rating']?></span></a></li>
+                                        <? } ?>
+                                    </ul>
+
+                                </div>
+                                <? if (! empty($comment['answer'])) { ?>
+                                    <div class="row">
+                                        <div class="col-md box-reviews_comment <?=General::getConfigValue('is_old_platform') ? 'reviewsAnswer' : ''?>"><div class="col-md box-reviews_commentator">
+                                                <span><?=Lang::get('Shop_comments_admin_asnwer')?></span>
+                                                <time datetime="<?=$comment['answer_date']?>"><?=$comment['answer_date']?></time>
+                                            </div>
+                                            <?=TextHelper::htmlFromUser($this->escape($comment['answer']))?></div>
+                                    </div>
+                                <? } ?>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+
+            <? } else { ?>
+                <span><?=Lang::get('no_posts')?></span>
+            <? } ?>
+
+            <?=$paginator->display();?>
+
+            <? if (User::getObject()->isAuthenticated()) { ?>
+                <div id="set_answer" class="commentAdding">
+                    <form action="<?=UrlGenerator::toRoute('shop-comments')?>" method="post" id="shopreviewCommentForm">
+                        <label class="commentAddingLabel" for="commentAddingField"><?=Lang::get('your_review')?>:</label>
+                        <div class="commentAddingWrapper">
+                            <textarea class="commentAddingField"  id="commentAddingField" name="txt" cols="60" rows="4"></textarea>
+                            <input class="btn btnDefault btnGrey commentAddingButton" name="" type="submit" value="<?=Lang::get('save')?>" />
+                        </div>
+                    </form>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function() {
+        <? if ($shopReviewsAddedResult === 'Ok') { ?>
+        showMessage("<?=Lang::get('shop_comment_add')?>");
+        <? } elseif ($shopReviewsAddedResult === 'Error') {  ?>
+        showError("<?=Lang::get('shop_comment_error_add')?>");
+        <? } ?>
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

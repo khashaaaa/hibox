@@ -1,0 +1,43 @@
+<? if (!empty($comments)) { ?>
+    <section class="box-section box-reviews">
+        <h2><?=Lang::get('shopreviews')?></h2>
+
+        <? foreach ($comments as $comment) { ?>
+            <div class="row">
+                <div class="col-md box-reviews_commentator">
+                    <span><?=$comment['name']?></span>
+                    <time datetime="<?=$comment['created']?>"><?=$comment['created']?></time>
+                </div>
+                <p class="reviewsCommentText author"><?=TextHelper::htmlFromUser($this->escape($comment['text']))?></p>
+                <ul class="col-md box-reviews_vote">
+                    <? if ($comment['allowedVote']) { ?>
+                        <li><a href="/?p=shopreviews&to=<?=$comment['review_id']?>&calc=minus"><span class="glyphicon glyphicon-minus-sign"></span></a></li>
+                    <? } ?>
+
+                    <? $ratingClass = ((int)$comment['rating'] < 0) ? 'negative' : 'positive'; ?>
+                    <li><a href="javascript:void(0)"><span class="<?=$ratingClass?> <?=! $comment['allowedVote'] ? 'voted': ''?>"><?=$comment['rating']?></span></a></li>
+
+                    
+                    <? if ($comment['allowedVote']) { ?>
+                        <li><a href="/?p=shopreviews&to=<?=$comment['review_id']?>&calc=plus"><span class="glyphicon glyphicon-plus-sign"></span></a></li>
+                    <? } ?>
+                </ul>
+                <!---div class="col-md box-reviews_comment"><?=$this->escape($comment['text'])?></div---->
+                
+            </div>
+
+            <? if (! empty($comment['answer'])) { ?>
+                <div class="row">
+                    <div class="col-md box-reviews_comment"><div class="col-md box-reviews_commentator">
+                        <span><?=Lang::get('Shop_comments_admin_asnwer')?></span>
+                        <time datetime="<?=$comment['answer_date']?>"><?=$comment['answer_date']?></time>
+                    </div>
+                    <?=TextHelper::htmlFromUser($this->escape($comment['answer']))?></div>
+                </div>
+            <? } ?>  
+        <? } ?>
+
+        <a href="<?=@UrlGenerator::generateContentUrl('shopreviews')?>" class="see-all-link"><?=Lang::get('Shop_comments_all_comments')?></a>
+    </section>
+<? } ?>
+

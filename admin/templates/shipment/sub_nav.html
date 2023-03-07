@@ -1,0 +1,11 @@
+<!-- ot-sub-sub-nav -->
+<div class="tabbable ot_sub_sub_nav">
+
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'internal'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('internal')?>"><?=LangAdmin::get('Delivery_internal')?></a></li>
+        <li <? if (in_array($PageUrl->GetAction(), array('default', 'editDelivery', 'editdelivery'))) { ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Delivery_external')?></a></li>
+        <li <? if (in_array($PageUrl->GetAction(), array('tariffs', 'editTariff', 'addTariff'))) { ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('tariffs')?>"><?=LangAdmin::get('Tariffs_by_countries')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'deliveryService'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('deliveryService')?>"><?=LangAdmin::get('Delivery_service_system')?></a></li>
+    </ul>
+
+</div><!-- /ot-sub-sub-nav -->

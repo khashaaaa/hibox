@@ -1,0 +1,167 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>"><?=LangAdmin::get('contents::Content')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('contents::Pages')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/contents/navigation/tabs.xml', $PageUrl)?>
+
+<?php LangAdmin::getTranslations(BASE_ADMIN_PATH.'langs/contents', Session::getActiveAdminLang()); ?>
+
+<div class="row-fluid">
+
+    <div class="span10">
+        <h1><?=LangAdmin::get('contents::Pages')?></h1>
+    </div>
+
+    <div class="span2 offset-top1">
+        <div id="activeLanguagesContainer"></div>
+    </div>
+
+</div>
+
+<div class="tabbable offset-bottom1 contents-wrapper" >
+
+    <ul class="nav nav-tabs">
+        <li><a href="#ot-content-pages-tab" data-toggle="tab"><?=LangAdmin::get('contents::Sections')?></a></li>
+        <li><a href="#ot-content-service-pages-tab" data-toggle="tab"><?=LangAdmin::get('contents::Services')?></a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div class="tab-pane active" id="ot-content-pages-tab">
+            <h2>
+                <?=LangAdmin::get('contents::Sections')?>
+                <a href="<?=$PageUrl->AssignCmdAndDo('contents', 'addNewPage')?>&type=page" autocomplete="off" data-loading-text="<?=LangAdmin::get('contents::Add')?>" class="btn btn-tiny btn-primary btn_preloader weight-normal offset-left3" title="<?=LangAdmin::get('contents::Add_page')?>"><?=LangAdmin::get('contents::Add')?></a>
+            </h2>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="span3"><?=LangAdmin::get('contents::Name')?></th>
+                        <th class="span3"><?=LangAdmin::get('contents::Address')?></th>
+                        <th class="span3"><?=LangAdmin::get('contents::Menu')?></th>
+                        <th class="span2"><?=LangAdmin::get('contents::Language')?></th>
+                        <th class="span2"><?=LangAdmin::get('contents::Indexing')?></th>
+                        <th class="span1"><?=LangAdmin::get('contents::Actions')?></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <? foreach ($pages as $page) {
+                    ?>
+                    <tr id="<?=$page['id']?>" <? if ($page['lang_code'] === null) print 'class="error"' ?>>
+                    <td><a href="/?p=<?=rawurlencode($page['alias'])?>" title="<?=LangAdmin::get('contents::Go_to_page')?>" target="_blank"><?=$this->escape($page['title'])?></a></td>
+                    <td><?=$page['alias']?></td>
+                    <td><?=$page['menu'] ? LangAdmin::get('contents::' . $page['menu']) : ''?></td>
+                    <td>
+                        <? if ($page['lang_code'] === null) { ?>
+                        <?=LangAdmin::get('contents::Manual_page_lang_code_is_null')?>
+                        <? } else { ?>
+                        <?=$page['lang_name']?>
+                        <? } ?>
+                    </td>
+                    <td>
+                        <? if ($page['is_index']) { ?>
+                        <?=LangAdmin::get('Yes')?>
+                        <? } else { ?>
+                        <?=LangAdmin::get('No')?>
+                        <? } ?>
+                    </td>
+                    <td>
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li class="edit-page"><a href="#" title="<?=LangAdmin::get('contents::Edit_page')?>"><i class="icon-pencil"></i> <?=LangAdmin::get('contents::Edit')?></a></li>
+                                <li class="delete-page" ><a href="#" title="<?=LangAdmin::get('contents::Delete_page')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i> <?=LangAdmin::get('contents::Delete')?></a></li>
+                                <li class="divider"></li>
+                                <li class ="add-page"> <a class ="add-page" href="#" title="<?=LangAdmin::get('contents::Add_subsection')?>"><i class="icon-plus"></i> <?=LangAdmin::get('contents::Add_subsection')?></a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    </tr>
+                    <?php if(count($page['children']) > 0) {
+                    foreach ($page['children'] as $subpage) {
+                    ?>
+                    <tr id="<?=$subpage['id']?>">
+                        <td>
+                            <div class="offset-left1">
+                                <i class="icon-ellipsis-horizontal muted"></i>
+                                <a href="/?p=<?=rawurlencode($subpage['alias'])?>"
+                                   title="<?=LangAdmin::get('contents::Go_to_page')?>"
+                                >
+                                    <?=$this->escape($subpage['title'])?>
+                                </a>
+                            </div>
+                        </td>
+                        <td><?=$subpage['alias']?></td>
+                        <td><?=(isset($subpage['menu']) && ($subpage['menu'])) ?LangAdmin::get('contents::' . $subpage['menu']):''?></td>
+                        <td><?=$subpage['lang_name']?></td>
+                        <td>
+                            <? if ($subpage['is_index']) { ?>
+                            <?=LangAdmin::get('Yes')?>
+                            <? } else { ?>
+                            <?=LangAdmin::get('No')?>
+                            <? } ?>
+                        </td>
+                        <td>
+                            <div class="btn-group pull-right">
+                                <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li class="edit-page"><a href="#" title="<?=LangAdmin::get('contents::Edit_page')?>"><i class="icon-pencil"></i> <?=LangAdmin::get('contents::Edit')?></a></li>
+                                    <li class="delete-page" ><a href="#" title="<?=LangAdmin::get('contents::Delete_page')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i> <?=LangAdmin::get('contents::Delete')?></a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php } } } ?>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /#ot-content-pages-tab -->
+
+        <div class="tab-pane" id="ot-content-service-pages-tab">
+            <h2><?=LangAdmin::get('contents::Services')?></h2>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="span5"><?=LangAdmin::get('contents::Name')?></th>
+                        <th class="span4"><?=LangAdmin::get('contents::Address')?></th>
+                        <th class="span2"><?=LangAdmin::get('contents::Language')?></th>
+                        <th class="span2"><?=LangAdmin::get('contents::Indexing')?></th>
+                        <th class="span1"><?=LangAdmin::get('contents::Actions')?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <? foreach ($adminPages as $page) { ?>
+                    <tr id="<?=$page['id']?>">
+                        <td><a href="/?p=<?=$page['alias']?>" title="<?=LangAdmin::get('Go_to_page')?>"  target="_blank"><?=$this->escape($page['title'])?></a></td>
+                        <td><?=$page['alias']?></td>
+                        <td><?=$page['lang_name']?></td>
+                        <td>
+                            <? if ($page['is_index']) { ?>
+                            <?=LangAdmin::get('Yes')?>
+                            <? } else { ?>
+                            <?=LangAdmin::get('No')?>
+                            <? } ?>
+                        </td>
+                        <td class="text-center"><a href="#" class="btn btn-mini edit-page" title="<?=LangAdmin::get('contents::Edit_page')?>"><i class="icon-pencil"></i></a></td>
+                    </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /#ot-content-service-pages-tab -->
+
+    </div><!-- /.tab-content-->
+
+</div><!-- /.tabbable -->
+<? AssetsMin::registerJsFile('/admin/js/ot-contents-pages.js'); ?>
+
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="My_plugins" action="default" cmd="pluginsutil">
+        <page data-action="default" data-cmd="pluginsutil" />
+    </tab>
+    <tab title="Plugins_download_update" action="control" cmd="pluginsutil">
+        <page data-action="control" data-cmd="pluginsutil" />
+    </tab>
+</tabs>

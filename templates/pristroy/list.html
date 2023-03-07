@@ -1,0 +1,116 @@
+
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="bproduct">
+            <h2 class="mb25"><span><?=Lang::get('pristroy_goods')?></span></h2>
+
+            <div class="fll col240">
+                <div class="bgr-block mb20">
+                    <? if (General::getConfigValue('banner_widget')) { ?>
+                    <?=General::getConfigValue('banner_widget')?>
+                    <? } else { ?>
+                    <a href="/?p=help"><img src="p/banner.png"/></a>
+                    <? } ?>
+                </div>
+            </div>
+
+            <div class="flr col690 bproduct">
+
+			<div class="bgr-panel mb20">
+
+		        <ul class="tableList">
+		            <li><?=Lang::get('items_rus')?>: <b><?=$totalcount?></b></li>
+		            <li><?=Lang::get('shown')?>: <?=Lang::get('from')?> <b><?=($count ? $from + 1 : 0)?></b> <?=Lang::get('to')?>
+		                <b><? if ($from + $perpage < $count) print $from + $perpage; else print $count; ?></b>
+		                    <?=Lang::get('from2')?>
+		                    <b><?=$count?></b>
+		
+		            </li>
+		            <? if (isset($availableSorts) && ! empty($availableSorts)) { ?>
+		            <li>
+		                <form method="post" id="sort_form">
+		                    <?=Lang::get('sort_by')?>
+		                    <? if (! empty($availableSorts)) { ?>
+		                    <select name="sort_by" onchange="document.getElementById('sort_form').submit();">
+		                        <? foreach ($availableSorts as $sort) { ?>
+		                        <option value="<?=$sort['OrderBy']?>" <?if ($sortBy == $sort['OrderBy']) { ?>selected<? }?>><?=$sort['DisplayName']?></option>
+		                        <? } ?>
+		                    </select>
+		                    <? } ?>
+		                </form>
+		
+		            </li>
+		            <? } ?>
+		            <li>
+		                <?php
+		                    if (! isset($pp)) {
+        		                $pp = array(20, 40, 100);
+		                    }
+							$ppValue = $perpage;
+							if (!in_array($ppValue, $pp)) {
+								$pp[] = $ppValue;
+								asort($pp);
+							}
+							$ppValue = General::getNumConfigValue('pristroy_catalog_perpage');
+							if ($ppValue) {
+								if (!in_array($ppValue, $pp)) {
+									$pp[] = $ppValue;
+									asort($pp);
+								}
+							}
+                		?>
+		                <form method="post" id="per_page">
+		                    <select name="per_page" onchange="document.getElementById('per_page').submit();">
+		                        <?php foreach ($pp as $key => $value) { ?>
+		                            <option value="<?=$value?>" <?if ($perpage == $value){?>selected<?}?>><?=$value?></option>
+		                        <?php } ?>
+		                    </select>
+		                </form>
+		            </li>
+		        </ul>
+		    </div>
+
+                <? if (! empty($list)) { ?>
+                <!-- .product -->
+                <ul class="lproduct flin w700 w160li clrfix">
+
+                    <? foreach ($list as $item) { ?>
+                    <li class="product" id="product<?=$item['id']?>" title="<?=$this->escape($item['title'])?>">
+                        <a class="pic" href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>"
+                           title="<?=TextHelper::wrapWordsInText($item['description'])?>">
+                            <i><img src="<?=ProductsHelper::getPristroyImage($item, 160);?>" style="max-width:100%"></i>
+                            <ins></ins>
+                        </a>
+
+                        <div class="price">
+                            <div class="line"></div>
+                            <a href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>"
+                               title="<?=$this->escape($item['price'])?>">
+                                <span><?=$item['display_price']?></span>
+                            </a>
+
+                            <a href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>"
+                               title="<?=TextHelper::wrapWordsInText($item['description'])?>">
+                                <ins class="name" pid="<?=$item['id']?>"><?=$this->escape($item['title'])?></ins>
+                                <span class="glow"></span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <?php if ($idx % 4 == 3) { ?>
+                    <div style="clear: both"></div>
+                    <? } ?>
+                    <? } ?>
+                </ul>
+                <? } else { ?>
+                <h2><?=Lang::get('nothing_found')?></h2>
+                <? } ?>
+
+                <div>
+                    <? $paginator->display(); ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

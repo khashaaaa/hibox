@@ -1,0 +1,69 @@
+<div id="orderpay">
+    <div class="col-wd">
+        <h1><?=Lang::get('payment_order')?> <?=OrdersProxy::normalizeOrderId($orderInfo->GetSalesOrderInfo()->GetId())?></h1>
+        <div class="enter">
+            <button class="btn_pay_account btn btn-success" style="margin-bottom: 10px;" onclick="$('#arrow-info').trigger('click');"><i class="glyphicon glyphicon-list" aria-hidden="true"></i> <?=Lang::get('goods_list')?></button>
+        </div>
+        <span class=""><?=Lang::get('sum')?>:</span>
+        <span class="row-price">
+            <nobr><?=$orderInfo->GetSalesOrderInfo()->GetTotalAmount()?> <?=$orderInfo->GetSalesOrderInfo()->GetCurrencySign()?></nobr>
+        </span>
+        <br />
+        <span class=""><?=Lang::get('Payed')?>:</span>
+        <span class="row-price"><nobr><?=number_format((float)$orderInfo->GetSalesOrderInfo()->GetTotalAmount() - (float)$orderInfo->GetSalesOrderInfo()->GetRemainAmount(), (int)General::getConfigValue('price_rounding'), '.', ' ')?> <?=$orderInfo->GetSalesOrderInfo()->GetCurrencySign()?></nobr></span><br />
+        <span class=""><?=Lang::get('To_pay')?>:</span>
+        <span class="row-price">
+            <nobr><?=$orderInfo->GetSalesOrderInfo()->GetRemainAmount()?> <?=$orderInfo->GetSalesOrderInfo()->GetCurrencySign()?></nobr>
+        </span>
+        <br />
+        <br />
+
+		<div class="accordion">
+			<?=General::runController('GetBankAccount','renderBankAccount')?>
+		</div>
+
+        <?=General::runController('Pay','form', ['vars' => ['orderId' => $orderInfo->GetSalesOrderInfo()->GetId()]])?>
+		
+    </div>
+    <div class="col-md">
+        <div class="accordion" id="accordion2">
+            <div class="accordion-group" id="info-order">
+                <div class="accordion-heading">
+                    <span class="accordion-toggle" data-toggle1="collapse"
+                          data-parent="#accordion2" > <?=Lang::get('Order_information')?> </span>
+                </div>
+                <div id="collapse1" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                        <span class="ltitle"><?=Lang::get('order')?> №</span> <?=OrdersProxy::normalizeOrderId($orderInfo->GetSalesOrderInfo()->GetId())?> <br /> <br />
+                        <span class="ltitle"><?=Lang::get('status')?>: </span><?=$orderInfo->GetSalesOrderInfo()->GetStatusName()?> <br /> <br />
+                        <span class="ltitle"><?=Lang::get('delivery_address')?>: </span><br/>
+                        <?= $this->escape(
+                        str_replace(
+                        ', ,',
+                        ',',
+                        $orderInfo->GetSalesOrderInfo()->GetDeliveryAddress()->GetPostalCode() . ', ' .
+                        $orderInfo->GetSalesOrderInfo()->GetDeliveryAddress()->GetCountry() . ', ' .
+                        $orderInfo->GetSalesOrderInfo()->GetDeliveryAddress()->GetRegionName() . ', ' .
+                        $orderInfo->GetSalesOrderInfo()->GetDeliveryAddress()->GetCity() . ', ' .
+                        $orderInfo->GetSalesOrderInfo()->GetDeliveryAddress()->GetAddress()
+                        ))
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- order steps navbar-->
+<? AssetsMin::jsBegin(); ?>
+<script>
+$('#orderpay .payment_radio').change(function () {
+    var table = $(this).closest('table');
+    $('.payment-descriptions', table).hide();
+    $('#orderpay  [pid="desc' + $(this).val() + '"]').css('display', 'inline-block');
+    $('#orderpay #add').removeAttr('disabled');
+    $('#orderpay #add').removeClass('disabled');
+});
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

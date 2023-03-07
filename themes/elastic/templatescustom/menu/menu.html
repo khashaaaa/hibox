@@ -1,0 +1,101 @@
+<? if (! isset($notAuth) && empty($_GET['print']))  { ?>
+
+    <? if($_GET['p']=='privateoffice' || $_GET['mode']=='reg_success' || $_GET['p']=='referral' || $_GET['p']=='outputofmoney' || $_GET['p']=='userreferal' || $_GET['p']=='moneyinfo' || $_GET['p']=='pay' || $_GET['p']=='orderdetails') {
+        $checked = 0;
+
+        if($_GET['p']=='privateoffice') $checked = 1;
+        if(($_GET['p']=='privateoffice' && isset($_GET['orderstate'])) || $_GET['p']=='orderdetails') $checked = 2;
+        if($_GET['p']=='moneyinfo') $checked = 3;
+        if($_GET['p']=='support') $checked = 5;
+        if($_GET['p']=='referral') $checked = 6;
+        if($_GET['p']=='outputofmoney') $checked = 7;
+        if($_GET['p']=='userreferal') $checked = 8;
+
+        ?>
+
+        <div class="aside">
+            <a href="javascript:void(0)" class="menu-aside">
+                <img src="<?=General::getThemeWebDir()?>/img/svg/icon-menu.svg" alt="img">
+            </a>
+            <ul class="aside-menu  accordion-menu-page">
+                <li><a href="/?p=privateoffice" <? if($checked==1){ ?>class="active"<? } ?>><?=Lang::get('general_information')?></a></li>
+                <li><a href="/?p=privateoffice&orderstate=1" <? if($checked==2){ ?>class="active"<? } ?>><?=Lang::get('orders')?></a></li>
+                <li><a href="/?p=moneyinfo" <? if($checked==3){ ?>class="active"<? } ?>><?=Lang::get('account_info')?></a></li>
+                <li><a href="/?p=profile" <? if($checked==4){ ?>class="active"<? } ?>><?=Lang::get('profile')?></a></li>
+                <li>
+                    <a href="/?p=support" <? if($checked==5){ ?>class="active"<? } ?>><?=Lang::get('support_service')?>
+                        <? if ($unreadCount) { ?>
+                            <span style="color:red">(<?= $unreadCount ?>)</span>
+                        <? } ?>
+                    </a>
+                </li>
+                <? if (!General::getConfigValue('hide_money_output')) { ?>
+                    <li><a href="/?p=outputofmoney" <? if($checked==7){ ?>class="active"<? } ?>><?=Lang::get('withdraw_funds')?></a></li>
+                <? } ?>
+                <? if (CMS::IsFeatureEnabled('ReferralProgram')) { ?>
+                    <li><a href="/?p=userreferal" <? if($checked==8){ ?>class="active"<? } ?>><?=Lang::get('user_referal')?></a></li>
+                <? } ?>
+            </ul>
+        </div>
+    <? } ?>
+
+    <? if($_GET['p']=='profile'){ ?>
+        <div class="aside">
+            <a href="javascript:void(0)" class="menu-aside">
+                <img src="<?=General::getThemeWebDir()?>/img/svg/icon-menu.svg" alt="img">
+            </a>
+            <ul class="aside-menu  accordion-menu-page">
+                <li><a href="/?p=privateoffice" <? if($_get['p']=='privateoffice'){ ?>class="active"<? } ?>><?=Lang::get('general_information')?></a></li>
+                <li><a href="/?p=privateoffice&orderstate=1"><?=Lang::get('orders')?></a></li>
+                <li><a href="/?p=moneyinfo"><?=Lang::get('account_info')?></a></li>
+                <li>
+                    <a href="/?p=profile"><?=Lang::get('profile')?></a>
+                    <li class="ml-5 col-lg-9" style="width: 100%"><a href="/?p=profile&mode=account" <? if($_GET['mode']=='account' || (empty($_GET['mode']) && !isset($_GET['new_profile']))){?> class="active" <?}?>><?=Lang::get('account')?></a></li>
+                    <li class="ml-5 col-lg-9"><a href="/?p=profile&mode=delivery" <? if($_GET['mode']=='delivery' || isset($_GET['new_profile'])){?> class="active" <?}?>><?=Lang::get('delivery')?></a></li>
+                </li>
+                <li>
+                    <a href="/?p=support" <? if($checked==5){ ?>class="active"<? } ?>>
+                        <?=Lang::get('support_service')?>
+                        <? if ($unreadCount) { ?>
+                            <span style="color:red">(<?= $unreadCount ?>)</span>
+                        <? } ?>
+                    </a>
+                </li>
+                <? if (!General::getConfigValue('hide_money_output')) :?>
+                    <li><a href="/?p=outputofmoney" <? if($checked==7){ ?>class="active"<? } ?>><?=Lang::get('withdraw_funds')?></a></li>
+                <? endif; ?>
+                <? if (CMS::IsFeatureEnabled('ReferralProgram')) :?>
+                    <li><a href="/?p=userreferal" <? if($checked==8){ ?>class="active"<? } ?>><?=Lang::get('user_referal')?></a></li>
+                <? endif; ?>
+            </ul>
+        </div>
+    <? } ?>
+    <? if($_GET['p']=='support'){ ?>
+        <div class="aside">
+            <a href="javascript:void(0)" class="menu-aside">
+                <img src="<?=General::getThemeWebDir()?>/img/svg/icon-menu.svg" alt="img">
+            </a>
+            <ul class="aside-menu  accordion-menu-page">
+                <li><a href="/?p=privateoffice" <? if($_get['p']=='privateoffice'){ ?>class="active"<? } ?>><?=Lang::get('general_information')?></a></li>
+                <li><a href="/?p=privateoffice&orderstate=1"><?=Lang::get('orders')?></a></li>
+                <li><a href="/?p=moneyinfo"><?=Lang::get('account_info')?></a></li>
+                <li><a href="/?p=profile"><?=Lang::get('profile')?></a></li>
+                <li class="mcats_item open">
+                    <a href="/?p=support" class="active">
+                        <?=Lang::get('support_service')?>
+                        <? if ($unreadCount) { ?>
+                            <span style="color:red">(<?= $unreadCount ?>)</span>
+                        <? } ?>
+                    </a>
+                </li>
+                <? if (!General::getConfigValue('hide_money_output')) :?>
+                    <li><a href="/?p=outputofmoney" <? if($checked==7){ ?>class="active"<? } ?>><?=Lang::get('withdraw_funds')?></a></li>
+                <? endif; ?>
+                <? if (CMS::IsFeatureEnabled('ReferralProgram')) :?>
+                    <li><a href="/?p=userreferal" <? if($checked==8){ ?>class="active"<? } ?>><?=Lang::get('user_referal')?></a></li>
+                <? endif; ?>
+            </ul>
+        </div>
+    <? } ?>
+
+<? } ?>

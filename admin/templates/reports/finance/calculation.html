@@ -1,0 +1,210 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('finance')?>"><?=LangAdmin::get('Finance')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Сalculation')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+<?=TabsGenerator::GetSubTabs('templates/reports/finance/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Сalculation')?></h1>
+<div id="billing-view-wrapper">
+<div class="well inline-table offset-bottom0 offset-left">
+    <form action="<?=$PageUrl->AssignDo('default')?>" id="apply-filter-finance-details">
+        <input type="hidden" name="cmd" value="Reports">
+        <input type="hidden" name="do" value="calculation">
+
+        <?=LangAdmin::get('from')?>
+        <div class="input-append">
+            <input name="filter[fromdate]" id="date-start-display" class="input-small date auto-height" type="text" value="<?=isset($filter['fromdate']) ? $filter['fromdate'] : date('01.m.Y');?>">
+            <span class="btn add-on" id="date-start"><i class="icon-calendar"></i></span>
+        </div>
+        <?=LangAdmin::get('to')?>
+        <div class="input-append">
+            <input name="filter[todate]" id="date-end-display" class="input-small date auto-height" type="text" value="<?=isset($filter['todate']) ? $filter['todate'] : date('d.m.Y');?>">
+            <span class="btn add-on" id="date-end" ><i class="icon-calendar"></i></span>
+        </div>
+        <div class="inline-block offset-left1">
+            <input type="submit" id="apply_button" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Applying_filters')?>" autocomplete="off" value="<?=LangAdmin::get('Apply')?>">
+        </div>
+    </form>
+    <a class="btn btn-primary btn_preloader export-calculation ladda-progress-button" href="javascript:void(0)"><i class="icon-share"></i> <?=LangAdmin::get('Export')?></a>
+</div>
+
+<div class="row-fluid contents-wrapper">
+
+    <div class="">
+       
+        <?php if (! empty($logs)) { ?>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th><?=LangAdmin::get('Date')?></th>
+                    <th><?=LangAdmin::get('IncomeAmount')?> <?=$currency?></th>
+                    <th><?=LangAdmin::get('Providers')?></th>
+                    <th><?=LangAdmin::get('Currency')?></th>
+                    <th><?=LangAdmin::get('OrdersReservedAmount')?> <?=$currency?></th>
+                    <th><?=LangAdmin::get('Number_of_purchases')?></th>
+                    <th><?=LangAdmin::get('Rate_to_rub')?> <?=$currency?></th>
+                    <th><?=LangAdmin::get('PurchaseAmount')?> <?=$currency?></th>
+                    <th><?=LangAdmin::get('ExternalDeliveryAmount')?></th>
+                    <th><?=LangAdmin::get('Income')?></th>
+                    <th><?=LangAdmin::get('Percentage_of_profit')?></th>
+                </tr>
+                </thead>
+                <?
+            $curMonth = date("m-Y");
+            $middleIncomeAmount = false;
+            $middleOrdersReservedAmount = false;
+            $middlePurchaseAmount = false;
+            $middleExternalDeliveryAmount = false;
+            $middleEarningsAmount = false;
+            $middleEarningsPercent = false;
+            $middleI = 0;
+            ?>
+                <tbody>
+                <?php foreach ($logs as $dte => $log) {
+                $middleIncomeAmount = false;
+                $middleOrdersReservedAmount = false;
+                $middlePurchaseAmount = false;
+                $middleExternalDeliveryAmount = false;
+                $middleEarningsAmount = false;
+                $middleEarningsPercent = false;
+                $middleI = 0;
+                ?>
+                <?php foreach ($log as $l) {
+                        $middleIncomeAmount = $middleIncomeAmount + $l->GetIncomeAmount();
+                $middlePurchaseAmount = $middlePurchaseAmount + $l->GetPurchaseAmount();
+                $middleOrdersReservedAmount = $middleOrdersReservedAmount + $l->GetOrdersReservedAmount();
+                $middleExternalDeliveryAmount = $middleExternalDeliveryAmount + $l->GetExternalDeliveryAmount();
+                $middleEarningsAmount = $middleEarningsAmount + $l->GetEarningsAmount();
+                $middleEarningsPercent = $middleEarningsPercent + $l->GetEarningsPercent();
+                $middleI++;
+                } ?>
+                <tr class="collapseTr"
+                    data-collapse='<?=$dte?>'
+                    data-month="<?=date("F", strtotime($log[0]->GetDate()))?>">
+                <td>
+                    <i class="icon-caret-<?=$curMonth == $dte ? 'up' : 'down'?>"></i>
+                    <b><?=LangAdmin::get(date("F", strtotime($log[0]->GetDate())))?> <?=date("Y", strtotime($log[0]->GetDate()))?></b>
+                </td>
+                <td class="middleIncomeAmount"><b><?=$middleIncomeAmount?></b></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="middleOrdersReservedAmount"><b><?=$middleOrdersReservedAmount?></b></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="middlePurchaseAmount"><b><?=$middlePurchaseAmount?></b></td>
+                <td class="middleExternalDeliveryAmount"><?=$middleExternalDeliveryAmount?></td>
+                <td class="middleEarningsAmount"><b><?=$middleEarningsAmount?></b></td>
+                <td class="middleEarningsPercent"><b><?=$middleEarningsPercent/$middleI?></b></td>
+                </tr>
+                <?php foreach ($log as $l) {  ?>
+                <tr hide="<?=$dte?>"
+                <?=$curMonth != $dte ? 'style="display:none"' : ''?>
+                class='<?=$dte?> collapseTr'
+                data-collapse='<?=date("d-m-Y", strtotime($l->GetDate()))?>'
+                data-month="<?=date("F", strtotime($log[0]->GetDate()))?>"
+                data-day="<?=date("d-m-Y", strtotime($l->GetDate()))?>"
+                >
+                <td>
+                    <i class="icon-caret-down"></i>
+                    <?=date("d.m.Y", strtotime($l->GetDate()))?>
+                </td>
+                <td class="incomeAmount"><?=$l->GetIncomeAmount()?></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="ordersReservedAmount"><?=$l->GetOrdersReservedAmount()?></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="purchaseAmount"><?=$l->GetPurchaseAmount()?></td>
+                <td class="externalDeliveryAmount"><?=$l->GetExternalDeliveryAmount()?></td>
+                <td class="earningsAmount"><?=$l->GetEarningsAmount()?></td>
+                <td class="earningsPercent"><?=$l->GetEarningsPercent()?></td>
+                </tr>
+                <?php foreach ($l->GetProviders()->GetProvider() as $provider) { ?>
+                <tr style="display:none"
+                    class='hide-<?=$dte?> success <?=date("d-m-Y", strtotime($l->GetDate()))?> <?=$provider->GetProviderType()?>'
+                    data-provider="<?=$provider->GetProviderType()?>"
+                    data-month="<?=date("F", strtotime($log[0]->GetDate()))?>"
+                data-day="<?=date("d-m-Y", strtotime($l->GetDate()))?>"
+                >
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class=""><?=$provider->GetProviderType()?></td>
+                <td class=""><?=$provider->GetProviderCurrencyCode()?></td>
+                <td class=""><?=$provider->GetOrdersReservedAmount()?></td>
+                <td>
+                    <a class="ot_inline_editable purchaseProviderAmount"
+                       href="#"
+                       data-name="PurchaseProviderAmount"
+                       data-send="always"
+                       data-type="text"
+                       data-pk="<?= date("d-m-Y", strtotime($l->GetDate()))?>"
+                    data-url="<?=$PageUrl->Add('do', 'saveInline')->Add('provider', $provider->GetProviderType())->Get()?>"
+                    data-original-title=""
+                    data-inputclass="input-mini"
+                    data-placement="left"
+                    data-emptytext="0.00">
+                    <?=$provider->GetPurchaseProviderAmount()?>
+                    </a>
+                </td>
+                <td>
+                    <a class="ot_inline_editable exchangeRate"
+                       href="#"
+                       data-name="ExchangeRate"
+                       data-send="always"
+                       data-type="text"
+                       data-pk="<?= date("d-m-Y", strtotime($l->GetDate()))?>"
+                    data-url="<?=$PageUrl->Add('do', 'saveInline')->Add('provider', $provider->GetProviderType())->Get()?>"
+                    data-original-title=""
+                    data-inputclass="input-mini"
+                    data-placement="left"
+                    data-emptytext="1.00">
+                    <?=round($provider->GetExchangeRate(), 6)?>
+                    </a>
+                </td>
+                <td><?=$provider->GetPurchaseAmount()?></td>
+                <td>
+                    <a class="ot_inline_editable externalDeliveryAmount"
+                       href="#"
+                       data-name="ExternalDeliveryAmount"
+                       data-send="always"
+                       data-type="text"
+                       data-pk="<?= date("d-m-Y", strtotime($l->GetDate()))?>"
+                    data-url="<?=$PageUrl->Add('do', 'saveInline')->Add('provider', $provider->GetProviderType())->Get()?>"
+                    data-original-title=""
+                    data-inputclass="input-mini"
+                    data-placement="left"
+                    data-emptytext="0.00">
+                    <?=$provider->GetExternalDeliveryAmount()?>
+                    </a>
+                </td>
+                <td class="earningsAmount"><?=$provider->GetEarningsAmount()?></td>
+                <td class="earningsPercent"><?=$provider->GetEarningsPercent()?></td>
+                </tr>
+                <? } ?>
+                <? } ?>
+
+                <? } ?>
+                </tbody>
+            </table>
+        </div>
+
+        <? } ?>
+    </div>
+</div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    var periodFilters = <?=!empty($periodFilters) ? json_encode($periodFilters) : '{}'?>;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-billing-calculation.js'); ?>

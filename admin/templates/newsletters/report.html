@@ -1,0 +1,104 @@
+<?
+/**
+ * @var AdminUrlWrapper $PageUrl
+ * @var NewsletterEntity $newsletter
+ */
+?>
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Promo', 'default')?>"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing_list')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Report_of_errors')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if(in_array($PageUrl->GetAction(), array('default', 'add', 'edit', 'report'))){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('mailing_list')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'subscribers'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Subscribers', 'default')?>"><?=LangAdmin::get('subscribers')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'config' && $PageUrl->GetCmd() == 'Newsletters'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<? if (count($subscribers)) { ?>
+<h1>
+    <?=LangAdmin::get('Report_page')?> 
+    «<?=$this->escape($newsletter->getTitle())?>»
+</h1>
+
+<div class="row-fluid" id="content">
+
+	<div class="span6">
+
+        <div class="text-right">
+            <?
+            $url = $PageUrl;
+            $url->DeleteKey('perPage');
+            ?>
+            <select class="input-mini" id="per-page" data-url="<?=$url->Get()?>" data-value="<?=$perPage?>">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="<?=$totalCount?>"><?=LangAdmin::get('All')?></option>
+            </select>
+        </div>
+
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th class="span4"><?=LangAdmin::get('subscribers_user')?></th>
+                <th class="span4"><?=LangAdmin::get('subscribers_email')?></th>
+                <th class="span4"><?=LangAdmin::get('Error')?></th>
+                <th class="span1"><?=LangAdmin::get('subscribers_actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <?
+            /**
+             * @var SubscriberEntity[] $subscribers
+             */
+            ?>
+            <? foreach ($subscribers as $subscriber){ ?>
+                <tr>
+                    <td>
+                        <? if ($subscriber->getOtapiId() < 0) { ?>
+                            <?=$this->escape($subscriber->getLogin())?>
+                        <? } else { ?>
+                            <a href="<?=$PageUrl->AssignCmdAndDo('Users', 'profile')?>&id=<?=$subscriber->getOtapiId()?>"><?=$this->escape($subscriber->getLogin())?></a>
+                        <? } ?>
+                    </td>
+                    <td><a href="mailto:<?=$subscriber->getEmail()?>" title="subscribers_user_send_mail"><?=$subscriber->getEmail()?></a></td>
+                    <td><?=$this->escape($subscriber->getError())?></td>
+                    <td class="text-center">
+                        <a href="<?=$PageUrl->AssignCmdAndDo('Subscribers', 'delete')?>&id=<?=$subscriber->getId()?>" class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('subscribers_remove_user')?>"><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
+            <? } ?>
+
+            </tbody>
+        </table>
+        <?
+        /**
+         * @var Paginator $paginator
+         */
+        ?>
+        <?=$paginator->display()?>
+
+    </div>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-newsletters-list.js'); ?>
+
+<? } else { ?>
+    <h1>
+        <?=LangAdmin::get('mailing_error_not_found')?>
+    </h1>
+<? } ?>

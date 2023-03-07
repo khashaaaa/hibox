@@ -1,0 +1,19 @@
+<? foreach ($sellers as $i => $seller) {
+    $displayName = $seller['DisplayData'] && $seller['DisplayData']['vendor_name'] ? $seller['DisplayData']['vendor_name'] : $seller['name'];
+    $pictureUrl = $seller['DisplayData']['image_path'];
+    $originalPictureUrl = $seller['PictureUrl'];
+?>
+    <li class="seller-item" id="<?=$seller['id']?>" display-name="<?=$seller['DisplayData']['vendor_name']?>" picture="<?=$pictureUrl?>" originalPicture="<?=$originalPictureUrl?>" type="Seller">
+        <div class="thumbnail">
+            <header>
+                <span class="sortable_handler" title="<?=LangAdmin::get('Change_order')?>"><i class="icon-move"></i></span>
+                <span class="pull-right">
+                            <button class="btn btn-mini ot_show_edit_seller_dialog_modal" title="<?=LangAdmin::get('Edit')?>"><i class="icon-pencil"></i></button>
+                            <button class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete')?>"><i class="icon-remove"></i></button>
+                        </span>
+            </header>
+            <a href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $seller['id']])?>" target="_blank" title="<?=LangAdmin::get('To_seller_page')?>" class="img_preview"><img src="<?=$pictureUrl ? $pictureUrl : $originalPictureUrl?>" alt=""></a>
+            <h3 title="<?=$displayName?>"><?=$displayName?></h3>
+        </div>
+    </li>
+<? } ?>

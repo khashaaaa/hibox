@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Goods" action="default" cmd="restrictions">
+        <page data-action="default" data-cmd="restrictions" />
+        <page data-action="" data-cmd="restrictions" />
+    </tab>
+    <tab title="Categories" action="categories" cmd="restrictions">
+        <page data-action="categories" data-cmd="restrictions" />
+        <page data-action="" data-cmd="restrictions" />
+    </tab>
+    <tab title="Sellers" action="sellers" cmd="restrictions">
+        <page data-action="sellers" data-cmd="restrictions" />
+        <page data-action="" data-cmd="restrictions" />
+    </tab>
+    <tab title="Searches" action="searches" cmd="restrictions">
+        <page data-action="searches" data-cmd="restrictions" />
+        <page data-action="" data-cmd="restrictions" />
+    </tab>
+    <tab title="Brands" action="brands" cmd="restrictions">
+        <page data-action="brands" data-cmd="restrictions" />
+        <page data-action="" data-cmd="restrictions" />
+    </tab>
+</tabs>

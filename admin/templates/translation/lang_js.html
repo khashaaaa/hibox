@@ -1,0 +1,20 @@
+if (typeof(trans) !== 'undefined') {
+    trans = $.extend(<?=$translations?>, trans);
+} else {
+    trans = <?=$translations?>;
+}
+trans.get = function(key, params){
+    if(!params) params={};
+    if(typeof trans[key] !== 'undefined'){
+        var result = trans[key];
+        for(var i in params){
+            var re = new RegExp("{{"+i+"}}","g");
+            result = result.replace(re, params[i]);
+        }
+        return result;
+    }
+    else{
+        return key;
+    }
+};
+var currentAdminLang = "<?=$currentAdminLang?>";

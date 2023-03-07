@@ -1,0 +1,143 @@
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <h1><?=Lang::get('brands')?></h1>
+    </div>
+</div>
+
+
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="bproduct">
+            <div class="fll col240">
+                <? if(@htmlspecialchars($_GET['letter']) || @$_GET['type']){ ?> 
+                <div class="bgr-block mb20">
+                    <div class="titlecat bbn"><?=Lang::get('active_cond')?></div>
+                    <ul class="listitem">
+                        <? if(@htmlspecialchars($_GET['letter'])){ ?> 
+                        <li class="item">
+                            <? if(in_array('Seo2', General::$enabledFeatures)){ ?>
+                            <a href="/brands?type=<?=htmlspecialchars(@$_GET['type'])?>" class="i-new i-delete i delete delete-brand-fiter"></a>
+                            <? } else { ?>
+                            <a href="/?p=brands&type=<?=htmlspecialchars(@$_GET['type'])?>" class="i-new i-delete i delete delete-brand-fiter"></a>
+                            <? } ?>
+                            <div class="cat"><?=Lang::get('alphabetical')?></div>
+                            <div class="itemcat"><?=htmlspecialchars($_GET['letter'])?></div>
+                        </li>
+                        <? } ?>
+                        <? if(@$_GET['type']){ ?> 
+                        <li class="item">
+                            <? if(in_array('Seo2', General::$enabledFeatures)){ ?>
+                            <a href="/brands?letter=<?=htmlspecialchars(@$_GET['letter'])?>" class="i-new i-delete i delete delete-brand-fiter"></a>
+                            <? } else { ?>
+                            <a href="/?p=brands&letter=<?=htmlspecialchars(@$_GET['letter'])?>" class="i-new i-delete i delete delete-brand-fiter"></a>
+                            <? } ?>
+                            <div class="cat"><?=Lang::get('brand_type')?></div>
+                            <div class="itemcat">
+                                <?=Lang::get('brand_type'.$_GET['type'])?>
+                            </div>
+                        </li>
+                        <? } ?>
+                        <li class="item dropterms">
+                            <a href="/?p=brands" class="btn-small btn-delete"><span><?=Lang::get('reset_cond')?></span></a>
+                        </li>
+                    </ul>
+                </div>
+                <? } ?>
+                <div class="bgr-block mb20">
+                    <div class="titlecat bbn"><?=Lang::get('brand_type')?></div>
+                    <ul class="listitem">
+                        <li class="item"><a class="b-link" href="/?p=brands&type=<?=htmlspecialchars(@$_GET['type'])?>"><?=Lang::get('all')?></a></li>
+                        <li class="item">
+                            <div class="alphabet">
+                                <div class="border">
+                                    <?php
+                                        for ($i=97; $i<=105; $i++) {
+                                            $x = chr($i);
+                                            $class = @htmlspecialchars($_GET['letter'])==$x ? 'active': '';
+                                            if(in_array('Seo2', General::$enabledFeatures))
+                                                print "<a class=\"b-link $class\" href=\"/brands?letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                            else
+                                                print "<a class=\"b-link $class\" href=\"/?p=brands&letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                        }
+                                    ?>
+                                </div>
+                                <div class="border">
+                                    <?php
+                                        for ($i=106; $i<=114; $i++) {
+                                            $x = chr($i);
+                                            $class = @htmlspecialchars($_GET['letter'])==$x ? 'active': '';
+                                            if(in_array('Seo2', General::$enabledFeatures))
+                                                print "<a class=\"b-link $class\" href=\"/brands?letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                            else
+                                                print "<a class=\"b-link $class\" href=\"/?p=brands&letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                        }
+                                    ?>
+                                </div>
+                                <div class="border">
+                                    <?php
+                                        for ($i=115; $i<=122; $i++) {
+                                            $x = chr($i);
+                                            $class = @htmlspecialchars($_GET['letter'])==$x ? 'active': '';
+                                            if(in_array('Seo2', General::$enabledFeatures))
+                                                print "<a class=\"b-link $class\" href=\"/brands?letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                            else
+                                                print "<a class=\"b-link $class\" href=\"/?p=brands&letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                        }
+                                    ?>
+                                </div>	
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bgr-block mb20">
+                    <div class="titlecat bbn><?=Lang::get('brand_type')?>"></div>
+                    <ul class="listitem">
+                        <? if(in_array('Seo2', General::$enabledFeatures)){ ?>
+                            <li class="item"><a <? if(!@$_GET['type']) {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>"><?=Lang::get('all')?></a></li>
+                            <li class="item"><a <? if(@$_GET['type']=='Best') {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>&type=Best"><?=Lang::get('brand_typeBest')?></a></li>
+                            <li class="item"><a <? if(@$_GET['type']=='Popular') {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>&type=Popular"><?=Lang::get('brand_typePopular')?></a></li>
+                            <li class="item"><a <? if(@$_GET['type']=='Last') {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>&type=Last"><?=Lang::get('brand_typeLast')?></a></li>
+                        <? } else { ?>
+                            <li class="item"><a <? if(!@$_GET['type']) {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>"><?=Lang::get('all')?></a></li>
+                            <li class="item"><a <? if(@$_GET['type']=='Best') {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>&type=Best"><?=Lang::get('brand_typeBest')?></a></li>
+                            <li class="item"><a <? if(@$_GET['type']=='Popular') {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>&type=Popular"><?=Lang::get('brand_typePopular')?></a></li>
+                            <li class="item"><a <? if(@$_GET['type']=='Last') {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>&type=Last"><?=Lang::get('brand_typeLast')?></a></li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flr col690">
+                <? if (!empty($brandlist)){ ?>
+                    <ul class="lproduct flin w100li brand clrfix">
+                    <? foreach($brandlist as $item) { ?>
+                        <li>
+                            <? if(in_array('Seo2', General::$enabledFeatures)){ ?>
+                            <a class="pic" href="/search?search=&brand=<?=$item['id']?>">
+                                <i><img src="<?=$item['pictureurl']?>"></i>
+                                <ins></ins>
+                            </a>
+                            <div class="price">
+                                <div class="line"></div>
+                                <a href="/search?search=&brand=<?=$item['id']?>"><ins class="name"><?=$this->escape($item['Name'])?></ins><span class="glow"></span></a>
+                            </div>
+                            <? } else { ?>
+                            <a class="pic" href="/?p=search&search=&brand=<?=$item['id']?>">
+                                <i><img src="<?=ProductsHelper::getImage($item, 'small')?>"></i>
+                                <ins></ins>
+                            </a>
+                            <div class="price">
+                                <div class="line"></div>
+                                <a href="/?p=search&search=&brand=<?=$item['id']?>"><ins class="name"><?=$this->escape($item['Name'])?></ins><span class="glow"></span></a>
+                            </div>
+                            <? } ?>
+                        </li>
+                    <?} ?>
+                    </ul>
+                <?}else{?>
+                    <h2><span><?=$emptymessage?></span></h2>
+                <?}?>
+            </div>
+        </div>
+    </div>
+</div>

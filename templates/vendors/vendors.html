@@ -1,0 +1,136 @@
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <h1><?=Lang::get('vendors')?></h1>
+    </div>
+</div>
+
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="bproduct">
+            <h2 class="mb25"><span><?=Lang::get('vendors')?></span></h2>
+            <div class="fll col240">
+                <? if(@$_GET['letter'] || @$_GET['type']){ ?>
+                <div class="bgr-block mb20">
+                    <div class="titlecat bbn"><?=Lang::get('active_cond')?></div>
+                    <ul class="listitem">
+                        <? if(@$_GET['letter']){ ?>
+                        <li class="item">
+                            <a href="<?=UrlGenerator::toRoute('all_vendors', array('type' => @$_GET['type']))?>" class="i-new i-delete i delete delete-brand-fiter"></a>
+                            <div class="cat"><?=Lang::get('alphabetical')?></div>
+                            <div class="itemcat"><?=$_GET['letter']?></div>
+                        </li>
+                        <? } ?>
+                        <? if(@$_GET['type']){ ?>
+                        <li class="item">
+                            <a href="<?=UrlGenerator::toRoute('all_vendors', array('letter' => @$_GET['letter']))?>" class="i-new i-delete i delete delete-brand-fiter"></a>
+                            <div class="cat"><?=Lang::get('brand_type')?></div>
+                            <div class="itemcat">
+                                <?=Lang::get('brand_type'.$_GET['type'])?>
+                            </div>
+                        </li>
+                        <? } ?>
+                        <li class="item dropterms">
+                            <a href="<?=UrlGenerator::generateVendorsUrl()?>" class="btn-small btn-delete"><span><?=Lang::get('reset_cond')?></span></a>
+                        </li>
+                    </ul>
+                </div>
+                <? } ?>
+                <div class="bgr-block mb20">
+                    <div class="titlecat bbn"><?=Lang::get('vendor_type')?></div>
+                    <ul class="listitem">
+                        <li class="item"><a href="<?=UrlGenerator::toRoute('all_vendors', array('type' => @$_GET['type']))?>"><?=Lang::get('all')?></a></li>
+                        <li class="item">
+                            <div class="alphabet">
+                                <div class="border">
+                                    <?php
+                                        for ($i=97; $i<=105; $i++) {
+                                            $x = chr($i);
+                                            $class = @$_GET['letter']==$x ? ' class="active"': '';
+                                            if(in_array('Seo2', General::$enabledFeatures))
+                                                print "<a$class href=\"/all_vendors?letter=$x&type=".@$_GET['type']."\">$x</a>";
+                                            else
+                                                print "<a$class href=\"/?p=all_vendors&letter=$x&type=".@$_GET['type']."\">$x</a>";
+                                        }
+                                    ?>
+                                </div>
+                                <div class="border">
+                                    <?php
+                                        for ($i=106; $i<=114; $i++) {
+                                            $x = chr($i);
+                                            $class = @$_GET['letter']==$x ? ' class="active"': '';
+                                            if(in_array('Seo2', General::$enabledFeatures))
+                                                print "<a$class href=\"/all_vendors?letter=$x&type=".@$_GET['type']."\">$x</a>";
+                                            else
+                                                print "<a$class href=\"/?p=all_vendors&letter=$x&type=".@$_GET['type']."\">$x</a>";
+                                        }
+                                    ?>
+                                </div>
+                                <div class="border">
+                                    <?php
+                                        for ($i=115; $i<=122; $i++) {
+                                            $x = chr($i);
+                                            $class = @$_GET['letter']==$x ? ' class="active"': '';
+                                            if(in_array('Seo2', General::$enabledFeatures))
+                                                print "<a$class href=\"/all_vendors?letter=$x&type=".@$_GET['type']."\">$x</a>";
+                                            else
+                                                print "<a$class href=\"/?p=all_vendors&letter=$x&type=".@$_GET['type']."\">$x</a>";
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </li>
+                        <? if(Session::getActiveLang()==='ru') { ?>
+                            <br>
+                            <li>
+                                <div class="alphabet">
+                                    <div class="border">
+                                        <?
+                                            $alphabet = explode(' ', 'а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ э ю я');
+                                            for($i = 0; $i < count($alphabet); $i++) {
+                                                $x = $alphabet[$i];
+                                                $class = @$_GET['letter']==$x ? ' class="active"': '';
+                                                if(in_array('Seo2', General::$enabledFeatures))
+                                                    print "<a$class href=\"/all_vendors?letter=$x&type=".@$_GET['type']."\">$x</a>";
+                                                else
+                                                    print "<a$class href=\"/?p=all_vendors&letter=$x&type=".@$_GET['type']."\">$x</a>";
+
+                                                if(($i % 9)===8) print "</div><div class=\"border\">";
+                                            }
+                                        ?>
+                                    </div>
+                                </div>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flr col690">
+                <? if (!empty($vendor_list)) { ?>
+                    <ul class="lproduct flin w100li brand clrfix">
+                    <? foreach ($vendor_list as $item) { ?>
+                        <? $vendorName = $this->escape(!empty($item['DisplayName']) ? $item['DisplayName'] : $item['Name']); ?>
+                        <li>
+                            <a class="pic" href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $item['id']])?>">
+                                <i><img width="100" src="<?= ProductsHelper::getImage($item) ?>" alt="<?=$vendorName?>"></i>
+                                <ins></ins>
+                            </a>
+                            <div class="price">
+                                <div class="line"></div>
+                                <a href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $item['id']])?>">
+                                    <ins class="name"><?=$vendorName?></ins>
+                                    <span class="glow"></span>
+                                </a>
+                            </div>
+                        </li>
+                    <? } ?>
+                    </ul>
+                <? } else { ?>
+
+                <h2><span><?=$emptymessage?></span></h2>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+</div>
+

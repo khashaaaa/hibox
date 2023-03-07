@@ -1,0 +1,90 @@
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width">
+
+<base href="//<?=$_SERVER['HTTP_HOST']?>" />
+
+<title><?=$this->escape($title)?></title>
+<meta name="keywords" content="<?=$this->escape($keywords)?>" />
+<meta name="description" content="<?=$this->escape($description)?>" />
+
+<? if (isset(General::$_page['is_index']) && !General::$_page['is_index']) { ?>
+<meta name="robots" content="noindex, follow">
+<? } elseif (General::getConfigValue('no_index_itemlists', 1) && in_array($controller, ['category', 'subcategory']) && RequestWrapper::getParamExists('alias')) { ?>
+<? // TODO: разобраться ?>
+<meta name="robots" content="noindex, follow">
+<? } elseif (($controller == 'item') && (General::getConfigValue('no_index_iteminfo', 1))) { ?>
+<meta name="robots" content="noindex, follow">
+<? } elseif ((RequestWrapper::getParamExists('brand')) && (General::getConfigValue('no_index_brand_itemlists', 1))) { ?>
+<meta name="robots" content="noindex, follow">
+<? } ?>
+
+<!-- og -->
+<? if (!empty(General::$_page['og']['title'])) { ?>
+    <meta property="twitter:title" content="<?=General::$_page['og']['title']?>" />
+    <meta property="og:title" content="<?=General::$_page['og']['title']?>" />
+<? } elseif ($this->escape($title)) { ?>
+    <meta property="twitter:title" content="<?=$this->escape($title)?>" />
+    <meta property="og:title" content="<?=$this->escape($title)?>" />
+<? } ?>
+<? if (!empty(General::$_page['og']['description'])) { ?>
+    <meta property="twitter:description" content="<?=General::$_page['og']['description']?>" />
+    <meta property="og:description" content="<?=General::$_page['og']['description']?>" />
+<? } elseif ($this->escape($description)) { ?>
+    <meta property="twitter:description" content="<?=$this->escape($description)?>" />
+    <meta property="og:description" content="<?=$this->escape($description)?>" />
+<? } ?>
+<? if (!empty(General::$_page['og']['image'])) { ?>
+    <meta property="twitter:image" content="<?=General::$_page['og']['image']?>" />
+    <meta property="og:image" content="<?=General::$_page['og']['image']?>" />
+<? } ?>
+
+<? if (!empty(General::$_page['meta']['canonical'])) { ?>
+    <link rel="canonical" href="<?=General::$_page['meta']['canonical']?>" />
+<? } ?>
+
+<!-- css -->
+<? // TODO: старые стили все еще необходимы для старых шаблонов - убрать когда это станет возможным ?>
+<?=General::viewFetch('main/head_old-style', array('vars' => array('controller' => $controller)))?>
+
+<? if (file_exists(General::getThemeDir().'/css/screen-custom.css')) { ?>
+    <?AssetsMin::registerCssFile(General::getThemeWebDir(). '/css/screen-custom.css')?>
+<? } ?>
+
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- js -->
+<script src="js/vendor/jquery-2.1.4.min.js?<?=CFG_SITE_VERSION;?>"></script>
+<script src="js/vendor/jquery-ui-1.11.4/jquery-ui.min.js?<?=CFG_SITE_VERSION;?>"></script>
+
+<? if ($controller == 'userorder') { ?>
+    <? if (General::onNewPlatformScript('userorder')) { ?>
+        <? AssetsMin::registerJsFile(General::getThemeWebDir() . '/js/ot-userorder.js')?>
+        <? AssetsMin::registerJsFile('js/vendor/jquery.form.js')?>
+    <? } else { ?>
+        <? AssetsMin::registerJsFile('js/cart.js')?>
+    <? } ?>
+<? } ?>
+<? if ($controller == 'basket') { ?>
+    <? AssetsMin::registerJsFile('js/cart.js')?>
+<? } ?>
+<? if ($controller == 'supportlist') { ?>
+    <? AssetsMin::registerJsFile('js/favourites.js')?>
+<? } ?>
+
+<? if($controller != 'index') { ?>
+    <? AssetsMin::registerJsFile('js/inner.js')?>
+<? } ?>
+<? if ($controller == 'search') { ?>
+    <? AssetsMin::registerJsFile('js/vendor/jquery.ba-resize.js')?>
+<? } ?>
+
+
+<?=AssetsMin::printCssFilesGroup('style.css', General::getThemeWebDir() . '/config')?>
+<?=AssetsMin::printCssFiles()?>
+
+<?=General::getConfigValue('custom_head_code')?>
+<?=General::getConfigValue('meta_tags')?>

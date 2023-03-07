@@ -1,0 +1,25 @@
+<section class="box-section <?=(isset($cssWrapper) && ! empty($cssWrapper)) ? $cssWrapper.' ' : '' ?>supply-products-section brands-section">
+    <h2><?= (isset($title) && $title) ? $title : Lang::get($type);?></h2>
+    <ul class="item-list">
+        <? foreach ($list as $item) { ?>
+	        <li class="col-md" title="<?= $this->escape($item['Name']) ?>">
+	            <a href="<?=UrlGenerator::generateBrandUrl($item['Id'])?>" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+		            <div class="item-list_btn-group">
+                        <button title="<?=Lang::get('See_item')?>">
+                            <span class="glyphicon glyphicon-eye-open" ></span>
+                        </button>
+				    </div>
+                    <div class="item-list_img-wrap">
+                        <div class="product-image-wrapper">
+					       <img class="check-noimg" src="<?=ProductsHelper::getMediumImage($item)?>" alt="<?= $this->escape($item['Name']) ?>" itemprop="image">
+					    </div>
+                    </div>
+					<h3 itemprop="name"><?= $this->escape($item['Name']) ?></h3>
+				</a>
+	        </li>
+        <? } ?>
+    </ul>
+    <? if (isset($seeAllLink) && $seeAllLink) { ?>
+        <a href="<?=$seeAllLink?>" class="see-all-link"><?=Lang::get('all_brands')?></a>
+    <? } ?>
+</section> 

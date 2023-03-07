@@ -1,0 +1,59 @@
+<?=$Header?>
+
+<h1><a href="/admin/index.php?cmd=referralold"><?=LangAdmin::get('Referral_system')?></a>  / <?=LangAdmin::get('edit_group')?></h1>
+
+<!-- global template configuration -->
+<div class="box corner-all">
+    <div class="box-header grd-orange color-white corner-top">
+        <span><?=LangAdmin::get('edit_group')?></span>
+    </div>
+
+    <div class="box-body">
+
+        <form method="post" action="/admin/index.php?cmd=referralold&do=editGroup" class="form-horizontal ot_form">
+            <fieldset>
+
+                <input type="hidden" name="id" value="<?=$Category->GetId()?>" />
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('Name')?></label>
+                    <div class="controls">
+                        <input id="textinput" name="name" class="input-xlarge" type="text" required="required" value="<?=$Category->GetGroupName()?>">
+                    </div>
+                </div>
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label" for="ot_CB_currency_extra"><?=LangAdmin::get('referral_procents')?></label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input id="ot_CB_currency_extra" name="profit" placeholder="0" class="input-mini" type="text" required="required" value="<?=$Category->GetProfitPercent() * 100?>">
+                            <span class="add-on">%</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="control-group control-group-medium">
+                    <label class="control-label"><?=LangAdmin::get('referral_orders_cost')?></label>
+                    <div class="controls">
+                        <input id="textinput" name="minPayment" class="input-small" type="text" required="required" value="<?=$Category->GetMinOverallPayment()?>">
+                    </div>
+                </div>
+
+            </fieldset>
+
+
+            <table >
+            <tr>
+            	<td><button type="submit" onclick="$(this).attr('disabled', 'disabled'); submit();" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button></td>
+                <td><button type="reset" onclick="window.location.href = '/admin/index.php?cmd=referralold';" class="btn offset1 btn_preloader" data-loading-text="<?=LangAdmin::get('Canceling')?>"><?=LangAdmin::get('Cancel')?></button></td>
+            </tr>
+            </table>
+
+
+        </form>
+
+    </div>
+</div>
+
+<?=$Footer?>

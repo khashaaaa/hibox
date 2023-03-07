@@ -1,0 +1,71 @@
+<?
+$uploadedFiles = array();
+if (!empty($currentValue->Value)) {
+    foreach ($currentValue->Value as $item) {
+        $attributes = $item->attributes();
+        if ($fileType == 'Image' && !isset($item->PreviewUrl)) {
+            $item->PreviewUrl = $item->Url;
+        }
+        $uploadedFiles[] = array(
+            'name' => '',
+            'url' => (string)$item->Url,
+            'previewUrl' => (isset($item->PreviewUrl)) ? $item->PreviewUrl : '',
+            'fileId' => (string)$attributes->Id
+        );
+    }
+}
+$fileWidgetOptions = array(
+    'identifier'    => $name,
+    'displayName'   => $displayName,
+    'maxCount'      => $maxFileCount,
+    'fileType'      => $fileType,
+    'readOnly'      => $isReadOnly,
+    'uploadedFiles' => $uploadedFiles
+);
+?>
+<div class="control-group control-group-medium">
+    <form id="ui<?=$name?>">
+        <?=OTFileStorage::getWidget($fileWidgetOptions);?>
+        <button type="submit" id="save-<?=$name?>" name="save-<?=$name?>" class="btn btn_preloader btn-primary <?= $isReadOnly ? 'hidden' : '' ?>"
+                data-loading-text="<?=LangAdmin::get('Saving')?>">
+            <?=LangAdmin::get('Save')?></button>
+    </form>
+</div>
+
+<script>
+    var container = $('#ui<?=$name?>').closest('div.meta-ui-container');
+    var updateSettingsUrl = $(container).attr('update-settings-url') + '&type=File';
+    $('body')
+        .on('submit', '#ui<?=$name?>', function (e) {
+            e.preventDefault();
+
+            $('button#save-<?=$name?>').attr('disabled', 'disabled')
+                .addClass('btn_preloader')
+                .addClass('disabled');
+
+            var files = [];
+            $(this)
+                .find('input[name="fileId[]"]')
+                .each(function (index) {
+                    files.push($(this).val())
+                });
+
+            $.post(
+                updateSettingsUrl, {
+                    "type": 'File',
+                    "value": files,
+                    "name": '<?=$name?>'
+                },
+                function (data) {
+                    if (!data.error) {
+                        showMessage(trans.get('Data_save_success'));
+                    } else {
+                        showMessage(data, true);
+                    }
+                    $('button#save-<?=$name?>').removeClass('btn_preloader')
+                        .removeClass('disabled')
+                        .removeAttr('disabled');
+                }, 'json'
+            );
+        })
+</script>

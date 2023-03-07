@@ -1,0 +1,208 @@
+
+<?
+/**
+ * @var AdminUrlWrapper $PageUrl
+ */
+?>
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Promo', 'default')?>"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('mailing_list')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/promo/navigation/tabs.xml', $PageUrl)?>
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'default' && $PageUrl->GetCmd() == 'Newsletters'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing_list')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'default' && $PageUrl->GetCmd() == 'Subscribers'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Subscribers', 'default')?>"><?=LangAdmin::get('subscribers')?></a></li>        
+        <li <? if($PageUrl->GetAction() == 'config' && $PageUrl->GetCmd() == 'Newsletters'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'config')?>"><?=LangAdmin::get('config')?></a></li>  
+    </ul>
+</div>
+
+<h1><?=LangAdmin::get('subscribers')?></h1>
+
+
+<div class="row-fluid" id="content">
+
+    <div class="span7">
+
+        <div class="well well-small offset-bottom2">
+
+            <?
+            $filter = isset($filter) && is_array($filter) ? $filter : array(
+                'login' => '',
+                'email' => '',
+            );
+            ?>
+            <form class="offset-vertical-none" method="get" action="">
+
+                <div class="row-fluid offset-bottom05">
+
+                    <div class="span4">
+                        <label class="control-label" for="ot_user_login_filter"><?=LangAdmin::get('user_login')?></label>
+                        <input type="text" name="filter[login]" value="<?=$this->escape(isset($filter['login']) ? $filter['login'] : "")?>" class="input-block-level" id="ot_user_login_filter" title="">
+
+                    </div>
+
+                    <div class="span4">
+                        <label class="control-label" for="ot_user_email_filter"><?=LangAdmin::get('user_email')?></label>
+                        <input type="text" name="filter[email]" value="<?=isset($filter['email']) ? $filter['email'] : ""?>" class="input-block-level" id="ot_user_email_filter" title="">
+                    </div>
+
+                    <div class="span4 offset-top-lebel-1">
+                        <button type="submit" type="button" class="btn btn-primary btn_preloader pull-right" data-loading-text="<?=LangAdmin::get('Apply_filter')?>" autocomplete="off"><?=LangAdmin::get('apply_filter')?></button>
+                    </div>
+
+                    <input type="hidden" name="cmd" value="Subscribers">
+                    <input type="hidden" name="do" value="default">
+                </div>
+            </form>
+
+        </div>
+
+
+        <div class="row-fluid">
+
+            <div class="pull-left">
+
+                <!-- add new user -->
+                <a href="#" data-name="new-user" data-type="text" data-placement="bottom" class="ot-add-subscribers editable-no-brd pull-right offset-top05" data-type="text" data-pk="1" data-value="">
+                    <i class="icon-plus font-14 color-blue"></i>
+                    <span class="blink" title="<?=LangAdmin::get('add_subscription_user')?>">
+                        <?=LangAdmin::get('add_user')?>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="row-fluid">    
+            <div class="pull-left">
+                <a href="#" data-name="new-no-user" data-type="text" data-placement="bottom" class="ot-add-subscribers-custom editable-no-brd pull-right offset-top05 editable editable-click" data-type="text" data-pk="1" data-value="">
+                    <i class="icon-plus font-14 color-blue"></i>
+                    <span class="blink" title="<?=LangAdmin::get('Add_custom_subscriber')?>">
+                        <?=LangAdmin::get('Add_custom_subscriber')?>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="row-fluid">
+            <div class="pull-right">
+
+                <a href="<?=$PageUrl->AssignCmdAndDo('Subscribers', 'export')?>" class="btn offset-bottom06" title="<?=LangAdmin::get('subscribers_export_xml')?>"><i class="icon-share"></i> <?=LangAdmin::get('export')?></a>
+
+                <button class="btn offset-bottom06 dropdown-toggle" data-dropdown="#ot_import_subscribers" data-toggle="dropdown" title="<?=LangAdmin::get('subscribers_import_xml')?>"><i class="icon-download-alt"></i> <?=LangAdmin::get('import')?></button>
+
+                <?
+                $url = $PageUrl;
+                $url->DeleteKey('perPage');
+                ?>
+                <select class="input-mini offset-left1" title="<?=LangAdmin::get('Show_count_of_posts')?>" id="per-page" data-url="<?=$url->Get()?>" data-value="<?=$perPage?>">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="<?=$totalCount?>"><?=LangAdmin::get('All')?></option>
+                </select>
+
+
+                <div id="ot_import_subscribers" class="dropdown dropdown-tip dropdown-anchor-right">
+                    <div class="dropdown-panel text-right">
+                        <form id="import-subscribers" method="post" enctype="multipart/form-data">
+                            <span class="btn btn-file">
+                                <?=LangAdmin::get('subscribers_load_xml')?>
+                                <input name="subscribers_file" type="file" accept="text/xml" />
+                            </span>
+                            <button type="submit" class="btn btn-primary ladda-button" data-style="expand-right"><span class="ladda-label"><?=LangAdmin::get('import')?></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th class="span4"><?=LangAdmin::get('subscribers_user')?></th>
+                    <th class="span4"><?=LangAdmin::get('subscribers_email')?></th>
+                    <th class="span1"><?=LangAdmin::get('subscribers_actions')?></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <?
+            /**
+             * @var SubscriberEntity[] $subscribers
+             */
+            ?>
+                <? foreach ($subscribers as $subscriber){ ?>
+                <tr>
+                    <td>
+                        <? if ($subscriber->getOtapiId() == $PseudoUserId) { ?>
+                        <?=$this->escape($subscriber->getLogin())?>
+                        <? } else { ?>
+                        <a href="<?=$PageUrl->AssignCmdAndDo('Users', 'profile')?>&id=<?=$subscriber->getOtapiId()?>" title="subscribers_user_profile"><?=$this->escape($subscriber->getLogin())?></a>
+                        <? } ?>
+                    </td>
+                    <td><a href="mailto:<?=$subscriber->getEmail()?>" title="subscribers_user_send_mail"><?=$subscriber->getEmail()?></a></td>
+                    <td class="text-center">
+                        <a href="<?=$PageUrl->AssignCmdAndDo('Subscribers', 'delete')?>&id=<?=$subscriber->getId()?>" class="btn btn-mini ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('subscribers_remove_user')?>"><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
+                <? } ?>
+
+                </tbody>
+            </table>
+        </div>
+        <?
+        /**
+         * @var Paginator $paginator
+         */
+        ?>
+        <?=$paginator->display()?>
+
+        
+        
+    </div>
+</div>
+
+<!-- upload photos window -->
+<div class="modal hide fade ot_subscriber_add_modal" tabindex="-1">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><?=LangAdmin::get('Add_custom_subscriber')?></h3>
+    </div>
+
+    <div class="modal-body">
+
+        <form method="post" action="" class="form-horizontal ot_form ot_subscriber_add_form">
+        <!-- cat data tab -->
+            <div class="control-group">
+                <label class="control-label bold"><?=LangAdmin::get('First_name')?></label>
+                <div class="controls">
+                    <input id="subscriberName" name="subscriberName" class="input-large" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label bold"><?=LangAdmin::get('Subscriber_email')?></label>
+                <div class="controls">
+                    <input class="input-large" type="text" name="subscriberMail" id="subscriberMail">
+                </div>
+            </div>
+            
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn_preloader btn-primary pull-left ot_subscriber_add_form_submit" data-loading-text="<?=LangAdmin::get('Saving')?>" autocomplete="off"><?=LangAdmin::get('Save')?></button>
+        <a href="#" class="btn pull-right" data-dismiss="modal"><?=LangAdmin::get('Cancel')?></a>
+    </div>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/vendor/bootstrap-typeahead.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-subscribers-list.js'); ?>

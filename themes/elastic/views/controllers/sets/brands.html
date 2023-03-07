@@ -1,0 +1,82 @@
+<?
+    $listChunks = array_chunk($list, 3);
+?>
+<section class="block-brands">
+    <div class="center">
+        <div class="block__title">
+            <span><?= (isset($title) && $title) ? $title : Lang::get($type);?></span>
+            <? if (isset($seeAllLink) && $seeAllLink) { ?>
+                <a href="<?=$seeAllLink?>"><?=Lang::get('all_brands')?></a>
+            <? } ?>
+        </div>
+
+        <div class="block-brands__wrap">
+            <? foreach ($listChunks as $chunk) { ?>
+                <div class="block-brands__col">
+                    <? foreach ($chunk as $item) { ?>
+                        <div class="block-brands__col-wrap">
+                            <a href="<?=UrlGenerator::generateBrandUrl($item['Id'])?>">
+                                <img src="<?=ProductsHelper::getMediumImage($item)?>" alt="<?= $this->escape($item['Name']) ?>">
+                            </a>
+                        </div>
+                    <? } ?>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</section>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function () {
+        if ($('.block-brands__wrap').not('.slick-initialized')) {
+            $('.block-brands__wrap').slick({
+                dots: false,
+                speed: 500,
+                arrows: true,
+                autoplay:true,
+                fade:false,
+                vertical: false,
+                slidesToShow: 8,
+                slidesToScroll: 1,
+                rtl: <?=(General::getConfigValue('rtl')) ? 'true' : 'false'?>,
+                // the magic
+                responsive: [{
+                    breakpoint:1280,
+                    settings: {
+                        slidesToShow: 7,
+                    }
+                },
+                {
+                    breakpoint:1024,
+                    settings: {
+                        slidesToShow: 5,
+                    }
+                },
+                {
+                    breakpoint:700,
+                        settings: {
+                        slidesToShow: 4,
+                    }
+                },
+                {
+                    breakpoint:500,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint:400,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }]
+            });
+        }
+    });
+
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<?=(isset($noIndex) && $noIndex) ? '<!--/noindex-->' : '' ?>

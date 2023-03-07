@@ -1,0 +1,84 @@
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="bigtitle"><div class="wrap clrfix">
+        <h1><?=Lang::get('choice_order')?></h1>
+</div></div>
+
+<!-- .main -->
+<div class="main"><div class="wrap clrfix">
+    <div class="bproduct">
+    <form action="/?p=userorder&step3&type=<?=$alias?>" method="post" id="formsumit">
+    <? if(defined('CFG_DISCOUNTER_REORDER')) { ?>
+        <table class="notepad" width="100%">
+            <tr>
+                <td colspan="2">
+                    <label><input type="radio" name="order" value="new" checked="checked"> <span style="font-size:16px"><b><?=Lang::get('Create_separate_order')?></b></span></label>
+                </td>
+            <? if(is_array($orders)) {?><tr><td colspan="2"> <span style="font-size:16px;line-height:120%"><b><?=Lang::get('Merge_with_existing_order')?>:<br>
+                (<?=Lang::get('Order_step2_notificatation')?>)</b></span>
+                </td></tr>
+            <? foreach($orders as $order) {?>
+            <tr>
+                <td width="5%"><input type="radio" name="order" value="<?=$order['id'];?>"/> </td>
+                <td>
+                    <strong><?=Lang::get('number')?>: </strong><a href="/?p=orderdetails&orderid=<?=$order['id'];?>" target="_blank" style="text-decoration: underline;"><?=OrdersProxy::normalizeOrderId((string)$order['id']);;?></a><br/>
+                    <strong><?=Lang::get('creation_date')?>: </strong><?=$order['createddatetime'];?><br/>
+                    <strong><?=Lang::get('Goods_quantity')?>: </strong><?=(string)$order['itemscount'];?><br/>
+                </td>
+            </tr>
+            <? } ?>
+            <? } ?>
+        </table>
+    <? }else{?>
+        <table class="notepad" width="100%">
+            <tr>
+                <td colspan="2">
+                    <? if (! $newOrderAvailable) { ?>
+                    <div id="minOrderCostError" style="height:30px; background:#CCC; border:#900 1px solid; padding:10px;">
+                        <?=Lang::get('min_cost')?>
+                        <b>
+                        <?=TextHelper::formatPrice(
+                            $minOrderCost,
+                            $sign
+                        )?>
+                        </b>
+                        <br>
+                    </div>
+                    <h3><?=Lang::get('Only_reorder_available')?></h3>
+                    <? } else { ?>
+                    <input type="radio" name="order" value="new" checked="checked"> <?=Lang::get('create_new_order')?>
+                    <? } ?>
+                </td>
+            <? if(is_array($orders)) {?><tr><td colspan="2"> <?=Lang::get('select_from_exists')?>:</td></tr>
+            <? foreach($orders as $order) {?>
+            <tr>
+                <td width="5%"><input type="radio" name="order" value="<?=$order['id'];?>"/> </td>
+                <td>
+                    <strong><?=Lang::get('number')?>: </strong><a href="/?p=orderdetails&orderid=<?=$order['id'];?>" target="_blank" style="text-decoration: underline;"><?=OrdersProxy::normalizeOrderId((string)$order['id']);;?></a><br/>
+                    <strong><?=Lang::get('creation_date')?>: </strong><?=date('Y-m-d H:i:s', strtotime($order['createddatetime']))?><br/>
+                    <strong><?=Lang::get('quantity')?>: </strong><?=(string)$order['itemscount'];?><br/>
+                    <strong><?=Lang::get('cost_with_delivery')?>: </strong><span class="pr"><?=TextHelper::formatPrice($order['totalamount'], $order['currencycode'])?></span><br/>
+                </td>
+            </tr>
+            <? } ?>
+            <? } ?>
+        </table>
+    <? }?>
+
+        <div class="bgr-panel mt5">
+            <? $params .= (isset($_GET['weight'])) ? '&weight='.$_GET['weight'] : '';?>
+            <a href="<?=General::getConfigValue('hide_step_weight_order') ?  "/?p=basket" : "/?p=userorder&step1&type=".$type?>" class="btn btn-apper b-first-page"><?=Lang::get('back')?></a>
+            <input class="btn btn-apper b-last-page" type="button" value="<?=Lang::get('continue')?>" onclick="DisableSubmit('nextstep','formsumit');" id="nextstep">
+        </div>
+        <input type="hidden" name="total_weight" value="<?=$weight;?>"/>
+        <input type="hidden" name="type" value="<?=$type;?>"/>
+    </form>
+
+    </div>
+</div></div>
+<!--noindex-->
+<script type="text/javascript">
+    var price_round_decimals = <?=(int)General::getNumConfigValue('price_rounding')?>;
+    var min_order_cost = false;
+</script>
+<!--/noindex-->

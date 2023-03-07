@@ -1,0 +1,93 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Discount', 'default')?>"><?=LangAdmin::get('Discounts')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=$isNew ? LangAdmin::get('Add_discount') : LangAdmin::get('Edit_discount')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+
+
+<h1><?=$isNew ? LangAdmin::get('Add_discount') : LangAdmin::get('Edit_discount')?></h1>
+<div id="discount-group-wrapper">
+<div class="well">
+
+    <form method="post" action="<?=$PageUrl->AssignCmdAndDo('Discount', 'saveDiscount')?>" class="form-horizontal ot_form">
+        <fieldset>
+
+            <div class="control-group control-group-medium">
+                <label class="control-label"><?=LangAdmin::get('Discount_name')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Discount_name_hint')?>" title="" data-original-title=""></i></label>
+                <div class="controls">
+                    <input id="discountGroup[Name]" name="discountGroup[Name]" data-check="Name" class="input-xlarge" type="text" required="required" value="<?=$this->escape($discountGroup['Name'])?>">
+                </div>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <label class="control-label"><?=LangAdmin::get('Discount_description')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Discount_description_hint')?>" title="" data-original-title=""></i></label>
+                <div class="controls">
+                    <input id="discountGroup[Description]" name="discountGroup[Description]" class="input-xlarge" type="text" value="<?=$this->escape($discountGroup['Description'])?>">
+                </div>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <label class="control-label" for="ot_CB_currency_extra"><?=LangAdmin::get('Discount_percent')?>  <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Discount_percent_hint')?>"></i></label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input id="ot_CB_currency_extra" name="discountGroup[Discount]" data-check="Discount" placeholder="0" class="input-mini discount" type="text" value="<?=$discountGroup['Discount']?>">
+                        <span class="add-on">%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <label class="control-label"><?=LangAdmin::get('Discount_orders_sum')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Discount_orders_sum_hint')?>" title="" data-original-title=""></i></label>
+                <div class="controls">
+                    <input id="discountGroup[DiscountIdentificationParametr][PurchaseVolume]" name="discountGroup[DiscountIdentificationParametr][PurchaseVolume]" data-check="PurchaseVolume" class="input-small numeric" type="text" value="<?=$discountGroup['DiscountIdentificationParametr']['PurchaseVolume']?>">
+                </div>
+            </div>
+
+            <div class="control-group control-group-medium">
+                <label class="control-label"><?=LangAdmin::get('Discount_group_default')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('Discount_group_default_hint')?>" title="" data-original-title=""></i></label>
+                <div class="controls">
+                    <input type="checkbox" id="IsDefault" name="discountGroup[IsDefault]" <?php if ($discountGroup['IsDefault'] == "true") echo 'checked="checked"'; ?> >
+                </div>
+            </div>
+
+            <input id="discountGroup[Id]" name="discountGroup[Id]" class="input-xlarge" type="hidden" value="<?=$discountGroup['Id']?>">
+        </fieldset>
+
+        <? if (! empty($providers)) { ?>
+            <fieldset>
+                <legend><?=LangAdmin::get('Provider_type')?></legend>
+                <div class="control-group control-group-medium">
+                    <? foreach ($providers as $provider) { ?>
+                        <? if($provider['IsEnabled']) { ?>
+                            <label class="checkbox inline">
+                                <? $issetProviders = isset($discountGroup['DiscountIdentificationParametr']['Providers']); ?>
+                                <? $checked = $issetProviders && in_array($provider['Type'], $discountGroup['DiscountIdentificationParametr']['Providers']) ? 'checked' : '';?>
+                                <input name="discountGroup[DiscountIdentificationParametr][Providers][]" value="<?=$provider['Type']?>" type="checkbox" <?=$checked?>>
+                                <?=$provider['DisplayName']?>
+                            </label>
+                        <? } ?>
+                    <? } ?>
+                </div>
+            </fieldset>
+        <? } ?>
+
+        <div class="control-group control-group-medium">            
+            <!-- buttons for master application -->
+            <div class="controls">
+                <button type="button" class="btn btn-primary btn_preloader" id="save-discount" data-loading-text="<?=LangAdmin::get('Saving')?>" data-link="<?=$PageUrl->AssignCmdAndDo('Discount', 'default')?>"><?=LangAdmin::get('Save')?></button>
+                <button type="reset" onclick="window.location.href = '<?=$PageUrl->AssignCmdAndDo('Discount', 'default')?>';" class="btn offset1 btn_preloader" data-loading-text="<?=LangAdmin::get('Canceling')?>"><?=LangAdmin::get('Cancel')?></button>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+</div>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-discount-group.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>

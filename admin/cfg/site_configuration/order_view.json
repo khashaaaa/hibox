@@ -1,0 +1,132 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "orders",
+        "do": "changeOrderWeight"
+    },
+    "fields": [
+        {
+            "name": "newWeight",
+            "type": "text"
+        },
+        {
+            "name": "newItemWeight",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeItemWeight"
+            }
+        },
+        {
+            "name": "deliveryMode",
+            "type": "select",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "updateDeliveryMode"
+            }
+        },
+        {
+            "name": "newPrice",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeItemPrice"
+            }
+        },
+        {
+            "name": "Familyname",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "Name",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "Patername",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "INN",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "Country",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "PostalCode",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "RegionName",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "City",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "Address",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "Phone",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "PassportNumber",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        },
+        {
+            "name": "RegistrationAddress",
+            "type": "text",
+            "saveUrl": {
+                "cmd": "orders",
+                "do": "changeDeliveryAddress"
+            }
+        }
+    ]
+}

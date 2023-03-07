@@ -1,0 +1,47 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('warehouse', 'default')?>" class="muted"><?=LangAdmin::get('Warehouse')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Import')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<div class="warehouse-wrapper plugins-wrapper">
+
+    <?=TabsGenerator::GetSubTabs('templates/warehouse/navigation/tabs.xml', $PageUrl)?>
+
+    <h1><?=LangAdmin::get('Warehouse_import')?></h1>
+
+    <?
+    $docLink = "https://docs-en.otcommerce.com/display/OTENGLISHDOCS/Goods+from+Stock";
+    if (Session::getActiveAdminLang() == "ru") {
+        $docLink = "http://wiki.otdev.net/pages/viewpage.action?pageId=16909444";
+    }
+    ?>
+    <a href="<?=$docLink?>" target="_blank"><?=LangAdmin::get('Documentation')?> <i class="icon-external-link"></i></a><br/>
+    <a href="https://data.otcommerce.com/box/files/warehouse-import.xlsx" target="_blank"><i class="icon-download-alt"></i> <?=LangAdmin::get('Warehouse_import_example_import_file')?></a>
+
+    <br/><br/>
+
+    <form action="<?=$PageUrl->AssignCmdAndDo('warehouse', 'startImport')?>" method="post">
+        <?=OTFileStorage::getWidget(array(
+            'fileType' => 'Any',
+            'maxCount' => 1,
+            'acceptFileTypes' => array('xls', 'xlsx', 'csv'),
+        ))?>
+        <button id="start-import" type="button" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Import')?>..." autocomplete="off">
+            <i class="icon-upload-alt"></i>
+            <?=LangAdmin::get('Import')?>
+        </button>
+    </form>
+
+    <h2><?=LangAdmin::get('Activities')?></h2>
+
+    <div id="activities-list">
+        <?=$activitiesTable ?>
+    </div>
+
+</div> <!-- /.warehouse-wrapper -->
+
+<? AssetsMin::registerJsFile('/admin/js/ot-warehouse.js'); ?>

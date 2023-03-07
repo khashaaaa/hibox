@@ -1,0 +1,254 @@
+<? if (empty($values)) return; ?>
+<div class="form-horizontal inline_editable_form ot_form">
+    <fieldset class="offset-bottom1">
+        <div class="row-fluid">
+            <label><strong><?=$displayName?></strong>
+                <? if ($description) { ?>
+                <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+                <? } ?>
+            </label>
+        </div>
+
+        <?
+        $all = array();
+        $current = array();
+
+        foreach($values as $value) {
+            $all[$value['Name']->__toString()] = $value['DisplayName']->__toString();
+        }
+        foreach ($currentValue->Value as $value) {
+            if (!isset($all[$value->__toString()])) {
+                $all[$value->__toString()] = $value->__toString();
+            }
+        }
+        ?>
+
+        <div class="row-fluid provider-option" data-option="<?=$name?>">
+
+            <div class="span2">
+
+                <p><?=LangAdmin::get('Added')?>:</p>
+
+                <ol class="unstyled ot_sortable_list ot_sortable" id="current-<?=$name?>" <?=$requireReload ? 'require-reload="true"' : '' ?>>
+                    <? foreach ($currentValue->Value as $value) { ?>
+                    <? $current[] = $value ?>
+                    <li data-name="<?=$value?>"><span class="badge" title="<?=$all[$value->__toString()]?>">
+                        <?=$all[$value->__toString()]?>
+                        <? if ($isReadOnly == 0) { ?>
+                            <i data-name="<?=$value?>" class="icon-remove remove-value-<?=$name?>" title="<?=LangAdmin::get('Remove')?>"></i></span>
+                        <? } ?>
+                    </li>
+                    <? } ?>
+                </ol>
+            </div>
+
+            <? if ($isReadOnly == 0) { ?>
+                <div class="span10">
+                    <input type="hidden" id="<?=$name?>" name="<?=$name?>" value=""/>
+
+                    <p><?=LangAdmin::get('Add')?>:</p>
+
+                    <div class="row-fluid">
+                        <select class="input-large select_searched_list select2" name="new-<?=$name?>" id="new-<?=$name?>"
+                                tabindex="-1"<?=count($values) == count($current) ? ' disabled' : ''?>>
+                        <? foreach($values as $value) { ?>
+                            <? if(in_array($value['Name']->__toString(), $current)) continue; ?>
+                            <? $text = addslashes($value['DisplayName']); ?>
+                            <? if (isset($value['Description'])) $text .= ' (' . addslashes($value['Description']) . ')'; ?>
+                            <option value="<?=addslashes($value['Name'])?>" <?=$value['Disabled']?'disabled':''?>><?=$text?></option>
+                        <? } ?>
+                        </select>
+
+                        <button id="add-<?=$name?>" class="btn btn-small btn-primary offset-left1 add-value"
+                                title="<?=LangAdmin::get('Add')?>"<?=count($values) == count($current) ? ' disabled' : ''?>
+                        data-loading-text="<i class='icon-plus'></i>" autocomplete="off"><i class="icon-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            <? } ?>
+
+        </div>
+
+        <div style="clear:both"></div>
+        <? if ($isReadOnly == 0) { ?>
+            <button id="save-<?=$name?>" class="btn btn_preloader btn-primary"
+                    data-loading-text="<?=LangAdmin::get('Saving')?>"
+                    autocomplete="off"><?=LangAdmin::get('Save')?></button>
+        <? } ?>
+        <? if ($nameCanByReset) { ?>
+        <button type="submit" class="btn <?=$nameCanByReset?>" title="<?=LangAdmin::get("By_default")?>"><i class="icon-refresh"></i></button>
+        <? } ?>
+
+    </fieldset>
+</div>
+
+<script>
+    $(function () {
+        var container = $('#<?=$name?>').closest('div.meta-ui-container');
+        var updateSettingsUrl = $(container).attr('update-settings-url') + '&type=PrioritySelectMany';
+
+        $('#save-<?=$name?>').click(function () {
+            var a = [];
+            var s;
+            $('#current-<?=$name?> > li').each(function (index) {
+                a.push($(this).attr('data-name'));
+            });
+
+            s = a.join(',');
+
+            $('#<?=$name?>').val(s);
+
+            updateProviderSettings();
+
+            return false;
+        });
+
+        $('button#add-<?=$name?>').click(function () {
+            $('#new-<?=$name?> > option:selected').each(function () {
+                var value = $('#new-<?=$name?>').val();
+                var title = $(this).text();
+
+                $('button.add-<?=$name?>').attr('disabled', 'disabled');
+                $('button.add-<?=$name?>').addClass('btn_preloader');
+                $('button.add-<?=$name?> i').hide();
+
+                $('<li data-name="' + value + '"><span class="badge badge-success" title="' + title + '">'
+                + title + '<i data-name="' + value + '" class="icon-remove remove-value-<?=$name?>" title="<?=LangAdmin::get('Remove')?>"></i></span></li>').appendTo('#current-<?=$name?>');
+
+                $(this).remove();
+            });
+
+            $('#new-<?=$name?>').select2('data', {id: null, text: ''});
+
+            $('#new-<?=$name?> > option:selected').each(function () {
+                var value = $('#new-<?=$name?>').val();
+                var title = $(this).text();
+
+                $('#new-<?=$name?>').select2('data', {id: value, text: title});
+            });
+
+            if($('#new-<?=$name?> > option').length == 0) {
+                $('#new-<?=$name?>').select2('disable');
+                $('#add-<?=$name?>').attr('disabled', 'disabled');
+            }
+
+            return false;
+        });
+
+        $(container).on('click', '.remove-value-<?=$name?>', function () {
+            var value = $(this).parent().parent().attr('data-name');
+            var title = $(this).parent().parent().text();
+
+            $('<option value="' + value + '">' + title + '</option>').appendTo('#new-<?=$name?>');
+            $(this).parent().parent().remove();
+
+            $('#new-<?=$name?>').select2('enable');
+            $('#add-<?=$name?>').removeAttr('disabled');
+
+            $('#new-<?=$name?>').select2('data', {id: value, text: title});
+        });
+
+        $('select.select2').select2();
+
+        function updateProviderSettings() {
+            var values = $('#<?=$name?>').val();
+            $('button#save-<?=$name?>').attr('disabled', 'disabled')
+                    .addClass('btn_preloader')
+                    .addClass('disabled');
+
+            $.post(
+                    updateSettingsUrl,
+                    {
+                        "value": values,
+                        "name": '<?=$name?>',
+                        "type": 'SelectMany'
+                    },
+                    function (data) {
+                        if (!data.error) {
+                            showMessage(trans.get('Data_save_success'));
+                            $('button#save-<?=$name?>').removeClass('btn_preloader')
+                                    .removeClass('disabled')
+                                    .removeAttr('disabled');
+                            $('#current-<?=$name?> > li .badge-success').removeClass('badge-success');
+                            if ($('#current-<?=$name?>').attr('require-reload') == 'true') {
+                                if ($('#current-<?=$name?>').closest('.allow-reload').length > 0) {
+                                   var container = $('#current-<?=$name?>').closest('.allow-reload');
+                                   var url = $(container).attr('reload-url');
+                                   if (url) {
+                                       $.post(url, {}, function (data) {
+                                           if (! data.error) {
+                                               $(container).html(data.html);
+                                           } else {
+                                               showError(data);
+                                           }
+                                       }, 'json').error(function(xhr, ajaxOptions, thrownError){
+                                           showError(xhr.responseText);
+                                       });                                
+                                       return;
+                                   }
+                                }                       
+                                location.reload();
+                            }
+                        } else {
+                            showError(data);
+                            return false;
+                        }
+                    }, 'json'
+            );
+
+            return false;
+        }
+
+        <? if ($nameCanByReset) { ?>
+            $('button.<?=$nameCanByReset?>').click(function () {
+                modalDialog(trans.get('Confirm_needed'), trans.get('Really_set_default_value'), function () {
+                    $('button.<?=$nameCanByReset?>').attr('disabled', 'disabled');
+                    $('button.<?=$nameCanByReset?>').addClass('btn_preloader');
+                    $('button.<?=$nameCanByReset?> i').hide();
+                    $.post(
+                        updateSettingsUrl,
+                        {
+                            "name": '<?=$nameCanByReset?>',
+                            "value": 'true',
+                            "type": 'Text'
+                        },
+                        function (data) {
+                            if (!data.error) {
+                                showMessage(trans.get('Data_save_success'));
+                                $('button.<?=$nameCanByReset?>').removeClass('btn_preloader');
+                                $('button.<?=$nameCanByReset?>').addClass('disabled');
+                                $('button.<?=$nameCanByReset?> i').show();
+                                $('button.<?=$nameCanByReset?>').attr('disabled');
+
+
+                                if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                                    var container = $('#<?=$name?>').closest('.allow-reload');
+                                    var url = $(container).attr('reload-url');
+                                    if (url) {
+                                        $.post(url, {}, function (data) {
+                                            if (!data.error) {
+                                                $(container).html(data.html);
+                                            } else {
+                                                showError(data);
+                                            }
+                                        }, 'json').error(function (xhr, ajaxOptions, thrownError) {
+                                            showError(xhr.responseText);
+                                        });
+                                        return;
+                                    }
+                                }
+                                location.reload();
+                            } else {
+                                showError(data);
+                                var container = $('#<?=$name?>').closest('.control-group');
+                                $('#<?=$name?>', container).addClass('error');
+                                return false;
+                            }
+                        }, 'json'
+                    );
+                });
+                return false;
+            });
+        <? } ?>
+    });
+</script>

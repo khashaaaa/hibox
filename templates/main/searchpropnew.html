@@ -1,0 +1,251 @@
+<?
+    $min_cost = (isset($_GET['cost']['from']) && ($_GET['cost']['from'] != '')) ? (float)$_GET['cost']['from'] : '';
+
+    if (isset($_GET['cost']['from']) && ($_GET['cost']['from'] != '')) {
+        if (@General::getConfigValue('min_cost_goods') > @$_GET['cost']['from'])
+            $min_cost = @General::getConfigValue('min_cost_goods');
+    }
+
+    $max_cost = (isset($_GET['cost']['to']) && ($_GET['cost']['to'] != '')) ? $_GET['cost']['to'] : '';
+    if (isset($_GET['cost']['to']) && ($_GET['cost']['to'] != '')) {
+        if (@General::getConfigValue('min_cost_goods') > @$_GET['cost']['to'])
+            $max_cost = @General::getConfigValue('min_cost_goods');
+    }
+
+    $min_firstLotRange = (isset($_GET['firstLotRange']['from']) && ($_GET['firstLotRange']['from'] != '')) ? (int)$_GET['firstLotRange']['from'] : '';
+    $max_firstLotRange = (isset($_GET['firstLotRange']['to']) && ($_GET['firstLotRange']['to'] != '')) ? (int)$_GET['firstLotRange']['to'] : '';
+
+    $min_count = (isset($_GET['count']['from']) && ($_GET['count']['from'] != '')) ? (int)$_GET['count']['from'] : '';
+    $max_count = (isset($_GET['count']['to']) && ($_GET['count']['to'] != '')) ? (int)$_GET['count']['to'] : '';
+?>
+<?
+    $url = new UrlWrapper();
+    $url->Set(UrlGenerator::getHomeUrl() . current(explode('?', $_SERVER['REQUEST_URI'])));
+?>
+<form method="get" id="filterform" action="<?=$url->Get()?>">
+    <?if(RequestWrapper::get('Provider')){?>
+        <input type="hidden" name="Provider" id="SearchProvider" value="<?=RequestWrapper::get('Provider')?>">
+    <?}?>
+    <?if(RequestWrapper::get('SearchMethod')){?>
+        <input type="hidden" name="SearchMethod" id="SearchMethod" value="<?=RequestWrapper::get('SearchMethod')?>">
+    <?}?>
+    <?if(RequestWrapper::get('imageId')){?>
+        <input type="hidden" name="imageId" id="imageId" value="<?=RequestWrapper::get('imageId')?>">
+    <?}?>
+    <?
+    if(is_array($_GET['ignorefilters']))
+    foreach($_GET['ignorefilters'] as $v){
+        ?>
+            <input type="hidden" name="ignorefilters[]" value="<?=$v?>" />
+        <?
+    }
+    ?>
+
+    <input type="hidden" name="p" value="<?= @$_GET['p'] ?>"/>
+    <? if (isset($_GET['cid'])) { ?><input type="hidden" name="cid" value="<?=RequestWrapper::getValueSafe('cid')?>"/><? } ?>
+    <? if (isset($_GET['brand'])) { ?><input type="hidden" name="brand" value="<?=RequestWrapper::getValueSafe('brand')?>"/><? } ?>
+    <? if (isset($_GET['id'])) { ?><input type="hidden" name="id" value="<?=RequestWrapper::getValueSafe('id')?>"/><? } ?>
+    <? if (isset($_GET['search'])) { ?><input type="hidden" name="search" value="<?=RequestWrapper::getValueSafe('search')?>"/><? } ?>
+    <? if (isset($_GET['sort_by'])) { ?><input type="hidden" name="sort_by" value="<?= @$_GET['sort_by'] ?>"/><? } ?>
+    <? if (isset($_GET['per_page'])) { ?><input type="hidden" name="per_page" value="<?= @$_GET['per_page'] ?>"/><? } ?>
+    <? if (isset($_GET['tmall'])) { ?><input type="hidden" name="tmall" value="<?= @$_GET['tmall'] ?>"/><? } ?>
+    <? if (isset($_GET['discounts'])) { ?><input type="hidden" name="discounts" value="<?= @$_GET['discounts'] ?>"/><? } ?>
+
+        <? if ($searchprops || (!empty($logic) && $logic['Configurators'])){ ?>
+        <div class="titlecat bbn"><?=Lang::get('filters')?></div>
+    <?
+    $filtersExist = ! empty($logic) && ($logic['PriceRange'] == 'true' || $logic['VolumeRange'] == 'true' ||
+            $logic['VendorRatingRange'] == 'true');
+    ?>
+    <div class="filter-price opened" <? if (!$filtersExist) {?>style="display: none"<?} ?>>
+            <div class="filter-subtitle ftitle showHideFilter" data-type-open="i-open-filter" data-type-close="i-close-filter"><i class="i-new i-open-filter i additem"></i><?=Lang::get('search_conditions')?></div>
+            <div class="filter-price_content">
+
+                <? if (! empty($logic) && $logic['PriceRange'] == 'true') { ?>
+                    <h3 class="mb5"><?=Lang::get('price_simple')?></h3>
+                    <table class="cost-range-table">
+                        <tr>
+                            <td class="item"><input onkeyup="checkIntValue(this)" type="text" name="cost[from]" class="form-field" value="<?=$min_cost?>"></td>
+                            <td class="item"><?=User::getObject()->getCurrencySign()?> —</td>
+                            <td class="item"><input onkeyup="checkIntValue(this)" type="text" name="cost[to]" class="form-field" value="<?=$max_cost?>"></td>
+                            <td class="item"><?=User::getObject()->getCurrencySign()?></td>
+                        </tr>
+                    </table>
+                <? } ?>
+
+                <? if (! empty($logic) && $logic['FirstLotRange'] == 'true') { ?>
+                    <h3 class="mt15 mb5"><?=Lang::get('minimal_lot')?></h3>
+                    <table class="cost-range-table">
+                        <tr>
+                            <td class="item"><input onkeyup="checkIntValue(this)" type="text" name="firstLotRange[from]" class="form-field" value="<?=$min_firstLotRange?>"></td>
+                            <td class="item"><?=Lang::get('pcs')?> —</td>
+                            <td class="item"><input onkeyup="checkIntValue(this)" type="text" name="firstLotRange[to]" class="form-field" value="<?=$max_firstLotRange?>"></td>
+                            <td class="item"><?=Lang::get('pcs')?></td>
+                        </tr>
+                    </table>
+                <? } ?>
+
+                <? if (! empty($logic) && $logic['VolumeRange'] == 'true') { ?>
+                <h5 class="mt15 mb5"><?=Lang::get('purchases_count')?></h5>
+                    <table class="trange mt5">
+                            <tbody><tr>
+                                    <td><input type="text" name="count[from]" id="" class="w70" value="<?=$min_count?>"></td>
+                                    <td><?=Lang::get('pcs')?> —</td>
+                                    <td><input type="text" name="count[to]" id="" class="w70" value="<?=$max_count?>"></td>
+                                    <td><?=Lang::get('pcs')?></td>
+                            </tr>
+                    </tbody></table>
+                <? } ?>
+
+
+
+                <? if (! empty($logic) && $logic['VendorRatingRange'] == 'true') { ?>
+                    <h5 class="mt15 mb5"><?=Lang::get('vendor_rating_baserus')?></h5>
+
+                <div class="rating-slider-block">
+                    <? $MinVendorRating = empty($_GET['rating']['from']) ? $logic['MinVendorRating'] : (int)$_GET['rating']['from'] ; ?>
+                    <div class="slider-min-indicator"><span class="from"><?=Lang::get('from')?></span>
+
+                        <span class="from-value"><img src="i/hearts/level_<?=$MinVendorRating?>.gif" id="min_rate"></span>
+                    </div>
+                    <input type="text" name="rating[from]" value="<?=$MinVendorRating?>" class="slider-input" id="rating-min-input">
+                    <div class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="rating-slider-min"><div class="ui-slider-range ui-slider-range-min ui-widget-header" style="width: 0%; "></div><a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%; "></a></div>
+                </div>
+                <div class="rating-slider-block">
+                    <? $MaxVendorRating = empty($_GET['rating']['to']) ? $logic['MaxVendorRating'] : (int)$_GET['rating']['to'] ; ?>
+                    <div class="slider-max-indicator"><span class="till"><?=Lang::get('to')?></span>
+                        <span class="till-value"><img src="i/hearts/level_<?=$MaxVendorRating?>.gif" id="max_rate"></span>
+                    </div>
+                    <input type="text" name="rating[to]" value="<?=$MaxVendorRating?>" class="slider-input" id="rating-max-input">
+                    <div class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="rating-slider-max"><div class="ui-slider-range ui-slider-range-min ui-widget-header" style="width: 100%; "></div><a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 100%; "></a></div>
+                </div>
+
+                <!--noindex-->
+                <script type="text/javascript">
+                    var cval = new Array();
+                    var rate_min_val = '<?=@$_GET['rating']['from'] ? (int)@$_GET['rating']['from'] : $logic['MinVendorRating']?>';
+                    var rate_max_val = '<?=@$_GET['rating']['to'] ? (int)@$_GET['rating']['to'] : $logic['MaxVendorRating'];?>';
+                    var path = ''
+
+                    $('#rating-slider-min').slider({
+                        range: "min",
+                        value: rate_min_val,
+                        min: <?=$logic['MinVendorRating']?>,
+                        max: <?=$logic['MaxVendorRating']?>,
+                        slide: function( event, ui ) {
+                            $('#min_rate').attr('src', path+'i/hearts/level_'+ui.value+'.gif');
+                            $( "#rating-min-input" ).val( ui.value );
+                        }
+                    });
+
+                    $('#rating-slider-max').slider({
+                        range: "min",
+                        value: rate_max_val,
+                        min: <?=$logic['MinVendorRating']?>,
+                        max: <?=$logic['MaxVendorRating']?>,
+                        slide: function( event, ui ) {
+                            $('#max_rate').attr('src', path+'i/hearts/level_'+ui.value+'.gif');
+                            $( "#rating-max-input" ).val( ui.value );
+                        }
+                    });
+                    $('#rating-slider-max div:first').remove();
+
+                </script>
+                <!--/noindex-->
+                <? } ?>
+
+
+
+                <? if (! empty($logic)) { ?>
+                    <div class="fbut">
+                        <input type="button" onclick="document.getElementById('filterform').submit(); return false;" value="<?=Lang::get('select')?>" class="btn-small button js-form-send vertical-middle" />
+                        <a href="<?=$baseUrl->DeleteKey('cost')->DeleteKey('count')->DeleteKey('rating')->Get()?>" class="dotted vertical-middle"><span><?=Lang::get('reset')?></span></a>
+                    </div>
+                <? } ?>
+
+            </div>
+        </div>
+        <ul class="listitem filters">
+            <? if($searchprops) {
+                $searchPropsBrand = false;
+                foreach ($searchprops as $pid => $pvalue) {
+                    if(@in_array($pid, $_GET['ignorefilters'])){
+                        continue;
+                    }
+                    $curvalues = array();
+                ?>
+                <? if ($pvalue['Id'] == 20000) { ?>                    
+                <? $searchPropsBrand = $pvalue['Values']; ?>
+                <li class="item">
+                    <a href="javascript:void(0)" class="many-filters-<?=$pid?> showHideFilter" data-type-open="i-plus" data-type-close="i-minus"><i class="i i-new i-plus"></i> <?= $pvalue['name'] ?> </a>
+                    <ul class="innerlist">
+                        <input type="text" name="brandSearch" id="brandSearch" filter-name="<?= $pvalue['name'] ?>" placeholder="<?=Lang::get('Start_input_name')?>" value="" class="form-field"/>                        
+                    </ul>
+                </li>
+                <? continue; } ?>
+                <li class="item">
+                    <a href="javascript:void(0)" class="many-filters-<?=$pid?> showHideFilter" data-type-open="i-plus" data-type-close="i-minus"><i class="i i-new i-plus"></i> <?= $pvalue['name'] ?> </a>
+                    <? if(@$_GET['filters'][$pid]){ ?>
+                        <a class="i-new i-delete" href="<?=$_SERVER['REQUEST_URI']?>" fid="<?=$pid?>"></a>
+                    <? } ?>
+                    <ul class="innerlist">
+                        <?
+                        $pvalue_sort = array();
+
+                        foreach ($pvalue['Values'] as $value) {
+                            if ($_GET['filters'][$pid][$value['id']] == $value['id']) {
+                                $pvalue_sort[$value['id']] = $value;
+                            }
+                        }
+
+                        foreach ($pvalue['Values'] as $value) {
+                            if (!isset($pvalue_sort[$value['id']])) {
+                                $pvalue_sort[$value['id']] = $value;
+                            }
+                        }
+
+                        $pvalue['Values'] = $pvalue_sort;
+                       
+                            foreach ($pvalue['Values'] as $value) {
+                                $curvalues[] = $value['id'];
+                                ?>
+                                <li class="item">
+                                    <label for="ch<?= $value['id'] ?>">
+                                        <input
+                                            class="js-radio-filters"
+                                            type="<?=(! empty($logic) && $logic['MultipleConfiguratorLogic'] == 'None')? 'radio' : 'checkbox' ?>"
+                                            id="ch<?= $value['id'] ?>"
+                                            name="filters[<?= $pvalue['Id'] ?>][<?= $value['id'] ?>]"
+                                            value="1"
+                                            <? if (isset($_GET['filters']) && $_GET['filters'][$pvalue['Id']][$value['id']] == 1) { ?>
+                                                checked="checked"
+                                            <? } ?>
+                                            data-filter-name="<?= $value['name'] ?>"
+                                            data-parent-filter-name="<?= $pvalue['name'] ?>"
+                                        />
+                                        <!--noindex--><?= $value['name'] ?><!--/noindex-->
+                                    </label>
+                                </li>
+                            <? } ?>
+                                               
+                        
+                    </ul>
+                </li>
+    <? } ?>  </ul>
+        <? } ?>
+    <? } ?>
+    <div style="display:none" id="applyButton">
+        <i class="helpBox">
+            <input type="hidden" name="isAjax" id="isAjaxForm" value="1"/>
+            <a href="javascript:void(0)" class="search-filter-form-send applyHref"><?=Lang::get('apply')?></a>
+            <span class="microPreLoader"></span>
+        </i>
+    </div>
+</form>
+<script>
+var typeOfInput = '<?=(! empty($logic) && $logic['MultipleConfiguratorLogic'] == 'None')? 'radio' : 'checkbox'?>';
+var searchPropsBrand = <?=$searchPropsBrand ? json_encode($searchPropsBrand) : 'false' ?>;
+var activeBrandFilters = <?=$activeBrandFilters ? json_encode($activeBrandFilters) : 'false' ?>
+
+
+</script>

@@ -1,0 +1,82 @@
+<? if (! isset($notAuth) && empty($_GET['print']))  { ?>
+
+<? if($_GET['p']=='privateoffice' || $_GET['mode']=='reg_success' || $_GET['p']=='referral' || $_GET['p']=='outputofmoney' || $_GET['p']=='userreferal' || $_GET['p']=='moneyinfo' || $_GET['p']=='pay') {
+    $checked = 0;
+
+    if($_GET['p']=='privateoffice') $checked = 1;
+    if($_GET['p']=='privateoffice' && isset($_GET['orderstate'])) $checked = 2;
+    if($_GET['p']=='moneyinfo') $checked = 3;
+    if($_GET['p']=='support') $checked = 5;
+    if($_GET['p']=='referral') $checked = 6;
+    if($_GET['p']=='outputofmoney') $checked = 7;
+    if($_GET['p']=='userreferal') $checked = 8;
+
+    ?>
+    <div class="list-group">
+        <a href="/?p=privateoffice" class="list-group-item <? if($checked==1){ ?>active<? } ?>"><?=Lang::get('general_information')?></a>
+        <a href="/?p=privateoffice&orderstate=1" class="list-group-item <? if($checked==2){ ?>active<? } ?>"><?=Lang::get('orders')?></a>
+        <a href="/?p=moneyinfo" class="list-group-item <? if($checked==3){ ?>active<? } ?>"><?=Lang::get('account_info')?></a>
+        <a href="/?p=profile" class="list-group-item <? if($checked==4){ ?>active<? } ?>"><?=Lang::get('profile')?></a>
+
+        <a href="/?p=support" class="list-group-item <? if($checked==5){ ?>active<? } ?>">
+            <?=Lang::get('support_service')?>
+            <? if ($unreadCount) { ?>
+                <span style="color:red">(<?= $unreadCount ?>)</span>
+            <? } ?>
+        </a>
+
+        <? if (!General::getConfigValue('hide_money_output')) :?>
+        <a href="/?p=outputofmoney" class="list-group-item <? if($checked==7){ ?>active<? } ?>"><?=Lang::get('withdraw_funds')?></a>
+        <? endif; ?>
+        <? if (CMS::IsFeatureEnabled('ReferralProgram')) :?>
+        <a href="/?p=userreferal" class="list-group-item <? if($checked==8){ ?>active<? } ?>"><?=Lang::get('user_referal')?></a>
+        <? endif; ?>
+    </div>
+<? } ?>
+
+<? if($_GET['p']=='profile'){ ?>
+    <div class="list-group">
+        <a href="/?p=privateoffice" class="list-group-item"><?=Lang::get('general_information')?></a>
+        <a href="/?p=privateoffice&orderstate=1" class="list-group-item"><?=Lang::get('orders')?></a>
+        <a href="/?p=moneyinfo" class="list-group-item"><?=Lang::get('account_info')?></a>
+        <a href="/?p=profile" class="list-group-item"><?=Lang::get('profile')?></a>
+        <a href="/?p=profile&mode=account" class="list-group-item <? if($_GET['mode']=='account' || (empty($_GET['mode']) && !isset($_GET['new_profile']))){?>active<?}?>"><?=Lang::get('account')?></a>
+        <a href="/?p=profile&mode=delivery" class="list-group-item <? if($_GET['mode']=='delivery' || isset($_GET['new_profile'])){?>active<?}?>"><?=Lang::get('delivery')?></a>
+
+        <a href="/?p=support" class="list-group-item">
+            <?=Lang::get('support_service')?>
+            <? if ($unreadCount) { ?>
+                <span style="color:red">(<?= $unreadCount ?>)</span>
+            <? } ?>
+        </a>
+        <? if (!General::getConfigValue('hide_money_output')) :?>
+        <a href="/?p=outputofmoney" class="list-group-item"><?=Lang::get('withdraw_funds')?></a>
+        <? endif; ?>
+        <? if (CMS::IsFeatureEnabled('ReferralProgram')) :?>
+        <a href="/?p=userreferal" class="list-group-item"><?=Lang::get('user_referal')?></a>
+        <? endif; ?>
+    </div>
+<? } ?>
+<? if($_GET['p']=='support'){ ?>
+    <div class="list-group">
+        <a href="/?p=privateoffice" class="list-group-item"><?=Lang::get('general_information')?></a>
+        <a href="/?p=privateoffice&orderstate=1" class="list-group-item"><?=Lang::get('orders')?></a>
+        <a href="/?p=moneyinfo" class="list-group-item"><?=Lang::get('account_info')?></a>
+        <a href="/?p=profile" class="list-group-item"><?=Lang::get('profile')?></a>
+        <a href="/?p=support" class="list-group-item active">
+            <?=Lang::get('support_service')?>
+            <? if ($unreadCount) { ?>
+                <span style="color:red">(<?= $unreadCount ?>)</span>
+            <? } ?>
+        </a>
+
+        <? if (!General::getConfigValue('hide_money_output')) :?>
+        <a href="/?p=outputofmoney" class="list-group-item"><?=Lang::get('withdraw_funds')?></a>
+        <? endif; ?>
+        <? if (CMS::IsFeatureEnabled('ReferralProgram')) :?>
+        <a href="/?p=userreferal" class="list-group-item"><?=Lang::get('user_referal')?></a>
+        <? endif; ?>
+    </div>
+<? } ?>
+
+<? } ?>

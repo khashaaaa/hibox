@@ -1,0 +1,22 @@
+<div class="header-nav">
+    <div class="category-list">
+        <div class="category-list__top_panel_main_page">
+            <a href="<?=UrlGenerator::toRoute('allcats')?>" class="link-all-category"><i></i><span><?=Lang::get('all_categories')?></span></a>
+            <a href="<?=UrlGenerator::toRoute('allcats')?>" class="category_label">
+                <span class="category_text"><?=Lang::get('categories')?></span>
+            </a>
+        </div>
+    </div>
+    <div class="center">
+
+        <? $setParameters = SetsUpdater::getBestCategoriesParams(); ?>
+        <? if (isset($setParameters['count']) && $setParameters['count'] > 0) { ?>
+            <?=ContentSection::getWidget([
+                'route' => 'sets/render-best-categories-sets',
+                'mode' => ContentSection::MODE_AJAX_LOAD,
+                'cache' => $setParameters['cacheTime']
+            ])?>
+        <? } ?>
+
+    </div>
+</div>

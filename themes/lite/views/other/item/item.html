@@ -1,0 +1,38 @@
+<? $paramsByItemUrl = array() ?>
+<? if (isset($categoryId) && $categoryId) { ?>
+    <? $paramsByItemUrl['cid'] = $categoryId; ?>
+<? } ?>
+
+<? $itemUrl = UrlGenerator::generateItemUrl($item['Id'], $paramsByItemUrl); ?>
+
+<a href="<?=$itemUrl?>" itemscope itemtype="https://schema.org/Product" class="sets-product-item">
+    <div class="item-list_btn-group">
+        <?=General::viewFetch('other/item/item-buttons', array('vars' => array('item' => $item)))?>
+    </div>
+    <div class="item-list_img-wrap">
+        <div class="product-image-wrapper">
+            <img class="check-noimg" src="<?=ProductsHelper::getMediumImage($item)?>" alt="<?=$this->escape($item['title'])?>" itemprop="image">
+        </div>
+    </div>
+    <h3 itemprop="name"><?=$this->escape($item['title'])?></h3>
+    <div class="item-list_cost">
+        <? if (isset($item['PromotionPrice']) && count($item['PromotionPrice']) > 0) { ?>
+            <div class="item-list_cost_old">
+                <span><?=ProductsHelper::getPrice($item)?></span>
+            </div>
+            <div class="item-list_cost_new" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <?=ProductsHelper::getPromoPrice($item, array('addItemprop' => true))?>
+            </div>
+        <? } else {?>
+            <div class="item-list_cost_new" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <?=ProductsHelper::getPrice($item, array('addItemprop' => true))?>
+            </div>
+        <? } ?>
+        <? if (isset($item['FeaturedValues']['SalesInLast30Days'])) { ?>
+            <div class="sold-block">
+                <span title="<?=Lang::get('sales_volume1')?>"><?=Lang::get('sold')?>: <?=$item['FeaturedValues']['SalesInLast30Days']?></span>
+            </div>
+        <? } ?>
+    </div>
+</a>
+

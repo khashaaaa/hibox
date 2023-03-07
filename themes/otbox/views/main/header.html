@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="<?=Session::getActiveLang()?>">
+<head>
+    <?=General::runController('Header', 'renderHead')?>
+</head>
+<body class="
+<?=General::getConfigValue('current_site_theme')?>
+<?=(General::getConfigValue('rtl')) ? 'rtl' : ''?>
+<?=(General::getScriptName()) ? 'controller-'.General::getScriptName() : ''?>
+<? if($controller == 'index') { ?> common-home ltr layout-24 so-demos-ready<? } ?>
+<? if($controller == 'subcategory' or $controller == 'category') { ?> product-category ltr layout-24 so-demos-ready loaded<? } ?>
+">
+
+<?=General::viewFetch('main/js-off')?>
+<!-- Wrapper -->
+<div id="wrapper" class="wrapper-full banners-effect-10">
+
+<?=General::viewFetch('main/header/content', array('vars' => array('langs' => $langs, 'controller' => $controller, 'topMenu' => $topMenu, 'cms' => new CMS())))?>
+
+<div id="error-dialog" style="display: none" title="<?=Lang::get('error')?>"></div>
+<div id="dialog-error" title="<?=Lang::get('error')?>">
+    <span class="error"></span>
+</div>

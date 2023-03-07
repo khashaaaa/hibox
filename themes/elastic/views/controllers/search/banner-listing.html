@@ -1,0 +1,30 @@
+<? if (!empty($availableSearchMethodList) && count($availableSearchMethodList) > 1) { ?>
+    <div class="baner-listing d-flex justify-content-center align-items-center flex-wrap">
+        <div class="banner-listing__title"><?=Lang::get('Search:NotFoundBannerTitle')?></div>
+        <div class="banner-listing__subtitle"><?=Lang::get('Search:NotFoundBannerText')?></div>
+
+        <ul class="baner-group-links">
+            <? foreach ($availableSearchMethodList as $type) { ?>
+            <? if ($type->GetSearchMethod() == $activeSearchMethod->GetSearchMethod() && $type->GetProvider() == $activeSearchMethod->GetProvider()) { ?>
+            <? continue; ?>
+            <? } ?>
+                <li>
+                    <a href="<?=UrlGenerator::generateSearchUrlByParams(array(
+                            'Provider' => InstanceProvider::getObject()->GetAliasByProviderName(
+                            Session::getActiveLang(),
+                            $type->GetProvider()
+                        ),
+                            'SearchMethod' => $type->GetSearchMethod(),
+                            'imageId' => $searchParams['imageId'],
+                            'module' => $searchParams['module'],
+                            'vid' => $searchParams['vid'],
+                            'brand' => $searchParams['brand'],
+                            'cid' => $searchParams['cid'],
+                            'search' => $searchParams['searchWord'],
+                        ))?>" class="button"><?=$type->GetDisplayName()?>
+                    </a>
+                </li>
+            <? } ?>
+        </ul>
+    </div>
+<? } ?>

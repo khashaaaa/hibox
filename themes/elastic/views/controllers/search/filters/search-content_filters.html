@@ -1,0 +1,91 @@
+<div class="panel-grey panel-product">
+
+    <? if ($activeSearchMethod->GetAvailableSorts()->GetSort()) { ?>
+        <div class="product-filter">
+            <? $sortBy = $searchParams['filter']['sortBy']; ?>
+            <div class="select-text"><?=Lang::get('sort_by')?>:</div>
+            <div class="select">
+                <form class="form-inline" role="form" action="<?=$baseUrl->Get()?>">
+                    <select name="sort_by" data-form="sortby-form" class="form-control search-click">
+                        <? foreach ($activeSearchMethod->GetAvailableSorts()->GetSort() as $sort) { ?>
+                            <option  value="<?=$sort->GetOrderBy()?>" <?= ($sortBy == $sort->GetOrderBy()) ? 'selected' : ''?> >
+                                <?=$sort->GetDisplayName()?>
+                            </option>
+                        <? } ?>
+                    </select>
+                </form>
+            </div>
+        </div>
+    <? } ?>
+
+    <? if ($activeSearchMethod->StuffStatus()) { ?>
+        <div class="buttons-group">
+            <? $featureUrl = clone $baseUrl?>
+            <? $isActive = (! empty($searchParams['StuffStatus']))?>
+            <? $featureUrl->DeleteKey('StuffStatus')->DeleteKey('page')->DeleteKey('perpage'); ?>
+            <a href="<?=$isActive ? $featureUrl->Get() : $featureUrl->Add('StuffStatus', 'New')->Get()?>"
+               class="btn btn-grey search-click <?=$isActive ? 'active' : ''?> feature-StuffStatus">
+                <?= $isActive ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+                <?=Lang::get('only_new')?>
+            </a>
+        </div>
+   <? } ?>
+
+    <? if ($searchResult->GetItems()->GetItems()->GetTotalCount()) { ?>
+        <div class="panel-products-views"><?=Lang::get('Goods_in_cart')?>: <?=$searchResult->GetItems()->GetItems()->GetTotalCount();?></div>
+        <div class="panel-products-views-current">
+            <?
+                $from = $searchParams['filter']['from'] + 1;
+                $to = $from + $searchParams['filter']['perPage'] - 1;
+            ?>
+            <?=Lang::get('shown')?>:
+            <b>
+                <?=Lang::get('from')?> <?=$from?>
+
+                <?=Lang::get('to')?>
+                <? if ($searchResult->GetItems()->GetItems()->GetTotalCount() > $to) { ?>
+                    <?= ($to < $activeSearchMethod->GetMaximumItemsCount()) ? $to : $activeSearchMethod->GetMaximumItemsCount() ?>
+                <? } else { ?>
+                    <?=$searchResult->GetItems()->GetItems()->GetTotalCount()?>
+                <? } ?>
+            </b>
+
+            <?=Lang::get('from2')?>
+            <? if ($searchResult->GetItems()->GetItems()->GetTotalCount() > $activeSearchMethod->GetMaximumItemsCount()) { ?>
+                <?=$activeSearchMethod->GetMaximumItemsCount()?>
+            <? } else { ?>
+                <?=$searchResult->GetItems()->GetItems()->GetTotalCount()?>
+            <? } ?>
+
+            <? if ($searchResult->GetItems()->GetItems()->GetTotalCount() > $activeSearchMethod->GetMaximumItemsCount()) { ?>
+            <a href="javascript:void(0)" rel="tooltip" data-placement="right"
+               title="<?=Lang::get('output_is_limited', array('pages' => $searchResult->GetItems()->GetMaximumPageCount()))?>"><span
+                    class="glyphicon glyphicon-info-sign"></span></a>
+            <? } ?>
+        </div>
+    <? } ?>
+    <div class="block-filter">
+        <a href="javascript:void(0)" class="icon-filter">
+            <img src="themes/elastic/img/svg/icon-filter.svg" alt="img">
+            <label class="block-filter__label"><?=Lang::get('filter_by')?></label>
+        </a>
+    </div>
+    <div class="view-page">
+        <?=General::viewFetch('controllers/search/filters/layout', array('vars' => array(
+            'layout' => $searchParams['layout'], 'baseUrl' => clone $baseUrl
+        )))?>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+    $("select").chosen({
+        "disable_search": true,
+        width: "100%",
+    });
+    $(".select-language select, .select-img select").chosenImage({
+        disable_search_threshold: 10
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

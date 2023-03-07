@@ -1,0 +1,68 @@
+<div class="main profile__delivery">
+    <h1><?=Lang::get('delivery')?></h1>
+    <div class="userform userBigLabel col-lg-10">
+    <? if($success){ ?>
+        <div class="success">
+            <?=$success?>
+        </div>
+    <? } ?>
+    <? if($error){ ?>
+        <div class="error">
+            <?=$error?>
+        </div>
+    <? } ?>
+    <div class="bproduct mb30">
+        <div class="panel-grey">
+            <?=Lang::get('delivery_data')?>
+        </div>
+        <div class="form-row">
+            <label for="Profile"><?=Lang::get('profile')?></label>
+
+            <? if (count($profiles)) { ?>
+                <select name="profiles_select" id="profiles_select" class="form-control">
+                    <? $profiles_count = 0; ?>
+                    <? foreach ($profiles as $profile) { ?>
+                        <? $profiles_count++; ?>
+                        <option value="<?=$profile['id']?>"><?=Lang::get('profile') . ' '  . $profiles_count ?></option>
+                    <? } ?>
+                </select>
+            <? } ?>
+
+            <!-- Проверка на допустимое кол-во профилей -->
+            <? if ((int)$commonSettings['userprofile'] > count($profiles)) { ?>
+                <a href='/?p=profile&new_profile' class="button"><?=Lang::get('add')?></a>
+            <? } ?>
+        </div>
+
+        <? $profiles_count = 0; ?>
+        <? foreach ($profiles as $profile) { ?>
+            <? $profiles_count++; ?>
+            <div class="profile-data <? if ($profiles_count > 1) { ?> hidden <? } ?>" id="profile-<?=$profile['id']?>" >
+                <?=General::viewFetch('/templatescustom/users/delivery_form', array('path' => General::getThemeDir(), 'vars' => [
+                    'profile' => $profile,
+                    'countries' => $countries
+                ]))?>
+            </div>
+        <? } ?>
+    </div>
+</div>
+
+<?=Lang::loadJSTranslation(array('yes', 'no', 'profile_will_be_removed', 'confirm_needed'))?>
+
+<? AssetsMin::jsBegin(); ?>
+<!--noindex-->
+<script>
+    $(function(){
+        $('#profiles_select').on('change', function (e) {
+            $('.userform .profile-data').addClass('hidden');
+            $('.userform #profile-' + $(e.currentTarget).val()).removeClass('hidden');
+            $('.save-delivery-profile').removeAttr('disabled').removeClass('btn-secondary');
+        });
+    });
+</script>
+<!--/noindex-->
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+</div>
+<?=Plugins::invokeEvent('onRenderProfile')?>

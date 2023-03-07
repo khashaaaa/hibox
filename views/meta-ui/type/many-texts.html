@@ -1,0 +1,144 @@
+<div class="control-group control-group-medium many-texts-control">
+    <label class="control-label"><?=$displayName?>
+        <? if ($description) { ?>
+        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+        <? } ?>
+    </label>
+    <!-- Tags input -->
+    <div>
+        <select multiple data-role="tagsinput" id="<?=$name?>" <?= ($isReadOnly == 1) ? 'disabled="disabled"' : ''?> <?=$requireReload ? 'require-reload="true"' : '' ?>>
+        <? foreach ($currentValue->Value as $value) { ?>
+        <option value="<?=$value?>"><?=$value?></option>
+        <? } ?>
+        </select>
+        <? if ($isReadOnly == 0) { ?>
+        <button type="submit" class="btn btn-primary editable-submit <?=$name?>"><i class="icon-ok icon-white"></i></button>
+        <? if ($nameCanByReset) { ?>
+        <button type="submit" class="btn <?=$nameCanByReset?>" title="<?=LangAdmin::get("By_default")?>"><i class="icon-refresh"></i></button>
+        <? } ?>
+        <? } ?>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        var container = $('#<?=$name?>').closest('div.meta-ui-container');
+        var updateSettingsUrl = $(container).attr('update-settings-url') + '&type=ManyTexts';
+
+        var onChange = function() {
+            $('button.<?=$name?>').removeClass('disabled');
+            $('button.<?=$name?>').removeAttr('disabled');
+        };
+
+        $('#<?=$name?>').on('itemAdded', onChange);
+        $('#<?=$name?>').on('itemRemoved', onChange);
+
+        $('button.<?=$name?>').click(function () {
+            var values = $('#<?=$name?>').val();
+            $('button.<?=$name?>')
+                .addClass('btn_preloader')
+                .prop('disabled', true);
+            $('button.<?=$name?> i').hide();
+
+            var container = $('#<?=$name?>').closest('.control-group');
+            $('.bootstrap-tagsinput', container).removeClass('error');
+
+            $.post(
+                    updateSettingsUrl,
+                    {
+                        "value": values,
+                        "name": '<?=$name?>',
+                        "type": 'ManyTexts'
+                    },
+                    function (data) {
+                        if (!data.error) {
+                            showMessage(trans.get('Data_save_success'));
+                            if ($('#<?=$name?>').attr('require-reload') == 'true') {
+                                if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                                   var container = $('#<?=$name?>').closest('.allow-reload');
+                                   var url = $(container).attr('reload-url');
+                                   if (url) {
+                                       $.post(url, {}, function (data) {
+                                           if (! data.error) {
+                                               $(container).html(data.html);
+                                           } else {
+                                               showError(data);
+                                           }
+                                       }, 'json').error(function(xhr, ajaxOptions, thrownError){
+                                           showError(xhr.responseText);
+                                       });                                
+                                       return;
+                                   }
+                                }                       
+                                location.reload();
+                            }
+                        } else {
+                            showError(data);
+                            var container = $('#<?=$name?>').closest('.control-group');
+                            $('.bootstrap-tagsinput', container).addClass('error');
+                        }
+                        $('button.<?=$name?>')
+                            .prop('disabled', false)
+                            .removeClass('btn_preloader');
+                        $('button.<?=$name?> i').show();
+                    }, 'json'
+            );
+
+            return false;
+        });
+
+        <? if ($nameCanByReset) { ?>
+            $('button.<?=$nameCanByReset?>').click(function () {
+                modalDialog(trans.get('Confirm_needed'), trans.get('Really_set_default_value'), function () {
+                    $('button.<?=$nameCanByReset?>').attr('disabled', 'disabled');
+                    $('button.<?=$nameCanByReset?>').addClass('btn_preloader');
+                    $('button.<?=$nameCanByReset?> i').hide();
+                    $.post(
+                        updateSettingsUrl,
+                        {
+                            "name": '<?=$nameCanByReset?>',
+                            "value": 'true',
+                            "type": 'Text'
+                        },
+                        function (data) {
+                            if (!data.error) {
+                                showMessage(trans.get('Data_save_success'));
+                                $('button.<?=$nameCanByReset?>').removeClass('btn_preloader');
+                                $('button.<?=$nameCanByReset?>').addClass('disabled');
+                                $('button.<?=$nameCanByReset?> i').show();
+                                $('button.<?=$nameCanByReset?>').attr('disabled');
+
+
+                                if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                                    var container = $('#<?=$name?>').closest('.allow-reload');
+                                    var url = $(container).attr('reload-url');
+                                    if (url) {
+                                        $.post(url, {}, function (data) {
+                                            if (!data.error) {
+                                                $(container).html(data.html);
+                                            } else {
+                                                showError(data);
+                                            }
+                                        }, 'json').error(function (xhr, ajaxOptions, thrownError) {
+                                            showError(xhr.responseText);
+                                        });
+                                        return;
+                                    }
+                                }
+                                location.reload();
+                            } else {
+                                showError(data);
+                                var container = $('#<?=$name?>').closest('.control-group');
+                                $('#<?=$name?>', container).addClass('error');
+                                return false;
+                            }
+                        }, 'json'
+                    );
+                });
+                return false;
+            });
+        <? } ?>
+    });
+</script>
+<? AssetsMin::registerCssFile('/css/vendor/bootstrap-tagsinput.css') ?>
+<? AssetsMin::registerJsFile('/js/vendor/bootstrap-tagsinput.js')?>

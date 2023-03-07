@@ -1,0 +1,36 @@
+<div class="main"><div class="canvas clrfix">
+    <h2><?=Lang::get('Orders_list')?></h2><br/><br/>
+    <form method="post" action="/?p=userorder&step2">
+        <? if(count($orders)){?>
+        <table class="notepad" width="100%">
+            <thead>
+                <tr>
+                    <td><?=Lang::get('order_number')?></td>
+                    <td><?=Lang::get('Buying_date')?></td>
+                    <td><?=Lang::get('status')?></td>
+                    <td><?=Lang::get('sum')?></td>
+                    <td><?=Lang::get('comment')?></td>
+                    <td><?=Lang::get('Action')?></td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <? foreach($orders as $order){ ?>
+                    <tr id="order<?=$order['id']?>">
+                        <td><?=$order['id']?></td>
+                        <td><?=$order['createddatetime']?></td>
+                        <td><?=$order['statusname']?></td>
+                        <td><span class="pr"><? echo (string)$order['totalamount'].' '.$order['currencysign'];?></span></td>
+                        <td><?=$this->escape($order['comment'])?></td>
+                        <td> --<?=Lang::get('pay')?>-- </td>
+                    </tr>
+                <?  }  ?>
+            </tbody>
+        </table>
+        <br/><br/>
+
+        <? }  else {?>
+            <h3> <?=Lang::get('Orders_not_found')?>! </h3>
+        <? } ?>
+    </form>
+</div></div>

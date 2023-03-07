@@ -1,0 +1,328 @@
+/* dropdown (begin) */
+
+  form.search .dropdown-search .bitem
+  {
+    padding: 0;
+
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+	.dropdown
+  {
+		display: none;
+		position: absolute;
+		left: 20px;
+		top: 45px;
+		z-index: 3;
+		margin: 0;
+		width: 240px;
+
+		background-color: #F2F2F2;
+
+		border-top: 3px solid #ED1C24;
+		border-radius: 0 0 5px 5px;
+		box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.3);
+	}
+
+	.dropdown-main
+	{
+		display: block;
+		position: relative;
+		left: 0;
+		top: -2px;
+		margin: -20px 0 20px;
+	}
+
+  .dropdown h3
+  {
+    margin: 0;
+    padding: 0;
+  }
+
+  .dropdown-search .bitem h3
+  {padding: 10px 10px 2px 10px;}
+
+	.dropdown h3 a
+	{
+		display: block;
+
+		text-decoration: none;
+	}
+
+	.dropdown .bitem
+	{
+		position: relative;
+	}
+
+	.dropdown .bitem-all a
+	{
+		position: relative;
+		
+		font-size: 11px;
+		font-weight: bold;
+	}
+
+	.b-link__dropdown-all
+	{ padding: 10px; }
+
+	.b-link__dropdown-all .b-link
+	{
+		font-size: 11px;
+		text-decoration: none;
+	}
+
+  .b-link__dropdown-all .i-new
+  { margin: -1px 5px 0 0 }
+
+  .rtl .b-link__dropdown-all .i-new
+  { margin: -1px 0 0 5px }
+
+	.dropdown .b-link__dropdown-all:first-child
+	{ border-bottom: 1px solid #e6e6e6 }
+
+  .b-list__category .b-item
+  { position: relative;}
+
+  .b-list__category .b-item .b-link
+  {
+    display: block;
+    position: relative;
+
+    font-size: 11px;
+    text-decoration: none;
+  }
+
+  #menu-short-complete1 .b-list__category {
+    margin: 5px 0 0 0;
+  }
+
+  #menu-short-complete2 .bitem,
+  #menu-short-complete3 .bitem
+  { padding: 0 }
+
+  #menu-short-complete2 h3>a,
+  #menu-short-complete3 h3>a
+  {
+    display: block;
+    padding: 10px
+  }
+
+  /*========================  Меню - станларт  ========================*/
+
+  #menu-short-complete1 ul{
+    display: inline-block;
+  }
+
+  #menu-short-complete1 h3{
+    display: inline-block;
+  }
+
+  #menu-short-complete1 .clrfix ul {
+    list-style: none;
+  }
+
+  #menu-short-complete1 .clrfix ul li {
+    margin: 0 5px 0 0;
+    display: inline-block;
+    vertical-align: top;
+  }
+  #menu-short-complete1 .clrfix ul li a {
+    display: inline-block;
+    zoom: 1;
+    position: relative;
+    padding-left: 10px;
+    font-size: 11px;
+    text-decoration: none;
+  }
+
+  #menu-short-complete1 .clrfix ul li a:before,
+  #menu-short-complete1 .clrfix ul small.before{
+    position: absolute;
+    left: 0;
+    top: -4px;
+    content: '\2022';
+    font-size: 18px;
+    color: #8bc53e;
+  }
+
+  /*   ======================================================   */
+  /*========================  Меню - выпадающее  ========================*/
+
+  #menu-short-complete2 ul{
+    padding: 0;
+    display: none;
+    width: 220px;
+    z-index: 999;
+  }
+  #menu-short-complete2 .clrfix ul {
+    margin-top: 0;
+    position: absolute;
+    left: 240px;
+    top: 0;
+    background-color: #F2F2F2;
+    outline: 0;
+  }
+  #menu-short-complete2 .clrfix:hover > ul {
+    display: block;
+  }
+  #menu-short-complete2 .clrfix:hover {
+    background-color: #999;
+  }
+  #menu-short-complete2 .clrfix:hover h3 > a {
+    color: #fff;
+  }
+
+  #menu-short-complete2 .clrfix:hover > ul {
+    outline: 0;
+    background-color: #F2F2F2;
+    border: 1px solid #e6e6e6;
+  }
+
+  #menu-short-complete2 .clrfix ul li {
+    padding: 5px;
+    border-top: 1px solid #e6e6e6
+  }
+
+  #menu-short-complete2 .clrfix ul li:first-child
+  {
+    border-top: 1px solid transparent;
+  }
+
+
+  #menu-short-complete2 .clrfix ul li:hover  {
+    background-color: #999;
+  }
+
+  #menu-short-complete2 .clrfix ul li:hover > a {
+    display: block;
+    border: none;
+    color:#FFF;
+  }
+
+  /*   ======================================================   */
+
+
+  /*========================  Меню - выпадающее c покатегориями  ========================*/
+
+  #menu-short-complete3 ul{
+    padding: 0;
+    display: none;
+    width: 240px;
+    z-index: 10;
+  }
+  #menu-short-complete3 .clrfix ul {
+    margin-top: 0;
+    position: absolute;
+    left: 240px;
+    top: 0;
+  }
+  #menu-short-complete3 .clrfix:hover > ul {
+    display: block;
+    background-color: #F2F2F2; 
+    border: 1px solid #e6e6e6;
+  }
+  #menu-short-complete3 .clrfix:hover {
+   /* background-color:#999; */
+    border-bottom:  1px solid transparent;
+  }
+  #menu-short-complete3 .clrfix:hover h3 > a {
+    color: #fff;
+  }
+
+  #menu-short-complete3 .clrfix:hover > ul {
+    color: #fff;
+    background-repeat: no-repeat;
+  }
+
+  #menu-short-complete3 .clrfix ul li {
+    padding: 5px;
+    position:relative;
+
+    border-top: 1px solid #e6e6e6
+  }
+  #menu-short-complete3 .clrfix ul li:hover  {
+    /* background-color: #999; */
+  }
+  #menu-short-complete3 .clrfix ul li ul  {
+    position: absolute;
+    left: 240px;
+    top: 0;
+    margin-top: 0;
+    border: 1px solid #e6e6e6;
+  }
+  #menu-short-complete3 .clrfix ul li,
+  #menu-short-complete3 .clrfix ul li ul li{
+    border-top: 1px solid #e6e6e6
+  }
+
+  #menu-short-complete3 .clrfix ul li:first-child,
+  #menu-short-complete3 .clrfix ul li ul li:first-child{
+    border-top: 1px solid transparent;
+  }
+
+  #menu-short-complete3 .clrfix ul li:hover ul  {
+    display: block;
+    background-color: #F2F2F2;
+    outline: 0;
+  }
+
+  #menu-short-complete3 .clrfix ul li:hover > a {
+    display: block;
+    border: none;
+    color:#FFF;
+  }
+
+  form.search .dropdown-search .bitem .b-list__category
+  {
+    margin: 5px 0 10px 10px;
+  }
+
+  form.search .dropdown-search .bitem .b-list__category .b-item
+  {
+    display: inline-block;
+    position: relative;
+    margin-right: 5px;
+
+    vertical-align: top;
+  }
+
+  /*
+    *   Style For Right To Left
+    *   ()
+    */
+
+  .rtl .dropdown
+  {
+    right: 20px;
+    left: auto;
+    top: 46px;
+  }
+
+  .rtl .dropdown-main
+  {
+    right: 0;
+    top: 0;
+  }
+
+  .rtl #menu-short-complete2 .b-list__category,
+  .rtl #menu-short-complete3 .b-list__category
+  {
+    left: auto;
+    right: 100%;
+
+    border-width: 1px 0 1px 1px;
+    border-radius: 5px 0 0 5px;
+  }
+
+  .rtl #menu-short-complete3 .b-list__category
+  { border-radius: 0 }
+
+  .rtl #menu-short-complete3 .b-list__category .b-list__category
+  {
+    border-radius: 5px 0 0 5px;
+    border-left: 1px solid #ed1c24;
+  }
+
+
+
+/* dropdown (end) */

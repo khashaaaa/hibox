@@ -1,0 +1,23 @@
+<? if (!empty($newsBlock))  { ?>
+    <div class="bproduct b-post">
+        <h2 class="mb25"><span><?=Lang::get('news')?></span></h2>
+        <ul class="blog l-blog">
+        <? if (!empty($newsBlock)) foreach ($newsBlock as $news) { ?>
+            <li class="item">
+                <div class="post-info">
+                    <? if (! empty($news['image'])) { ?>
+                    <div class="post-image">
+                        <a href="?p=news&id=<?=$news['id']?>"><img class="image" src="<?=DigestRepository::getImage($news['image'], "thumb")?>"></a>
+                    </div>
+                    <? } ?>
+                    <div class="post-date"><?= date('d.m.Y', strtotime($news['created'])) ?></div>
+                    <div class="post-content">
+                        <a href="?p=news&id=<?= $news['id'] ?>" class="i-link"><?= $this->escape($news['title']) ?></a>
+                    </div>
+                </div>
+            </li>
+        <? } ?>
+        </ul>
+        <div class="b-link-all"><a href="?p=allnews" class="i-link"><?=Lang::get('all_news')?></a></div>
+    </div>
+<? } ?>

@@ -1,0 +1,12 @@
+Шаблоны
+    Input
+        Параметры:
+            Name, Value, OnChangeHook, OnInitHook
+    Select
+        Параметры:
+            Name, Value, Possible values, OnChangeHook, OnInitHook
+
+Реализация
+
+1. Выводить html через специализированный метод для будущего описания типового функционала в xml
+2. js для каждого элемента регистрировать в выводить в конце страницы

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <key name="Content">Content</key>
+    <key name="Sections">Custom pages</key>
+    <key name="Add">Add</key>
+    <key name="Add_page">Add page</key>
+    <key name="Name">Name</key>
+    <key name="Pages">Pages</key>
+    <key name="Address">Address</key>
+    <key name="Menu">Menu</key>
+    <key name="Language">Language</key>
+    <key name="Actions">Actions</key>
+    <key name="Edit">Edit</key>
+    <key name="Edit_page">Edit page</key>
+    <key name="Delete">Delete</key>
+    <key name="Add_subsection">Add subsection</key>
+
+    <key name="Services">Services</key>
+
+    <key name="News">News</key>
+    <key name="allnews">News</key>
+    <key name="Title">Title</key>
+    <key name="Edit_news">Edit news</key>
+    <key name="Delete_news">Delete news</key>
+    <key name="Content_pages">Content pages</key>
+    <key name="Navigation">Navigation</key>
+    <key name="Banners">Banners</key>
+    <key name="Save_order">Save order</key>
+    <key name="Change_banners_order">Reorder banners</key>
+    <key name="Delete_banner">Delete banner</key>
+    <key name="Edit_banner">Edit banner</key>
+    <key name="Add_edit_page">Adding/editing page</key>
+    <key name="Is">Is</key>
+    <key name="at_menu">in menu</key>
+
+    <key name="Page">Section</key>
+    <key name="Subpage">Subsection</key>
+    <key name="Top_menu">Top</key>
+    <key name="Bottom_menu">Bottom</key>
+    <key name="Column_menu">Sidebar</key>
+    <key name="Not_menu">Don't add</key>
+    <key name="for">for</key>
+    <key name="Seo_attributes">SEO attributes</key>
+    <key name="Keywords">Keywords</key>
+    <key name="Description">Description</key>
+    <key name="Really_remove_this_page">Are you sure you want to delete this page?</key>
+    <key name="Delete_page">Delete page</key>
+    <key name="Go_to_page">Go to page</key>
+    <key name="Edit_page">Edit page</key>
+
+    <key name="top_menu">Top menu</key>
+    <key name="bottom_menu">Bottom menu</key>
+    <key name="left_menu">Sidebar</key>
+    <key name="Page_saved_successfully">Page saved successfully</key>
+    <key name="Content_cannot_be_empty">Page content required</key>
+    <key name="Alias_cannot_be_empty">Web page address cannot be empty</key>
+
+    <key name="Top_navigation">Top</key>
+
+    <key name="Bottom_navigation">Bottom</key>
+    <key name="Column_navigation">Sidebar</key>
+    <key name="Use_in_menu">Used in menu</key>
+    <key name="Pages_list">Page list</key>
+    <key name="Add_page_to_menu">Add page to menu</key>
+    <key name="Change_order">Change order</key>
+    <key name="Displayed_only_pages">Only 1st level pages</key>
+    <key name="Calculator">Calculator</key>
+    <key name="Pristroy">Pristroy</key>
+    <key name="Reviews">Products reviews</key>
+    <key name="Digest">Webblogs</key>
+    <key name="Shop_reviews">Shop reviews</key>
+
+    <key name="Menu_saved_successfully">Menu saved successfully</key>
+    <key name="Alias_already_in_use">Web page address is already in use</key>
+
+    <key name="Really_remove_this_news">Are you sure you want to delete this news?</key>
+    <key name="Add_news">Adding news</key>
+    <key name="Edit_news">Editing news</key>
+    <key name="Image">Image</key>
+    <key name="News_preview">News announcement</key>
+
+    <key name="Brief_cannot_be_empty">Please enter news announcement</key>
+
+    <key name="Select">Select</key>
+    <key name="Change">Change</key>
+    <key name="Go_to_news">Go to news</key>
+
+    <key name="Blog">Blog</key>
+    <key name="Add_post">Adding post</key>
+    <key name="Edit_post">Editing post</key>
+    <key name="Date">Date</key>
+    <key name="Select_category">Select category</key>
+    <key name="Category">Category</key>
+    <key name="Really_remove_this_post">Really remove this post?</key>
+
+    <key name="Title_h1">Title H1</key>
+    <key name="Name_hint">This value is used as a menu title, in breadcrumbs and as a H1 title by default</key>
+    <key name="You_must_upload_the_image">You need to chose the image of a proper size.</key>
+    
+    <key name="Shop_comments">Shop reviews</key>
+    <key name="comment">Review</key>
+    <key name="comment_date">Date</key>
+    <key name="comment_name">User</key>
+    <key name="actions">Actions</key>
+    <key name="Activate_comment">Activate review</key>
+    <key name="Answer_comment">Answer the review</key>
+    <key name="Activate_comments">Activate group of reviews</key>
+    <key name="Answer">Answer</key>
+    <key name="Address_hint">Page alias to build link</key>
+
+    <key name="Manual_page_lang_code_is_null">Language is not selected! Please, select a language and save the page</key> 
+    <key name="Indexing">Indexing</key>
+    <key name="Indexing_hint">Does indexing the pages by search engine  (If not, the page is not in the site map, and it will have a bearing tag - no index)</key>
+</translations>

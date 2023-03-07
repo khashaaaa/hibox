@@ -1,0 +1,72 @@
+
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="promo/seo"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('referals')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+
+<h1>
+    <?=LangAdmin::get('referals')?>
+    <a href="<?=$PageUrl->AssignDo('addCategory')?>" class="btn btn-tiny btn-primary btn_preloader weight-normal offset-left2" data-loading-text="<?=LangAdmin::get('add_category')?>" autocomplete="off" title="<?=LangAdmin::get('Add_referal_category')?>"><?=LangAdmin::get('add_category')?></a>
+</h1>
+
+<div class="row-fluid offset-bottom1">
+    <div class="span6">
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th class="span4"><?=LangAdmin::get('category_name')?></th>
+                    <th class="span2"><?=LangAdmin::get('category_action')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td><a href="promo/referals/category" title="<?=LangAdmin::get('View_users_list_in_category')?>"><?=LangAdmin::get('base_level')?></a></td>
+                    <td>
+                        <div class="btn-group">
+                            <!-- add new user -->
+                            <button href="#" data-type="typeahead" data-pk="1" data-url="/post" data-placement="bottom" data-placeholder="<?=LangAdmin::get('Start_typing')?>" class="btn btn-tiny ot-typehead-users editable-buttoned" title="<?=LangAdmin::get('add_category_user')?>" data-original-title="<?=LangAdmin::get('add_category_user')?>">+ <i class="icon-user"></i></button>
+                            <!-- discount actions -->
+                            <a class="btn btn-tiny" href="<?=$PageUrl->AssignDo('updateCategory')?>" title="<?=LangAdmin::get('update_category')?>"><i class="icon-pencil"></i></a><!-- link is user only for prototype dinamics. In real application use button instead -->
+                            <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('remove_category')?>"><i class="icon-remove-sign"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="promo/referals/category" title="<?=LangAdmin::get('View_users_list_in_category')?>"><?=LangAdmin::get('Middle_level')?></a></td>
+                    <td>
+                        <div class="btn-group">
+                            <!-- add new user -->
+                            <button href="#" data-type="typeahead" data-pk="1" data-url="/post" data-placement="bottom" data-placeholder="<?=LangAdmin::get('Start_typing')?>" class="btn btn-tiny ot-typehead-users editable-buttoned" title="<?=LangAdmin::get('add_category_user')?>" data-original-title="<?=LangAdmin::get('add_category_user')?>">+ <i class="icon-user"></i></button>
+                            <!-- discount actions -->
+                            <a class="btn btn-tiny" href="<?=$PageUrl->AssignDo('updateCategory')?>" title="<?=LangAdmin::get('Edit_category')?>"><i class="icon-pencil"></i></a><!-- link is user only for prototype dinamics. In real application use button instead -->
+                            <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete_category')?>"><i class="icon-remove-sign"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="promo/referals/category" title="<?=LangAdmin::get('referral_all_users')?>">Вип-накуп</a></td>
+                    <td>
+                        <div class="btn-group">
+                            <!-- add new user -->
+                            <button href="#" data-type="typeahead" data-pk="1" data-url="/post" data-placement="bottom" data-placeholder="<?=LangAdmin::get('Start_typing')?>" class="btn btn-tiny ot-typehead-users editable-buttoned" title="<?=LangAdmin::get('add_category_user')?>" data-original-title="<?=LangAdmin::get('add_category_user')?>">+ <i class="icon-user"></i></button>
+                            <!-- discount actions -->
+                            <a class="btn btn-tiny" href="<?=$PageUrl->AssignDo('updateCategory')?>" title="<?=LangAdmin::get('Edit_category')?>"><i class="icon-pencil"></i></a><!-- link is user only for prototype dinamics. In real application use button instead -->
+                            <button class="btn btn-tiny ot_show_deletion_dialog_modal" title="<?=LangAdmin::get('Delete_category')?>"><i class="icon-remove-sign"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+

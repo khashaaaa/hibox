@@ -1,0 +1,30 @@
+<tr>
+    <td colspan="2">
+        <? if (General::getConfigValue('origin_package')) { ?>
+            <label><input type="checkbox" name="origin_package" <?=$origin_package_value ? 'checked="checked"' : ''?> /> <?=Lang::get('save_origin_package')?></label>
+            <br><br>
+        <? } ?>
+        <? if ($order_insurance > 0) { ?>
+            <label><input type="checkbox" name="order_insurance" <?=$order_insurance_value ? 'checked="checked"' : ''?>/> <?=Lang::get('order_insurance')?> (+<?=$order_insurance?><?=Lang::get('insurance_percent')?>)</label>
+        <? } ?>
+    </td>
+    <td colspan="2" style="padding: 0 25px 0 0;">
+        <table class="info_delivery">       
+            <?foreach($summary as $name => $value){?>
+                <tr>
+                    <td class="tagr"><?=Lang::get($name)?>:</td>
+                    <td><nobr><span><?=$value?></span></nobr></td>
+                </tr>
+            <?}?>
+        </table>
+    </td>
+</tr>
+<tr class="bdb0">
+    <td colspan="3"></td>
+    <td style="padding-right: 0px;">
+        <div class="bigTotal bbprice ltr-for-rtl" style="width:270px;" >
+            <span><?=Lang::get('total')?>:</span>
+            <span id="price"><?=$totalPrice; ?></span>
+        </div>
+    </td>
+</tr>

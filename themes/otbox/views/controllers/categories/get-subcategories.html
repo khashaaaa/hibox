@@ -1,0 +1,9 @@
+<? if (count($categories) > 0 ) { ?>
+    <ul>
+        <? foreach ($categories as $category) { ?>
+            <?=General::viewFetch('controllers/categories/all-categories-li', array('vars' => array(
+                'category' => $category
+            )))?>
+        <? } ?>
+    </ul>
+<? } ?>

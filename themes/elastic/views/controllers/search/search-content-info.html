@@ -1,0 +1,9 @@
+ <? if (!empty($info['img'])) { ?>
+        <div class="search-content-info-img">
+            <img src="<?= $info['img'] ?>" <?= (!empty($info['title'])) ? 'title="' . $this->escape($info['title']) . '"' : '' ?> />
+        </div>
+    <? } ?>
+    <? if (!empty($info['description'])) { ?>
+        <div class="search-content-info-description"><?= $info['description'] ?></div>
+    <? } ?>
+    <div class="clearfix"></div>

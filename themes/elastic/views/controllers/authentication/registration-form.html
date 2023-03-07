@@ -1,0 +1,90 @@
+<form action="<?=UrlGenerator::toRoute('register')?>" method="post"
+      class="needs-validation js-authentication-registration-form authentication-registration-form" novalidate>
+    <div class="modal-row">
+        <label>
+            <? if ($isPhoneRegistrationAllowed) { ?>
+                <a href="javascript:void(0)"
+                   class="js-authentication-change js-authentication-email auth-change"
+                   data-method="phone"
+                ><?=Lang::get('registration_by_sms')?></a>
+
+                <a href="javascript:void(0)"
+                   class="js-authentication-change js-authentication-phone auth-change hidden"
+                   data-method="email"
+                ><?=Lang::get('registration_by_email')?></a>
+            <? } ?>
+
+            <?=Lang::get('login_username')?> *
+
+            <input type="text" name="username" value="<?=!empty($username) ? $this->escape($username) : ''?>" class="form-control" required />
+        </label>
+    </div>
+
+    <div class="modal-row">
+        <label class="js-authentication-method js-authentication-email">
+            <?=Lang::get('Email')?> *
+
+            <input type="email" name="email" value="<?=!empty($email) ? $this->escape($email) : ''?>" class="form-control js-authentication-method-input" required />
+        </label>
+
+        <? if ($isPhoneRegistrationAllowed) { ?>
+            <input type="hidden" name="authenticationMethod" value="email" class="js-authentication-method-chosen">
+            <label class="js-authentication-method js-authentication-phone hidden">
+                <?=Lang::get('phone')?> *
+                <input type="text" name="phone" value="<?=!empty($phone) ? $this->escape($phone) : ''?>" class="form-control js-authentication-method-input" required />
+            </label>
+        <? } ?>
+    </div>
+
+    <div class="modal-row">
+        <label>
+            <?=Lang::get('password')?> * <span><?=Lang::get('password_desc')?></span>
+            <input name="password" type="password" class="form-control" required />
+        </label>
+    </div>
+
+    <? if (General::IsFeatureEnabled('ReferralProgram')) { ?>
+        <div class="modal-row">
+            <label>
+                <?=Lang::get('login_of_friend')?> <span><?=Lang::get('referal_register_desc')?></span>
+
+                <? if (empty($parentLogin)) { ?>
+                    <input type="text" class="form-control" name="parent" /><br/>
+                <? } else { ?>
+                    <input type="text" class="form-control" value="<?=$parentLogin?>" disabled /><br/>
+                    <input type="hidden" name="parent" value="<?=$parentLogin?>"/>
+                <? } ?>
+            </label>
+
+            <input id="parent_id" type="hidden" name="parent_id" value="<?=!empty($parentId) ? $parentId : ''?>" />
+        </div>
+    <? } ?>
+
+    <? if (!OTCaptcha::isCaptchaUnavailable()) { ?>
+        <div class="modal-row captcha-block">
+            <?=OTCaptcha::getWidget(); ?>
+        </div>
+    <? } ?>
+
+    <div class="modal-row">
+        <div class="custom-control custom-checkbox">
+            <? $rand = rand(100000, 999999); ?>
+            <input type="checkbox" name="agree" value="agree" class="custom-control-input" required id="agree-authentication-registration-form-<?=$rand?>">
+            <label class="custom-control-label" for="agree-authentication-registration-form-<?=$rand?>">
+                <?=Lang::get('agree_with')?> <a href="<?=UrlGenerator::toRoute('terms_of_use')?>" target="_blank"><?=Lang::get('user_agreement_l')?></a>
+            </label>
+        </div>
+    </div>
+
+    <div class="modal-row js-response">
+        <? if (!empty($error)) { ?>
+            <div class="alert alert-danger" role="alert"><?=$error?></div>
+        <? } ?>
+    </div>
+
+    <div class="for-btn">
+        <button type="submit" class="btn button mx-auto js-submit" data-loading-text="<?=Lang::get('loading')?>..."><?=Lang::get('registration_label')?></button>
+    </div>
+</form>
+
+<? AssetsMin::registerJsFile('/js/pages/authetication-phone.js'); ?>

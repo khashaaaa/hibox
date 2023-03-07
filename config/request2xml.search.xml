@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parameters>
+    <predefined_paramters>
+    </predefined_paramters>
+    <parameter name='ItemTitle' request_type="get" p="search">
+        <request>search</request>
+    </parameter>
+    <parameter name='CategoryId' request_type="get">
+        <request>cid</request>
+    </parameter>
+    <parameter name='VendorId' request_type="get">
+        <request>vid</request>
+    </parameter>
+    <parameter name='VendorId' request_type="get">
+        <request>id</request>
+    </parameter>
+    <parameter name='MinPrice' request_type="get">
+        <request>cost</request>
+        <request>from</request>
+    </parameter>
+    <parameter name='MaxPrice' request_type="get">
+        <request>cost</request>
+        <request>to</request>
+    </parameter>
+    <parameter name='MinFirstLot' request_type="get">
+        <request>firstLotRange</request>
+        <request>from</request>
+    </parameter>
+    <parameter name='MaxFirstLot' request_type="get">
+        <request>firstLotRange</request>
+        <request>to</request>
+    </parameter>
+    <parameter name='MinVendorRating' request_type="get">
+        <request>rating</request>
+        <request>from</request>
+    </parameter>
+    <parameter name='MaxVendorRating' request_type="get">
+        <request>rating</request>
+        <request>to</request>
+    </parameter>
+    <parameter name='MinVolume' request_type="get">
+        <request>count</request>
+        <request>from</request>
+    </parameter>
+    <parameter name='MaxVolume' request_type="get">
+        <request>count</request>
+        <request>to</request>
+    </parameter>
+    <parameter name='BrandPropertyValueId' request_type="get">
+        <request>brand</request>
+    </parameter>
+    <parameter name='OrderBy' request_type="post_or_get">
+        <request>sort_by</request>
+    </parameter>
+    <parameter name='ImageFileId' request_type="get">
+        <request>imageId</request>
+    </parameter>
+</parameters>

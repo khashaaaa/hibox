@@ -1,0 +1,165 @@
+
+<div id="searchContent" class="search-content">
+    <? if (empty($searchContent)) { ?>
+        <div class="search-content-info">
+            <?= !empty($searchContentInfo) ? $searchContentInfo : '' ?>
+        </div>
+    <? } ?>
+
+    <?= !empty($searchContent) ? $searchContent : '' ?>
+</div>
+
+<?=Lang::loadJSTranslation(array('search_for_products', 'server_connection_error_use_other_search_type', 'server_connection_error_trying_again', 'Service_page_something_wrong_text', 'reset_filter'))?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    <? if (empty($searchContent)) { ?>
+        $(document).ready(function () {
+            getAjaxSearch(location.href);
+        });
+    <? } ?>
+
+    window.onpopstate = function () {
+        getAjaxSearch(location.href);
+    };
+
+    $(document).on('click', 'a.search-click', function () {
+        var url = $(this).attr('href');
+        getAjaxSearch(url);
+        return false;
+    });
+
+    $(document).on('change', 'select.search-click', function () {
+        var form = $(this).closest('form');
+        var url = $(form).attr('action');
+        var data = $(form).serialize();
+
+        getAjaxSearch(url, data);
+        return false;
+    });
+
+    $(document).on('click', '[type=submit].search-click', function () {
+        var form = $(this).closest('form');
+        var url = $(form).attr('action');
+        var data = $(form).serialize();
+
+        getAjaxSearch(url, data);
+        return false;
+    });
+
+    // Сброс одного фильтра
+    $(document).on('click', '.reset-one-filter', function () {
+        var options = $(this).closest('.search-filter').find('div.search-params-filter').find('input');
+        options.prop('checked',false);
+        $('.submit-filter').removeClass('inactive');
+        $(this).remove();
+        return false;
+    });
+
+    //Смена картинки товара при клике
+    $(document).on('click', '.other-photo', function () {
+        var el = $(this).closest(".product-item").find('.main-photo');
+        el.attr('src', $(this).attr('img-src'));
+        return false;
+    });
+
+    var providerUnavailableCount = 0;
+
+    //Клик на опцию фильтра - галочку
+    $(document).on('click', '.check-search-input', function () {
+        //делаем кнопку применить активной
+        $('.submit-filter').removeClass('inactive');
+
+        // добавляем крестик удаления строки фильтров при необходимости
+        var searchFilter = $(this).closest('.search-filter');
+        var resetOneFilterButton = '<a href="#" class="glyphicon glyphicon-remove reset-one-filter" title="' + trans.get('reset_filter') + '"></a>';
+        if (searchFilter.find('a.reset-one-filter').is('a.reset-one-filter')) {}
+        else {
+            searchFilter.find('label').after(resetOneFilterButton);
+        }
+
+    });
+    function getAjaxSearch(url, data) {
+        var self = this;
+        $('#overlay-no-preloader .message').html(trans.get('search_for_products'));
+        // TODO: во избежани кроссбраузерных запросов - добавить проверку, если запрос на другой url - делать location
+
+        showSearchOverlay();
+
+        $.ajax({
+            method: "POST",
+            url: url,
+            data: data,
+            success: function (data) {
+                // если в ответ пришел не json - ошибка
+                if (typeof data != 'object') {
+                    hideSearchOverlay();
+                    showError(trans.get('Service_page_something_wrong_text'));
+                    return false;
+                }
+
+                if (!data.error) {
+                    providerUnavailableCount = 0;
+                    $('#searchContent').html(data.content);
+                    $('ol.breadcrumb').replaceWith(data.contentCrumbs);
+                    // scroll to anchor
+                    if ($('#searchAnchorScroll').length) {
+                        $('body, html').animate({ scrollTop: $('#searchAnchorScroll').offset().top + "px" }, "slow");
+                    }
+                } else {
+                    // если провайдер временно недоступен
+                    if (data.error.code == 'NotAvailable' && data.error.subCode == 'External_ProviderTemporaryUnavailable') {
+                        providerUnavailableCount++;
+                        if (providerUnavailableCount > 4) {
+                            hideSearchOverlay();
+                            showMessage(trans.get('server_connection_error_use_other_search_type'));
+                            return false;
+                        }
+                        // пытаемся повторить поиск
+                        $('#overlay-no-preloader .message').html(trans.get('server_connection_error_trying_again'));
+                        setTimeout(function () {
+                            getAjaxSearch(url);
+                        }, 3000);
+                        return false;
+                    } else if ($.trim($('#searchContent').text()) === '' && data.content) { // если ошибка в html формате
+                        $('#searchContent').html(data.content);
+                    } else {
+                        showError(data.error);
+                    }
+                }
+
+                // подменяем url в браузере
+                if (data.url != window.location) {
+                    <? if (empty($searchContent)) { ?>
+                        if (history.state && history.state === data.url) {
+                            window.history.replaceState(data.url, null, data.url);
+                        } else {
+                            window.history.pushState(data.url, null, data.url);
+                        }
+                    <? } else { ?>
+                        window.history.pushState(data.url, null, data.url);
+                    <? } ?>
+                }
+
+                hideSearchOverlay();
+                $(self).addClass('active');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                hideSearchOverlay();
+            }
+        });
+    }
+
+    function showSearchOverlay() {
+        $('#overlay-no-preloader').show();
+    }
+    function hideSearchOverlay() {
+        $('#overlay-no-preloader').hide();
+    }
+
+
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+<? AssetsMin::registerCssFile('css/vendor/jquery.raty.css')?>
+<? AssetsMin::registerJsFile('js/vendor/jquery.raty.js') ?>

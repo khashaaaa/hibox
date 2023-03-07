@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="General" action="system" cmd="SiteConfiguration">
+        <page data-action="system" data-cmd="siteconfiguration" />
+    </tab>
+    <tab title="Security" action="security" cmd="SiteConfiguration">
+        <page data-action="security" data-cmd="siteconfiguration" />
+    </tab>
+    <tab title="Update" action="default" cmd="Update">
+        <page data-action="default" data-cmd="update" />
+    </tab>
+</tabs>

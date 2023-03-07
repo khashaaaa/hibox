@@ -1,0 +1,28 @@
+<div <?=General::getConfigValue('rtl') ? 'style="direction: rtl"': ''?>>
+    <?=Lang::get('hello')?><br />
+    <?=Lang::get('payment_in_cash')?>: <?=$orderId?> <br />
+    <?=Lang::get('sum')?>: <?=$payment_sum_text?> <br />
+
+    <? if (isset($user)) { ?>
+        <?
+        $username = $user['login'];
+        if ( ($user['firstname'] !='') || ($user['middlename'] !='') || ($user['lastname']!='') ) {
+            if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") {
+                $fio .= $user['firstname'] . ' ' .$user['middlename']. ' '. $user['lastname'];
+            } else {
+                $fio .= $user['firstname'] . ' '. $user['lastname'];
+            }
+        }
+        ?>
+        <br /><strong><?=Lang::get('personal_data')?></strong><br />
+        Id: <?=$user['id']?> <br />
+        Login: <?=$username?> <br />
+        <? if (isset($fio)) { ?>
+            <?=Lang::get('fullname')?> <?=$username?> <br />
+        <? } ?>
+    <? } ?>
+
+    <?=Lang::get('enter_to_admin_panel')?> <a href="<?=UrlGenerator::getHomeUrl()?>/admin/index.php?cmd=orders&do=orderinfo&id=<?=$orderId?>">
+        <?=UrlGenerator::getHomeUrl()?>/admin/index.php?cmd=orders&do=orderinfo&id=<?=$orderId?>
+    </a>
+</div>

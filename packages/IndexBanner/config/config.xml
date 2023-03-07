@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <title>Index Banners</title>
+    <description>Index Banners</description>
+    <version>1.0</version>
+    <events>
+        <event name="onAfterGeneralInit" />
+        <event name="onAdminAfterRenderOrderNavigation" />
+        <event name="onAdminAfterRenderOrderNavigationContent" />
+    </events>
+</plugin>

@@ -1,0 +1,55 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('ProviderConfiguration', 'default')?>"><?=LangAdmin::get('Instance_configuration')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('providerconfiguration::Provider_configuration')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+<!-- ot-sub-sub-nav -->
+
+<?=TabsGenerator::GetSubTabs('templates/provider_config/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('providerconfiguration::Provider_configuration')?></h1>
+<div class="well">
+    <div class="row-fluid" id="providersInfo">
+        <div class="span12">
+            <br/>
+            <? if (empty($providers)) { ?>
+                <h3><?=LangAdmin::get('No_available_providers')?></h3>
+            <? } else { ?>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <? foreach ($providers as $p) { ?>
+                            <li>
+                                <a href="javascript:void(0)" class="providerUI"  data-id="<?=$p->GetType()?>" action="?cmd=ProviderConfiguration&do=getProviderMetaUI" data-loading-text="<span class='ot-preloader-mini'></span>">
+                                    <?=$p->getDisplayName()?>
+                                </a>
+                            </li>
+                        <? } ?>
+                    </ul>
+
+                    <div class="tab-content">
+                        <form class="form-horizontal inline_editable_form ot_form">
+                            <div id="providerMetaUI"></div>
+                        </form>
+                    </div>
+                </div>
+            <? } ?>
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-tabs-settings.js'); ?>
+
+<script type="text/javascript">
+    $(window).load(function() {
+        var provider = '<?=$provider?>';
+
+        if (provider && $('.providerUI[data-id="'+provider+'"]').length) {
+            $('.providerUI[data-id="'+provider+'"]').click();
+        } else if ($('.providerUI:first').length) {
+            $('.providerUI:first').click();
+        }
+    });
+</script>

@@ -1,0 +1,159 @@
+2021-08-22 8:24:58 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:24:58 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:24:59 - DEBUG --> updateCategoryActionAnswer - result: otc-394
+2021-08-22 8:25:46 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:25:46 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:25:46 - DEBUG --> updateCategoryActionAnswer - result: otc-8432
+2021-08-22 8:27:30 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:27:30 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:27:31 - DEBUG --> updateCategoryActionAnswer - result: otc-408
+2021-08-22 8:28:10 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:28:10 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:28:10 - DEBUG --> updateCategoryActionAnswer - result: otc-417
+2021-08-22 8:29:22 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:29:22 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:29:23 - DEBUG --> updateCategoryActionAnswer - result: otc-419
+2021-08-22 8:31:38 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:31:38 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:31:38 - DEBUG --> updateCategoryActionAnswer - result: otc-428
+2021-08-22 8:32:07 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:32:07 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:32:07 - DEBUG --> updateCategoryActionAnswer - result: otc-457
+2021-08-22 8:34:22 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:34:22 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:34:23 - DEBUG --> updateCategoryActionAnswer - result: otc-467
+2021-08-22 8:35:46 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:35:46 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:35:46 - DEBUG --> updateCategoryActionAnswer - result: otc-479
+2021-08-22 8:37:16 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:37:16 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:37:17 - DEBUG --> updateCategoryActionAnswer - result: otc-482
+2021-08-22 8:38:08 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:38:08 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:38:09 - DEBUG --> updateCategoryActionAnswer - result: otc-485
+2021-08-22 8:40:27 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:40:27 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:40:27 - DEBUG --> updateCategoryActionAnswer - result: otc-487
+2021-08-22 8:44:41 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:44:41 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:44:41 - DEBUG --> updateCategoryActionAnswer - result: otc-8330
+2021-08-22 8:46:08 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:46:08 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:46:09 - DEBUG --> updateCategoryActionAnswer - result: otc-531
+2021-08-22 8:46:37 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:46:37 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:46:37 - DEBUG --> updateCategoryActionAnswer - result: otc-533
+2021-08-22 8:47:35 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:47:35 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:47:36 - DEBUG --> updateCategoryActionAnswer - result: otc-547
+2021-08-22 8:48:38 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:48:38 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:48:38 - DEBUG --> updateCategoryActionAnswer - result: otc-549
+2021-08-22 8:48:53 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:48:53 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:48:54 - DEBUG --> updateCategoryActionAnswer - result: otc-550
+2021-08-22 8:50:57 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:50:57 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:50:58 - DEBUG --> updateCategoryActionAnswer - result: otc-566
+2021-08-22 8:51:18 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:51:18 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:51:18 - DEBUG --> updateCategoryActionAnswer - result: otc-569
+2021-08-22 8:54:17 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:54:17 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:54:17 - DEBUG --> updateCategoryActionAnswer - result: otc-589
+2021-08-22 8:55:23 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:55:23 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:55:24 - DEBUG --> updateCategoryActionAnswer - result: otc-796
+2021-08-22 8:55:58 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:55:58 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:55:58 - DEBUG --> updateCategoryActionAnswer - result: otc-797
+2021-08-22 8:56:39 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:56:39 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:56:40 - DEBUG --> updateCategoryActionAnswer - result: otc-798
+2021-08-22 8:58:03 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:58:03 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:58:04 - DEBUG --> updateCategoryActionAnswer - result: otc-803
+2021-08-22 8:58:21 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:58:21 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:58:22 - DEBUG --> updateCategoryActionAnswer - result: otc-805
+2021-08-22 8:58:38 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:58:38 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:58:38 - DEBUG --> updateCategoryActionAnswer - result: otc-806
+2021-08-22 8:59:54 - DEBUG --> updateCategoryAction - Start
+2021-08-22 8:59:54 - DEBUG --> updateCategoryActionParams
+2021-08-22 8:59:55 - DEBUG --> updateCategoryActionAnswer - result: otc-816
+2021-08-22 9:01:20 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:01:20 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:01:21 - DEBUG --> updateCategoryActionAnswer - result: otc-817
+2021-08-22 9:02:17 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:02:17 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:02:18 - DEBUG --> updateCategoryActionAnswer - result: otc-818
+2021-08-22 9:04:05 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:04:05 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:04:05 - DEBUG --> updateCategoryActionAnswer - result: otc-819
+2021-08-22 9:05:12 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:05:12 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:05:13 - DEBUG --> updateCategoryActionAnswer - result: otc-820
+2021-08-22 9:06:12 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:06:12 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:06:12 - DEBUG --> updateCategoryActionAnswer - result: otc-821
+2021-08-22 9:24:44 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:24:44 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:24:45 - DEBUG --> updateCategoryActionAnswer - result: otc-816
+2021-08-22 9:25:59 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:25:59 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:26:00 - DEBUG --> updateCategoryActionAnswer - result: otc-851
+2021-08-22 9:26:38 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:26:38 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:26:39 - DEBUG --> updateCategoryActionAnswer - result: otc-852
+2021-08-22 9:27:56 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:27:56 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:27:57 - DEBUG --> updateCategoryActionAnswer - result: otc-854
+2021-08-22 9:28:37 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:28:37 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:28:37 - DEBUG --> updateCategoryActionAnswer - result: otc-855
+2021-08-22 9:29:17 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:29:17 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:29:18 - DEBUG --> updateCategoryActionAnswer - result: otc-856
+2021-08-22 9:29:47 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:29:47 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:29:48 - DEBUG --> updateCategoryActionAnswer - result: otc-857
+2021-08-22 9:31:06 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:31:06 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:31:06 - DEBUG --> updateCategoryActionAnswer - result: otc-860
+2021-08-22 9:31:53 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:31:53 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:31:54 - DEBUG --> updateCategoryActionAnswer - result: otc-861
+2021-08-22 9:33:21 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:33:21 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:33:22 - DEBUG --> updateCategoryActionAnswer - result: otc-864
+2021-08-22 9:34:02 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:34:02 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:34:03 - DEBUG --> updateCategoryActionAnswer - result: otc-865
+2021-08-22 9:34:39 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:34:39 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:34:40 - DEBUG --> updateCategoryActionAnswer - result: otc-871
+2021-08-22 9:35:15 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:35:15 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:35:17 - DEBUG --> updateCategoryActionAnswer - result: otc-872
+2021-08-22 9:37:00 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:37:00 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:37:01 - DEBUG --> updateCategoryActionAnswer - result: otc-895
+2021-08-22 9:38:35 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:38:35 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:38:35 - DEBUG --> updateCategoryActionAnswer - result: otc-8331
+2021-08-22 9:38:45 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:38:45 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:38:46 - DEBUG --> updateCategoryActionAnswer - result: otc-8332
+2021-08-22 9:38:55 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:38:55 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:38:57 - DEBUG --> updateCategoryActionAnswer - result: otc-8334
+2021-08-22 9:39:05 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:39:05 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:39:06 - DEBUG --> updateCategoryActionAnswer - result: otc-8335
+2021-08-22 9:39:15 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:39:15 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:39:17 - DEBUG --> updateCategoryActionAnswer - result: otc-8337
+2021-08-22 9:40:11 - DEBUG --> updateCategoryAction - Start
+2021-08-22 9:40:11 - DEBUG --> updateCategoryActionParams
+2021-08-22 9:40:12 - DEBUG --> updateCategoryActionAnswer - result: otc-8338

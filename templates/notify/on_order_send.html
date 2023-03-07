@@ -1,0 +1,11 @@
+<?=Lang::get('Hi_user', array('username' => $username))?>
+
+<?=Lang::get('order_was_sent', array(
+    'orderid' =>$orderid,
+))?>
+
+<? $orderUrl = UrlGenerator::generateOrderDetailsUrl(OrdersProxy::originOrderId($orderid), array(), true); ?>
+
+<?=Lang::get('link_to_order_info', array('link' => $orderUrl))?>
+
+<?=Lang::get('with_respect_site_administration', array('site_name' => UrlGenerator::getHomeUrl()))?>

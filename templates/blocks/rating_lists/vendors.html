@@ -1,0 +1,32 @@
+<? if (isset($vendors[0])) { ?>
+<div class="brands">
+    <div class="wrap clrfix">
+        <div class="bproduct <?=$type?>-rating-list rating-list">
+            <h2 class="mb25"><span><?=Lang::get($type)?></span></h2>
+            <ul class="lproduct flin w976 w100li clrfix">
+                <? foreach($vendors as $item) {
+                    $vendorName = $this->escape(!empty($item['vendor_name']) ? $item['vendor_name'] : $item['name']);
+                ?>
+                <li title="<?=$vendorName?>">
+                    <a class="pic" href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $item['id']])?>">
+                        <i><img src="<?= $item['DisplayPictureUrl'] ? $item['DisplayPictureUrl'] : "/i/noimg.png" ?>" alt="<?=$vendorName?>"/></i><ins></ins>
+                    </a>
+
+                    <div class="price">
+                        <div class="line"></div>
+                        <a href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $item['id']])?>">
+                            <ins class="name"><?=$vendorName?></ins><span class="glow"></span>
+                        </a>
+                    </div>
+                </li>
+                <? } ?>
+            </ul>
+            <div class="mt15">
+                <a href="<?=UrlGenerator::generateVendorsUrl()?>" class="all">
+                    <i class="i-new i-arrow-right i arrowright"></i><span><?=Lang::get('all_vendors')?></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<? } ?>

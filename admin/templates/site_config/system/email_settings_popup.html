@@ -1,0 +1,24 @@
+<? $settings = str_replace("\r\n", "", $emailSettings); 
+$settings = str_replace("\n", "", $settings);
+$settings = str_replace("\r", "", $settings);
+$settings = str_replace("'", "\\'", $settings); 
+?>
+
+<script> 
+   var emailSettings = '<?=$settings?>';  
+   $(document).ready(function(){
+       var html = $('#email-settings-tpl').html();
+       modalDialog('<?= LangAdmin::get("Smtp_mailer_settings")?>', emailSettings, function() {console.log('confirm');}, {confirm: false, cancel: 'OK'}, function(body) {
+           var init = function() {
+               if ($('#emailServerInfo').length) {
+	               var С = new ConfigEmailServerPage();
+	               $('.emailServer:first', body).click();
+               } else {
+                   setTimeout(init, 1000);
+               }
+           };
+           init();
+       });
+       
+   });
+</script>

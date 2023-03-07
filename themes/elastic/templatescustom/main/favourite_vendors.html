@@ -1,0 +1,109 @@
+<div class="content-block content-favourite-vendors">
+    <div class="center">
+        <div class="main">
+            <nav class="navbar">
+                <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home-tab" href="<?=UrlGenerator::toRoute('supportlist')?>" role="tab" aria-controls="favourites_items" aria-selected="true"><?=Lang::get('favourite_items')?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="profile-tab" href="<?=UrlGenerator::toRoute('favourite_vendors')?>" role="tab" aria-controls="favourites_items" aria-selected="false"><?=Lang::get('favourite_vendors')?></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="listing-wrap view-deployed">
+                <? if (count($list['Elements'])) { ?>
+                    <div class="row" style="width: 100%">
+                        <? foreach ($list['Elements'] as $item) { ?>
+                            <?
+                            foreach ($item['Fields'] as $field) {
+                                $item[(string)$field['Name']] = (string)$field['Value'];
+                            }
+                            $vendorLink = UrlGenerator::generateSearchUrlByParams(array('vid' => $item['ItemId']));
+                            ?>
+                            <div class="favourite-item-vendor col-sm-4 col-md-3 col-xl-2">
+                                <div class="item-product-inside">
+                                    <div class="vendor_image">
+                                        <a href="<?= $vendorLink ?>"
+                                           class="pic"
+                                           title="<?=Lang::get('Go_to_merchants_goods')?>"
+                                           style="background-image: url(<?= $item['DisplayPictureUrl'] ? $item['DisplayPictureUrl'] : '/i/noimg.png' ?>)"
+                                        ></a>
+                                    </div>
+
+                                    <div class="vendor-data">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?= Lang::get('vendor') ?>:
+                                            </div>
+                                            <div class="col-md-6 vendor-data-value">
+                                                <a href="<?= $vendorLink ?>">
+                                                    <?= $item['DisplayName'] ?>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?= Lang::get('level') ?>:
+                                            </div>
+                                            <div class="col-md-6 vendor-data-value">
+                                                <?= $item['Level'] ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?= Lang::get('Score') ?>:
+                                            </div>
+                                            <div class="col-md-6 vendor-data-value">
+                                                <?= $item['Score'] ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?= Lang::get('TotalFeedbacks') ?>:
+                                            </div>
+                                            <div class="col-md-6 vendor-data-value">
+                                                <?= $item['TotalFeedbacks'] ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?= Lang::get('PositiveFeedbacks') ?>:
+                                            </div>
+                                            <div class="col-md-6 vendor-data-value">
+                                                <?= $item['PositiveFeedbacks'] ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="javascript:void(0)"
+                                       class="button button-delete remove_vendor"
+                                       title="<?=Lang::get('delete')?>"
+                                       data-id = "<?=$item['id']?>"
+                                       data-action="<?=UrlGenerator::toRoute('delete_from_favourite_vendors') ?>"
+                                    >
+                                        <i aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        <? } ?>
+                    </div>
+                <? } else { ?>
+                    <h3 class="text-center w-100">
+                        <div class="alert alert-empty-basket" role="alert">
+                            <?=Lang::get('empty_list')?>!
+                        </div>
+                    </h3>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?=Lang::loadJSTranslation(array('attention_changes_in_the_basket', 'need_confirm', 'sure_delete_vendor'))?>
+
+<? AssetsMin::registerJsFile(General::getThemeWebDir() . '/js/favourite.js'); ?>

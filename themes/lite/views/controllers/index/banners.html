@@ -1,0 +1,84 @@
+<? if (! empty($banners)) { ?>
+    <section class="box-section box-main_slider">
+        <div class="jcarousel box-main_slider_jcarousel">
+            <ul>
+                <? foreach ($banners as $key => $banner) { ?>
+                    <li>
+                        <a href="<?=($banner['url'] ? $this->escape($banner['url']) : 'javascript:void(0)')?>"
+                           style="background: url(<?=$banner['source']?>) no-repeat;" class="banner-slide"
+                           >
+                            <!--img src="<?=$banner['source']?>" alt="image"--->
+                            <? if (! empty($banner['name'])) { ?>
+                                <h3><?=$banner['name']?></h3>
+                            <? } ?>
+                        </a>
+                    </li>
+                <? } ?> 
+            </ul>
+            <!-- Controls -->
+            <div class="jcarousel_nav">
+                <a class="jcarousel_nav_prev" href="#">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="jcarousel_nav_next" href="#">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div> <!-- /.jcarousel_nav -->
+        </div> <!-- /.jcarousel -->
+        <div class="box-main_slider_jcarousel-pagination text-center">
+            <!-- Здесь генерируется постраничная навигация -->
+        </div>
+    </section>
+<? } ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.jcarousel.box-main_slider_jcarousel').on('jcarousel:create jcarousel:reload', function() {
+                    var element = $(this),
+                            width = element.innerWidth();
+
+                    $('.jcarousel ul').width('20000em');
+
+                    // This shows 1 item at a time.
+                    // Divide `width` to the number of items you want to display,
+                    // eg. `width = width / 3` to display 3 items at a time.
+                    element.jcarousel('items').css('width', width + 'px');
+                    element.jcarousel('items').find('a').css('height', width/1.777 + 'px');
+                })
+
+                .jcarousel({
+                    // Your configurations options
+                    wrap: 'circular'
+                })
+                .jcarouselAutoscroll({
+                    interval: 4000,
+                    target: '+=1',
+                    autostart: true,
+                });
+
+        $('.jcarousel.box-main_slider_jcarousel').hover(
+                function() {
+                    $(this).jcarouselAutoscroll('stop');
+                }, function() {
+                    $(this).jcarouselAutoscroll('start');
+                });
+
+
+        $('.jcarousel.box-main_slider_jcarousel .jcarousel_nav_prev').jcarouselControl({
+            target: '-=1'
+        });
+
+        $('.jcarousel.box-main_slider_jcarousel .jcarousel_nav_next').jcarouselControl({
+            target: '+=1'
+        });
+
+	    $('.box-main_slider_jcarousel-pagination').jcarouselPagination({
+	        item: function(page, carouselItems) {
+	            return '<a href="javascript:void(0)">' + page + '</a>';
+	        }
+	    });
+    })
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

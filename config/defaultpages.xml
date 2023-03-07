@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controller>
+
+    <!-- Пользовательские страницы -->
+
+    <!-- Русский -->
+	<alias>
+		<data name='alias'>terms_of_use</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Пользовательское соглашение</data>
+        <data name='text'>...</data>
+        <data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>privacy_policy</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Политика безопасности</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>about_us</data>
+        <data name='lang'>ru</data>
+		<data name='title'>О нас</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>contacts</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Контакты</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>help</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Помощь</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+    <!-- / Русский -->
+
+    <!-- English -->
+	<alias>
+		<data name='alias'>terms_of_use</data>
+        <data name='lang'>en</data>
+		<data name='title'>User agreement</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>privacy_policy</data>
+        <data name='lang'>en</data>
+		<data name='title'>Security policy</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>about_us</data>
+        <data name='lang'>en</data>
+		<data name='title'>About us</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>contacts</data>
+        <data name='lang'>en</data>
+		<data name='title'>Contacts</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>help</data>
+        <data name='lang'>en</data>
+		<data name='title'>Help</data>
+        <data name='text'>...</data>
+		<data name='is_index'>1</data>
+    </alias>
+    <!-- / English -->
+    
+    <!-- Служебные страницы -->
+
+    <!-- Русский -->
+    <alias>
+        <data name='alias'>404</data>
+        <data name='lang'>ru</data>
+        <data name='title'>404</data>
+        <data name='text'>404 - страница не найдена.</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>register_success</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Регистрация прошла успешно!</data>
+        <data name='text'>
+            &lt;p&gt;
+            Поздравляем, теперь вы можете совершать покупки в нашем интернет-магазине! Для входа на сайт используйте регистрационные данные, они были высланы вам на почту. Посмотреть информацию о заказах, статусах и вашем счете можно в личном кабинете покупателя.
+            Удачных покупок!
+            &lt;/p&gt;
+        </data>
+        <data name='is_service'>1</data>
+        <data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>need_confirm_email</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Необходима активация</data>
+        <data name='text'>
+            &lt;p&gt;Регистрация прошла успешно!
+            Вам на почту было выслано письмо с подтверждением регистрации. Пожалуйста посмотрите письмо и следуйте инструкциям в нем для завершения регистрации. После этого вы сможете совершать покупки в нашем интернет-магазине.
+            Внимание! Если вы не получили письмо, то обратитесь к администрации сайта.&lt;/p&gt;
+        </data>
+        <data name='is_service'>1</data>
+        <data name='is_index'>0</data>
+    </alias>
+	<alias>
+		<data name='alias'>site_unavailable</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Сайт на техническом обслуживании</data>
+		<data name='text'>Сайт на техническом обслуживании. Приносим свои извинения за предоставленные неудобства.</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+	<alias>
+		<data name='alias'>something_wrong</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Ошибка</data>
+		<data name='text'>Непредвиденная ошибка.</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+	<alias>
+		<data name='alias'>allcats</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Все категории</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>calculator</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Калькулятор</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>news</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Новости</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+	<alias>
+		<data name='alias'>digest</data>
+        <data name='lang'>ru</data>
+		<data name='title'>Блог</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+
+    <alias>
+        <data name='alias'>paymentsuccess</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Оплата успешно произведена</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>robo_success</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Оплата успешно произведена</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>paymentfail</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Произошла ошибка в процессе оплаты</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>robo_fail</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Произошла ошибка в процессе оплаты</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>depositsuccess</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Оплата успешно произведена</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>depositfail</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Произошла ошибка в процессе оплаты</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>unsubscription</data>
+        <data name='lang'>ru</data>
+        <data name='title'>Вы успешно отписались от рассылки</data>
+        <data name='text'>...</data>
+        <data name='is_service'>1</data>
+        <data name='is_index'>0</data>
+    </alias>
+    <!-- / Русский -->
+
+    <!-- English -->
+    <alias>
+        <data name='alias'>404</data>
+        <data name='lang'>en</data>
+        <data name='title'>404 Not Found</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>register_success</data>
+        <data name='lang'>en</data>
+        <data name='title'>Registration completed successfully!</data>
+        <data name='text'>
+            &lt;p&gt;
+            Congratulations! You can order goods in our online store now! Use registration data from email to login. You can check orders information, statuses and your account in buyer’s personal account.
+            Enjoy shopping!
+            &lt;/p&gt;
+        </data>
+        <data name='is_service'>1</data>
+        <data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>need_confirm_email</data>
+        <data name='lang'>en</data>
+        <data name='title'>Registration completed successfully!</data>
+        <data name='text'>
+            &lt;p&gt;
+            A confirmation email was sent to you. Please check email and follow instructions to complete registration. You will be able to order goods in our online store after that. Note! Contact website administration if you haven’t received email.&lt;/p&gt;
+        </data>
+        <data name='is_service'>1</data>
+        <data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>site_unavailable</data>
+        <data name='lang'>en</data>
+        <data name='title'>On site maintenance work</data>
+        <data name='text'>On site maintenance work. We apologize for any inconvenience.</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>something_wrong</data>
+        <data name='lang'>en</data>
+        <data name='title'>Something wrong</data>
+        <data name='text'>Something wrong.</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>allcats</data>
+        <data name='lang'>en</data>
+        <data name='title'>All categories</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+    <alias>
+        <data name='alias'>calculator</data>
+        <data name='lang'>en</data>
+        <data name='title'>Calculator</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+    <alias>
+        <data name='alias'>news</data>
+        <data name='lang'>en</data>
+        <data name='title'>News</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+    <alias>
+        <data name='alias'>digest</data>
+        <data name='lang'>en</data>
+        <data name='title'>Blog</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>1</data>
+    </alias>
+    <alias>
+        <data name='alias'>paymentsuccess</data>
+        <data name='lang'>en</data>
+        <data name='title'>Payment is completed successfully</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>robo_success</data>
+        <data name='lang'>en</data>
+        <data name='title'>Payment is completed successfully'</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>paymentfail</data>
+        <data name='lang'>en</data>
+        <data name='title'>The errors in the payment process</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>robo_fail</data>
+        <data name='lang'>en</data>
+        <data name='title'>The errors in the payment process</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>depositsuccess</data>
+        <data name='lang'>en</data>
+        <data name='title'>Deposit into an account was successfull</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>depositfail</data>
+        <data name='lang'>en</data>
+        <data name='title'>The errors in the payment process</data>
+        <data name='is_service'>1</data>
+		<data name='is_index'>0</data>
+    </alias>
+    <alias>
+        <data name='alias'>unsubscription</data>
+        <data name='lang'>en</data>
+        <data name='title'>You have successfully unsubscribed</data>
+        <data name='text'>...</data>
+        <data name='is_service'>1</data>
+        <data name='is_index'>0</data>
+    </alias>
+    <!-- / English -->
+
+</controller>

@@ -1,0 +1,156 @@
+
+<?
+/**
+ * @var AdminUrlWrapper $PageUrl
+ * @var int $totalCount
+ * @var NewsletterMapper $newsletterMapper
+ * @var NewsletterMailMapper $newsletterMailMapper
+ */
+?>
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Promo', 'default')?>"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('mailing_list')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/promo/navigation/tabs.xml', $PageUrl)?>
+
+
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'default' && $PageUrl->GetCmd() == 'Newsletters'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'default')?>"><?=LangAdmin::get('mailing_list')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'default' && $PageUrl->GetCmd() == 'Subscribers'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Subscribers', 'default')?>"><?=LangAdmin::get('subscribers')?></a></li>
+        <li <? if($PageUrl->GetAction() == 'config' && $PageUrl->GetCmd() == 'Newsletters'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1>
+    <?=LangAdmin::get('mailing_list')	?>
+    <a href="<?=$PageUrl->AssignDo('add')?>" autocomplete="off" data-loading-text="<?=LangAdmin::get('add')?>" class="btn btn-primary btn_preloader weight-normal offset-left3" type="submit" title="<?=LangAdmin::get('add_mailing')?>"><?=LangAdmin::get('add_mailing')?></a>
+</h1>
+
+    
+
+<div class="row-fluid" id="content">
+    <form class="form-horizontal inline_editable_form ot_form">
+        <fieldset>
+            <div class="row-fluid">                
+                <div class="span6">
+                    <div class="text-right">
+                    <?
+                    $url = $PageUrl;
+                    $url->DeleteKey('perPage');
+                    ?>
+                        <select class="input-mini" id="per-page" data-url="<?=$url->Get()?>" data-value="<?=$perPage?>">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="<?=$totalCount?>"><?=LangAdmin::get('All')?></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th><?=LangAdmin::get('mailing_name')?></th>
+                <th class="text-center"><?=LangAdmin::get('Status')?></th>
+                <th class="span2 text-center"><?=LangAdmin::get('letters')?></th>
+                <th class="td-2btn-width"><?=LangAdmin::get('mailing_actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <?
+            /**
+             * @var NewsletterEntity[] $newsletters
+             */
+            ?>
+            <? foreach ($newsletters as $newsletter){ ?>
+                <tr>
+                    <td><?=$this->escape($newsletter->getTitle())?></td>
+                    <td class="text-center">
+                        <? if (! $newsletter->isBeingSent()) { ?>
+                            <?=LangAdmin::get('Mailing_not_started')?>
+                        <? } elseif ($newsletter->getCompleted()) { ?>
+                            <?=LangAdmin::get('Mailing_is_completed')?>
+                        <? } else { ?>
+                            <?=LangAdmin::get('Mailing_in_progress')?>
+                            <? if ($newsletterMapper->isEndedDayQuota()) { ?>
+                                <br/><small>(<?=LangAdmin::get('day_quota_is_ended')?>)</small>
+                            <? } ?>
+                        <? } ?>
+                    </td>
+                    <td class="text-center">
+                        <? if (! $newsletter->isBeingSent()) { ?>
+                            <?=LangAdmin::get('Mailing_not_started')?>
+                        <? } else { ?>
+                            <span class="text-success" title="<?=LangAdmin::get('Letters_sent')?>"><?=$newsletterMailMapper->findSentMailsCount($newsletter->getId())?></span>
+                            /
+                            <span class="text-error" title="<?=LangAdmin::get('Letters_with_error')?>"><?=$newsletterMailMapper->findMailsWithErrorCount($newsletter->getId())?></span>
+                            /
+                            <span title="<?=LangAdmin::get('Letters_queued')?>">
+                                <?=$newsletterMailMapper->findNumberInQueue($newsletter->getId())?>
+                            </span>
+                        <? } ?>
+                    </td>
+                    <td>
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'report')?>&id=<?=$newsletter->getId()?>" title="<?=LangAdmin::get('Report_of_errors')?>"><i class="icon-list-alt"></i>&nbsp;<?=LangAdmin::get('Report_of_errors')?></a>
+                                </li>
+                                <li><a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'edit')?>&id=<?=$newsletter->getId()?>" title="<?=LangAdmin::get('Edit_mailing')?>"><i class="icon-pencil"></i>&nbsp;<?=LangAdmin::get('update_mailing')?></a></li>
+                                <? if (! $newsletter->isBeingSent()) { ?>
+                                    <li>
+                                        <a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'start')?>&id=<?=$newsletter->getId()?>" title="<?=LangAdmin::get('mailing_send')?>" class="start-newsletter"><i class="icon-play"></i>&nbsp;<?=LangAdmin::get('mailing_send')?></a>
+                                    </li>
+                                <? } elseif ($newsletter->getCompleted()) { ?>
+                                    <li>
+                                        <a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'restart')?>&id=<?=$newsletter->getId()?>" title="<?=LangAdmin::get('Restart_mailing')?>" class="start-newsletter"><i class="icon-step-forward"></i>&nbsp;<?=LangAdmin::get('Restart_mailing')?></a>
+                                    </li>
+                                <? } elseif (! $newsletter->getCompleted()) { ?>
+                                    <li>
+                                        <a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'stop')?>&id=<?=$newsletter->getId()?>" title="<?=LangAdmin::get('Stop_mailing')?>" class="start-newsletter"><i class="icon-pause"></i>&nbsp;<?=LangAdmin::get('Stop_mailing')?></a>
+                                    </li>
+                                <? } ?>
+                                <li>
+                                    <a href="<?=$PageUrl->AssignCmdAndDo('Newsletters', 'delete')?>&id=<?=$newsletter->getId()?>" title="<?=LangAdmin::get('Remove_mailing')?>" class="remove-newsletter"><i class="icon-remove"></i>&nbsp;<?=LangAdmin::get('remove_mailing')?></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            <? } ?>
+
+            </tbody>
+        </table>
+
+        <?
+        /**
+         * @var Paginator $paginator
+         */
+        ?>
+        <?=$paginator->display()?>
+
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-newsletters-list.js'); ?>

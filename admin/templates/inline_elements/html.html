@@ -1,0 +1,148 @@
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+<div class="control-group control-group-medium">
+<% } %>
+    <div class="js-<%= name %>-wrapper">
+
+        <label class="control-label">
+            <%= trans.get(name + '_label') %>
+            <% if (trans.get(name + '_hint') != name + '_hint'){ %>
+                <i class="icon-question-sign ot_inline_help"
+                   title=""
+                   data-toggle="popover"
+                   data-content="<%= trans.get(name + '_hint') %>"
+                   data-original-title=""
+                ></i>
+            <% } %>
+        </label>
+
+        <div class="controls">
+            <a class="ot_inline_editable text-clipped editable editable-click js-<%= name %>-btn <%= value ? '' : 'editable-empty' %> "
+               href="javascript:void(0)"
+               style="display: block;"
+               data-type="html"
+               data-name="<%= name %>"
+               data-url="<%= saveUrl %>"
+               data-original-title=""
+               <% if(typeof parameters.emptytext !== 'undefined'){ %>
+                  data-emptytext="<%= parameters.emptytext %>"
+               <% } %>
+               <% if(typeof parameters.inputClass !== 'undefined'){ %>
+                  data-inputclass="<%= parameters.inputClass %>"
+               <% } %>
+               <% if (typeof parameters.placeholder !== 'undefined') { %>
+                  data-placeholder="<%= parameters.placeholder %>"
+               <% } %>
+            >
+                <% if (value && (typeof parameters.displayValue !== 'undefined')) { %>
+                    <%= trans.get('Filled') %>
+                <% } else if (value) { %>
+                    <%= trans.get('Filled') %>
+                <% } else if (typeof parameters.defaultValue !== 'undefined') { %>
+                    <%= trans.get('Filled') %>
+                <% } else { %>
+                    <%= trans.get('Not_filled') %>
+                <% } %>
+            </a>
+        </div>
+
+        <div class="<%= name %>-div" style="display: none;">
+            <textarea id="<%= name %>-tmp" class="editor-<%= name %>">
+                <%= value ? value : '' %>
+            </textarea>
+        </div>
+
+    </div>
+<% if(typeof parameters.useWrapper === 'undefined' || parameters.useWrapper == 'true'){ %>
+</div>
+<% } %>
+
+<script>
+    $(function() {
+        var initializeEditor = function () {
+            if (tinymce && tinymce.editors.length > 0) {
+                var count = tinymce.editors.length;
+                for ( var int = count-1; int >= 0; int--) {
+                    tinymce.remove(tinymce.editors[int]);
+                }
+            }
+
+            initializeTinyMCE('#<%= name %>', {
+                height: 250
+            });
+
+            if (tinymce.editors.length > 0) {
+                tinymce.editors[0].setContent($('.<%= name %>-div').text());
+            }
+        };
+
+        $('body').on('click', '.js-<%= name %>-btn', function (e) {
+            var $contentWrapper = $('.<%= name %>-div');
+            var contentHtml = $contentWrapper.html().replace(new RegExp("<%= name %>-tmp", 'g'), "<%= name %>");
+
+            modalDialog(
+                trans.get('<%= name %>_label'),
+                contentHtml,
+                function (body) {
+                    var $wrapper = $('.js-<%= name %>-wrapper');
+                    var inputLink = $wrapper.find('.js-<%= name %>-btn');
+                    var inputUrl = inputLink.data('url');
+                    var inputName = inputLink.data('name');
+                    var inputValue = tinyMCE.editors[0].getContent();
+
+                    $.post(
+                        inputUrl,
+                        {
+                            'name': inputName,
+                            'value': inputValue
+                        },
+                        function (data) {
+                            if (!data.error) {
+                                inputLink.removeClass('editable-empty');
+                                if (inputValue) {
+                                    inputLink.text(trans.get('Filled'));
+                                } else {
+                                    inputLink.addClass('editable-empty');
+                                    inputLink.text(trans.get('Not_filled'));
+                                }
+                                $('#<%= name %>-tmp').text(inputValue);
+                            }
+                        }
+                    );
+
+                    $('.confirmDialog .close').trigger('click');
+                    return false;
+                }, {
+                    confirm: trans.get('Save'),
+                    cancel: trans.get('Cancel')
+                },
+                function ($modalBody) {
+                    var $confirmDialog = $modalBody.closest('.confirmDialog');
+                    var width = jQuery(window).width();
+                    var left = (width-690) / 2;
+
+                    $modalBody.css('padding', '0');
+                    $confirmDialog
+                        .css({
+                            'width': '790px',
+                            'left': left + 'px',
+                            'margin-left': '0px',
+                        })
+                        .children('.modal-header, .modal-footer')
+                        .css('border', 'none')
+                },
+                undefined,
+                4
+            );
+        });
+
+        document.addEventListener("DOMNodeInserted", function(event) {
+            if (typeof event.target.children !== 'undefined' &&
+                typeof event.target.children[1] !== 'undefined' &&
+                typeof event.target.children[1].children[0] !== 'undefined' &&
+                event.target.children[1].children[0].className === 'editor-<%= name %>'
+            ) {
+                initializeEditor();
+            }
+        });
+    });
+</script>

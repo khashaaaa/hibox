@@ -1,0 +1,38 @@
+<? if(! empty($userhistory)) { ?>
+    <div class="bproduct fs15 mb30">
+        <h2 class="mb20"><span><?=Lang::get('user_last_view')?></span></h2>
+        <div class="jcarousel-skin">
+            <ul class="lproduct last-see">
+                <? foreach ($userhistory as $item) { ?>
+                <li align="center" class="user-history-item">
+                    <a title="<?=$item['name']?>" class="pic" href="<?=UrlGenerator::generateItemUrl($item['id'])?>">
+                        <i><img src="<?=$item['pic']?>" class="image160"></i>
+                    </a>      
+                    <? if ($item['promo_price']) { ?>
+                        <div class="wrapper_sale_item">
+                            <div class="line"></div>
+                            <span class="old_price"><?=$item['price']?></span>
+                        </div>
+                    <? } ?>
+                    <div class="price">
+                        <div class="line"></div>
+                        <a class="price-span" href="<?=UrlGenerator::generateItemUrl($item['id'])?>">
+                            <? print ($item['promo_price']) ? $item['promo_price'] : $item['price'] ?>
+                        </a>
+                    </div>
+                </li> 
+                <? } ?>
+                <div style="clear:both"></div>
+            </ul>
+
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            $('.jcarousel-skin').jcarousel({
+                // Configuration goes here
+            });
+        });
+    </script>
+ <? } ?>

@@ -1,0 +1,14 @@
+
+<ul class="box-footer_ul-links">
+    <? foreach ($bottomMenu as $key => $item) { ?>
+        <li <? if ($controller == $item['alias']) { ?> class="active" <? } ?>>
+            <a href="<?=$item['url']?>">
+                <?=$this->escape($item['title'])?>
+            </a>
+        </li>
+    <? } ?>
+    <li <? if ($controller == 'sitemap') { ?> class="active" <? } ?>>
+        <a href="<?=UrlGenerator::generateContentUrl('sitemap')?>"><?=Lang::get('sitemap')?></a>
+    </li>
+    <?=Plugins::runEvent('onAfterRenderBottomMenu');?>
+</ul>

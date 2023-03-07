@@ -1,0 +1,90 @@
+<? if ($searchResult->GetVendor()->GetName()) { ?>
+    <div class="panel panel-default search-content_categories">
+        <h4 class="panel-heading"><?=Lang::get('about_vendor')?>
+        </h4>
+        <ul class="panel-body">
+            <? $pictureUrl = $searchResult->GetVendor()->GetDisplayPictureUrl(); ?>
+            <? if ($pictureUrl) { ?>
+                <li>
+                    <img src="<?=$pictureUrl?>" width="160"/>
+                </li>
+            <? } ?>
+            <li>
+                <?=Lang::get('name')?>:
+                <b><?=$this->escape($searchResult->GetVendor()->GetDisplayName())?></b>
+            </li>
+            <? if ($searchResult->GetVendor()->GetShopName()) { ?>
+                <li>
+                    <?=Lang::get('vendor_shop_name')?>:
+                    <b><?=$this->escape($searchResult->GetVendor()->GetShopName())?></b>
+                </li>
+            <? } ?>
+            <? if ($searchResult->GetVendor()->GetLocation()->GetCity()) { ?>
+                <li>
+                    <?=Lang::get('placed_in')?>:
+                    <b>
+                        <?=$this->escape($searchResult->GetVendor()->GetLocation()->GetCity())?>
+                        <? if ($searchResult->GetVendor()->GetLocation()->GetState()) { ?>
+                            (<?=$this->escape($searchResult->GetVendor()->GetLocation()->GetState())?>)
+                        <? } ?>
+                    </b>
+                </li>
+            <? } ?>
+            <? if ($searchResult->GetVendor()->GetCredit()->GetTotalFeedbacks()) { ?>
+                <li>
+                    <?=Lang::get('responses')?>:
+                    <b><?=$this->escape($searchResult->GetVendor()->GetCredit()->GetTotalFeedbacks())?></b>
+                </li>
+            <? } ?>
+            <? if ($searchResult->GetVendor()->GetCredit()->GetPositiveFeedbacks()) { ?>
+                <li>
+                    <?=Lang::get('positive')?>:
+                    <b><?=$this->escape($searchResult->GetVendor()->GetCredit()->GetPositiveFeedbacks())?></b>
+                </li>
+            <? } ?>
+            <? if($searchResult->GetVendor()->GetScores()->GetDeliveryScore()) { ?>
+                <li>
+                    <?=Lang::get('delivery_score')?>:
+                    <b><?=$this->escape($searchResult->GetVendor()->GetScores()->GetDeliveryScore())?></b>
+                </li>
+            <? } ?>
+            <? if($searchResult->GetVendor()->GetScores()->GetItemScore()) { ?>
+                <li>
+                    <?=Lang::get('item_score')?>:
+                    <b><?=$this->escape($searchResult->GetVendor()->GetScores()->GetItemScore())?></b>
+                </li>
+            <? } ?>
+            <? if($searchResult->GetVendor()->GetScores()->GetServiceScore()) { ?>
+                <li>
+                    <?=Lang::get('service_score')?>:
+                    <b><?=$this->escape($searchResult->GetVendor()->GetScores()->GetServiceScore())?></b>
+                </li>
+            <? } ?>
+                    <?=Lang::get('rating')?>:
+            <? if($searchResult->GetVendor()->GetCredit()->GetLevel()) { ?>
+                <li>
+                    <? if (!General::getConfigValue('vendor_rating_view_as_number')) { ?>
+                        <span class="raiting">
+                            <i class="i-raiting raiting_<?=$searchResult->GetVendor()->GetCredit()->GetLevel()?>"></i>
+                        </span>
+                    <? } else { ?>
+                        <span class="raiting">
+                            <span class="rating_number raiting_<?=$searchResult->GetVendor()->GetCredit()->GetLevel()?>">
+                            <?=$this->escape($searchResult->GetVendor()->GetCredit()->GetLevel())?>
+                            </span>
+                        </span>
+                    <? } ?>
+                </li>
+            <? } ?>
+
+            <div class="divider"></div>
+            <? foreach ($searchResult->GetVendor()->GetFeaturedValues()->GetValue() as $feature) {
+                $featureName = $feature->GetNameAttribute();
+                $featureValue = $feature->asString(); ?>
+                <? if ($featureName == 'ItemReviewRating') { ?>
+                    <li><?=Lang::get($featureName)?>: <b><?=$featureValue?></b></li>
+                <? } ?>
+            <? } ?>
+        </ul>
+    </div>
+<? } ?>

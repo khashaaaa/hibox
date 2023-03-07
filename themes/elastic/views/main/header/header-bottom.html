@@ -1,0 +1,39 @@
+<div class="header-bottom">
+    <? $headerText = General::getConfigValue('header_text'); ?>
+    <div class="center">
+        <?
+        if (General::isSellFree()) {
+            $defaultLogo = UrlGenerator::getHomeUrl() . '/i/sellfree-logo.png';
+        } else {
+            $defaultLogo = UrlGenerator::getHomeUrl() . '/i/logo.png';
+        }
+        ?>
+        <div class="logo-wrapper<?=empty($headerText) ? '-big' : ''?>">
+            <a href="/" class="logo">
+                <? $title = $this->escape(General::getConfigValue('title_for_home', CFG_SITE_NAME . ' - ' . Lang::get('home'), false)); ?>
+                <img src="<?=(General::getConfigValue('logo', $defaultLogo, false));?>" alt="<?=$title?>" title="<?=$title?>">
+            </a>
+        </div>
+
+        <?
+        if (General::isSellFree()) {
+            $defaultHeaderText = Lang::get('sellfree_header_text');
+        } else {
+            $defaultHeaderText = Lang::get('header_text');
+        }
+        ?>
+        <? if ($isIndexPage && !empty($headerText)) { ?>
+            <div class="header-title"><?=$headerText?></div>
+        <? } ?>
+        <? if (General::isShowSearchBar()) { ?>
+            <div class="header-search">
+                <?=General::runController('Header', 'renderSearchBar')?>
+            </div>
+        <? } ?>
+
+        <div class="header-acts">
+            <?=General::viewFetch('main/header/header-bottom/acts')?>
+        </div>
+
+    </div>
+</div>

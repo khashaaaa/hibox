@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="providerconfiguration::Provider_configuration" action="default" cmd="ProviderConfiguration">
+        <page data-action="default" data-cmd="providerconfiguration" />
+    </tab>
+    <tab title="providerconfiguration::Search_type_configuration" action="searchType" cmd="ProviderConfiguration">
+        <page data-action="searchType" data-cmd="providerconfiguration" />
+    </tab>
+</tabs>

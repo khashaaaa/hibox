@@ -1,0 +1,8 @@
+<? if (CMS::IsFeatureEnabled('Newsletter')) { ?>
+<div class="subscribe_block">
+    <p style="font-size: 14px;margin-top: 20px"><i><?=Lang::get('news_subscribe')?></i></p>
+    <a class="btn_off btn btn-primary small_link" style="line-height: 12px" href="<?=@UrlGenerator::generateContentUrl('privateoffice')?><?=CMS::IsFeatureEnabled('Seo2')?'?':'&';?>subscribe=<?=$subscribed?'0':'1'?>">
+        <span><?=$subscribed?Lang::get('decline_subscribe'):Lang::get('accept_subscribe')?></span>
+    </a>
+</div>
+<? } ?>

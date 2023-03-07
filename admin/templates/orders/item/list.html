@@ -1,0 +1,59 @@
+    <div class="span6">
+        <ul class="unstyled">
+        <% for (var i = 0; i < Math.ceil(items.length / 2); i++) { %>
+            <li class="offset-bottom1">
+                <div class="media">
+                    <a href="#<%= order.get("numericId") %>-<%= items[i]["linenum"] %>-img" class="thumbnail thumbnail-micro pull-left" data-toggle="lightbox" title="<%= trans.get("Enlarge_image") %>">
+                        <img src="<%= items[i]["imagethumb"] %>" alt="">
+                    </a>
+                    <div id="<%= order.get("numericId") %>-<%= items[i]["linenum"] %>-img" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="lightbox-header">
+                            <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true"  title="<%= trans.get("Close") %>"><i class="icon-remove-sign"></i></button>
+                        </div>
+                        <div class="lightbox-content">
+                            <img src="<%= items[i]["imagebig"] %>">
+                            <div class="lightbox-caption"><p class="text-clipped-general"><%=items[i]["linenum"]%></p></div>
+                        </div>
+                    </div>
+
+                    <div class="media-body">
+
+                        <a href="<%= items[i]["itemurl"] %>" target="_blank" title="<%= trans.get("Item_page_on_site") %>">№ <%= order.get("numericId") %> - <%= items[i]["linenum"] %></a>:
+                        <%=items[i]["pricecust"] %>&nbsp;<%=order.get("currencysign") %>, <%=items[i]["statusname"] %>
+
+                    </div>
+                </div>
+            </li>
+        <% } %>
+        </ul>
+    </div>
+
+    <div class="span6">
+        <ul class="unstyled">
+        <% for (var i = Math.ceil(items.length / 2); i < items.length; i++) { %>
+            <li class="offset-bottom1">
+                <div class="media">
+                    <a href="#<%= order.get("numericId") %>-<%= items[i]["linenum"] %>-img" class="thumbnail thumbnail-micro pull-left" data-toggle="lightbox" title="<%= trans.get("Enlarge_image") %>">
+                        <img src="<%= items[i]["imagethumb"] %>" alt="">
+                    </a>
+                    <div id="<%= order.get("numericId") %>-<%= items[i]["linenum"] %>-img" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="lightbox-header">
+                            <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true"  title="<%= trans.get("Close") %>"><i class="icon-remove-sign"></i></button>
+                        </div>
+                        <div class="lightbox-content">
+                            <img src="<%= items[i]["imagebig"] %>">
+                            <div class="lightbox-caption"><p class="text-clipped-general"><%=items[i]["linenum"]%></p></div>
+                        </div>
+                    </div>
+
+                    <div class="media-body">
+
+                        <a href="<%= items[i]["itemurl"] %>" target="_blank" title="<%= trans.get("Item_page_on_site") %>">№ <%= order.get("numericId") %> - <%= items[i]["linenum"] %></a>:
+                        <%=items[i]["pricecust"] %>&nbsp;<%=order.get("currencysign") %>, <%=items[i]["statusname"] %>
+
+                    </div>
+                </div>
+            </li>
+        <% } %>
+        </ul>
+    </div>

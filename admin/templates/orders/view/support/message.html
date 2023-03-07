@@ -1,0 +1,11 @@
+<% $.each(messages, function (i, message) { %>
+
+    <p class="message-box operator">
+        <span class="message">
+            <strong><i class="icon-reply muted"></i> <%= escapeData(message.username) %></strong>
+            <span class="message-time"><%= message.time %></span>
+            <span class="message-text"><%= message.text %></span>
+        </span>
+    </p>
+
+<% }); %>

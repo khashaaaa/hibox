@@ -1,0 +1,9 @@
+<div <?=General::getConfigValue('rtl') ? 'style="direction: rtl"': ''?>>
+    <?=Lang::get('hello')?>, <?=$login?><br />
+    <?=LangAdmin::get('new_ticket_create')?> <?=$ticketid?>
+    (<?=LangAdmin::get('in_order').' '.
+    (defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, (string)$orderid):(string)$orderid)?>)<br/>
+    <?=LangAdmin::get('message')?> <?=$text?> <br />
+    <?=LangAdmin::get('get_more_info')?>
+    <a href="<?=UrlGenerator::generateSupportUrl(array('mode'=>'chat', 'id' => 'Ticket-'.(string)$ticketid), true)?>"><?=LangAdmin::get('link1')?></a>
+</div>

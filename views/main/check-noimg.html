@@ -1,0 +1,8 @@
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+    $('.check-noimg').on("error", function() {
+        $(this).attr('src', '/i/noimg.png');
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

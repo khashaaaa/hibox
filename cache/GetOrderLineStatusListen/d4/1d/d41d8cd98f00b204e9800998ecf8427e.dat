@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SalesLineStatusInfoListAnswer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://services.opentao.net">
+  <ErrorCode>Ok</ErrorCode>
+  <SubErrorCode/>
+  <RequestId>2920f972-ddd2-42ce-a094-11af6c5a7c16</RequestId>
+  <RequestTime>25.2472</RequestTime>
+  <Result>
+    <SalesLineStatusInfo>
+      <Id>1</Id>
+      <Name>Awaiting payment</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>2</Id>
+      <Name>Paid</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>3</Id>
+      <Name>Confirmation</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>4</Id>
+      <Name>Ordered</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>5</Id>
+      <Name>Quality control</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>6</Id>
+      <Name>Received</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>7</Id>
+      <Name>Packed</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>8</Id>
+      <Name>Ready to ship</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>9</Id>
+      <Name>Posted</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>10</Id>
+      <Name>Completed</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>11</Id>
+      <Name>Returned to supplier</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>12</Id>
+      <Name>Unable to deliver</Name>
+    </SalesLineStatusInfo>
+    <SalesLineStatusInfo>
+      <Id>13</Id>
+      <Name>Cancelled</Name>
+    </SalesLineStatusInfo>
+  </Result>
+</SalesLineStatusInfoListAnswer>

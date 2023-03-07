@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-md-4">
+            <?=General::viewFetch('controllers/authentication/login-form', ['vars' => ['captcha' => $captcha, 'error' => $error]]) ?>
+
+            <? if (General::IsFeatureEnabled('ExternalAuthentication')) { ?>
+                <?=General::runController('Authentication', 'renderAuthSystemList')?>
+            <? } ?>
+
+            <div class="modal-bottom-links text-center">
+                <span><?=Lang::get('no_account_yet')?></span>
+                <a href="<?=UrlGenerator::toRoute('register')?>" class="link-registration js-open-modal-registration"><?=Lang::get('lets_sign_up')?></a>
+            </div>
+        </div>
+    </div>
+</div>

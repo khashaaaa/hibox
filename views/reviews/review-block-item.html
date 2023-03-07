@@ -1,0 +1,105 @@
+<?
+/**
+ * @var $review OtapiItemReviewInfo
+ */
+?>
+<div class="item-review-block js-reviews-block" data-item-review-id="<?=$review->GetId()->asString()?>">
+    <div class="reviewsAction">
+        <? if ($review->GetRating() !== false) { ?>
+            <div class="ratyScore" data-score="<?=$review->GetRating()?>"></div>
+        <? } ?>
+        <? $orderId = $review->getOrderId()->asString(); ?>
+        <? if (! empty($orderId)) { ?>
+            <a href="javascript:void(0)" rel="tooltip" data-placement="right" title="" data-original-title="Отзыв после покупки"> <span class="glyphicon glyphicon-shopping-cart"></span></a>
+        <? } ?>
+        <? if (General::IsFeatureEnabled('ItemReviews') && User::getObject()->isAuthenticated()) { ?>
+            <div class="right collapseAnswer" data-toggle="collapse" data-target="#answerToItemReview_<?=$review->GetId()->asString()?>">
+                <a href="javascript:void(0)"><?=Lang::get('reply')?></a>
+            </div>
+        <? } ?>
+    </div>
+    <div class="paymshipReviewsInformation">
+        <? $createdTime = strtotime($review->GetCreatedTime());?>
+        <span class="date"><?=date('d.m.Y, h:i', $createdTime)?></span>
+        <?$userName = $review->GetUserName()?>
+        <span class="author"><?= empty($userName) ? Lang::get('no_name') : $userName; ?></span>
+        <? if ($review->GetPositiveGrade() !== false && $review->GetNegativeGrade() !== false) { ?>
+            <span class="grade js-review-rating">
+            <span class="<?=User::getObject()->isAuthenticated() && (User::getObject()->getId() != $review->GetUserId()->asString()) ? 'positive js-positive' : ''?>"><i class="glyphicon glyphicon-thumbs-up"></i> <span class="js-review-rating-value"><?=$review->GetPositiveGrade()?></span></span>
+            <span class="<?=User::getObject()->isAuthenticated() && (User::getObject()->getId() != $review->GetUserId()->asString()) ? 'negative js-negative' : ''?>"><i class="glyphicon glyphicon-thumbs-down"></i> <span class="js-review-rating-value"><?=$review->GetNegativeGrade()?></span></span>
+        </span>
+        <? } ?>
+    </div>
+    <div class="box-reviews_text">
+        <p class="paymshipReviewsPost"><?= htmlspecialchars($review->GetText()) ?></p>
+    </div>
+    <div class="files-container clearfix" style="margin-bottom: 5px">
+        <?
+            $prf = 'prf' . $review->GetId()->asString();
+
+            $reviewImageUrls = $review->getImageUrls()->GetImageUrl();
+            $reviewImageUrlsArray = (!empty($reviewImageUrls)) ? $reviewImageUrls->toArray() : array();
+            $reviewImagePreviewUrls = $review->getImagePreviewUrls()->GetImageUrl();
+            $reviewImagePreviewUrlsArray = (!empty($reviewImagePreviewUrls)) ? $reviewImagePreviewUrls->toArray() : array();
+        ?>
+        <? foreach ($reviewImageUrlsArray as $key => $imageUrl) { ?>
+            <div class="file-container">
+                <a href="<?=$imageUrl?>" rel="<?=$prf?>_answer" class="review-pictures" style="text-decoration: none">
+                    <div class="img-wrap">
+                        <img src="<?=$reviewImagePreviewUrlsArray[$key]?>"/>
+                    </div>
+                </a>
+            </div>
+        <? } ?>
+    </div>
+    <ul>
+        <? if (General::IsFeatureEnabled('ItemReviews') && User::getObject()->isAuthenticated()) { ?>
+            <li id="answerToItemReview_<?=$review->GetId()->asString()?>" class="collapse <?= General::getConfigValue('is_old_platform') ? 'reviewsAnswer' : 'box-reviews_comment'?>">
+                <div class="box-reviews_commentator">
+                    <span><?=Lang::get('your_answer')?></span>
+                </div>
+                <form name="answerToItemReview" action="index.php?p=addAnswerToItemReview" method="POST">
+                    <?=OTFileStorage::getWidget(array(
+                            'fileType' => 'Image'
+                        )
+                    )?>
+                    <textarea name="reviewanswertext"></textarea>
+                    <input type="hidden" name="itemreviewid" value="<?=$review->GetId()->asString()?>">
+                    <button type="submit" data-loading-text="<?=Lang::get('saving')?>..." class="btn btn-primary add-review"><?=Lang::get('save')?></button>
+                </form>
+            </li>
+        <? } ?>
+        <? foreach ($review->GetAnswers()->GetAnswer() as $answer) { ?>
+            <li class="<?= General::getConfigValue('is_old_platform') ? 'reviewsAnswer' : 'box-reviews_comment'?>">
+                <div class="files-container clearfix" style="margin-bottom: 5px">
+                    <?
+                    $prf = 'prf' . rand(10000, 99999);
+
+                    $answerImageUrls = $answer->getImageUrls()->GetImageUrl();
+                    $answerImageUrlsArray = (!empty($answerImageUrls)) ? $answerImageUrls->toArray() : array();
+                    $answerImagePreviewUrls = $answer->getImagePreviewUrls()->GetImageUrl();
+                    $answerImagePreviewUrlsArray = (!empty($answerImagePreviewUrls)) ? $answerImagePreviewUrls->toArray() : array();
+                    ?>
+                    <? foreach ($answerImageUrlsArray as $key => $imageUrl) { ?>
+                        <div class="file-container">
+                            <a href="<?=$imageUrl?>" rel="<?=$prf?>_answer" class="review-pictures" style="text-decoration: none">
+                                <div class="img-wrap">
+                                    <img src="<?=$answerImagePreviewUrlsArray[$key]?>"/>
+                                </div>
+                            </a>
+                        </div>
+                    <? } ?>
+                </div>
+                <div class="col-md box-reviews_commentator">
+                    <span><?=$answer->GetAuthorName()?></span>
+                </div>
+                <div class="box-reviews_text">
+                    <?=$answer->GetText()?>
+                </div>
+            </li>
+        <? } ?>
+    </ul>
+</div>
+<script>
+    $(".review-pictures").colorbox({rel: $(this).attr('rel'), maxHeight: "85%", maxWidth: "85%"});
+</script>

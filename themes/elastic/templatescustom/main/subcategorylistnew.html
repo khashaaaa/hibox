@@ -1,0 +1,38 @@
+<h2 class="mb25"><span><?= Lang::get('subcategories') ?></span></h2>
+<div class="block-categories">
+	<div class="categories-icons">
+		<ul>
+			<? if (is_array($subcats)) foreach ($subcats as $cat) { ?>
+				<? if ($cat['ishidden'] == 'false') { ?>
+					<? if ($cat['isparent'] == 'false') { ?>
+						<li class="item">
+                            <a href="<?=General::generateUrl('category', $cat)?>" class="submenu-title">
+                                <? if ($cat['IconImageUrl']) { ?>
+                                    <? if (!empty($cat['IconImageUrl'])) { ?>
+                                        <div class="block-img">
+                                            <img src="<?=$cat['IconImageUrl']?>" alt="">
+                                        </div>
+                                    <? } ?>
+                                <? } ?>
+                                <?= $this->escape($cat['name']) ?>
+                            </a>
+                        </li>
+					<? } else { ?>
+						<li class="item">
+                            <a href="<?=General::generateUrl('subcategory', $cat)?>" class="submenu-title">
+                                <? if ($cat['IconImageUrl']) { ?>
+                                    <? if (!empty($cat['IconImageUrl'])) { ?>
+                                        <div class="block-img">
+                                            <img src="<?=$cat['IconImageUrl']?>" alt="">
+                                        </div>
+                                    <? } ?>
+                                <? } ?>
+                                <?= $this->escape($cat['name']) ?>
+                            </a>
+                        </li>
+					<? } ?>
+				<? } ?>
+			<? } ?>
+		</ul>
+	</div>
+</div>

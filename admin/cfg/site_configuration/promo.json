@@ -1,0 +1,170 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "Promo",
+        "do": "save"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        },
+        "textarea": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+
+    "fields": [
+        {
+            "name": "site_name",
+            "type": "text"
+        },
+        {
+            "name": "counter",
+            "type": "textarea",
+            "displayValue": "Filled"
+        },
+        {
+            "name": "category_prefix",
+            "type": "text"
+        }, 
+        {
+            "name": "category_suffix",
+            "type": "text"
+        },
+        {
+            "name": "brand_prefix",
+            "type": "text"
+        },
+        {
+            "name": "brand_suffix",
+            "type": "text"
+        },
+        {
+            "name": "seller_prefix",
+            "type": "text"
+        },
+        {
+            "name": "seller_suffix",
+            "type": "text"
+        },
+        {
+            "name": "title_for_home",
+            "type": "text"
+        }, 		
+        {
+            "name": "description_for_home",
+            "type": "textarea"
+        }, 		
+        {
+            "name": "keywords_for_home",
+            "type": "textarea"
+        }, 		
+		{
+            "name": "footer_text",
+            "type": "html"
+        },
+        {
+            "name": "footer_text_title",
+            "type": "text"
+        },
+        {
+            "name": "site_map",
+            "type": "text"
+        },
+		{
+            "name": "hide_social",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "vkLikeWidget",
+            "type": "textarea"
+        },
+		{
+            "name": "fbLikeWidget",
+            "type": "textarea"
+        },
+		{
+            "name": "twitWidget",
+            "type": "textarea"
+        },
+		{
+            "name": "okWidget",
+            "type": "textarea"
+        },
+		{
+			"name": "banner_widget",
+			"type": "textarea"
+		},
+		{
+			"name": "share_social_code",
+			"type": "textarea"
+		},
+		{
+			"name": "vk_link",
+			"type": "text"
+		},
+		{
+			"name": "ok_link",
+			"type": "text"
+		},
+		{
+			"name": "fb_link",
+			"type": "text"
+		},
+		{
+			"name": "tw_link",
+			"type": "text"
+		},
+        {
+            "name": "inst_link",
+            "type": "text"
+        },
+        {
+            "name": "no_index_sets",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "no_index_itemlists",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "no_index_brand_itemlists",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "no_index_iteminfo",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "newsletter_per_send_limit",
+            "type": "text"
+        },
+        {
+            "name": "newsletter_day_quota",
+            "type": "text"
+        }
+	]
+}

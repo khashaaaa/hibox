@@ -1,0 +1,16 @@
+<?=Lang::loadJSTranslation(array('need_confirm'))?>
+<div class="modal fade confirmDialog confirmDialog-tpl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title"><?=Lang::get('need_confirm')?></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button id="cancelBtn" type="button" class="btn btn-default" style="display: inline-block" data-dismiss="modal"><?=Lang::get('cancel')?></button>
+                <button id="confirm" type="button" class="btn btn-success" style="display: inline-block"><?=Lang::get('yes')?></button>
+            </div>
+        </div>
+    </div>
+</div>

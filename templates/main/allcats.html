@@ -1,0 +1,48 @@
+<div class="bigtitle"><div class="wrap clrfix">
+	<h1><?=Lang::get('all_categories')?></h1>
+</div></div>
+<div class="main"><div class="wrap clrfix">
+	<div class="fll col240">
+		<div class="bproduct">
+			<h2 class="mb25"><span><?=Lang::get('subcategories')?></span></h2>
+			<div class="bgr-block mb20">
+				<ul class="listitem border0">
+					<? foreach($treeCats as $c){ ?>
+						<li class="item"><a href="<?=General::generateUrl('subcategory', $c)?>" class="i-link"><?=$this->escape($c['Name'])?></a></li>
+					<? } ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="flr col690">
+		<div class="bproduct">
+			<h2 class="mb25"><span><?=Lang::get('subcategories_and_subsections')?></span></h2>
+			<div class="col330 mr30 fll">
+				<?
+				$count = count($treeCats);
+				$counter = 0;
+				foreach($treeCats as $cat){
+					$counter++;
+					if($counter == ceil($count/2)){
+						?>
+						</div>
+						<div class="col330 fll">
+						<?
+					}
+					?>
+					<div class="boxCategory">
+						<h2><?=$this->escape($cat['Name'])?></h2>
+						<ul class="lcategory clrfix">
+							<? foreach($cat['children'] as $c){ ?>
+								<li><a href="<?=General::generateUrl('subcategory', $c)?>"><?=$this->escape($c['Name'])?></a></li>
+							<? } ?>
+						</ul>
+					</div>
+					<?
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</div></div>

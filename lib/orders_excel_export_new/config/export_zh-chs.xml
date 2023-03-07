@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <header>
+        <column>№</column>      <!--№-->
+        <column>№ (位置)</column>   <!--№ позиции в заказе-->
+        <column>鏈接</column>    <!--Ссылка-->
+        <column>預覽</column>     <!--Изображение-->
+        <column>文章</column>	    <!--Артикул-->	
+        <column>描述</column>     <!--Конфигурация-->
+        <column>數</column>       <!--Количество-->
+        <column>價格, ¥</column>  <!--Цена-->
+        <column>交貨, ¥</column>  <!--Доставка-->
+        <column>量, ¥</column>    <!--Сумма-->
+        <column>購買價格 </column>  <!--Закуп р.-->
+        <column>支付</column>      <!--Оплачено р.-->
+        <column>區別</column>  <!--Разница-->
+    </header>
+</config>

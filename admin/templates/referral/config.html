@@ -1,0 +1,46 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Promo', 'default')?>"><?=LangAdmin::get('Promo')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('referral', 'default')?>"><?=LangAdmin::get('Referral_system')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('config')?></li>
+</ul><!--/.breadcrumb-->
+
+<? Session::clearError(); ?>
+
+<? require TPL_ABSOLUTE_PATH . 'promo/inc/tabs.php'; ?>
+<? XEditableFields::Init('build', $PageUrl); ?>
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'default'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('referals')?></a></li>        
+		<li <? if($PageUrl->GetAction() == 'config'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('config')?>"><?=LangAdmin::get('config')?></a></li>
+    </ul>
+</div>
+
+<h1>
+    <?=LangAdmin::get('config')?>    
+</h1>
+
+
+<div class="well">
+
+        <form class="form-horizontal inline_editable_form ot_form">
+
+            <fieldset class="clearfix">
+                <div data-field="referall_active_time"></div>
+                <? XEditableFields::Register('referall_active_time', General::getNumConfigValue('referall_active_time'), array('inputClass' => 'numeric')); ?>
+            </fieldset>
+
+        </form>
+
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

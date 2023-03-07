@@ -1,0 +1,27 @@
+<?=Lang::get('Hi_user', array('username' => $username))?><br/>
+
+<? if (count($events) == 1) { ?>
+	<?=Lang::get('order_line_status_was_changed', array(
+	    'item' => $events[0]['item'],
+	    'orderid' =>$orderid,
+	    'oldstatus' => $events[0]['oldstatus'],
+	    'newstatus' => $events[0]['newstatus'],
+	))?><br/>
+<? } else { ?>
+	<?=Lang::get('order_line_status_was_changed_in_order', array(
+		'orderid' =>$orderid,
+	))?><br/>
+	<? foreach ($events as $event) { ?>
+		<?=Lang::get('order_line_status_was_changed_from_to', array(
+		    'item' =>$event['item'],
+		    'oldstatus' => $event['oldstatus'],
+		    'newstatus' => $event['newstatus']
+		))?><br/>
+	<? } ?>
+<? } ?>
+
+<? $orderUrl = UrlGenerator::generateOrderDetailsUrl(OrdersProxy::originOrderId($orderid), array(), true); ?>
+
+<?=Lang::get('get_more_info')?> <a href="<?=$orderUrl?>" target="_blank"> <?=Lang::get('link1')?></a>
+
+<?=Lang::get('with_respect_site_administration', array('site_name' => UrlGenerator::getHomeUrl()))?>

@@ -1,0 +1,79 @@
+<h1><?=Lang::get('referral_system')?></h1>
+    <div id="support">
+        <div class="bproduct fs15 mb30">
+            <h2 class="mb20"><span><?=Lang::get('user_referal')?></span></h2>
+            <table class="notepad note_office">
+                <tbody>
+                <?if($RefSys){?>
+                <tr>
+                    <td class="f11 lgray"><?=Lang::get('referal_link')?>:</td>
+                    <td>
+                        <?php
+                        $referrerPrefix = ReferalSystem::getReferrerKey();
+                        if (in_array('Seo2', General::$enabledFeatures)) {
+                            $referalUrl = 'http://'.IDN::decodeIDN($_SERVER['HTTP_HOST']) . '/register?' . $referrerPrefix . '=' . $link;
+                        } else {
+                            $referalUrl = 'http://'.IDN::decodeIDN($_SERVER['HTTP_HOST']) . '/?p=register&' . $referrerPrefix . '=' . $link;
+                        }
+                        ?>
+                        <b><?=$referalUrl?></b>
+                        <?=General::viewFetch('/referral/referal_link_copy', array(
+                            'path' => CFG_BASE_TPL_ROOT,
+                            'vars' => array('referalUrl' => $referalUrl)
+                        ))?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="f11 lgray"><?=Lang::get('referral_bonus')?>:</td>
+                    <td><b><?=number_format((float)$RefSys['balance'], (int)General::getNumConfigValue('price_rounding'), ",", " ")?></b></td>
+                </tr>
+                <tr>
+                    <td class="f11 lgray"><?=Lang::get('category')?>:</td>
+                    <td><b><?=$RefSys['category']->GetGroupName()?></b></td>
+                </tr>
+                <? } else {?>
+                <div>
+                    <?=Lang::get('no_data')?>
+                </div>
+                <?}?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="support">
+        <div class="bproduct fs15 mb30">
+            <h2 class="mb20"><span><?=Lang::get('referal_new_user')?></span></h2>
+            <? if (!$nofoundusers) { ?>
+                <table class="notepad note_office">
+                    <tbody>
+                    <?if ($UsersFromRef) {?>
+                    <tr>
+                        <td class="f11 lgray"><b><?=Lang::get('user')?></b></td>
+                        <td><b><?=Lang::get('orders')?></b></td>
+                    </tr>
+                    <? foreach ($UsersFromRef as $user) { ?>
+                        <tr>
+                            <td class="f11 lgray"><?=$user['login']?></td>
+                            <td>
+                                <? if ($user['orders']) { ?>
+                                    <? foreach ($user['orders'] as $order) { ?>
+                                        <span><?=$order['date']?></span> - <?=Lang::get('summ_of_order')?> <?=number_format((float)$order['amount'], (int)General::getNumConfigValue('price_rounding'), ",", " ")?><br>
+                                    <? } ?>
+                                <? } else { ?>
+                                    <?=Lang::get('notfoundreforders')?>
+                                <? } ?>
+                            </td>
+                        </tr>
+                    <? } ?>
+                    <? } else {?>
+                    <div>
+                        <?=Lang::get('no_data')?>
+                    </div>
+                    <? } ?>
+                    </tbody>
+                </table>
+            <? } else { ?>
+                <?=Lang::get('notfondrefusers')?>
+            <? } ?>
+        </div>
+    </div>

@@ -1,0 +1,420 @@
+<?= $Header ?>
+
+<?=Lang::loadJSTranslation(array('export','order_ready_for_export', 'orders_export'))?>
+
+<?
+$pages = array(10, 20, 50, 100);
+$status_order = array('', LangAdmin::get('created_by'), LangAdmin::get('awaiting_payment'), LangAdmin::get('in_processing'),
+    LangAdmin::get('posted'), LangAdmin::get('canceled'), LangAdmin::get('under_consideration'), LangAdmin::get('paid'));
+?>
+
+<script>
+    $(function () {
+        $("#fromdate").datepicker();
+        $("#todate").datepicker();
+    });
+</script>
+<div class="main">
+    <div class="canvas clrfix">
+
+        <!-- .col700 -->
+        <div class="col700 clrfix avisited">
+            <!-- <div class="main"><div class="canvas clrfix"> -->
+
+            <!-- Filters -->
+            <form id="filters" action="" method="get">
+
+                <div class="grid_3">
+                    <p>
+                        <label><?=LangAdmin::get('order_number')?>: </label>
+                        <input type="text" name="filter[number]" value="<?=@$_GET['filter']['number']?>"/>
+                    </p>
+                </div>
+
+                <div class="grid_3">
+                    <p>
+                        <label><?=LangAdmin::get('client_surname')?>: </label>
+                        <input type="text" name="filter[client_surname]" value="<?=@$_GET['filter']['client_surname']?>"/>
+                    </p>
+                </div>
+
+                <div class="grid_3">
+                    <p>
+                        <label><?=LangAdmin::get('date_from')?>:</label>
+                        <input type="text" name="filter[fromdate]" id="fromdate" value="<?=@$_GET['filter']['fromdate']?>"/>
+                    </p>
+                </div>
+
+                <div class="grid_3">
+                    <p>
+                        <label><?=LangAdmin::get('date_to')?>:<br/> </label>
+                        <input type="text" name="filter[todate]" id="todate" value="<?=@$_GET['filter']['todate']?>"/>
+                    </p>
+                </div>
+                <div class="grid_3">
+                    <p>
+                        <label><?=LangAdmin::get('phone')?>:</label>
+                        <input type="text" name="filter[phone]" value="<?=@$_GET['filter']['phone']?>">
+                    </p>
+                </div>
+                <br clear="all">
+                <div class="grid_7">
+                    <p>
+                        <label><?=LangAdmin::get('status')?>:<br/> </label>
+                        <? $status_list = Permission::filter_order_status($status_list); ?>
+                        <table><tr><td>
+                        <? $count = 0; ?>
+                        <? $new_td = false; ?>
+                        <? foreach ($status_list as $status) { ?>
+                            <? $count++; ?>
+                            <? if ($count > count($status_list)/2 && !$new_td) { ?>
+                                </td><td>
+                                <? $new_td = true; ?>
+                            <? } ?>
+                            <? $checked = (isset($filters['status'][$status['Id']])) ? 'checked' : ''; ?>
+                            <label><input style="width:16px" type="checkbox" name="filter[status][<?=$status['Id']?>]" value="<?=$status['Id']?>" <?=$checked?>/><?=$status['Name']?></label><br/>
+                        <? } ?>
+                        </td></tr></table>
+                    </p>
+                </div>
+                <div class="grid_3">
+                    <p>
+                        <label><?=LangAdmin::get('client_id')?>:</label>
+                        <input type="text" name="filter[client_id]" value="<?=@$_GET['filter']['client_id']?>">
+                    </p>
+                </div>
+                
+                <?=@$onRenderFilterOrdersForm?>
+                <?foreach($sorting as $k=>$v){?>
+                    <input type="hidden" name="sort[<?=$k?>]" value="<?=$v?>"/>
+                <?}?>
+                <input type="hidden" name="cmd" value="orders"/>
+                <input type="hidden" name="page" value="1">
+
+                <!-- <?=LangAdmin::get('name_of_client')?>:<input type="text" name="filter[client]"/>
+                <?=LangAdmin::get('name_of_operator')?>:<input type="text" name="filter[operator]"/> -->
+        
+                <span style="float:right;" id="filter-buttons">
+                <input type="submit" value="<?=LangAdmin::get('apply_filters')?>"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <br/><br/>
+                
+                <a class="reset_filters" style="text-decoration:none"
+                    href="index.php?cmd=orders"><?=LangAdmin::get('reset_filters')?></a></span>
+            
+            <div style="clear:both;">
+                <? $from = $page * $perpage + 1; ?>
+                <? $end = min($from + $perpage - 1, count($orders)); ?>
+
+                <strong>
+                    <?=LangAdmin::get('found')?>: <?=$total_count;?>;
+                    <? if ($total_count) { ?>
+                        <?= LangAdmin::get('showing') ?>:
+                        <?= LangAdmin::get('with') ?> <?=(($pagination['current'] -1)*$perpage + 1)?>
+                        <?= LangAdmin::get('on') ?> <?=(($pagination['current'] -1)*$perpage + $end)?>
+                    <? } ?>
+                </strong><br/><br/>
+
+                <? if (isset($error)) { ?> <strong style="color:red;"><?=$error;?></strong> <? } ?>
+                <? if (isset($success)) { ?> <strong style="color:green;"><?=$success;?></strong> <? } ?>
+            </div>
+
+                <div style="float:right;">
+                <select name="ps">
+                    <? foreach ($pages as $perpagecount) { ?>
+                    <? $selected = ($perpagecount == $perpage) ? ' selected' : ''; ?>
+                    <option value="<?=$perpagecount?>" <?=$selected?>><?=$perpagecount?></option>
+                    <? } ?>
+                </select> <br/>
+            </div>
+
+            <? if (count($orders)) { ?>
+            <h2><?=LangAdmin::get('orders')?></h2><br/>
+
+            <?=Plugins::invokeEvent('onRenderAdminOrdersInfoMenu')?>
+
+            
+            
+            </form>
+            <div style="float:right;">
+                <?if(count($usedLanguages)>1){?>
+                <form action="index.php" id="set-site-lang-form" method="post">
+                    <label for="site-lang"><?=LangAdmin::get('choose_active_language')?>: </label>
+                    <select name="site_lang" id="site-lang" onchange="$('#set-site-lang-form').submit();">
+                        <?foreach($usedLanguages as $name=>$lang){?>
+                        <option value="<?=$name?>" <?=@$_SESSION['active_lang']==$name?'selected':''?>>
+                            <?=$lang?>
+                        </option>
+                        <?}?>
+                        <input type="hidden" name="from" value="<?=$_SERVER['REQUEST_URI']?>" />
+                    </select>
+                </form>
+                <br>
+                <?}?>
+            </div>
+
+            <div class="grid_16">
+                <table id="orders" style="font-size: 8px;">
+                    <? $column_count = 2;?>
+                    <thead>
+                    <tr>
+                        <th class="sort-columns" sort="Id"><?=LangAdmin::get('order_number')?></th>
+                        <th class="sort-columns" sort="CreationDate"><?=LangAdmin::get('creation_time')?></th>
+                        <? if (Permission::show_order_field('total_amount')) { $column_count++; ?>
+                            <th class="sort-columns" sort="TotalAmount"><div id="amount-filter" style="display: inline-block"><?=LangAdmin::get('amount')?></div></th>
+                        <? } ?>
+                        <? if (Permission::show_order_field('paid')) { $column_count++; ?>
+                            <th><?=LangAdmin::get('paid')?></th>
+                        <? } ?>
+                        <? if (Permission::show_order_field('name_of_purchaser')) { $column_count++; ?>
+                            <th  class="sort-columns" sort="UserLastName">
+                                <?=LangAdmin::get('name_of_purchaser')?> <br/>(<?=LangAdmin::get('user_ballance')?>)
+                            </th>
+                        <? } ?>
+                        <? if (defined('CFG_TAO141')) { ?>
+                        <th></th><? } ?>
+                        <? if (Permission::show_order_field('name_of_operator')) { $column_count++; ?>
+                            <th><?=LangAdmin::get('name_of_operator')?></th>
+                        <? } ?>
+                        <? if (Permission::show_order_field('order_status')) { $column_count++; ?>
+                            <th><?=LangAdmin::get('order_status')?><br/> / 
+                                <?=LangAdmin::get('order_lines_statuses')?>
+                            </th>
+                        <? } ?>
+                        <? if (Permission::show_order_field('steps_to_order')) { $column_count++; ?>
+                            <th><?=LangAdmin::get('steps_to_order')?></th>
+                        <? } ?>
+                    </tr>
+                    </thead>
+
+                    
+
+                    <tbody>
+                        <? $count_orders = 1; ?>
+                        <? foreach($orders as $order) { ?>
+                        <? $cur = $order['currencysign']; ?>
+                        <? $pay = round((float)$order['totalamount'] - (float)$order['remainamount'], 2); ?>
+                    <tr data-order-id='<?=$order['Id']?>'>
+                        <td>
+                            <a href="index.php?sid=<?=$GLOBALS['ssid'];?>&cmd=orders&do=orderinfo&id=<?=$order['Id']?>"><?=(defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, (string)$order['id']):(string)$order['id'])?></a>
+                            <br>
+                            <?=Plugins::invokeEvent('onAdminOrderListRenderCell', array($order['Id']));?>
+                        </td>
+                            <?  $order['createddatetime'] = strtotime($order['createddatetime']);
+                                $order['createddatetime'] = date('Y-m-d H:i:s', $order['createddatetime']);
+                            ?>
+                        <td><?=$order['createddatetime']?></td>
+                        <? if (Permission::show_order_field('total_amount')) { ?>
+                            <td><span class="pr"><nobr><?=round((float)$order['totalamount'], 2) . ' ' . $cur; ?></nobr></span>
+                            </td>
+                        <? } ?>
+                        <? if (Permission::show_order_field('paid')) { ?>
+                            <td><span class="pr"><nobr><?=round((float)$order['totalamount'] - (float)$order['remainamount'], 2) . ' ' . $cur; ?></nobr></span>
+                            </td>
+                        <? } ?>
+                        <? if (Permission::show_order_field('name_of_purchaser')) { ?>
+                            <td>
+                                <span>
+                                    <a href="index.php?sid=<?=$GLOBALS['ssid'];?>&cmd=users&do=userinfo&id=<?=@$order['custid'];?>" target="_blank">
+                                        <? echo @$order['custname'] . ' '; ?>
+                                    </a>
+                                    <br/>(<?=@$order['useraccountavailableamount']. $cur?>)
+                                </span>
+                            </td>
+                        <? } ?>
+                        <? if (defined('CFG_TAO141')) { ?>
+                        <td>
+                            <span></span> <br/>
+                            <button class="export" onclick="window.location = 'index.php?&sid=&cmd=OrdersExport&order=<?=$order['id']?>';">Экспорт</button>
+                            <br/>
+                        </td>
+                        <? } ?>
+                        <? if (Permission::show_order_field('name_of_operator')) { ?>
+                        <td><span class="pr"><?=@$order['operatorname']; ?></span></td>
+                        <? } ?>
+                        <? if (Permission::show_order_field('order_status')) { ?>
+                            <td>
+                                <strong><?=$order['statusname']?></strong><br/>
+                                <? $line_statuses = array(); ?>
+                                <? foreach ($order['LineStatusSummaries'] as $line) { ?>
+                                    <? $line_statuses[] = (string)$line['Status']['Name'] . ': ' . (string)$line['Count']; ?>
+                                <? } ?>
+                                <span style="font-style: italic;">(<?=implode(', ', $line_statuses);?>)</span>
+                            </td>
+                        <? } ?>
+                        <? if (Permission::show_order_field('steps_to_order')) { ?>
+                            <td>
+                                <? if ((int)$order['cancancel']) { ?>
+                                <button class="cancelorder" value="<?=$order['id']?>"><?=LangAdmin::get('cancel')?></button>
+                                <br/><br/>
+                                <? } ?>
+
+                                <? if ((int)$order['canclose']) { ?>
+                                <button class="closeorder" value="<?=$order['id']?>"><?=LangAdmin::get('close')?></button>
+                                <br/><br/>
+                                <? } ?>
+
+                                <? if ((int)$order['canclosecancel']) { ?>
+                                <button class="closecancelorder" value="<?=$order['id']?>"><?=LangAdmin::get('cancel')?> и <?=LangAdmin::get('close')?></button><br/><br/>
+                                <? } ?>
+
+                                <? if ((int)$order['canrestore']) { ?>
+                                <button class="restoreorder"
+                                        value="<?=$order['id']?>"><?=LangAdmin::get('restore_the_line')?></button><br/><br/>
+                                <? } ?>
+
+                                <? if ((int)$order['canpurchaseitems']) { ?>
+                                <!--<button class="purchaseorder" value="<=$order['id']?>">Заказать товар у <?=LangAdmin::get('on')?><?=LangAdmin::get('with')?>тавщика</button><br/><br/>-->
+                                <? } ?>
+                            </td>
+                        <? } ?>
+                    </tr>
+                        <? $count_orders++; ?>
+                        <? }  ?>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                            <?if($pagination['pages'][0]>1){?>
+                            <a class="curved" href="<?=$pageurl?>&page=1">1</a> ...
+                            <?}?>
+
+                            <? foreach ($pagination['pages'] as $i) { ?>
+                            <? if ($pagination['last'] == 1) break; ?>
+                            <? if ($pagination['current'] == $i) { ?>
+                                <span class="active curved"><?=$i?></span>
+                                <? } else { ?>
+                                <a class="curved" href="<?=$pageurl?>&page=<?=$i?>"><?=$i?></a>
+                                <? } ?>
+                            <? } ?>
+
+                            <?if($i<$pagination['last']){?>
+                            ... <a class="curved" href="<?=$pageurl?>&page=<?=$pagination['last']?>"><?=$pagination['last']?></a>
+                            <?}?>
+                        </div>
+            </div>
+            <br/><br/>
+            <? } ?>
+        </div>
+        <!-- /.col700 -->
+    </div>
+</div><!-- /.main -->
+
+<script type="text/javascript" src="js/jquery.combobox.js"></script>
+<script type="text/javascript">
+sorting = <?=json_encode($sorting)?>;
+</script>
+<script type="text/javascript" src="js/orders.js"></script>
+<script type="text/javascript">
+
+    $('select[name=ps]').change(function () {
+        //var count = $('select[name=perpage] option:selected').val();
+        $('#filters').submit();
+        //alert(count);
+        //location.href = 'index.php?cmd=orders&ps=' + count + '&sid=';
+    });
+
+    function sh(id) {
+        if (document.getElementById(id).style.display != 'block') {
+            document.getElementById(id).style.display = 'block';
+        } else {
+            document.getElementById(id).style.display = 'none';
+        }
+    }
+    function edit(elm, field, id) {
+        //
+        if (document.getElementById('ed_' + field + id)) return;
+        elm.id = 'sh_' + field + id;
+        var value = elm.innerHTML;
+        elm.innerHTML = '<input class="editor" id="ed_' + field + id + '" value="' + value + '"><input class="editorb" type="button" value=">>" onclick="save(this, \'' + field + '\', \'' + id + '\')">';
+        document.getElementById('ed_' + field + id).focus();
+    }
+    function select(elm, field, id) {
+        //
+        if (document.getElementById('ed_' + field + id)) return;
+        elm.id = 'sh_' + field + id;
+        var value = elm.innerHTML;
+        elm.innerHTML = '<select class="editors" id="ed_' + field + id + '"onchange="save(this, \'' + field + '\', \'' + id + '\')">' + //'<option value="'+value+'">'+value+'</option>'+
+                '<option value="<?=LangAdmin::get('created_by')?>"><?=LangAdmin::get('created_by')?></option>' +
+                '<option value="<?=LangAdmin::get('waiting_for_payment')?>"><?=LangAdmin::get('waiting_for_payment')?></option>' +
+                '<option value="<?=LangAdmin::get('in_processing')?>"><?=LangAdmin::get('in_processing')?></option>' +
+                '<option value="<?=LangAdmin::get('waiting_for_additional_payments')?>"><?=LangAdmin::get('waiting_for_additional_payments')?></option>' +
+                '<option value="<?=LangAdmin::get('posted')?>"><?=LangAdmin::get('posted')?></option>' +
+                '</select>';
+        document.getElementById('ed_' + field + id).focus();
+    }
+    function select2(elm, field, id) {
+        //
+        if (document.getElementById('ed_' + field + id)) return;
+        elm.id = 'sh_' + field + id;
+        var value = elm.innerHTML;
+        elm.innerHTML = '<select class="editors" id="ed_' + field + id + '"onchange="save(this, \'' + field + '\', \'' + id + '\')">' + '<option value="' + value + '">' + value + '</option>' +
+                '<option value="Выкуп у <?=LangAdmin::get('on')?><?=LangAdmin::get('with')?>тавщика">Выкуп у <?=LangAdmin::get('on')?><?=LangAdmin::get('with')?>тавщика</option>' +
+                '<option value="Уточнение ве<?=LangAdmin::get('with')?>а">Уточнение ве<?=LangAdmin::get('with')?>а</option>' +
+                '<option value="Изменение <?=LangAdmin::get('with')?>тоимо<?=LangAdmin::get('with')?>ти">Изменение <?=LangAdmin::get('with')?>тоимо<?=LangAdmin::get('with')?>ти</option>' +
+                '<option value="<?=LangAdmin::get('posted')?>"><?=LangAdmin::get('posted')?></option>' +
+                '<option value="От<?=LangAdmin::get('with')?>ут<?=LangAdmin::get('with')?>твует у <?=LangAdmin::get('on')?><?=LangAdmin::get('with')?>тавщика">От<?=LangAdmin::get('with')?>ут<?=LangAdmin::get('with')?>твует у <?=LangAdmin::get('on')?><?=LangAdmin::get('with')?>тавщика</option>' +
+                '<option value="<?=LangAdmin::get('temporarily_out_of_stock')?>"><?=LangAdmin::get('temporarily_out_of_stock')?></option>' +
+                '<option value="<?=LangAdmin::get('no_configuration_requested')?>"><?=LangAdmin::get('no_configuration_requested')?></option>' +
+                '<option value="<?=LangAdmin::get('canceled')?>"><?=LangAdmin::get('canceled')?></option>' +
+                '</select>';
+        document.getElementById('ed_' + field + id).focus();
+    }
+    function save(elm, field, id) {
+        //
+        //alert(document.getElementById('ed_'+field+id).value);
+        var server_url = 'index.php?cmd=orders&sid=<?=$GLOBALS['ssid']?>&do=setvalue&id=' + id + '&field=' + field + '&value=' + document.getElementById('ed_' + field + id).value;
+        $.ajax({
+            url:server_url,
+            success:function (data) {
+                if (data == 'RELOGIN') location.href = 'index.php?expired';
+                document.getElementById('sh_' + field + id).innerHTML = data;
+            },
+            error:function () {
+
+            }
+        });
+
+    }
+
+    $(function () {
+        $('.combolist').combobox();
+    });
+
+    $("button").button();
+    setInterval('$("button").removeClass("ui-button");', 200);
+
+    $(".cancelorder").button().removeClass('ui-button')
+            .click(function () {
+                var id = $(this).val();
+                window.location.href = '<?=$pageurl?>&do=cancel&id=' + id;
+            });
+
+    $(".closeorder").button().removeClass('ui-button')
+            .click(function () {
+                var id = $(this).val();
+                window.location.href = '<?=$pageurl?>&do=close&id=' + id;
+            });
+
+    $(".closecancelorder").button().removeClass('ui-button')
+            .click(function () {
+                var id = $(this).val();
+                window.location.href = '<?=$pageurl?>&do=closecancel&id=' + id;
+            });
+
+    $('.restoreorder').button().removeClass('ui-button')
+            .click(function () {
+                var id = $(this).val();
+                window.location.href = 'index.php?sid=<?=$GLOBALS['ssid'];?>&cmd=orders&do=restore&id=' + id;
+            });
+
+    $('.purchaseorder').button().removeClass('ui-button')
+            .click(function () {
+                var id = $(this).val();
+                window.location.href = 'index.php?sid=<?=$GLOBALS['ssid'];?>&cmd=orders&do=purchaseitems&id=' + id;
+            });
+            
+    $('.reset_filters').button().removeClass('ui-button');
+</script>
+
+<?= @Plugins::invokeEvent('onRenderAdminOrdersList') ?>
+<?= $Footer ?>

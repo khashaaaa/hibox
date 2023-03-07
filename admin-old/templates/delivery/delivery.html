@@ -1,0 +1,275 @@
+<?= $Header ?>
+
+<script type="text/javascript" src="js/lang.js"></script>
+
+<div class="main"><div class="canvas clrfix">
+
+    <div class="col700">
+        <div class="tuning">
+            <span id="error" style="color:red;font-weight: bold;">
+                <? if(isset($error)) { print $error; } ?>
+            </span>
+            <h1> <?=LangAdmin::get('delivery');?> </h1>
+            <p></p>
+        </div>
+    </div>
+        
+    <div id="tabs">
+        <ul>
+            <li id="itab1"><a href="#tabs-1"><?=Lang::get('countries_type_delivery')?></a></li>
+            <li id="itab2"><a href="#tabs-2"><?=Lang::get('types_delivery')?></a></li>
+            <li id="itab3"><a href="#tabs-3"><?=LangAdmin::get('countries');?></a></li>
+        </ul>
+
+        <span id="error" style="color:red; font-weight: bold;">
+            <? if(isset($error)) { echo $error; } ?>
+        </span>
+
+        <div class="addform" id="dialog-form" title="Сохранение">
+            <br/><span id="message" >Все изменения сохранены</span>
+        </div>
+
+        <div id="tabs-1">
+            <br/><h2></h2>
+            <div style="width:60%">
+                <table style="margin:10px;">
+                    <tr>
+                        <th valign="top">
+                        <?=LangAdmin::get('kind_of_delivery');?>
+                        </th>
+                    </tr>
+                    <tr>
+                    <td>
+                        <select id="delivery" name="delivery">
+                            <?php foreach ($delivery as $item) :?>
+                                <option value="<?=$item['id'];?>"><?=$item['name'];?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <br>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table style="margin:10px;">
+                    <tr>
+                        <th><?=LangAdmin::get('counties_of_delivery')?></th>
+                        <th><?=LangAdmin::get('start')?></th>
+                        <th><?=LangAdmin::get('step')?></th>
+                        <th><?=LangAdmin::get('isenabled')?></th>
+                        <th><?=LangAdmin::get('actions')?></th>
+                    </tr>
+    
+                    <? foreach ($rates as $rate) { ?> 
+                        <? $currency = ' '; ?>
+                        <? foreach ($delivery as $item) { ?>
+                            <? if ($item['id'] == $rate['externaldeliverytypeid']) { ?>
+                                <? $currency .= $item['currencycode']; ?>
+                            <? } ?>
+                        <? } ?>
+                        <tr class="delivery rate<?=$rate['externaldeliverytypeid']?>">
+                            <td>
+                                <?=$all_countries[$rate['countrycode']]?> (<?=$rate['countrycode']?>)
+                            </td>
+                            <td>
+                                <?=(float)$rate['start'] . $currency?>
+                            </td>
+                            <td>
+                                <?=(float)$rate['step'] . $currency?>
+                            </td>
+                            <td>
+                                <? $checked = ($rate['isenabled']) ? 'checked' : ''; ?>
+                                <input type="checkbox" name="isenabled" value="1" disabled="disabled"  <?=$checked?>/>
+                            </td>
+                            <td>
+                                <? $url = 'index.php?cmd=delivery&do=rate_edit&rate_id=' . $rate['id']; ?>
+                                <a href="<?=$url?>"><?=LangAdmin::get('edit');?></a>
+                                <a href="#" class="delete_rate" rate_id="<?=$rate['id']?>"><?=LangAdmin::get('remove');?></a>
+                            </td>
+                        </tr>
+                    <? } ?>
+                </table>
+                <button class="add_rate"><?=LangAdmin::get('add_delivery_rate');?></button>
+            </div>
+        </div>
+
+        <div id="tabs-2">
+            <br/><h2></h2>
+            <div style="margin:10px; width:60%">
+
+                <input type="button" id="but_add_delivery" name="but_add_delivery" onclick="location.href='?cmd=delivery&do=add_delivery'" value="<?=LangAdmin::get('add')?>"/>
+                <br/><br/>
+                <table border="1">
+                    <tr>
+                        <th><?=LangAdmin::get('name');?></th>
+                        <th width="250"><?=LangAdmin::get('actions');?></th>
+                    </tr>
+                    <?php foreach ($delivery as $item) : ?>
+
+                    <tr>
+                        <td><?=$item['name'];?></td>
+                        <td>
+                            <a href="?cmd=delivery&do=delivery_edit&id=<?=$item['id'];?>"><?=LangAdmin::get('editing');?></a>
+                            <a href="#" class="delete_delivery" delivery_id="<?=$item['id'];?>"><?=LangAdmin::get('remove');?></a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+
+        <div id="tabs-3">
+            <br/><h2></h2>
+            <div style="margin:10px; width:60%">
+                <br/>
+                <table border="1">
+                    <tr>
+                        <th width="50">ID</th>
+                        <th><?=LangAdmin::get('name');?></th>
+                    </tr>
+                    <?php foreach ($all_countries as $id=>$country) : ?>
+
+                    <tr>
+                        <td><?=$id;?></td>
+                        <td><?=$country;?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="windialog" id="confirm-form" title="<?=LangAdmin::get('confirmation')?>">
+        <div id="info"></div>
+        <div style="display:none;" class="spinner"></div>
+    </div>
+
+</div></div>
+
+<script type="text/javascript" src="js/jquery.combobox.js"></script>
+<script type="text/javascript">
+$(function() {
+    var target = '';
+    var action = '';
+    var rate_id = '';
+    var delivery_id = '';
+    $("#tabs").tabs({
+            cache: true,
+            ajaxOptions:{
+                    error: function( xhr, status, index, anchor ) {
+                            $( anchor.hash ).html("<p>No data</p>");
+                    }
+            }
+    });
+
+    function show_rates_by_delivery (delivery_id) {
+        $.each($('.delivery'), function() {
+            $(this).hide();
+        });
+
+        $('.rate' + delivery_id).show();
+    }
+    
+    var delivery_id = $("#delivery option:selected").val();
+    show_rates_by_delivery (delivery_id);
+    
+    $('#delivery').change(function() {
+        var delivery_id = $("#delivery option:selected").val();
+        show_rates_by_delivery (delivery_id);
+    });
+    
+    $('.add_rate').button().click(function(ev) {
+        ev.preventDefault();
+        var delivery_id = $("#delivery option:selected").val();
+        window.location.href = "index.php?cmd=delivery&do=rate_edit&sid=&delivery_id=" + delivery_id;
+    });
+    
+    $('.delete_rate').click(function(ev) {
+        ev.preventDefault();
+        action = 'rate_delete';
+        rate_id = $(this).attr('rate_id');
+        console.log(rate_id);
+        var msg = "<?=LangAdmin::get('the_rate_will_be_removed')?>, <?=LangAdmin::get('proceed')?>?";
+        $('#confirm-form').html(msg);
+        $('#confirm-form').dialog('open');
+    });
+    
+    $('.delete_delivery').click(function(ev) {
+        console.log('dsff');
+        ev.preventDefault();
+        action = 'delivery_delete';
+        delivery_id = $(this).attr('delivery_id');
+        console.log(delivery_id);
+        var msg = "<?=LangAdmin::get('the_delivery_will_be_removed')?>, <?=LangAdmin::get('proceed')?>?";
+        $('#confirm-form').html(msg);
+        $('#confirm-form').dialog('open');
+    });
+    
+    $('#confirm-form').dialog({
+       autoOpen: false,
+       modal: true,
+       buttons : {
+           "<?=LangAdmin::get('yes')?>" : function() {
+               $('.spinner').show();
+               if (action == 'rate_delete') {
+                    $.ajax({
+                        url:'index.php?cmd=delivery&do=rate_delete&rate_id='+rate_id,
+                        success:function (data) {
+                            if (data != 'Ok') {
+                                $('#error').html('<?=LangAdmin::get('there_was_an_error')?> ' + data);
+                            }
+                            $('#confirm-form').dialog('close');
+                            window.location.reload();
+                        },
+                        error:function () {
+                            $('#error').html('<?=LangAdmin::get('there_was_an_error')?> ');
+                        }
+                    });
+               }
+               if (action == 'delivery_delete') {
+                    $.ajax({
+                        url:'index.php?cmd=delivery&do=delivery_delete&delivery_id='+delivery_id,
+                        success:function (data) {
+                            if (data != 'Ok') {
+                                $('#error').html('<?=LangAdmin::get('there_was_an_error')?> ' + data);
+                            }
+                            $('#confirm-form').dialog('close');
+                            window.location.reload();
+                        },
+                        error:function () {
+                            $('#error').html('<?=LangAdmin::get('there_was_an_error')?> ');
+                        }
+                    });
+               }
+                
+           },
+           "<?=LangAdmin::get('no');?>" : function() { $(this).dialog("close"); }
+       }
+    });
+
+
+    $( "#dialog-form" ).dialog({
+            autoOpen: false,
+            width:210,
+            height:160,
+            modal: true,
+            buttons: {
+                    "Закрыть": function() {
+                            $(this).dialog("close");
+                    }
+            }
+    });
+
+    $('a.link_edit').click(function() {
+        var country_id = $(this).attr('country_id'),
+            delivery_id = $('select[name=delivery]').val();
+            if (country_id && delivery_id) {
+                window.location.search = '?cmd=delivery&do=delivery_for_country_edit&country_id='+country_id+'&delivery_id='+delivery_id;
+            }
+     });
+
+
+});
+</script>
+
+<?= $Footer ?>

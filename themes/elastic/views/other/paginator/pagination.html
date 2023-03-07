@@ -1,0 +1,33 @@
+<? $countPaginationPage = 5; ?>
+
+<? if ($paginator->pages() > 1) { ?>
+    <ul class="pagination">
+        <? if ($paginator->hasPrevious()) { ?>
+            <li class="pagination_prev js-paginator__page"><a class="page-link" href="<?=$paginator->query(array('page' => $paginator->page()-1))?>">&laquo;</a></li>
+        <? } ?>
+
+        <? if ($paginator->page() > ($countPaginationPage + 1)) { ?>
+            <li class="js-paginator__page"><a href="<?=$paginator->query(array('page' => 1))?>">1</a></li>
+        <? } ?>
+        <? if ($paginator->page() > ($countPaginationPage + 2)) { ?>
+            <li class="pagination_skip disabled"><a class="page-link" href="javascript:void(0)">...</a></li>        <? } ?>
+        <? for ($i = max(1, $paginator->page() - $countPaginationPage); $i <= min($paginator->pages(), $paginator->page() + $countPaginationPage); $i++) { ?>
+            <? if ($paginator->page() == $i) { ?>
+                <li class="page-item active"><a class="page-link" href="<?=$paginator->query(array('page' => $i))?>"><?=$i?></a></li>
+            <? } else { ?>
+                <li class="js-paginator__page"><a href="<?=$paginator->query(array('page' => $i))?>"><?=$i?></a></li>
+            <? } ?>
+        <? } ?>
+
+        <? if ($paginator->page() < $paginator->pages() - ($countPaginationPage + 1)) { ?>
+            <li class="pagination_skip disabled"><a href="javascript:void(0)">...</a></li>
+        <? } ?>
+        <? if ($paginator->page() < $paginator->pages() - $countPaginationPage) { ?>
+            <li class="js-paginator__page"><a href="<?=$paginator->query(array('page' => $paginator->pages()))?>"><?=$paginator->pages()?></a></li>
+        <? } ?>
+
+        <? if ($paginator->hasNext()) { ?>
+            <li class="pagination_next js-paginator__page"><a class="page-link" href="<?=$paginator->query(array('page' => $paginator->page()+1))?>">&raquo;</a></li>
+        <? } ?>
+    </ul>
+<? } ?>

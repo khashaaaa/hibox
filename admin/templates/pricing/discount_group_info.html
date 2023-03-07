@@ -1,0 +1,142 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('Discount', 'default')?>"><?=LangAdmin::get('Discounts')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Discount')?> «<?=$this->escape($discountGroup['Name'])?>»</li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? XEditableFields::Init('discount', $PageUrl); ?>
+
+<h1>
+    <?=LangAdmin::get('Discount')?> «<?=$this->escape($discountGroup['Name'])?>»
+    <a href="<?=$PageUrl->AssignDo('editDiscount')?>&groupId=<?=$discountGroup['Id']?>" class="btn btn-primary weight-normal btn_preloader offset-left3" data-loading-text="<?=LangAdmin::get('Editing')?>" autocomplete="off"><?=LangAdmin::get('Edit')?></a>
+</h1>
+
+
+<div class="row-fluid">
+    <div class="span4">
+
+        <!-- add new user -->
+        <p class="offset-bottom2">
+
+            <a class="ot-typehead-discountusers" data-url="<?=$PageUrl->AssignDo('addUserDiscount')?>&groupId=<?=$discountGroup['Id']?>" href="#" data-toggle="tooltip" data-placement="bottom" do="refresh"><span class="blink" title="<?=LangAdmin::get('Add_user_in_discount_group')?>"> <i class="icon-plus"></i> <?=LangAdmin::get('Add_user')?></span></a>
+        </p>
+
+    </div>
+    <div class="span2 text-right">
+        <select class="input-mini" id="perpage">
+            <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+            <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+            <? } ?>
+        </select>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <h3 class="offset-top01 muted"><?=LangAdmin::get('Filter_by_parameters')?></h3>
+</div>
+
+<!-- Filter's Block -->
+<div class="well well-small offset-bottom2" id="users-filter">
+    <form id="filters" class="offset-vertical-none" action="" method="get">
+        <input type="hidden" name="cmd" value="Discount"/>
+        <input type="hidden" name="do" value="groupInfo"/>
+        <input type="hidden" name="groupId" value="<?=$discountGroup['Id'];?>"/>
+        <input type="hidden" name="perpage" value="<?=$paginator->limit();?>"/>
+
+        <div class="row-fluid offset-bottom05">
+            <div class="span2">
+                <label for="ot_user_login_filter"><?=LangAdmin::get('Login')?></label>
+                <input type="text" class="input-block-level" id="ot_user_login_filter" name="username" value="<?=isset($username) ? $username : ''?>">
+            </div>
+        </div>
+
+        <div class="row-fluid"><button id="apply_filters_button" type="submit" class="btn btn_preloader btn-primary" data-loading-text="<?=LangAdmin::get('Applying_filters')?>" autocomplete="off"><?=LangAdmin::get('Apply')?></button></div>
+    </form>
+</div>
+
+<!-- list of users in discount group -->
+<div id="discount-group-wrapper" class="row-fluid">
+    <div class="span6">
+
+    <? if (count($discountUsers['Content'])) { ?>
+    <table class="table table-bordered data_table_sorting">
+
+        <thead>
+        <tr>
+            <th class="span7"><?=LangAdmin::get('User')?></th>
+            <th class="span1"><?=LangAdmin::get('Actions')?></th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <? foreach ($discountUsers['Content'] as $user) { ?>
+            <tr>
+                <td>
+                    <a href="<?=$PageUrl->AssignCmdAndDo('users', 'profile')?>&id=<?=$user['id']?>"  data-original-title="data-original-title" title="<?=LangAdmin::get('go_to_user_profile')?>"><?=$user['login']?></a>
+                    <? if (isset($user['isautomatesetted']) && $user['isautomatesetted'] == 'false') { ?>
+                        <i class="icon-paperclip" title="<?=LangAdmin::get('Added_manually')?>"></i>
+                    <? } ?>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-tiny icon-info-discount-user info-discount-user" data-placement="top" title="<?=LangAdmin::get('user_information')?>"><i class="icon-info"></i></button>
+                        <button class="btn btn-tiny ot_show_deletion_discont_user_dialog_modal"
+                                user-name="<?=$user['login']?>" user-group="<?=$discountGroup['Id']?>" user-id="<?=$user['id']?>"
+                                is-automate-setted="<?=(string)$user['IsAutomateSetted']?>"
+                                nodelete="<?=(string)$user['IsAutomateSetted']?>"
+                                action="<?=$PageUrl->AssignDo('deleteOrReplaceUserDiscount')?>" title="<?=LangAdmin::get('Remove_user')?>"><i class="icon-remove"></i>
+                        </button>
+                    </div>
+                    <div class="user-discount-info">
+                        <dl class="dl-horizontal">
+                            <dt><?=LangAdmin::get('Login')?>:</dt>
+                            <dd><a href="<?=$PageUrl->AssignCmdAndDo('users', 'profile')?>&id=<?=$user['id']?>"><?=$user['login']?></a></dd>
+                            <dt><?=LangAdmin::get('First_name')?>:</dt>
+                            <dd><?=$user['firstname']?></dd>
+                            <dt><?=LangAdmin::get('Last_name')?>:</dt>
+                            <dd><?=$user['lastname']?></dd>
+                            <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+                                <dt><?=LangAdmin::get('Middle_name')?>:</dt>
+                                <dd><?=$user['middlename']?></dd>
+                            <?php } ?>
+                            <dt><?=LangAdmin::get('Account')?>:</dt>
+                            <dd><?=$user['id']?></dd>
+                        </dl>
+                    </div>
+                </td>
+            </tr>
+            <? } ?>
+        </tbody>
+
+    </table>
+    <? } else { ?>
+        <p> <?=LangAdmin::get('no_users_in_group')?> </p>
+    <? } ?>
+    </div>
+</div>
+
+<?php $paginator->display(); ?>
+
+<p><a href="<?=$PageUrl->AssignCmdAndDo('Discount', 'default')?>"><i class="icon-reply icon-linked"></i><?=LangAdmin::get('To_discounts_list')?></a></p>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+    var allCategories = <?=json_encode($discounts)?>;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-discount-group.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

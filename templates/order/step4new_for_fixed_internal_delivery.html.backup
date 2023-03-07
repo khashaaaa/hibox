@@ -1,0 +1,296 @@
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="bigtitle"><div class="wrap clrfix">
+        <h1><?=Lang::get('reg_order')?>: <?=Lang::get('order_confirmation')?></h1>
+    </div></div>
+
+<!-- .main -->
+<div class="main"><div class="wrap clrfix">
+        <form method="post" action="index.php?p=userorder&createorder&type=<?=$type?>" id="formsumit">
+            <? if(count($list)) {?>
+            <?php
+            $elementsTotalCost = 0;
+
+            $additionalPriceSum = 0;
+            if (! empty($allBasket['CollectionSummaries'][$type]['AdditionalPriceInfoList']['Elements'])) {
+            foreach ($allBasket['CollectionSummaries']['Taobao']['AdditionalPriceInfoList']['Elements'] as $item) {
+                $additionalPriceSum += $item['Price']['ConvertedPriceList']['Internal'][0];
+                $additionalSignSum = $item['Price']['ConvertedPriceList']['Internal']['Sign'];
+            }
+            }
+            $itemsByVendors = array();
+            foreach ($list as $idx => $item) {
+                if (!isset($itemsByVendors[$item['VendorId']])) {
+                    $itemsByVendors[$item['VendorId']] = array();
+                }
+                $itemsByVendors[$item['VendorId']][] = $item;
+            }
+            ?>
+            <div class="bproduct fs15 mb30">
+                <h2 class="mb20"><span><?=Lang::get('recipient_data')?></span></h2>
+                <table class="notepad note_office">
+                    <tr>
+                        <td class="f11 lgray"><?=Lang::get('delivery_address')?>:</td>
+                        <td>
+                            <b><?=str_replace(', ,',',',$profile['postalcode'].', '.$profile['country'].', '.$profile['region'].', '.$profile['city'].', '.$profile['address']) ?></b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f11 lgray"><?=Lang::get('recipient')?>:</td>
+                        <td>
+                            <b><?php if (! General::getConfigValue('hide_middle_name')) { ?> 
+                            	<?=$profile['firstname'].' '.$profile['middlename'].' '.$profile['lastname'] ?>
+                           	<?php } else { ?>
+								<?=$profile['firstname'].' '.$profile['lastname'] ?>                           	
+                           	<?php } ?></b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f11 lgray"><?=Lang::get('contact_information')?>:</td>
+                        <td>
+                            <b><?=str_replace(', ,',',', $profile['phone'].', '.$user_info['email']) ?></b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="bproduct mb10" id="overlay-wrapper">
+                <div id="overlay"></div>
+                <h2 class="mb10"><span><?=Lang::get('goods_list')?></span></h2>
+
+                <table class="basket tsimple notepad">
+                    <? $total_w = 0; ?>
+                    <? foreach ($itemsByVendors as $vendor => $vendorItems){
+                        ?>
+                        <? if (! empty($allBasket['CollectionSummaries'][$type]['AdditionalPriceInfoList']['Elements'][$vendor])) { ?>
+                        <tr>                            
+                            <td colspan="5" style="border-radius: 5px; background-color: #ec1c23; padding: 18px 10px 13px 10px;">
+                                <span style="font-size: 14px; font-weight: bold; color: #fff"><?=Lang::get('Vendor_name', array('vendor' => $item['VendorId']))?></span>
+                            <span style="float: right; font-size: 14px; font-weight: bold; color: #fff">
+                                <?=Lang::get('Internal_delivery_price', array(
+                                    'price' => TextHelper::formatPrice(
+                                        $allBasket['CollectionSummaries'][$type]['AdditionalPriceInfoList']['Elements'][$vendor]['Price']['ConvertedPriceList']['Internal'][0],
+                                        $allBasket['CollectionSummaries'][$type]['AdditionalPriceInfoList']['Elements'][$vendor]['Price']['ConvertedPriceList']['Internal']['Sign']
+                                    ),
+                                    'currency' => ''
+                                ))?>
+                            </span>
+                            </td>
+                            
+                        </tr>
+                        <? } ?>
+                        <? foreach ($vendorItems as $item) { ?>
+                            <? $elementsTotalCost += $item['Cost']; ?>
+                            <? $elementsCurrencySign = $item['CurrencySign']; ?>
+
+                            <? $total_w += $item['Quantity']*$Weight;?>
+                            <tr id="item<?=$item['ItemId']?>">
+                                <td rowspan="2">
+                                    <ul class="lproduct w80li">
+                                        <li>
+                                            <a href="index.php?p=item&id=<?=$item['ItemId'];?>" class="pic" title="<?=$this->escape($item['ItemTitle']);?>" alt="<?=$this->escape($item['ItemTitle']);?>">
+                                                <i><img width="70" height="70" src="<?=ProductsHelper::getImage($item, 100);?>"></i>
+                                                <ins></ins>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td rowspan="2">
+                                    <p class="mb5"><span class="lgray"><?=Lang::get('good_code')?></span> <b><?= $item['ItemId']; ?></b></p>
+                                    <p class="mb5"><span class="lgray"><?=Lang::get('vendor')?></span> <b><?= $item['VendorId']; ?></b></p>
+                                    <p class="mb5"><span class="lgray"><?=Lang::get('category')?></span> <a href="index.php?p=category&cid=<?=$item['CategoryId']?>"><b><?=$item['CategoryName']?></b></a></p>
+                                    <p class="lblue"><a href="index.php?p=item&id=<?= $item['ItemId']; ?>"><b class="item-title" itemid="<?=$item['Id'];?>"><?= $item['ItemTitle']; ?></b></a></p>
+                                </td>
+                                <td>
+                                    <table class="info infoitem">
+                                        <? if (isset($item['ItemConfiguration'])) { ?>
+                                            <? foreach(explode(';', $item['ItemConfiguration']) as $cfg){ ?>
+                                                <? if($cfg) {?>
+                                                    <tr>
+                                                        <? $configArray = explode(':',$cfg); ?>
+                                                        <td class="lgray"><?= current($configArray); ?>:</td>
+                                                        <td><b class="ltr-for-rtl"><?= end($configArray); ?></b></td>
+                                                    </tr>
+                                                <? } ?>
+                                            <? } ?>
+                                        <? } ?>
+                                        <tr>
+                                            <td style="border-bottom:0px" class="lgray"><nobr><?=Lang::get('price')?>:</nobr></td>
+                                            <td style="border-bottom:0px">
+                                                <b><?=TextHelper::formatPrice($item['Price'], $item['CurrencySign'])?></b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="200">
+                                    <div class="flr total bbprice ltr-for-rtl" style="margin: 0 25px 0 0;">
+                                        <?=TextHelper::formatPrice($item['Cost'], $item['CurrencySign'])?>
+                                        <? if ((isset($userdiscount)) and ($userdiscount['Discount'] <> 0)) { ?>
+                                            <div><?=Lang::get('discount')?>: <b><?=$userdiscount['Discount']?> % </b></div>
+                                        <? } ?>
+                                    </div>
+                                    <div class="quat"><span><?=Lang::get('quantity')?>:</span><b><?=$item['Quantity']?></b></div>
+                                </td>
+                            </tr>
+                            <tr id="item<?=$item['ItemId']?>">
+                                <td colspan="3">
+                                    <div class="com">
+                                        <span><?=Lang::get('comments_for_operator')?>:</span>
+                                        <? if($item['Comment']){?>
+                                            <b><?=$item['Comment']?></b>
+                                        <? } else { ?>
+                                            <b><?=Lang::get('no')?></b>
+                                        <? } ?>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        <?  }  ?>
+                    <?  }  ?>
+
+                    <tr class="bdb0">
+                        <td class="w80"></td>
+                        <td>&nbsp;</td>
+                        <? if ($additionalSignSum) { ?>
+                        <td class="bproduct">
+                            <h2>
+                                <span><?=Lang::get('Total_items')?>:</span>
+                                <span sign="<?= $elementsCurrencySign ?>">
+                                    <?=TextHelper::formatPrice(
+                                        $elementsTotalCost,
+                                        $elementsCurrencySign
+                                    )?>
+                                </span>
+                            </h2>
+                        </td>
+                        <td class="bproduct">
+                            <h2>
+                                <span><?=Lang::get('Total_delivery')?>:</span>
+                                <span sign="<?=$additionalSignSum ?>">
+                                    <?=TextHelper::formatPrice(
+                                        $additionalPriceSum,
+                                        $additionalSignSum
+                                    )?>
+                                </span>
+                            </h2>
+                        </td>
+                        <? } ?>
+                    </tr>
+                    <?=$OrderSummary?>
+                </table>
+            </div>
+
+
+
+
+            <div class="bproduct mb30">
+                <h2 class="mb15"><span><?=Lang::get('comment_order')?></span></h2>
+                <textarea rows="4" cols="180" name="comment"><?=$order_comment?></textarea>
+            </div>
+
+            <? if(Session::checkErrors()){ ?>
+                <div class="bgr mb15 office_info_main order-msg  error" id="error_message">
+                    <?=Lang::get(Session::getErrorDescription())?>
+                </div>
+            <? } ?>
+            
+            <? if (isset($_GET['noAuth'])) { ?>
+                <div class="bgr mb15 office_info_main order-msg  error" id="error_message">
+                    <?=Lang::get('Need_auth_or_register')?>
+                </div>
+            <? } ?>
+            <? if (! Session::isAuthenticated()) { ?>
+            <div class="bproduct mb30">
+            <table class="tsimple">
+            <tr>
+            <td valign="top" class="loginInOrder">
+                <h2><?=Lang::get('registration_tab')?></h2>
+                    <div class="form-row">
+                        <label for="email">Email</label>
+                        <input id="email" type="text" name="email" value="<?=$this->escape($email)?>" class="form-field" />
+                    </div>
+
+                    <div class="form-row">
+                        <label for="password_to_registration"><?=Lang::get('password')?></label>
+                        <input id="password_to_registration" type="password" name="password_to_registration" class="form-field" /><br/>
+                                <small><?=Lang::get('password_desc')?></small>
+                    </div>
+
+            
+                    <div class="form-row">
+                    <label>&nbsp;</label>
+                    <?=Lang::get('Register_with_agree')?> <a id="user_agreement_spoiler-toggler"><?=Lang::get('user_agreement')?></a>
+                    </div>
+                    <div style="display: none" id="user_agreement_spoiler-text" class="user_agreement_spoiler-text">
+                        <?=$userAgreement?>
+                    </div>
+
+
+                    <script>
+                        $('#user_agreement_spoiler-toggler').click(function(){
+                        $('#user_agreement_spoiler-text').slideToggle('400');
+                        });
+                    </script>
+
+                    <div class="form-row register">
+                        <label>&nbsp;</label>
+                        <input  type="button" value="<?=Lang::get('register_and_apply_order')?>" class="btn btn-apper b-last-page"  onclick="DisableSubmit('reg_button','formsumit');" id="reg_button">                        
+                    </div>
+            </td>
+            <td valign="top" class="loginInOrder">
+                    <h2><?=Lang::get('private_office_login')?></h2>                    
+                    <div class="form-row">
+                        <label for="username"><?=Lang::get('login_username')?></label>
+                        <input id="username" type="text" name="username"  class="form-field"/>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="password"><?=Lang::get('password')?></label>
+                        <input id="password" type="password" name="password" class="form-field"/>
+                    </div>
+
+                    <div class="form-row">
+                        <label></label>
+                        <label for="remember" class="remeber">
+                            <input class="checkbox" id="remember" type="checkbox" name="remember" value="remember" />
+                            <?=Lang::get('remember')?>
+                        </label>
+                    </div>
+                    <div class="form-row enter">
+                        <label></label>
+                        <input  type="button" value="<?=Lang::get('login_and_apply_order')?>" class="btn btn-apper b-last-page"  onclick="DisableSubmit('login_button','formsumit');" id="login_button">
+                    </div>                    
+            </td>
+            </tr>
+            </table> 
+            </div>
+            <? } ?>
+            
+            <? if(Session::checkErrors()){ ?>
+                <div class="bgr mb15 office_info_main order-msg  error" id="error_message">
+                    <?=Lang::get(Session::getErrorDescription())?>
+                </div>
+            <? } ?>
+            <div class="b-pager mt10">
+                <? $params  = (isset($_GET['order'])) ? '&order='.$_GET['order'] : '';?>
+                <? $params .= (isset($_GET['weight'])) ? '&weight='.$_GET['weight'] : '';?>
+                <a href="index.php?p=userorder&step3&type=<?=$type . $params?>" class="btn btn-apper b-first-page"><?=Lang::get('back')?></a>
+                <? if (Session::isAuthenticated()) { ?>
+                    <input  type="button" value="<?=Lang::get('confirm_order')?>" class="btn btn-apper b-last-page"  onclick="DisableSubmit('confirm_order','formsumit');" id="confirm_order">
+                <? } ?>
+            </div>
+
+            <input type="hidden" name="order" value="<?=$order?>"/>
+            <input type="hidden" name="type" value="<?=$type?>"/>
+            <input type="hidden" name="model" value="<?=$model_info['id']?>"/>
+            <input type="hidden" name="country" value="<?=$country?>"/>
+            <input type="hidden" name="profile" value="<?=$profile['id']?>"/>
+            <input type="hidden" name="total_weight" value="<?=$total_w?>"/>
+        </form>
+        <? } else { ?>
+            <h3> <?=Lang::get('empty_cart')?>! </h3>
+        <? } ?>
+    </div>
+</div></div>
+<!-- /.main -->
+

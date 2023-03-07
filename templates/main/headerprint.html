@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <? if(@$GLOBALS['page']){ ?>
+    <title><? print (General::getConfigValue('site_name')) ? General::getConfigValue('site_name') : CFG_SITE_NAME; ?> - <?=$GLOBALS['page']['pagetitle']?></title>
+    <meta name="description" content="<?=$GLOBALS['page']['seo_description']?>" />
+    <meta name="keywords" content="<?=$GLOBALS['page']['seo_keywords']?>" />
+    <? } elseif(@$GLOBALS['category']) { ?>
+    <title><?
+        $prefix = @General::getConfigValue('category_prefix');
+        $suffix = @General::getConfigValue('category_suffix');
+        if(@$GLOBALS['category']['seo_title'])
+            list($prefix, $suffix) = explode('||', $GLOBALS['category']['seo_title']);
+        elseif(General::getConfigValue('site_name'))
+            $prefix = @General::getConfigValue('site_name');
+        print $prefix; ?> <?=@$GLOBALS['category']['pagetitle']?@$GLOBALS['category']['pagetitle']:@$GLOBALS['pagetitle']?> <?=$suffix?></title>
+    <meta name="description" content="<?=@$GLOBALS['category']['seo_description']?$GLOBALS['category']['seo_description']:@$GLOBALS['pagetitle']?>" />
+    <meta name="keywords" content="<?=@$GLOBALS['category']['seo_keywords']?$GLOBALS['category']['seo_keywords']:@$GLOBALS['pagetitle']?>" />
+    <? } elseif(@$_GET['cid']) {
+    $prefix = @General::getConfigValue('category_prefix');
+    $suffix = @General::getConfigValue('category_suffix');
+    ?>
+    <title><?=$prefix?> <?=$GLOBALS['pagetitle']?> <?=$suffix?></title>
+    <meta name="description" content="<?=@$GLOBALS['pagetitle']?>" />
+    <meta name="keywords" content="<?=@$GLOBALS['pagetitle']?>" />
+		<? } elseif(@$_GET['p']=='news' || @$_GET['p']=='allnews') { ?>
+    <title><? print (General::getConfigValue('site_name')) ? General::getConfigValue('site_name') : CFG_SITE_NAME; ?> - <?=Lang::get('news')?></title>
+    <? } else { ?>
+    <title><? print (General::getConfigValue('site_name')) ? General::getConfigValue('site_name') : CFG_SITE_NAME; ?> <? if(@$GLOBALS['pagetitle']){ ?> - <?=$GLOBALS['pagetitle']?> <? } ?></title>
+    <meta name="description" content="<?=@$GLOBALS['pagetitle']?>" />
+    <meta name="keywords" content="<?=@$GLOBALS['pagetitle']?>" />
+    <? } ?>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+
+    <link rel="stylesheet" href="css/style.css?<?=CFG_SITE_VERSION;?>" />
+    <style type="text/css">
+        <?if(@General::getConfigValue('logo')){?>
+        .header .logo{ height: 54px; margin-left: 40px; display: block; background: url('<?=@General::getConfigValue('logo')?>') no-repeat left top; text-indent:-300em;}
+        <?}?>
+    </style>
+    <?if(file_exists(CFG_APP_ROOT.'/css/custom.css')){?>
+    <link rel="stylesheet" href="css/custom.css?<?=CFG_SITE_VERSION;?>"/>
+    <?}?>
+
+    <script src="https://yandex.st/jquery/1.7.2/jquery.min.js?<?=CFG_SITE_VERSION;?>"></script>
+    <script src="js/jquery-ui.min.js?<?=CFG_SITE_VERSION;?>"></script>
+    <link type="text/css" href="css/redmond/jquery-ui-1.8.18.custom.css?<?=CFG_SITE_VERSION;?>" rel="stylesheet" />
+
+    <script type="text/javascript" src="js/general.js?<?=CFG_SITE_VERSION;?>"></script>
+    <script type="text/javascript" src="js/common.js?<?=CFG_SITE_VERSION;?>"></script>
+
+    <? if(SCRIPT_NAME == 'basket' || SCRIPT_NAME == 'userorder'){ ?>
+    <script type="text/javascript" src="js/cart.js?<?=CFG_SITE_VERSION;?>"></script>
+    <? } ?>
+
+    <? if(SCRIPT_NAME == 'supportlist'){ ?>
+    <script type="text/javascript" src="js/favourites.js?<?=CFG_SITE_VERSION;?>"></script>
+    <? } ?>
+
+    <? if(SCRIPT_NAME != 'index'){ ?>
+    <script type="text/javascript" src="js/inner.js?<?=CFG_SITE_VERSION;?>"></script>
+    <link rel="stylesheet" href="css/inner.css?<?=CFG_SITE_VERSION;?>" type="text/css" />
+    <? } ?>
+
+    <? if(SCRIPT_NAME == 'index'){ ?>
+    <!--Social-->
+    <script src="js/main.js?<?=CFG_SITE_VERSION;?>"></script>
+    <script type="text/javascript" src="js/coin-slider.js?<?=CFG_SITE_VERSION;?>"></script>
+    <link rel="stylesheet" href="js/coin-slider-styles.css?<?=CFG_SITE_VERSION;?>" type="text/css" />
+    <? } ?>
+</head>
+<body style="background:none;">

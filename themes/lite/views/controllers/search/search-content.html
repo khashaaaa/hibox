@@ -1,0 +1,103 @@
+<?=General::viewFetch('controllers/search/filters/image', array('vars' => array(
+    'searchResult' => $searchResult,
+    'searchProperties' => $searchProperties
+)))?>
+
+<?=General::viewFetch('controllers/search/status', array('vars' => array(
+    'searchResult' => $searchResult,
+    'searchParams' => $searchParams,
+    'activeSearchMethod' => $activeSearchMethod,
+    'searchProperties' => $searchProperties,
+    'baseUrl' => clone $baseUrl,
+)))?>
+
+<?=General::viewFetch('controllers/search/filters/properties', array('vars' => array(
+    'searchProperties' => $searchProperties,
+    'searchParams' => $searchParams,
+    'baseUrl' => clone $baseUrl,
+    'typeOfInput' => ($activeSearchMethod->GetMultipleConfiguratorLogic() == 'None') ? 'radio' : 'checkbox'
+)))?>
+
+<?=General::viewFetch('controllers/search/filters/filters', array('vars' => array(
+    'searchResult' => $searchResult,
+    'searchParams' => $searchParams,
+    'activeSearchMethod' => $activeSearchMethod,
+    'baseUrl' => clone $baseUrl,
+)))?>
+
+<div class="fll col-xs-12 col-sm-5 col-md-4 col-lg-3 sidebar">
+    <?=General::viewFetch('controllers/search/filters/search-method', array('vars' => array(
+        'availableSearchMethodList' => $availableSearchMethodList,
+        'searchParams' => $searchParams,
+        'activeSearchMethod' => $activeSearchMethod,
+    )))?>
+
+    <?=General::viewFetch('controllers/search/vendor-info', array('vars' => array(
+        'searchResult' => $searchResult
+    )))?>
+
+    <?=General::viewFetch('controllers/search/brand-info', array('vars' => array(
+        'searchResult' => $searchResult
+    )))?>
+
+    <?=General::viewFetch('controllers/search/filters/categories', array('vars' => array(
+        'id' => 'search-content_categories-sub_categories',
+        'title' => Lang::get('subcategories'),
+        'categories' => $subCategories,
+        'searchParams' => $searchParams,
+        'resetSearchContext' => false,
+    )))?>
+
+    <?=General::viewFetch('controllers/search/filters/categories', array('vars' => array(
+        'id' => 'search-content_categories-interested_categories',
+        'title' => Lang::get('suitable_category'),
+        'categories' => $categories,
+        'searchParams' => $searchParams,
+        'resetSearchContext' => false,
+    )))?>
+
+    <?=General::viewFetch('controllers/search/filters/categories', array('vars' => array(
+        'id' => 'search-content_categories-hint_categories',
+        'title' => Lang::get('Perhaps_you_are_interested'),
+        'categories' => $hintCategories,
+        'searchParams' => $searchParams,
+        'resetSearchContext' => true,
+    )))?>
+
+</div> <!-- /fll col240 -->
+
+<div class="search-content_items col-xs-12 col-sm-7 col-md-8 col-lg-9">
+
+    <? if (! empty($products)) { ?>
+        <?=General::viewFetch('other/product/list-' . $searchParams['layout'], array('vars' => array(
+            'products' => $products
+        )))?>
+
+        <?=General::viewFetch('controllers/search/filters/pagination', array('vars' => array(
+            'from' => $searchParams['filter']['from'],
+            'perpage' => $searchParams['filter']['perPage'],
+            'maximumPageCount' => $searchResult->GetItems()->GetMaximumPageCount(),
+            'baseUrl' => clone $baseUrl,
+        )))?>
+    <? } ?>
+
+</div>
+<div class="clearfix"></div>
+
+<div class="search-content-info">
+    <?= !empty($contentInfo) ? $contentInfo : '' ?>
+</div>
+
+<?= Lang::loadJSTranslation(array(
+    'vendor_score_filter_min',
+    'vendor_score_filter_max'
+)) ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+$('div.ratyScore').raty({
+readOnly: true
+});
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>

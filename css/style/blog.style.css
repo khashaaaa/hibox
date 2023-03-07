@@ -1,0 +1,139 @@
+/* blog (begin) */
+
+  .b-post
+  { margin: 0 0 10px 0 }
+
+  .b-post .l-blog
+  { margin: 0 0 15px 0 }
+
+  .b-post .l-blog .item
+  {
+    display: inline-block;
+    width: 32%;
+    margin: 0 0 15px 0;
+    padding: 0 25px 0 0;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    vertical-align: top;
+  }
+
+  .b-post .l-blog .item:after,
+  .l-inner-blog .item:after
+  {
+    display: block;
+    clear:both;
+    content: '';
+    width: 100%:
+  }
+
+  .post-info .date,
+  .post-info .link,
+
+  {
+    display: block
+  }
+
+  .post-info .post-date,
+  .b-post-full .date
+  {
+    color: #959595;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .post-info .post-content .i-link
+  {
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .post-info .post-content .i-link:visited
+  {
+    color: #868686;
+  }
+
+  .post-info .post-content .title
+  {
+    margin: 3px 0;
+
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .post-content {
+    clear: both;
+  }
+
+  .b-post .b-link-all
+  {
+    width: 100%;
+    clear: both;
+  }
+
+  .b-post .b-link-all .i-link
+  {
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .b-post .b-link-all .i-link:after
+  {
+    display: inline-block;
+    margin: 0 0 0 3px;
+    content: '\25BA';
+  }
+  
+  .b-post .b-link-all.b-link-back .i-link:after{
+  	margin: 0px;
+  	content: '';
+  }
+  
+  .b-post .b-link-all.b-link-back .i-link:before{
+    display: inline-block;
+    margin: 0 3px 0 0;
+    content: '\25C4';
+  }
+  
+  
+
+  .l-inner-blog
+  {}
+
+  .l-inner-blog .item
+  { margin: 0 0 25px 0 }
+
+
+  .post-info .post-image
+  {
+    float: left;
+    margin: 0 10px 0 0;
+    width: 100px;
+  }
+
+  .post-info .post-image .image
+  { max-width: 100% }
+
+  .b-post-full h1
+  { margin: 0 0 5px 0 }
+
+  .b-post-full .item-image
+  {
+    float: left;
+    margin: 0 10px 10px 0;
+  }
+
+  /*
+  * Style For Right To Left
+  * (Hebrew)
+  */
+  .rtl .b-post .b-link-all
+  { text-align: left }
+
+  .rtl .b-post .b-link-all .i-link:after
+  { content: '\25C4' }
+
+/* blog (end) */
+

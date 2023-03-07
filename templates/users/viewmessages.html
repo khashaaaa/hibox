@@ -1,0 +1,88 @@
+<?if (defined ('ADVANCED_SUPPORT_INTERFACE')){?>
+<!--noindex-->
+<script type="text/javascript">
+    $(function() {
+        $( "#fromdate" ).datepicker();
+        $( "#todate" ).datepicker();
+    });
+</script>
+<!--/noindex-->
+<form class="userform" action="/?p=support&mode=view" method="post" enctype="multipart/form-data" >
+    <table class="filter" width=100%>
+        <tr>
+            <td style="width:150px; text-align:right">
+                <label style="width: 150px; display: inline-block"><?=Lang::get('order_number')?></label>
+            </td>
+            <td>
+                <select style="width: 250px;" name="ticket_pub_order_number">
+                    <?foreach ($arOrderID as $key=>$orderID){?>
+                    <option value="<?=$key==0?$key:$orderID?>" <?=($key==0&&!$_SESSION['arSubFilter']['ticket_pub_order_number'])||$_SESSION['arSubFilter']['ticket_pub_order_number']===$orderID?'selected':''?>><?=(defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, $orderID):(string)$orderID)?></option>
+                    <?}?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:150px; text-align:right">
+                <label style="width: 100px; display: inline-block"><?=Lang::get('date_from')?></label>
+            </td>
+            <td>
+                <input id="fromdate" style="width: 250px;" name="ticket_pub_date_from"type="text" value="<?=@$_SESSION['arSubFilter']['ticket_pub_date_from']?>">
+            </td>
+        </tr>
+        <tr>
+            <td style="width:150px; text-align:right">
+                <label style="width: 100px; display: inline-block"><?=Lang::get('date_to')?></label>
+            </td>
+            <td>
+                <input id="todate" style="width: 250px;" name="ticket_pub_date_to"type="text" value="<?=@$_SESSION['arSubFilter']['ticket_pub_date_to']?>">
+            </td>
+        </tr>
+        <tr>
+            <td style="width:150px; text-align:right">
+                <label style="width: 150px; display: inline-block"><?=Lang::get('ticket_answered')?></label>
+            </td>
+            <td>
+                <input class="noWidth" name="ticket_pub_new"type="checkbox" value="1" <?=@$_SESSION['arSubFilter']['ticket_pub_new']?'checked':''?>>
+            </td>
+        </tr>
+    </table>
+    <input  name="filter" class="noWidth ui-button ui-widget ui-state-default ui-corner-all" type="submit" value="<?=Lang::get('apply_filters')?>">
+    <input  name="clearFilter" class="noWidth ui-button ui-widget ui-state-default ui-corner-all" type="submit" value="<?=Lang::get('reset_filters')?>">
+</form>
+<br>
+<?}?>
+<a class="btn_off" href="/?p=support&mode=new">
+    <span><?=Lang::get('new_appeal')?></span>
+</a>
+<div id="support">
+    <? if(count($ticketlist)){?>
+        <table class="notepad bt0" width="100%">
+            <thead>
+                <tr>
+                    <td><?=Lang::get('msg_number')?></td>
+                    <td><?=Lang::get('order_number')?></td>
+                    <td><?=Lang::get('date')?></td>
+                    <td><?=Lang::get('category')?></td>
+                    <td><?=Lang::get('subject')?></td>
+                    <td><?=Lang::get('msgs')?></td>
+                    <td><?=Lang::get('unread')?></td>
+                </tr>
+            </thead>
+            <tbody class="bold">
+                <? if(is_array($ticketlist)) foreach($ticketlist as $ticket){ ?>
+                    <tr>
+                        <td class="lblue"><a href="/?p=support&mode=chat&id=<?=$ticket['ticketid']?>"><?=$ticket['ticketid']?></a></td>
+                        <td><?=(defined('CFG_PREFIX_REPLACE_ORD')?str_replace('ORD', CFG_PREFIX_REPLACE_ORD, $ticket['OrderId']):(string)$ticket['OrderId'])?></td>
+                        <td><?=$ticket['createddate']?></td>
+                        <td><?=$catNames[$ticket['CategoryId']]?></td>
+                        <td><?=$this->escape($ticket['Subject'])?></td>
+                        <td><?=(string)$ticket['msgcount']?></td>
+                        <td class="lgreen"><?=(string)$ticket['newmsgcount']?></td>
+                    </tr>
+                <?  }  ?>
+            </tbody>
+        </table>
+    <? } else { ?>
+        <h3 class="lgray tagc mt10"><?=Lang::get('no_messages')?>.</h3>
+    <? } ?>
+</div>

@@ -1,0 +1,35 @@
+<? // скрыть подборку от индексации ?>
+<?=(isset($noIndex) && $noIndex) ? '<!--noindex-->' : '' ?>
+
+<?
+    $seoCatModel = new SeoCategoryRepository(new CMS());
+    $menu = [];
+    $categories = [];
+    /**
+     * @var DataSubListOfOtapiCategory $list
+     */
+    foreach ($list->GetContent()->GetItem() as $item) {
+        if (!$item->IsFiltered() && !$item->IsHidden()) {
+            $categories[] = $item;
+        }
+    }
+    // регистрируем все категориия для генерации алиасов
+    UrlGenerator::addCategoriesForWarmup($categories);
+
+    foreach ($categories as $item) {
+        $menu[] = [
+            'title' => $item->GetName(),
+            'alias' => $item->GetId(),
+            'url' => UrlGenerator::generateSearchUrlByParams([
+                'cid' => $item->GetId(),
+            ]),
+        ];
+    }
+?>
+<?=SliceMenu::getWidget([
+    'items' => $menu,
+    'options' => [
+        'class' => 'nav-ul category-recommended'
+    ]
+])?>
+<?=(isset($noIndex) && $noIndex) ? '<!--/noindex-->' : '' ?>

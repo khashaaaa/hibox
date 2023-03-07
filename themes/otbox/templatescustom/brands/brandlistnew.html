@@ -1,0 +1,101 @@
+<div class="container product-listing">
+    <div class="row">
+            <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas">
+                <span id="close-sidebar" class="fa fa-times"></span>
+                <div class="module category-style">
+                    <h3 class="modtitle"><?=Lang::get('brand_type')?></h3>
+                        <div class="mod-content box-category">
+                            <ul>
+                                <li class="item"><a class="b-link" href="/?p=brands&type=<?=htmlspecialchars(@$_GET['type'])?>"><?=Lang::get('all')?></a></li>
+                                <li class="item">
+                                    <div class="alphabet">
+                                        <div class="border">
+                                            <?php
+                                                for ($i=97; $i<=105; $i++) {
+                                                    $x = chr($i);
+                                                    $class = @htmlspecialchars($_GET['letter'])==$x ? 'active': '';
+                                                    if(in_array('Seo2', General::$enabledFeatures))
+                                                        print "<a class=\"b-link $class\" href=\"/brands?letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                                    else
+                                                        print "<a class=\"b-link $class\" href=\"/?p=brands&letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                                }
+                                            ?>
+                                        </div>
+                                        <div class="border">
+                                            <?php
+                                                for ($i=106; $i<=114; $i++) {
+                                                    $x = chr($i);
+                                                    $class = @htmlspecialchars($_GET['letter'])==$x ? 'active': '';
+                                                    if(in_array('Seo2', General::$enabledFeatures))
+                                                        print "<a class=\"b-link $class\" href=\"/brands?letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                                    else
+                                                        print "<a class=\"b-link $class\" href=\"/?p=brands&letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                                }
+                                            ?>
+                                        </div>
+                                        <div class="border">
+                                            <?php
+                                                for ($i=115; $i<=122; $i++) {
+                                                    $x = chr($i);
+                                                    $class = @htmlspecialchars($_GET['letter'])==$x ? 'active': '';
+                                                    if(in_array('Seo2', General::$enabledFeatures))
+                                                        print "<a class=\"b-link $class\" href=\"/brands?letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                                    else
+                                                        print "<a class=\"b-link $class\" href=\"/?p=brands&letter=$x&type=".htmlspecialchars(@$_GET['type'])."\">$x</a>";
+                                                }
+                                            ?>
+                                        </div>	
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                
+                <div class="module category-style">
+                    <h3 class="modtitle"><?=Lang::get('brand_type')?></h3>
+                        <div class="mod-content box-category">
+                            <ul>
+                                <? if(in_array('Seo2', General::$enabledFeatures)){ ?>
+                                    <li class="item"><a <? if(!@$_GET['type']) {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>"><?=Lang::get('all')?></a></li>
+                                    <li class="item"><a <? if(@$_GET['type']=='Best') {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>&type=Best"><?=Lang::get('brand_typeBest')?></a></li>
+                                    <li class="item"><a <? if(@$_GET['type']=='Popular') {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>&type=Popular"><?=Lang::get('brand_typePopular')?></a></li>
+                                    <li class="item"><a <? if(@$_GET['Last']=='Best') {?>class="active"<?}?> href="/brands?letter=<?=htmlspecialchars($_GET['letter'])?>&type=Last"><?=Lang::get('brand_typeLast')?></a></li>
+                                <? } else { ?>
+                                    <li class="item"><a <? if(!@$_GET['type']) {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>"><?=Lang::get('all')?></a></li>
+                                    <li class="item"><a <? if(@$_GET['type']=='Best') {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>&type=Best"><?=Lang::get('brand_typeBest')?></a></li>
+                                    <li class="item"><a <? if(@$_GET['type']=='Popular') {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>&type=Popular"><?=Lang::get('brand_typePopular')?></a></li>
+                                    <li class="item"><a <? if(@$_GET['Last']=='Best') {?>class="active"<?}?> href="/?p=brands&letter=<?=htmlspecialchars($_GET['letter'])?>&type=Last"><?=Lang::get('brand_typeLast')?></a></li>
+                                <? } ?>
+                            </ul>    
+                        </div>
+                </div>
+            </aside>
+
+            <div class="col-md-9 col-sm-12 col-xs-12 fluid-sidebar" id="content">
+                <a href="javascript:void(0)" class="open-sidebar hidden-lg hidden-md mb15"><i class="fa fa-bars"></i> <?=Lang::get('sidebar')?></a>
+                <? if (!empty($brandlist)){ ?>
+                    <div class="lproduct flin w100li brand clrfix">
+                    <? foreach($brandlist as $item) { ?>
+                        <div class="col-md-2 col-sm-2 col-xs-3">
+                            <div class="brand-item" title="TOPSHOP">
+                                <div class="brand-img">
+                                    <img class="check-noimg" src="<?=$item['pictureurl']?>" alt="<?=$this->escape($item['Name'])?>" itemprop="image">
+                                </div>
+                                <a class="brand-mask" href="/search?search=&brand=<?=$item['id']?>">
+                                    <div class="coupon">
+                                        <span><?=$this->escape($item['Name'])?></span>
+                                    </div>
+                                    <div class="enter">
+                                        <span><?=Lang::get('See_item')?></span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    <?} ?>
+                    </div>
+                <?}else{?>
+                    <h2><span><?=$emptymessage?></span></h2>
+                <?}?>
+            </div>
+    </div>
+</div>

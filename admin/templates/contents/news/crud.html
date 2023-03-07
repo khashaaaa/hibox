@@ -1,0 +1,89 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>"><?=LangAdmin::get('contents::Content')?></a> <span class="divider">›</span></li>
+    <li class="active"><?= $news['id'] ? LangAdmin::get('contents::Edit_news') : LangAdmin::get('contents::Add_news')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/contents/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?= $news['id'] ? LangAdmin::get('contents::Edit_news') : LangAdmin::get('contents::Add_news')?></h1>
+<div class="well contents-wrapper">
+
+    <form method="post" class="form-horizontal ot_form ot_edit_news_form" action="<?=$PageUrl->AssignCmdAndDo('contents', 'saveNews')?>" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id" value="<?=$news['id']?>">
+    
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Title')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Title')?>"></i></label>
+            <div class="controls">
+                <input id="news-title" name="news-title" class="input-xlarge" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>" value="<?= $this->escape($news['title'])?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Image')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Image')?>"></i></label>
+            <div class="controls">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-new thumbnail thumbnail-mini">
+                        <div class="thumbnail-placeholder">
+                        <?php if ($news['image']) { ?>
+                            <img src="<?=DigestRepository::getImage($news['image'], "thumb")?>" alt="">
+                        <?php } else {?>
+                            <i class="icon-picture"></i>
+                        <?php } ?>
+                        </div>
+                    </div>
+                    <div class="fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+                    <span class="btn btn-primary btn-tiny btn-file">
+                        <span class="fileupload-new"><?=LangAdmin::get('contents::Select')?></span>
+                        <span class="fileupload-exists"><?=LangAdmin::get('contents::Change')?></span>
+                        <input type="file" name="new_image" id="new_image" />
+                        <input type="hidden" name="image" id="image" value="<?=$news['image']?>"/>
+                    </span>
+                    <span class="btn btn-danger btn-tiny fileupload-exists" data-dismiss="fileupload"><?=LangAdmin::get('contents::Delete')?></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Language')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Language')?>"></i></label>
+            <div class="controls">
+
+                <select class="input-medium" id="news-language" name="news-language">
+                    <? foreach ($languages as $lang) { ?>
+                        <option value="<?=$lang['name']?>" <?php if($news['lang_code'] == $lang['name']) print 'selected="selected"' ?>><?=$lang['description']?></option>
+                    <?php } ?>
+                </select>
+    
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::News_preview')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::News_preview')?>"></i></label>
+            <div class="controls">
+                <textarea rows="6" class="input-xxlarge" id="news-preview" name="news-preview"><?php echo $news['brief']; ?></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Content')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content="<?=LangAdmin::get('contents::Content')?>"></i></label>
+            <div class="controls">
+                <textarea rows="10" class="input-xxlarge" id="news-content" name="news-content"><?php echo $news['text']; ?></textarea>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button href="#" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Save')?>"><?=LangAdmin::get('Save')?></button>
+            <? if ($news['id']) { ?>
+            <a href="#" class="btn btn_preloader save-and-continue" data-loading-text="<?=LangAdmin::get('Save_and_continue')?>"><?=LangAdmin::get('Save_and_continue')?></a>
+            <? } ?>
+            <a href="<?=$PageUrl->AssignCmdAndDo('contents', 'news')?>" type="button" class="btn offset-left2 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+        </div>
+
+    </form>
+
+</div>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-contents-news.js'); ?>

@@ -1,0 +1,165 @@
+
+<!--noindex-->
+<script type="text/javascript">
+    $(function () {
+        $('#add').attr('disabled', 'disabled');
+        $('#add').addClass('disabled');
+        $('.payment_radio').each(function() {
+            if ($(this).prop('checked')) {
+                $('#add').removeAttr('disabled');
+                $('#add').removeClass('disabled');
+            }
+}
+);
+        $('.payment').click(function () {
+            var id = $(this).attr('id') + '_custom';
+            if ($('#' + id).val() != undefined) {
+                $(this).attr('href', $(this).attr('href') + '&Custom=' + $('#' + id).val());
+            }
+            return true;
+        });
+
+        $('.payment_radio').change(function () {
+            $('.payment-descriptions').hide();
+            $('[pid="desc' + $(this).val() + '"]').css('display', 'inline-block');
+            $('#add').removeAttr('disabled');
+            $('#add').removeClass('disabled');
+        });
+
+        if ($('.payment_radio').length == 1) {
+            $('.payment_radio').attr('checked', 'checked').change().hide();
+        }
+        $('.payment_radio:checked').change();
+
+        $('#payment-form').submit(function () {
+            var paymentName = $('[name="paymentId"]:checked').attr('id');
+            var paymentCustomExists = false;
+            var custom = 0;
+            if ($('#' + paymentName + '_custom').length > 0) {
+                paymentCustomExists = true;
+                custom = $('#' + paymentName + '_custom').val();
+                $('#' + paymentName + '_custom').removeClass('custom-fields');
+            }
+
+            if (paymentCustomExists && !custom) {
+                $('#msg').text('<?=Lang::get('not_filled_required_field')?>: ' + $('#' + paymentName + '_custom_name').text());
+                $('#dialog-form').dialog();
+                return false;
+            }
+            if (!$('[name="money"]').val()) {
+                $('#msg').text('<?=Lang::get('not_filled_required_field')?>: <?=Lang::get('sum')?>');
+                $('#dialog-form').dialog();
+                return false;
+            }
+
+            $('.custom-fields').remove();
+
+            return true;
+        });
+    });
+</script>
+<!--/noindex-->
+
+<div id="dialog-form" title="<?=Lang::get('message')?>">
+    <span id="msg"></span>
+</div>
+
+
+<div class="bproduct fs15 mb30">
+
+    <form action="/" id="payment-form" <?=General::getConfigValue('open_payment_in_new_window', '0') != '0'?'target="_blank"':''?>>
+
+        <? if(!empty($methods) or General::getConfigValue('payment_in_cash')) { ?>
+            <? if (!isset($_GET['orderid'])) { ?>
+                <h2 class="mb20"><span><?= Lang::get('payments') ?></span></h2>
+                <div class="title mb20"><b><?= Lang::get('enter_amount') ?>
+                        (<?= $currencySign ?>)</b></div>
+                <input type="hidden" name="deposit" value="1">
+            <? } ?>
+
+            <input type="hidden" name="p" value="pay">
+            <input type="hidden" name="pay" value="1">
+
+            <? if (isset($_GET['orderid'])) { ?>
+                <input type="hidden" name="orderid" value="<?= $_GET['orderid'] ?>">
+            <? } ?>
+
+            <? if (isset($_GET['orderid'])) { ?>
+                <span class="userform">
+            <span class="enter">
+                <input type="submit" id="add" class="btn_office" value="<?= Lang::get('pay') ?>">
+            </span>
+        </span>
+                <input type="text" name="money" value="1" style="display: none">
+            <? } else { ?>
+                <div class="form-inline">
+                <input type="text" name="money" class="form-control col-lg-2" required>
+                <input type="submit" id="add" class="btn tpt ml-1" value="<?= Lang::get('add_money') ?>">
+                </div>
+            <? } ?>
+        <? }else{ ?>
+            <h3><?=Lang::get('no_payment_methods_is_connected')?></h3>
+        <? } ?>
+
+        <table class="all-order-table dop_table_payment mt20">
+            <tbody>
+            <?php $idx = 0; if ((isset($methods) && $methods) || ($method_groups && isset($_GET['orderid'])) || ($method_groups && General::getConfigValue('payment_in_cash'))): ?>
+                <?php foreach($method_groups as $group_key => $method_group): ?>
+                <tr>
+                    <td width="200">
+                        <nobr><b><?= Lang::get($group_key); ?></b></nobr>
+                    </td>
+                    <td>
+                        <?php foreach($method_group as $k => $m): ?>
+                        <?php if (empty($m)) continue; ?>
+                        <? $k = $idx++; ?>
+
+                        <div>
+                            <label>
+                                <input type="radio" name="paymentId" class="payment_radio" value="<?= $m['Id'] ?>"
+                                       id="payment_<?= $k ?>" re/>
+                                <?= $m['Name'] ?>
+                            </label>
+                        </div>
+                        <span class="payment-descriptions" pid="desc<?= $m['Id'] ?>"
+                              style="display:none;color:#666;font-size:11px">
+
+                            <? $img = strtolower(General::rus2translit(str_replace(array('.', '-', ' '), '', $m['ImageURL']))); ?>
+                            <? $img = substr($img, 0, -3); ?>
+                            <? if (file_exists(CFG_APP_ROOT . '/i/payments/' . $m['ImageURL']) && $m['ImageURL']) { ?>
+                                <br/><img src="i/payments/<?= $m['ImageURL'] ?>" style="display:block;margin:5px 0px;"/><br/>
+                            <? } elseif (file_exists(CFG_APP_ROOT . '/i/payments/' . $img . '.jpg')) { ?>
+                                <br/><img src="i/payments/<?= $img ?>.jpg" style="display:block;margin:5px 0px;"/><br/>
+                            <? } elseif (file_exists(CFG_APP_ROOT . '/i/payments/' . $img . '.png')) { ?>
+                                <br/><img src="i/payments/<?= $img ?>.png" style="display:block;margin:5px 0px;"/><br/>
+                            <? } ?>
+
+                            <?= $m['Description'] ?>
+                            <br/>
+                            <? if ($m['CustomField'] != 'None'): ?>
+                            <div id="payment_<?= $k ?>_custom_wrapper" class="payment-wrapper">
+                                <strong
+                                        id="payment_<?= $k ?>_custom_name"><?= Lang::get(strtolower((string)$m['CustomField'])) ?></strong>
+                                <input type="text" class="custom-fields" name="Custom[<?=$m['Id']?>]" value=""
+                                       id="payment_<?= $k ?>_custom"/>
+                            </div>
+                            <? endif; ?>
+                                </span>
+
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php if (@$methods_error): ?>
+            <tr><td><b><?= $methods_error ?></b></td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+
+<?=Plugins::runEvent('onAfterRenderPaymentMethods')?>
+<?=Plugins::invokeEvent('onRenderPaymentMethodsPage')?>
+<b><?= @preg_replace('/\[.*Exception\]/', '', $payment_error) ?></b>

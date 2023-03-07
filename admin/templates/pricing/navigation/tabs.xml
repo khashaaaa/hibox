@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="Currency" action="default" cmd="Pricing">
+        <page data-action="default" data-cmd="pricing" />
+    </tab>
+    <tab title="Costs" action="cost" cmd="Pricing">
+        <page data-action="cost" data-cmd="pricing" />
+    </tab>
+	<tab title="Discounts" action="default" cmd="Discount" feature="Discount">
+        <page data-action="default" data-cmd="discount" />
+		<page data-action="editDiscount" data-cmd="discount" />
+		<page data-action="groupInfo" data-cmd="discount" />			
+    </tab>
+	<tab title="Banker" action="banker" cmd="pricing" feature="CurrencyRateEnhance">
+        <page data-action="banker" data-cmd="pricing" />
+        <page data-action="addPriceGroup" data-cmd="pricing" />
+        <page data-action="editPriceGroup" data-cmd="pricing" />
+        <page data-action="priceGroupCategories" data-cmd="pricing" />
+    </tab>
+    
+</tabs>

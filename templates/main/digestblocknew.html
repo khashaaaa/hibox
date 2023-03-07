@@ -1,0 +1,22 @@
+<? if (is_array($digestBlock) && !empty($digestBlock)) { ?>
+    <div class="bproduct b-post">
+        <h2 class="mb25"><span><?=Lang::get('post')?></span></h2>
+        <ul class="blog l-blog">
+        <? foreach ($digestBlock as $post) { ?>
+            <? $date = $post['created']; ?>
+            <li class="item">
+                <div class="post-info">
+                    <? if ($post['image'])  { ?>
+                    <div class="post-image">
+                        <img alt="<?= $post['title'] ?>" src="<?=DigestRepository::getImage($post['image'], "thumb")?>" class="image">
+                    </div>
+                    <? } ?>
+                    <div class="post-date"><?= $date->format('d.m.Y')?></div>
+                    <div class="post-content"><a href="<?=UrlGenerator::generatPostUrl('post', $post['id'], $post['alias'])?>" class="i-link"><?=$post['title'] ?></a></div>
+                </div>
+            </li>
+        <? } ?>
+        </ul>
+        <div class="b-link-all"><a href="<?=@UrlGenerator::generateContentUrl('digest')?>" class="i-link"><?=Lang::get('digest')?></a></div>
+    </div>
+<? } ?>

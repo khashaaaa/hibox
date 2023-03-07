@@ -1,0 +1,16 @@
+/* @import "style/icons.control.css"; */
+/*@import "style/button.css"; пока не понял, зачем это. пока от этого только баги */
+/* @import "style/menu-dropdown.css"; не надо вроде */
+
+@import "style/form.css";
+
+@import "style/menu-navigation.css";
+@import "style/one-rules.css";
+@import "style/menu-userbar.css";
+@import "style/menu-crumbs.css";
+
+@import "style/product.css";
+@import "style/paginator.css";
+@import "style/footer.css";
+
+@import "custom.new.content.css";

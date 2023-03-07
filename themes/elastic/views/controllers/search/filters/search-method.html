@@ -1,0 +1,41 @@
+<? if (!empty($availableSearchMethodList) && count($availableSearchMethodList) > 1) { ?>
+    <div class="accordion accordion-menu accordion-filters" id="catalog-link">
+        <div class="card">
+            <div class="card-header  nopadding panel-grey" id="catalog-head1">
+                <h5 class="mb-0">
+                    <button class="btn btn-link link pl-0 pr-0 collapsed" type="button" data-toggle="collapse" data-target="#collapse-catalog" aria-expanded="false" aria-controls="collapse-catalog">
+                        <?= $activeSearchMethod->GetDisplayName(); ?><i></i>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapse-catalog" class="collapse" aria-labelledby="catalog-head1"  data-parent="#catalog-link">
+                <div class="card-body">
+                    <ul>
+                        <? foreach ($availableSearchMethodList as $type) { ?>
+                        <? if ($type->GetSearchMethod() == $activeSearchMethod->GetSearchMethod() && $type->GetProvider() == $activeSearchMethod->GetProvider()) { ?>
+                            <? continue; ?>
+                        <? } ?>
+                            <li>
+                                <a href="<?=UrlGenerator::generateSearchUrlByParams(array(
+                                    'Provider' => InstanceProvider::getObject()->GetAliasByProviderName(
+                                        Session::getActiveLang(),
+                                        $type->GetProvider()
+                                    ),
+                                    'SearchMethod' => $type->GetSearchMethod(),
+                                    'imageId' => $searchParams['imageId'],
+                                    'module' => $searchParams['module'],
+                                    'vid' => $searchParams['vid'],
+                                    'brand' => $searchParams['brand'],
+                                    'cid' => $searchParams['cid'],
+                                    'search' => $searchParams['searchWord'],
+                                    ))?>"><?=$type->GetDisplayName()?>
+                                </a>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<? } ?>   
+    

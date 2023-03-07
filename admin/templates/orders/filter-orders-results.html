@@ -1,0 +1,246 @@
+<? if (empty($ajax)) { ?>
+    <div class="orders-wrapper">
+
+    <div class="row-fluid">
+
+        <div class="pull-left">
+
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-tiny btn-primary dropdown-toggle"><i class="icon-cog"></i> <?=LangAdmin::get('With_chosen')?> <span class="caret"></span></button>
+                <ul class="dropdown-menu actionWithOrders">
+                    <li class="bulkCancelOrders">
+                        <a href="javascript:void(0)" title="<?=LangAdmin::get('Cancel')?>"><i class="icon-ban-circle"></i> <?=LangAdmin::get('Cancel')?></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+
+                <button id="bulkExportOrders" style="display:none" class="btn btn-tiny btn-primary" title="<?=LangAdmin::get('Export_chosen_orders')?>"><i class="icon-share"></i> <?=LangAdmin::get('Export')?></button>
+
+                <button id="ercExportOrders" style="display:none" class="btn btn-tiny btn-primary" title="<?=LangAdmin::get('Export_chosen_orders')?>"><i class="icon-share"></i> <?=LangAdmin::get('Export')?> (ERC)</button>
+
+                <button id="ercExportAgents" style="display:none" class="btn btn-tiny btn-primary" title=""><i class="icon-share"></i> <?=LangAdmin::get('Export_by_agents')?> (ERC)</button>
+    <!--
+                <button data-toggle="dropdown" class="btn btn-tiny btn-primary dropdown-toggle" title="<?=LangAdmin::get('Rest_actions_with_chosen')?>"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a id="restoreOrders" href="javasrcipt:void(0)" title="<?=LangAdmin::get('Restore_orders')?>"><i class="icon-undo"></i> <?=LangAdmin::get('restore')?></a></li>
+                    <li><a id="cancelOrders" href="javasrcipt:void(0)" title="<?=LangAdmin::get('Cancel_orders')?>"><i class="icon-ban-circle"></i> <?=LangAdmin::get('Cancel')?></a></li>
+                </ul>
+    -->
+            </div>
+            <i id="bulkActionsLoader" style="display:none" class="ot-preloader-mini offset-left05"></i>
+        </div>
+
+        <div class="pull-right">
+            <label><?=LangAdmin::get('Show')?>
+                <select class="input-mini perpageSelect">
+                    <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                    <option value="<?=$perPageLimit?>"
+                        <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>>
+                        <?=$perPageLimit?>
+                    </option>
+                    <? } ?>
+                </select> <!--<?=LangAdmin::get('per_page')?>-->
+            </label>
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-not-hover">
+            <thead>
+            <tr>
+                <th><!-- TODO: remove sorting from this column (datatables docs) -->
+                    <label class="checkbox inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1" class="checkAll" />
+                    </label>
+                </th>
+                <th><?=LangAdmin::get('Order_number')?></th>
+                <th class="th-sort">
+                    <? if (empty($sorting['CreationDate']) || $sorting['CreationDate']=="DESC") { ?>
+                    <a class="table-sort" href="<?=$PageUrl->AddArray(array('sort'=>array('CreationDate'=>'ASC')))->Get();?>"><?=LangAdmin::get('Creation_date')?> <i class="icon-caret-down"></i></a>
+                    <? } else { ?>
+                    <a class="table-sort" href="<?=$PageUrl->AddArray(array('sort'=>array('CreationDate'=>'DESC')))->Get();?>"><?=LangAdmin::get('Creation_date')?> <i class="icon-caret-up"></i></a>
+                    <? } ?>
+                </th>
+
+
+                <th class="th-sort">
+                    <? if (empty($sorting['StatusId']) || $sorting['StatusId']=="DESC") { ?>
+                    <a class="table-sort" href="<?=$PageUrl->AddArray(array('sort'=>array('StatusId'=>'ASC')))->Get();?>"><?=LangAdmin::get('Order_status')?>&nbsp;<i class="icon-caret-down"></i></a>
+                    <? } else { ?>
+                    <a class="table-sort" href="<?=$PageUrl->AddArray(array('sort'=>array('StatusId'=>'DESC')))->Get();?>"><?=LangAdmin::get('Order_status')?>&nbsp;<i class="icon-caret-up"></i></a>
+                    <? } ?>
+                </th>
+                <th><?=LangAdmin::get('Products')?></th>
+                <th><?=LangAdmin::get('Amount')?><br> <span class="font-11">(<?=LangAdmin::get('Paid')?>)</span></th>
+                <th class="customer"><?=LangAdmin::get('Customer')?>/ <br><span class="font-11"><?=LangAdmin::get('user_balance')?></span></th>
+                <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                <th><?=LangAdmin::get('Operator')?></th>
+                <th><?=LangAdmin::get('Provider')?></th>
+                <? } ?>
+                <th class="td-2btn-width"><?=LangAdmin::get('Actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <? } ?>
+
+            <? if (! empty($orders)) { ?>
+
+            <? foreach ($orders as $order) { ?>
+
+            <!-- order line -->
+            <tr id="<?=$order['id']?>" class="orderRow" data-numeric-id="<?=$order->getNumericId()?>" customerId="<?=$order['custid']?>" cancancel="<?=(int)$order['cancancel']?>">
+                <td><input type="checkbox" /></td>
+                <td>
+                    <? if (RightsManager::hasRight(RightsManager::RIGHT_ORDERMANAGEMENT)) { ?>
+                    <a href="<?=$PageUrl->generate(array('do'=>'view', 'id'=>$order['id']))?>" title="<?=LangAdmin::get('Order_page')?>"><?=OrdersProxy::normalizeOrderId($order['id'])?></a>
+                    <? } else { ?>
+                    <?=OrdersProxy::normalizeOrderId($order['id'])?>
+                    <? } ?>
+                </td>
+                <td><?=date('d.m.y', strtotime($order['createddatetime']))?><br> <span class="muted font-11">(<?=date('H:i:s', strtotime($order['createddatetime']))?>)</span></td>
+
+                <td class="order_status"><?=$order['statusname']?></td>
+                <td>
+                    <?php
+                    $line_statuses = array();
+                    foreach ($order['LineStatusSummaries'] as $line) {
+                        $line_statuses[] = (string)$line['Status']['Name'] . ':&nbsp;' . (string)$line['Count'];
+                    }
+                ?>
+                    <? if (RightsManager::hasRight(RightsManager::RIGHT_VIEWORDERLINE)) { ?>
+                    <span title="<?=LangAdmin::get('Show_goods_list')?>" class="ot_show_goods_list blink" data-toggle="collapse" data-target=".<?=$order['id']?>-goods"> <?=implode(', ', $line_statuses);?></span>
+                    <? } ?>
+                </td>
+
+                <td class="order_price">
+                    <?=TextHelper::formatPrice($order->totalamount, $order->currencysign)?><br>
+                    (<?=TextHelper::formatPrice($order->totalamount - $order->remainamount, $order->currencysign)?>)
+                </td>
+
+                <td>
+
+                    <? if (RightsManager::isAvailableCmd('users')) { ?>
+                    <a target="_blank" href="<?=$PageUrl->generate(array('cmd'=>'users', 'do'=>'profile', 'id'=>$order['custid']))?>" title="<?=LangAdmin::get('User_profile')?>">
+                        <? } ?>
+                        <?=$this->escape($order['custname'])?>
+                        <? if (RightsManager::isAvailableCmd('users')) { ?>
+                    </a>
+                    <? } ?>
+                    <br/> <?=TextHelper::formatPrice($order->useraccountavailableamount, $order->currencysign);?>
+
+                </td>
+
+                <? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+                <td></td>
+                <td><?=$providers[$order['ProviderTypeEnum']]['DisplayName'];?></td>
+                <? } ?>
+
+                <td>
+                    <div class="btn-group pull-right">
+                        <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <? if ($order['CanExportOrder']) { ?>
+                            <li class="exportOrderBlock" style="display:none" id="exportOrderMenuItem">
+                                <a class="exportOrder" href="javasrcipt:void(0)" title="<?=LangAdmin::get('Export_order')?>">
+                                    <i class="icon-share"></i> <?=LangAdmin::get('Export')?>
+                                </a>
+                            </li>
+                            <? } ?>
+
+                            <? if (RightsManager::hasRight(RightsManager::RIGHT_ORDERMANAGEMENT)) { ?>
+                            <? $canRestore = false;
+                            if ((int)$order['canrestore']) {
+                            	$canRestore = true;
+                             } ?>
+                            <li id="restoreOrderMenuItem" style="<?=$canRestore ? '' : 'display: none;'?>">
+                                <a class="restoreOrder" href="javasrcipt:void(0)" title="<?=LangAdmin::get('Restore_order')?>"
+                                   data-action="<?=$PageUrl->assignDo('restoreOrder')?>">
+                                    <i class="icon-undo"></i> <?=LangAdmin::get('restore')?>
+                                </a>
+                            </li>
+                            <? //} ?>
+
+                            <? //if ((int)$order['cancancel']) { ?>
+                            <li id="cancelOrderMenuItem" style="<?= $canRestore ? 'display: none;' : '' ?>">
+                                <a class="cancelOrder ot_show_deletion_dialog_modal"
+                                   data-action="<?=$PageUrl->assignDo('cancelOrder')?>"
+                                   href="javasrcipt:void(0)" title="<?=LangAdmin::get('Cancel_order')?>">
+                                    <i class="icon-ban-circle"></i> <?=LangAdmin::get('Cancel')?>
+                                </a>
+                            </li>
+                            <? //} ?>
+                            <?php
+                            $canBeMerged = array(10 => 10,
+                            11 => 11,
+                            20 => 20,
+                            30 => 30,
+                            31 => 31,
+                            32 => 32,
+                            36 => 36,
+                            37 => 37
+                            );
+                            if (in_array($order['statuscode'], $canBeMerged)) {?>
+                            <li id="mergeOrdersMenuItem">
+                                <a  class="mergeOrders" href="javascript:void(0)" title="<?=LangAdmin::get('Merge')?>"
+                                >
+                                    <i class="icon-exchange"></i> <?=LangAdmin::get('Merge')?>
+                                </a>
+                            </li>
+                            <? } ?>
+                            <? } ?>
+                        </ul>
+                    </div>
+                </td>
+
+            </tr><!-- order line ends -->
+
+            <!-- sliding goods list of <?=$order['id']?> order -->
+            <!--
+                TODO:
+                1) when ckick on <?=$order['id']?> show preloader
+                2) get goods <tr> via ajax
+            -->
+            <tr class="no-top-border">
+                <td colspan="10">
+                    <div class="collapse on <?=$order['id']?>-goods">
+                        <div class="well well-transp">
+                            <div class="row-fluid">
+                                <div class="ot_items_list_content text-center"><div class="ot-preloader-small"></div></div>
+                                <button type="button" class="close close-well" data-toggle="collapse" data-target=".<?=$order['id']?>-goods" title="<?=LangAdmin::get('Hide2')?>">&times;</button>
+                            </div><!-- /.row-fluid-->
+                        </div><!-- /.well -->
+                    </div><!-- /.collapse <?=$order['id']?>-goods -->
+                </td><!-- colspan=10-->
+            </tr><!-- /.no-top-border-->
+
+            <? } ?>
+
+            <? } else { ?>
+            <tr>
+                <td colspan="9">
+                    <? if ($activeTab == 'orders') { ?>
+                    <?=LangAdmin::get('No_orders_found')?>
+                    <? } else { ?>
+                    <div class="text-center"><div class="ot-preloader-small"></div></div>
+                    <? } ?>
+                </td>
+            </tr>
+            <? } ?>
+
+<? if (empty($ajax)) { ?>
+        </tbody>
+    </table>
+</div>
+
+    <div class="pagination-orders">
+        <?= ($activeTab == 'orders' && isset($paginator)) ? $paginator->display(false) : ''; ?>
+    </div>
+
+    <?= Plugins::invokeEvent('onRenderAdminOrdersList') ?>
+
+    </div>
+<? } ?>

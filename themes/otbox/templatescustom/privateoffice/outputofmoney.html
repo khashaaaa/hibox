@@ -1,0 +1,63 @@
+<div class="userform userBigLabel">
+    <form name="send_form" method="post" id="output_money">
+        <? if($success){ ?>
+        <div class="success">
+            <?=$success?>
+        </div>
+        <? } ?>
+        <? if($error){ ?>
+        <div class="error">
+            <?=$error?>
+        </div>
+        <? } ?>
+
+		<div class="bproduct mb30">
+			<h2 class="mb20"><span><?=Lang::get('A_withdrawal')?> </span></h2>
+			<span id="avaliable_amount"></span>
+			<div class="form-row">
+				<label for="amount"><?=Lang::get('sum')?><span class="red">*</span></label>
+				<input id="amount" type="text" name="amount" value="<?=$amount?>" class="form-field price-field"/>
+			</div>
+
+			<div class="form-row">
+				<label for="comment"><?=Lang::get('comment')?></label>
+				<textarea id="comment" type="text" name="comment" class="form-control"><?=$comment?></textarea>
+			</div>
+
+			<div class="form-row enter">
+				<input type="button" name="login" value="<?=Lang::get('send')?>" class="btn" id="output_money_button" onclick="DisableSubmit('output_money_button','output_money');"/>
+			</div>
+
+		</div>
+    </form>
+
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+	$(function(){
+		$('span#avaliable_amount').attr('amount','<?=$amount;?>');
+
+		$('input[name=amount]').change(function(){
+			validate();
+		});
+
+		var validate = function() {
+			var obj = $('input[name=amount]');
+			var limit = Number($('span#avaliable_amount').attr('amount'));
+			var amount = Number(obj.val());
+			var result = limit>=amount && amount!=0;
+			if (!result) {
+				obj.css('border-color','#ff0000');
+			} else {
+				obj.css('border-color','#999');
+			}
+			return result;
+		}
+
+		$('form[name=send_form]').submit(function() {
+			return validate();
+		});
+	});
+</script>
+<!--/noindex-->

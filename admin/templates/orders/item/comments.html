@@ -1,0 +1,23 @@
+<% for (var i = 0; i < comments.length; i++) { %>
+    <% if ("undefined" === typeof useWrapper || useWrapper) { %>
+        <div class="span6">
+    <% } %>
+
+        <blockquote>
+            <p class="font-13"><%= escapeData(comments[i].text) %></p>
+            <small>
+                <%= escapeData(comments[i].name) %>
+                <% if ("undefined" !== typeof operatorComment) { %>
+                    <button class="btn btn-mini" title="<%= trans.get("Edit_comment") %>"
+                        data-toggle="collapse" data-target=".add-order-comment-form-<%= itemId %>"
+                    >
+                        <i class="icon-pencil"></i>
+                    </button>
+                <% } %>
+            </small>
+        </blockquote>
+
+    <% if ("undefined" === typeof useWrapper || useWrapper) { %>
+        </div>
+    <% } %>
+<% } %>

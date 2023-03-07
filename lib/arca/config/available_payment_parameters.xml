@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parameters>
+    <parameter>hostID</parameter>
+    <parameter>tid</parameter>
+    <parameter>mid</parameter>
+    <parameter>orderID</parameter>
+    <parameter>amount</parameter>
+    <parameter>currency</parameter>
+    <parameter>opaque</parameter>
+    <parameter>additionalURL</parameter>
+    <parameter>rrn</parameter>
+    <parameter>payment_type</parameter>
+    <parameter>user_paid</parameter>
+    <parameter>checked</parameter>
+    <parameter>confirmed</parameter>
+    <parameter>notified</parameter>
+</parameters>

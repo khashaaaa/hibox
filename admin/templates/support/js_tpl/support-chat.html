@@ -1,0 +1,87 @@
+                <% if (ticketData["TicketInfo"]["OrderId"] != '') { %>
+                    <p><%= trans.get('Orderlabel') %>: <a href="?cmd=orders&id=<%= ticketData['TicketInfo']['OrderId'] %>&do=view" title="<%= trans.get('To_order') %>">  <%= ticketData['TicketInfo']['CustomOrderId'] %></a></p>
+                <% } %>
+                <% if (typeof(ticketData["userData"]) == 'undefined' ) { %>
+                    <p><%= trans.get('User_is_deleted') %>!</p>
+                <% } %>
+                <h4><%= trans.get('Messages_by_theme') %> «<%= escapeData(ticketData["TicketInfo"]["Subject"]) %>»</h4>
+
+
+                <div id="ot-status-ticket">
+                    <% if (ticketData["TicketInfo"]["Status"] != 'close') { %>
+                    <div class="row-fluid offset-bottom05">
+
+                        <div class="pull-left"><i class="icon-plus color-blue"></i> <span class="blink font-12" data-toggle="collapse" data-target=".support-message-reply-form" title="<%= trans.get('Add_message') %>"><%= trans.get('Add_message') %></span></div>
+
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" class="ot-close-ticket" title="<%= trans.get('Close_ticket') %>"><i class="icon-lock"></i> <%= trans.get('Close_ticket') %></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="collapse support-message-reply-form">
+                        <form class="form-horizontal offset-top1 offset-bottom2">
+
+                            <textarea rows="6" class="input-block-level" id="ot-support-message" placeholder="<%= trans.get('Text_of_message') %>"></textarea>
+                            <input type="hidden" id="ticketId" value="<%= ticketData['TicketInfo']['TicketId'] %>">
+                                <input type="hidden" id="userMail" value="
+                                    <% if (typeof(ticketData["userData"]) != 'undefined' ) { %>
+                                        <%= ticketData["userData"]["email"] %>
+                                    <% } %>
+                                ">
+
+                            <div class="offset-top05">
+                                <button autocomplete="off" data-loading-text="<%= trans.get('add') %>" class="btn btn-tiny btn-primary btn_preloader ot-send-message" type="button"><%= trans.get('add') %></button>
+                                <button class="btn btn-tiny offset-left1" type="button" data-toggle="collapse" data-target=".support-message-reply-form"><%= trans.get('Cancel_noun') %></button>
+                            </div>
+                        </form>
+                    </div>
+                    <% } else { %>
+                       <p><%= trans.get('Ticket_closed') %></p>
+                    <% } %>
+                </div>
+
+                <div class="chat-messages">
+                    <% $.each(ticketData["TicketMessageList"], function(key, val) { %>
+                    <p class="message-box
+                    <% if (val['Direction'] == 'Out') { %>
+                        operator
+                    <% } %>
+                    <% if ((val['Direction'] != 'Out') && (val['read'] == '0')) { %>
+                        new
+                    <% } %>
+                    ">
+                    <span class="message">
+                        <strong>
+                        <i class="
+                        <% if (val['Direction'] == 'Out') { %>
+                            icon-reply  muted
+                        <% } else { %>
+                            icon-envelope
+                        <% } %>
+                        "></i>
+
+                        <% if (val['Direction'] == 'Out') { %>
+                        <%= trans.get('Operator') %>
+                        <% } else { %>
+                            <% if (typeof(ticketData["userData"]) != 'undefined' ) { %>
+                                <% if (ticketData["userData"]["firstname"] == '') { %>
+                                    <%= escapeData(ticketData["userData"]["login"]) %>
+                                <% } else { %>
+                                    <%= escapeData(ticketData["userData"]["lastname"] + " " + ticketData["userData"]["firstname"]) %>
+                                <% } %>
+
+                            <% } else { %>
+                                <%= trans.get('User_is_deleted') %>
+                            <% } %>
+                        <% } %>
+                        </strong>
+                        <span class="message-time"><%= val["CreatedDate"] %></span>
+                        <span class="message-text"><%= val["Text"] %></span>
+                    </span>
+                    </p>
+                    <% }); %>
+
+                </div>

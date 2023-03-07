@@ -1,0 +1,686 @@
+<RatingList>
+        <ContentType>Vendor</ContentType>
+        <CategoryId>0</CategoryId>
+        <ItemRatingType>Best</ItemRatingType>
+        <HasError>false</HasError>
+        <Name>Рекомендуемые продавцы</Name>
+        <Order>5</Order>
+        <Result>
+          <Content>
+            <Item>
+              <Id>veromoda官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-24T08:09:15.325</UpdatedTime>
+              <Name>veromoda官方旗舰店</Name>
+              <DisplayName>veromoda官方旗舰店</DisplayName>
+              <ShopName>veromoda官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//3b/44/TB1oLbdJFXXXXcEXpXXSutbFXXX.jpg</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/5a/31/165b55490ecc57e1a62b2f55d96f0a.png</DisplayPictureUrl>
+              <Location>
+                <City>Тяньцзинь</City>
+                <State>Тяньцзинь</State>
+              </Location>
+              <Credit>
+                <Level>19</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">420567757</Value>
+                <Value Name="shopId">61773004</Value>
+                <Value Name="fans">13984685</Value>
+                <Value Name="allItemCount">3211</Value>
+                <Value Name="starts">1276248233</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">0.65</Value>
+                <Value Name="itemScoreDif">-0.96</Value>
+                <Value Name="serviceScoreDif">-0.41</Value>
+                <Value Name="userId">420567757</Value>
+                <Value Name="ShopId">61773004</Value>
+                <Value Name="years">12</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UMmIWMFxuMG8u</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>德尔玛旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-24T20:21:11.145</UpdatedTime>
+              <Name>德尔玛旗舰店</Name>
+              <DisplayName>德尔玛旗舰店</DisplayName>
+              <ShopName>德尔玛旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//69/70/TB1DwjJbnmWBKNjSZFB1rlxUFXa.JPG</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/b5/4e/b7112bbfb972ca32ab46fb3d27a36a.png</DisplayPictureUrl>
+              <Location>
+                <City>Фошань, провинция Гуандун</City>
+                <State>Гуандун</State>
+              </Location>
+              <Credit>
+                <Level>17</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.9</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.9</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">759446530</Value>
+                <Value Name="shopId">68835801</Value>
+                <Value Name="fans">282235</Value>
+                <Value Name="allItemCount">122</Value>
+                <Value Name="starts">1316190505</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">1.34</Value>
+                <Value Name="itemScoreDif">-0.12</Value>
+                <Value Name="serviceScoreDif">-0.12</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="userId">759446530</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="years">10</Value>
+                <Value Name="encryptSellerId">UMG8SMmQLMFvW</Value>
+                <Value Name="ShopId">68835801</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.8</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>babycare旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-25T08:03:46.264</UpdatedTime>
+              <Name>babycare旗舰店</Name>
+              <DisplayName>babycare旗舰店</DisplayName>
+              <ShopName>babycare旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//50/f9/TB1Q9wjekzoK1RjSZFlSuui4VXa.jpg</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/c6/ff/8ca69744808c92e0dab1dc54bad0f6.png</DisplayPictureUrl>
+              <Location>
+                <City>Ханчжоу, Чжэцзян</City>
+                <State>Шанхай</State>
+              </Location>
+              <Credit>
+                <Level>20</Level>
+                <Score>11356293</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">2275046294</Value>
+                <Value Name="shopId">114637892</Value>
+                <Value Name="fans">11968977</Value>
+                <Value Name="allItemCount">600</Value>
+                <Value Name="starts">1414508566</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">15.01</Value>
+                <Value Name="itemScoreDif">16.17</Value>
+                <Value Name="serviceScoreDif">17.46</Value>
+                <Value Name="userId">2275046294</Value>
+                <Value Name="ShopId">114637892</Value>
+                <Value Name="years">7</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.9</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UvCIuMFN0MCISMNTT</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.8</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>美的官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-25T08:41:48.658</UpdatedTime>
+              <Name>美的官方旗舰店</Name>
+              <DisplayName>美的官方旗舰店</DisplayName>
+              <ShopName>美的官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>http://img.taobaocdn.com/sns_logo/i2/T1_dSYXXddXXb1upjX.jpg</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/01/9e/438811cfdcd5a582c063e7fdcb048d.png</DisplayPictureUrl>
+              <Location>
+                <City>Фошань, провинция Гуандун</City>
+                <State>Чжэцзян</State>
+              </Location>
+              <Credit>
+                <Level>20</Level>
+                <Score>1070319</Score>
+                <TotalFeedbacks>1070319</TotalFeedbacks>
+                <PositiveFeedbacks>1070319</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">201749140</Value>
+                <Value Name="shopId">57616696</Value>
+                <Value Name="fans">7553775</Value>
+                <Value Name="allItemCount">896</Value>
+                <Value Name="starts">1238077042</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">-0.11</Value>
+                <Value Name="itemScoreDif">-0.31</Value>
+                <Value Name="serviceScoreDif">-0.2</Value>
+                <Value Name="userId">201749140</Value>
+                <Value Name="ShopId">57616696</Value>
+                <Value Name="years">12</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UvCNYMGQSvFQW</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.8</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>迪卡侬旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-25T08:24:08.277</UpdatedTime>
+              <Name>迪卡侬旗舰店</Name>
+              <DisplayName>迪卡侬旗舰店</DisplayName>
+              <ShopName>迪卡侬旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>http://img.taobaocdn.com/sns_logo/i7/T1.XFqXedzXXaH.X6X.JPEG</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/29/5c/d9ad817dbaed5a0ca50b9b7ee10f0d.png</DisplayPictureUrl>
+              <Location>
+                <City>Шанхай</City>
+                <State>Провинция Цзянсу</State>
+              </Location>
+              <Credit>
+                <Level>20</Level>
+                <Score>9552785</Score>
+                <TotalFeedbacks>9552785</TotalFeedbacks>
+                <PositiveFeedbacks>9552785</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">352469034</Value>
+                <Value Name="shopId">59991203</Value>
+                <Value Name="fans">9294132</Value>
+                <Value Name="allItemCount">4082</Value>
+                <Value Name="starts">1259751294</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">30.58</Value>
+                <Value Name="itemScoreDif">20.28</Value>
+                <Value Name="serviceScoreDif">29.53</Value>
+                <Value Name="userId">352469034</Value>
+                <Value Name="ShopId">59991203</Value>
+                <Value Name="years">12</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.9</Value>
+                <Value Name="encryptSellerId">UvG8yMmxSvmv0</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.8</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+                <Value Name="ItemReviewRating">4.3</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>zara官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-23T04:08:31.576</UpdatedTime>
+              <Name>zara官方旗舰店</Name>
+              <DisplayName>zara官方旗舰店</DisplayName>
+              <ShopName>ZARA官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//d6/d3/TB1mT6pExYaK1RjSZFnSuu80pXa.jpg</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/7f/87/5bb61ce821e9cf13e07a1507f11537.png</DisplayPictureUrl>
+              <Location>
+                <City>Шанхай</City>
+                <State>Шанхай</State>
+              </Location>
+              <Credit>
+                <Level>20</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">2228361831</Value>
+                <Value Name="shopId">113462750</Value>
+                <Value Name="fans">22504478</Value>
+                <Value Name="allItemCount">13436</Value>
+                <Value Name="starts">1410431082</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">5.93</Value>
+                <Value Name="itemScoreDif">-0.37</Value>
+                <Value Name="serviceScoreDif">-0.25</Value>
+                <Value Name="userId">2228361831</Value>
+                <Value Name="ShopId">113462750</Value>
+                <Value Name="years">7</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UvCIyOmvLvFgGvQTT</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.8</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>优衣库官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-24T09:48:34.632</UpdatedTime>
+              <Name>优衣库官方旗舰店</Name>
+              <DisplayName>优衣库官方旗舰店</DisplayName>
+              <ShopName>优衣库官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//a4/6e/TB15wg4viMnBKNjSZFCSut0KFXa.jpg</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/6c/fc/b14c4ea3626c7e87aef97f51242224.jpg</DisplayPictureUrl>
+              <Location>
+                <City>Шанхай</City>
+                <State>Шанхай</State>
+              </Location>
+              <Credit>
+                <Level>20</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.9</DeliveryScore>
+                <ItemScore>4.9</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">196993935</Value>
+                <Value Name="shopId">57303596</Value>
+                <Value Name="fans">23385063</Value>
+                <Value Name="allItemCount">2165</Value>
+                <Value Name="starts">1236699306</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">23.29</Value>
+                <Value Name="itemScoreDif">29.13</Value>
+                <Value Name="serviceScoreDif">16.41</Value>
+                <Value Name="userId">196993935</Value>
+                <Value Name="ShopId">57303596</Value>
+                <Value Name="years">13</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.9</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UvFkLOFkGOFvb</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.8</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>bershka官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-23T05:26:07.655</UpdatedTime>
+              <Name>bershka官方旗舰店</Name>
+              <DisplayName>bershka官方旗舰店</DisplayName>
+              <ShopName>bershka官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com/https://img.alicdn.com/imgextra/i1/1787605898/TB2MfGwcStYBeNjSspkXXbU8VXa_!!1787605898.jpg</PictureUrl>
+              <DisplayPictureUrl>https://img.alicdn.com/https://img.alicdn.com/imgextra/i1/1787605898/TB2MfGwcStYBeNjSspkXXbU8VXa_!!1787605898.jpg</DisplayPictureUrl>
+              <Location>
+                <City>Шанхай</City>
+                <State>Шанхай</State>
+              </Location>
+              <Credit>
+                <Level>18</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">1787605898</Value>
+                <Value Name="shopId">106020458</Value>
+                <Value Name="fans">7982787</Value>
+                <Value Name="allItemCount">2536</Value>
+                <Value Name="starts">1377272184</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">-0.36</Value>
+                <Value Name="itemScoreDif">-1.24</Value>
+                <Value Name="serviceScoreDif">-0.75</Value>
+                <Value Name="userId">1787605898</Value>
+                <Value Name="ShopId">106020458</Value>
+                <Value Name="years">8</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UvFc4MGxWMFgSONTT</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.8</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>热风服饰旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-23T10:51:16.985</UpdatedTime>
+              <Name>热风服饰旗舰店</Name>
+              <DisplayName>热风服饰旗舰店</DisplayName>
+              <ShopName>热风服饰旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com/imgextra//i1/2206474976557/O1CN01MokZFg1yJ9Yjleonh_!!2206474976557.jpg</PictureUrl>
+              <DisplayPictureUrl>https://img.alicdn.com/imgextra//i1/2206474976557/O1CN01MokZFg1yJ9Yjleonh_!!2206474976557.jpg</DisplayPictureUrl>
+              <Location>
+                <State>Шанхай</State>
+              </Location>
+              <Credit>
+                <Level>13</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">2206474976557</Value>
+                <Value Name="shopId">465869122</Value>
+                <Value Name="fans">14.2万</Value>
+                <Value Name="allItemCount">1191</Value>
+                <Value Name="starts">1566567403</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">-0.1</Value>
+                <Value Name="itemScoreDif">-0.31</Value>
+                <Value Name="serviceScoreDif">-0.22</Value>
+                <Value Name="userId">2206474976557</Value>
+                <Value Name="ShopId">465869122</Value>
+                <Value Name="years">3</Value>
+                <Value Name="encryptSellerId">UvCIWMCQuMmkuMC8bMWTT</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>stradivarius官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-23T22:16:45.577</UpdatedTime>
+              <Name>stradivarius官方旗舰店</Name>
+              <DisplayName>stradivarius官方旗舰店</DisplayName>
+              <ShopName>stradivarius官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//a0/33/TB1NO0vHpXXXXaxXFXXSutbFXXX.jpg</PictureUrl>
+              <DisplayPictureUrl>https://img.alicdn.com//a0/33/TB1NO0vHpXXXXaxXFXXSutbFXXX.jpg</DisplayPictureUrl>
+              <Location>
+                <City>Шанхай</City>
+                <State>Шанхай</State>
+              </Location>
+              <Credit>
+                <Level>16</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">2377348361</Value>
+                <Value Name="shopId">116565282</Value>
+                <Value Name="fans">4337362</Value>
+                <Value Name="allItemCount">2135</Value>
+                <Value Name="starts">1422291482</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">-0.46</Value>
+                <Value Name="itemScoreDif">-1.46</Value>
+                <Value Name="serviceScoreDif">-0.93</Value>
+                <Value Name="userId">2377348361</Value>
+                <Value Name="ShopId">116565282</Value>
+                <Value Name="years">7</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UvCvuMGv0OmvLvQTT</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>gap官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-23T12:41:47.169</UpdatedTime>
+              <Name>gap官方旗舰店</Name>
+              <DisplayName>gap官方旗舰店</DisplayName>
+              <ShopName>Gap官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//38/90/TB1dxaUwxD1gK0jSZFsSuvldVXa.jpg</PictureUrl>
+              <DisplayPictureUrl>https://img.alicdn.com//38/90/TB1dxaUwxD1gK0jSZFsSuvldVXa.jpg</DisplayPictureUrl>
+              <Location>
+                <City>Шанхай</City>
+                <State>Провинция Цзянсу</State>
+              </Location>
+              <Credit>
+                <Level>20</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">669642169</Value>
+                <Value Name="shopId">64751899</Value>
+                <Value Name="fans">9004110</Value>
+                <Value Name="allItemCount">6021</Value>
+                <Value Name="starts">1297358725</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">4.84</Value>
+                <Value Name="itemScoreDif">3.61</Value>
+                <Value Name="serviceScoreDif">3.42</Value>
+                <Value Name="userId">669642169</Value>
+                <Value Name="ShopId">64751899</Value>
+                <Value Name="years">11</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UMCxSMCQyvFxS</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>puma官方旗舰店</Id>
+              <ErrorCode>NotAvailable</ErrorCode>
+              <HasError>true</HasError>
+              <ProviderType>Taobao</ProviderType>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/c5/31/33fe48026f67672a539668d44d5824.jpg</DisplayPictureUrl>
+            </Item>
+            <Item>
+              <Id>adidas官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-25T07:34:56.481</UpdatedTime>
+              <Name>adidas官方旗舰店</Name>
+              <DisplayName>adidas官方旗舰店</DisplayName>
+              <ShopName>adidas官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl/>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/aa/8e/67f58970375860546c9b1644426d5f.png</DisplayPictureUrl>
+              <Location/>
+              <Credit>
+                <Level>20</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.7</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="userId">446338500</Value>
+                <Value Name="TaobaoVendorId">446338500</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="shopId">62147762</Value>
+                <Value Name="starts">1279287804</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>reebok官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-25T08:22:15.529</UpdatedTime>
+              <Name>reebok官方旗舰店</Name>
+              <DisplayName>reebok官方旗舰店</DisplayName>
+              <ShopName>reebok官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//i4/690444147/O1CN01MHzgNa1gVN3RBnCv2_!!690444147.png</PictureUrl>
+              <DisplayPictureUrl>https://cdn.otcommerce.com/i/9c/e3/4f3e5027e2c33caa951ba7932edc98.png</DisplayPictureUrl>
+              <Location>
+                <City>Шанхай</City>
+                <State>Провинция Цзянсу</State>
+              </Location>
+              <Credit>
+                <Level>17</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">690444147</Value>
+                <Value Name="shopId">66000859</Value>
+                <Value Name="fans">3643817</Value>
+                <Value Name="allItemCount">855</Value>
+                <Value Name="starts">1302174721</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">26.96</Value>
+                <Value Name="itemScoreDif">-0.1</Value>
+                <Value Name="serviceScoreDif">15.86</Value>
+                <Value Name="userId">690444147</Value>
+                <Value Name="ShopId">66000859</Value>
+                <Value Name="years">11</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.8</Value>
+                <Value Name="encryptSellerId">UMCkWMmQ0vFQu</Value>
+              </FeaturedValues>
+            </Item>
+            <Item>
+              <Id>小米官方旗舰店</Id>
+              <ProviderType>Taobao</ProviderType>
+              <UpdatedTime>2021-11-25T08:36:38.481</UpdatedTime>
+              <Name>小米官方旗舰店</Name>
+              <DisplayName>小米官方旗舰店</DisplayName>
+              <ShopName>小米官方旗舰店</ShopName>
+              <Email/>
+              <PictureUrl>https://img.alicdn.com//d0/5d/TB1Ade.fpYM8KJjSZFuSuwf7FXa.jpg</PictureUrl>
+              <DisplayPictureUrl>https://img.alicdn.com//d0/5d/TB1Ade.fpYM8KJjSZFuSuwf7FXa.jpg</DisplayPictureUrl>
+              <Location>
+                <City>Пекин</City>
+                <State>Пекин</State>
+              </Location>
+              <Credit>
+                <Level>20</Level>
+                <Score>0</Score>
+                <TotalFeedbacks>0</TotalFeedbacks>
+                <PositiveFeedbacks>0</PositiveFeedbacks>
+              </Credit>
+              <Scores>
+                <DeliveryScore>4.8</DeliveryScore>
+                <ItemScore>4.8</ItemScore>
+                <ServiceScore>4.8</ServiceScore>
+              </Scores>
+              <Features>
+                <Feature>Tmall</Feature>
+              </Features>
+              <FeaturedValues>
+                <Value Name="TaobaoVendorId">1714128138</Value>
+                <Value Name="shopId">104736810</Value>
+                <Value Name="fans">34933435</Value>
+                <Value Name="allItemCount">598</Value>
+                <Value Name="starts">1371117503</Value>
+                <Value Name="goodRatePercentage">100</Value>
+                <Value Name="consignmentDif">17.67</Value>
+                <Value Name="itemScoreDif">7.25</Value>
+                <Value Name="serviceScoreDif">12.55</Value>
+                <Value Name="userId">1714128138</Value>
+                <Value Name="ShopId">104736810</Value>
+                <Value Name="years">8</Value>
+                <Value Name="serviceScorePercent">4.8</Value>
+                <Value Name="itemScorePercent">4.8</Value>
+                <Value Name="deliveryScorePercent">4.9</Value>
+                <Value Name="encryptSellerId">UvFcYMmHyOmHGONTT</Value>
+                <Value Name="ItemScorePercent">4.8</Value>
+                <Value Name="DeliveryScorePercent">4.9</Value>
+                <Value Name="ServiceScorePercent">4.8</Value>
+                <Value Name="ItemReviewRating">5.0</Value>
+              </FeaturedValues>
+            </Item>
+          </Content>
+          <TotalCount>15</TotalCount>
+        </Result>
+      </RatingList>

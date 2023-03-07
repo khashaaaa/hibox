@@ -1,0 +1,44 @@
+<? if (isset($list[0])) { ?>
+<div class="bproduct <?=$type?>-rating-list rating-list">
+    <h2 class="mb25"><span><?= isset($title) ? $title : Lang::get($type);?></span></h2>
+    <ul class="lproduct flin w700 w160li <? if($displayAsCarousel){ ?> jcarousel-skin <? } ?> clrfix">
+        <? foreach ($list as $item) { ?>
+        <li title="<?= $this->escape($item->title) ?>" class="<?=ProductsHelper::formatFeatureListForCss($item->features)?>">
+            <?=ProductsHelper::getHtmlFeatureListForLabel($item->features)?>
+            <a class="pic" href="<?=$item->url?>">
+                <i><img src="<?=$item->getMediumImage()?>" width="160"></i>
+                <ins></ins>
+            </a>
+            <div class="price">
+                <div class="line"></div>
+                <a href="<?=$item->url?>">
+                    <? if ($item->getDisplayPromoPrice()) { ?>
+                        <span><?=$item->getDisplayPromoPrice()?></span>
+                    <? }else{ ?>
+                        <span><?=$item->getDisplayPrice()?></span>
+                    <? } ?>
+                </a>
+                <a href="<?=$item->url?>">
+                    <ins class="name"><?= $this->escape($item->title) ?></ins>
+                    <span class="glow"></span>
+                </a>
+
+            </div>
+            <? if ($item->getDisplayPromoPrice() > 0) { ?>
+                <a href="<?=$item->url?>" style="text-align: center" class="wrapper_sale_item">
+                    <span class="old_price"><?=$item->getDisplayPrice()?></span><br>
+                    <span class="new_price"><?=$item->getDisplayPromoPrice()?></span>
+                </a>
+            <? } ?>
+        </li>
+        <? } ?>
+    </ul>
+    <? if (isset($categoryId)) { 
+        if ($categoryId == 'with_reviews') { ?>
+            <div class="b-link-all"><a href="<?=UrlGenerator::generateReviewsUrl()?>" class="i-link"><?=Lang::get('all_categories_goods')?></a></div>
+        <? } else { ?>
+	        <div class="b-link-all"><a href="<?=UrlGenerator::generateCategoryUrl(array('Id' => $categoryId, 'Name' => $title), true)?>" class="i-link"><?=Lang::get('all_categories_goods')?></a></div>
+        <? } ?>
+    <? } ?>
+</div>
+<? } ?>

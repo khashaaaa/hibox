@@ -1,0 +1,116 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>"><?=LangAdmin::get('blog::Content')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('blog::Blog')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/contents/navigation/tabs.xml', $PageUrl)?>
+<? XEditableFields::Init('blog', $PageUrl); ?>
+
+<div class="row-fluid">
+    <div class="span10">
+        <h1><?=LangAdmin::get('blog::Blog')?></h1>
+    </div>
+
+    <div class="span2 offset-top1">
+        <div id="activeLanguagesContainer"></div>
+    </div>
+</div>
+
+<div class="row-fluid blog-wrapper">
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#ot-blog-articles" data-toggle="tab"><?=LangAdmin::get('blog::Articles')?></a></li>
+        <li><a href="#ot-blog-settings" data-toggle="tab"><?=LangAdmin::get('blog::Settings')?></a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div class="tab-pane active" id="ot-blog-articles">
+            <div class="row-fluid">
+                <div class="pull-left">
+                    <a href="<?=$PageUrl->AssignCmdAndDo('blog', 'addBlogPost')?>" autocomplete="off" data-loading-text="<?=LangAdmin::get('blog::Add')?>" class="btn btn-primary btn_preloader weight-normal" title="<?=LangAdmin::get('blog::Add_blog_post')?>"><?=LangAdmin::get('blog::Add')?></a>                                
+                </div>
+                <div class="pull-right">
+                    <select class="input-mini" id="perpage">
+                        <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+                            <option value="<?=$perPageLimit?>" <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>><?=$perPageLimit?></option>
+                        <? } ?>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="span9"><?=LangAdmin::get('blog::Title')?></th>
+                        <th class="span2"><?=LangAdmin::get('blog::Category')?></th>
+                        <th class="span2"><?=LangAdmin::get('blog::Language')?></th>
+                        <th class="span1"><?=LangAdmin::get('blog::Actions')?></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <?php foreach ($posts['rows'] as $post) { ?>
+                    <tr id="<?=$post['id']?>">
+                        <?php
+                            $link = '/index.php?p=post&id=' . $post['id'];
+                            if(in_array('Seo2', General::$enabledFeatures) && !empty($post['alias'])){
+                                $link = '/post/' . rawurlencode($post['alias']);
+                            }
+                        ?>
+                        <td><a target="_blank" href="<?=$link?>" title="<?=LangAdmin::get('blog::Go_to_post')?>"><?=$this->escape($post['title'])?></a></td>
+                        <td><nobr><?=(is_array($post['category']) && count($post['category'])>0) ? $this->escape($post['category']['title']) : ''?></nobr></td>
+                        <td><nobr><?=$this->escape($post['lang_name'])?></nobr></td>
+                        <td>
+                            <div class="btn-group pull-right">
+                                <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?=$PageUrl->AssignCmdAndDo('blog', 'editBlogPost') . '&id=' . $post['id']?>" class="edit_post"title="<?=LangAdmin::get('blog::Edit_post')?>"><i class="icon-pencil"></i> <?=LangAdmin::get('blog::Edit')?></a></li>
+                                    <li><a href="#" title="<?=LangAdmin::get('blog::Delete_post')?>" class="ot_show_deletion_dialog_modal"><i class="icon-remove"></i> <?=LangAdmin::get('blog::Delete')?></a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <?php $paginator->display(); ?>
+
+        </div>
+
+        <div class="tab-pane" id="ot-blog-settings">
+
+            <form class="form-horizontal inline_editable_form ot_form">
+                <fieldset class="clearfix">
+
+                    <div class="control-group control-group-medium">
+                        <div data-field="blog_posts"></div>
+                        <? XEditableFields::Register('blog_posts', General::getConfigValue('blog_posts'), array('inputClass' => 'numeric')); ?>
+
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-contents-blog.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

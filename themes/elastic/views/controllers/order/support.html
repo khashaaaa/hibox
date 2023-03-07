@@ -1,0 +1,123 @@
+<? if (! empty($supportMessages['tickets'])) { ?>
+    <? $newMessages = isset($supportMessages['unreadCount']) && $supportMessages['unreadCount'] > 0; ?>
+
+    <div class="accordion list-support-messages block-orange" id="supportMessagesAccordion">
+        <div class="card border-0">
+            <div class="card-header yellow2-panel" id="supportMessagesHeader">
+                <b>
+                    <button class="btn btn-link collapsed"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#supportMessagesCollapse"
+                            aria-expanded="<?=$newMessages ? 'true' : 'false'?>"
+                            aria-controls="supportMessagesCollapse"
+                    >
+                        <?=Lang::get('Chat_with_operator')?>
+                        <i></i>
+                    </button>
+                </b>
+            </div>
+
+            <div class="collapse <?=$newMessages ? 'show' : ''?>"
+                 id="supportMessagesCollapse"
+                 aria-labelledby="supportMessagesHeader"
+                 data-parent="#supportMessagesAccordion"
+            >
+                <div class="list__body">
+                    <? foreach ($supportMessages['tickets'] as $ticket) { ?>
+                        <div class="accordion list-support-messages__ticket" id="ticketAccordion<?=$ticket['id']?>">
+                            <div class="card border-0">
+                                <div class="card-header" id="ticketHeader<?=$ticket['id']?>">
+                                    <b>
+                                        <button class="btn btn-link collapsed"
+                                                type="button"
+                                                data-toggle="collapse"
+                                                data-target="#ticketCollapse<?=$ticket['id']?>"
+                                                aria-expanded="<?=$ticket['newmsgcount'] ? 'true' : 'false'?>"
+                                                aria-controls="ticketCollapse<?=$ticket['id']?>"
+                                        >
+                                            <?=Lang::get('Ticket')?>: <?=$ticket['Subject']?>
+
+                                            <? if ($ticket['status'] === 'close') { ?>
+                                                <span class="label label-warning"><?=Lang::get('ticket_closed')?></span>
+                                            <? } ?>
+
+                                            <i></i>
+                                        </button>
+                                    </b>
+                                </div>
+
+                                <div class="collapse <?=$ticket['newmsgcount'] ? 'show' : ''?> messages"
+                                     id="ticketCollapse<?=$ticket['id']?>"
+                                     aria-labelledby="ticketHeader<?=$ticket['id']?>"
+                                     data-parent="#ticketAccordion<?=$ticket['id']?>"
+                                >
+                                    <? if ($ticket['status'] !== 'close') { ?>
+                                        <div class="add-message">
+                                            <span class="blink font-12 collapsed button"
+                                                  data-toggle="collapse"
+                                                  data-target=".message-form-<?=$ticket['id']?>"
+                                                  title="<?=Lang::get('add_message')?>"
+                                            >
+                                                <i class="fa fa-comment-o" aria-hidden="true"></i>
+                                                <?=Lang::get('add_message')?>
+                                            </span>
+                                        </div>
+                                    <? } ?>
+
+                                    <div class="message-form-<?=$ticket['id']?> message-form collapse message"
+                                         style="height: 0px;"
+                                         data-orderid="<?=$orderInfo->GetSalesOrderInfo()->GetId()?>"
+                                         data-ticketid="<?=$ticket['id']?>"
+                                    >
+                                        <form action="" class="form-horizontal offset-top1 offset-bottom2">
+                                            <textarea class="message-text"
+                                                      rows="4"
+                                                      placeholder="<?=Lang::get('message_text')?>"
+                                            ></textarea>
+
+                                            <div class="offset-top05">
+                                                <button autocomplete="off"
+                                                        data-loading-text="<?=Lang::get('add')?>"
+                                                        class="button btn_preloader button-add-comment"
+                                                        data-action="<?=UrlGenerator::getUrl('order/add-message')?>"
+                                                        type="button"
+                                                ><?=Lang::get('add')?></button>
+
+                                                <button class="button"
+                                                        type="reset"
+                                                        data-toggle="collapse"
+                                                        data-target=".message-form-<?=$ticket['id']?>"
+                                                ><?=Lang::get('cancel')?></button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <? $firstMessage = array_pop($ticket['messages']); ?>
+                                    <div class="message message-first">
+                                        <div class="message-sender">
+                                            <?=$ticket['username']?>&nbsp;
+                                            <span class="message-time"><?=$firstMessage['CreatedDate']?></span>
+                                        </div>
+                                        <span class="message-text"><?=$firstMessage['Text']?></span>
+                                    </div>
+
+                                    <div class="answer-messages">
+                                        <? foreach ($ticket['messages'] as $message) { ?>
+                                            <div class="message">
+                                                <span class="message-sender">
+                                                    <?=$message['Direction'] == 'Out' ? Lang::get('operator') : $ticket['username']?>
+                                                </span>
+                                                <span class="message-text"><?=$message['Text']?></span>
+                                            </div>
+                                        <? } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <? } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<? } ?>

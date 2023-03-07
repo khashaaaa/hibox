@@ -1,0 +1,334 @@
+<!-- product item -->
+<div class="ot_order_product_item" data-id="<?=$item['id']?>">
+    <!-- product number, status, actions -->
+    <div class="row-fluid">
+        <div class="span8">
+            <label class="checkbox inline">
+                <? $disabled = (in_array($item['StatusId'], $disabledStatuses)) ? 'disabled="disabled"' : ''; ?>
+                <input class="for_group_action" type="checkbox" <?=$disabled?>/>
+            </label>
+            <a target="_blank" href="<?=UrlGenerator::generateItemUrl($item['itemid'], array('ConfigId' => $item['ConfigId']));?>" title="<?=LangAdmin::get('Item_page_on_site')?>">
+                № <?=$order->getNumericId()?> - <?=$item['LineNum']?>
+            </a>
+
+            <i class="icon-info-sign ot_inline_info ot_product_item_description_popup" data-placement="top" title="<?=LangAdmin::get('Product_description')?>"></i>
+            <div class="ot_popup_product_item_description_info"><?=$this->escape($item['BriefDescrTrans'])?></div>
+
+            <span class="offset2">
+                <span class="label weight-normal font-12 offset-left1 itemStatus"><?=$item['StatusName']?></span>
+                <? if ($itemPackage = $order->getItemPackage($item->id)) { ?>
+                    <span class="badge weight-normal font-12 itemInPackage"><?=LangAdmin::get('In_package')?> № <span><?=$itemPackage->id?></span></span>
+                <? } ?>
+            </span>
+        </div>
+
+        <div class="span4">
+
+            <div class="btn-group pull-right changeItemStatus">
+
+                <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle" title="<?=LangAdmin::get('Change_status')?>"><i class="icon-star-empty"></i> <span class="caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-large">
+                    <? foreach ($itemsStatusList as $status) { ?>
+                        <li>
+                            <a data-status="<?=$status['id']?>" href="javascript:void(0)" title="">
+                                <?=$status['Name']?>
+                            </a>
+                        </li>
+                    <? } ?>
+                </ul>
+
+            </div>
+
+            <? $showMenu = ($itemsStatuses['ITEM_STATUS_CANCELLED'] != $item['StatusId']) ||
+            ($item['qty'] > 1) || (Permission::show_order_field('can_delete_good') && $item->canBeDeleted());?>
+            <div class="btn-group pull-right 9-0-1">
+                <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle" <?=$showMenu ? '' : 'disabled="disabled"'?>><i class="icon-cog"></i> <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li class="hide exportOrderItem">
+                        <? $hideShowFlag = ($itemsStatuses['ITEM_STATUS_CANCELLED'] == $item['StatusId']) ? 'cancelled' : ''; ?>
+                        <a class="<?=$hideShowFlag?>" href="javascript:void(0)" title="<?=LangAdmin::get('Export_product')?>"><i class="icon-share"></i> <?=LangAdmin::get('Export')?> </a>
+                    </li>
+                    <!--li><a href="#" title="Распечатать этикетку для товара"><i class="icon-print"></i> Распечатать этикетку</a></li-->
+                        <? if ($item['qty'] > 1) { ?>
+                            <li>
+                                <a  class="splitItemQuantity"
+                                    title="<?=LangAdmin::get('Split_item_quantity')?>"
+                                    data-action="<?=$PageUrl->assignDo('splitItemQuantity')?>"
+                                    href="javascript:void(0)"
+                                >
+                                    <i class="icon-resize-full"></i> <?=LangAdmin::get('Split')?>
+                                </a>
+                            </li>
+                        <? } ?>
+                        <? if (Permission::show_order_field('can_delete_good') && $item->canBeDeleted()) { ?>
+                            <li>
+                                <a  class="deleteItemFromOrder"
+                                    title="<?=LangAdmin::get('Remove_item')?>"
+                                    data-action="<?=$PageUrl->assignDo('deleteItemFromOrder')?>"
+                                    href="javascript:void(0)"
+                                >
+                                    <i class="icon-remove"></i> <?=LangAdmin::get('Remove')?>
+                                </a>
+                            </li>
+                        <? } ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /product number, status, actions -->
+
+    <!-- product summary -->
+    <div class="row-fluid">
+
+        <div class="span8">
+            <div class="row-fluid">
+
+                <div class="span2">
+
+                    <a href="#<?=$order->getNumericId()?>-<?=$item->id?>-img-goods-tab" class="thumbnail" data-toggle="lightbox" title="<?=LangAdmin::get('Enlarge_image')?>">
+                        <img src="<?=ProductsHelper::getSmallImage($item)?>" alt="" />
+                    </a>
+                    <div id="<?=$order->getNumericId()?>-<?=$item->id?>-img-goods-tab" class="lightbox hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="lightbox-header">
+                            <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true" title="<?=LangAdmin::get('Close')?>"><i class="icon-remove-sign"></i></button>
+                        </div>
+                        <div class="lightbox-content">
+                            <img src="<?=$item->itemimageurl?>" />
+                            <div class="lightbox-caption">
+                                <p class="text-clipped-general"><?=$item['BriefDescrTrans']?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="span10">
+
+                    <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none">
+
+                        <dt><?=LangAdmin::get('Original')?>:</dt>
+                        <dd>
+                            <? if (isset($item->ItemExternalURL) && $item->ItemExternalURL) { ?>
+                                <a target="_blank" href="<?=$item->ItemExternalURL?>" title="<?=LangAdmin::get('Product_taobao_page')?>"><?=$item->itemId?></a>
+                            <? } else { ?>
+                                <?=$item->itemId?>
+                            <? } ?>
+
+                            <a href="?cmd=items&do=edit&id=<?=$item->itemId?>" class="btn btn-mini" target="_blank">
+                                <i class="icon-edit"></i>
+                            </a>
+                        </dd>
+
+                        <dt><?=LangAdmin::get('Vendor')?>:</dt>
+                        <dd>
+                            <a target="_blank" href="<?=UrlGenerator::generateSearchUrlByParams(['vid' => $item->vendid])?>">
+                                <?=$item->vendNick?>
+                            </a>
+                        </dd>
+
+                    </dl>
+
+                    <p class="offset-bottom05"><strong><?=LangAdmin::get('Configuration')?></strong></p>
+                    <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none">
+
+                        <div class="itemEditableConfig"></div>
+
+                    </dl>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="span4">
+            <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none">
+                <dt><?=LangAdmin::get('Weight')?>:</dt>
+
+                <dd>
+                    <? if ($item->caneditweight) { ?>
+                        <div data-field="newItemWeight"></div>  <?= LangAdmin::get('kg') ?>
+                        <? XEditableFields::Register(
+                            'newItemWeight',
+                            (float)$item->weight,
+                            array(
+                                'useWrapper' => false,
+                                'useLabel' => false,
+                                'pk' => $item->id . '_' . $order->id/* . '_weight'*/,
+                                'inputClass' => 'input-custom-mini weight pk::' . $item->id . '_' . $order->id,
+                                'useLinkWrapper' => false,
+                                'callbackSuccess' => array(
+                                    'response, value, object',
+                                    'var OrdPage = new OrdersPageObject();OrdPage.changeItemWeightCallback(response, value, object);',
+                                ),
+                            )
+                        );
+                        ?>
+                        <input type="hidden" value="<?= (float)$item->weight; ?>" name="current_weight_<?= $item->id ?>"/>
+                    <? } else { ?>
+                    <?=(float)$item->weight ?> <?= LangAdmin::get('kg') ?>
+                    <? }?>
+                </dd>
+                <dt><?=LangAdmin::get('price')?>:</dt>
+                <dd>
+                    <span class="old_price crossed-out">
+                        <? if (($item->statuscode == 3) && ($item->pricecust !== $item->newpricecust)) { ?>
+                            <?=$item->pricecust?>
+                        <? } ?>
+                    </span>
+                    <div data-field="newPrice"></div> <?=$order->currencysign?>
+                    <? XEditableFields::Register(
+                        'newPrice',
+                        (float)$item->newpricecust ? $item->newpricecust : $item->pricecust,
+                        array(
+                            'useWrapper' => false,
+                            'useLabel' => false,
+                            'pk' => $item->id . '_' . $order->id,
+                            'inputClass' => 'input-custom-mini price pk::'.$item->id . '_' . $order->id,
+                            'useLinkWrapper' => false,
+                            'callbackSuccess' => array(
+                                'response, value, object',
+                                'var OrdPage = new OrdersPageObject();
+                                OrdPage.changeItemPriceCallback(response, value, object);',
+                            ),
+                        )
+                    ); ?>
+                    <input type="hidden" value="<?=(float)$item->newpricecust ? $item->newpricecust : $item->pricecust;?>" name="current_price_<?=$item->id ?>"/>
+                </dd>
+                <dt><?=LangAdmin::get('count')?>:</dt>
+                <dd><?=$item->qty?></dd>
+                <dt><?=LangAdmin::get('Amount')?>:</dt>
+                <dd><?=TextHelper::formatPrice($item->amountcust, $order->currencysign)?></dd>
+                
+            </dl>
+            <br/>
+            <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none dl-ot-normat-font">
+                <p>
+                    <strong><?=LangAdmin::get('Original_price')?></strong><br>
+                    (<?=LangAdmin::get('original_price_hint')?>)
+                </p>
+                <? $currency = InstanceProvider::getObject()->GetProviderCurrency($order['ProviderTypeEnum']);?>
+                <dt><?=LangAdmin::get('Price_for_piece')?>:</dt><dd><?=TextHelper::formatPrice($item['taobaoprice'], $currency) ?></dd>
+                <dt><?=LangAdmin::get('Delivery_for_piece')?>:</dt><dd><?=TextHelper::formatPrice($item['taobaodelivery'], $currency)?></dd>
+                <dt><?=LangAdmin::get('price')?>:</dt><dd><?=TextHelper::formatPrice(($item['taobaoprice'] * $item['qty'] ), $currency)?></dd>
+                <dt><?=LangAdmin::get('Delivery')?>:</dt><dd><?=TextHelper::formatPrice(($item['taobaodelivery'] * $item['qty'] ), $currency)?></dd>
+                <dt><?=LangAdmin::get('Total')?>:</dt><dd><?=TextHelper::formatPrice(($item['taobaoprice'] + $item['taobaodelivery']) * $item['qty'], $currency)?> </dd>
+            </dl>
+            <? if (isset($item['vendpurchitemprice']) || isset($item['vendpurchdeliveryprice'])) { ?>
+                <br/>
+                <dl class="dl-horizontal dl-ot-horizontal offset-vertical-none dl-ot-normat-font <?=$item->getCssWrapperForVendPurch()?>">
+                    <p><strong><?=LangAdmin::get('Purchase_price')?></strong></p>
+                    <? if (isset($item['vendorpurchaseitempricewarningreason'])) { ?>
+                        <p><?=$item['vendorpurchaseitempricewarningreason']?></p>
+                    <? } ?>
+                    <div class="color-black">
+                        <? if (isset($item['vendpurchitemprice'])) { ?>
+                            <dt class="text-dark"><?=LangAdmin::get('price')?>:</dt><dd><?=TextHelper::formatPrice(($item['vendpurchitemprice'] * $item['qty'] ), $currency)?></dd>
+                        <? } ?>
+                        <? if (isset($item['vendpurchdeliveryprice'])) { ?>
+                            <dt><?=LangAdmin::get('Delivery')?>:</dt><dd><?=TextHelper::formatPrice(($item['vendpurchdeliveryprice']), $currency)?></dd>
+                        <? } ?>
+                        <? if (isset($item['vendpurchitemprice']) && isset($item['vendpurchdeliveryprice'])) { ?>
+                            <dt><?=LangAdmin::get('Total')?>:</dt><dd><?=TextHelper::formatPrice(($item['vendpurchitemprice']) * $item['qty'] + $item['vendpurchdeliveryprice'], $currency)?> </dd>
+                        <? } ?>
+                    </div>
+                </dl>
+            <br/>
+            <? } ?>
+        </div>
+    </div>
+    <!-- /product summary -->
+
+    <!-- product comments, photoes -->
+    <div class="row-fluid">
+
+        <div class="span8 item-comments-block">
+            <p>
+                <i class="icon-comments-alt"></i> <strong><?=LangAdmin::get('Comments')?></strong>
+                <? if (empty($item->operatorcomment)) { ?>
+                    <button class="btn btn-mini addOperatorCommentBtn" data-toggle="collapse" data-target=".add-order-comment-form-<?=$item['id']?>"
+                        title="<?=LangAdmin::get('Add_comment')?>"><i class="icon-plus"></i></button>
+                <? } ?>
+            </p>
+
+            <div class="comments-list">
+            <? if (! empty($item->custcomment)) { ?>
+                <blockquote class="custcomment">
+                    <?php $customComment = OrdersProxy::prepareOrderComment($item->custcomment); ?>
+                    <p class="font-13"><?= TextHelper::htmlFromUser($customComment);?></p>
+                    <small><?=LangAdmin::get('Customer')?></small>
+                </blockquote>
+            <? } ?>
+            <? if (! empty($item->operatorcomment)) { ?>
+                <blockquote>
+                    <?php $operatorComment = OrdersProxy::prepareOrderComment($item->operatorcomment); ?>
+                    <p class="font-13"><?= TextHelper::htmlFromUser($operatorComment); ?></p>
+                    <small>
+                        <?=LangAdmin::get('Operator')?>
+                        <button class="btn btn-mini" title="<?=LangAdmin::get('Edit_comment')?>"
+                            data-toggle="collapse" data-target=".add-order-comment-form-<?=$item['id']?>"
+                        >
+                            <i class="icon-pencil"></i>
+                        </button>
+                    </small>
+                </blockquote>
+            <? } ?>
+            </div>
+
+            <div class="collapse add-order-comment-form-<?=$item['id']?>">
+                <form   action="<?=$PageUrl->assignDo('changeOperatorComment');?>"
+                        class="form-horizontal offset-top1 offset-bottom2"
+                >
+                    <textarea rows="5" class="input-xlarge" placeholder="<?=LangAdmin::get('Comment_text')?>"><?= stripslashes($item->operatorcomment) ?></textarea>
+                    <div class="offset-top05">
+                        <button autocomplete="off" data-loading-text="<?=LangAdmin::get('Saving')?>" class="btn btn-tiny btn-primary btn_preloader changeOperatorCommentBtn" type="button">
+                            <?=(empty($item->operatorcomment) ? LangAdmin::get('Add') : LangAdmin::get('Save'))?>
+                        </button>
+                        <button class="btn btn-tiny offset-left2" type="button" data-toggle="collapse" data-target=".add-order-comment-form-<?=$item['id']?>"><?=LangAdmin::get('Cancel')?></button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <? if (CMS::IsFeatureEnabled('PhotoReport')) { ?>
+        <!-- Для фотобудки -->
+        <div class="span4">
+
+            <p>
+                <i class="icon-picture"></i> <strong><?=LangAdmin::get('Photos')?></strong>
+                <button data-toggle="modal" class="btn btn-mini addOrderItemPhotosBtn" title="<?=LangAdmin::get('Add_photo')?>"><i class="icon-plus"></i></button>
+            </p>
+
+            <!-- product images carousel -->
+            <div id="img-carousel-<?=$order->id?>-<?=$item->id?>" class="carousel slide ot_product_img_carousel">
+            <? if ($item->getPictures()) { ?>
+                <!-- Carousel items -->
+                <ul class="carousel-inner" data-toggle="modal-gallery" data-target="#modal-gallery">
+
+                    <? foreach ($item->getPictures() as $index => $picture) { ?>
+                        <li class="item <?=($index == 0 ? 'active' : '')?>" >
+                            <div class="row-fluid">
+                                <a href="<?=$picture->getUrl()?>" class="thumbnail" data-gallery="gallery" title="<?=LangAdmin::get('Enlarge_image')?>">
+                                    <img src="<?=$picture->getSize(100)?>" alt="">
+                                </a>
+                                <i class="icon-remove-sign ot_delete_img" title="<?=LangAdmin::get('Remove_image')?>"></i>
+                            </div>
+                        </li><!--/item-->
+                    <? } ?>
+
+                </ul><!--/carousel-inner-->
+
+                <a class="left carousel-control" href="#img-carousel-<?=$order->id?>-<?=$item->id?>" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#img-carousel-<?=$order->id?>-<?=$item->id?>" data-slide="next">›</a>
+            <? } ?>
+            </div><!--/.ot_product_img_carousel-->
+
+        </div>
+
+        <!-- /Для фотобудки -->
+        <? } ?>
+
+    </div>
+    <!-- /product comments, photoes -->
+</div>
+<!-- /product item -->

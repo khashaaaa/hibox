@@ -1,0 +1,30 @@
+
+<style>
+    .clrfix:after{
+        content: "";
+        display: block;
+        height: 0px;
+        clear: both;
+        visibility: hidden;
+        font-size: 0;
+    }
+    .clrfix{
+        zoom: 1;
+    }
+</style>
+<div class="clrfix"></div>
+
+<nav aria-label="breadcrumb">
+    <div class="center">
+        <ol class="breadcrumb breadcrumb-my bg-white px-0">
+            <li class="breadcrumb-item"><a href="/"><?=Lang::get('home')?></a></li>
+            <? if ($crumbs) { ?>
+                <? foreach ($crumbs as $k => $crumb) { ?>
+                    <? if ($k == 'last') continue; ?>
+                    <li class="breadcrumb-item"><a href="<?=@UrlGenerator::generateContentUrl($k)?>"><?=$this->escape($crumb)?></a></li>
+                <? } ?>
+                <li class="breadcrumb-item active" aria-current="page"><?=$this->escape($crumbs['last'])?></li>
+            <? } ?>
+        </ol>
+    </div>
+</nav>

@@ -1,0 +1,2822 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <!-- Main Menu -->
+    <key name="Seo">Promotion</key>
+    <key name="Reports">Reports</key>
+    <key name="Toolbar">Toolbar</key>
+    <!-- / Main Menu -->
+
+    <key name="Site_construction">Website configuration</key>
+    <key name="site_construction">website configuration</key>
+    <key name="Orders">Orders</key>
+    <key name="orders">orders</key>
+    <key name="Account">Account</key>
+    <key name="Users">Users</key>
+    <key name="users">users</key>
+    <key name="Roles">Roles</key>
+    <key name="roles">roles</key>
+    <key name="viewing">Review</key>
+    <key name="Administrators">Administrators</key>
+    <key name="administrators">administrators</key>
+    <key name="Administrator">Administrator</key>
+    <key name="SuperAdmin">SuperAdmin</key>
+    <key name="SuperOperator">SuperOperator</key>
+    <key name="SuperManager">SuperManager</key>
+    <key name="ContentManager">ContentManager</key>
+    <key name="Financier">Financier</key>
+    <key name="Operator">Operator</key>
+    <key name="Customers">Customers</key>
+    <key name="Customer"> Customer</key>
+    <key name="customers">customers</key>
+    <key name="Data_updated_successfully">Data updated successfully</key>
+    <key name="Data_removed_successfully">Data removed successfully</key>
+    <key name="Data_added_successfully">Data added successfully</key>
+    <key name="Remove_config_lang_title">Remove config of this language</key>
+    <key name="Files_uploaded_successfully">Files uploaded successfully</key>
+    <key name="Image_shot_was_uploaded_successfully">Photo uploaded successfully</key>
+    <key name="Links_saved_successfully">Links saved successfully</key>
+    <key name="No_files_to_upload">Please select a file to upload</key>
+    <key name="No_links_to_upload">No image URL specified</key>
+    <key name="Catalog">Catalog</key>
+    <key name="Items">Items</key>
+    <key name="Languages">Languages</key>
+    <key name="System">System</key>
+    <key name="Configuration">Configuration</key>
+    <key name="general">General</key>
+    <key name="General">General</key>
+    <key name="Update">Update</key>
+    <key name="update">update</key>
+    <key name="Security">Security</key>
+    <key name="Editing">Editing</key>
+    <key name="editing">editing</key>
+    <key name="Adding">Adding</key>
+    <key name="adding">adding</key>
+    <key name="Caching">Caching</key>
+    <key name="caching">caching</key>
+    <key name="Bonus">Bonus</key>
+    <key name="Credit_bonus">Credit bonus</key>
+    <key name="Bonus_credited">Bonus credited</key>
+    <key name="Credited">Credited</key>
+    <key name="Language_select_for_edit">Editing language selection</key>
+    <key name="Language_select_for_admin">Administrative interface language selection</key>
+    <key name="All_languages_versions">All languages versions</key>
+    <key name="Global_site_template">Global website template</key>
+    <key name="Site_header">Website header</key>
+    <key name="Logo">Logo</key>
+    <key name="Show">Display</key>
+    <key name="Hide">Hide</key>
+    <key name="search_categories_External">The mode suggests that external categories are displayed as original ones</key>
+    <key name="search_categories_InternalLeaf">The mode suggests that only internal categories are displayed</key>
+    <key name="search_categories_Nothing">The mode suggests that no categories are displayed</key>
+    <key name="Save">Save</key>
+    <key name="Save_and_exit">Save and exit</key>
+    <key name="Save_and_continue">Save and continue</key>
+    <key name="Saving">Please wait while saving</key>
+    <key name="system">System</key>
+    <key name="Connected">Connected</key>
+    <key name="Filled">Filled in</key>
+    <key name="Enter_procent_as_a_number">Enter percent as number</key>
+    <key name="Help">Help</key>
+    <key name="Faq">FAQ</key>
+    <key name="Spravka">Information</key>
+    <key name="Contact_support">Contact Support</key>
+
+    <!-- Tips for inline fields -->
+    <key name="Not_filled">(empty)</key>
+    <key name="Local_help">Local help</key>
+    <key name="Copy_code_to_field">Please copy required code in field</key>
+    <!-- /Tips for inline fields -->
+
+    <!-- titles and tips in the Website configuration section-->
+    <key name="store_conditions">Store conditions</key>
+    <key name="how_to_order_label">How to make order</key>
+    <key name="how_to_order_title_label">Title</key>
+    <key name="how_to_order_subtitle_label">Subtitle</key>
+    <key name="how_to_order_link_label">Link</key>
+    <key name="how_to_pay_label">How to pay order</key>
+    <key name="how_to_pay_title_label">Title</key>
+    <key name="how_to_pay_subtitle_label">Subtitle</key>
+    <key name="how_to_pay_link_label">Link</key>
+    <key name="about_delivery_label">About delivery</key>
+    <key name="about_delivery_title_label">Title</key>
+    <key name="about_delivery_subtitle_label">Subtitle</key>
+    <key name="about_delivery_link_label">Link</key>
+    <key name="about_guarantees_label">Guarantees</key>
+    <key name="about_guarantees_title_label">Title</key>
+    <key name="about_guarantees_subtitle_label">Subtitle</key>
+    <key name="about_guarantees_link_label">Link</key>
+    <key name="Text_pages_setting">Text page settings</key>
+    <key name="Main_page">Home page</key>
+    <key name="Display">Display</key>
+    <key name="Count_of_elements_in_blocks">number of elements to be displayed in blocks</key>
+    <key name="Count_of_elements_in_blocks_hint">Numeric field. The recommended number of items to be displayed is from 4 to 8, news is 3</key>
+    <key name="Item_page_info">Item info</key>
+    <key name="Elements_output">Display of elements</key>
+    <key name="Catalog">Catalog</key>
+    <!-- /Titles and tips in the Website Configuration section-->
+
+    <!-- Fields for the Website Configuration section-->
+    <key name="logo_label">Upload</key>
+    <key name="logo_hint">To be displayed on the left side of website header. Recommended image size is 300px by 100px. Recommended image format is png with transparent background, valid image formats are gif and jpg.</key>
+
+    <key name="stock_label">Stock</key>
+    <key name="stock_hint">Promotional text displayed on all pages in the header of the site</key>
+
+    <key name="Set_category_mode">Need to set category mode</key>
+    <key name="Must_set_at_minimum_one_category_setting">At least one category setting must be set</key>
+
+    <key name="left_menu_mode_for_content_label">Column navigation</key>
+    <key name="left_menu_mode_for_content_hint">Navigation menu display mode. Options are: Display all menu items, Display menu items up to the second level, Hide the entire side menu</key>
+    <key name="left_menu_mode_for_content_value:1">Show all pages</key>
+    <key name="left_menu_mode_for_content_value:*">Only show topics</key>
+    <key name="left_menu_mode_for_content_value:2">Only show topics</key>
+    <key name="left_menu_mode_for_content_value:3">Hide left menu</key>
+
+    <key name="rtl_label">Text direction</key>
+    <key name="rtl_hint">Layout of website blocks. The default is for left to right text direction. The right to left text direction is desirable for the following languages: Arabic, Persian, Yiddish, Urdu</key>
+    <key name="rtl_value:*">Left to right</key>
+    <key name="rtl_value:1">Right to left</key>
+
+    <key name="display_as_carousel_label">Display items</key>
+    <key name="display_as_carousel_hint">Display showcase items by category on the home page. Options: As carousel (in one line with scrolling arrows), As list (in several rows)</key>
+    <key name="display_as_carousel_value:*">As list</key>
+    <key name="display_as_carousel_value:1">As carousel</key>
+    <key name="Really_delete_this_category_from_sets">Do you really want delete category from set?</key>
+
+    <key name="custom_head_code_label">Custom code for the head section of the template</key>
+    <key name="custom_head_code_hint">Custom code for the head section of the template</key>
+    <key name="header_text_label">Website title</key>
+    <key name="header_text_hint">Header text</key>
+    <key name="store_email_label">Store mail</key>
+    <key name="store_email_hint">Mail in the header of the site</key>
+    <key name="news_count_print_label">News count</key>
+    <key name="items_with_comments_label">Commented items</key>
+    <key name="items_with_vendor_label">Recommended sellers</key>
+    
+    <key name="html_for_footet_label">Custom html code at end of body</key>
+    <key name="html_for_footet_hint">Custom html code at end of body</key>
+
+    <key name="brand_with_best_label">Popular brands</key>
+    <key name="items_with_best_label">Recommended items</key>
+    <key name="items_with_popular_label">Popular items</key>
+    <key name="items_with_last_label">Recently viewed items</key>
+    <key name="items_with_pristroy_label">Pristroy</key>
+
+    <key name="hide_taobao_responses_label">External comments</key>
+	<key name="hide_taobao_responses_hint">Product reviews from provider.</key>
+    <key name="hide_taobao_responses_value:*">Display</key>
+    <key name="hide_taobao_responses_value:1">Hide</key>
+
+    <key name="hide_item_title_label">Title</key>
+    <key name="hide_item_title_value:*">Display</key>
+    <key name="hide_item_title_value:1">Hide</key>
+
+    <key name="hide_item_info_status_label">Item status</key>
+    <key name="hide_item_info_status_value:*">Display</key>
+    <key name="hide_item_info_status_value:1">Hide</key>
+
+    <key name="hide_item_external_links_in_description_label">External references in the specification</key>
+    <key name="hide_item_external_links_in_description_hint">Links to external sites tab Photo and description (links to Taobao, 1688 etc.)</key>
+    <key name="hide_item_external_links_in_description_value:*">Display</key>
+    <key name="hide_item_external_links_in_description_value:1">Hide</key>
+
+    <key name="hide_taobao_link_label">Link to original</key>
+    <key name="hide_taobao_link_value:*">Display</key>
+    <key name="hide_taobao_link_value:1">Hide</key>
+
+    <key name="hide_item_info_price1_label">Item price</key>
+    <key name="hide_item_info_price1_value:*">Display</key>
+    <key name="hide_item_info_price1_value:1">Hide</key>
+
+    <key name="hide_item_info_price_local_delivery_label">Local delivery</key>
+    <key name="hide_item_info_price_local_delivery_value:*">Display</key>
+    <key name="hide_item_info_price_local_delivery_value:1">Hide</key>
+
+    <key name="show_user_history_views_label">Browsing history</key>
+    <key name="show_user_history_views_value:*">Display</key>
+    <key name="show_user_history_views_value:1">Hide</key>
+
+    <key name="hide_item_property_price_range_label">Price range</key>
+    <key name="hide_item_property_price_range_value:0">Display</key>
+    <key name="hide_item_property_price_range_value:*">Display</key>
+    <key name="hide_item_property_price_range_value:1">Hide</key>
+
+    <key name="hide_item_site_responses_label">Customer review</key>
+    <key name="hide_item_site_responses_value:0">Display</key>
+    <key name="hide_item_site_responses_value:*">Display</key>
+    <key name="hide_item_site_responses_value:1">Hide</key>
+
+    <key name="hide_item_info_weight_label">Item weight</key>
+    <key name="hide_item_info_weight_value:0">Display</key>
+    <key name="hide_item_info_weight_value:*">Display</key>
+    <key name="hide_item_info_weight_value:1">Hide</key>
+
+    <key name="hide_item_info_in_existence_label">In stock</key>
+    <key name="hide_item_info_in_existence_value:0">Display</key>
+    <key name="hide_item_info_in_existence_value:*">Display</key>
+    <key name="hide_item_info_in_existence_value:1">Hide</key>
+
+    <key name="hide_item_info_sales_last30day_label">Sales volume for 30 days</key>
+    <key name="hide_item_info_sales_last30day_value:0">Display</key>
+    <key name="hide_item_info_sales_last30day_value:*">Display</key>
+    <key name="hide_item_info_sales_last30day_value:1">Hide</key>
+
+    <key name="product_tabs_label">Default tab</key>
+    <key name="product_tabs_value:1">Product details</key>
+    <key name="product_tabs_value:2">Photo and description</key>
+    <key name="product_tabs_value:3">Reviews</key>
+    <key name="product_tabs_value:4">External comments</key>
+    <key name="product_tabs_value:0">Product details</key>
+    <key name="product_tabs_value:*">Product details</key>
+    <key name="search_category_mode_label">Catalog's category mode</key>
+    <key name="search_category_mode_hint">The selected category will be displayed in the catalog and will be available for search</key>
+    <key name="search_category_mode_value:*">External categories are displayed as original ones</key>
+    <key name="search_category_mode_value:External">External categories are displayed as original ones</key>
+    <key name="search_category_mode_value:InternalLeaf">Only internal categories are displayed. Only categories from the Categories section in the website's admin area will be displayed on the categories page and be available for search
+    </key>
+    <key name="search_category_mode_value:Nothing">Categories aren't displayed in exchange to increased search performance</key>
+    <key name="search_category_mode_value:CurrentLevel">The subcategories of the current level will be displayed</key>
+    <key name="default_perpage_label">Default quantity of items to be displayed</key>
+    <key name="default_perpage_hint">It is recommended that you select one of the following values: 20, 40, 100.
+    The quantity of items to be displayed on a page. If the number of goods exceeds the specified quantity they will be displayed on the next page and in pagination as well. Note: the more items are displayed on a page, the slower the page is.</key>
+
+    <key name="default_perpage_value:*">20</key>
+    <key name="default_perpage_value:20">20</key>
+    <key name="default_perpage_value:40">40</key>
+    <key name="default_perpage_value:100">100</key>
+    
+
+    <key name="pager_count_print_label">A range of page numbers to display in pagination</key>
+    <key name="pager_count_print_hint">It is recommended that you set a value from 1 to 5. On the catalog page below the list of goods pagination is provided to show the number of pages with the given item accessible for review</key>
+    <key name="pager_count_print_value:1">1</key>
+    <key name="pager_count_print_value:2">2</key>
+    <key name="pager_count_print_value:*">3</key>
+    <key name="pager_count_print_value:3">3</key>
+    <key name="pager_count_print_value:4">4</key>
+    <key name="pager_count_print_value:5">5</key>
+
+    <key name="hide_work_shedule_label">Contact us</key>
+    <key name="hide_work_shedule_hint">Contact information at the header beside the logo</key>
+    <key name="hide_work_shedule_value:0">Display</key>
+    <key name="hide_work_shedule_value:*">Display</key>
+    <key name="hide_work_shedule_value:1">Hide</key>
+    <key name="phone_label">Phone</key>
+    <key name="phone_hint">Phone</key>
+    <key name="work_shedule_label">We're open</key>
+    <key name="work_shedule_hint">We're open</key>
+
+    <key name="online_chat_code_label">Online support</key>
+    <key name="online_chat_code_hint">Add code received in on-line chat service you have selected to communicate with customers.</key>
+    <!-- /Fields for the WebSite Configuration section-->
+
+    <!-- Fields for the Orders:General section-->
+    <key name="payment_in_cash_label">Payment in cash</key>
+    <key name="payment_in_cash_hint">Required to be enabled if "payment in cash" option is provided in addition to other payment methods</key>
+    <key name="payment_in_cash_value:1">Enable</key>
+    <key name="payment_in_cash_value:0">Disable</key>
+    <key name="payment_in_cash_value:*">Disable</key>
+    
+    <key name='skip_reordering_label'>Skip reordering</key>
+    <key name='skip_reordering_hint'>Skip reordering</key>
+    <key name='skip_reordering_value:1'>Skip</key>
+    <key name='skip_reordering_value:0'>Show</key>
+    <key name='skip_reordering_value:*'>Show</key>
+    
+    <key name='hide_money_output_label'>Hide money output</key>
+    <key name='hide_money_output_hint'>Hide money output</key>
+    <key name='hide_money_output_value:1'>Hide</key>
+    <key name='hide_money_output_value:0'>Show</key>
+    <key name='hide_money_output_value:*'>Show</key>
+    
+    <key name='hide_step_weight_order_label'>Hide selection page weight (ordering)</key>
+    <key name='hide_step_weight_order_hint'>Hide selection page weight (ordering)</key>
+    <key name='hide_step_weight_order_value:1'>Hide</key>
+    <key name='hide_step_weight_order_value:0'>Show</key>
+    <key name='hide_step_weight_order_value:*'>Show</key>
+    
+    <key name='hide_step_delivery_order_label'>Hide delivery options (ordering)</key>
+    <key name='hide_step_delivery_order_hint'>Hide delivery options (ordering)</key>
+    <key name='hide_step_delivery_order_value:1'>Hide</key>
+    <key name='hide_step_delivery_order_value:0'>Show</key>
+    <key name='hide_step_delivery_order_value:*'>Show</key>
+
+    <key name="hide_middle_name_label">Hide middle name field</key>
+    <key name="hide_middle_name_hint">Hide middle name field during user registration, in profile.</key>
+    <key name="hide_middle_name_value:1">Hide</key>
+    <key name="hide_middle_name_value:0">Show</key>
+    <key name="hide_middle_name_value:*">Hide</key>
+
+    <key name="ot_sberbank_pay_active_label">Display on the site</key>
+    <key name="ot_sberbank_pay_active_hint">This option provides a choice to the client: display or hide the receipt</key>
+    <key name="ot_sberbank_pay_active_value:0">Hide</key>
+    <key name="ot_sberbank_pay_active_value:*">Show</key>
+    <key name="ot_sberbank_pay_active_value:1">Show</key>
+
+    <key name="open_payment_in_new_window_label">Open payment page in new window</key>
+    <key name="open_payment_in_new_window_value:1">Enable</key>
+    <key name="open_payment_in_new_window_value:0">Disable</key>
+    <key name="open_payment_in_new_window_value:*">Disable</key>
+    <key name="open_payment_in_new_window_hint">A payment system will be opened in new browser window</key>
+    <key name="notification_email_label">Email for notifications</key>
+    <key name="notification_email_hint">Email address to send order notifications, payment notifications and customer's withdrawal requests to(can be several by ; division)</key>
+    <key name="notification_send_from_label">Sender's email</key>
+    <key name="notification_send_from_hint">Email address to be specified in the notification "From" field</key>
+    <key name="origin_package_label">Original package</key>
+    <key name="origin_package_hint">The option allows you either to keep or to reject the original package of an item. It is applied to entire order</key>
+    <key name="Package_exported_successfuly">The package was successfuly exported to delivery service</key>
+    <key name="origin_package_value:0">Ignore</key>
+    <key name="origin_package_value:*">Ignore</key>
+    <key name="origin_package_value:1">Offer</key>
+    <key name="order_insurance_percent_label">Order Insurance&lt;span class="muted"&gt;(%)&lt;/span&gt;</key>
+    <key name="order_insurance_percent_hint">The percentage is calculated from the total value of the goods in order and added to the cost of delivery. The range is from 1 to 99%</key>
+    <key name="usediscount_label">Seller's discount</key>
+    <key name="usediscount_hint">Seller's discount</key>
+    <key name="usediscount_value:1">Allow</key>
+    <key name="usediscount_value:0">Forbid</key>
+    <key name="usediscount_value:*">Allow</key>
+    <key name="IsAuctionTypeItemSellAllowed_label">Sale by auction</key>
+    <key name="IsAuctionTypeItemSellAllowed_hint">Sale by auction</key>
+    <key name="IsAuctionTypeItemSellAllowed_value:true">Allow</key>
+    <key name="IsAuctionTypeItemSellAllowed_value:false">Forbid</key>
+    <key name="IsAuctionTypeItemSellAllowed_value:*">Allow</key>
+    <key name="IsNotDeliverableItemSellAllowed_label">Local delivery is not allowed</key>
+    <key name="IsNotDeliverableItemSellAllowed_hint">Local delivery is not allowed</key>
+    <key name="IsNotDeliverableItemSellAllowed_value:true">Allow</key>
+    <key name="IsNotDeliverableItemSellAllowed_value:false">Forbid</key>
+    <key name="IsNotDeliverableItemSellAllowed_value:*">Allow</key>
+    <key name="IsSecondhandItemSellAllowed_label">Used items</key>
+    <key name="IsSecondhandItemSellAllowed_hint">Used items</key>
+    <key name="IsSecondhandItemSellAllowed_value:true">Allow</key>
+    <key name="IsSecondhandItemSellAllowed_value:false">Forbid</key>
+    <key name="IsSecondhandItemSellAllowed_value:*">Allow</key>
+    <key name="IsInStockItemSellAllowed_label">Items temporarily out of stock</key>
+    <key name="IsInStockItemSellAllowed_hint">Taobao's temporary discontinued items are allowed for sale</key>
+    <key name="IsInStockItemSellAllowed_value:true">Allow</key>
+    <key name="IsInStockItemSellAllowed_value:false">Forbid</key>
+    <key name="IsInStockItemSellAllowed_value:*">Allow</key>
+    <key name="IsNotSelectorSellAllowed_label">Items not from the Collections Selector</key>
+    <key name="IsNotSelectorSellAllowed_hint">Allow the sale of any products other than those selected in the Collections Selector</key>
+    <key name="IsNotSelectorSellAllowed_value:true">Allow</key>
+    <key name="IsNotSelectorSellAllowed_value:false">Forbid</key>
+    <key name="IsNotSelectorSellAllowed_value:*">Allow</key>
+    <key name="IsFilteredItemsSellAllowed_label">Restricted to be displayed</key>
+    <key name="IsFilteredItemsSellAllowed_hint">Items restricted to be displayed in Restrictions section on the home page</key>
+    <key name="IsFilteredItemsSellAllowed_value:true">Allow</key>
+    <key name="IsFilteredItemsSellAllowed_value:false">Forbid</key>
+    <key name="IsFilteredItemsSellAllowed_value:*">Allow</key>
+    <key name="IsUnknownQuantityItemSellAllowed_label">Items with unknown quantity</key>
+    <key name="IsUnknownQuantityItemSellAllowed_hint">Items with not yet known quantity in stock are allowed for sale</key>
+    <key name="IsUnknownQuantityItemSellAllowed_value:true">Allow</key>
+    <key name="IsUnknownQuantityItemSellAllowed_value:false">Forbid</key>
+    <key name="IsUnknownQuantityItemSellAllowed_value:*">Allow</key>
+    <key name="hide_item_for_restrictions_label">Hide restricted items on the website</key>
+    <key name="hide_item_for_restrictions_hint">An item added to the Restrictions section won't be displayed</key>
+    <key name="hide_item_for_restrictions_value:1">Hide</key>
+    <key name="hide_item_for_restrictions_value:0">Display</key>
+    <key name="hide_item_for_restrictions_value:*">Hide</key>
+
+    <key name="is_postal_code_required_label">Zip/Postal code required</key>
+    <key name="is_postal_code_required_hint">Making order is not allowed in case Zip/Postal code field is empty</key>
+    <key name="is_postal_code_required_value:0">Optional</key>
+    <key name="is_postal_code_required_value:*">Optional</key>
+    <key name="is_postal_code_required_value:1">Required</key>
+    <!-- /Fields for the Orders: General section-->
+
+    <!-- Titles and tips for the Orders section-->
+    <key name="quittance_to_bank">bank receipt</key>
+    <key name="Quittance_to_bank">Bank receipt</key>
+    <!-- /Titles and tips for the Orders section-->
+
+    <!-- Fields for the Orders: Bank receipt section-->
+    <key name="name_of_payee">Beneficiary Name</key>
+    <key name="INN_of_payee">Beneficiary VAT (10 or 12 digits)</key>
+    <key name="account_number_of_payee">Beneficiary Bank Account Number (20 digits)</key>
+    <key name="bank_name_of_payee">Beneficiary Bank Name</key>
+    <key name="bank_identification_code">Russian Central Bank Identifier Code (8 or 9 digits)</key>
+    <key name="correspondent_bank_account">Beneficiary correspondent account (20 digits)</key>
+    <key name="description_of_payment">Payment name</key>
+    <!-- /Fields for the Orders: Bank receipt section -->
+
+    <!--the Multilingual section-->
+    <key name="languages">languages</key>
+    <key name="multilingual">multilingualism</key>
+    <key name="Multilingual">Multilingualism</key>
+    <key name="Translations">Translations</key>
+    <key name="translations">translations</key>
+    <key name="Showcase_languages">Showcase languages</key>
+    <key name="Showcase_languages_hint">The Multilingual module allows you to create different language versions of the website.</key>
+    <key name="Showcase_languages_hint_detailes">Here one can select a language in which goods on the home page will be displayed (showcase items). A language can be selected from the drop-down list on the right side of the page. Editing selected languages can be done on the left side of the page.</key>
+    <key name="MoveTo">Drag</key>
+    <key name="Delete">Delete</key>
+    <key name="Add_language">Add language </key>
+    <key name="Key">Key</key>
+    <key name="kg">kg</key>
+    <key name="Text">Text</key>
+    <key name="Language">Language</key>
+    <key name="Actions">Action</key>
+    <key name="Translation_exists">Translation is available</key>
+    <key name="Translation_not_exists">No translation is available</key>
+    <key name="Is_absent">Not available</key>
+    <key name="In_the_delivery_currency">In currency set for delivery</key>
+    <key name="Edit">Edit</key>
+    <key name="Close">Close</key>
+    <key name="Translation_is_default">The default translation from "langs" folder in the website root is loaded.</key>
+    <key name="All_languages">All languages</key>
+    <key name="All_languages_chosen">All languages selected</key>
+    <key name="Search_text">Search...</key>
+    <key name="Find">Find</key>
+    <key name="All_options">All options</key>
+    <key name="Own_translations">Your own translations</key>
+    <key name="Not_translated">Missing translations</key>
+    <key name="Box_translated">Translations from the Box</key>
+    <key name="edit_translation">editing translation</key>
+    <key name="Edit_translation">Editing translation</key>
+    <key name="Save_as_html">Save as html</key>
+    <key name="Save_as_html_hint">If translation haves html tags, turn on tick</key>
+    <key name="Edit_create_key">Editing/creating key</key>
+    <key name="Key">Key</key>
+    <key name="Cancel">Cancel</key>
+    <key name="Cancel_noun">Cancellation</key>
+    <key name="Canceling">Please wait while cancelling</key>
+    <key name="Search_translation">Search translation</key>
+    <key name="Search_add">Add translation</key>
+    <key name="Source_text">Source text</key>
+    <key name="Translation">Translation</key>
+    <key name="Service_translation">System translation</key>
+    <key name="Service_translation_translatable_content">Group</key>
+    <key name="Service_translation_translatable_content_select">Select group</key>
+    <key name="My_translation">My translation</key>
+    <key name="My_translation_delete_translation">Revert default translation</key>
+    <key name="Service_translation_confirm_delete">Do you really want to return the default translation?</key>
+    <key name="Revert">Revert</key>
+    <!-- /The Multilingual section-->
+
+    <key name="date">Date</key>
+    <key name="sender">Sender</key>
+    <key name="Buyer-Recipient">Buyer-Recipient</key>
+    <key name="pic">Picture</key>
+    <key name="nomination">Name</key>
+    <key name="in_total">TOTAL</key>
+    <key name="broken_parcel_description">If there are signs of package damage make sure to verify that its contents are OK!</key>
+    <key name="order_id">Order number</key>
+    <key name="package_id">Package number</key>
+    <key name="delivery_address">Delivery address</key>
+    <key name="order_delivery_address">Order delivery address</key>
+    <key name="phone">Phone</key>
+    <key name="count">Quantity</key>
+    <key name="price">Price</key>
+    <key name="Print_package_inventory">Inventory</key>
+
+    <key name="site_temporary_unavailable_label">The website is temporary unavailable</key>
+    <key name="site_temporary_unavailable_hint">"Enabled" means setting the website offline for maintenance. Default: disabled</key>
+    <key name="site_temporary_unavailable_value:1">Enable</key>
+    <key name="site_temporary_unavailable_value:0">Disable</key>
+    <key name="site_temporary_unavailable_value:*">Disable</key>
+    <key name="auth_to_private_office_label">Redirection after authorization</key>
+    <key name="auth_to_private_office_hint">URL to redirect a customer after authorization</key>
+    <key name="auth_to_private_office_value:1">Personal Area</key>
+    <key name="auth_to_private_office_value:0">Home page</key>
+    <key name="auth_to_private_office_value:*">Home page</key>
+    <key name="simplified_registration_label">Simplified registration</key>
+    <key name="simplified_registration_hint">Lets to place orders without prior registration, with specifying user
+        email at the last stage of ordering
+    </key>
+    <key name="simplified_registration_value:0">Disable</key>
+    <key name="simplified_registration_value:1">Enable</key>
+    <key name="simplified_registration_value:*">Disable</key>
+
+    <key name="assign_current_server_ip">Assign current server ip</key>
+
+    <key name="auth_capcha_admin_label">Enter captcha when sign in into admin panel</key>
+    <key name="auth_capcha_admin_hint">Additional bruteforce password protection for admin panel</key>
+    <key name="auth_capcha_admin_value:1">Enable</key>
+    <key name="auth_capcha_admin_value:0">Disable</key>
+    <key name="auth_capcha_admin_value:*">Disable</key>
+
+    <key name="google_recaptcha_label">Google reCAPTCHA</key>
+    <key name="google_recaptcha_hint">Enabling additional site protection against spam</key>
+    <key name="google_recaptcha_value:1">Enable</key>
+    <key name="google_recaptcha_value:0">Disable</key>
+    <key name="google_recaptcha_value:*">Disable</key>
+
+    <key name="google_recaptcha_key_public_label">The public key</key>
+    <key name="google_recaptcha_key_public_hint">Your public key for Google reCAPTCHA</key>
+
+    <key name="google_recaptcha_key_secret_label">The secret key</key>
+    <key name="google_recaptcha_key_secret_hint">Your secret Google reCAPTCHA key</key>
+
+    <key name="use_https_label">Use HTTPS</key>
+    <key name="use_https_hint">Use secure protocol HTTPS</key>
+    <key name="use_https_value:1">Enable</key>
+    <key name="use_https_value:0">Disable</key>
+    <key name="use_https_value:*">Disable</key>
+
+    <key name="protect_key_label">Key protection</key>
+    <key name="protect_key_hint">...</key>
+    <key name="protect_key_value:1">Enable</key>
+    <key name="protect_key_value:0">Disable</key>
+    <key name="protect_key_value:*">Disable</key>
+
+    <key name="Item_comments">Items comments</key>
+    <key name="site_admin_email_label">Admin's email</key>
+    <key name="site_admin_email_hint">Inbound email address for error notifications</key>
+    <key name="site_email_label">Outbound email address for comments</key>
+    <key name="site_email_hint">The email address to be specified in "from" field in emails (notifications)to customers</key>
+
+    <key name="Cant_connect_to_server">Update server is unavailable</key>
+    <key name="Automatic_update">Automatic system update</key>
+    <key name="Undefined">Unknown</key>
+    <key name="DoUpdate">Update</key>
+    <key name="Balance">Balance</key>
+    <key name="UpdateProcess">Please wait while updating</key>
+    <key name="current_version">Current version</key>
+    <key name="Check_new_versions">Check new available versions</key>
+    <key name="last_available_version_for_update">the latest available update version</key>
+    <key name="update_more">more</key>
+    <key name="Changes_description">Description of changes</key>
+    <key name="Update_available">The version is compatible with your system</key>
+    <key name="Update_not_available">The version is incompatible with your system. Updating is not advisable.</key>
+
+    <!--The Delivery section-->
+    <key name="Delivery_small">Delivery</key>
+    <key name="Delivery">Delivery</key>
+    <key name="Delivery_not_available">This delivery method is not avalilable</key>
+    <key name="Shipment">Delivery</key>
+    <key name="Delivery_internal_small">internal</key>
+    <key name="Delivery_external_small">external</key>
+    <key name="Delivery_internal">Internal</key>
+    <key name="Delivery_external">External</key>
+    <key name="Editing_internal_delivery">Editing original delivery</key>
+    <key name="Editing_original_price">Editing original price</key>
+    <key name="Recalculation_item_price">Recalculate the price of the goods at the purchase price/delivery</key>
+    <key name="Recalculation_price">Recalculate price</key>
+    <key name="Recalculation_delivery">Recalculate shipping</key>
+    <key name="Tariffs">Rates</key>
+    <key name="tariffs">rates</key>
+    <key name="Tariffs_by_countries">Rates by countries</key>
+    <key name="tariffs_by_countries">rates by countries</key>
+    <key name="Names">Names</key>
+    <key name="Delivery_country">Delivery country</key>
+    <key name="Add">Add</key>
+    <key name="Added">Added</key>
+    <key name="First_price">Initial cost</key>
+    <key name="Price_step">Step cost</key>
+
+    <key name="Edit_tariff">Editing delivery rate</key>
+    <key name="Create_tariff">Creating delivery rate</key>
+    <key name="create_edit_tariff">creating/editing delivery rate</key>
+    <key name="Country">Country</key>
+    <key name="Tariff_avail">Availability</key>
+    <key name="Delivery_add">Add delivery method</key>
+    <key name="Delivery_types">Delivery methods</key>
+    <key name="Delivery_types_hint">Available delivery methods (advisable by your logistician)</key>
+    <key name="Delivery_region">Delivery State/Province/Region</key>
+    <key name="Delivery_region_hint">State/Province/Region is selected where your logistician is located)</key>
+    <key name="choice_of_delivery_region">Selection of State/Province/Region</key>
+    <key name="Added_items_from">Added items from </key>
+    <key name="Merged_with">Merged with </key>
+    <key name="Chose_region">Selecting State/Province/Region</key>
+    <key name="Delivery_edit">Editing</key>
+    <key name="Delivery_type_create">Creating delivery method</key>
+    <key name="create_edit_delivery">creating/editing delivery method</key>
+    <key name="Name">Name</key>
+    <key name="Description">Description</key>
+    <key name="Order">Order</key>
+    <key name="Currency">Currency</key>
+    <key name="Weight">Weight</key>
+    <key name="Min_weight_delivery">The minimum weight of a parcel</key>
+    <key name="Min_weight_delivery_hint">The minimum allowable weight of a parcel</key>
+    <key name="Max_weight_delivery">The maximum weight of a parcel</key>
+    <key name="Max_weight_delivery_hint">The maximum allowable weight of a parcel</key>
+    <key name="Step_by_weight">Weight-step</key>
+    <key name="Step_by_weight_hint">The parcel weight is rounded up using the specified weight-step. For example, a parcel weight is 2 kg 678 g. A weight-step is 0,2 kg. It follows that the final parcel weight will be 2,8 kg. Delivery fee will be calculated for the parcel weight of 2,8 kg (not for 2,678 kg)</key>
+    <key name="Delivery_min_price">Allow for the minimum delivery fee</key>
+    <key name="Delivery_min_price_hint">If the checkbox is not set, the initial cost specified in the delivery price will be ignored</key>
+    <key name="Delivery_step_price">Allow for weight-step cost</key>
+    <key name="Delivery_step_price_hint">If a checkbox is checked a parcel weight is rounded up with the accuracy of weight-step.</key>
+    <key name="Delivery_rounding">Round up to the nearest whole number</key>
+    <key name="Delivery_rounding_hint">If included rounding then the weight will be rounded up to step delivery. If not included rounding is calculated per gram step without delivery</key>
+    <key name="All_deliveries_chosen">All delivery methods selected</key>
+    <key name="Chose_your_warehouse_location">Select your warehouse location</key>
+    <key name="Cost_calculating">Cost calculation</key>
+    <!-- The Delivery section-->
+
+    <!-- The Goods in stock (Pristroy) section-->
+    <key name="Warehouse">Items in stock</key>
+    <key name="Show_selected_category_goods">View items in selected category</key>
+    <key name="Warehouse_categories">Categories for items in stock</key>
+    <key name="Categories">Categories</key>
+    <key name="Category">Category</key>
+    <key name="Enter_category_name_or_chose_it_from_list">Please enter category name or select it from catalog</key>
+    <key name="Enter_category_name_promt">Please enter category name</key>
+    <key name="Enter_category_name">Please enter name</key>
+    <key name="Products">Items</key>
+    <key name="Product">Item</key>
+    <key name="Warehouse_import">Import goods</key>
+    <key name="Warehouse_import_example_import_file">Download sample file to import</key>
+
+    <key name="Enter_product_site_link">Please enter URL of item on the website</key>
+    <key name="Enter_product_link">Please enter URL of item</key>
+    <key name="Apply_filter">Apply filter</key>
+    <key name="Choose_from_category_list">Select from category tree</key>
+    <key name="Selected product">Item selected</key>
+
+    <key name="Rename">Rename</key>
+    <key name="Create">Create</key>
+    <key name="Delete">Delete</key>
+    <key name="Really_delete_this_category">Are you sure you want to delete the category?</key>
+    <key name="Warehouse_root_category">Categories</key>
+
+    <key name="Move_category">Move category</key>
+    <key name="Hide_category">Hide category</key>
+    <key name="Show_category">Show category</key>
+    <key name="Open_category">View category on the website</key>
+
+    <key name="Copy">Copy</key>
+    <key name="Cut">Cut</key>
+    <key name="Paste">Paste</key>
+    <key name="Update_folder_not_writable_now">Update folder not writable (updates)</key>
+
+    <key name="Add_category">Add category</key>
+    <key name="Edit_category">Edit category</key>
+    <key name="Rename_category">Rename category</key>
+    <key name="Add_category">Add category</key>
+    <key name="Delete_category">Delete category</key>
+    <key name="Move_up_category">Move up</key>
+    <key name="Move_down_category">Move down</key>
+    <key name="Add_root_category">Add root category</key>
+
+    <key name="Add_edit_category">Add/edit category</key>
+    <key name="Category_data">Data</key>
+    <key name="Category_id">Category ID</key>
+    <key name="Enter_category_id_promt">Enter category ID</key>
+
+    <key name="Category_title">Title</key>
+    <key name="Category_title_prefix">Text before title</key>
+    <key name="Category_title_prefix_hint">Text is displayed before title on all pages</key>
+    <key name="Category_title_suffix">Text after title</key>
+    <key name="Category_title_suffix_hint">Text is displayed after title on all pages</key>
+
+    <key name="Category_meta_keywords">Keywords</key>
+    <key name="Category_meta_keywords_hint">Meta keywords</key>
+    <key name="Category_meta_description">Description</key>
+    <key name="Category_meta_description_hint">Meta description</key>
+    <key name="Category_filters_not_found">No filters for category found</key>
+
+    <key name="Name_cannot_be_empty">Category name is required</key>
+    <key name="Category_id_must_be_positive_numeric">Please enter a valid category id</key>
+    <key name="Category_id_cannot_be_empty">Category id is required</key>
+    <key name="Order_cannot_be_empty">Order cannot be empty</key>
+
+    <!-- The Goods in stock (Pristroy) section-->
+
+    <!-- The Users section-->
+    <key name="Login">Login</key>
+    <key name="Password">Password</key>
+    <key name="Account_number">Account id</key>
+    <key name="First_name">First name</key>
+    <key name="Last_name">Last name</key>
+    <key name="Middle_name">Patronymic</key>
+    <key name="Full_name">Full name</key>
+    <key name="Gender">Gender</key>
+    <key name="Male">Male</key>
+    <key name="Female">Female</key>
+    <key name="Email">Email</key>
+    <key name="Phone">Phone</key>
+    <key name="Skype">Skype</key>
+    <key name="City">City</key>
+    <key name="Status">Status</key>
+    <key name="Activate">Activate</key>
+    <key name="Ban">Lock</key>
+    <key name="Remove">Remove</key>
+    <key name="Unban">Unlock</key>
+    <key name="Activate_user">Activate account</key>
+    <key name="Verify_user_email">Confirm Email</key>
+    <key name="Verify_user_phone">Confirm phone number</key>
+    <key name="Verified">Data confirmed successfully</key>
+    <key name="Ban_user">Lock account</key>
+    <key name="Add_user">Add account</key>
+    <key name="Remove_user">Remove account</key>
+    <key name="Unban_user">Unlock account</key>
+    <key name="Edit_user">Edit account</key>
+    <key name="Login_as_user">Sign in as user</key>
+    <key name="Authorize_as_user">Sign in as user</key>
+    <key name="Restore_user_password">Restore user password</key>
+    <key name="Restore_password">Restore password</key>
+    <key name="New_password">New password</key>
+    <key name="Old_password">Old password</key>
+    <key name="New_password_error">New password is empty</key>
+    <key name="Old_password_error">Old password is empty</key>
+    <key name="Type_or_generate">Please enter or generate</key>
+    <key name="Generate_password">Generate password</key>
+    <key name="Сhange_password">Change password</key>
+    <key name="Сhanging_password">Change password</key>
+    <key name="Password_must_not_be_empty">Password required</key>
+    <key name="Password_min_length_6">The minimum password length is six characters</key>
+    <key name="Password_successfully_changed">Password changed successfully</key>
+    <key name="Change_password_confirm">Are you sure you want to change a password</key>
+    <key name="Hide_notice">Hide notification</key>
+    <key name="Notifications">Notifications</key>
+    <key name="Sales_types">Types of sales</key>
+    <key name="Basket_and_favourites">Basket and favourites</key>
+    <key name="New_password_created_and_sent_to_user_email">New password created and sent to user email</key>
+    <key name="Show_additional_addresses">Show additional addresses</key>
+    <key name="will_be_opened_in_new_window">will open in another window</key>
+    <key name="Is_active">Enabled</key>
+    <key name="Is_not_active">Disabled</key>
+    <key name="Is_banned">Locked</key>
+    <key name="User_is_banned">User account is locked</key>
+    <key name="User_is_unbanned">User account is unlocked</key>
+    <key name="Really_delete_this_user">Are you sure you want to delete this account?</key>
+    <key name="Apply">Apply</key>
+    <key name="per_page">per page</key>
+    <key name="Filter_by_parameters">Filter by parameter</key>
+    <key name="Applying_filters">Please wait while filtering</key>
+    <key name="Account_title">Account</key>
+    <key name="Authorization">Authorization</key>
+    <key name="Personal_info">Personal data</key>
+    <key name="Contact_info">Contact information</key>
+    <key name="Required_field">Required field</key>
+    <key name="Address">Address</key>
+    <key name="inn">INN</key>
+    <key name="PassportNumber">Passport data</key>
+    <key name="RegistrationAddress">Registration address</key>
+    <key name="Region">State/Province/Region</key>
+    <key name="Postal_code">Zip/Postal code</key>
+    <key name="Add_recipient">Add recipient</key>
+    <key name="Add_new_recipient">Add new recipient</key>
+    <key name="New_recipient">New recipient</key>
+    <key name="Customer_info">Customer info</key>
+    <key name="Customer_display_name">Customer's full name</key>
+    <key name="Funds">Funds</key>
+    <key name="Enter_the_amount_to_enroll_or_withdraw_from_the_account">Enter a sum to deposit to user account or withdraw from it</key>
+    <key name="Recharge_user_account">Deposit a sum into user account</key>
+    <key name="Enroll">Deposit</key>
+    <key name="Enrolling_funds">Deposit</key>
+    <key name="Withdraw">Withdraw</key>
+    <key name="Withdrawing_funds">Withdrawal of cash</key>
+    <key name="Withdraw_funds_from_the_user_account">Withdraw a sum from user account</key>
+    <key name="Amount">Sum</key>
+    <key name="Notice">Note</key>
+    <key name="Operations">Operations</key>
+    <key name="No_account_operations_found">No account operations found</key>
+    <key name="No_orders_found">No orders found</key>
+    <key name="Operator">Operator</key>
+    <key name="Date">Date</key>
+    <key name="Creation_date">Creation date</key>
+    <key name="Shipment_date">Shipment date</key>
+    <key name="Notify_success">Request completed successfully</key>
+    <key name="Notify_error">Sorry, something went wrong. We're working on getting this fixed as soon as we can.</key>
+    <key name="Creation_time">Creation date</key>
+    <key name="Order_number">Order number</key>
+    <key name="Order_status">Order status</key>
+    <key name="Product_status">Product status</key>
+    <key name="Paid">Paid in</key>
+    <key name="Enter_first_symbols">Enter first characters</key>
+
+    <key name="IsEmailConfirmationUsed_label">Additional user activation via email</key>
+    <key name="IsEmailConfirmationUsed_hint">After registration user reveives notification email and has to follow the link in order to activate his account.</key>
+    <key name="IsEmailConfirmationUsed_value:true">Allow</key>
+    <key name="IsEmailConfirmationUsed_value:false">Forbid</key>
+    <key name="IsEmailConfirmationUsed_value:*">Forbid</key>
+    <!-- The Users section-->
+
+    <!-- /The Pristroy section -->
+    <key name="Pristroy">Pristroy</key>
+    <key name="pristroy">pristroy</key>
+    <key name="Approve_product">Approve item</key>
+    <key name="Approve">Approve</key>
+    <key name="Reject_product">Reject item</key>
+    <key name="Reject_product_without_reason">Reject item without giving a reason</key>
+    <key name="Reject">Reject</key>
+    <key name="Remove_product_from_sale">Discontinue item</key>
+    <key name="Remove_from_sale">Discontinue</key>
+    <key name="Title">Name</key>
+    <key name="Quantity">Quantity</key>
+    <key name="Price">Price</key>
+    <key name="Pristroy_status_on_moderation">Under moderation</key>
+    <key name="Pristroy_status_approved">Approved</key>
+    <key name="Pristroy_status_rejected">Rejected</key>
+    <key name="Pristroy_status_sold">Sold out</key>
+    <key name="Pristroy_status_removed">Discontinued</key>
+    <key name="Product_is_rejected">Item rejected</key>
+    <key name="Product_is_approved">Item approved</key>
+    <key name="Product_is_removed_from_sale">Item discontinued</key>
+    <key name="Products_are_removed_from_sale">Items discontinued</key>
+    <key name="Really_remove_this_product_from_sale">Are you sure you want the item to be discontinued?</key>
+    <key name="Really_remove_selected_products_from_sale">Are you sure you want selected items to be discontinued?</key>
+    <key name="No_products_found">No products found</key>
+    <key name="Images">Photos</key>
+    <key name="Image">Image</key>
+
+    <key name="Select_image">Select image</key>
+    <key name="Upload">Upload</key>
+    <key name="No_item_checked_in_the_list">No items selected</key>
+    <key name="Reject_reason">Reason for rejection</key>
+    <key name="Enter_reject_reason">Please enter the reason for rejecting an item</key>
+    <key name="Product_description">Item description</key>
+    <key name="Reject_reason_required">Reason (required when rejecting an item)</key>
+    <key name="Edit_product">Edit item</key>
+    <key name="Image_not_found">No image available</key>
+    <key name="Image_zoom">Zoom in photo</key>
+    <key name="Images_count">Total number of photos</key>
+    <key name="Statuses">Statuses</key>
+    <key name="Reset_filters">Reset filters</key>
+
+
+
+    <!-- The Pristroy section -->
+
+    <!-- The Orders section-->
+    <key name="specified_period">specified period of time</key>
+    <key name="today_period">today</key>
+    <key name="yesterday_period">yesterday</key>
+    <key name="current_week_period">current week</key>
+    <key name="last_week_period">last week</key>
+    <key name="last_month_period">last month</key>
+    <key name="last_three_months_period">last three months</key>
+    <key name="year_period">since the beginning of the year</key>
+    <key name="Split_item_suggestion">Enter the quantity of items to be split</key>
+    <key name="Split">Split</key>
+    <key name="Split_item_quantity">Split the quantity of items</key>
+    <key name="Package_updated_successfully">Parcel updated successfully</key>
+    <key name="Package_created_successfully">Parcel created successfully</key>
+    <key name="Package">Parcel</key>
+    <key name="No_items_selected">No item selected</key>
+    <key name="Editing_package">Editing parcel</key>
+    <key name="Redefine_weight_package">Redefine the weight of the package</key>
+    <key name="Creating_package">Creating parcel</key>
+    <key name="Package_removal">Deleting parcel</key>
+    <key name="Remove_package">Delete parcel</key>
+    <key name="Really_delete_this_package">Are you sure you want to delete this parcel?</key>
+    <key name="Choose_another_package_for_items">Choose another parcel</key>
+    <key name="Item_removal">Deleting item</key>
+    <key name="Remove_item">Delete item</key>
+    <key name="Really_delete_this_item_from_order">Are you sure you want to delete this item from order?</key>
+    <key name="Create_package_for_all_items">Create parcel for all items in order</key>
+    <key name="Print_package_invoice">Print invoice</key>
+    <key name="Print_invoice">Print invoice</key>
+    <key name="Tracking_number">Tracking number</key>
+    <key name="Tracking">Tracking</key>
+    <key name="Track_down">Track down</key>
+    <key name="No_tracking">No tracking</key>
+    <key name="Location">Location</key>
+    <key name="Length">Length</key>
+    <key name="Height">Height</key>
+    <key name="Width">Width</key>
+    <key name="cm">cm</key>
+    <key name="kg">kg</key>
+    <key name="Move">Move</key>
+    <key name="Package_election">Parcel selection</key>
+    <key name="Package_invoice">Parcel invoice</key>
+    <key name="Package_inventory">Parcel inventory</key>
+    <key name="Add_to_package">Add to parcel</key>
+    <key name="Adding_to_package_is_for_items_without_packages">All or some of selected items are already in parcel. To redistribute items between parcels use Parcel tab</key>
+    <key name="Moving_items_to_new_package">Transfer of items to place in new parcel</key>
+    <key name="Moving_items_to_new_package_confirmation">Selected items will be added to new parcel. Current parcel will be cleared.</key>
+    <key name="Create_new_package_and_move_selected_items">Create new parcel and add items selected</key>
+    <key name="Removing_items_from_package">Deleting items from parcel</key>
+    <key name="Removing_items_from_package_confirmation">Selected items will be deleted from parcel</key>
+    <key name="Removing_item_images">Deleting item images</key>
+    <key name="Removing_item_images_confirmation">Are you sure you want to delete this image?</key>
+    <key name="Remove_items_from_package">Delete items from parcel</key>
+    <key name="Move_selected_items_to_another_package">Move selected items to another parcel</key>
+    <key name="Move_to_another_one">Move to another parcel</key>
+    <key name="Move_selected_items_to_new_package">Move selected items to new parcel</key>
+    <key name="Move_to_new_one">Move to new parcel</key>
+    <key name="Delivery_mode">Delivery method</key>
+    <key name="Additional_info">Additional information</key>
+    <key name="Item_page_on_site">Item page on the website</key>
+    <key name="Enlarge_image">Zoom in image</key>
+    <key name="Add_photo">Add photo</key>
+    <key name="Remove_image">Delete image</key>
+    <key name="Photos">Photos</key>
+    <key name="Add_order_item_photos">Add item photo</key>
+    <key name="Add_webcam_photo">Webcam photo</key>
+    <key name="Link">Link</key>
+    <key name="Make_a_shot">Take photo</key>
+    <key name="Upload_more">Upload more</key>
+    <key name="Add_one_more_image">Add one more image</key>
+    <key name="Add_more">Add more</key>
+    <key name="Add_one_more_field">Add one more field</key>
+    <key name="Enter_image_url">Enter image URL</key>
+    <key name="Comments">Comments</key>
+    <key name="Add_comment">Add comment</key>
+    <key name="Edit_comment">Edit comment</key>
+    <key name="Comment_text">Text of comment</key>
+    <key name="Change_status">Change status</key>
+    <key name="Value_must_not_be_empty">Value cannot be empty</key>
+    <key name="in_order">in order</key>
+    <key name="in_order_u">In order</key>
+    <key name="Allow_popup_windows_in_browser">Pop-up windows should be allowed in your browser to operate properly within administration area</key>
+    <!--The Orders section-->
+
+    <key name="sync_cb_label">Synchronization with the Central Bank of Russia</key>
+    <key name="sync_cb_hint">Synchronization with the Central Bank of Russia</key>
+    <key name="sync_cb_value:0">no synchronization</key>
+    <key name="sync_cb_value:*">no synchronization</key>
+    <key name="sync_cb_value:1">synchronization is provided</key>
+    <key name="sync_cb_label">Synchronization with the Central Bank of Russia</key>
+    <key name="sync_cb_hint">Synchronization with the Central Bank of Russia</key>
+    <key name="sync_cb_value:No">no synchronization</key>
+    <key name="sync_cb_value:WithCB">synchronization is provided</key>
+
+    <key name="selected_region">Selected state/province/region</key>
+    <key name="choose">Select</key>
+    <key name="delete_warning">Are you sure you want to delete &lt;strong&gt; &lt;%=item%&gt; &lt;/strong&gt; ?</key>
+    <key name="Data_save_success">Data saved successfully</key>
+    <key name="Fields_incorrect">Invalid fields</key>
+    <key name="delete_products_warning">Are you sure you want to delete selected items?</key>
+    <key name="Delete_products_warning">Are you sure you want to delete selected items?</key>
+
+    <key name="Error">Error</key>
+    <key name="InfoMessage">Message</key>
+
+    <key name="Pricing">Pricing</key>
+    <key name="currency_small">currency</key>
+    <key name="Currency">Currency</key>
+    <key name="Internal_currency_string">Base currency</key>
+    <key name="Shop_currency">Showcase currencies</key>
+    <key name="Add_currency">Add currency</key>
+    <key name="Add_more_currency">Add additional currency</key>
+    <key name="Rate_currency">Exchange rates</key>
+    <key name="Sync_mode">Synchronization mode</key>
+
+    <key name="Discounts">Discounts</key>
+    <key name="Costs">Price</key>
+    <key name="Bankir">Banker module</key>
+    <key name="Banker">Banker</key>
+    <key name="Price_groups">Price groups</key>
+    <key name="Price_strategic">Pricing strategy</key>
+    <key name="Intervals">Intervals</key>
+    <key name="limit">Limit</key>
+    <key name="margin_product">Margin</key>
+    <key name="margin_fixed">Fixed margin</key>
+    <key name="Edit_price_group">Edit price group</key>
+    <key name="Remove_price_group">Remove price group</key>
+    <key name="Edit_price_group_categories">Edit categories of price group</key>
+    <key name="Add_price_group">Add price group</key>
+    <key name="Really_remove_this_price_group">Do you really want to remove price group?</key>
+    <key name="Price_group_must_have_at_least_one_interval">Price group must have at least one interval</key>
+    <key name="Price_group_saved_successfully">Price group successfully saved</key>
+    <key name="Price_group_categories">Categories of price group </key>
+    <key name="Add_price_group_category">Add category</key>
+    <key name="Category_on_site">Category on site</key>
+    <key name="Price_group_category_added_successfully">Category successfully added to the price group</key>
+    <key name="Really_remove_this_price_group_category">Do you really want to remove category from price group?</key>
+    <key name="Please_save_price_group_before_add_new_interval">Please, save current changes before adding new interval</key>
+    <key name="Adding_price_group">Adding price group</key>
+    <key name="Editing_price_group">Editing price group</key>
+    <key name="Price_group_name">Price group name</key>
+    <key name="Price_group_name_hint">Group name</key>
+    <key name="Price_group_description">Description</key>
+    <key name="Price_group_description_hint">Price group description</key>
+    <key name="Price_group_type">Price group type</key>
+    <key name="Price_group_type_hint">Type of price group</key>
+    <key name="Price_group_default">Default group</key>
+    <key name="Price_group_default_hint">Set price group as default for selected provider</key>
+    <key name="Price_intervals">Price intervals</key>
+    <key name="Add_price_interval">Add price interval</key>
+    <key name="For_all_intervals">For all intervals</key>
+    <key name="Size_of_margin">Margin rate </key>
+    <key name="Percent_of_margin">Margin percent</key>
+    <key name="Price_interval">Interval</key>
+    <key name="Minimal_price_value">Minimal price for product </key>
+    <key name="Group_delivery_value">Delivery price for this group </key>
+    <key name="Margin_percent">Margin rate in %</key>
+    <key name="Fixed_margin">Fixed margin rate</key>
+
+    <key name="round_settings_label">Rounding up</key>
+    <key name="round_settings_hint">Setting affects the calculation of the price of the goods on yor site. Please enter the number of digits in the fractional part</key>
+    <key name="persent_label">Markup percentage</key>
+    <key name="persent_hint">Price margin for items of default item provider. If your site has and other commodity providers, use the module Banker.</key>
+    <key name="minimummargin_label">Minimum markup</key>
+    <key name="minimummargin_hint">This setting is used only for the provider installed by default. If your site has and other commodity providers, use the module Banker.</key>
+
+    <key name="Referral_system">Referral  program</key>
+    <key name="user_not_exist">User does not exist</key>
+    <key name="illegal_login">Invalid login</key>
+    <key name="create_group">Creating group</key>
+    <key name="edit_group"> Editing group</key>
+    <key name="referral_procents">Percentage of profit from referrals</key>
+    <key name="referral_orders_cost">Minimum total amount of referrals' orders</key>
+    <key name="referral_add_user">successfully added to discount group</key>
+    <key name="no_users_in_group">No users have been in group yet</key>
+    <key name="referral_all_users">View list of users in discount group</key>
+    <key name="del_group">Remove group</key>
+    <key name="add_group">Add category</key>
+    <key name="category2">category</key>
+    <key name="user2">user</key>
+    <key name="Replace">Move</key>
+    <key name="replace_or_die">Move users of the group to a standard unremovable group</key>
+    <key name="replace_or_die2">or remove with the group?&lt;br&gt;
+       users in group— &lt;span id="users_in_group"&gt; NN &lt;/span&gt;.</key>
+
+    <key name="Internal_delivery_method_cant_be_deleted">The last available local delivery method cannot be deleted</key>
+    <key name="Currency_cant_be_deleted">The last available currency cannot be deleted</key>
+    <key name="Language_cant_be_deleted">The last available language cannot be deleted</key>
+    <key name="Showcase_currencies">Currencies</key>
+    <key name="All_currencies_chosen">All currencies chosen</key>
+
+    <key name="cb_margin">Foreign currency extra-charge of the Central Bank's exchange rate</key>
+    <key name="cb_margin_tip">Foreign currency extra-charge of the Central Bank's exchange rate</key>
+    <key name="hub_margin">Foreign currency conversion fee of Hub</key>
+    <key name="hub_margin_tip">Exchange rates are in sync with Hub</key>
+
+    <key name="For_example">For example, {{example}}</key>
+    <key name="Warehouse_products">Goods in stock</key>
+    <key name="Add_product">Adding item</key>
+    <key name="Edit_product">Editing item</key>
+    <key name="Enter_product_name">Item name</key>
+    <key name="Category">Category</key>
+    <key name="Category_name">Category name</key>
+    <key name="Category_not_selected">No category selected</key>
+    <key name="Choose_category_in_the_list">Please select category from category tree</key>
+    <key name="Category_cannot_be_empty">Category cannot be empty</key>
+    <key name="add_product">adding item</key>
+    <key name="edit_product">editing item</key>
+    <key name="Image_cannot_be_empty">Image cannot be empty</key>
+    <key name="Quantity_must_be_positive">Quantity must be positive number</key>
+    <key name="Incorrect_quantity">Incorrect quantity of items specified</key>
+    <key name="Title_cannot_be_empty">Name required</key>
+    <key name="Vendor_cannot_be_empty">No seller specified</key>
+    <key name="Description_cannot_be_empty">Description cannot be empty</key>
+    <key name="Price_must_be_positive">Price must be positive number</key>
+    <key name="Remove">Remove</key>
+    <key name="Price">Price</key>
+    <key name="pristroy_price_placeholder">In base currency</key>
+    <key name="Quantity_placeholder">Please enter available quantity of items</key>
+    <key name="Quantity">Quantity</key>
+    <key name="Vendor">Seller</key>
+    <key name="Enter_vendor">Please enter seller's name</key>
+    <key name="Enter_vendor_id">Please enter seller's ID</key>
+    <key name="Show_items_in_category">Open category</key>
+    <key name="pcs">pcs</key>
+    <key name="Quantity_label">Quantity</key>
+    <key name="Quantity_hint"> </key>
+    <key name="Image">Image</key>
+    <key name="Products_removed">Items deleted successfully</key>
+
+    <key name="Confirm_delete">Please confirm deletion</key>
+    <key name="Change">Change</key>
+    <key name="Get_data_from_item">Use available item data</key>
+    <key name="Input_link_to_item">Please enter URL of item from your website</key>
+    <key name="Choose_existing_product">Choose item available</key>
+
+    <key name="Do_add_product">Add item</key>
+
+    <key name="usevipdiscount_label">Seller's VIP discounts</key>
+    <key name="usevipdiscount_hint">seller's VIP discounts</key>
+    <key name="usevipdiscount_value:0">Forbid</key>
+    <key name="usevipdiscount_value:*">Forbid</key>
+    <key name="usevipdiscount_value:1">Allow</key>
+
+    <key name="Yes">Yes</key>
+    <key name="No">No</key>
+    <key name="System_events_log">System event log</key>
+
+    <key name="goods_plural:1">item</key>
+    <key name="goods_plural:2">item</key>
+    <key name="goods_plural:5">items</key>
+
+    <!-- For Photobooth-->
+    <key name="exe_error">Execution error</key>
+    <key name="loading">Load</key>
+    <!-- For Photobooth -->
+
+    <key name="use_multi_search_label">Multisearch</key>
+    <key name="use_multi_search_value:*">Don't use</key>
+    <key name="use_multi_search_value:1">Use</key>
+
+    <key name="simple_search_perpage_label">Goods from China - the default number of items to be displayed in standard search</key>
+    <key name="tmall_search_perpage_label">Branded goods (Tmall) - the default number of items to be displayed in TMALL search</key>
+    <key name="promoted_search_perpage_label">Promoted search - the default number of items to be displayed in Taobao recommendations</key>
+    <key name="warehouse_search_perpage_label">Multisearch - the default number of items to be displayed in warehouse search</key>
+    <key name="comments_search_perpage_label">Multisearch - the default number of items to be displayed in search for commented items</key>
+
+    <key name="simple_search_perpage_value:*">20</key>
+    <key name="simple_search_perpage_value:20">20</key>
+    <key name="simple_search_perpage_value:40">40</key>
+    <key name="simple_search_perpage_value:100">100</key>
+
+    <key name="tmall_search_perpage_value:*">4</key>
+    <key name="tmall_search_perpage_value:8">8</key>
+    <key name="tmall_search_perpage_value:16">16</key>
+    <key name="tmall_search_perpage_value:32">32</key>
+    <key name="tmall_search_perpage_value:64">64</key>
+
+    <key name="warehouse_search_perpage_value:*">4</key>
+    <key name="warehouse_search_perpage_value:8">8</key>
+    <key name="warehouse_search_perpage_value:16">16</key>
+    <key name="warehouse_search_perpage_value:32">32</key>
+    <key name="warehouse_search_perpage_value:64">64</key>
+
+    <key name="comments_search_perpage_value:*">4</key>
+    <key name="comments_search_perpage_value:8">8</key>
+    <key name="comments_search_perpage_value:16">16</key>
+    <key name="comments_search_perpage_value:32">32</key>
+    <key name="comments_search_perpage_value:64">64</key>
+
+    <key name="promoted_search_perpage_value:*">4</key>
+    <key name="promoted_search_perpage_value:8">8</key>
+    <key name="promoted_search_perpage_value:16">16</key>
+    <key name="promoted_search_perpage_value:32">32</key>
+    <key name="promoted_search_perpage_value:64">64</key>
+
+    <key name="admin_old">Administration area 1.0</key>
+
+    <key name="social">Social networks</key>
+    <key name="referals">Referral Program</key>
+    <key name="mailing">Newsletter</key>
+    <key name="mailing_list">Newsletters</key>
+    <key name="promo">Promotion</key>
+    <key name="Promo">Promotion</key>
+    <key name="search_optimization">SEO</key>
+    <key name="add">Add</key>
+    <key name="subscribers">Subscribers</key>
+    <key name="config">Settings</key>
+
+    <key name="deafult_page_title_label">Default title</key>
+    <key name="deafult_page_title_hint">Default page title (if there is no other)</key>
+    <key name="counter_label">Hit counter</key>
+    <key name="counter_hint">Add hit counter code to get statistics for all pages</key>
+
+    <key name="title_for_home__hint">Enter website name</key>
+
+
+    <key name="main_page">Home page</key>
+    <key name="footer_text_title_label"> Footer title</key>
+    <key name="footer_text_label">Footer</key>
+
+    <key name="China_Official_Flag">Branded goods (Tmall)</key>
+    <key name="China_Other_Flag">Goods from China</key>
+    <key name="China_OtherNew_Flag">Goods from China</key>
+    <key name="China_Promoted_Flag">Promoted search</key>
+    <key name="China_Original_Flag">Original search</key>
+    <key name="Warehouse_Default_Flag">Goods in warehouse</key>
+    <key name="YahooJapan_Default_Flag">Yahoo Japan</key>
+
+    <Text Id="Taobao/Official">Branded goods (Tmall)</Text>
+    <Text Id="Taobao/Extended">Goods from China</Text>
+    <Text Id="Taobao/ExtendedNew">Goods from China</Text>
+    <Text Id="Taobao/Promoted">Promoted search</Text>
+    <Text Id="Taobao/Original">Original search</Text>
+    <Text Id="Warehouse/Default">Goods in warehouse</Text>
+    <Text Id="YahooJapan/Default">Yahoo Japan</Text>
+
+    <key name="oficial_catalog_perpage_label">Branded goods (Tmall) (maximum 200 goods)</key>
+    <key name="extended_catalog_perpage_label">Goods from China (maximum 200 goods)</key>
+    <key name="warehouse_catalog_perpage_label">Goods in warehouse (maximum 200 goods)</key>
+    <key name="comments_catalog_perpage_label">Goods with comments (maximum 100 goods) </key>
+    <key name="extendedNew_catalog_perpage_label">Goods from China (additional) (maximum 200 goods)</key>
+    <key name="search_type_perpage_label">{{name}} (maximum {{count}} goods) </key>
+    <key name="pristroy_catalog_perpage_label">Goods in Pristroy (maximum 100 goods)</key>
+
+    <key name="update_site_map">Update website's map</key>
+    <key name="updating_site_map">Website's map is updating</key>
+
+    <key name="widgets">Widgets</key>
+    <key name="hide_social_label">Social networks section</key>
+    <key name="hide_social_value:*">Hide</key>
+    <key name="hide_social_value:0">Display</key>
+    <key name="hide_social_value:1">Hide</key>
+
+    <key name="fbLikeWidget_label">Facebook Like</key>
+    <key name="fbLikeWidget">Facebook Like</key>
+
+    <key name="twitWidget_label">Twitter Like</key>
+    <key name="twitWidget_hint">Twitter Like</key>
+
+    <key name="okWidget_label">Odnoklassniki Like</key>
+    <key name="okWidget_hint">Odnoklassniki Like</key>
+
+    <key name="Really_remove_these_roles">Role will be deleted. Continue?</key>
+
+    <key name="add_category">Add category</key>
+
+    <key name="add_new_category">Adding new category</key>
+    <key name="category_profit_percent">Percentage of profit from referrers</key>
+    <key name="category_min_orders_sum">Minimum total amount of referrers' orders</key>
+
+    <key name="category_name">Name</key>
+    <key name="category_action"> Actions</key>
+    <key name="category_edit">Editing category</key>
+
+    <key name="add_category_user">Add user to category</key>
+    <key name="update_category">Edit category</key>
+    <key name="remove_category">Remove category</key>
+
+    <key name="add_mailing">Create newsletter</key>
+    <key name="update_mailing">Edit</key>
+    <key name="remove_mailing">Remove</key>
+    <key name="mailing_name">Newsletter</key>
+    <key name="mailing_actions">Actions</key>
+
+    <key name="user_name">Name</key>
+    <key name="user_login">Login</key>
+    <key name="user_email">Email</key>
+    <key name="user_balance">Balance</key>
+    <key name="apply_filter">Apply filter</key>
+    <key name="add_user">Add user</key>
+    <key name="export">Export</key>
+    <key name="import">Import</key>
+    <key name="subscribers_export_xml">Export of subscribers (.xml)</key>
+    <key name="subscribers_import_xml">Import of subscribers (.xml)</key>
+    <key name="subscribers_load_xml">Please select (.xml)file</key>
+    <key name="subscribers_user">User</key>
+    <key name="subscribers_email">Email</key>
+    <key name="subscribers_actions">Actions</key>
+
+    <key name="config_messages_count">The number of emails</key>
+    <key name="config_use_smtp_server">Use SMTP-server</key>
+    <key name="config_smpt_address">SMTP-server address</key>
+    <key name="config_smtp_port">SMTP-server port</key>
+    <key name="config_smpt_login">User</key>
+    <key name="config_smpt_password">Password</key>
+    <key name="config_use_ssl">Use ssl</key>
+
+    <key name="mailing_crud">Creating/editing newsletter</key>
+    <key name="mailing_subject">Subject</key>
+    <key name="mailing_body">Body</key>
+    <key name="mailing_test">Test</key>
+    <key name="mailing_send">Send</key>
+    <key name="mailing_send_test_message">Send newsletter to test address</key>
+    <key name="mailing_msg_count">Emails</key>
+    <key name="Sitemap_updated_successfully">Website map updated</key>
+    <key name="Sitemap_updating_error">An error has occurred while updating  website map</key>
+
+    <key name="go_to_user_profile">Go to user's profile</key>
+    <key name="user_information">User info </key>
+    <key name="remove_user">Delete user account</key>
+
+    <key name="category_prefix_label">Text before category name</key>
+    <key name="category_prefix_hint">Text to be displayed in page title before catalog's category name</key>
+    <key name="category_suffix_label">Text after category name</key>
+    <key name="category_suffix_hint">Text to be displayed in page title after catalog's category name</key>
+    <key name="seller_prefix_label">Text before seller name</key>
+    <key name="seller_prefix_hint">Text to be displayed in page title before seller name</key>
+    <key name="seller_suffix_label">Text after seller name</key>
+    <key name="seller_suffix_hint">Text to be displayed in page title after seller name</key>
+    <key name="title_for_home_label">Title</key>
+    <key name="title_for_home_hint">Home page title</key>
+    <key name="description_for_home_label">Description</key>
+    <key name="description_for_home_hint">Website description with keywords and keyphrases</key>
+    <key name="keywords_for_home_label">Keywords</key>
+    <key name="keywords_for_home_hint">Enumerate keywords separated by a comma to describe your website</key>
+
+
+    <key name="main_page">Home page</key>
+    <key name="footer_text_label">Footer</key>
+    <key name="footer_text_hint">Text block at the bottom of the page</key>
+    <key name="site_map_label">Website map</key>
+    <key name="site_map_hint">List of all text pages and catalog sections</key>
+
+    <key name="site_map_html_hint">html sitemap link</key>
+    <key name="site_map_xml_hint">xml sitemap link</key>
+
+
+    <key name="update_site_map">Update website map</key>
+    <key name="updating_site_map">Website map is updating</key>
+
+    <key name="widgets">Widgets</key>
+    <key name="hide_social_label">Social networks section</key>
+    <key name="hide_social_hint">Social networks display mode</key>
+    <key name="hide_social_value:*">Hide</key>
+    <key name="hide_social_value:0">Display</key>
+    <key name="hide_social_value:1">Hide</key>
+
+    <key name="vkLikeWidget_label">VKontakte Like</key>
+    <key name="vkLikeWidget_value:*">Hide</key>
+    <key name="vkLikeWidget_hint">Add code from VKontakte developers area</key>
+
+    <key name="fbLikeWidget_label">Facebook Like</key>
+    <key name="fbLikeWidget_hint">Add code from Facebook developers area</key>
+    <key name="fbLikeWidget">Facebook Like</key>
+
+    <key name="twitWidget_label">Twitter Like</key>
+    <key name="twitWidget_hint">Add code from Twitter developers area</key>
+
+    <key name="okWidget_label">Odnoklassniki Like</key>
+    <key name="okWidget_hint">Add code from Odnoklassniki developers area</key>
+
+    <key name="banner_widget_label">Widget in place of banner in a column</key>
+    <key name="banner_widget_hint">Add widget code from VKontakte website</key>
+    <key name="links">Links</key>
+    <key name="vk_link_label">VKontakte group</key>
+    <key name="vk_link_hint">Link to your VKontakte group</key>
+    <key name="fb_link_label">Facebook</key>
+    <key name="fb_link_hint">Link to your Facebook page</key>
+    <key name="tw_link_label">Twitter</key>
+    <key name="tw_link_hint">Link to your Twitter page</key>
+    <key name="inst_link_label">Instagram</key>
+    <key name="inst_link_hint">Link to your Instagram page</key>
+    <key name="product_page">Item page</key>
+    <key name="share_social_code_label">Share button</key>
+    <key name="share_social_code_hint">Please use the default code below item photo or enter your own one</key>
+
+    <key name="add_category">Add category</key>
+
+    <key name="add_new_category">Adding new category</key>
+    <key name="category_profit_percent">Percentage of profit from referrers</key>
+    <key name="category_min_orders_sum">Minimum total amount of referrers' orders</key>
+
+    <key name="category_name">Name</key>
+    <key name="category_action">Actions</key>
+    <key name="category_edit">Editing category</key>
+
+    <key name="add_category_user">Add user to category</key>
+    <key name="update_category">Edit category</key>
+    <key name="remove_category">Delete category</key>
+
+    <key name="add_mailing">Create newsletter</key>
+    <key name="update_mailing">Edit</key>
+    <key name="remove_mailing">Delete</key>
+    <key name="mailing_name">Newsletter</key>
+    <key name="mailing_actions">Actions</key>
+
+    <key name="user_name">Name</key>
+    <key name="user_login">Login</key>
+    <key name="user_email">Email</key>
+    <key name="user_balance">Balance</key>
+    <key name="apply_filter">Apply filter</key>
+    <key name="add_user">Add user</key>
+    <key name="export">Export</key>
+    <key name="import">Import</key>
+    <key name="add_subscription_user">Add user to subscription</key>
+    <key name="subscribers_export_xml">Export of subscribers (.xml)</key>
+    <key name="subscribers_import_xml">Import of subscribers (.xml)</key>
+    <key name="subscribers_load_xml">Select file (.xml)</key>
+    <key name="subscribers_user">User</key>
+    <key name="subscribers_email">Email</key>
+    <key name="subscribers_actions">Actions</key>
+
+    <key name="config_messages_count">The number of emails</key>
+    <key name="config_use_smtp_server">Use SMTP-server</key>
+    <key name="config_smpt_address">SMTP-server address</key>
+    <key name="config_smtp_port">SMTP-server port</key>
+    <key name="config_smpt_login">User</key>
+    <key name="config_smpt_password">Password</key>
+    <key name="config_use_ssl">Use ssl</key>
+
+    <key name="Some_goods_have_incorrect_status_to_package">Item with status {{status}} cannot be added to parcel</key>
+    <key name="Price_can_not_be_below_zero"> Price cannot be negative value</key>
+
+    <key name="Users_are_banned">User accounts locked</key>
+    <key name="Users_are_unbanned">User accounts unlocked</key>
+    <key name="Users_are_deleted">User accounts removed</key>
+
+    <key name="Really_ban_these_users">Are you sure you want to lock selected user accounts?</key>
+    <key name="Really_remove_these_users">Are you sure you want to remove selected user accounts?</key>
+    <key name="Really_unban_these_users">Are you sure you want to unlock selected user accounts?</key>
+
+    <key name="Confirm_needed">Confirmation required</key>
+
+    <key name="Url_is_invalid">Invalid/broken link</key>
+
+    <key name="delivery_tracking_num_label">Tracking number</key>
+    <key name="delivery_tracking_num_hint">Tracking number to track a parcel in delivery service</key>
+    <key name="package_status_label">Status</key>
+    <key name="package_status_hint">Parcel status (modified by a logistician)</key>
+
+    <key name="delivery_mode_label">Delivery method</key>
+    <key name="delivery_mode_hint">Method of delivery to destination point(customer)</key>
+
+    <key name="package_weight_label">Weight</key>
+    <key name="package_weight_hint">Parcel weight</key>
+
+    <key name="package_price_internal_label">Fee</key>
+    <key name="package_price_internal_hint">Fee for delivering a parcel to destination point (customer)</key>
+
+    <key name="package_size_label">Parcel size</key>
+    <key name="package_size_hint">Parcel size in cm</key>
+
+    <key name="package_additional_info_label">Additional information</key>
+    <key name="package_additional_info_hint">Additional information on a parcel not specified in other fields</key>
+
+    <key name="discountmode_label">Discount mode</key>
+    <key name="discountmode_hint">Discount mode</key>
+    <key name="discountmode_value:Default">Default mode for all users</key>
+    <key name="discountmode_value:None">No discount offered</key>
+    <key name="discountmode_value:OnlyCache">Discounts only from cache</key>
+    <key name="discountmode_value:OnlyWithFeature"> Discounts only from cache and for items marked as Discount</key>
+    <key name="discountmode_value:All">All discounts from cache and search requests</key>
+
+    <key name="Search_types">Search methods</key>
+    <key name="Search_types_order">Search methods in order</key>
+    <key name="Search_types_order_hint">Here you can select search methods for items (in categories inclusive) from the drop-down list located on the right side of the page. Editing search methods order and use can be done on the left side of the page</key>
+    <key name="Add_search_types">Add to search methods used</key>
+    <key name="Last_search_type_can_not_delete">The last search method is impossible to delete</key>
+    <key name="Nothing_to_add">Nothing to add</key>
+    <key name="Search_providers_translations_alert">We strongly recommend not using the word TAOBAO or any derivative word (for example, "All goods from TAOBAO)in search criteria (options). In the event of complaint from TAOBAO against it your website will be set offline</key>
+
+    <key name="All_search_types_are_selected">All search methods selected</key>
+
+    <key name="Min_weight_can_not_be_more_than_max_weight">The minimum parcel weight must not exceed the maximum one</key>
+    <key name="Currency_settings_for_shipment">Currency chosen to calculate the fee for current delivery</key>
+    <key name="Order_settings_for_shipment">Index number of delivery in the list</key>
+
+    <key name="Unable_to_set_the_rate_of_one_currency">It is impossible to set the exchange rate for single currency</key>
+    <key name="You_must_set_the_rate">Rate of exchange required</key>
+    <key name="Really_delete_the_selected_rate"> Are you sure you want to delete the exchange rate selected?</key>
+    <key name="Rate_was_deleted">The exchange rate deleted successfully</key>
+    <key name="Rate_modes">Synchronization modes</key>
+    <key name="No_Sinc_Flag">No synchronization provided</key>
+    <key name="WithCB_Sinc_Flag">Synchronization with the Central Bank of Russia</key>
+    <key name="WithHub_Sinc_Flag">Synchronization with Hub</key>
+    <key name="Add_rate">Add exchange rate</key>
+    <key name="Edit_rate">Edit exchange rate</key>
+    <key name="synchronized_with_CB">Exchange rates are in sync with the Central Bank of Russia</key>
+    <key name="synchronized_with_Hub">Exchange rates are in sync with Hub</key>
+    <key name="CB_rates_today">Exchange rates of the Central Bank of Russia on {{date}} (with foreign currency conversion fee)</key>
+    <key name="Hub_rates_today">Exchange rates of Hub on {{date}}(with foreign currency conversion fee)</key>
+    <key name="Rate_must_be_float">The exchange rate must be positive number</key>
+    <key name="Such_or_reverse_rate_already_exists">The given exchange rate or inverse one already exists</key>
+    <key name="Must_set_ratings">Exchange rates required</key>
+    <key name="Rate_set_succes">Settings have been saved. A page will be automatically updated in 5 seconds. Please wait ...</key>
+
+    <key name="Discount_is_saved">Discount data saved</key>
+    <key name="User_is_deleted">User account deleted</key>
+    <key name="User_is_replaced">User account transferred</key>
+    <key name="Discount_is_deleted">Discount deleted</key>
+    <key name="Must_be_enter_discount_name">Discount name required</key>
+    <key name="Must_be_enter_discount_value">Discount value required</key>
+    <key name="Must_be_enter_discount_start_price">Enter the sum which should activate the sales discount</key>
+    <key name="User_added_to_discount">User is added to discount group</key>
+    <key name="Move_user_to_discount">{{login}}: move user from discount group '{{groupName}}' to discount group '{{newGroupName}}'?</key>
+    <key name="Add_discount">New discount</key>
+    <key name="Edit_discount">Edit discount</key>
+    <key name="Discount_must_be_greater_than_zero">A discount value cannot be negative number</key>
+    <key name="Minprice_must_be_greater_than_zero">A discount sum cannot be empty or negative</key>
+    <key name="Discount_value_must_not_be_greater_than_hundred">A discount cannot exceed 99</key>
+    <key name="Discount_value_must_not_unprocent">A discount value cannot be less than 0 or greater than 99</key>
+    <key name="Discount_value_is_wrong">Discount value is wrong</key>
+    <key name="Incorrect_login_or_password">Invalid user's login "{{login}}" or password</key>
+
+    <key name="Added_manually">Added manually</key>
+
+    <key name="User">User</key>
+    <key name="Product_title">Item</key>
+    <key name="Product_quantity">Quantity</key>
+    <key name="Prev">Previous</key>
+    <key name="Next">Next</key>
+
+    <key name="Inn_must_be_10_12_numbers">VAT number must contain 10 or 12 digits</key>
+    <key name="Account_payee_must_be_20_numbers">Beneficiary's Bank Account Number  must contain 20 digits</key>
+    <key name="Correspond_account_must_be_20_numbers">Correspondent account of bank must contain 20 digits</key>
+    <key name="BIK_must_be_8_9_numbers">Russian Central Bank Identifier Code must contain 8 or 9 digits</key>
+    <key name="Field_must_be_filled">This field is required</key>
+
+    <key name="email_smtp_security_label">Use SSL security protocol</key>
+
+
+    <key name="admin_letter_lang_label">Notification language</key>
+    <key name="admin_letter_lang_hint">Notification language for website admins</key>
+    <key name="admin_letter_lang_value:*">Russian</key>
+    <key name="admin_letter_lang_value:ru">Russian</key>
+    <key name="admin_letter_lang_value:en">English</key>
+    <key name="admin_letter_lang_value:khk">Mongolian</key>
+    <key name="admin_letter_lang_value:zh-chs">Chinese</key>
+    <key name="admin_letter_lang_value:es">Spanish</key>
+    <key name="admin_letter_lang_value:de">German</key>
+    <key name="admin_letter_lang_value:pt">Portuguese</key>
+    <key name="admin_letter_lang_value:sah">Yakut (Sakha)</key>
+    <key name="admin_letter_lang_value:pl">Polish</key>
+    <key name="admin_letter_lang_value:ka">Georgian</key>
+    <key name="admin_letter_lang_value:he">Israeli</key>
+    <key name="admin_letter_lang_value:ro">Romanian</key>
+    <key name="admin_letter_lang_value:uk">Ukrainian</key>
+    <key name="admin_letter_lang_value:bg">Bulgarian</key>
+    <key name="admin_letter_lang_value:hy">Armenian</key>
+    <key name="admin_letter_lang_value:fi">Finnish</key>
+    <key name="admin_letter_lang_value:ja">Japanese</key>
+    <key name="admin_letter_lang_value:az">Azerbaijanian</key>
+    <key name="admin_letter_lang_value:ky">Cayman Island</key>
+    <key name="admin_letter_lang_value:cz">Czech</key>
+
+    <key name="Navigation">Navigation</key>
+    <key name="GoodsList">Item list</key>
+    <key name="Search">Search</key>
+    <key name="Multisearch">Multisearch</key>
+    <key name="menu_count_lvl1_label">The number of categories</key>
+    <key name="menu_count_lvl1_hint">Specifies the number of root categories. Empty field value means output of all categories</key>
+    <key name="menu_count_lvl2_label">The number of subcategories</key>
+    <key name="menu_count_lvl2_hint">Specifies the number of  subcategories. Empty field value means output of all subcategories</key>
+    <key name="menu_type_label">Navigation type</key>
+    <key name="menu_type_hint">Specifies the behavior of catalog's category menu</key>
+    <key name="menu_type_value:*">Static category list</key>
+    <key name="menu_type_value:1">Static category list</key>
+    <key name="menu_type_value:2">Drop-down (two levels)</key>
+    <key name="menu_type_value:3">Drop-down (three levels)</key>
+
+    <key name="Vendor_rating">Vendor rating</key>
+    <key name="vendor_rating_view_as_number_label">Rated output method</key>
+    <key name="vendor_rating_view_as_number_value:*">Icons</key>
+    <key name="vendor_rating_view_as_number_value:0">Icons</key>
+    <key name="vendor_rating_view_as_number_value:1">Numbers</key>
+
+    <key name="Icon">Icon</key>
+
+    <!-- The Reports section-->
+    <key name="Service_statistics">Service statistics</key>
+    <key name="Billing">Billing</key>
+    <key name="Tariff">Rate</key>
+    <key name="Limit_calls">Request limit</key>
+    <key name="Percentage_of_turnover">Turnover percentage</key>
+    <key name="Cost_one_call">Cost of 1 request in $</key>
+    <key name="Parameter_statistics">Statistics parameter</key>
+    <key name="Per_day">per day</key>
+    <key name="This_month">per month</key>
+    <key name="Total">Total</key>
+    <key name="Number_of_references_to_services">The number of requests to services</key>
+    <key name="Total_quantity_of_references_to_services">Total quantity of references to services</key>
+    <key name="Paid_quantity_of_references_to_services">Paid quantity of references to services</key>
+    <key name="Total_volume_of_translated_texts">Total amount of texts translated (in characters)</key>
+    <key name="Volume_of_texts_translated_automatic_external_compiler">Amount of texts automatically translated by external translator (in characters)</key>
+    <key name="Caching_efficiency_source_of_goods">Efficiency of caching the goods origin (Taobao requests)</key>
+    <!-- The Reports section-->
+
+    <key name="email_smtp_security_hint">Additional protection for mailing via SMTP (if supported by server)</key>
+    <key name="email_smtp_security_value:ssl">Use SSL</key>
+    <key name="email_smtp_security_value:tls">Use TLS</key>
+    <key name="email_smtp_security_value:none">Don't use</key>
+    <key name="email_smtp_security_value:*">Don't use</key>
+    <key name="email_smtp_adress_label">SMTP server address</key>
+    <key name="email_smtp_adress_hint">IP or http address - SMTP server host</key>
+    <key name="email_smtp_port_label">SMTP server port</key>
+    <key name="email_smtp_port_hint">SMTP server connection port</key>
+    <key name="email_smtp_user_label">SMTP server login</key>
+    <key name="email_smtp_user_hint">Your SMTP server login</key>
+    <key name="email_smtp_pass_label">SMTP server password</key>
+    <key name="email_smtp_pass_hint">Your SMTP server password</key>
+    <key name="Smtp_mailer_settings">SMTP settings for mailing</key>
+    <key name="sms_service_setting">SMS service settings</key>
+
+    <key name="show_hidden_categories_label">Hidden:</key>
+    <key name="show_hidden_categories_value:1">Display</key>
+    <key name="show_hidden_categories_value:*">Display</key>
+    <key name="show_hidden_categories_value:0">Hide</key>
+
+    <key name="Export">Export</key>
+    <key name="Import">Import</key>
+    <key name="Please_select_file_before_upload">Please choose a file to be imported</key>
+    <key name="Export_categories">Export categories</key>
+    <key name="Import_categories">Import categories</key>
+    <key name="Export_category">Export category content</key>
+    <key name="Import_category">Import category content</key>
+    <key name="Upload">Upload</key>
+    <key name="Export_as_txt">.txt</key>
+    <key name="Select_file_to_import">Choose file</key>
+    <key name="No_orders_selected">No orders selected</key>
+    <key name="No_users_selected">No users selected</key>
+
+    <key name="Сontent">Content</key>
+    <key name="blog_posts_label">Amount of blog posts per page</key>
+    <key name="Authorize">Sign in</key>
+    <key name="User_login_can_not_be_empty">User login is required</key>
+    <key name="Support_orders">Orders issues</key>
+    <key name="By_orders">By orders</key>
+    <key name="Support_other">General issues</key>
+    <key name="Message_can_not_be_empty">Message cannot be empty</key>
+    <key name="Ticket_closed">Ticket is closed</key>
+    <key name="To_order">To order</key>
+    <key name="Orderlabel">Order</key>
+    <key name="Messages_by_theme">Comments on an issue</key>
+    <key name="Add_message">Add comment</key>
+    <key name="Close_ticket">Close ticket</key>
+    <key name="Text_of_message">Message text</key>
+    <key name="Support">Support</key>
+    <key name="Tickets_to_orders">Orders issues</key>
+    <key name="ticket_new_count">New</key>
+    <key name="Not_answerd">Unanswered</key>
+    <key name="Ticket_number">Ticket number</key>
+    <key name="from">from</key>
+    <key name="to">to</key>
+    <key name="Condition">State</key>
+    <key name="Theme">Issue</key>
+    <key name="Messages">Messages</key>
+    <key name="Conut">Total</key>
+    <key name="Number">Number</key>
+    <key name="Collapse_tickets">Fold a list of issues</key>
+    <key name="There_is_not_answered_themes">There are unanswered issues</key>
+    <key name="All_count_themes">Total amount of orders issues</key>
+    <key name="Need_answer">Response required</key>
+    <key name="Read_messages">Read comments</key>
+    <key name="Customer_profile">Customer's profile</key>
+    <key name="Not_found_tickets">No match found</key>
+    <key name="Need_choose_ticket_to_see_messages">Select ticket to view comments</key>
+    <key name="General_tickets">General issues</key>
+    <key name="No_subject">No title available</key>
+
+    <key name="Product_title">Item name</key>
+    <key name="Product_quantity">Quantity</key>
+
+    <key name="Order_close">Confirmation</key>
+    <key name="Really_close_this_order">Order will be closed. Continue?</key>
+    <key name="Order_cancel">Confirmation</key>
+    <key name="Cancel_order">Cancel order</key>
+    <key name="Really_cancel_this_order">Order will be canceled. Continue?</key>
+
+    <!-- The Caching section-->
+    <key name="Reset_cache">Clear cache</key>
+    <key name="Reset_cache_label">Clearing cache</key>
+    <key name="Reset_cache_hint">Clear the whole cache on the website</key>
+    <key name="Reset_cache_clean">Clear</key>
+    <key name="Reset_cache_clears">Please wait while cache is clearing</key>
+    <key name="Reset_cache_success">Cache cleared successfully</key>
+    <key name="reset_cache_success">Cache cleared successfully</key>
+    <key name="Reset_cache_fail">Error when clearing cache. Please contact support</key>
+    <key name="Please_reset_cache">Please reset cache in admin panel</key>
+    <!-- The Caching section-->
+    <key name="letters">Emails</key>
+    <key name="Newsletter_creation">Creating newsletter</key>
+    <key name="Newsletter_edit">Editing newsletter</key>
+    <key name="mailing_subject">Subject</key>
+    <key name="mailing_body">Body</key>
+    <key name="mailing_test_sms">Phone number for test message</key>
+    <key name="mailing_test_email">Test email address</key>
+    <key name="mailing_test_email_hint">Address to receive newsletter info</key>
+
+    <key name="Added_items_from">Added items from </key>
+    <key name="Merged_with">Merged with </key>
+
+    <key name="mailing_test">Test</key>
+    <key name="mailing_send">Send</key>
+    <key name="Newsletter_title_must_not_be_empty">Subject required</key>
+    <key name="Newsletter_text_must_not_be_empty">Body required</key>
+    <key name="Subscriber_added">Subscriber added successfully</key>
+
+    <key name="Сhange_package_status">Changed package status</key>
+    <key name="Old_package_status">Old package status</key>
+    <key name="New_package_status">New package status</key>
+    <key name="Сhange_package_trackingnum">Changed package tracker number</key>
+    <key name="new_number">New number</key>
+
+    <key name="Сhange_package_trackingnum">Changed package tracker number</key>
+    <key name="new_number">New number</key>
+
+    <key name="Authentication_ajax_true">Access granted</key>
+    <key name="Session_expired">Session expired</key>
+
+    <key name="Action_not_allowed_for_user">This action is not allowed for you</key>
+    <key name="search_category_param_searchUrl">Link</key>
+
+    <key name="Choose_preDefineMode">Select the binding</key>
+    <key name="search_category_param_searchUrl">Link</key>
+
+    <key name="search_category_param_preDefineMode">Type of binding</key>
+    <key name="search_category_param_provider">Search provider</key>
+    <key name="search_category_param_category">Original category</key>
+    <key name="search_category_param_searchWord">Request</key>
+    <key name="search_category_param_searchMethod">Search method</key>
+    <key name="search_category_param_vendor">Seller</key>
+    <key name="search_category_param_minPrice">Minimum price</key>
+    <key name="search_category_param_maxPrice">Maximum price</key>
+    <key name="search_category_param_brand">Brand name</key>
+    <key name="search_category_param_stuffStatus">Condition of the goods</key>
+    <key name="search_category_param_featureDiscount">Discounts</key>
+    <key name="search_category_param_featureAuction">Auction</key>
+    <key name="search_category_param_region">Region</key>
+    <key name="search_category_param_searchUrl">Link</key>
+    <key name="search_category_param_Configurators">Configurators</key>
+    <key name="search_category_param_availableSorts">Sorting</key>
+    <key name="search">to search</key>
+    <key name="category">to category</key>
+    <key name="virtual">virtual</key>
+    <key name="New">New</key>
+    <key name="Unused">Unused</key>
+    <key name="Second">Second-hand</key>
+    <key name="true">true</key>
+    <key name="false">false</key>
+    <key name="Parent_category">Parent category</key>
+    <key name="Parent_category_hint">Start typing name of parent category in your catalog to find the needed category. Leave field empty to make the category as root one.</key>
+    <key name="Category_name_hint">Enter name for this category in the catalog.</key>
+    <key name="Category_predefine_mode_hint">Correspondence of your category with catalog of trade provider or to search query. Virtual category does not contain products and is used for catalog generating.</key>
+    <key name="Approximate_weight">Approximate weight (kg)</key>
+    <key name="Approximate_weight_hint"> Specify the approximate weight of the goods in this category to make possible calculating the shipping cost.</key>
+    <key name="Category_address">URL of site section</key>
+    <key name="Category_address_hint">Enter URL of site’s page (English characters without spaces).</key>
+
+
+    <key name="Meta">Meta</key>
+    <key name="Filters">Filters</key>
+
+    <key name="Delivery_integration_type">Integration type</key>
+    <key name="Delivery_integration_type_hint">Select service delivery integration</key>
+    <key name="delivery_integration_mode">Delivery method for integration</key>
+    <key name="delivery_integration_mode_hint">Select integration delivery mode</key>
+    <key name="delivery_integration_hide_from_buyer">Hide the ability to select the method of delivery when ordering. The buyer will be able to choose this shipping method using the PROshipping module.</key>
+    <key name="Select_customer_profile">Select customer profile</key>
+    <key name="Customer_search_ID">Customer search (ID)</key>
+    <key name="Translate_statuses_hint">Translate statuses into the required language of version of the site.</key>
+    <key name="Translate_statuses">Translate statuses</key>
+    <key name="Language_select">Admins language</key>
+    <key name="notification_send_from_name_label">Name of sender (service)</key>
+    <key name="Add_custom_subscriber">Add custom subscriber</key>
+    <key name="Show_count_of_posts">Show count of posts</key>
+    <key name="Start_typing_an_user_login">Start typing an user login...</key>
+    <key name="Confirm_delete_subscriber">Realy delete subscriber?</key>
+    <key name="Confirm_delete_subscriber_from_newsl">Realy delete subscriber from all newsletters?</key>
+    <key name="Users_imported">Users are imported</key>
+
+    <key name="Category_settings">Category settings</key>
+    <key name="From_taobao_url">Taobao url</key>
+    <key name="From_taobao_url_help">Enter search results url from product provier site.</key>
+    <key name="To_another_params">Another params</key>
+    <key name="From_request">Request</key>
+    <key name="From_request_help">Enter your search query. If necessary, select the language in which the search query is entered.</key>
+    <key name="No_selection">No selection</key>
+    <key name="Check_category">Select category</key>
+    <key name="Search_method">Search method</key>
+    <key name="Brand">Brand</key>
+    <key name="Type_brand">Type brand name.</key>
+    <key name="Stuff_status">Product status</key>
+    <key name="Filters">Filters</key>
+    <key name="Filters_help">Enter product properties.</key>
+    <key name="First_choose_category">First select a category.</key>
+    <key name="Use">Use</key>
+    <key name="Not_use">Not use</key>
+    <key name="from_price">from</key>
+    <key name="to_price">to</key>
+    <key name="Meta">Meta</key>
+    <key name="Contents">Contents</key>
+    <key name="Filters">Filters</key>
+    <key name="Choose_preDefineMode">Select type of binding</key>
+    <key name="search_category_param_searchUrl">Link</key>
+    <key name="Feature_Discount">Discount</key>
+    <key name="Not_seted">Not seted</key>
+    <key name="Update_folder_not_writable">Update folder is not writable (updates)</key>
+    <key name="There_is_no_archive_of_updates">There is no archive of updates</key>
+    <key name="Log_in">Log in</key>
+    <key name="Submit">Submit</key>
+
+    <key name="open">Open</key>
+    <key name="Start_date_must_be_less">Start date must be earlier than end date</key>
+    <key name="End_date_must_be_greater">End date must be later than start date</key>
+    <key name="Show_queries_log">Show queries log</key>
+    <key name="Access_forbidden">Access is forbidden</key>
+    <key name="Error_in_ajax_request">Error in ajax request</key>
+    <key name="Confirmation">Confirmation</key>
+    <key name="Mailing_remove_confirmation">Are you sure you want to delete newsletter?</key>
+    <key name="Test_letter_successfuly_sent">Test letter was successfully sent</key>
+    <key name="Given_product_configuration_is_not_in_stock">Chosen product configuration is not available</key>
+    <key name="User_profile">User profile</key>
+    <key name="Not_set">Not set</key>
+    <key name="level">Level</key>
+    <key name="Start_typing_login">Start typing login</key>
+    <key name="No_matches_found">No matches found</key>
+    <key name="Admin_panel">Admin mode OT Commerce</key>
+    <key name="Go_to_site">Go to site</key>
+    <key name="Editing_categories_filters">Categories filters editing</key>
+    <key name="Go_to_page">Go to page</key>
+    <key name="User_cannot_be_removed_warning">User can not be removed. Move to another category?</key>
+    <key name="Up">Up</key>
+    <key name="Remove_confirmation">Are you sure you want to remove?</key>
+    <key name="Support_form">Support form</key>
+    <key name="Logout">Logout</key>
+    <key name="Mailing_sender_address">Newsletter sender address</key>
+    <key name="Mailing_sender_name">Newsletter sender name</key>
+    <key name="Mailing_explain_notes">Number of newsletters that server sends for one part. Usually a queue is created due to restrictions on simultaneous sending of a lot of messages. This queue divides mailings at server to parts.</key>
+    <key name="Mailing_title">Newsletter title</key>
+    <key name="Mailing_not_started">Newsletter sending did not start</key>
+    <key name="Letters_sent">Letters were sent</key>
+    <key name="Letters_queued">Letters in queue</key>
+    <key name="Edit_mailing">Edit newsletter</key>
+    <key name="Remove_mailing">Remove newsletter</key>
+    <key name="Subscriber_email">Subscriber email</key>
+    <key name="With_chosen">With selected</key>
+    <key name="Export_goods">Export goods</key>
+    <key name="Remove_goods">Remove goods</key>
+    <key name="Product_number">Product number</key>
+    <key name="Show_full_product_info">Show full product info</key>
+    <key name="Order_page">Order page</key>
+    <key name="Export_product">Export product</key>
+    <key name="Export_chosen_orders">Export selected orders</key>
+    <key name="Export_by_agents">Export by agents</key>
+    <key name="Rest_actions_with_chosen">Other actions with selected</key>
+    <key name="Restore_orders">Restore orders</key>
+    <key name="Cancel_orders">Cancel orders</key>
+    <key name="Show_goods_list">Show goods list</key>
+    <key name="Export_order">Export order</key>
+    <key name="Restore_order">Restore order</key>
+    <key name="More">More</key>
+    <key name="All_parameters">All parameters</key>
+    <key name="Product_taobao_page">Product page at Taobao</key>
+    <key name="Vendor_taobao_page">Vendor page at Taobao</key>
+    <key name="Full_description">Full description</key>
+    <key name="Orders_list">Orders list</key>
+    <key name="Orders_profile">Delivery order profile</key>
+    <key name="By_goods">By goods</key>
+    <key name="pcs">Pcs</key>
+    <key name="Private_data">Private data</key>
+    <key name="Filter_goods_by_statuses">Filter goods by statuses</key>
+    <key name="Customer_comment">Customer comment</key>
+    <key name="Operator_comment">Operator comment</key>
+    <key name="Customer_image">Image</key>
+    <key name="Admin_comment">Admin comment</key>
+    <key name="Transaction_id">External identificator of payment</key>
+    <key name="Pay_status_filter">Status</key>
+    <key name="Pay_status_filter_All">All</key>
+    <key name="Pay_status_filter_New">New</key>
+    <key name="Pay_status_filter_Confirmed">Confirmed</key>
+    <key name="Pay_status_filter_Waiting">Waiting</key>
+    <key name="Pay_status_filter_Canceled">Canceled</key>
+    <key name="Clear_filters">Clear filters</key>
+    <key name="Pay_creation_date">Creation date</key>
+    <key name="Pay_status">Payment status</key>
+    <key name="Create_package_with_selected_goods">Create parcel with selected goods</key>
+    <key name="Create_package">Create parcel</key>
+    <key name="Add_goods_to_package">Add goods to current parcel</key>
+    <key name="Slideshow">Slideshow</key>
+    <key name="Orders_changes_history">History of order changes</key>
+    <key name="No_package_for_order_created">There's no any parcel created for this order</key>
+    <key name="Package_creation_explain_notes_1">If you want to add all goods into one parcel click button</key>
+    <key name="Package_creation_explain_notes_2">If you want to add part of goods - go to tab</key>
+    <key name="Package_creation_explain_notes_3">with the list of goods</key>
+    <key name="Package_creation_explain_notes_4">choose necessary goods and use group function</key>
+    <key name="Ready_to_purchase">Ready for purchase</key>
+    <key name="Book_on_taobao">Book</key>
+    <key name="Booked_goods">Goods purchased</key>
+    <key name="Actions_with_customer">Actions with customer</key>
+    <key name="Pay_for_user_order">Pay for customer's order</key>
+    <key name="Delivery_addresses">Delivery addresses</key>
+    <key name="by_packages">by parcels</key>
+    <key name="Other_active_orders">Other active orders</key>
+    <key name="Order_cost">Order cost</key>
+    <key name="remain">Left</key>
+    <key name="No_other_user_order_found">No other current orders for customer</key>
+    <key name="No_user_info_found">Customer info was not found</key>
+    <key name="In_package">In parcel</key>
+    <key name="Chat">Chat</key>
+    <key name="Set_catalog_section">Specify catalog section</key>
+    <key name="Add_discount">Add discount</key>
+    <key name="Remove_discount">Remove discount</key>
+    <key name="Add_user_in_discount_group">Add user in discount group</key>
+    <key name="To_discounts_list">To discounts list</key>
+    <key name="Rates_will_be_displayed_after_saving">Exchange rates will be displayed after saving</key>
+    <key name="Choose_currency">Choose currency</key>
+    <key name="Remove_rate">Remove exchange rate</key>
+    <key name="Write_letter_to_user">Write letter to user</key>
+    <key name="Remove_user_from_subscription">Remove user from subscription</key>
+    <key name="Referal_programs">Referral programs</key>
+    <key name="Elements_per_page">Elements number per page</key>
+    <key name="User_successfully_added">User was successfully added</key>
+    <key name="To_categories_list">To categories list</key>
+    <key name="Add_referal_category">Add referral program category</key>
+    <key name="Start_typing">Start typing</key>
+    <key name="View_users_list_in_category">View users list in category</key>
+    <key name="Middle_level">Middle level</key>
+    <key name="Add_new_category">Add new category</key>
+    <key name="Go_to_review">Go to review</key>
+    <key name="Creation_of_new_xeditable_field">New XEditable field creation</key>
+    <key name="Field_name">Field name</key>
+    <key name="Generate">Generate</key>
+    <key name="Formula">Formula</key>
+    <key name="Css_theme">Design theme</key>
+    <key name="Css_themes">Design themes</key>
+    <key name="Current_theme">Current theme</key>
+    <key name="Apply2">Apply</key>
+    <key name="Apply_theme">Apply design theme</key>
+    <key name="member_since">Member since</key>
+    <key name="Custom_css_themes">Custom design themes</key>
+    <key name="Role">Role</key>
+    <key name="FIO">Full name</key>
+    <key name="Found">Found</key>
+    <key name="Export_all_users">Export all users</key>
+    <key name="In_format">In format</key>
+    <key name="Failed_to_create_password">Sorry, unable to create password. Please try again.</key>
+    <key name="Money_credited_to_user_account">Money successfully credited to user account</key>
+    <key name="Failed_to_creadit_user_account">Sorry, failed to credit money to user account. Please try again.</key>
+    <key name="Money_successfully_withdrawn_from_user_account">Money was successfully withdrawn from user account</key>
+    <key name="Failed_to_withdraw">Sorry, failed to withdraw from user account. Please try again.</key>
+    <key name="About_customer">About customer</key>
+    <key name="To_customers_list">To customers list</key>
+    <key name="Role_name">Role name</key>
+    <key name="Rights">Rights</key>
+    <key name="From_template">From template</key>
+    <key name="Role_from_template_explain_notes">It's easier to use a template with set rules for standard roles when creating new role</key>
+    <key name="View_role_rights">View role rights</key>
+    <key name="editing_role_forbidden">Editing role forbidden</key>
+    <key name="Provider_not_selected">Provider was not selected</key>
+    <key name="Time">Time</key>
+    <key name="Mailing_sender_email_not_set">Sender email in mailing settings was not set</key>
+    <key name="Mailing_sender_name_not_set">Sender name in mailing settings was not set</key>
+    <key name="Mailing_receiver_email_not_set">Receiver email was not set</key>
+    <key name="Standard">Standard</key>
+    <key name="User_already_exists">User already exists</key>
+    <key name="User_not_exists">User does not exist</key>
+    <key name="Enable">Enable</key>
+    <key name="Hide2">Hide</key>
+    <key name="Show2">Show</key>
+    <key name="Display2">Display</key>
+    <key name="Original">Original</key>
+    <key name="Edit_discount">Edit discount</key>
+    <key name="Shown">Shown</key>
+    <key name="All_categories">All categories</key>
+    <key name="Delivery_profile">Profile</key>
+    <key name="structure_type_title">Categories operation mode</key>
+    <key name="structure_type_label">Displaying of categories for product catalog viewing</key>
+    <key name="structure_type_hint">Descriptions of modes you may see in documentation at docs.otcommerce.com</key>
+    <key name="structure_type_value:LeafMixed">Mixed</key>
+    <key name="structure_type_value:Predefined">Predefined </key>
+    <key name="structure_type_value:Internal">Internal</key>
+    <key name="structure_type_value:External">External</key>
+    <key name="Feature_Showcase">Showcase settings</key>
+    <key name="Feature_Order">Orders</key>
+    <key name="Feature_OrderPackageManagement">Parcels management</key>
+    <key name="Feature_ViewPackage">Parcels viewing</key>
+    <key name="Feature_EditPackage">Parcels editing</key>
+    <key name="Feature_OrderPayment">Order payment</key>
+    <key name="Feature_OrderManagement">Order management</key>
+    <key name="Feature_ViewOrderLine">Order lines viewing</key>
+    <key name="Feature_EditOrderLine">Order lines editing</key>
+    <key name="Feature_ViewOrder">Order viewing</key>
+    <key name="Feature_EditOrder">Order editing</key>
+    <key name="Feature_OrderDeliveryManagement">Shipping calculator</key>
+    <key name="Feature_ViewDeliveryCalculator">Shipping calculator settings viewing</key>
+    <key name="Feature_EditDeliveryCalculator">Shipping calculator settings editing</key>
+    <key name="Feature_AdminPanel">Administrative panel</key>
+    <key name="Feature_SimplePriceFormation">Pricing management</key>
+    <key name="Feature_ViewCurrencyRateSettings">Pricing settings viewing:  margin, currency exchange rates, shipping restrictions, rounding, Taobao discount using, etc.</key>
+    <key name="Feature_EditCurrencyRateSettings">Pricing settings editing</key>
+    <key name="Feature_InstanceUserSelfManagement">Operator settings management (password changing, etc.)</key>
+    <key name="Feature_BrandsManagement">Brands Management</key>
+    <key name="Feature_ViewBrands">Brands viewing</key>
+    <key name="Feature_EditBrands">Brands editing</key>
+    <key name="Feature_CatalogManagement">Catalog Management</key>
+    <key name="Feature_ViewCatalog">Viewing of catalog and its settings (mode of catalog, etc.)</key>
+    <key name="Feature_EditCatalog">Catalog and its settings editing</key>
+    <key name="Feature_ItemRatingManagement">Collections</key>
+    <key name="Feature_UserManagement">Customers</key>
+    <key name="Feature_ViewUsers">Customers viewing</key>
+    <key name="Feature_EditUsers">Customers editing</key>
+    <key name="Feature_ViewUserProfiles">Customer’s profiles viewing</key>
+    <key name="Feature_EditUserProfiles">Customer’s profiles editing</key>
+    <key name="Feature_StatisticsManagement">Statistics management</key>
+    <key name="Feature_ViewStatisticsSettings">Statistics settings viewing</key>
+    <key name="Feature_EditStatisticsSettings">Statistics settings editing</key>
+    <key name="Feature_CurrencyRateEnhance">Price groups</key>
+    <key name="Feature_ViewPriceFormation">Price groups viewing</key>
+    <key name="Feature_EditPriceFormation">Price groups editing</key>
+    <key name="Feature_InstanceUsersAdministration">Administrative panel users</key>
+    <key name="Feature_ViewInstanceAdministrationSettings">Viewing of instance users and their roles and rights</key>
+    <key name="Feature_EditInstanceAdministrationSettings">Editing of instance users and their roles and rights</key>
+    <key name="Feature_ViewInstanceUserActionsLog">User’s logs viewing</key>
+    <key name="Feature_ViewDiscounts">Discounts viewing</key>
+    <key name="Feature_EditDiscounts">Discounts editing</key>
+    <key name="Feature_CDEKIntegration">Integration with CDEK</key>
+    <key name="Feature_Warehouse">Warehouse management</key>
+    <key name="Feature_ViewWarehouseInfo">Warehouse viewing</key>
+    <key name="Feature_EditWarehouseInfo">Warehouse editing</key>
+    <key name="news_count_print_hint">Recommended number of displayed news is 3 (Default 3). </key>
+    <key name="items_with_best_hint">Recommended maximum number of goods is 200 (Default 8)</key>
+    <key name="items_with_popular_hint">Recommended maximum number of goods is 20 (Default 8)</key>
+    <key name="items_with_last_hint">Recommended maximum number of goods is 30. Recently viewed items are displayed in the customer’s dashboard (Default 8).</key>
+    <key name="brand_with_best_hint">Recommended maximum number of brands is 20 (Default 10)</key>
+    <key name="items_with_vendor_hint">Recommended maximum number of vendors is 20 (Default 8)</key>
+    <key name="items_with_comments_hint">Recommended maximum number of reviewed goods is 20 (Default 8)</key>
+    <key name="High_limit_is_exceeded">Maximum allowable value of the field is exceeded</key>
+    <key name="Low_limit_is_exceeded">Value is less than the minimum allowable value for this field</key>
+    <key name="Value_must_be_numeric">Value in the field must be numeric</key>
+    <key name="warehouse_items_label">Goods in warehouse</key>
+    <key name="Edit_custom_head_text">“Head” code in site’s template section</key>
+    <key name="Pristroy_user_hint">Enter user login the see the goods he sells</key>
+    <key name="Delivery_internal_hint">Internal delivery (within China)</key>
+    <key name="Delivery_external_hint">International delivery (by selected countries)</key>
+    <key name="actions_with_order">Actions with order</key>
+    <key name="restore">Restore</key>
+    <key name="to_order_list">To orders list</key>
+    <key name="Goodss_price_in_order">Prices of goods in order</key>
+    <key name="Paid_remain_in_order">Paid / Remaining</key>
+    <key name="Buying_order">Purchase</key>
+    <key name="Packages_order">Parcels</key>
+    <key name="History_order">Orders history</key>
+    <key name="History">History</key>
+    <key name="Information">Information</key>
+    <key name="Price_step_hint">Information is provided by delivery service. The cost of each subsequent step, that is, how much will be added to the initial cost of shipping in the case of the minimum weight of the parcel excess.</key>
+    <key name="Root_category">Categories</key>
+    <key name="Parent_category_hint">To change the parent category, start typing the name of the new parent category and then select the required category from the list or set 0 to mark the category as root category</key>
+    <key name="Default_Warehouse_category_name">Goods on stock</key>
+    <key name="Order_restore">Restore order</key>
+    <key name="Really_restore_this_order">Do you really want to restore this order?</key>
+    <key name="Merge">Merge</key>
+    <key name="Select_order_to_merge_please_or_click_Cancel">Choose an order for merging or cancel the operation by pressing 'Cancel' button</key>
+    <key name="No_orders_for_merge">No matching orders to merge.</key>
+    <key name="Select_order_for_merge">Select order to merge</key>
+    <key name="merge_error_different">These orders belong to different users, or have different delivery address</key>
+    <key name="merge_error_not_allows">The status of one or both of the orders does not allow to merge them. Merging is possible only for orders with statuses less than "Ready to pack"</key>
+    <key name="merge_error_same">Impossible to merge order with itself</key>
+    <key name="merge_error_wrong_order">Incorrect order number, or order number was not found</key>
+    <key name="Qty">Quantity</key>
+    <key name="Print_receipt">Print receipt</key>
+    <key name="Export_package">Export in delivery service</key>
+    <key name="Really_reserve_money_from_user_account">Do you really want to reserve money from user’s account?</key>
+    <key name="Price_group_values_must_be_greater_than_zero">Margin, shipping cost or product price cannot be negative</key>
+    <key name="Back">Back</key>
+    <key name="Must_be_enter_price_group_name">You must enter a name of price group</key>
+    <key name="Must_be_enter_price_group_description">You must enter a description of price group</key>
+    <key name="Price_group_name_content_invalid_letters">The group name contains invalid characters</key>
+    <key name="Price_group_delivery">Delivery</key>
+    <key name="Price_group_delivery_hint">Formula for standard strategy calculating of goods prices</key>
+    <key name="referral_category_name_hint">Referral program name</key>
+    <key name="referral_procents_hint">Referrer receives percentage which specified is here, from referral’s completed transactions (price of goods is assuming)</key>
+    <key name="default_products_for_display">Default number of displayed goods</key>
+    <key name="simple_search_perpage_value:8">8</key>
+    <key name="site_name_label">Default title</key>
+    <key name="site_name_hint">Title for the site’s page which is displayed by default if there is no pre-defined title</key>
+    <key name="Taobao/Official">Tmall goods (Taobao official goods)</key>
+    <key name="Taobao/Extended">Goods from China</key>
+    <key name="Taobao/ExtendedNew">Goods from China</key>
+    <key name="Taobao/Promoted">Taobao promoted goods</key>
+    <key name="Taobao/Original">Taobao original search</key>
+    <key name="Warehouse/Default">Warehouse goods</key>
+    <key name="YahooJapan/Default">Yahoo.Japan goods</key>
+    <key name="UserName">User name</key>
+    <key name="search_items_at_render_page_label">Search at boot time</key>
+    <key name="search_items_at_render_page_hint">A request for the search is sent to the display of the results. Attention! result page will load more than usual</key>
+    <key name="search_items_at_render_page_value:*">Apply</key>
+    <key name="search_items_at_render_page_value:1">Apply</key>
+    <key name="search_items_at_render_page_value:0">Do not apply</key>
+    <key name="Empty_value">Not filled</key>
+    <key name="Edit_footer_text">Edit footer content</key>
+    <key name="Could_not_load_file_categories">Failed loading categories file</key>
+    <key name="blog_posts_index_label">Post announcement</key>
+    <key name="Sets">Collections</key>
+    <key name="Brands">Brands</key>
+    <key name="Sellers">Vendors</key>
+    <key name="Recommended_products">Recommended goods</key>
+    <key name="Recommended_categories">Recommended categories</key>
+    <key name="Popular_products">Popular goods</key>
+    <key name="BrandsPopular">Popular brands</key>
+    <key name="Last_viewed">Last viewed goods</key>
+    <key name="from_list">from list</key>
+    <key name="or">or</key>
+    <key name="by_link">by link</key>
+    <key name="Save_order">Save order</key>
+    <key name="Saving_order">Saving order</key>
+    <key name="By_link_or_Id">By link or ID</key>
+    <key name="Add_brand_by_link_to_brand_or_by_brand_id">You may add brand by its link on the site or by its identifier (ID)</key>
+    <key name="Cancel_hide_form">Cancel / Hide form</key>
+    <key name="Brands_not_selected">No brand selected</key>
+    <key name="Change_order">Change order</key>
+    <key name="To_brand_page">To the brand’s page</key>
+    <key name="Link_id_or_seller_name">Link, id or vendor’s name</key>
+    <key name="Duplicate_vendor_name">The name or display name is isset</key>
+    <key name="Duplicate_vendor_alias">The alias is isset</key>
+    <key name="Addition_of_seller_by_name_id_or_link">You may add vendor by his name (you can find it on vendor’s page), by his identifier (ID) or by vendor’s page link on the site</key>
+    <key name="Display_image">Displayed image</key>
+    <key name="Display_name">Displayed name</key>
+    <key name="Seller_seo_title">Title</key>
+    <key name="Seller_seo_prefix">Prefix</key>
+    <key name="Seller_seo_suffix">Suffix</key>
+    <key name="Seller_seo_keywords">Keywords</key>
+    <key name="Seller_seo_description">Description</key>
+    <key name="Seller_seo_attributes">SEO attributes</key>
+    <key name="Seller_seo_title_hint">Text to be displayed in browser page title. Vendor name is default</key>
+    <key name="Seller_seo_prefix_hint">Text to be displayed in title before vendor name</key>
+    <key name="Seller_seo_suffix_hint">Text to be displayed in title after vendor name</key>
+    <key name="Seller_seo_keywords_hint">Keywords for improving page ranking</key>
+    <key name="Seller_seo_description_hint">Vendor description can be added to index your website</key>
+    <key name="Seller_url">Alias</key>
+    <key name="Seller_url_hint">Seller url</key>
+    <key name="To_seller_page">To the vendor’s page</key>
+    <key name="Edit_seller">Vendor editing</key>
+    <key name="Add_seller">Vendor adding</key>
+    <key name="from_file">from file</key>
+    <key name="From_file">From file</key>
+    <key name="Addition_product_by_link">You may add product by its link on the site.</key>
+    <key name="Addition_product_by_link_name">Leave blank the field for adding original name</key>
+    <key name="Display_product_name">Displayed product name</key>
+    <key name="Select_text_file_with_product_links">Select text file with the list of links to items (each link should be on new line)</key>
+    <key name="Really_delete_this_brand_from_sets">Do you really want to remove this brand from the collection?</key>
+    <key name="Brand_deleted">Brand successfully removed from the collection</key>
+    <key name="Seller_deleted">Vendor successfully removed from the collection</key>
+    <key name="Category_deleted">Category deleted</key>
+    <key name="Seller_url_or_id_is_required">'Link, ID or vendor’s name' field cannot be empty </key>
+    <key name="Really_delete_this_seller_from_sets">Do you really want to remove this vendor from the collection?</key>
+    <key name="Vendor_name_cannot_be_empty">'Vendor’s name' field cannot be empty</key>
+    <key name="Items_order_saved">Order of items in the list is saved</key>
+    <key name="Item_url_or_id_is_required">'Link' field cannot be empty</key>
+    <key name="Items_file_required">Choose file for goods loading</key>
+    <key name="set_cleared">Collection successfully cleared</key>
+    <key name="clear_set">Clear collection</key>
+    <key name="really_clear_the_set">Do you really want to clear the collection?</key>
+    <key name="Item_deleted">Item successfully removed</key>
+    <key name="Content_page_deleted">Page successfully removed</key>
+    <key name="Really_delete_this_item_from_sets">Do you really want to remove product from the collection?</key>
+    <key name="Login_and_id_are_mismatch">Internal error occurred. Seems the username was not selected in the drop-down list</key>
+    <key name="Bills_to_pay">Bills payable</key>
+    <key name="Bill">Bill</key>
+    <key name="Amount_USD">Amount, USD</key>
+    <key name="Amount_RUB">Amount, RUR</key>
+    <key name="Date_from">Date from:</key>
+    <key name="Date_to">Date to:</key>
+    <key name="Bill_discription">Bill description</key>
+    <key name="Details">Bill itemization</key>
+    <key name="Get_view">View</key>
+    <key name="Print">Print</key>
+    <key name="Do_export">Export</key>
+    <key name="Show_all">Show all</key>
+    <key name="Tariffication">Tariffication</key>
+    <key name="Your_rate">Your rate:</key>
+    <key name="Count_service_calls">Number of calls to OT services:</key>
+    <key name="Turnover_for_month">Turnover for the current month:</key>
+    <key name="Turnover_for_period">Turnover for period:</key>
+    <key name="Service_pay">Service payment:</key>
+    <key name="Service_pay_on">Service payment on</key>
+    <key name="History_of_rate_changes">History of rate changes</key>
+    <key name="Rate_activation_date">Rate activation date</key>
+    <key name="Rate">Rate</key>
+    <key name="Rate_activation_due">Rate termination</key>
+    <key name="Hosting">Hosting</key>
+    <key name="Payed_until">Paid till:</key>
+    <key name="Bill_info">Bill info</key>
+    <key name="Pay_date">Payment date</key>
+    <key name="Url_to_pay">Link to payment invoice</key>
+    <key name="Payed_amount">Paid amount, RUR</key>
+    <key name="Bill_info_not_found">Bill information not found</key>
+    <key name="Payed_bills">Paid bills</key>
+    <key name="Show_payed_bills">Show paid bills</key>
+    <key name="Hide_payed_bills">Hide paid bills</key>
+    <key name="No_unpayed_bills">Unpaid bills not found</key>
+    <key name="No_payed_bills">Paid bills not found</key>
+    <key name="Select_catalog_limit_error">Impossible to choose this mode, as prohibition to  search outside the catalog is set</key>
+    <key name="IpAccess">Access to search by IP</key>
+    <key name="Add_Ip">Add IP</key>
+    <key name="Naming">Denomination</key>
+    <key name="Delete_Ip">Delete IP</key>
+    <key name="Ip_is_deleted">IP deleted</key>
+    <key name="Ip_added">IP added</key>
+    <key name="Deleting">Deleting</key>
+    <key name="Entered_ip_is_incorrect">Entered wrong IP address</key>
+    <key name="No_more_brands">All brands are already in collection</key>
+    <key name="Banners">Banners</key>
+    <key name="Choose_lang_to_edit">Choose site’s language version for editing</key>
+    <key name="all">All</key>
+    <key name="Change_banner_sort">Change the order of banners</key>
+    <key name="Link_to_content">Link to section</key>
+    <key name="Edit_banner">Edit banner</key>
+    <key name="Delete_banner">Delete banner</key>
+    <key name="Banner_is_deleted">Banner deleted</key>
+    <key name="Banner_is_saved">Banner saved</key>
+    <key name="Add_Edit_Banners">Banner adding / editing</key>
+    <key name="Choose_catalog_page">Specify the catalog page</key>
+    <key name="Choose_content_page">Specify the site’s section</key>
+    <key name="Banner_image_help">Required sizes of banners are 695px * 330px for the old template, 1024px * 578 for the new template</key>
+    <key name="Banner_lang_help">Language of the banner</key>
+    <key name="Banner_link_help">Link from banner</key>
+    <key name="You_must_set_the_bannername">Specify banner’s name</key>
+    <key name="You_have_unpayd_bills">You have unpaid bills!</key>
+    <key name="Go_to">Go to</key>
+    <key name="Transactions_list">Transactions list</key>
+    <key name="update_order">Order updated</key>
+    <key name="change_item_price">Product price and its order code have been changed</key>
+    <key name="new_price_is">new price is</key>
+    <key name="get_more_info">For more information, please, follow</key>
+    <key name="link1">Link</key>
+    <key name="Insert_link">Insert link</key>
+    <key name="Insert_image">Insert image</key>
+    <key name="Alias_is_invalid">Invalid alias. You must use letters, numbers, underscores and hyphens</key>
+    <key name="change_in_order">Changes in order</key>
+    <key name="change_package_price">Parcel price has been changed</key>
+    <key name="old_price_is">Old price was</key>
+    <key name="order_need_surcharge">Additional payment for order is needed</key>
+    <key name="subscribers_imported">Subscribers imported</key>
+    <key name="Operation_log">Operators actions history</key>
+    <key name="Site_speed">Site speed</key>
+    <key name="Loading_chart_data">Loading via</key>
+    <key name="Average_time_page_generation">Average time page generation</key>
+    <key name="Average_time_api_connect">Average time api connect</key>
+    <key name="Current_site_speed">Current</key>
+    <key name="Archive_site_speed">Per month</key>
+    <key name="Average_time_box">Average time of box</key>
+    <key name="Average_time_api_work">Average time api work</key>
+    <key name="Operation_type">Operation type</key>
+    <key name="Order_id">Order ID</key>
+    <key name="Order_line_id">ID of order line</key>
+    <key name="Customer_id">Customer ID</key>
+    <key name="Datetime">Date and time</key>
+    <key name="Go_to_user">Go to user</key>
+    <key name="Go_to_order">Go to order</key>
+    <key name="Сombine">Merge</key>
+    <key name="Goods">Goods</key>
+    <key name="Searches">Search queries</key>
+    <key name="Restrictions">Restrictions</key>
+    <key name="By_link">By link</key>
+    <key name="Restriction_item_by_link">You may add restriction by product’s link on the site</key>
+    <key name="Paste_link_to_item">Paste the product’s link</key>
+    <key name="To_item_page">to product’s page</key>
+    <key name="Restriction_brand_by_link">You may add restriction by brand’s link on the site</key>
+    <key name="Paste_link_to_brand">Paste the brand’s link</key>
+    <key name="Restriction_caregory_by_link">You may add restriction by goods category’s link on the site</key>
+    <key name="Paste_link_to_category">Paste the goods category’s link</key>
+    <key name="To_category_page">To category page</key>
+    <key name="Check">Choose</key>
+    <key name="By_request_or_link">By request or link</key>
+    <key name="Paste_request_or_link">Paste search query or link to needed page</key>
+    <key name="Search_string">Search query</key>
+    <key name="To_search_page">To search query page</key>
+    <key name="By_name_or_link">By name or link</key>
+    <key name="Restriction_vendor_by_link">You may add restriction by vendor’s name (you may find it on the product page) or by link to vendor’s page on the site</key>
+    <key name="Restriction_search_by_link">You may add restriction by search query or by link to search query’s page on the site</key>
+    <key name="Paste_name_or_link">Paste vendor’s name or link to his page on the site</key>
+    <key name="To_vendor_page">To vendor’s page</key>
+    <key name="Item_not_entered">New restriction was not added</key>
+    <key name="Category_not_entered">New category was not added</key>
+    <key name="Restriction_added">Restriction added</key>
+    <key name="checked_group">selected group</key>
+    <key name="Restrictions_deleted">Restrictions removed</key>
+    <key name="Item_url_is_invalid">Product link is incorrect</key>
+    <key name="Category_url_is_invalid">Category link is incorrect</key>
+    <key name="Vendor_url_is_invalid">Vendor link is incorrect</key>
+    <key name="Search_url_is_invalid">Search query link is incorrect</key>
+    <key name="Brand_url_is_invalid">Brand link is incorrect</key>
+    <key name="Delivery_cost">Delivery cost</key>
+    <key name="Weight_placeholder">kg</key>
+    <key name="Default_weight">Default weight</key>
+    <key name="Weight_must_be_positive">You must specify the weight</key>
+    <key name="Incorrect_Weight">Weight is incorrect</key>
+    <key name="Translation_Key_hint">Object (word or phrase-identifier), which is translated into other languages</key>
+    <key name="blog_posts_index_hint">Recommended number of displayed news is 3</key>
+    <key name="Update_warning">Here, you can update the system (OT Commerce Box) manually or configure automatic updates. Attention! If you have customized components automatic update may damage your site</key>
+    <key name="Country_hint">Country in which you want to deliver</key>
+    <key name="First_price_hint">Information will be provided by delivery service. Shipping cost for the minimum weight of the parcel. When checked, the shipping cost will be equal to the minimum cost, with the weight of order less than or equal to step delivery to him.</key>
+    <key name="Main_user_agreement">User agreement</key>
+    <key name="Policy">Security policy</key>
+    <key name="About_us">About us</key>
+    <key name="404">Page not found</key>
+    <key name="Contacts">Contacts</key>
+    <key name="User_is_activated">User activated</key>
+    <key name="Really_activate_these_users">Do you really want to activate selected users?</key>
+    <key name="Really_verify_users_data">Confirm the data of selected users?</key>
+    <key name="Users_are_activated">Users activated</key>
+    <key name="Your_version">Available through the link</key>
+    <key name="referral_bonus">Referral bonus</key>
+    <key name="of_amount">of ammount</key>
+    <key name="from_referral">from referral</key>
+    <key name="Discount_percent">Percent of discount</key>
+    <key name="Discount_percent_hint">Discount provided to customer. If the number is negative, then the discount will operate as a surcharge.</key>
+    <key name="Discount_orders_sum">Total amount of orders</key>
+    <key name="Discount_orders_sum_hint">Starting amount from which the discount will be available</key>
+    <key name="Discount_group_default">Default group</key>
+    <key name="Discount_group_default_hint">This group will be applied to all registered users, not included in other groups.</key>
+    <key name="Discount_name">Name</key>
+    <key name="Discount_name_hint">Discount name</key>
+    <key name="Discount_description">Discount description</key>
+    <key name="Discount_description_hint">Discount brief description</key>
+    <key name="limit_items_by_catalog_label">Prohibition on search outside the catalog</key>
+    <key name="limit_items_by_catalog_hint">Lets you to prohibit goods search by name, article and product’s link outside from catalog categories. Used for store specialization.</key>
+    <key name="limit_items_by_catalog_value:0">Allow</key>
+    <key name="limit_items_by_catalog_value:*">Allow</key>
+    <key name="limit_items_by_catalog_value:1">Forbid</key>
+    <key name="notification_send_from_name_hint">Sender name (example: taobao vendor #1)</key>
+    <key name="Name_of_subscriber_cannot_be_empty">Subscriber name not specified</key>
+    <key name="Mail_of_subscriber_cannot_be_empty">Subscriber email not specified</key>
+    <key name="Subscriber_is_added">Subscriber added</key>
+    <key name="Duplicate_category_alias">Section address you entered already exists</key>
+    <key name="Item_id_is_invalid">Product id is incorrect</key>
+    <key name="simplified_registration_error_help">To enable 'Simplified registration' option please disable 'Additional activation of users through email' option</key>
+    <key name="simplified_registration_notice_help">If 'Simplified registration' option is enable, then 'Additional activation of users through email' option must be disable</key>
+    <key name="IsEmailConfirmationUsed_error_help">To enable 'Additional activation of users through email' option please disable 'Simplified registration' option</key>
+    <key name="Index_settings">Configuring indexing by search engines</key>
+    <key name="no_index_sets_label">Prohibition on indexing the main page (partially)</key>
+    <key name="no_index_sets_hint">Collections of goods on the main addition to 'popular', 'last viewed', 'products reviews' default indexed. Prevent indexing?</key>
+    <key name="no_index_sets_value:*">Index</key>
+    <key name="no_index_sets_value:1">Do not index</key>
+    <key name="no_index_itemlists_label">Prohibition on indexing of goods lists in categories</key>
+    <key name="no_index_itemlists_value:*">Index</key>
+    <key name="no_index_itemlists_value:1">Do not index</key>
+    <key name="no_index_brand_itemlists_label">Prohibition on indexing of goods lists in brands</key>
+    <key name="no_index_brand_itemlists_value:*">Index</key>
+    <key name="no_index_brand_itemlists_value:1">Do not index</key>
+    <key name="no_index_iteminfo_label">Prohibition on indexing of product page</key>
+    <key name="no_title_set">Title is empty</key>
+    <key name="no_subject_set">Subject is empty</key>
+    <key name="no_text_set">Text is empty</key>
+
+    <key name="newsletter_per_send_limit_label">Number of letters</key>
+    <key name="newsletter_per_send_limit_hint">The number of messages that the server sends in one part. Due to the restrictions on sending a large number of emails simultaneously, a queue is usually created, which is sent out by the server in parts. The default value is 5. The recommended maximum value is 100.</key>
+    <key name="newsletter_day_quota_label">Day quota of newsletter</key>
+    <key name="newsletter_day_quota_hint">Day quota of newsletter. Number of messages that will be sent daily. The default value is 100.</key>
+    <key name="Report_of_errors">Report off errors</key>
+    <key name="Report_page">Report off errors for newsletter</key>
+    <key name="subscribers_remove_user">Remove user from subscribers</key>
+    <key name="Mailing_is_completed">Completed</key>
+    <key name="Mailing_in_progress">In progress</key>
+    <key name="Stop_mailing">Stop</key>
+    <key name="Start_mailing">Start</key>
+    <key name="Restart_mailing">Restart</key>
+    <key name="day_quota_is_ended">Day quota is ended</key>
+    <key name="mailing_error_not_found">No errors</key>
+    <key name="Letters_with_error">Letters with error</key>
+
+    <key name="no_index_iteminfo_value:*">Index</key>
+    <key name="no_index_iteminfo_value:1">Do not index</key>
+    <key name="Reserv_money">Reserve funds for order</key>
+    <key name="Pay_order">Pay for order</key>
+    <key name="other">other</key>
+    <key name="Page_generation_time">Page generation time</key>
+    <key name="Failed_to_load_class">Unable to load class</key>
+    <key name="Create_translation">Create translation</key>
+    <key name="Add_translation">Add translation</key>
+    <key name="Fill_out_this_field">Please, fill out this field</key>
+    <key name="shopreviews_main_label">Shop reviews</key>
+    <key name="shopreviews_main_hint">Set a number of reviews on the main page (by default it is empty and reviews are not shown on the main page).</key>
+    <key name="Really_remove_these_comment">Really remove this review?</key>
+    <key name="No_comments_selected">No review selected</key>
+    <key name="Really_remove_these_comments">Really remove selected reviews?</key>
+    <key name="Success_answer">Answer is saved</key>
+    <key name="Comment_removed">Review is removed</key>
+    <key name="Comments_removed">Group of reviews is removed</key>
+    <key name="Comment_activated">Review is activated</key>
+    <key name="Comments_activated">Group of reviews is activated</key>
+    <key name="Wright_answer">Write answer to review</key>
+    <key name="Group">Group</key>
+    <key name="Downwload_transactions">Downwload detailization</key>
+    <key name="Call_statistic_by_today_will_be_tomorow">Statistics on the service calls of today will be available tomorrow!</key>
+    <key name="Call_count">Call count</key>
+    <key name="Show_calls_by_periods">Show service calls day by day in period</key>
+    <key name="referall_active_time_label">The term of activity of the referrer (specified in days)</key>
+    <key name="referall_active_time_hint">The term after which the referrer ceases to be invited and the percentage from it is no longer charged</key>
+    <key name="google_commerce_account_label">Account in Google Analytics</key>
+    <key name="google_commerce_account_hint">Account ID can be viewed in your account Google Analytics</key>
+    <key name="Turnover_for_period">Detailed turnover for period</key>
+    <key name="Must_input_dates_to_get_turnover">Must input dates period to get turnover</key>
+    <key name="Complex_settings_delivery">Complex settings for advanced users</key>
+    <key name="Attention">Attention</key>
+    <key name="Formula">Formula</key>
+    <key name="Save_custom_formula">Save custom formula</key>
+    <key name="Warning_complex_settings_delivery">Changes in the formula are not considered in the constructor formulas. When editing the delivery by the constructor, the formula will be overwritten!</key>
+    <key name="Email_setting">Email notification settings</key>
+    <key name="Notification_setting">Notification settings</key>
+    <key name="warehouse_items_hint">Number of warehouse items displayed on main page (Default 8).</key>
+    <key name="items_with_pristroy_hint">Number of pristroy items displayed on main page (Default 8).</key>
+    <key name="Role_is_deleted">Role is deleted</key>    
+    <key name="hide_operator_label">Online support block</key>
+    <key name="hide_operator_hint">Online support block at site head.</key>
+    <key name="hide_operator_value:0">Display</key>
+    <key name="hide_operator_value:*">Display</key>
+    <key name="hide_operator_value:1">Hide</key>
+    <key name="Price_provider_type">Provider of items</key>    
+    <key name="Provider_type">Provider of items</key>  
+    <key name="DefaultItemProvider_label">Default item provider</key>
+    <key name="DefaultItemProvider_hint">For the selected provider will display the appropriate directory and customized pricing</key>
+    <key name="Invalid_email_in_group">Invalid E-mail in group</key>
+
+    <key name="Not_added_items_in_set">Not added</key>
+    <key name="Plugins">Plugins</key>
+    <key name="Plugin">Plugin</key>
+    <key name="Version">Version</key>
+    <key name="Activate">Activate</key>
+    <key name="Deactivate">Deactivate</key>
+    <key name="Method_renderPluginPage_not_defined">Method "renderPluginPage" not defined.</key>
+    <key name="No_plugins_found">No plugins found</key>
+    <key name="My_plugins">My plugins</key>
+    <key name="Plugins_download_update">Download/update</key>
+    <key name="Installed">Installed</key>
+    <key name="Not_installed">Not installed</key>
+    <key name="Plugins_control_install">Install</key>
+    <key name="Plugins_confirm_install">Confirm install plugin</key>
+    <key name="Plugin_already_installed">Plugin already installed</key>
+    <key name="Plugins_control_update">Update</key>
+    <key name="Plugins_confirm_update">Confirm update plugin</key>
+    <key name="Plugins_control_delete">Delete</key>
+    <key name="Plugins_confirm_delete">Confirm delete plugin</key>
+    <key name="Version_platform">Version of the platform</key>
+    <key name="My_version">My version</key>
+    <key name="Allowed_for_box_version">Allowed for version {{version}}</key>
+    <key name="Price_group_deleted_successfully">Price group deleted</key>
+    <key name="Show_operator_actions">Show operator actions</key>
+    <key name="Hide_operator_actions">Hide operator actions</key>
+    <key name="Action">Action</key>
+    <key name="Line">Line</key>
+    <key name="is_old_platform_label">Old template</key>
+    <key name="is_old_platform_hint">Old templates and logic for platform</key>
+    <key name="is_old_platform_value:1">Enable</key>
+    <key name="is_old_platform_value:0">Disable</key>
+    <key name="is_old_platformis_old_platform_value:*">Disable</key>
+
+    <key name="Must_be_checked_one_of_params_minpricedelivery_or_weightstep">Must be set one of options: 'Allow for the minimum delivery fee' or 'Round up to the nearest whole number'. Must be set 'Weight-step' if 'Round up to the nearest whole number' checked.</key>
+    <key name="Must_enter_delivery_name">Delivery name is empty.</key>
+    <key name="Provider">Provider</key>
+    
+    <key name="Activity_info">Activity information</key>
+    <key name="Activities">Activities</key>
+    <key name="Work_time">Process's time</key>
+    <key name="Progress">Progress</key>
+    <key name="Process">Process</key>
+    <key name="Message">Message</key>
+    <key name="done">done</key>
+    <key name="Finished">Finished</key>
+    <key name="In_process">In process</key>
+    <key name="Caregory_was_deleted_from_provider">External category has been removed by the ISP. Click "Save" to change the type of binding to a "virtual".</key>
+    <key name="Pause_start_update_activity_info">Pause/start update activity info</key>
+    <key name="You_have_awating_processes">There are actions that require your reaction</key>
+
+    <key name="Fixed_margin_hint">The values are added to the cost of delivery, regardless of the number and total weight of the heading. When calculating the cost of delivery is added to a fixed margin inetrvala if it is not specified, then it takes a fixed mark-up group</key>
+    <key name="Fixed_margin_for_group">Fixed margin for group</key>
+
+    <key name="All_categories_list">All categories in Selector</key>
+    <key name="Add_to_index">Add to index page</key>
+    <key name="Show_category_on_site">Show category on site</key>
+    <key name="Remove_from_index">Remove from index page</key>
+    <key name="Site_categories_saved">Categories saved</key>    
+    <key name="Used_in_site_hint">Categories in sets displayed at main page</key>
+    <key name="Categories_list_hint">Categories in sets available to add in main page</key>
+
+    <key name="Select_all">Select all</key>
+    <key name="Clear_all">Clear all</key>
+    <key name="Order_canceled">Canceled</key>
+    <key name="Order_cannot_be_canceled">Order {{orderId}} cannot be canceled.</key>
+    <key name="Sets_products">Sets products in Selector</key>
+    <key name="Go_edit_sets_products">Go edit products in Selector</key>
+    <key name="Really_set_default_value">Do you want set default value?</key>
+
+    <key name="External_category_cannot_be_deleted">External category can not be deleted.</key>
+    
+    <key name="Count_of_elements_in_main_page">Number of elements to be displayed in main page</key>
+    <key name="items_with_category_label">Recommended category items</key>
+    <key name="items_with_category_hint">Recommended maximum number of goods is 20 (Default 8).</key>
+    <key name="Sets_items_will_be_deleted">Whole item's list will be removed</key>
+    <key name="Selector">Selector</key>
+    <key name="Go_to_Selector">Go to Selector</key>
+    <key name="Remove_from_Selector">Remove from Selector</key>
+    <key name="Sets_on_index_page">Sets on index page</key>
+    <key name="Category_edited">Category successfully updated</key>
+    <key name="Load_more_items">Display another 50 products</key>
+    <key name="Load_more_sellers">Display another 50 sellers</key>
+    <key name="Load_more_categories">Display more</key>
+    <key name="Category_added">Category added</key>
+    <key name="Choose_category">Choose category</key>
+
+    <key name="Find_out_the_advantages_of_the_paid_version">Find out the advantages of the paid version</key>
+    <key name="Advantages_of_the_paid_version">Advantages of the paid version</key>
+    <key name="Advantages_of_the_paid_version_text">
+        <![CDATA[
+
+        ]]>
+    </key>
+    <key name="Please_follow_the_link_to_check_if_update_is_available">Please follow the link to check if update is available</key>
+    <key name="Control_design">Control design</key>
+    <key name="custom_scss_after_scss_lite_label">Custom css code</key>
+    <key name="custom_scss_after_scss_elastic_label">Custom css code</key>
+    <key name="custom_scss_after_scss_fashi_label">Custom css code</key>
+    <key name="custom_scss_after_scss_hint">Code after main css</key>
+    <key name="Cache_not_deleted_completly">Some files are deleted, starting a new iteration. Loading...</key>
+    
+    <key name="custom_scss_body_background_color">Background color</key>
+    <key name="custom_scss_body_background_color_lite_label">Background color</key>
+    <key name="custom_scss_body_background_color_elastic_label">Background color</key>
+    <key name="custom_scss_body_background_color_fashi_label">Background color</key>
+
+    <key name="custom_scss_design_color_1">Design color 1</key>
+    <key name="custom_scss_design_color_1_lite_label">Design color 1</key>
+    <key name="custom_scss_design_color_1_elastic_label">Design color 1</key>
+    <key name="custom_scss_design_color_1_fashi_label">Design color 1</key>
+
+    <key name="custom_scss_design_color_2">Design color 2</key>
+    <key name="custom_scss_design_color_2_lite_label">Design color 2</key>
+    <key name="custom_scss_design_color_2_elastic_label">Design color 2</key>
+    <key name="custom_scss_design_color_2_fashi_label">Design color 2</key>
+
+    <key name="custom_scss_body_text_color">Text color</key>
+    <key name="custom_scss_body_text_color_lite_label">Text color</key>
+    <key name="custom_scss_body_text_color_elastic_label">Text color</key>
+    <key name="custom_scss_body_text_color_fashi_label">Text color</key>
+
+    <key name="custom_scss_headers_text_color">Headers color</key>
+    <key name="custom_scss_headers_text_color_lite_label">Headers color</key>
+    <key name="custom_scss_headers_text_color_elastic_label">Headers color</key>
+    <key name="custom_scss_headers_text_color_fashi_label">Headers color</key>
+
+    <key name="custom_scss_border_color">Border color</key>
+    <key name="custom_scss_border_color_lite_label">Border color</key>
+    <key name="custom_scss_border_color_elastic_label">Border color</key>
+    <key name="custom_scss_border_color_fashi_label">Border color</key>
+
+    <key name="custom_scss_success_color">Success message color</key>
+    <key name="custom_scss_success_color_lite_label">Success message color</key>
+    <key name="custom_scss_success_color_elastic_label">Success message color</key>
+    <key name="custom_scss_success_color_fashi_label">Success message color</key>
+
+    <key name="custom_scss_info_color">Info message color</key>
+    <key name="custom_scss_info_color_lite_label">Info message color</key>
+    <key name="custom_scss_info_color_elastic_label">Info message color</key>
+    <key name="custom_scss_info_color_fashi_label">Info message color</key>
+
+    <key name="custom_scss_warning_color">Warning message color</key>
+    <key name="custom_scss_warning_color_lite_label">Warning message color</key>
+    <key name="custom_scss_warning_color_elastic_label">Warning message color</key>
+    <key name="custom_scss_warning_color_fashi_label">Warning message color</key>
+
+    <key name="custom_scss_danger_color">Danger message color</key>
+    <key name="custom_scss_danger_color_lite_label">Danger message color</key>
+    <key name="custom_scss_danger_color_elastic_label">Danger message color</key>
+    <key name="custom_scss_danger_color_fashi_label">Danger message color</key>
+
+    <key name="custom_scss_after_scss_label">My css code</key>
+    <key name="custom_scss_after_scss_hint">Code after the main css</key>
+
+    <key name="Cache_not_deleted_completly">Part of the file is deleted, the launch of a new iteration. Loading ...</key>
+   
+    <key name="Saved">Saved</key>
+    <key name="Background_image">Background image</key>
+
+    <key name="custom_scss_background_repeat_lite_label">Background repeat</key>
+    <key name="custom_scss_background_repeat_lite_value:no-repea">No repeat</key>
+    <key name="custom_scss_background_repeat_lite_value:repeat">Repeat</key>
+    <key name="custom_scss_background_repeat_lite_value:repeat-x">Horizontal repeat</key>
+    <key name="custom_scss_background_repeat_lite_value:repeat-y">Vertical repeat</key>
+    <key name="custom_scss_background_repeat_lite_value:*">Repeat</key>
+
+    <key name="custom_scss_background_repeat_elastic_label">Background repeat</key>
+    <key name="custom_scss_background_repeat_elastic_value:no-repea">No repeat</key>
+    <key name="custom_scss_background_repeat_elastic_value:repeat">Repeat</key>
+    <key name="custom_scss_background_repeat_elastic_value:repeat-x">Horizontal repeat</key>
+    <key name="custom_scss_background_repeat_elastic_value:repeat-y">Vertical repeat</key>
+    <key name="custom_scss_background_repeat_elastic_value:*">Repeat</key>
+
+    <key name="custom_scss_background_repeat_fashi_label">Background repeat</key>
+    <key name="custom_scss_background_repeat_fashi_value:no-repea">No repeat</key>
+    <key name="custom_scss_background_repeat_fashi_value:repeat">Repeat</key>
+    <key name="custom_scss_background_repeat_fashi_value:repeat-x">Horizontal repeat</key>
+    <key name="custom_scss_background_repeat_fashi_value:repeat-y">Vertical repeat</key>
+    <key name="custom_scss_background_repeat_fashi_value:*">Repeat</key>
+
+    <key name="custom_scss_background_position_lite_label">Background position</key>
+    <key name="custom_scss_background_position_lite_value:right">Right</key>
+    <key name="custom_scss_background_position_lite_value:left">Left</key>
+    <key name="custom_scss_background_position_lite_value:center">Center</key>
+    <key name="custom_scss_background_position_lite_value:*">Left</key>
+
+    <key name="custom_scss_background_position_elastic_label">Background position</key>
+    <key name="custom_scss_background_position_elastic_value:right">Right</key>
+    <key name="custom_scss_background_position_elastic_value:left">Left</key>
+    <key name="custom_scss_background_position_elastic_value:center">Center</key>
+    <key name="custom_scss_background_position_elastic_value:*">Left</key>
+
+    <key name="custom_scss_background_position_fashi_label">Background position</key>
+    <key name="custom_scss_background_position_fashi_value:right">Right</key>
+    <key name="custom_scss_background_position_fashi_value:left">Left</key>
+    <key name="custom_scss_background_position_fashi_value:center">Center</key>
+    <key name="custom_scss_background_position_fashi_value:*">Left</key>
+
+    <key name="custom_scss_background_attachment_lite_label">Background attachment</key>
+    <key name="custom_scss_background_attachment_lite_value:*">Scroll</key>
+    <key name="custom_scss_background_attachment_lite_value:scroll">Scroll</key>
+    <key name="custom_scss_background_attachment_lite_value:fixed">Fixed</key>
+
+    <key name="custom_scss_background_attachment_elastic_label">Background attachment</key>
+    <key name="custom_scss_background_attachment_elastic_value:*">Scroll</key>
+    <key name="custom_scss_background_attachment_elastic_value:scroll">Scroll</key>
+    <key name="custom_scss_background_attachment_elastic_value:fixed">Fixed</key>
+
+    <key name="custom_scss_background_attachment_fashi_label">Background attachment</key>
+    <key name="custom_scss_background_attachment_fashi_value:*">Scroll</key>
+    <key name="custom_scss_background_attachment_fashi_value:scroll">Scroll</key>
+    <key name="custom_scss_background_attachment_fashi_value:fixed">Fixed</key>
+
+    <key name="Delete_custom_css">Delete custom.css</key>
+    <key name="Delete_custom_css_confirm">Delete custom.css</key>
+    <key name="Sellfree_items_sets_caution">This collection is automatically filled using statistics and is not intended for manual control. When you remove goods out of this collection, they fall into block list for not re-appearing in statistics, and will be banned everywhere, unless you exclude them from block list.</key>
+    <key name="Compile_screen_scss">Compile screen.scss (for developer)</key>
+    <key name="List_is_empty">List is empty</key>
+    <key name="use_custom_view_label">Custom view</key>
+    <key name="use_custom_view_hint">Allow use custom site templates</key>
+    <key name="use_custom_view_value:1">Enable</key>
+    <key name="use_custom_view_value:0">Disable</key>
+    <key name="use_custom_view_value:*">Enable</key>
+    <key name="collect_js_css_label">Collect JS and CSS</key>
+    <key name="collect_js_css_value:*">Do not collect</key>
+    <key name="collect_js_css_value:0">Do not collect</key>
+    <key name="collect_js_css_value:1">Collect</key>
+    <key name="collect_js_css_hint">Are glued JS and CSS files to increase the speed of loading (including China)</key>
+    <key name="Instance_configuration">Instance configuration</key>
+    <key name="No_available_providers">No goods providers available </key>
+    <key name="No_available_provider_settings">No settings for available providers</key>    
+    <key name="Calls_detalization">Calls detalization</key>
+    <key name="Calls_detalization_for_period">Detail for period</key>
+    <key name="Time_period">Time period</key>
+    <key name="Daily">Day</key>
+    <key name="Monthly">Month</key>
+    <key name="Total_calls_count">Total calls count</key>
+    <key name="Payed_calls_count">Payed calls count</key>
+    <key name="Error_calls_count">Error calls count</key>
+    <key name="Calls_statistics">Methods detail</key>
+    <key name="Method_name">Method name</key>
+    <key name="Method_calls_statistics">Calls detalization by method: </key>
+    <key name="All_calls_statistics">All methods detalization</key>
+    
+    <key name="Category_moved">Category successfuly moved</key>
+    <key name="Item_saved_successfully">Item saved successfully</key>
+    <key name="Item_not_found">Item not found</key>
+    <key name="Start_time">Start date</key>
+    <key name="Instruction_http_authenticate_by_cgi">
+        <![CDATA[
+        <p>PHP module is configured as CGI. For proper authentication in the file .htacces must have:</p>
+        <blockquote>
+            <p>RewriteCond %{HTTP:Authorization} ^Basic.*</p>
+            <p>RewriteRule (.*) index.php?authorization=%{HTTP:Authorization} [QSA,L]</p>
+        </blockquote>
+        ]]>
+    </key>
+    <key name="Point">Point</key>
+    <key name="Link_to_image">Link to the picture on the internet. Example https://data.otcommerce.com/box/global/brand/Lancel.jpg</key>
+    <key name="Smtp_test_message_subject">Test email</key>
+    <key name="Smtp_test_message_body">Hello. Settings of your SMTP server is correct if you receive this message.</key>
+    <key name="Finance">Finance</key>
+    <key name="Sorting">Sorting</key>   
+    <key name="Configurations">Configurations</key>
+    <key name="Configurators">Configurators</key>
+    <key name="Add_property">Add property</key>
+    <key name="Add_value">Add value</key>
+    <key name="Select_property">Select property</key>
+    <key name="Select_property_value">Select value</key>
+    <key name="Add_property_value">Add value</key>
+    <key name="Property_value">Property value</key>
+    <key name="Property_name">Property name</key>
+    <key name="Property_value_is_empty">Property value can not be empty</key>
+    <key name="Property_name_is_empty">Property name can not be empty</key>
+    <key name="New_property_value">Add new value</key>
+    <key name="New_property">Add new property</key>
+    <key name="Add_property_value_for">Property value for property: </key>
+    <key name="Creating">Creating...</key>
+    
+    <key name="Sell_allowed">Sell allowed</key>
+    <key name="Sell_allowed_hint">If this option checked the product will not allowed for sell.</key>
+    <key name="item_ID">Item ID</key>
+    <key name="Attention_rounding_zero">Attention! Selecting the rounding accuracy affects the calculation of the final amount of the order.</key>
+    <key name="Really_reset_this_item_field_value">Do you really want reset value of this field?</key>
+
+    <key name="All_deliveries_are_chosen"> All types of delivery selected</key>
+    <key name="Price_deliveries">Linking to external deliveries</key>
+    <key name="Active_price_deliveries">Active reference to delivery</key>
+    <key name="Add_price_delivery">Add reference</key>
+
+    <key name="Extened">Extened</key>
+    <key name="price_rounding_label">Display prices</key>
+    <key name="price_rounding_hint">Number of decimal places to be displayed to the buyer</key>
+
+    <key name="Hide_for_customers">Hide for customers</key>
+    <key name="Сalculation">Calculation of profits</key>
+    <key name="Number_of_purchases"> Number of purchases </key>
+    <key name="Providers"> Performance </key>
+    <key name="External_supply"> External delivery </key>
+    <key name="Percentage_of_profit"> Percentage of Profit </key>
+    <key name="Income"> Revenue </key>
+    <key name="Profit"> Profit </key>
+    <key name="External_comments">External comments</key>
+    
+    <key name="Provider_currency">Provider currencies</key>
+    <key name="Rate_margin">Rate margin</key>
+    <key name="Default_settings">Default settings</key>
+    <key name="By_default">By default</key>
+    <key name="Rate_sync_mode">Sync mode</key>
+    
+    <key name="Original_price">Original price</key>
+    <key name="original_price_hint">paid by the buyer</key>
+    <key name="Price_for_piece">Price for pcs.</key>
+    <key name="Delivery_for_piece">Delivery for pcs.</key>
+    <key name="Field_incorrect">Invalid field</key>
+    <key name="end_subscription">End subscription</key>
+    <key name="RateWithIncreaseMargin_hint">{{currency1}} to {{currency2}} with markup: 1 {{currency1}} = {{RateWithIncreaseMargin}} {{currency2}}</key>
+    <key name="RateWithDecreaseMargin_hint">{{currency2}} to {{currency1}} with markup: 1 {{currency1}} = {{RateWithDecreaseMargin}} {{currency2}}</key>
+
+    <key name="search_category_param_languageOfQuery">Language of query</key>
+    <key name="category_items_total_count">Count of items in category</key>
+    <key name="Duplicate_imported_category_alias">Alias {{categoryAlias}} of imported category ({{category}}) already exists.</key>
+    <key name="Data_updated_with_warnings">Data updated with warnings</key>
+    <key name="Letters_templates">Letters templates</key>
+    <key name="In_text_can_be_used_following_placeholders">In text can be used following placeholders</key>
+    <key name="Prepayment">Prepayment</key>
+    <key name="Debt">Debt</key>
+    <key name="Documentation">Documentation</key>
+    <key name="for_search_use_brand_id">To search by brand, using brand ID</key>
+    <key name="Import_done_succes">Data have been imported. A page will be automatically updated in few seconds. Please wait ...</key>
+    
+    <key name="Autosets">Autosets</key>
+    <key name="Export_sets">Export</key>
+    <key name="Export">Export</key>
+    <key name="Starting_scan">Starting scan</key>
+    <key name="Start_scan">Start scan</key>
+    <key name="Update_autosets_products_list">Update autosets products list</key>
+    <key name="Settings">Settings</key>
+
+    <key name="settings_saved_and_reload">Settings have been saved. A page will be automatically updated in few seconds. Please wait ...</key>
+    <key name="Purchase_price">Purchase price</key>
+
+    <key name="group_by">Group</key>
+    <key name="group_by_none">none</key>
+    <key name="group_by_vendor">by vendor</key>
+    <key name="group_by_status">by status</key>
+    <key name="сonfigure_internal_deliveries">Configure internal deliveries for each provider</key>
+
+    <key name="Availible_features">Tags of the price group</key>
+    <key name="Availible_features_hint">Tags will be attributes of the goods of this price group</key>
+
+    <key name="total_amount_products_customers">Total amount of products for customers:</key>
+    <key name="original_amount_delivery_products">Original delivery amount of products (paid by the buyer):</key>
+    <key name="original_amount_products">Original amount of products (paid by the buyer):</key>
+    <key name="purchased_amount_delivery_goods">Purchased delivery amount of goods:</key>
+    <key name="purchased_amount_goods">Purchased amount of goods:</key>
+
+    <key name="combined_package">Combined Package</key>
+    <key name="created">Сreated</key>
+    <key name="packed">Packed</key>
+    <key name="prepared">Prepared by</key>
+    <key name="sent">Sent</key>
+    <key name="Track_number_filter_placeholder">Track number</key>
+    <key name="total_weight_parcels">Total weight of parcels</key>
+    <key name="common_parcel_price">Common parcel price</key>
+    <key name="recipient">Recipient</key>
+    <key name="Add_parcel">Add a parcel</key>
+    <key name="id_product">id product</key>
+    <key name="сreat_packages_from_products">Create packages from products</key>
+
+    <key name="Need_choose_review_to_see_information">To see the information on the recall, you must select it in the list!</key>
+    <key name="show_review">Show review</key>
+
+    <key name="Rating">Rating</key>
+    <key name="Score">Score</key>
+    <key name="answer_language">Answer language</key>
+    <key name="your_answer">Your Answer</key>
+    <key name="Registration_address">Registration address</key>
+    <key name="registration_date">Registration date</key>
+    <key name="Delivery_service_system">Delivery service system</key>
+    <key name="not_selected_role">Not selected role</key>
+    <key name="design_theme">design theme</key>
+    <key name="advertising_banner_design">Advertising banner settings</key>
+    <key name="elastic_banner_1">Banner 1</key>
+    <key name="elastic_banner_1_title_label">Title</key>
+    <key name="elastic_advertising_banner">Banner</key>
+    <key name="elastic_advertising_banner_title_label">Title</key>
+    <key name="elastic_advertising_banner_subtitle_label">Subtitle</key>
+    <key name="elastic_advertising_banner_link_label">Link</key>
+    <key name="elastic_advertising_banner_image_label">Banner</key>
+    <key name="elastic_advertising_banner_image_hint">Banner image. Recommended sizes 1420x260.</key>
+    <key name="elastic_banner_1_subtitle_label">Subtitle</key>
+    <key name="elastic_banner_1_link_label">Link</key>
+    <key name="elastic_banner_1_img_label">Banner</key>
+    <key name="elastic_banner_1_img_hint">Banner image. Recommended sizes 285x160.</key>
+    <key name="elastic_banner_2">Banner 2</key>
+    <key name="elastic_banner_2_title_label">Title</key>
+    <key name="elastic_banner_2_subtitle_label">Subtitle</key>
+    <key name="elastic_banner_2_link_label">Link</key>
+    <key name="elastic_banner_2_img_label">Banner</key>
+    <key name="elastic_banner_2_img_hint">Banner image. Recommended sizes 285x160.</key>
+    <key name="fashi_promo_banner_1">Promo banner 1</key>
+    <key name="fashi_promo_banner_1_title_label">Title</key>
+    <key name="fashi_promo_banner_1_subtitle_label">Subtitle</key>
+    <key name="fashi_promo_banner_1_link_label">Link</key>
+    <key name="fashi_promo_banner_1_discount_label">Discount</key>
+    <key name="fashi_promo_banner_1_img_label">Banner</key>
+    <key name="fashi_promo_banner_1_img_hint">Banner image. Recommended sizes 1920x728.</key>
+    <key name="fashi_promo_banner_2">Promo banner 2</key>
+    <key name="fashi_promo_banner_2_title_label">Title</key>
+    <key name="fashi_promo_banner_2_subtitle_label">Subtitle</key>
+    <key name="fashi_promo_banner_2_link_label">Link</key>
+    <key name="fashi_promo_banner_2_discount_label">Discount</key>
+    <key name="fashi_promo_banner_2_img_label">Banner</key>
+    <key name="fashi_promo_banner_2_img_hint">Banner image. Recommended sizes 1920x728.</key>
+    <key name="fashi_banner_1">Banner 1</key>
+    <key name="fashi_banner_1_title_label">Title</key>
+    <key name="fashi_banner_1_link_label">Link</key>
+    <key name="fashi_banner_1_img_label">Banner</key>
+    <key name="fashi_banner_1_img_hint">Banner image. Recommended sizes 285x160.</key>
+    <key name="fashi_banner_2">Banner 2</key>
+    <key name="fashi_banner_2_title_label">Title</key>
+    <key name="fashi_banner_2_link_label">Link</key>
+    <key name="fashi_banner_2_img_label">Banner</key>
+    <key name="fashi_banner_2_img_hint">Banner image. Recommended sizes 285x160.</key>
+    <key name="fashi_banner_3">Banner 3</key>
+    <key name="fashi_banner_3_title_label">Title</key>
+    <key name="fashi_banner_3_link_label">Link</key>
+    <key name="fashi_banner_3_img_label">Banner</key>
+    <key name="fashi_banner_3_img_hint">Banner image. Recommended sizes 285x160.</key>
+    <key name="fashi_side_banner_1">Side banner 1</key>
+    <key name="fashi_side_banner_1_title_label">Title</key>
+    <key name="fashi_side_banner_1_link_label">Link</key>
+    <key name="fashi_side_banner_1_img_label">Banner</key>
+    <key name="fashi_side_banner_1_img_hint">Banner image. Recommended sizes 470x620.</key>
+    <key name="fashi_side_banner_2">Side banner 2</key>
+    <key name="fashi_side_banner_2_title_label">Title</key>
+    <key name="fashi_side_banner_2_link_label">Link</key>
+    <key name="fashi_side_banner_2_img_label">Banner</key>
+    <key name="fashi_side_banner_2_img_hint">Banner image. Recommended sizes 470x620.</key>
+    <key name="fashi_side_banner_3">Side banner 3</key>
+    <key name="fashi_side_banner_3_title_label">Title</key>
+    <key name="fashi_side_banner_3_link_label">Link</key>
+    <key name="fashi_side_banner_3_img_label">Banner</key>
+    <key name="fashi_side_banner_3_img_hint">Banner image. Recommended sizes 470x620.</key>
+    <key name="confirm">Confirm</key>
+    <key name="confirm_payment">Confirm payment</key>
+    <key name="cancel_payment">Cancel payment</key>
+    <key name="update_confirm_title">Are you sure you want to update?</key>
+    <key name="update_confirm_message">There are changes on your site which were made by means of off-site customizations. Updating can break your customization and disrupt the site’s function in whole. If you’re not sure in right implementation of your customization, in this case for updating contact your programmer, who made customization for your site.</key>
+    <key name="create_default_content">Create default content pages</key>
+    <key name="default_content_created_success">Default content pages created successfully</key>
+    <key name="sure_continue">Are you sure you want to continue</key>
+    <key name="sure_overwrite_content_description">Perhaps in the process of creating content pages, some of your pages will be overwritten with new.</key>
+    <key name="manual_translation">Manual translation</key>
+    
+    <key name="Discount">Discount</key>
+</translations>

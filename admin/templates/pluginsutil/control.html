@@ -1,0 +1,93 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Plugins')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Plugins_download_update')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/pluginsutil/navigation/tabs.xml', $PageUrl)?>
+
+<div class="plugins-control-view-wrapper">
+
+    <div class="row-fluid">
+        <h1 class="pull-left"><?=LangAdmin::get('Plugins_download_update')?></h1>
+    </div>
+    <div class="row-fluid">
+        <p class="well"><?=LangAdmin::get('Version_platform')?>: <?=$boxVersion?></p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table bootstrap-datatable datatable" id="pluginsTable">
+            <thead>
+            <tr>
+                <th><?=LangAdmin::get('Plugin')?></th>
+                <th><?=LangAdmin::get('Version')?>&nbsp;/&nbsp;<?=LangAdmin::get('My_version')?></th>
+                <th><?=LangAdmin::get('Status')?></th>
+                <th><?=LangAdmin::get('Actions')?></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <? if (! empty($pluginsInfo)) { ?>
+            <? foreach ($pluginsInfo as $plugin) { ?>
+            <tr id="<?=$plugin['name']?>">
+                <td>
+                    <a href="javascript:void(0)" class="showDescription">
+                        <?=$plugin['title']?>
+                    </a>
+                    <div class="hide pluginDescription"><?=$plugin['description']?></div>
+                </td>
+                <td>
+                    <?=$plugin['version']?>
+                    <? if ($plugin['installedVersion'] !== '') { ?>
+                    &nbsp;/&nbsp;<?=$plugin['installedVersion']?>
+                    <? } ?>
+                </td>
+                <td>
+                    <? if ($plugin['installed']) { ?>
+                    <span class="text-success"><?=LangAdmin::get('Installed')?></span>
+                    <? } else { ?>
+                    <span class="text-error"><?=LangAdmin::get('Not_installed')?></span>
+                    <? } ?>
+                </td>
+                <td>
+                    <? if (! $plugin['isAllowedForCurrentBoxVersion']) { ?>
+                    <a href="<?=$PageUrl->AssignCmdAndDo('Update', 'default')?>" class="btn btn-danger" target="_blank">
+                        <?=LangAdmin::get('Allowed_for_box_version', array('version' => $plugin['boxVersion']))?>
+                    </a>
+                    <? } ?>
+
+                    <? if ($plugin['canBeInstall']) { ?>
+                    <button class="btn btn-primary installPlugin" data-download="<?=$plugin['downloadUrl']?>" data-name="<?=$plugin['name']?>" data-title="<?=$plugin['title']?>" action="<?=$PageUrl->Add('do', 'installPlugin')->Get()?>"><?=LangAdmin::get('Plugins_control_install')?></button>
+                    <? } ?>
+                    <? if ($plugin['canBeUpdate']) { ?>
+                    <button class="btn btn-warning updatePlugin" data-download="<?=$plugin['downloadUrl']?>" data-name="<?=$plugin['name']?>" data-title="<?=$plugin['title']?>" action="<?=$PageUrl->Add('do', 'updatePlugin')->Get()?>"><?=LangAdmin::get('Plugins_control_update')?></button>
+                    <? } ?>
+                    <? if ($plugin['canBeDelete']) { ?>
+                    <button class="btn deletePlugin" data-name="<?=$plugin['name']?>" data-title="<?=$plugin['title']?>" action="<?=$PageUrl->Add('do', 'deletePlugin')->Get()?>"><?=LangAdmin::get('Plugins_control_delete')?></button>
+                    <? } ?>
+                </td>
+            </tr>
+            <? } ?>
+            <? } else { ?>
+            <tr>
+                <td colspan="4"><?=LangAdmin::get('No_plugins_found')?></td>
+            </tr>
+            <? } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<? if (! empty($pluginsInfo)) { ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#pluginsTable').DataTable();
+});
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? } ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-pluginsutil.js'); ?>

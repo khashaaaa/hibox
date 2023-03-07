@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <title>Дизайн сайта Elastic</title>
+    <title lang="en">Elastic site design</title>
+    <version>1.0.14</version>
+    <events></events>
+</plugin>

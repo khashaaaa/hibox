@@ -1,0 +1,107 @@
+/*
+* Modular grid site
+*
+*
+*/
+
+.fll{
+	float: left;
+}
+
+.flr{
+	float: right;
+}
+
+.col,
+.flin li{
+	float: left;
+	display: inline;
+}
+
+.col120{
+	width: 120px;
+}
+
+.col150{
+	width: 150px;
+}
+
+.col240{
+	width: 240px;
+}
+
+.col255{
+	width: 255px;
+}
+
+.col300{
+	width: 300px;
+}
+
+.col330{
+	width: 330px;
+}
+
+.col340{
+	width: 340px;
+}
+
+.col435{
+	width: 435px;
+}
+
+.col690{
+	width: 690px;
+}
+
+.col900{
+	width: 960px;
+}
+
+.col50w{
+	width: 49%;
+}
+
+.w20{
+	width: 20px;
+}
+
+.w40{
+	width: 40px;
+}
+
+.w80{
+	width: 80px;
+}
+
+.w70{
+	width: 70px;
+}
+
+.w100{
+	width: 100px;
+}
+
+.w168{
+	width: 168px;
+}
+
+.w200{
+	width: 180px !important;
+}
+
+.w240{
+	width: 240px;
+}
+
+.w320{
+	width: 320px;
+}
+
+.w700{
+	width: 700px;
+}
+
+.w976{
+	width: 976px;
+}

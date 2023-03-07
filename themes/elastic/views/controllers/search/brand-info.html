@@ -1,0 +1,23 @@
+<? if ($searchResult->GetBrand()->GetName()) { ?>
+    <div class="panel panel-default search-content_categories border">
+        <h5 class="panel-heading panel-grey"><?=Lang::get('brand_description')?>
+        </h5>
+        <ul class="panel-body p-3">
+            <? if ($searchResult->GetBrand()->GetPictureUrl()) { ?>
+                <li>
+                    <img src="<?=$searchResult->GetBrand()->GetPictureUrl()?>" width="160"/>
+                </li>
+            <? } ?>
+            <li>
+                <?=Lang::get('name')?>:
+                <b><?=$this->escape($searchResult->GetBrand()->GetName())?></b>
+            </li>
+            <? if ($searchResult->GetBrand()->GetDescription()) { ?>
+                <li>
+                    <?=Lang::get('Description')?>:
+                    <b><?=$searchResult->GetBrand()->GetDescription()?></b>
+                </li>
+            <? } ?>
+        </ul>
+    </div>
+<? } ?>

@@ -1,0 +1,63 @@
+<?
+$printCurrency = count(InstanceProvider::getObject()->GetDisplayedMoneys()->GetCurrencyInfo()->toArray()) > 1;
+$printCountry = (
+    CMS::IsFeatureEnabled('PreselectedDelivery') &&
+    InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem() &&
+    count(InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem()->toArray()) > 1
+);
+?>
+<a href="#" class="ot-dropdown" data-toggle="box-up-menu_userpreferences-menu">
+    <? if ($printCurrency) { ?>
+        <span class="box-up-menu_userpreferences_currency"><?=$this->getUser()->getCurrencySign()?></span>
+    <? } ?>
+    <? if ($printCurrency && $printCountry) { ?>
+        <span class="box-up-menu_userpreferences_separator">|</span>
+    <? } ?>
+    <? if ($printCountry && $this->getUser()->getCountryCode()) { ?>
+        <span class="box-up-menu_userpreferences_country">
+            <?=Lang::get('Delivery_to')?> <img class="box-up-menu_userpreferences_country_flag img_flag"
+                                           src="<?=$this->getUser()->getCountryFlagImageUrl()?>"
+                                           title="<?=$this->getUser()->getCountryName()?>"
+                                           alt="<?=$this->getUser()->getCountryName()?>" /></span>
+    <? } ?>
+    <b class="caret"></b>
+</a>
+<ul class="dropdown-menu ot-dropdown-menu box-up-menu_userpreferences-menu" style="display:none">
+    <li class="form-userpreferences">
+        <form action="/?p=userSetPreference" method="post">
+            <? if ($printCurrency) { ?>
+                <label><?=Lang::get('Currency')?></label>
+                <div class="form-group">
+                    <select name="currency" class="currency-userpreferences">
+                        <? foreach (InstanceProvider::getObject()->GetDisplayedMoneys()->GetCurrencyInfo() as $currencyInfo) { ?>
+                            <option value="<?=$currencyInfo->GetCode()?>" 
+                                <?= ($currencyInfo->GetCode() == $this->getUser()->getCurrencyCode()) ? 'selected' : ''?>
+                                >
+                                    <?=$currencyInfo->GetSign()?>
+                            </option>
+                        <? } ?>
+                    </select>
+                </div>
+            <? } ?>
+            <? if ($printCountry) { ?>
+                <label><?=Lang::get('Delivery_to')?></label>
+                <div class="form-group">
+                    <select name="country" class="country-userpreferences">
+                        <? foreach (InstanceProvider::getObject()->getDeliveryCountryInfoList()->GetItem() as $countryInfo) { ?>
+                            <option 
+                                <?= ($countryInfo->GetId() == $this->getUser()->getCountryCode()) ? 'selected' : ''?> 
+                                value="<?=$countryInfo->GetId()?>" 
+                                data-content="<img class='img_flag' src='<?=$countryInfo->GetFlagImageUrl()?>' /><?=$countryInfo->GetName()?>">
+                                  <?=$countryInfo->GetName()?>
+                            </option>
+                        <? } ?>
+                    </select>
+                </div>
+            <? } ?>
+            <div class="form-group box-up-menu_userpreferences-menu_save-button-wrapper">
+                <button type="submit" class="box-up-menu_userpreferences-menu_save-button btn btn-default"><?=Lang::get('save')?></button>
+                <div style="clear:both"></div>
+            </div>
+        </form>
+    </li>
+</ul>

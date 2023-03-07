@@ -1,0 +1,109 @@
+<style>
+    input.rform, textarea.rform {
+        width:400px;
+        border:1px solid gray;
+        margin:2px;
+        padding:3px;
+    }
+    textarea.rform {
+        width:408px;
+        height:53px;
+    }
+    table.rform td {
+        padding:3px;
+        vertical-align:middle;
+        padding-top:10px;
+    }
+    .content {font-size: 16px;}
+    .content p {
+        margin: 0.5em 0 1em 0;
+    }
+    #download_form {font-size: 14px;}
+</style>
+
+<div class="content">
+    <section class="content-block">
+        <div class="center">
+            <h1><?=Lang::get('demobox_page_title')?></h1>
+            <div class="content userform">
+                <ol>
+                    <li><?=Lang::get('demobox_step1')?></li>
+                    <li><?=Lang::get('demobox_step2')?></li>
+                    <li><?=Lang::get('demobox_step3')?></li>
+                    <li><?=Lang::get('demobox_step4')?></li>
+                    <li><?=Lang::get('demobox_step5')?></li>
+                    <li><?=Lang::get('demobox_step6')?></li>
+                    <li><?=Lang::get('demobox_step7')?></li>
+                </ol>
+
+                <h6><?=Lang::get('demobox_form_title')?></h6>
+
+                <form id="download_form" action="/?p=download" method="POST" onsubmit="return checkform();">
+                    <table class="rform">
+                        <tr><td align="center" colspan="2">
+                                <em><?=Lang::get('required_fields')?></em>
+                            </td></tr>
+
+                        <tr><td align="right"><?=Lang::get('demobox_form_name')?><font color="Red">*</font>:</td>
+                            <td><input class="rform" id="fio" name="fio" need="1" value="<?=isset($data['fio'])?$data['fio']:''?>"/></td></tr>
+
+                        <tr><td align="right"><?=Lang::get('demobox_form_email')?><font color="Red">*</font>:<br></td>
+                            <td><input class="rform" id="email" name="email" need="1" value="<?=isset($data['email'])?$data['email']:''?>"/></td></tr>
+
+                        <tr><td align="right"><?=Lang::get('demobox_form_skype')?>:<br></td>
+                            <td><input class="rform" id="skype" name="skype" value="<?=isset($data['skype'])?$data['skype']:''?>"/></td></tr>
+
+                        <tr><td align="right"><?=Lang::get('demobox_form_captcha')?><font color="Red">*</font>:</td>
+                            <td>
+                                <?=OTCaptcha::getWidget(); ?>
+                                <input class="button" type="submit" value="<?=Lang::get('demobox_download')?>"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+
+                <h6><?=Lang::get('demobox_key_title')?></h6>
+                <p><?=Lang::get('demobox_key_step1')?></p>
+                <p><?=Lang::get('demobox_key_step2')?></p>
+                <p><?=Lang::get('demobox_key_step3')?></p>
+                <p><?=Lang::get('demobox_key_step4')?></p>
+                <p><?=Lang::get('demobox_key_step5')?></p>
+            </div><!-- /.content -->
+        </div>
+        <!-- /.col700 -->
+    </section>
+</div><!-- /.main -->
+
+<?=Lang::loadJSTranslation(array('error'))?>
+
+<script>
+    $(function() {
+        var captchaError = "<?=Session::getErrorDescription()?>";
+        if (captchaError) {
+            $('#ct_captcha').css('border', '1px solid red');
+            showMessage(captchaError, true);
+        }
+        var errors = <?=json_encode($errors);?>;
+        if (errors.length) {
+            for (var i = 0; i < errors.length; i++) {
+                $('#' + errors[i].key).css('border', '1px solid red');
+            }
+            showMessage("<?=Lang::get('required_fields')?>", true)
+        }
+
+        function checkform() {
+            formOK = true;
+            $('#download_form [need="1"]').each(function () {
+                $(this).css('border', '1px solid gray');
+                if (!formOK) return;
+                if (!$(this).val()) {
+                    formOK = false;
+                    $(this).css('border', '1px solid red');
+                    $(this).focus();
+                    return;
+                }
+            });
+            return formOK;
+        }
+    });
+</script>

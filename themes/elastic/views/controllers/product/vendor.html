@@ -1,0 +1,57 @@
+<? if ($vendor->GetDisplayPictureUrl()) { ?>
+    <div class="vendor_image m-1">
+        <img src="<?= $vendor->GetDisplayPictureUrl() ?>" alt="">
+    </div>
+<? } ?>
+<? if ($vendor->GetFeatures()->GetFeature()) { ?>
+    <div class="vendor_features">
+        <? foreach ($vendor->GetFeatures()->GetFeature() as $value) { ?>
+            <? if ($value->GetDisplayTypeAttribute() && $value->GetDisplayTypeAttribute() == 'Label') { ?>
+                <span class="badge badge-pill badge-info"><?=$value->GetDisplayNameAttribute()?></span>
+            <? } ?>
+        <? } ?>
+    </div>
+<? } ?>
+<? if ($vendor->GetDisplayName()) { ?>
+    <div class="table-seller__row">
+        <div class="table-seller__col_left"><?=Lang::get('name')?>:</div>
+        <div class="table-seller__col_right"><?=$vendor->GetDisplayName()?></div>
+    </div>
+<? } ?>
+<? if ($vendor->GetShopName()) { ?>
+    <div class="table-seller__row">
+        <div class="table-seller__col_left"><?=Lang::get('vendor_shop_name')?>:</div>
+        <div class="table-seller__col_right"><?=$vendor->GetShopName()?></div>
+    </div>
+<? } ?>
+<? if ($vendor->GetLocation()->GetDisplayValueAttribute()) { ?>
+    <div class="table-seller__row table-seller__row-hidden">
+        <div class="table-seller__col_left"><?=Lang::get('placed_in')?>:</div>
+        <div class="table-seller__col_right"><?=$vendor->GetLocation()->GetDisplayValueAttribute()?></div>
+    </div>
+<? } ?>
+<? foreach ($vendor->GetFeatures()->GetFeature() as $value) { ?>
+    <? if ($value->GetDisplayNameAttribute()) { ?>
+        <? switch ($value->GetDisplayTypeAttribute()) {
+            case 'Label':
+                break;
+            case 'StarRating': ?>
+                <div class="table-seller__row">
+                    <div class="table-seller__col_left"><?=$value->GetDisplayNameAttribute()?>:</div>
+                    <div class="table-seller__col_right">
+                        <?=$value->asString()?>
+                    </div>
+                </div>
+                <? break; ?>
+            <? default: ?>
+                <? if ($value->asString()) { ?>
+                    <div class="table-seller__row table-seller__row-hidden">
+                        <div class="table-seller__col_left"><?=$value->GetDisplayNameAttribute()?>:</div>
+                        <div class="table-seller__col_right"><?=$value->asString()?></div>
+                    </div>
+                <? } ?>
+        <? } ?>
+    <? } ?>
+<? } ?>
+
+<div class="row-down-arrow row-dropdown-arrow"><span></span></div>

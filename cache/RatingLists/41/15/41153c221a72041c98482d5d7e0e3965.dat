@@ -1,0 +1,11 @@
+<RatingList>
+        <ContentType>Category</ContentType>
+        <CategoryId>0</CategoryId>
+        <ItemRatingType>Best</ItemRatingType>
+        <HasError>false</HasError>
+        <Order>6</Order>
+        <Result>
+          <Content/>
+          <TotalCount>0</TotalCount>
+        </Result>
+      </RatingList>

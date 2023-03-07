@@ -1,0 +1,55 @@
+<? if((General::getConfigValue('how_to_order_link') !== '') || (General::getConfigValue('how_to_pay_link') !== '') || (General::getConfigValue('about_delivery_link') !== '') || (General::getConfigValue('about_guarantees_link') !== '')) { ?>
+    <section class="block-acts">
+        <div class="center">
+            <ul>
+                <? if(General::getConfigValue('how_to_order_link') !== '') { ?>
+                    <li class="block-acts__item block-acts__item1">
+                        <a href="<?=General::getConfigValue('how_to_order_link', 'how_to_order')?>">
+                            <div class="block-acts__img block-acts__img1"></div>
+                            <div class="block-acts__text">
+                                <div class="block-acts__title"><?=General::getConfigValue('how_to_order_title', Lang::get('how_to_make_order_default_title'))?></div>
+                                <p><?=General::getConfigValue('how_to_order_subtitle', Lang::get('how_to_make_order_default_subtitle'))?></p>
+                            </div>
+                        </a>
+                    </li>
+                <? } ?>
+
+                <? if(General::getConfigValue('how_to_pay_link') !== '') { ?>
+                    <li class="block-acts__item block-acts__item2">
+                        <a href="<?=General::getConfigValue('how_to_pay_link', 'how_to_pay')?>">
+                            <div class="block-acts__img block-acts__img2"></div>
+                            <div class="block-acts__text">
+                                <div class="block-acts__title"><?=General::getConfigValue('how_to_pay_title', Lang::get('how_to_pay_default_title'))?></div>
+                                <p><?=General::getConfigValue('how_to_pay_subtitle', Lang::get('how_to_pay_default_subtitle'))?></p>
+                            </div>
+                        </a>
+                    </li>
+                <? } ?>
+
+                <? if(General::getConfigValue('about_delivery_link') !== '') { ?>
+                    <li class="block-acts__item block-acts__item3">
+                        <a href="<?=General::getConfigValue('about_delivery_link', 'goods_delivery')?>">
+                            <div class="block-acts__img block-acts__img3"></div>
+                            <div class="block-acts__text">
+                                <div class="block-acts__title"><?=General::getConfigValue('about_delivery_title', Lang::get('about_delivery_default_title'))?></div>
+                                <p><?=General::getConfigValue('about_delivery_subtitle', Lang::get('about_delivery_default_subtitle'))?></p>
+                            </div>
+                        </a>
+                    </li>
+                <? } ?>
+
+                <? if(General::getConfigValue('about_guarantees_link') !== '') { ?>
+                    <li class="block-acts__item block-acts__item4">
+                        <a href="<?=General::getConfigValue('about_guarantees_link', 'warranty')?>">
+                            <div class="block-acts__img block-acts__img4"></div>
+                            <div class="block-acts__text">
+                                <div class="block-acts__title"><?=General::getConfigValue('about_guarantees_title', Lang::get('about_guarantees_default_title'))?></div>
+                                <p><?=General::getConfigValue('about_guarantees_subtitle', Lang::get('about_guarantees_default_subtitle'))?></p>
+                            </div>
+                        </a>
+                    </li>
+                <? } ?>
+            </ul>
+        </div>
+    </section>
+<? } ?>

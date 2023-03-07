@@ -1,0 +1,94 @@
+<? $paramsByItemUrl = array() ?>
+<? if (isset($categoryId) && $categoryId) { ?>
+    <? $paramsByItemUrl['cid'] = $categoryId; ?>
+<? } ?>
+
+<? $itemUrl = UrlGenerator::generateItemUrl($item['Id'], $paramsByItemUrl); ?>
+<a href="<?=$itemUrl?>"
+   data-product-id="<?=$item['Id']?>"
+   data-product-url="<?=UrlGenerator::toRoute('item', ['id' => $item['Id']])?>"
+   title="<?=$this->escape($item['title'])?>"
+   class="item-product js-product-item <?=ProductsHelper::formatFeatureListForCss($item['Features'])?>"
+>
+    <div class="item-product-inside">
+        <?=ProductsHelper::getHtmlFeatureListForLabel($item['Features'])?>
+        <div class="item-product__img">
+            <div class="item-product__img-a">
+                <img class="check-noimg" src="<?=ProductsHelper::getMediumImage($item)?>" alt="<?=$this->escape($item['title'])?>">
+            </div>
+            <div class="item-product__img_hover">
+                <div class="button btn-quick-look js-product-btn-quick-look"><?=Lang::get('quick_look')?></div>
+            </div>
+        </div>
+
+        <div class="item-product__title"><?=$this->escape($item['title'])?></div>
+        <div class="item-product__price">
+            <? if (isset($item['PromotionPrice']) && count($item['PromotionPrice']) > 0) { ?>
+                <div class="item-product__price_new"><?=General::getCurrencyPromoPrice($item, ['addItemprop' => true])?></div>
+                <div class="price-old__wrap">
+                    <div class="item-product__price_old"><span><?=General::getCurrencyPrice($item, ['addItemprop' => true])?></span></div>
+                    <? if (! empty($item['PromotionPricePercent'])) { ?>
+                        <div class="item-product__price_discount">- <?=ProductsHelper::getPromoPriceDiscount($item)?>%</div>
+                    <? } ?>
+                </div>
+            <? } else {?>
+                <div class="item-product__price_new"><?=General::getCurrencyPrice($item, ['addItemprop' => true])?></div>
+            <? } ?>
+        </div>
+
+        <? if (isset($item['FeaturedValues']['SalesInLast30Days'])) { ?>
+            <div class="item-product__sold">
+                <div class="sold-block">
+                    <span title="<?=Lang::get('sales_volume1')?>"><?=Lang::get('sold')?>: <?=$item['FeaturedValues']['SalesInLast30Days']?></span>
+                </div>
+            </div>
+        <? } ?>
+
+        <? if (! empty($item['vendorscore']) && $item['vendorscore'] > 0) { ?>
+            <div class="item-product__rating">
+                <span><?=Lang::get('vendor_rating_baserus')?>:</span>
+                <div class="product-raiting">
+                    <? if (! General::getConfigValue('vendor_rating_view_as_number')) { ?>
+                        <span class="raiting">
+                            <i class="i-raiting raiting_<?=$item['vendorscore']?>"></i>
+                        </span>
+                    <? } else { ?>
+                        <span class="raiting">
+                            <span class="rating_number raiting_<?=$item['vendorscore']?>">
+                                <?=$item['vendorscore']?>
+                            </span>
+                        </span>
+                    <? } ?>
+                </div>
+            </div>
+        <? } ?>
+        <div class="item-product__bottom-block">
+            <div class="item-product-bottom-inside">
+                <? if ($item['vendorname']) { ?>
+                    <div class="item-product__seller"><?=Lang::get('vendor')?>: <?=$this->escape($item['vendorname'])?></div>
+                <? } ?>
+                <? if (! empty($item['pictures']) && count($item['pictures']) > 1) { ?>
+                    <ul class="more-photos">
+                        <? $i = 0; ?>
+                        <? foreach ($item['pictures'] as $picture) { ?>
+                            <li img-src="<?=$picture['medium']?>"
+                                class="other-photo"
+                                style="background-image: url(<?=$picture['small']?>)"
+                            ></li>
+                            <?
+                            if ($i >= 3) break;
+                            $i++;
+                            ?>
+                        <? } ?>
+                    </ul>
+                <? } ?>
+                <!--
+                <div class="item-product__add">
+                    <div class="add-favorite"><i></i><? // Lang::get('Add_item_to_fav')?></div>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+</a>
+

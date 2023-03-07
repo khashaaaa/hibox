@@ -1,0 +1,98 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Catalog')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('restrictions', 'default')?>" class="muted"><?=LangAdmin::get('Restrictions')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Goods')?></li>
+</ul><!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/catalog/navigation/tabs.xml', $PageUrl)?>
+
+<?=TabsGenerator::GetSubTabs('templates/restrictions/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Goods')?>
+    <span class="offset-left1"><span class="blink blink-iconed font-14 weight-normal" data-toggle="collapse" data-target=".ot_add_restriction_from_link"><i class="icon-plus"></i><?=LangAdmin::get('Add')?></span></span>
+</h1>
+
+<div id="restriction-wrapper">
+<div class="ot_add_restriction_from_link">
+
+    <form class="form-inline well" action="">
+
+        <?=LangAdmin::get('By_link')?>
+        <i class="icon-question-sign ot_inline_help" data-toggle="popover"
+            data-content="<?=LangAdmin::get('Restriction_item_by_link')?>"
+        title=""></i>
+        <input class="span5 add-restriction-data" type="text" placeholder="<?=LangAdmin::get('Paste_link_to_item')?>">
+
+        <button type="button" class="btn btn-primary btn_preloader add-restriction" data-action="<?=$PageUrl->AssignDo('addRestriction')?>" data-link="<?=$PageUrl->AssignDo('default')?>" data-type="Item" data-loading-text="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></button>
+        <button type="button" class="btn offset-left05" data-target=".ot_add_restriction_from_link" data-toggle="collapse" title="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></button>
+
+    </form>
+
+</div>
+
+
+
+<div class="row-fluid">
+
+    <div class="span6">
+        <button class="btn btn-tiny disabled delete-restrictions" data-action="<?=$PageUrl->AssignDo('deleteRestriction')?>" data-link="<?=$PageUrl->AssignDo('default')?>" data-type="Item" data-loading-text="<?=LangAdmin::get('Deleting')?>"><?=LangAdmin::get('Delete')?></button>
+    </div>
+
+    <div class="span6 text-right">
+        <select class="input-mini perpageSelect per-page-item" data-action="<?=$PageUrl->AssignDo('default')?>">        
+        <? foreach ($paginator->perPageLimits() as $perPageLimit) { ?>
+            <option value="<?=$perPageLimit?>"
+                <?=($perPageLimit == $paginator->limit() ? ' selected="selected"' : '');?>>
+                <?=$perPageLimit?>
+            </option>
+        <? } ?>
+        </select>
+    </div>
+
+</div>
+
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="checkAll"></th>
+            <th><?=LangAdmin::get('Image')?></th>
+            <th class="span12"><?=LangAdmin::get('Description')?></th>
+            <th>ID</th>
+        </tr>
+    </thead>
+
+    <tbody>        
+        <? if (! empty($blackList)) { ?> 
+        <? foreach ($blackList->GetItem() as $item) { ?>
+        <tr>    
+            <? if ($item->GetErrorCode() == 'Ok') { ?>
+                <td><input type="checkbox" class="itemCheck" data-id="<?=$item->GetId()?>"/></td>
+                <td class="text-center"><a href="<?=UrlGenerator::generateItemUrl($item->GetId(), array('isAbsolute' => true))?>" class="thumbnail thumbnail-micro" title="<?=LangAdmin::get('To_item_page')?>"><img src="<?=$item->GetMainPictureUrl()?>" width="50px" alt=""></a></td>
+                <td><?=$item->GetTitle()?></td>
+                <td><?=$item->GetId()?></td>
+            <? } else { ?>
+                <td><input type="checkbox" class="itemCheck" data-id="<?=$item->GetId()?>"/></td>
+                <td class="text-center"><a href="<?=UrlGenerator::generateItemUrl($item->GetId(), array('isAbsolute' => true))?>" class="thumbnail thumbnail-micro" title="<?=LangAdmin::get('To_item_page')?>"></a></td>
+                <td><?=$item->GetErrorCode()?></td>
+                <td><?=$item->GetId()?></td>
+            <? } ?>            
+        </tr>
+        <? } ?>
+        <? } ?> 
+    </tbody>
+
+</table>
+
+
+
+<!-- pagination: first page is active -->
+<?php $paginator->display(); ?>
+
+</div>
+<!-- sets-wrapper -->
+
+<? AssetsMin::registerJsFile('/admin/js/ot-restrictions.js'); ?>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>

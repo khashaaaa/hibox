@@ -1,0 +1,10 @@
+<? if (! empty($authSystemList)) { ?>
+    <label><?=Lang::get('Sign_in_with')?>:</label>
+    <div class="soc-login">
+        <? foreach ($authSystemList->GetItem() as $authSystem) { ?>
+            <a href="/?p=login&authSystem=<?=$authSystem->GetId()?>" id="<?=$authSystem->GetId()?>">
+                <img src="<?=$authSystem->GetIconUrl()?>" title="<?=$authSystem->GetName()?>" />
+            </a>
+        <? } ?>
+    </div>
+<? } ?>

@@ -1,0 +1,198 @@
+<?=Lang::loadJSTranslation(array('yes', 'no'))?>
+<div id="confirm-profile-dialog-form" title="<?=Lang::get('message')?>">
+    <div id="message_info" ><?=Lang::get('profile_will_be_removed')?></div>
+    <br/><div class="error" id="error" style="color:red;"></div>
+    <input type="hidden" name="profile_id" value=""/>
+</div>
+
+<div class="userform userBigLabel">
+        <? if($success){ ?>
+        <div class="success">
+            <?=$success?>
+        </div>
+        <? } ?>
+        <? if($error){ ?>
+        <div class="error">
+            <?=$error?>
+        </div>
+        <? } ?>
+        <div class="bproduct mb30">
+            <h2 class="mb20"><span><?=Lang::get('delivery_data')?></span></h2>
+            <div class="form-row">
+                <label for="Profile"><?=Lang::get('profile')?></label>
+
+                <? if (count($profiles)) { ?>
+                    <select name="profiles_select" id="profiles_select" class="form-field form-field__select">
+                        <? $profiles_count = 0; ?>
+                        <? foreach ($profiles as $profile) { ?>
+                            <? $profiles_count++; ?>
+                            <option value="<?=$profile['id']?>"><?=Lang::get('profile') . ' '  . $profiles_count ?></option>
+                        <? } ?>
+                    </select>
+                <? } ?>
+
+                <!-- Проверка на допустимое кол-во профилей -->
+                <? if ((int)$commonSettings['userprofile'] > count($profiles)) { ?> 
+                    <a href='/?p=profile&new_profile'><?=Lang::get('add')?></a>
+                <? } ?>
+			</div>
+                        <? $profiles_count = 0; ?>
+                        <? foreach ($profiles as $profile) { ?>
+                        <? $profiles_count++; ?>
+                        <div class="profile-data" id="profile-<?=$profile['id']?>" <? if ($profiles_count > 1) { ?> style="display:none;" <? } ?> >
+                        <form action="/?p=profile" method="post">
+                            <input  type="hidden" name="Profile[Id]" value="<?=$profile['id']?>" />
+                            <input  type="hidden" name="save_delivery_profile" value="save_delivery_profile" />
+
+                            <div class="form-row">
+                                <label for="RecipientLastName"><?=Lang::get('last_name')?><span class="red">*</span></label>
+                                <input id="RecipientLastName" type="text" name="Profile[LastName]" value="<?=TextHelper::escape($profile['lastname'])?>" class="form-field required" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="RecipientFirstName"><?=Lang::get('name')?><span class="red">*</span></label>
+                                <input id="RecipientFirstName" type="text" name="Profile[FirstName]" value="<?=TextHelper::escape($profile['firstname'])?>" class="form-field required" />
+                            </div>
+
+                            <? if (! General::getConfigValue('hide_middle_name')) { ?>
+                                <div class="form-row">
+                                    <label for="RecipientMiddleName"><?=Lang::get('middle_name')?><span class="red">*</span></label>
+                                    <input id="RecipientMiddleName" type="text" name="Profile[MiddleName]" value="<?=TextHelper::escape($profile['middlename'])?>" class="form-field required" />
+                                </div>
+
+                            <?php } ?>
+
+                            <div class="form-row profile-inn">
+                                <label for="RecipientINN"><?=Lang::get('inn')?></label>
+                                <input id="RecipientINN" type="text" name="Profile[INN]" value="<?=TextHelper::escape($profile['inn'])?>" class="form-field" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="Country"><?=Lang::get('country')?><span class="red">*</span></label>
+                                <select name="Profile[CountryCode]" id="ProfileCountry" class="form-field form-field__select required">
+                                        <? foreach($countries as $item) { ?>
+                                        <option value="<?=$item['Id']?>" <? if($profile['countrycode']==$item['id']) print 'selected'; ?>> <?=$item['Name']?></option>
+                                        <? } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="City"><?=Lang::get('city')?><span class="red">*</span></label>
+                                <input id="City" type="text" name="Profile[City]" value="<?=TextHelper::escape($profile['city'])?>" class="form-field required" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="Address"><?=Lang::get('address')?><span class="red">*</span></label>
+                                <input id="Address" type="text" name="Profile[Address]" value="<?=TextHelper::escape($profile['address'])?>" class="form-field required" />
+                            </div>
+
+                            <div class="form-row">
+                                <label for="PostalCode"><?=Lang::get('post_code')?>
+                                <? if (General::getConfigValue('is_postal_code_required')) { ?>
+                                    <span class="red">*</span>
+                                <? } ?>
+                                </label>
+                                <input id="PostalCode" type="text" name="Profile[PostalCode]" value="<?= (!empty($profile['postalcode']) && ($profile['postalcode'] != '000000')) ? $profile['postalcode'] : ''?>" class="form-field <?=(General::getConfigValue('is_postal_code_required'))?'required':''?>" />
+                            </div>
+
+                        <div class="form-row">
+                                <label for="Region"><?=Lang::get('state_territory')?></label>
+                                <input id="Region" type="text" name="Profile[Region]" value="<?=TextHelper::escape($profile['region'])?>" class="form-field" />
+                            </div>
+
+                            <div class="form-row">
+                                    <label for="Phone"><?=Lang::get('phone')?></label>
+                                    <input id="Phone" type="text" name="Profile[Phone]" value="<?=TextHelper::escape($profile['Phone'])?>" class="form-field" />
+                            </div>
+                            <? if (in_array('PassportData', General::$enabledFeatures)) { ?>
+                                <div class="form-row">
+                                    <label for="PassportNumber"><?=Lang::get('passport')?></label>
+                                    <input id="PassportNumber" type="text" name="Profile[PassportNumber]" value="<?=TextHelper::escape($profile['passportnumber'])?>" class="form-field" />
+                                </div>
+                                <div class="form-row">
+                                    <label for="RegistrationAddress"><?=Lang::get('registrationaddress')?></label>
+                                    <input id="RegistrationAddress" type="text" name="Profile[RegistrationAddress]" value="<?=TextHelper::escape($profile['registrationaddress'])?>"  class="form-field" />
+                                </div>
+                            <? } ?>
+
+
+                            <div class="form-row">
+                                <span class="red"><?=Lang::get('stars_inputs')?></span>
+                            </div>
+
+                            <div class="deleteAccount">
+                                <label></label>
+                                <input type="submit" id="save-delivery-profile" name="save" value="<?=Lang::get('save')?>" class="btn btn-primary" />
+                                <input type="submit" id="delete-delivery-profile" name="delete-delivery-profile" data-profile-id="<?=$profile['id']?>" value="<?=Lang::get('delete')?>" class="btn btn-primary" />
+                            </div>
+                        </form>
+               </div>
+            <? } ?>
+
+        </div>
+
+
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+    $(function(){
+    $("#confirm-profile-dialog-form").dialog({
+        autoOpen:false,
+        modal:true,
+                width:350,
+                buttons:{
+                    "<?=Lang::get('delete')?>":function () {
+                        var profile_id = $(this).find('input[name=profile_id]').val();
+                        $.ajax({
+                            url: "//"+window.location.hostname,
+                            data: {p: 'delete_delivery_profile', id: profile_id}
+                        })
+                        .success(function(data){
+                            data = JSON.parse(data);
+                            if(data.success) {
+                                window.location.href = '/?p=profile&mode=delivery';
+                            } else {
+                                $('#confirm-profile-dialog-form #error').show();
+                                $('#confirm-profile-dialog-form #error').html(data.message);
+                            }
+                        })
+                        .error(function(jqXHR, textStatus, errorThrown){
+                            $('#confirm-profile-dialog-form #error').show();
+                            $('#confirm-profile-dialog-form #error').html(textStatus + ' ' + errorThrown);
+                        });
+                    },
+                    "<?=Lang::get('cancel')?>":function () {
+                            $(this).dialog("close");
+                    }
+                }
+	});
+
+    var validateDelivery = function(){
+        var requiredFields = $('.userform form .required');
+        var validateSuccess = true;
+        requiredFields.each(function(){
+            if ($(this).val().trim() == '') {
+                validateSuccess = false;
+                $(this).addClass('required-field');
+            } else {
+                $(this).removeClass('required-field');
+            }
+        });
+
+        if (validateSuccess == true) {
+            $('#save-delivery-profile').removeAttr('disabled');
+            $('#save-delivery-profile').removeClass('btn_office_disabled');
+        } else {
+            $('#save-delivery-profile').attr('disabled', 'disabled');
+            $('#save-delivery-profile').addClass('btn_office_disabled');
+        }
+    };
+
+    setInterval(validateDelivery, 1000);
+
+    });
+</script>
+<!--/noindex-->
+
+<?=Plugins::invokeEvent('onRenderProfile')?>

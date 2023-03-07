@@ -1,0 +1,32 @@
+<div class="tabbable ot_sub_sub_nav">
+    <ul class="nav nav-pills">
+        <li class="<?=$PageUrl->GetAction() == 'default' ? 'active' : ''?>">
+            <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'default')?>"><?=LangAdmin::get('BrandsPopular')?></a>
+        </li>
+        <li class="<?=$PageUrl->GetAction() == 'sellers' ? 'active' : ''?>">
+            <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'sellers')?>"><?=LangAdmin::get('Sellers')?></a>
+        </li>
+        <li class="<?=$id == 'Best' ? 'active' : ''?>">
+            <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'items')?>&type=Best"><?=LangAdmin::get('Recommended_products')?></a>
+        </li>
+        <li class="<?=$id == 'Popular' ? 'active' : ''?>">
+            <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'items')?>&type=Popular"><?=LangAdmin::get('Popular_products')?></a>
+        </li>
+        <li class="<?=$id == 'Last' ? 'active' : ''?>">
+            <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'items')?>&type=Last"><?=LangAdmin::get('Last_viewed')?></a>
+        </li>
+        <? if (CMS::IsFeatureEnabled('Warehouse')) { ?>
+            <li class="<?=$id == 'Warehouse' ? 'active' : ''?>">
+                <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'items')?>&type=Warehouse"><?=LangAdmin::get('Warehouse')?></a>
+            </li>
+        <? } ?>
+        <li class="<?=$PageUrl->GetAction() == 'recommendedCategory' ? 'active' : ''?>">
+            <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'recommendedCategory')?>"><?=LangAdmin::get('Recommended_categories')?></a>
+        </li>
+        <? if (CMS::IsFeatureEnabled('RatingListForCategory')) { ?>
+            <li class="<?=($PageUrl->GetAction() == 'categories' || $id == 'Category' || $PageUrl->GetAction() == 'categoriesSettings' || $PageUrl->GetAction() == 'autosets'  || $PageUrl->GetAction() == 'export')  ? 'active' : ''?>">
+                <a href="<?=$PageUrl->AssignCmdAndDo('sets', 'categories')?>"><?=LangAdmin::get('Selector')?></a>
+            </li>
+        <? } ?>
+    </ul>
+</div>

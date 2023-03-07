@@ -1,0 +1,47 @@
+<ul class="category-ul">
+    <? 
+        if($categories) {
+            $countFirst = 0;
+            foreach($categories as $rootCat) {            
+                if ($level1MaxCount <> 0) {
+                    if ($countFirst++ >= $level1MaxCount) {
+                        break;
+                    }
+                }
+            ?>
+                <li>
+                    <a href="<?=General::generateUrl('subcategory', array_merge($rootCat))?>"><?= $this->escape($rootCat['name']) ?>
+                        <? if (count($rootCat['children']) > 0) {?>
+                            <b class="caret-right"></b>
+                        <? } ?>
+                    </a>
+                    <? if (count($rootCat['children']) > 0) {?>
+                        <span class="box-caret"></span>
+                    <? } ?>
+
+                    <? if (count($rootCat['children']) > 0) { 
+                        $countSecond = 0; ?>
+                        <ul>
+                    <?  foreach($rootCat['children'] as $subItem) { 
+                            if (! $subItem['name']) {
+                                continue;
+                            }
+                            if ($level2MaxCount <> 0) {
+                                if ($countSecond++ >= $level2MaxCount) {
+                                    break;
+                                }
+                            }
+                        ?>
+                            <li>
+                                <a mcid="<?=$subItem['id']?>" href="<?=General::generateUrl('subcategory', $subItem )?>"><?= $this->escape($subItem['name']) ?></a>
+                            </li>
+                    <? } ?>
+                        </ul>
+                    <? } ?>
+                </li>
+            <? } ?>
+        <? } ?>
+    <li>
+        <a href="<?=UrlGenerator::getUrl('allcats')?>"><?=Lang::Get('all_categories')?></a>
+    </li>
+</ul>

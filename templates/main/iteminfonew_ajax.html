@@ -1,0 +1,30 @@
+<!--noindex-->
+<script type="text/javascript">
+$(function(){
+    $.get("//"+window.location.hostname,{
+        p: 'itemajax',
+        id: '<?=RequestWrapper::getValueSafe('id')?>',
+        getItemInfo: 1
+    },function(data){
+        $('#item-ajax').replaceWith(data);
+
+        init(iteminfo, langs);
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+
+        script.src = 'js/item.js?<?=CFG_SITE_VERSION;?>';
+        document.getElementsByTagName('head')[0].appendChild(script);
+
+        script.src = 'js/libs/jquery/jquery.colorbox/jquery.colorbox-min.js?<?=CFG_SITE_VERSION;?>';
+        document.getElementsByTagName('head')[0].appendChild(script);
+    });
+});
+</script>
+<!--/noindex-->
+<div id="item-ajax">
+    <div class="main"><div class="wrap clrfix" style="text-align: center">
+        <?=Lang::get('item_data_loading')?>
+        <div id="overlay" style="display: block; height: 30px;"></div>
+    </div></div>
+</div>

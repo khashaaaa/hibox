@@ -1,0 +1,90 @@
+<? foreach($activeSearchMethod->GetFeature() as $feature) { ?>
+    <div class="card">
+        <div class="card-header nopadding panel-grey" id="heading03">
+            <h5 class="mb-0">
+                <button class="btn btn-link link pl-0 pr-0 collapsed"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#filter-<?=$feature->GetName()?>"
+                        aria-expanded="false"
+                        aria-controls="filter-<?=$feature->GetName()?>">
+                    <?=$feature->GetDisplayName()?><i></i>
+                </button>
+            </h5>
+        </div>
+        <div id="filter-<?=$feature->GetName()?>"
+             class="collapse <?=(isset($isActive) && $isActive) ? 'show' : ''?>"
+             aria-labelledby="heading03">
+            <div class="card-body search-filter">
+                <? $isActiveFeature = null ?>
+                <? if (!empty($searchParams['features'][$feature->GetName()])) { ?>
+                    <? $isActiveFeature = $searchParams['features'][$feature->GetName()]?>
+                <? } elseif(!empty($searchParams['features']) && empty($searchParams['features'][$feature->GetName()])) { ?>
+                    <? $isActiveFeature = 'all'?>
+                <? } ?>
+                <div class="custom-control custom-radio">
+                    <input name="features[<?=$feature->GetName()?>]"
+                           type="radio"
+                           id="feature-radio-all-<?=$feature->GetName()?>"
+                           class="custom-control-input"
+                           value=""
+                           <?=$isActiveFeature === 'all' ? 'checked' : ''?>
+                    >
+                    <label class="custom-control-label" for="feature-radio-all-<?=$feature->GetName()?>">
+                        <?=Lang::get('all_goods')?>
+                    </label>
+                </div>
+                    <? if ($feature->CanBeTrue()) { ?>
+                        <div class="custom-control custom-radio">
+                            <input name="features[<?=$feature->GetName()?>]"
+                                   type="radio"
+                                   id="feature-radio-true-<?=$feature->GetName()?>"
+                                   class="custom-control-input"
+                                   value="true"
+                                   <?= $isActiveFeature === 'true' ? 'checked="checked"' : '' ?>
+                            >
+                            <label class="custom-control-label" for="feature-radio-true-<?=$feature->GetName()?>">
+                                <?=$feature->GetDisplayNameForTrue()?>
+                            </label>
+                        </div>
+                    <? } ?>
+                    <? if ($feature->CanBeFalse()) { ?>
+                        <div class="custom-control custom-radio">
+
+                        <input name="features[<?=$feature->GetName()?>]"
+                               type="radio"
+                               id="feature-radio-false-<?=$feature->GetName()?>"
+                               class="custom-control-input"
+                               value="false"
+                               <?= $isActiveFeature === 'false' ? 'checked="checked"' : '' ?>
+                        >
+                            <label class="custom-control-label" for="feature-radio-false-<?=$feature->GetName()?>">
+                                <?=$feature->GetDisplayNameForFalse()?>
+                            </label>
+                        </div>
+                    <? } ?>
+                <div class="custom-control">
+                    <ul class="ling-group">
+                        <li><a href="javascript:void(0)" class="filter-input-apply"><?=Lang::get('apply')?></a></li>
+                        <li><a href="javascript:void(0)" class="filter-input-reset"><?=Lang::get('reset')?></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<? } ?>
+
+<script>
+    $('.filter-input-reset').click(function (e) {
+        var filtersRadio = $(e.currentTarget).closest('.card').find('input[type="radio"]');
+        for (var i = 0; i < filtersRadio.length; i++) {
+            var filtersRadio = filtersRadio[i];
+            if (filtersRadio.checked) {
+                filtersRadio.checked = false;
+            }
+        }
+
+        $('#modal-filter').modal('hide');
+        $('form[class="filter-form"]').find('.search-click').click();
+    });
+</script>

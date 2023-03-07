@@ -1,0 +1,81 @@
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? XEditableFields::Init('order', $PageUrl); ?>
+
+<div class="row-fluid">
+    <div class="span12">
+
+        <div class="span10">
+            <h1><a href="<?=$PageUrl->AssignDo('default')?>" class="muted"><?=LangAdmin::get('Configuration')?></a>
+                / <?=LangAdmin::get('orders')?> / <?=LangAdmin::get('general')?>
+            </h1>
+        </div>
+
+        <div class="span2">
+            <? require TPL_ABSOLUTE_PATH . 'site_config/inc/page_langs.php'; ?>
+        </div>
+
+    </div>
+</div>
+
+<!-- ot-sub-sub-nav -->
+<div class="tabbable ot_sub_sub_nav">
+
+    <ul class="nav nav-pills">
+        <li <? if($PageUrl->GetAction() == 'orders'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('orders')?>"><i class="icon-sitemap"></i> <span><?=LangAdmin::get('General')?></span></a></li>
+        <li <? if($PageUrl->GetAction() == 'bank'){ ?>class="active"<?} ?>><a href="<?=$PageUrl->AssignDo('bank')?>"><i class="icon-file-alt"></i> <span><?=LangAdmin::get('Quittance_to_bank')?></span></a></li>
+    </ul>
+
+</div><!-- /ot-sub-sub-nav -->
+
+
+<!-- configuration -->
+<div class="box corner-top">
+
+    <div class="box-body">
+
+        <form class="form-horizontal inline_editable_form ot_form">
+
+            <fieldset>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div data-field="payment_in_cash"></div>
+                        <? XEditableFields::Register('payment_in_cash', $Config->Get('payment_in_cash')); ?>
+
+                        <div data-field="notification_email"></div>
+                        <? XEditableFields::Register('notification_email', $Config->Get('notification_email')); ?>
+
+                        <div data-field="notification_send_from"></div>
+                        <? XEditableFields::Register('notification_send_from', $Config->Get('notification_send_from')); ?>
+                    </div>
+                    <div class="span6">
+                        <div data-field="origin_package"></div>
+                        <? XEditableFields::Register('origin_package', $Config->Get('origin_package')); ?>
+
+                        <div data-field="order_insurance_percent"></div>
+                        <? XEditableFields::Register('order_insurance_percent', $Config->Get('order_insurance_percent')); ?>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>

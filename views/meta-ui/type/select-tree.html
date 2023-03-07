@@ -1,0 +1,233 @@
+<div class="control-group control-group-medium">
+    <label class="control-label"><?=$displayName?>
+        <? if ($description) { ?>
+        <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-content="<?=TextHelper::escape($description)?>"></i>
+        <? } ?>
+    </label>
+    <div style="float: left;">
+        <div class="input-prepend">
+            <span class="add-on"><i class="icon icon-search"></i></span>
+            <input type="text" value="" id="jstree-search-<?=$name?>" placeholder="" style="margin-bottom: 5px;">
+        </div>
+        <div>
+            <div id="jstree-<?=$name?>" style="float: left; min-width:245px;"></div>
+		    <div class="editable-buttons" style="float:left;">
+                <? if ($isReadOnly == 0) { ?>
+		            <button id="<?=$name?>" <?=$requireReload ? 'require-reload="true"' : '' ?> type="submit" class="btn btn-primary editable-submit <?=$name?>-submit disabled" <?=($isReadOnly == 1) ? 'disabled="disabled"' : '' ?>><i class="icon-ok icon-white"></i></button>
+		        <? } ?>
+                <? if ($nameCanByReset) { ?>
+                <button type="submit" class="btn <?=$nameCanByReset?>" title="<?=LangAdmin::get("By_default")?>"><i class="icon-refresh"></i></button>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<? AssetsMin::registerCssFile('/admin/js/vendor/jstree/themes/classic/style.css') ?>
+<? AssetsMin::registerJsFile('/admin/js/vendor/jstree/jquery.jstree.js')?>
+
+<style>
+#jstree-<?=$name?> a.jstree-search{
+    color: black;
+    font-weight: bold;
+}
+
+#jstree-<?=$name?> a.jstree-search.jstree-clicked{
+    color: white;
+    font-weight: bold;
+}
+
+
+#jstree-<?=$name?> {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;    
+}
+
+span.add-on
+{
+    margin-top: -4px;
+}
+    li.disabled > a {
+        color: #a0a1a1;
+    }
+    li.disabled > a.jstree-hovered {
+        background: none;
+        border: none;
+        padding-left: 2px;
+    }
+    li.disabled > a.jstree-clicked {
+        background: none;
+        border: none;
+        padding-left: 2px;
+        color: #a0a1a1;
+    }
+</style>
+
+<script>
+    $(function() {
+        var data = <?=$values?>;
+        if ($('#jstree-<?=$name?>').length) {
+            $('#jstree-<?=$name?>').jstree({
+                "plugins" : ["themes","json_data","ui","search"],
+                "core" : {
+                    "multiple" : false,
+                    "animation" : 0,
+                    "expand_selected_onload": true,
+                },
+                "themes" : {
+                    "theme" : "classic",
+                    "dots" : true,
+                    "icons" : true
+                },
+                "json_data" : {
+                        "data" : data,
+                },
+                "search" : {
+                    "show_only_matches": true,
+                    "show_only_matches_children": true
+                }
+            }).bind("select_node.jstree", function (event, data) {
+                var checked = data.rslt.obj;
+                if (checked.hasClass('disabled')) {
+                    $('button.<?=$name?>-submit').addClass('disabled');
+                } else {
+                    $('button.<?=$name?>-submit').removeClass('disabled');
+                }
+            }).bind("loaded.jstree", function (event, data) {
+                var selected = $('div[id="jstree-<?=$name?>"] li[id="<?=$currentValue?>"]');
+                $('a', selected).addClass('jstree-clicked');
+                var current = $(selected).closest('ul').closest('li');
+                while($(current).length > 0) {
+                    $('#jstree-<?=$name?>').jstree('open_node', current);
+                    current = $(current).closest('ul').closest('li');
+                }
+            });
+        }
+        
+        $('button.<?=$name?>-submit').click(function(){
+            if ($('#jstree-<?=$name?> li a.jstree-clicked:first').length > 0 && ! $(this).hasClass('disabled')) {
+                var id = $('#jstree-<?=$name?> li a.jstree-clicked').parent().attr('id');
+                var container = $(this).closest('div.meta-ui-container');
+                var updateSettingsUrl = $(container).attr('update-settings-url') + '&type=SelectTree';
+
+                $('button.<?=$name?>-submit').attr('disabled','disabled');
+                $('button.<?=$name?>-submit').addClass('btn_preloader');
+	            $('button.<?=$name?>-submit i').hide();
+	            $.post(
+	                    updateSettingsUrl,
+	                    {
+	                        "value": id,
+	                        "name": '<?=$name?>',
+	                    },
+	                    function (data) {
+	                        if (!data.error) {
+	                            showMessage(trans.get('Data_save_success'));
+	                            $('button.<?=$name?>-submit').removeClass('btn_preloader');
+	                            $('button.<?=$name?>-submit').addClass('disabled');
+	                            $('button.<?=$name?>-submit i').show();
+	                            $('button.<?=$name?>-submit').removeAttr('disabled');
+	                            if ($('#<?=$name?>').attr('require-reload') == 'true') {
+	                                if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+	                                   var container = $('#<?=$name?>').closest('.allow-reload');
+	                                   var url = $(container).attr('reload-url');
+	                                   if (url) {
+	                                       $.post(url, {}, function (data) {
+	                                           if (! data.error) {
+	                                               $(container).html(data.html);
+	                                           } else {
+	                                               showError(data);
+	                                           }
+	                                       }, 'json').error(function(xhr, ajaxOptions, thrownError){
+	                                           showError(xhr.responseText);
+	                                       });                                
+	                                       return;
+	                                   }
+	                                }                       
+	                                location.reload();
+	                            }
+	                        } else {
+	                            showError(data);
+	                            var container = $('#<?=$name?>').closest('.control-group');
+	                            $('#<?=$name?>', container).addClass('error');
+	                            return false;
+	                        }
+	                    }, 'json'
+	            );
+           }
+           return false;
+        });
+        
+        var to = false;
+        $('#jstree-search-<?=$name?>').keyup(function () {
+          if (to) { 
+              clearTimeout(to); 
+          }
+          to = setTimeout(function () {
+            var value = $('#jstree-search-<?=$name?>').val();
+            $('#jstree-<?=$name?>').jstree("search", value);
+          }, 250);
+        });
+
+    <? if ($nameCanByReset) { ?>
+            $('button.<?=$nameCanByReset?>').click(function () {
+                modalDialog(trans.get('Confirm_needed'), trans.get('Really_set_default_value'), function () {
+                    $('button.<?=$nameCanByReset?>').attr('disabled', 'disabled');
+                    $('button.<?=$nameCanByReset?>').addClass('btn_preloader');
+                    $('button.<?=$nameCanByReset?> i').hide();
+                    $.post(
+                        updateSettingsUrl,
+                        {
+                            "name": '<?=$nameCanByReset?>',
+                            "value": 'true',
+                            "type": 'Text'
+                        },
+                        function (data) {
+                            if (!data.error) {
+                                showMessage(trans.get('Data_save_success'));
+                                $('button.<?=$nameCanByReset?>').removeClass('btn_preloader');
+                                $('button.<?=$nameCanByReset?>').addClass('disabled');
+                                $('button.<?=$nameCanByReset?> i').show();
+                                $('button.<?=$nameCanByReset?>').attr('disabled');
+
+
+                                if ($('#<?=$name?>').closest('.allow-reload').length > 0) {
+                                    var container = $('#<?=$name?>').closest('.allow-reload');
+                                    var url = $(container).attr('reload-url');
+                                    if (url) {
+                                        $.post(url, {}, function (data) {
+                                            if (!data.error) {
+                                                $(container).html(data.html);
+                                            } else {
+                                                showError(data);
+                                            }
+                                        }, 'json').error(function (xhr, ajaxOptions, thrownError) {
+                                            showError(xhr.responseText);
+                                        });
+                                        return;
+                                    }
+                                }
+                                location.reload();
+                            } else {
+                                showError(data);
+                                var container = $('#<?=$name?>').closest('.control-group');
+                                $('#<?=$name?>', container).addClass('error');
+                                return false;
+                            }
+                        }, 'json'
+                    );
+                });
+                return false;
+            });
+        <? } ?>
+    });
+</script>

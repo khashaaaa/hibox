@@ -1,0 +1,12 @@
+<RatingList>
+        <ContentType>Item</ContentType>
+        <CategoryId>Warehouse</CategoryId>
+        <ItemRatingType>Best</ItemRatingType>
+        <HasError>false</HasError>
+        <Name>Товары на складе</Name>
+        <Order>3</Order>
+        <Result>
+          <Content/>
+          <TotalCount>0</TotalCount>
+        </Result>
+      </RatingList>

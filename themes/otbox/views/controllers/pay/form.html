@@ -1,0 +1,232 @@
+<? if (isset($orderData)) { ?>
+    <h3>
+        <?= Lang::get('order') ?> <?= OrdersProxy::normalizeOrderId($orderData->GetSalesOrderInfo()->getId()) ?>
+    </h3>
+<? } ?>
+
+<? if (! empty($payGroups)) { ?>
+    <div class="pay-groups">
+        <div class="<!--list-pay-block--> js-payment-groups">
+            <div class="list-pay-block__content">
+                <? $formTarget = General::getConfigValue('open_payment_in_new_window', '0') ? '_blank' : '_self' ?>
+                <form action="<?= UrlGenerator::toRoute('pay') ?>" target="<?= $formTarget ?>" class="js-payment-form" method="post">
+                    <div class="table-top-up">
+                        <div class="table-top-up__header">
+                            <div class="form-row">
+                                <? if (isset($orderData)) { ?>
+                                    <!-- Если форма для оплаты заказа -->
+                                    <input type="hidden" name="orderid" value="<?= $orderData->GetSalesOrderInfo()->GetId() ?>">
+
+                                    <?= Lang::get('To_pay') ?>:
+                                    <?= round((float)$orderData->GetSalesOrderInfo()->GetRemainAmount(), 2) ?>
+                                    <?= $currencySign ?>
+                                <? } else { ?>
+                                    <!-- Если форма для пополнения счета -->
+                                    <label for="validationCustom01">
+                                        <?= Lang::get('enter_amount') ?> (<?= $currencySign ?>):
+                                    </label>
+
+                                    <div class="table-top-up-form-right">
+                                        <input id="validationCustom01"
+                                               class="form-control"
+                                               data-type="price"
+                                               name="money"
+                                               type="text"
+                                               required
+                                        >
+                                    </div>
+                                <? } ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <? $display = 'style="display: ' . (count($payGroups) > 1 ? 'block' : 'none') . '"'; ?>
+                    <div class="table-top-up__content" <?= $display ?>>
+                        <? $haveChecked = false; ?>
+                        <? foreach ($payGroups as $payGroupKey => $payGroup) { ?>
+                            <div class="table-top-up__row">
+                                <div class="custom-control custom-radio">
+                                    <input name="pay"
+                                           type="radio"
+                                           id="pay-group-<?=$payGroupKey?>"
+                                           class="custom-control-input pay_group js-payment-group-btn"
+                                           data-group-key="<?= $payGroupKey ?>"
+                                           <?= !$haveChecked ? 'checked="true"' : '' ?>
+                                           <? $haveChecked = true; ?>
+                                    >
+
+                                    <label class="custom-control-label" for="pay-group-<?=$payGroupKey?>">
+                                        <?= $payGroup['name'] ?>
+                                    </label>
+                                </div>
+                            </div>
+                        <? } ?>
+                    </div>
+
+                    <? foreach ($payGroups as $payGroupKey => $payGroup) { ?>
+                        <? foreach ($payGroup['childPayModes'] as $payModeGroup) { ?>
+                            <div class="list-pay-block js-payment-group js-payment-group-<?= $payGroupKey ?>" style="display: block">
+                                <div class="list-pay-block__header">
+                                    <div class="list-pay-block__title">
+                                        <?= $payModeGroup['name'] ?>
+                                    </div>
+                                </div>
+
+                                <div class="list-pay-block__content">
+                                    <? foreach ($payModeGroup['childPayModes'] as $payMode) { ?>
+                                        <? $needToHideRadio = count($payGroup['childPayModes']) == 1 && count($payModeGroup['childPayModes']) == 1; ?>
+                                        <div class="custom-control custom-radio"
+                                             style="display: <?= $needToHideRadio ? 'none' : 'block' ?>"
+                                        >
+                                            <input type="radio"
+                                                   name="paymentId"
+                                                   value="<?= $payMode['id'] ?>"
+                                                   id="payment_<?= $payMode['id'] ?>"
+                                                   class="custom-control-input payment_radio js-payment-mode-btn"
+                                            >
+
+                                            <label class="custom-control-label payment_radio" for="payment_<?= $payMode['id'] ?>">
+                                                <?= $payMode['name'] ?>
+                                            </label>
+                                        </div>
+
+                                        <div class="online-wallets-box panel-grey js-payment-mode"
+                                             pid="desc<?= $payMode['id'] ?>"
+                                             style="display: none"
+                                        >
+                                            <div class="online-wallets-box-description">
+                                                <? if (! empty($payMode['absoluteImageUrl'])) { ?>
+                                                    <div class="img-online-wallets">
+                                                        <img alt="img" src="<?= $payMode['absoluteImageUrl'] ?>">
+                                                    </div>
+                                                <? } ?>
+
+                                                <?= $payMode['description'] ?>
+                                            </div>
+
+                                            <div class="online-wallets-box-btns">
+                                                <? if ($payMode['customField'] !== 'None') { ?>
+                                                    <div class="form-row form-online-wallets">
+                                                        <label class="online-wallets-label"
+                                                               for="payment_<?= $payMode['id'] ?>_custom"
+                                                               id="payment_<?= $payMode['id'] ?>_custom_name"
+                                                        >
+                                                            <?= Lang::get(strtolower((string) $payMode['customField'])) ?>
+                                                        </label>
+
+                                                        <div>
+                                                            <input type="text"
+                                                                   class="form-control custom-fields"
+                                                                   name="Custom[<?= $payMode['id'] ?>]"
+                                                                   id="payment_<?= $payMode['id'] ?>_custom"
+                                                                   value=""
+                                                                   style="margin-bottom: 5px"
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                <? } ?>
+
+                                                <div class="table-top-up-form-right">
+                                                    <? if (isset($orderData)) { ?>
+                                                        <button type="submit" class="button button-add js-button-add">
+                                                            <?=Lang::get('pay')?>
+                                                        </button>
+                                                    <? } else { ?>
+                                                        <button type="submit" class="button">
+                                                            <?=Lang::get('add_money')?>
+                                                        </button>
+                                                    <? } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <? } ?>
+                                </div>
+                            </div>
+                        <? } ?>
+                    <? } ?>
+                </form>
+            </div>
+        </div>
+    </div>
+<? } else { ?>
+    <h3><?=Lang::get('no_payment_methods_is_connected')?></h3>
+<? } ?>
+
+<script>
+    let $paymentGroups = $('.js-payment-groups'),
+        $paymentModes = $paymentGroups.find('.js-payment-mode-btn'),
+        showPayGroup = function () {
+            let $checkedGroup = $('.js-payment-group-btn:checked');
+            if ($checkedGroup.length) {
+                $('.js-payment-group').hide();
+                $('.js-payment-mode-btn').prop('checked', false);
+                $('.js-payment-mode').hide();
+
+                let paymentGroupKey = $checkedGroup.data('groupKey'),
+                    $paymentGroups = $('.js-payment-group-' + paymentGroupKey),
+                    $paymentModes = $paymentGroups.find('.js-payment-mode-btn');
+
+                $paymentGroups.show();
+
+                if ($paymentModes.length === 1) {
+                    $paymentModes.click();
+                }
+            }
+        };
+
+    $paymentGroups.find('.js-button-add').attr('disabled', 'disabled').addClass('disabled');
+
+    $paymentModes.each(function () {
+        if ($(this).prop('checked')) {
+            $paymentGroups.find('.js-button-add').removeAttr('disabled').removeClass('disabled');
+        }
+    });
+
+    if ($paymentModes.length === 1) {
+        $paymentModes.attr('checked', 'checked').change().hide();
+    }
+
+    $('.js-payment-form').submit(function () {
+        let $checkedPayment = $('[name="paymentId"]:checked'),
+            $checkedPaymentBlock = $checkedPayment.closest('.custom-control').next('.online-wallets-box'),
+            $customFields = $checkedPaymentBlock.find('.custom-fields'),
+            paymentName = $checkedPayment.attr('id'),
+            paymentCustomExists = false,
+            custom = 0;
+
+        if ($customFields.length) {
+            paymentCustomExists = true;
+            custom = $customFields.val();
+            $customFields.removeClass('custom-fields');
+        }
+
+        if (paymentCustomExists && !custom.length) {
+            showError('<?=Lang::get('not_filled_required_field')?>: ' + $checkedPaymentBlock.find('.online-wallets-label').text());
+            return false;
+        }
+
+        let $moneyInput = $('[name="money"]');
+        if ($moneyInput.length && !$moneyInput.val()) {
+            showError('<?=Lang::get('not_filled_required_field')?>: <?=Lang::get('sum')?>');
+            return false;
+        }
+
+        $('.custom-fields').remove();
+
+        return true;
+    });
+
+    $paymentModes.on('change', function () {
+        $paymentGroups.find('.js-payment-mode').hide();
+        $paymentGroups.find('[pid="desc' + $(this).val() + '"]').css('display', 'inline-block');
+        $paymentGroups.find('.js-button-add').removeAttr('disabled').removeClass('disabled');
+    });
+
+    $('.js-payment-group-btn').on('change', function () {
+        showPayGroup();
+    });
+
+    $(function () {
+        showPayGroup();
+    })
+</script>

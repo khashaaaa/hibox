@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab title="contents::Pages" action="default" cmd="contents">
+        <page data-action="default" data-cmd="contents" />
+        <page data-action="addNewPage" data-cmd="contents" />
+        <page data-action="editPage" data-cmd="contents" />
+    </tab>
+    <tab title="contents::Navigation" action="navigation" cmd="contents">
+        <page data-action="navigation" data-cmd="contents" />
+    </tab>
+    <tab title="contents::News" action="news" cmd="contents" feature="News">
+        <page data-action="news" data-cmd="contents" />
+        <page data-action="editNews" data-cmd="contents" />
+        <page data-action="addNews" data-cmd="contents" />
+        
+    </tab>
+    <tab title="contents::Blog" action="default" cmd="blog" feature="Digest">
+        <page data-action="default" data-cmd="blog" />
+        <page data-action="addBlogPost" data-cmd="blog" />
+        <page data-action="editBlogPost" data-cmd="blog" />
+    </tab>
+    <tab title="Banners" action="banners" cmd="Contents">
+        <page data-action="banners" data-cmd="contents" />
+        <page data-action="bannerForm" data-cmd="contents" />
+    </tab>
+    <tab title="contents::Content_pages" action="contentPages" cmd="Contents" feature="MobileApplication">
+        <page data-action="contentPages" data-cmd="contents" />
+        <page data-action="editMobileContentPage" data-cmd="contents" />
+    </tab>
+</tabs>

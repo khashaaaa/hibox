@@ -1,0 +1,26 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Reports')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Site_speed')?></li>
+</ul>
+
+<?=TabsGenerator::GetTabs('templates/reports/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Site_speed')?></h1>
+
+<p style="width: 250px"><?=LangAdmin::get('Loading_chart_data')?> <span id="time">01:00</span></p>
+
+<div id="site-speed-view-wrapper">
+    <div style="height: 500px; margin-bottom: 60px">
+        <h3><?=LangAdmin::get('Current_site_speed')?></h3>
+        <canvas id="siteSpeed"></canvas>
+    </div>
+
+    <div style="height: 500px">
+        <h3><?=LangAdmin::get('Archive_site_speed')?></h3>
+        <canvas id="siteSpeedPerMonth"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<? AssetsMin::registerJsFile('/admin/js/ot-site-speed.js'); ?>

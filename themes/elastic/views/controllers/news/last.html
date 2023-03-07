@@ -1,0 +1,65 @@
+<? if (!empty($news)) { ?>
+    <section class="block-news">
+        <div class="center">
+            <div class="block__title">
+                <span><?=Lang::get('news')?></span>
+                <a href="<?=UrlGenerator::toRoute('allnews')?>"><?=Lang::get('all_news')?></a>
+            </div>
+
+            <div class="block-news__wrap">
+                <? foreach ($news as $item) { ?>
+                    <? $url = UrlGenerator::toRoute('news', ['id' => $item['id']]) ?>
+                    <div class="news-item">
+                        <a href="<?=$url?>" class="news-item__img"
+                           style="background-image: url(<?=DigestRepository::getImage($item['image'], 'thumb')?>);"></a>
+                        <div class="news-item__text">
+                            <div class="news-item__date"><?=TextHelper::date($item['created']) ?></div>
+                            <a href="<?=$url?>" class="news-item__title"><?=$this->escape($item['title'])?></a>
+                        </div>
+                    </div>
+                <? } ?>
+            </div>
+        </div>
+    </section>
+
+    <? AssetsMin::jsBegin(); ?>
+    <script>
+        $(function () {
+            $('.block-news__wrap').slick({
+                dots: false,
+                speed: 500,
+                arrows: true,
+                autoplay: true,
+                fade: false,
+                vertical: false,
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                rtl: <?=(General::getConfigValue('rtl')) ? 'true' : 'false'?>,
+                responsive: [{
+                        breakpoint:1280,
+                        settings: {
+                            slidesToShow: 4,
+                            arrows:false
+                        }
+                    },
+                    {
+                        breakpoint:1024,
+                        settings: {
+                            slidesToShow: 3,
+                            arrows:false
+                        }
+                    },
+                    {
+                        breakpoint:480,
+                        settings: {
+                            slidesToShow: 1,
+                            arrows:false
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+    <? $strScript = AssetsMin::jsEnd(); ?>
+    <? AssetsMin::registerJs($strScript); ?>
+<? } ?>

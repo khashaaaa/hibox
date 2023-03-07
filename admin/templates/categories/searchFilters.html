@@ -1,0 +1,42 @@
+<?php if (count($searchprops) > 0) { ?>
+    <div class="accordion" id="ot_filters_rename_accordion">
+    <?php
+        $i=0;
+    foreach ($searchprops as $key => &$prop) {
+        if ($key == 20000) { // Brand
+            continue;
+        }
+        $name = $prop['name'];
+        $values = $prop['values'];
+    ?>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse-custom" data-parent="#ot_filters_rename_accordion" href="#collapse<?=$i ?>">
+                    <span class="ot_inline_editable editable editable-click editable-empty" data-name="ItemPropertyName" data-type="text" data-pk="1" data-url="/admin/?cmd=categories&amp;do=saveFilter&amp;categoryId=<?=$key?>" data-original-title="" style="display: inline-block;"><?=$name?></span>
+                </a>
+            </div>
+            <div id="collapse<?=$i?>" class="accordion-body <?php $i>0 ? print "": print "in "?>collapse">
+                <div class="accordion-inner">
+                    <?php foreach ($values as $vkey => &$value) {
+                        $id = $value['id'];
+                        $valueName = $value['name'];
+                    ?>
+                        <div>
+                            <a class="ot_inline_editable editable editable-click editable-empty" href="#collapse<?=$i ?>" key="<?=$id?>" data-name="ItemPropertyValueName" data-type="text" data-pk="1" data-url="/admin/?cmd=categories&amp;do=saveFilter&amp;categoryId=<?=$id?>" data-original-title="" style="display: inline-block;"><?=$valueName?></a>
+                        </div>
+                    <?php
+                    }
+                ?>
+                </div>
+            </div>
+        </div>
+
+    <?php
+        $i++;
+    }
+    ?>
+    </div>
+<?php
+} else {?>
+    <div><?=LangAdmin::get('Category_filters_not_found')?></div>
+<?php } ?>

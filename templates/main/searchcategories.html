@@ -1,0 +1,99 @@
+<? if (!isset($searchcats_ajax)) { ?>
+    <? if (! InstanceProvider::getObject()->isLimitItemsByCatalog()) { ?>
+    <div class="b-link__dropdown-all">
+        <a class="b-link" href="<?=General::generateUrl('allcats', array() )?>" cid="">
+            <i class="i-new i-arrow-right i arrowright"></i><span><?=Lang::get('all_categories')?></span>
+        </a>
+    </div>
+   
+    <? } ?>
+    <? $opened = false; ?>
+    <? if (is_array($searchcats))
+{
+    $counter_top = 0;
+    foreach ($searchcats as $cat)
+    {
+        if ($cat['ishidden'] == 'false' && (string) $cat['isparent'] == 'true' && empty($cat['parentid'])) {
+            $counter_top++; if($counter_top>10) break;
+            ?>
+            <div class="bitem">
+            <?
+            $opened = true;
+            if (empty($cat['externalid']))
+            {
+                ?><h3><?= $this->escape($cat['name']) ?></h3><?
+            } else {
+                ?><h3><a cid="<?=$cat['id']?>" href="#" <? if (@$_GET['cid'] == $cat['id']) { ?> class="search-cat-active"<? } ?>><?= $this->escape($cat['name']) ?></a></h3><?
+            }
+            ?><ul class="lcategory b-list b-list__category"><?
+                $counter_in = 0;
+                foreach ($searchcats as $cat2)
+                {
+                    if ($cat2['ishidden'] == 'false' && (string) $cat2['parentid'] == (string) $cat['id'])
+                    {
+                        if (empty($cat2['externalid']))
+                        {
+                        } else {
+                            $counter_in++; if($counter_in>4) break;
+                            ?><li class="b-item"><a class="b-link" href="#" cid="<?=$cat2['id']?>" <? if (@$_GET['cid'] == $cat2['id']) { ?> class="search-cat-active"<? } ?>><?= $this->escape($cat2['name']) ?></a></li><?
+                        }
+                    }
+                }
+                ?></ul></div><?
+        }
+    }
+} ?>
+    <? if (! InstanceProvider::getObject()->isLimitItemsByCatalog()) { ?>
+    <div class="b-link__dropdown-all">
+        <a class="b-link" href="<?=General::generateUrl('allcats', array() )?>" cid="">
+            <i class="i-new i-arrow-right i arrowright"></i><span><?=Lang::get('all_categories')?></span>
+        </a>
+    </div>
+    <? } ?>
+<!--noindex-->
+<script type="text/javascript">
+    assignSearchCategoriesClick();
+    <?if(RequestWrapper::post('cid') && RequestWrapper::post('name') != ''){?>
+    activateSearchCategory('<?=RequestWrapper::post('cid')?>', '<?=RequestWrapper::post('name')?>');
+    <?}?>
+</script>
+<!--/noindex-->
+<? } else { ?>
+<!-- Нету кэша --->
+<!--noindex-->
+<script type="text/javascript">
+$(function(){
+    $("#searchcatsajax").html('<p align="center"><img src="/css/i/ajax-loader.gif" width="32" height="32" /></p>');
+    $.post('/?p=search_ajax&searchcats_ajax=1',
+    { 
+        cid : '<?=RequestWrapper::getValueSafe('cid')?>',
+        name : '<?=$this->escape($GLOBALS['categoryInfo']['name'])?>',
+    },
+    function(data){
+        $("#searchcatsajax").html(data);
+    });
+    
+});
+
+</script>
+<!--/noindex-->
+
+<? } ?>
+<script type="text/javascript">
+function CheckSearch() {
+    var submitForm = true;
+    <? if (InstanceProvider::getObject()->isLimitItemsByCatalog()) { ?>
+    if ($('#searchCid').val() == '') {
+        $('.allplace').addClass('error');
+        submitForm = false;
+    }    
+    <? } ?>
+    if ($('#full_search').val()==='') {
+        $('#full_search').addClass('error');
+        submitForm = false;
+    }
+    if (submitForm) {
+        $('#full_search_form').submit();
+    }
+}
+</script>

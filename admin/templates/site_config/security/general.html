@@ -1,0 +1,220 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <? if (General::isSellFree(Session::getActiveAdminLang())) { ?>
+        <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'security')?>"><?=LangAdmin::get('system')?></a> <span class="divider">›</span></li>
+    <? } else { ?>
+        <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'system')?>"><?=LangAdmin::get('system')?></a> <span class="divider">›</span></li>
+    <? } ?>
+    <li class="active"><?=LangAdmin::get('Security')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<? if (! General::isSellFree(Session::getActiveAdminLang())) { ?>
+    <?=TabsGenerator::GetSubTabs('templates/site_config/system/navigation/tabs.xml', $PageUrl)?>
+<? } ?>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields = new Backbone.Collection;
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? XEditableFields::Init('system', $PageUrl); ?>
+
+<!-- caching configuration -->
+<div id="global-wrapper">
+
+    <? if (! General::isSellFree(Session::getActiveAdminLang()) && RightsManager::hasRight('SystemSettings')) { ?>
+        <h1><?=LangAdmin::get('general')?></h1>
+
+        <div class="well">
+            <form class="form-horizontal inline_editable_form ot_form">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <fieldset class="clearfix">
+                            <div class="control-group control-group-medium">
+                            </div>
+
+                            <div data-field="auth_capcha_admin"></div>
+                            <? XEditableFields::Register('auth_capcha_admin', General::getConfigValue('auth_capcha_admin')); ?>
+
+                            <? if (!OTBase::isLimitedFunctional('protect_key')) { ?>
+                                <div class="control-group control-group-medium">
+                                    <label class="control-label" for="protect_key">
+                                        <?=LangAdmin::get('protect_key_label')?>
+                                        <i class="icon-question-sign ot_inline_help" data-toggle="popover" title="" data-content="<?=LangAdmin::get('protect_key_hint')?>" data-original-title=""></i>
+                                    </label>
+                                    <div class="controls">
+                                        <select class="input-large span4" name="protect_key" id="protect_key">
+                                            <option value="1"<?=$IsIPCheckUsed != 'false' ? ' selected' : '' ?>><?=LangAdmin::get('protect_key_value:1')?></option>
+                                            <option value="0"<?=$IsIPCheckUsed == 'false' ? ' selected' : '' ?>><?=LangAdmin::get('protect_key_value:0')?></option>
+                                        </select>
+                                        <button class="btn btn-small btn-primary" href="javascript:void(0)" title="<?=LangAdmin::get('Save')?>" autocomplete="off" id="save-protect_key" type="button"><i class="icon-ok"></i></button>
+                                    </div>
+                                </div>
+                            <? } ?>
+                        </fieldset>
+                    </div>
+                    <div class="span6">
+                        <fieldset class="clearfix">
+                            <div class="control-group control-group-medium">
+                            </div>
+
+                            <?
+                                $googleReCaptchaDocLink = "https://docs-en.otcommerce.com/display/OTENGLISHDOCS/Security";
+                                if (Session::getActiveAdminLang() == "ru") {
+                                    $googleReCaptchaDocLink = "https://docs.otcommerce.com/pages/viewpage.action?pageId=23892037";
+                                }
+                            ?>
+                            <a href="<?=$googleReCaptchaDocLink?>" target="_blank"><?=LangAdmin::get('Documentation')?> <i class="icon-external-link"></i></a>
+
+                            <div data-field="google_recaptcha"></div>
+                            <? XEditableFields::Register('google_recaptcha', General::getConfigValue('google_recaptcha')); ?>
+
+                            <div data-field="google_recaptcha_key_public"></div>
+                            <? XEditableFields::Register('google_recaptcha_key_public', General::getConfigValue('google_recaptcha_key_public')); ?>
+
+                            <div data-field="google_recaptcha_key_secret"></div>
+                            <? XEditableFields::Register('google_recaptcha_key_secret', General::getConfigValue('google_recaptcha_key_secret')); ?>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+
+            <? if (!OTBase::isLimitedFunctional('use_https')) { ?>
+                <form class="form-horizontal inline_editable_form ot_form" action="" method="POST">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <fieldset class="clearfix">
+                                <?
+                                    //TODO: Поменять ссылку на страницу с англоязычной справкой, когда таковая будет существовать.
+                                    $httpsDocLink = "http://docs.otcommerce.com/pages/viewpage.action?pageId=23892037#id-Безопасность-ЗащищенныйпротоколHTTPS";
+                                    if (Session::getActiveAdminLang() == "ru") {
+                                            $httpsDocLink = "http://docs.otcommerce.com/pages/viewpage.action?pageId=23892037#id-Безопасность-ЗащищенныйпротоколHTTPS";
+                                    }
+                                ?>
+                                <a href="<?=$httpsDocLink?>" target="_blank"><?=LangAdmin::get('Documentation')?> <i class="icon-external-link"></i></a>
+
+                                <div class="control-group control-group-medium">
+                                    <label class="control-label" for="use_https">
+                                        <?=LangAdmin::get('use_https_label')?>
+                                        <i class="icon-question-sign ot_inline_help" data-toggle="popover" title="" data-content="<?=LangAdmin::get('use_https_hint')?>" data-original-title=""></i>
+                                    </label>
+                                    <div class="controls">
+                                        <select class="input-large span4" name="use_https" id="protect_key">
+                                            <option value="1"<?=General::getConfigValue('use_https') ? ' selected' : '' ?>><?=LangAdmin::get('use_https_value:1')?></option>
+                                            <option value="0"<?=! General::getConfigValue('use_https') ? ' selected' : '' ?>><?=LangAdmin::get('use_https_value:0')?></option>
+                                        </select>
+                                        <button class="btn btn-small btn-primary" title="<?=LangAdmin::get('Save')?>" autocomplete="off" id="save-use_https" type="submit"><i class="icon-ok"></i></button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            <? } ?>
+        </div>
+
+        <? if (!OTBase::isLimitedFunctional('protect_key')) { ?>
+            <h1><?=LangAdmin::get('protect_key_label')?></h1>
+
+            <p class="offset-bottom1">
+                <i class="icon-plus color-blue"></i> <strong id="showIpForm" data-target=".ot_add_ip"
+                                                             data-toggle="collapse"
+                                                             class="blink"><?=LangAdmin::get('Add_Ip')?></strong>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="icon-plus color-blue"></i> <strong id="assignCurrentIp"
+                                                             class="blink ot_assign_current_ip_button"
+                                                             data-loading-text="<?=LangAdmin::get('loading')?>..."><?=LangAdmin::get('assign_current_server_ip')?></strong>
+            </p>
+
+            <div class="ot_add_ip collapse">
+                <input class="input-medium price" type="text" id="add-ip-value" placeholder="<?=$_SERVER['SERVER_ADDR']?>"/>
+                <button type="button" class="btn btn-primary btn_preloader ot_add_ip_button"
+                        data-loading-text="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></button>
+                <button type="button" class="btn ot_hide_ip_button" data-target=".ot_add_ip"
+                        data-toggle="collapse"><?=LangAdmin::get('Cancel')?></button>
+            </div>
+
+
+            <div class="row-fluid offset-bottom1">
+                <div class="span6">
+                    <? if (count($AllowedIPs)) { ?>
+                    <table class="table table-bordered bootstrap-datatable">
+                        <thead>
+                        <tr>
+                            <th class="span4"><?=LangAdmin::get('Naming')?></th>
+                            <th class="span2"><?=LangAdmin::get('Actions')?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <? foreach ($AllowedIPs as $ip) { ?>
+                        <tr>
+                            <td><?=$ip?></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-tiny ot_show_deletion_dialog_modal"
+                                            data-loading-text="<?=LangAdmin::get('Deleting')?>"
+                                            title="<?=LangAdmin::get('Delete_Ip')?>" ip="<?=$ip?>"
+                                            action="<?=$PageUrl->AssignDo('deleteIp')?>"><i class="icon-remove-sign"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <? } ?>
+                        </tbody>
+                    </table>
+                    <? } ?>
+                </div>
+            </div>
+        <? } ?>
+    <? } ?>
+
+    <? if (!OTBase::isLimitedFunctional('change_password')) { ?>
+        <h1><?=LangAdmin::get('Сhanging_password')?></h1>
+
+        <div class="well">
+            <form class="form-horizontal ot_form" action="" method="post" id="change-password-form">
+                <fieldset>
+                    <div class="control-group control-group-medium">
+                        <label class="control-label"><?=LangAdmin::get('Old_password')?> </label>
+                        <div class="controls">
+                            <input type="text" value="" required="required" class="input-medium" name="old_password" id="old_password">
+                        </div>
+                    </div>
+
+                    <div class="control-group control-group-medium">
+                        <label class="control-label"><?=LangAdmin::get('New_password')?></label>
+                        <div class="controls">
+                            <input type="text" value="" required="required" class="input-medium" name="new_password" id="new_password">
+                            <button id="generate-password" class="btn btn-primary btn_preloader" type="button"><?=LangAdmin::get('Generate_password')?></button>
+                        </div>
+                    </div>
+                </fieldset>
+
+
+                <div class="control-group control-group-medium">
+                    <!-- buttons for master application -->
+                    <div class="controls">
+                        <button data-link="" data-loading-text="<?=LangAdmin::get('Saving')?>" id="chande-password" class="btn btn-primary btn_preloader" type="button"><?=LangAdmin::get('Save')?></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <? } ?>
+</div>
+
+<? AssetsMin::jsBegin(); ?>
+<script>
+    InlineFields.add(<?=json_encode(XEditableFields::GetFields())?>);
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-inline.editable.init.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-site-config.js'); ?>

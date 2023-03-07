@@ -1,0 +1,88 @@
+<section class="block-item-main <?= $autoReload ? 'js-product-auto-reload' : '' ?>"
+         data-action-reload="<?= UrlGenerator::toRoute('product', ['id' => $product->id, 'reload' => 1]) ?>">
+    <div class="center">
+        <div class="block-item__top">
+            <div class="block-item-main__left">
+                <div class="gallery-sample-wrap sticky-top">
+                    <div class="gallery-sample">
+                        <a href="javascript:void(0);" class="cloud-zoom">
+                            <img src="/i/noimg.png" class="img-responsive" style="width: 465px; height: 465px; object-fit: fill">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-item-main__right">
+                <div class="block-information-progressbar js-product-reload-start" style="display: none">
+                    <div class="progressbar-background"></div>
+                    <div class="progressbar-wrapper">
+                        <h5><?=Lang::get('product_reload_start')?></h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                 role="progressbar"
+                                 aria-valuenow="75"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width: 100%"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-information-progressbar js-product-reload-error" style="display: none">
+                    <div class="progressbar-background"></div>
+                    <div class="error-wrapper">
+                        <h5>
+                            <h5><?=Lang::get('product_reload_error')?></h5>
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="row-block-top"></div>
+
+                <div class="row-block">
+                    <div class="alert alert-warning" role="alert"><?=$message?></div>
+                </div>
+
+                <div class="panel-buttons">
+                    <button class="button button-red button__quick-order disabled_button" data-toggle="tooltip" title="<?=Lang::get('itemnotfound')?>"
+                            disabled="disabled">
+                        <i></i><?=Lang::get('quick_order')?>
+                    </button>
+
+                    <button class="button button__in-garbage disabled_button" data-toggle="tooltip" title="<?=Lang::get('itemnotfound')?>"
+                            disabled="disabled">
+                        <i></i><?=Lang::get('Add_item_to_cart')?>
+                    </button>
+                </div>
+
+                <div class="panel-add">
+                    <a href="javascript:void(0);" data-toggle="tooltip" title="<?=Lang::get('itemnotfound')?>" class="add-favorite desktop-favourite disabled_button">
+                        <i></i><?=Lang::get('Add_item_to_fav')?>
+                    </a>
+
+                    <? $socialNetworks = InstanceProvider::getObject()->GetSocialNetworks(); ?>
+                    <? if ($socialNetworks->GetCommonShareWidget()) { ?>
+                    <div class="repost-social">
+                        <?=$socialNetworks->GetCommonShareWidget();?>
+                    </div>
+                    <? } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<? if ($autoReload) { ?>
+<? AssetsMin::jsBegin(); ?>
+<script>
+    $(function() {
+        var $wrapper = $('.js-product-auto-reload');
+        if ($wrapper) {
+            window.productView.dataReload($wrapper);
+        }
+    });
+</script>
+<? $strScript = AssetsMin::jsEnd(); ?>
+<? AssetsMin::registerJs($strScript); ?>
+<? } ?>

@@ -1,0 +1,9 @@
+<? if (! empty($crumbs)) { ?>
+    <ol class="breadcrumb">
+        <? $endCrumb = array_pop($crumbs); ?>
+        <? foreach ($crumbs as $crumb) { ?>
+            <li><a href="<?=$crumb['url']?>"><?=$this->escape($crumb['title'])?></a></li>
+        <? } ?>
+        <li class="active"><?=$this->escape($endCrumb['title'])?></li>
+    </ol>
+<? } ?>

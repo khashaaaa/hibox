@@ -1,0 +1,19 @@
+
+                    <p class="message-box operator new">
+                    <span class="message">
+                        <strong><i class="icon-envelope"></i>
+                        <%= trans.get('your_answer') %>
+                        </strong>
+                        <span class="message-text"><%= message %></span>
+                        <% if (files) { %>
+                            <% $(files).each(function(){ %>
+                                <% var href = $(this).attr('href'); %>
+                                <% var rel = $(this).attr('rel'); %>
+                                <% var rel = rel.substr(rel.lastIndexOf('_fileuploadd') + 1); %>
+                                <a href="<%= href %>" rel="<%= rel %>_answer" class="review-pictures cboxElement" style="text-decoration: none">
+                                    <img src="<%= href %>" width="30" height="30"/>
+                                </a>
+                            <% }); %>
+                        <% } %>
+                    </span>
+                    </p>

@@ -1,0 +1,85 @@
+<?
+    $errorMsg = '';
+    $showError = Session::checkErrors() || $otapilib->error_code;
+    if ($showError) {
+        $errorCode = Session::getErrorCode() ? Session::getErrorCode() : (string) $otapilib->error_code;
+        $errorDescription = Session::getErrorDescription();
+        $errorMsg = $errorDescription ? $errorDescription :(string) $otapilib->error_message;
+        Session::clearError();
+    }
+?>
+<style>
+    .soc-login a img {
+        border-radius: 5px;
+    }
+    .social_login label {
+        display: none;
+    }
+</style>
+<div class="col-sm-6">
+    <div class="well ">
+        <h2>Новый покупатель?</h2>
+        <p>Зарегистрировав аккаунт, вы сможете совершать покупки, быть в курсе статуса заказа и отслеживать заказы, которые вы уже сделали ранее.</p>
+        <a href="<?=@UrlGenerator::generateContentUrl('register')?>" class="button btn-primary">Продолжить</a></div>
+</div>
+
+<div class="col-sm-6">
+    <div class="well col-sm-12">
+        <h2>Авторизация</h2>
+
+        <? if (! empty($errorMsg)) { ?>
+            <div class="alert-danger">
+                <div class="error">
+                    <?=$errorMsg?>
+                </div>
+            </div>
+        <? } ?>
+
+        <? if (isset($successRecovery)) { ?>
+            <div class="alert-success">
+                <?=$successRecovery?>
+            </div>
+        <? } ?>
+
+        <? if (RequestWrapper::get('reg_success')) { ?>
+            <div class="alert-success">
+                <?=Lang::get('reg_success')?>
+            </div>
+        <? } ?>
+
+        <form action="<?=@UrlGenerator::generateContentUrl('login')?>" method="post">
+            <div class="form-group">
+                <label for="username" class="control-label"><?=Lang::get('login_username')?></label>
+                <input id="username" type="text" name="username"  class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="control-label"><?=Lang::get('password')?></label>
+                <input id="password" type="password" name="password" class="form-control"/>
+                <a href="<?=@UrlGenerator::generateContentUrl('recovery')?>">Забыли пароль?</a>
+            </div>
+
+            <div class="form-group">
+                <label></label>
+                <label for="remember" class="remeber">
+                    <input class="checkbox" id="remember" type="checkbox" name="remember" value="remember" style="display: inline-block;"/>
+                    <?=Lang::get('remember')?>
+                </label>
+            </div>
+
+            <input type="submit" id="submitb" name="login" value="<?=Lang::get('login')?>" class="btn pull-left" />
+        </form>
+
+        <column id="column-login" class="col-sm-8 pull-right">
+            <div class="row">
+
+                <div class="social_login pull-right" id="so_sociallogin">
+                    <? if (CMS::IsFeatureEnabled('ExternalAuthentication')) { ?>
+                        <?=General::runController('Authentication', 'renderAuthSystemList')?>
+                    <? } ?>
+                </div>
+            </div>
+        </column>
+
+    </div>
+</div>

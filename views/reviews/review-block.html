@@ -1,0 +1,31 @@
+<?
+/**
+ * Шаблон отображения блока отзывов в виде списка
+ * или в виде единичного блока
+ *
+ * @var $reviews OtapiArrayOfItemReviewInfo массив отзывов
+ * @var $reviews OtapiItemReviewInfo единичный отзыв
+ */
+?>
+<? if (isset($reviews)) { ?>
+    <? if ($reviews instanceof OtapiArrayOfItemReviewInfo) { // display reviews list ?>
+        <ul class="paymshipReviews">
+            <? foreach ($reviews->GetItem() as $review) { ?>
+                <li class="paymshipReviewsItem"  data-item-review-id="<?=$review->GetId()->asString()?>">
+                    <?=General::viewFetch('reviews/review-block-item', array('vars' => array('review' => $review), 'path' => CFG_VIEW_ROOT))?>
+                </li>
+            <? } ?>
+        </ul>
+    <? } elseif ($reviews instanceof OtapiItemReviewInfo) { // display review item ?>
+        <?=General::viewFetch('reviews/review-block-item', array('vars' => array('review' => $reviews), 'path' => CFG_VIEW_ROOT))?>
+    <? } ?>
+<? } ?>
+
+<?=Lang::loadJSTranslation(array('saved', 'not_filled_required_field'))?>
+
+<? if (General::getConfigValue('is_old_platform')) { ?>
+    <script type="text/javascript" src="js/ot-itemreviews.js?<?=CFG_SITE_VERSION;?>"></script>
+<? } ?>
+<link rel="stylesheet" href="css/style/ot-itemreviews.css?<?=CFG_SITE_VERSION;?>"/>
+
+

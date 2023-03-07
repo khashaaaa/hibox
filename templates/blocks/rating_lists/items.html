@@ -1,0 +1,47 @@
+<? if (isset($list[0])) { ?>
+<div class="bproduct <?=$type?>-rating-list rating-list">
+    <h2 class="mb25"><span><?= isset($title) ? $title : Lang::get($type);?></span></h2>
+    <ul class="lproduct flin w700 w160li <? if($displayAsCarousel){ ?> jcarousel-skin <? } ?> clrfix">
+        <? foreach ($list as $item) { ?>
+        <li title="<?= $this->escape($item['Title']) ?>" class="<?=ProductsHelper::formatFeatureListForCss((array)$item['Features'])?>">
+
+            <? $itemUrl = UrlGenerator::generateItemUrl($item['Id']); ?>
+            <a class="pic" href="<?=$itemUrl?>">
+                <i><img src="<?=! empty($item['custom_picture']) ? $item['custom_picture'] : ProductsHelper::getImage($item, 'medium') ?>" width="160"></i>
+                <ins></ins>
+                <?=ProductsHelper::getHtmlFeatureListForLabel((array)$item['Features'])?>
+            </a>
+
+            <div class="price">
+                <div class="line"></div>
+                <a href="<?=$itemUrl?>">
+                    <? if (count($item['PromotionPrice'])>0) { ?>
+                        <span><?=General::getCurrencyPromoPrice($item)?></span>
+                    <? }else{ ?>
+                        <span><?=General::getCurrencyPrice($item)?></span>
+                    <? } ?>
+                </a>
+                <a href="<?=$itemUrl?>">
+                    <ins class="name"><?= $this->escape($item['Title']) ?></ins>
+                    <span class="glow"></span>
+                </a>
+
+            </div>
+            <? if (count($item['PromotionPrice'])>0) { ?>
+                <a href="<?=$itemUrl?>" style="text-align: center" class="wrapper_sale_item">
+                    <span class="old_price"><?=General::getCurrencyPrice($item)?></span><br>
+                    <span class="new_price"><?=General::getCurrencyPromoPrice($item)?></span>
+                </a>
+            <? } ?>
+        </li>
+        <? } ?>
+    </ul>
+    <? if (isset($categoryId)) { 
+        if ($categoryId == 'with_reviews') { ?>
+            <div class="b-link-all"><a href="<?=UrlGenerator::generateReviewsUrl()?>" class="i-link"><?=Lang::get('all_categories_goods')?></a></div>
+        <? } else { ?>
+	        <div class="b-link-all"><a href="<?=UrlGenerator::generateCategoryUrl(array('Id' => $categoryId, 'Name' => $title), true)?>" class="i-link"><?=Lang::get('all_categories_goods')?></a></div>
+        <? } ?>
+    <? } ?>
+</div>
+<? } ?>

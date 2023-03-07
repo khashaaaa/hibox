@@ -1,0 +1,347 @@
+<!-- Вставлем в просмотренные-->
+<?
+if(! General::getConfigValue('show_user_history_views')) {
+    if (Session::isAuthenticated()) {
+        Plugins::invokeEvent('AddItemHistory',array('nme'=>$iteminfo['title'],'id'=>$iteminfo['id'],'price'=>General::getCurrencyPrice($iteminfo),'pic'=>$iteminfo['mainpictureurl'], 'promo_price'=>General::getCurrencyPromoPrice($iteminfo)));
+    }
+}
+?>
+<!-- Вставили  -->
+
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="bigtitle">
+    <div class="wrap clrfix">
+        <h1><?=$this->escape($iteminfo['pristroy']['title']);?></h1>
+    </div>
+</div>
+
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="fll col690" id="overlay-wrapper">
+            <div id="overlay"></div>
+
+            <div class="bproduct clrfix">
+                <h2 class="mb25"><span><?=Lang::get('product_info')?></span></h2>
+            </div>
+            <div class="fll col330">
+                <div class="bprd">
+                    <ul class="lproduct flin w310li clrfix">
+                        <li>
+                            <a href="<?= ProductsHelper::getPristroyImage($iteminfo['pristroy']) ?>" class="pic cboxElement pictures" id="main-image-href" alt="<?=$this->escape($iteminfo['pristroy']['title'])?>" title="<?=$this->escape($iteminfo['pristroy']['title'])?>">
+                                <i><img id="main-image" src="<?= ProductsHelper::getPristroyImage($iteminfo['pristroy'], 310) ?>" default="css/i/default-image.gif" alt="" width="310" /></i>
+                                <ins></ins>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="lproduct flin w320 w70li clrfix">
+                        <? if (is_array($iteminfo['pristroy']['images'])) { ?>
+                            <? foreach ($iteminfo['pristroy']['images'] as $picture) { ?>
+                                <li>
+                                    <a href="<?=$picture?>" data-big-image="<?=$picture?>" class="pic switch pictures">
+                                        <i><img width="70" height="70" src="<?= ProductsHelper::getPristroyImageSize($picture, 100) ?>" alt=""></i>
+                                        <ins></ins>
+                                    </a>
+                                </li>
+                            <? } ?>
+                        <? } ?>
+                    </ul>
+                </div>
+                <div class="share_social">
+            <? if (! General::getConfigValue('share_social_code')) { ?>
+                    <div class="share42init" data-path="/i/"></div>
+                    <? if (Session::getActiveLang() == 'ru') { ?>
+                        <script type="text/javascript" src="js/share42.js?<?=CFG_SITE_VERSION;?>"></script>
+                    <? } else { ?>
+                        <script type="text/javascript" src="js/share42-en.js?<?=CFG_SITE_VERSION;?>"></script>
+                    <? } ?>
+            <? } elseif (General::getConfigValue('share_social_code') == 'none') { ?>
+            <? } else {
+                echo General::getConfigValue('share_social_code');
+            } ?>
+                </div>
+            </div>
+            <div class="flr col340">
+                <div class="btitle f11 mb10 clrfix">
+                    <div class="fll"><?=Lang::get('good_code')?> <b><?= $iteminfo['pristroy']['item_tao_id'] ?></b></div>
+                    <? if (! General::getConfigValue('hide_taobao_link') && empty($isWarehouseProduct) && (! isset($iteminfo['noTaoData']))) { ?>
+                    <div class="flr"><a target="_blank" rel="nofollow" href="<?= $iteminfo['externalitemurl'] ?>" alt="<?=Lang::get('this_product_at')?> Taobao.com" title="<?=Lang::get('this_product_at')?> Taobao.com"><?=Lang::get('this_product_at')?> Taobao.com</a></div>
+                    <? } ?>
+                </div>
+                <div class="bgr-block bx5">
+                    <? if($iteminfo['configurations']){ ?>
+                    <div class="titlecat bbn"><?=Lang::get('select_configuration')?>:</div>
+                    <? } ?>
+
+
+                    <table class="info infoitem f11">
+                    <!--noindex-->
+                    <script type="text/javascript">
+                        configurations = {};
+                    </script>
+                    <!--/noindex-->
+                    <? if (is_array($iteminfo['pristroy']['config'])) { ?>
+                    <? foreach ($iteminfo['pristroy']['config'] as $configuration) { ?>
+                        <tr>
+                            <td class="w100" id="cname<?= $configuration['id'] ?>">
+                                <?= $configuration['name'] ?>:
+                            </td>
+                            <td>
+                                <ul class="list_minipic clearfix" id="list_<?=$configuration['id']?>">
+                                <? $name = (!empty($configuration['values']['alias'])) ? $configuration['values']['alias'] : $configuration['values']['name']; ?>
+                                <? if (! empty($configuration['values']['miniimageurl'])) { ?>
+                                    <li class="list_minipic_selected">
+                                        <a title="<?=$name?>" style="background:url(<?=$configuration['values']['miniimageurl']?>) center no-repeat;">
+                                            <span><?=$name?></span>
+                                        </a>
+                                        <i>&nbsp;</i>
+                                    </li>
+                                <? } else { ?>
+                                    <li>
+                                    <?=$name?>
+                                    </li>
+                                <? } ?>
+                                </ul>
+                            </td>
+                        </tr>
+                    <? }} else { ?>
+                        <tr>
+                            <td class="w100">
+                                <?=Lang::get('select_configuration')?>:
+                            </td>
+                            <td class="w100">
+                                <?=$iteminfo['pristroy']['config_text']?>
+                            </td>
+                        </tr>
+                    <? } ?>
+                        <tr <? if (General::getConfigValue('hide_item_info_status')) { ?> style="display: none;"<? } ?>>
+                            <td class="w100"><?=Lang::get('status')?>:</td>
+                            <td><b><?=Lang::get('status'.$iteminfo['StuffStatus'])?></b></td>
+                        </tr>
+                        <tr <? if (General::getConfigValue('hide_item_info_in_existence')) { ?> style="display: none;"<? } ?>>
+                            <td class="w100"><?=Lang::get('in_existence')?>:</td>
+                            <td><b id="c_count" class="ltr-for-rtl"><?=$this->escape($iteminfo['pristroy']['quantity'])?> <?=Lang::get('pcs')?></b></td>
+                        </tr>
+                    <? if(@$iteminfo['ApproxWeight']){ ?>
+                        <tr <? if (General::getConfigValue('hide_item_info_weight')) { ?> style="display: none;"<? } ?>>
+                            <td class="w100"><?=Lang::get('approximate_weight')?>:</td>
+                            <td><?=$iteminfo['ApproxWeight']?> <?=Lang::get('kg')?></td>
+                        </tr>
+                    <? } ?>
+
+                        <tr class="total">
+                            <td><?=Lang::get('total')?>:</td>
+                            <td style="vertical-align: middle;">
+                                <span style="display: block" class="dl mr15 ltr-for-rtl" id="total">
+                                    <div class="mb5">
+                                        <?=$iteminfo['pristroy']['display_price'];?>
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="flr col240">
+            <div class="bproduct mb15">
+                <h2 class="mb25"><span><?=Lang::get('about_vendor')?></span></h2>
+                <div class="bgr-block">
+                    <table class="info f11">
+                        <tr>
+                            <td><?=Lang::get('name')?>:</td>
+                            <td><b><?= $iteminfo['pristroy']['user_login'] ?></b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bproduct">
+                <? if (! empty($sellerItems)) { ?>
+                    <h2 class="mb25"><span><?=Lang::get('other_goods')?></span></h2>
+                    <ul class="lproduct flin w240 w70li clrfix">
+                        <? foreach ($sellerItems as $item) { ?>
+                        <li>
+                            <a href="<?=UrlGenerator::generatePristroyItemUrl($item['id'])?>" class="pic">
+                                <i><img width="70" height="70" src="<?=ProductsHelper::getPristroyImage($item, 100);?>" alt=""></i>
+                                <ins></ins>
+                            </a>
+                        </li>
+                        <? } ?>
+                    </ul>
+                    <p class="mt5"><a href="<?=UrlGenerator::generatePristroySellerUrl($iteminfo['pristroy']['user_id'])?>" class="f11"><?=Lang::get('all_goods_from_seller')?></a></p>
+                <? } ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btabs mt15">
+    <div class="wrap clrfix">
+        <div class="bgr clrfix">
+            <ul id="product-tabs" class="tabs clrfix">
+                <?php if (empty($isWarehouseProduct)) { ?>
+                <li tab="properties" class="active">
+                    <a href="#"><span><?=Lang::get('prod_char')?></span><i></i></a>
+                </li>
+                <?php } ?>
+                <li tab="photos" class="">
+                    <a href="#" attr="tab2"><span><?=Lang::get('photo_descr')?></span><i></i></a>
+                </li>
+                <li tab="paymship" item_id="<?= $iteminfo["id"] ?>"  class="">
+
+                    <a href="#" attr="tab3"><span><?=Lang::get('user_responses')?></span><i></i></a>
+
+                </li>
+            </ul>
+        </div>
+        <div class="tabs-content">
+            <?php if (empty($isWarehouseProduct)) { ?>
+            <!-- properties -->
+            <div id="properties" class="tab" style="display: block;">
+                <table class="itcharac">
+                    <tbody>
+                    <? if (is_array($iteminfo['properties'])) foreach ($iteminfo['properties'] as $property_arr) { ?>
+                    <? if (($property_arr[0]['id'] != '21541') || (!General::getConfigValue('hide_item_property_price_range'))) { ?>
+                    <tr>
+                        <td class="td1"><?= $property_arr[0]['name'] ?>:</td>
+                        <td class="td2">
+                        <? foreach ($property_arr as $property) { echo $property['value'] . ';&nbsp;&nbsp;&nbsp;'; } ?>
+                        </td>
+                    </tr>
+                    <? } ?>
+                    <? } ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /properties -->
+            <?php } ?>
+            <!-- photos -->
+            <div id="photos" class="tab">
+                <div><?=$iteminfo['pristroy']['description']?></div>
+                <div id="photos-inner">
+                </div>
+            </div>
+            <!-- /photos -->
+            <div id="paymship" class="tab"></div>
+        </div>
+    </div>
+</div>
+
+<!--noindex-->
+<script type="text/javascript">
+
+
+    var itempath = <?=json_encode($GLOBALS['itempath'])?>;
+
+    <? if(defined('CFG_LOAD_ITEM_VIA_AJAX') && CFG_LOAD_ITEM_VIA_AJAX){ ?>
+    $.each(itempath, function(k, v){
+        var virt = '';
+        if(v.IsVirtual[0] == 'true'){
+            virt = '&virt';
+        }
+        $('.crumbs .wrap').append(
+            $('<a></a>')
+                .attr({
+                    href: '/?p=subcategory&cid='+ v.id + virt
+                })
+                .text(v.Name)
+        );
+    });
+        <? } ?>
+
+
+    iteminfo = {
+        id: '<?= $iteminfo['id'] ?>',
+        debug: '<?=isset($_GET['debug'])?>',
+        confid: 0,
+        confitem: '',
+        weight: '<?=@(float)$iteminfo['ApproxWeight']?>',
+        //isvalidpromotions: '<?= $iteminfo['IsValidPromotions'] ?>',
+        promoid: '<?=$iteminfo["Promotions"]["Id"]?>',
+        count: 1,
+        maxcount: '<?= $iteminfo['pristroy']['quantity'] ?>',
+        //addedToCartId: <?=$inCart?>,
+        //addedToNoteId: <?=$inNote?>,
+        addedToCartId: 0,
+        addedToNoteId: 0,
+
+        //addedToCart: <?=json_encode($inCart)?>,
+        //addedToNote: <?=json_encode($inNote)?>,
+
+        promo: <?=count($iteminfo["Promotions"]["ConfiguredItems"])==0 ? json_encode($iteminfo["Promotions"]) : json_encode($iteminfo["Promotions"]["ConfiguredItems"])?>,
+        promo_non_config: <?=count($iteminfo["Promotions"]["ConfiguredItems"])==0 ? json_encode($iteminfo["Promotions"]) : json_encode($iteminfo["Promotions"]["ConfiguredItems"])?>,
+        price: <?=json_encode($iteminfo["Price"])?>,
+        item_with_config: <?=json_encode($iteminfo["item_with_config"])?>,
+        configurations: <?=count($iteminfo['configurations']) ? json_encode($iteminfo['configurations']) : 0?>,
+        CFG_NO_DELIVERY_IN_PRICE: '<?=(int)(defined('CFG_NO_DELIVERY_IN_PRICE')&&CFG_NO_DELIVERY_IN_PRICE)?>',
+        CFG_ROUND_DECIMALS: <?=(int)General::getConfigValue('price_rounding')?>
+    };
+
+    langs = {
+        good_added_to_fav: '<?=Lang::get('good_added_to_fav')?>!',
+        delete_from_fav: '<?=Lang::get('delete_from_fav')?>',
+        good_not_added: '<?=Lang::get('good_not_added')?>',
+        good_removed_from_fav: '<?=Lang::get('good_removed_from_fav')?>!',
+        add_to_fav: '<?=Lang::get('add_to_fav')?>',
+        product_not_removed: '<?=Lang::get('product_not_removed')?>',
+        pcs: '<?=Lang::get('pcs')?>',
+        vendor_added_to_favourites: '<?=Lang::get('vendor_added_to_favourites')?>'
+    };
+
+    <? if(!General::getConfigValue('hide_item_site_responses')){ ?>
+    $(function(){
+        $('[attr="tab3"]').click(function(){
+            $.get("//"+window.location.hostname,{
+                p: 'itemcomments',
+                itemid: <?=RequestWrapper::getValueSafe('id')?>,
+                itemcid: "pristroy",
+                itemurl: '<?=$_SERVER['REQUEST_URI']?>'
+            }, function(data){
+                $('#paymship').html(data);
+            });
+            return false;
+        });
+    });
+        <? } ?>
+</script>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".pictures").colorbox({rel:'group1', photo:true, maxWidth:'100%', maxHeight:'100%'});
+<?
+if (General::getConfigValue('product_tabs'))
+switch (General::getConfigValue('product_tabs')) {
+    case '2': {
+?>
+    $('#product-tabs li[tab="photos"]').click();
+<?
+        } break;
+    case '3': {
+?>
+    $('#product-tabs li[tab="paymship"] a').click();
+<?
+        } break;
+    case '4': {
+?>
+    $('#product-tabs li[tab="TAOBAOcomments"] a').click();
+<?
+        } break;
+    default: {
+    } break;
+}
+if (RequestWrapper::getParamExists('tab')) { ?>
+    $('#product-tabs li[tab="<?=RequestWrapper::getValueSafe('tab')?>"] a').click();
+<? } 
+?>
+});
+</script>
+<!--/noindex-->
+
+<script type="text/javascript" src="js/pristroy-item.js?<?=CFG_SITE_VERSION;?>"></script>
+<?=Plugins::invokeEvent('onRenderItemPage', array('id' => RequestWrapper::getValueSafe('id')))?>
+
+<div id="item-debug"></div>

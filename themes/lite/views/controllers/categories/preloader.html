@@ -1,0 +1,27 @@
+<div id="categories-menu" class="categories-menu">
+    <?=General::viewFetch('other/ajax-loader')?>
+    <? AssetsMin::jsBegin(); ?>
+    <script type="text/javascript">
+        $(function(){
+            if (typeof(categoriesMenuLoading) == "undefined") {
+                categoriesMenuLoading = true;
+                $.ajax({
+                    url: "<?=UrlGenerator::getUrl('categories/generateMenu')?>",
+                    cache: false,
+                    success: function(data){
+
+                        categoriesMenuLoading = false;
+                        if (! data.error) {
+                            $("div.categories-menu").html(data.html);
+                        } else {
+                            $("div.categories-menu").html('');
+                            showError(data);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    <? $strScript = AssetsMin::jsEnd(); ?>
+    <? AssetsMin::registerJs($strScript); ?>
+</div>

@@ -1,0 +1,19 @@
+<div class="js-breadcrumbs">
+    <? if (! empty($crumbs)) { ?>
+        <nav aria-label="breadcrumb">
+            <div class="center">
+                <ol class="breadcrumb breadcrumb-my bg-white px-0">
+                    <? $endCrumb = array_pop($crumbs); ?>
+                    <? foreach ($crumbs as $crumb) { ?>
+                        <li class="breadcrumb-item"><a href="<?=$crumb['url']?>"><?=$this->escape($crumb['title'])?></a></li>
+                    <? } ?>
+                    <? if (isset($endCrumb['url'])) { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="<?=$endCrumb['url']?>"><?=$this->escape($endCrumb['title'])?></a></li>
+                    <? } else { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><?=$this->escape($endCrumb['title'])?></li>
+                    <? } ?>
+                </ol>
+            </div>
+        </nav>
+    <? } ?>
+</div>

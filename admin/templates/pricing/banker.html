@@ -1,0 +1,101 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Pricing')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Banker')?></li>
+</ul><!--/.breadcrumb-->
+
+
+<?=TabsGenerator::GetTabs('templates/pricing/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?=LangAdmin::get('Bankir')?></h1>
+
+<h2><?=LangAdmin::get('Price_groups')?>
+    <a href="<?=$PageUrl->AssignDo('addPriceGroup')?>" autocomplete="off" data-loading-text="<?=LangAdmin::get('add')?>" class="btn btn-primary btn_preloader weight-normal offset-left3" type="submit" title="<?=LangAdmin::get('Add_price_group')?>"><?=LangAdmin::get('Add_price_group')?></a>
+</h2>
+
+<div class="row-fluid" id="banker-wrapper">
+
+    <div class="span12">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th class="span1"></th>
+                    <th class="span3"><?=LangAdmin::get('Name')?></th>
+                    <th class="span3"><?=LangAdmin::get('Description')?></th>
+                    <th class="span1"><?=LangAdmin::get('Price_strategic')?></th>
+                    <th class="span1"><?=LangAdmin::get('Intervals')?></th>
+                    <th class="span3"><?=LangAdmin::get('Categories')?></th>
+                    <th class="span3"><?=LangAdmin::get('Price_provider_type')?></th>
+                    <th class="span1"><?=LangAdmin::get('Actions')?></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <? foreach ($groups as $group){ ?>
+                <tr id="<?=$group['id']?>">
+                    <td>
+                        <?php if($group['isdefault'] == 'true') { ?>
+                        <img src="/admin/img/star.gif" width="20" height="20" align="middle" style="max-width:20px">
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?=$this->escape($group['name'])?>
+                    </td>
+                    <td>
+                        <?=$this->escape($group['description'])?>
+                    </td>
+                    <td>
+                        <?=$group['strategytype']?>
+                    </td>
+                    <td>
+                        <? foreach ($group['settings']['priceformationintervals'] as $interval) { ?>
+                        <strong><?=LangAdmin::get('limit')?>:</strong><?=$interval['minimumlimit']?><br/>
+                        <?if((float)$interval['marginpercent']){ ?>
+                        <strong><?=LangAdmin::get('margin_product')?>:</strong><?= ((float)$interval['marginpercent']-1)*100;?>%<br/>
+                        <? } ?>
+                        <?if($interval['marginfixed']){ ?>
+                        <strong><?=LangAdmin::get('margin_fixed')?>:</strong><?=$interval['marginfixed']?><br/>
+                        <? } ?>
+                        <br/>
+                        <? } ?>
+                    </td>
+                    <td>
+                        <?php
+                        if (array_key_exists('categories', $group) && is_array($group['categories'])) {
+                            foreach ($group['categories'] as $category) { ?>
+                        <a href="<?=
+            UrlGenerator::generateCategoryUrl(
+                array('Id' => $category['id'],'Name' => $category['name']), true)?>" title="<?=LangAdmin::get('To_category_page')?>"><?=$category['name']?></a>
+                        <br/>
+                        <?  }
+                        }?>
+                    </td>
+                    <td>
+                        <?=$group['ProviderTypeName']?>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group pull-right">
+                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle"><i class="icon-cog"></i> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'editPriceGroup')?>&id=<?=$group['id']?>" title="<?=LangAdmin::get('Edit_price_group')?>"><i class="icon-pencil"></i> <?=LangAdmin::get('Edit_price_group')?></a></li>
+                                <li><a href="<?=$PageUrl->AssignCmdAndDo('Pricing', 'priceGroupCategories')?>&id=<?=$group['id']?>" title="<?=LangAdmin::get('Edit_price_group_categories')?>"><i class="icon-pencil"></i> <?=LangAdmin::get('Edit_price_group_categories')?></a></li>
+                                <li>
+                                    <a href="#" title="<?=LangAdmin::get('Remove_price_group')?>" class="ot_show_deletion_dialog_modal remove-price-group"><i class="icon-remove"></i> <?=LangAdmin::get('Remove_price_group')?></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </td>
+                </tr>
+                <? } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<? AssetsMin::registerJsFile('/admin/js/ot-pricing-banker.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-render-template.js'); ?>

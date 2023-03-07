@@ -1,0 +1,25 @@
+<?= General::runBlock('CrumbsNew') ?>
+
+<div class="spacer mb20"><div class="wrap clrfix"></div></div>
+
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="fll col240">
+            <?= General::runBlock('Menu') ?>
+        </div>
+
+        <div class="flr col690">
+            <h2 class="mb20">
+                <?= Lang::get('payments') ?>
+            </h2>
+            <?= General::viewFetch('controllers/pay/form', [
+                'vars' => [
+                    'payGroups' => $payGroups,
+                    'orderData' => $orderData,
+                    'currencySign' => $currencySign
+                    ]
+                ]
+            ) ?>
+        </div>
+    </div>
+</div>

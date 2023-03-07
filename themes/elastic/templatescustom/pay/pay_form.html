@@ -1,0 +1,84 @@
+<div id="dialog-form" title="<?=Lang::get('message')?>">
+    <span id="msg"></span>
+</div>
+
+<b><?= @preg_replace('/\[.*Exception\]/', '', $payment_error) ?></b>
+
+<? if (!empty($form)) { ?>
+    <? $method = $form['RequestMethod'] ? $form['RequestMethod'] : 'post'; ?>
+    <? $RequestUrl = $form['RequestUrl']; ?>
+
+    <? $formTarget = $form['IsNewWindow'] ? '_blank' : '_self' ?>
+    <form method="<?= $method ?>"
+          action="<?= $RequestUrl ?>"
+          class="userform"
+          id="form_pay"
+          target="<?= $formTarget ?>"
+    >
+
+        <? $isIFrame = (string)$form['IsIFrame']; ?>
+        <? $IsImmmediate = (string)$form['IsImmmediate']; ?>
+
+        <? if ($isIFrame == 'false' && $IsImmmediate == 'false') { ?>
+            <? foreach ($form['Parameters'] as $paramValue) { ?>
+                <? $IsUserData = (string)$paramValue['IsUserData']; ?>
+                <? if ($IsUserData == 'true') { ?>
+                    <div><strong><?= $paramValue['Name'] ?>:</strong> <?= $paramValue['Value'] ?></div>
+                <? } else { ?>
+                    <input type="hidden" name="<?= $paramValue['Name'] ?>" value="<?= $paramValue['Value'] ?>"/>
+                <? } ?>
+            <? } ?>
+
+            <? if (OTBase::isTest()) { ?>
+                <span class="enter">
+                    <input class="btn_office" type="submit" value="<?= Lang::get('pay') ?>"/>
+                </span>
+            <? } else { ?>
+                <div id="payment-state">
+                    <p id="preloader" style="width: 32px; margin: 0 auto;"><img src="i/ajax-loader-transparent.gif"></p>
+                    <p id="state" style="text-align: center;"><?=Lang::get('payment_processing')?></p>
+                </div>
+                <!--noindex-->
+                <script type="text/javascript">
+                    $(function() {
+                        $('#form_pay').submit();
+                    });
+                </script>
+                <!--/noindex-->
+            <? } ?>
+
+        <? } elseif ($IsImmmediate == 'true') { ?>
+            <? foreach ($form['Parameters'] as $paramValue) { ?>
+                <? $IsUserData = (string)$paramValue['IsUserData']; ?>
+                <? if ($IsUserData == 'true') { ?>
+                    <div><strong><?= $paramValue['Name'] ?>:</strong> <?= $paramValue['Value'] ?></div>
+                <? } elseif ($paramValue['Name'] == 'Comment') { ?>
+                    <div>
+                        <strong><?= Lang::get('comment') ?>:</strong>
+                        <?= $paramValue['Value'] ?>
+                    </div>
+                <? } ?>
+            <? } ?>
+        <? } elseif ($isIFrame == 'true') { ?>
+            <? $params = array(); ?>
+            <? foreach ($form['Parameters'] as $paramValue) { ?>
+                <? $params[$paramValue['Name']] = $paramValue['Value']; ?>
+            <? } ?>
+            <iframe src="<?= $form['RequestUrl'] ?>?<?= http_build_query($params) ?>" width="700" height="700"></iframe>
+        <? } ?>
+    </form>
+
+    <script type="text/javascript">
+        <? if ($form['IsNewWindow'] == 'true') { ?>
+            $('#form_pay').on('submit', function (e) {
+                <? $privateOfficeLink = '<a href="' . UrlGenerator::generatePrivateOfficeUrl() . '">' . Lang::get('private_office') . '</a>'?>
+                var $paymentState = $('#payment-state');
+                $paymentState.find('#preloader').remove();
+                $paymentState.find('#state').html('<?=Lang::get('payment_in_new_window',
+                    array('privet_office' => $privateOfficeLink))?>');
+                return false;
+            });
+        <? } ?>
+    </script>
+<? } ?>
+

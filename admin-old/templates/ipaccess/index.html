@@ -1,0 +1,60 @@
+<?=$Header?>
+
+<link rel="stylesheet" href="css/ipaccess.css" type="text/css" />
+<div id="top_menu"> <a href="index.php?cmd=ipaccess&do=AddCurIp&sid=<?=$GLOBALS['ssid']?>" class="linktext"><?=LangAdmin::get('ip_access_now')?></a> | 
+<? if ($accessip_on=='false') { ?>
+<a href="index.php?cmd=ipaccess&do=SwitchOnIp&sid=<?=$GLOBALS['ssid']?>" class="linktext"><?=LangAdmin::get('ipaccess_on')?></a>
+<? } else { ?>
+<a href="index.php?cmd=ipaccess&do=SwitchOffIp&sid=<?=$GLOBALS['ssid']?>" class="linktext"><?=LangAdmin::get('ipaccess_off')?></a>
+<? } ?>
+ | <a onclick="showaddform()" class="linktext"><?=LangAdmin::get('add_ip')?></a>
+</div>
+<div style="color:#F00"><? Session::checkErrors(); ?></div>
+<div id="right_col"> 
+<h4><?=LangAdmin::get('ipaccess_config')?>  </h4> 
+    <? if($AllowedIPs) { ?>
+       <? foreach ($AllowedIPs as $item) {  ?>
+       <div id="usr_list"> 
+         IP : <?=$item?>         
+         <div id="usr_del_but"><a href="index.php?cmd=ipaccess&do=DelIp&ip=<?=$item?>&sid=<?=$GLOBALS['ssid']?>" style="color:#FFF; text-decoration:none;">Х</a></div>
+       </div>
+       <? } ?>
+       <!-- Страницы-->       
+    <? } else { ?>
+       <?=LangAdmin::get('ipaccess_no')?> <a href="index.php?cmd=ipaccess&do=AddCurIp&sid=<?=$GLOBALS['ssid']?>" class="linktext"><?=LangAdmin::get('ip_access_now')?></a> или <a onclick="showaddform()" class="linktext"><?=LangAdmin::get('ip_access_custom')?></a>.
+    <? }  ?>
+
+<div style="clear:both"> </div>
+</div>
+
+
+
+<div id="dialog-form">
+    <p><?=LangAdmin::get('add_ip')?></p>
+    <form action="index.php?cmd=ipaccess&do=AddIp&d_group=<?=$_GET['d_group']?>&sid=<?=$GLOBALS['ssid']?>" method="post">
+    <input type="text" name="ipnew" id="ipnew"  class="text ui-widget-content ui-corner-all" />        
+    <input name="submit" type="submit" value="<?=LangAdmin::get('add')?>"/>
+     <input name="cancel" type="button" onclick="hideaddform()" value="<?=LangAdmin::get('cancel')?>"/>
+    </form>
+</div>
+
+
+<script> 
+  
+
+function SetUser(ide , nme) {	
+     $("#user_ids").val(ide);
+     $("#username").val(nme);	
+     $("#showera").css('display','none');
+}
+
+
+function showaddform(){    
+	$("#dialog-form").css({'display' : 'block'});   
+}
+function hideaddform(){    
+	$("#dialog-form").css({'display' : 'none'});
+}
+</script>
+
+<?=$Footer?>

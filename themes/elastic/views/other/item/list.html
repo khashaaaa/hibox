@@ -1,0 +1,9 @@
+<div class="block-slider__wrap">
+    <? foreach ($items as $item) { ?>
+            <? $params = array('item' => $item); ?>
+            <? if (isset($categoryId) && $categoryId) { ?>
+                <? $params['categoryId'] = $categoryId; ?>
+            <? } ?>
+            <?=General::viewFetch('other/item/item', array('vars' => $params))?>
+    <? } ?>
+</div>

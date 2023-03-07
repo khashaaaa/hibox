@@ -1,0 +1,21 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('SiteConfiguration', 'default')?>"><?=LangAdmin::get('Configuration')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('internal')?>"><?=LangAdmin::get('Delivery_small')?></a> <span class="divider">›</span></li>
+    <li class="active"><?=LangAdmin::get('Delivery_internal_small')?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'site_config/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? require_once 'sub_nav.html'; ?>
+<!-- /ot-sub-sub-nav -->
+
+<h1><?=LangAdmin::get('Delivery_internal_small')?> <i class="icon-question-sign ot_inline_help ot-header-hint" data-toggle="popover" data-content="<?=LangAdmin::get('Delivery_internal_hint')?>"></i></h1>
+
+<div class="well" id="internal-wrapper">
+    <a href="/admin/?cmd=ProviderConfiguration&do=default" class="btn btn-info" role="button"><?=LangAdmin::get('сonfigure_internal_deliveries')?></a>
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-shipment.js'); ?>
+<? AssetsMin::registerJsFile('/admin/js/ot-shipment-internal.js'); ?>

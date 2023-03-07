@@ -1,0 +1,275 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('users', 'default')?>"><?=LangAdmin::get('customers')?></a> <span class="divider">›</span></li>
+    <? if (! empty($user)) { ?>
+        <li><a class="muted" href="<?=$PageUrl->generate(array('do'=>'profile', 'id'=>$user['id']))?>">
+            <?=$this->escape($user['login'])?></a><span class="divider">›</span>
+        </li><? } ?>
+    <li class="active"><?=$actionTitle?></li>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="users-form-wrapper">
+
+<h1><?=$actionTitle?></h1>
+
+<div class="well inset-top0">
+
+        <form method="post" action="<?=$PageUrl->AssignCmdAndDo('users', 'saveUser')?>" class="form-horizontal ot_form">
+
+            <input type="hidden" name="id" value="<?=(!empty($user) ? $user['id'] : 0)?>" />
+
+            <fieldset>
+
+                <legend><?=LangAdmin::get('Account_title')?></legend>
+
+                <div class="row-fluid">
+
+                    <div class="span6">
+
+                        <legend class="legend-mini"><?=LangAdmin::get('Authorization')?></legend>
+
+                        <div class="control-group">
+                            <label class="control-label" for="Login"><?=LangAdmin::get('Login')?></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-user"></i></span>
+                                    <input value="<?=(!empty($user) ? $this->escape($user['login']) : '')?>" id="Login" <?=($user) ? 'readonly="readonly"' : ''?> name="Login" class="input-medium" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="Password"><?=LangAdmin::get('Password')?></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-lock"></i></span>
+                                    <input id="Password" name="Password" class="input-medium" type="password">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="Email"><?=LangAdmin::get('Email')?></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on">@</span>
+                                    <input value="<?=(!empty($user) ? $this->escape($user['email']) : '')?>" id="Email" name="Email" class="input-medium email" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <legend class="legend-mini"><?=LangAdmin::get('Contact_info')?></legend>
+                        <div class="control-group">
+                            <label class="control-label" for="Phone"><?=LangAdmin::get('Phone')?></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-phone"></i></span>
+                                    <input value="<?=(!empty($user) ? $user['phone'] : '')?>" id="Phone" name="Phone" class="input-medium phone" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="Skype"><?=LangAdmin::get('Skype')?></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on muted"><i class="icon-skype"></i></span>
+                                    <input value="<?=(!empty($user) ? $user['skype'] : '')?>" id="Skype" name="Skype" class="input-medium" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span6">
+                        <legend class="legend-mini"><?=LangAdmin::get('Personal_info')?></legend>
+
+                        <div class="control-group">
+                            <label class="control-label" for="LastName"><?=LangAdmin::get('Last_name')?></label>
+                            <div class="controls">
+                                <input value="<?=(!empty($user) ? $user['LastName'] : '')?>" id="LastName" name="LastName" class="input-medium name" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="FirstName"><?=LangAdmin::get('First_name')?></label>
+                            <div class="controls">
+                                <input value="<?=(!empty($user) ? $user['FirstName'] : '')?>" id="FirstName" name="FirstName" class="input-medium name" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                            </div>
+                        </div>
+                        <? if (InstanceProvider::getObject()->GetProfileFieldState('MiddleName') !== "Disabled") { ?>
+	                        <div class="control-group">
+	                            <label class="control-label" for="MiddleName"><?=LangAdmin::get('Middle_name')?></label>
+	                            <div class="controls">
+	                                <input value="<?=(!empty($user) ? $user['MiddleName'] : '')?>" id="MiddleName" name="MiddleName" class="input-medium name" type="text">
+	                            </div>
+	                        </div>
+                        <?php } ?>
+
+                        <div class="control-group">
+                            <label class="control-label" for="Sex"><?=LangAdmin::get('Gender')?></label>
+                            <div class="controls">
+                                <select name="Sex" id="Sex" class="input-medium">
+                                    <option <?=($user['sex']=='Male' ? 'selected="selected"' : '');?> value="Male"><?=LangAdmin::get('Male')?></option>
+                                    <option <?=($user['sex']=='Female' ? 'selected="selected"' : '');?> value="Female"><?=LangAdmin::get('Female')?></option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div><!-- /.span6 -->
+
+                </div><!-- /.row-fluid -->
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend><?=LangAdmin::get('Delivery')?></legend>
+
+                <div class="control-group">
+                    <label class="control-label" for="Country"><?=LangAdmin::get('Country')?></label>
+                    <div class="controls">
+                        <select class="input-medium" name="Country">
+                            <? foreach ($countries as $coutry) { ?>
+                                <option value="<?=$coutry['Id']?>" <?=(! empty($user['countrycode']) && $user['countrycode'] == $coutry['Id']) ? 'selected' : ''?>><?=$coutry['Name']?></option>
+                            <? } ?>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="Region"><?=LangAdmin::get('Region')?></label>
+                    <div class="controls">
+                        <input value="<?=(!empty($user) ? $user['region'] : '')?>" id="Region" name="Region" class="input-small" type="text">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="City"><?=LangAdmin::get('City')?></label>
+                    <div class="controls">
+                        <input value="<?=(!empty($user) ? $user['city'] : '')?>" id="City" name="City" class="input-small" type="text">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="Address"><?=LangAdmin::get('Address')?></label>
+                    <div class="controls">
+                        <input value="<?=(!empty($user) ? $user['address'] : '')?>" id="Address" name="Address" class="input-xlarge" type="text">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="PostalCode"><?=LangAdmin::get('Postal_code')?></label>
+                    <div class="controls">
+                        <input value="<?=(!empty($user) ? $user['postalcode'] : '')?>" id="PostalCode" name="PostalCode" class="input-mini numeric" type="text">
+                    </div>
+                </div>
+
+                <!---<p><i class="icon-plus color-blue"></i> <span id="addRecipientLink" class="blink" data-toggle="collapse" data-target=".new-user-delivery-form" title="<?=LangAdmin::get('Add_recipient')?>"><?=LangAdmin::get('Add_recipient')?></span></p>
+
+                <div class="collapse new-user-delivery-form">
+                    <div class="well bg-white">
+                        <legend class="legend-mini"><?=LangAdmin::get('New_recipient')?></legend>
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientFirstName"><?=LangAdmin::get('First_name')?></label>
+                                    <div class="controls">
+                                        <input id="recipientFirstName" name="new_recipientFirstName" class="input-medium" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientLastName"><?=LangAdmin::get('Last_name')?></label>
+                                    <div class="controls">
+                                        <input id="recipientLastName" name="new_recipientLastName" class="input-medium" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientMiddleName"><?=LangAdmin::get('Middle_name')?></label>
+                                    <div class="controls">
+                                        <input id="recipientMiddleName" name="new_recipientMiddleName" class="input-medium" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientPhone"><?=LangAdmin::get('Phone')?></label>
+                                    <div class="controls">
+                                        <input id="recipientPhone" name="new_recipientPhone" class="input-medium" type="text">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientCountry"><?=LangAdmin::get('Country')?></label>
+                                    <div class="controls">
+                                        <!--<input id="recipientCountry" name="new_recipientCountry" class="input-small" type="text">-->
+                            <!--                <select class="input-medium" id="recipientCountry" name="new_recipientCountry">
+                                               <? foreach ($countries as $country) { ?>
+                                                <option value="<?=$country['Id']?>"><?=$country['Name']?></option>
+                                               <? } ?>
+                                            </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientRegion"><?=LangAdmin::get('Region')?></label>
+                                    <div class="controls">
+                                        <input id="recipientRegion" name="new_recipientRegion" class="input-small" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientCity"><?=LangAdmin::get('City')?></label>
+                                    <div class="controls">
+                                        <input id="recipientCity" name="new_recipientCity" class="input-small" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientAddress"><?=LangAdmin::get('Address')?></label>
+                                    <div class="controls">
+                                        <input id="recipientAddress" name="new_recipientAddress" class="input-xlarge" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="recipientPostalCode"><?=LangAdmin::get('Postal_code')?></label>
+                                    <div class="controls">
+                                        <input id="recipientPostalCode" name="new_recipientPostalCode" class="input-mini" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!--/.well-->
+                <!--</div><!--/.collapse-->
+
+            </fieldset>
+
+
+            <div class="control-group offset-top2">
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+                    <a href="<?=$PageUrl->generate(array('do' => 'profile', 'id' => $user['id']))?>" type="button" class="btn offset-left1 btn_preloader" data-loading-text="<?=LangAdmin::get('Canceling')?>"><?=LangAdmin::get('Cancel')?></a>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-users-form.js'); ?>

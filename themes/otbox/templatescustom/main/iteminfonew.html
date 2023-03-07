@@ -1,0 +1,952 @@
+<div class="product-view col-md-9 col-sm-12 col-xs-12 fluid-sidebar" id="content">
+    <div id="overlay"></div>
+    <a href="javascript:void(0)" class="open-sidebar hidden-lg hidden-md"><i class="fa fa-bars"></i><?=Lang::get('sidebar')?></a>
+    <div class="sidebar-overlay hide"></div>
+    <div class="content-product-mainheader clearfix">
+        <div class="row">
+            <div class="content-product-left col-md-5 col-sm-12 col-xs-12">
+                <? if ((! General::getConfigValue('hide_taobao_link') || $admin)
+                    && empty($isWarehouseProduct)
+                    && !$isFromExtendedSearch
+                    && !empty($iteminfo['externalitemurl'])) { ?>
+                    <? $searchName = ($isYahooProduct) ? ' Yahoo' : ' Taobao.com'; ?>
+                    <div class="link_to_original">
+                        <a target="_blank" rel="nofollow" href="<?= $iteminfo['externalitemurl'] ?>" alt="<?=Lang::get('link_to_original')?>" title="<?=Lang::get('link_to_original')?> "><i class="fa fa-link" aria-hidden="true"></i> <?=Lang::get('link_to_original')?></a>
+                    </div>
+                <? } ?>
+                <div class="bprd large-image">
+                    <?=ProductsHelper::getHtmlFeatureListForLabel((array)$iteminfo['Features'])?>
+                    <ul class="lproduct flin w310li">
+                        <? if (!empty($iteminfo['Videos'])) { ?>
+                            <? $video = reset($iteminfo['Videos']); ?>
+                            <li class="pic">
+                                <video src="<?=$video['Url']?>" poster="<?=$video['PreviewUrl']?>" controls muted autoplay></video>
+                            </li>
+                        <? } else { ?>
+                            <li class="pic">
+                                <a href="<?= ProductsHelper::getLargeImage($iteminfo) ?>" class="cboxElement pictures" id="main-image-href" alt="<?=$this->escape($iteminfo['title'])?>" title="<?=$this->escape($iteminfo['title'])?>">
+                                    <img class="main-image" src="<?= ProductsHelper::getImage($iteminfo, 'medium') ?>" default="css/i/default-image.gif" alt=""/>
+                                </a>
+                            </li>
+                        <? } ?>
+                        <li id="tpl-main-image" class="pic hidden">
+                            <a href="<?= ProductsHelper::getLargeImage($iteminfo) ?>" class="cboxElement pictures" id="main-image-href" alt="<?=$this->escape($iteminfo['title'])?>" title="<?=$this->escape($iteminfo['title'])?>">
+                                <img class="main-image" src="<?= ProductsHelper::getImage($iteminfo, 'medium') ?>" default="css/i/default-image.gif" alt=""/>
+                            </a>
+                        </li>
+                        <li id="tpl-main-video" class="pic hidden">
+                            <video src="" poster="" controls muted autoplay></video>
+                        </li>
+                    </ul>
+                    <ul id="thumb-slider" class="full_slider contentslider owl2-carousel owl2-theme owl2-responsive-1200 owl2-loaded lproduct flin w320 w70li" data-rtl="no" data-autoplay="no" data-pagination="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column0="5" data-items_column1="3" data-items_column2="5" data-items_column3="3" data-items_column4="3" data-arrows="yes" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
+                        <? if (isset($iteminfo['Videos'])) { ?>
+                            <? foreach ($iteminfo['Videos'] as $video) { ?>
+                                <li class="video-item pic">
+                                    <a href="javascript:void(0)" class="switch">
+                                        <video src="<?=$video['Url']?>" poster="<?=$video['PreviewUrl']?>"></video>
+                                        <div class="circle">
+                                            <div class="triangle-right"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                            <? } ?>
+                        <? } ?>
+                        <? if (isset($iteminfo['image_path']) ) { ?>
+                        <li class="image-item pic">
+                            <a href="<?=$iteminfo['image_path']?>" class="switch pictures" mainpic="<?=$iteminfo['image_path']?>" mini-pic="<?=$iteminfo['image_path']?>">
+                                <img src="<?=$iteminfo['image_path'] ?>" alt="" width="70" />
+                            </a>
+                        </li>
+                        <? } ?>
+                        <? if (is_array($iteminfo['pictures'])) foreach ($iteminfo['pictures'] as $item) { ?>
+                        <li class="image-item pic">
+                            <a href="<?=$item['large']?>" class="switch pictures" mainpic="<?=$item['url']?>" mini-pic="<?=$item['large']?>">
+                                <img src="<?=$item['small'] ?>" alt="" width="70" />
+                            </a>
+                        </li>
+                        <? } ?>
+                    </ul>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#thumb-slider').owlCarousel2({
+                            loop:true,
+                            margin:10,
+                            nav:true,
+                            responsive:{
+                                0:{
+                                    items:4
+                                },
+                                600:{
+                                    items:4
+                                },
+                                1000:{
+                                    items:4
+                                }
+                            }
+                        })
+                    });
+                </script>
+            </div>
+            <div class="content-product-right col-md-7 col-sm-12 col-xs-12">
+                <? if (! General::getConfigValue('hide_item_title') || $iteminfo['IsTitleManuallyTranslated'] == 'true') { ?>
+                    <div class="title-product">
+                        <h1 itemprop="name" title="<?=$this->escape($iteminfo['title'])?>"><?=$this->escape($iteminfo['title'])?></h1>
+                    </div>
+                <? } ?>
+                <div class="box-review" style="padding-bottom: 20px;">
+                    <a class="reviews_button">
+                        <?=Lang::get('good_code')?> <b><?= $iteminfo['id'] ?></b>
+                    </a>
+                    <? if($iteminfo['FeaturedValues']['SalesInLast30Days']){ ?>
+                        <span class="order-num"><i class="fa fa-fire" aria-hidden="true"></i> <?=Lang::get('sales_volume1')?>: <?=$iteminfo['FeaturedValues']['SalesInLast30Days']?> <?=Lang::get('pcs')?></span>
+                    <? } ?>
+                </div>
+
+                <table>
+                    <!--noindex-->
+                    <script type="text/javascript">
+                        configurations = {};
+                    </script>
+                    <!--/noindex-->
+                    <? if(is_array($iteminfo['configurations'])) { ?>
+                        <? foreach ($iteminfo['configurations'] as $configuration) { ?>
+                        <!--noindex-->
+                        <script type="text/javascript">
+                            configurations['<?= $configuration['id'] ?>'] = {
+                                cname: '<?= $configuration['name'] ?>',
+                                val: {}
+                            };
+                        </script>
+                        <!--/noindex-->
+                    <? } ?>
+                    <? foreach ($iteminfo['configurations'] as $configuration) { ?>
+
+                        <tr class="item-configuration">
+                            <td class="w100" id="cname<?= $configuration['id'] ?>" config_chy="<?= $configuration['name_cny'] ?>:">
+                                <?= $configuration['name'] ?>:
+                            </td>
+                            <td>
+                                <? $f = false;
+                                foreach ($configuration['values'] as $value) {
+                                    if (@$value['miniimageurl']) $f = true;
+                                }
+                                if (isset($iteminfo['HasHierarchicalConfigurators'])) {
+                                    $checkHierarchy = ($iteminfo['HasHierarchicalConfigurators'] == 'false') ? true : false;
+                                } else {
+                                    $checkHierarchy = true;
+                                }
+                                if($f && $checkHierarchy) { ?>
+                                    <ul class="list_minipic clearfix" id="list_<?=$configuration['id']?>" style="margin-top: 20px;">
+                                        <? $i = 0; ?>
+                                        <? foreach ($configuration['values'] as $value) { ?>
+                                            <? $name = (!empty($value['alias'])) ? $value['alias'] : $value['name']; ?>
+                                            <? $class_image = (!$i) ? 'list_minipic_selected' : ''; ?>
+                                            <? $original_image = (!empty($value['imageurl'])) ? $value['imageurl'] : $iteminfo['mainpictureurl']; ?>
+                                            <? if (empty($value['miniimageurl'])) $value['miniimageurl'] = '/i/noimg.png'; ?>
+                                            <li title="<?=$name?>" class="<?=$class_image?>" config-value-id="<?=$value['id']?>">
+                                                <a style="background:url(<?=$value['imageurl']?>) center no-repeat;" original-image="<?=$original_image?>" href="javascript:void(0)">
+                                                    <span><?=$name?></span>
+                                                </a>
+                                                <i>&nbsp;</i>
+                                            </li>
+                                            <? $i++; ?>
+                                        <? } ?>
+                                    </ul>
+                                    <!--noindex-->
+                                    <script type="text/javascript">
+                                        $(document).ready(function () {
+                                            var items = $("ul[id='list_<?= $configuration["id"]?>'] li");
+                                            items.click(function(){
+                                                var configId = $(this).attr('config-value-id');
+                                                $("select[id='<?= $configuration["id"]?>'] option")
+                                                    .each(function() {
+                                                        this.selected = ($(this).val() == configId);
+                                                    });
+                                                $("select[id='<?= $configuration["id"]?>']").change();
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+                                    <!--/noindex-->
+                                    <select style="display:none;" name="<?= $configuration['id'] ?>" id="<?= $configuration['id'] ?>" onchange="changeconfig()" class="w200">
+                                        <? foreach ($configuration['values'] as $value) { ?>
+                                            <!--noindex-->
+                                            <script type="text/javascript">
+                                                configurations['<?= $configuration['id'] ?>']['val']['<?= $value['id'] ?>'] =
+                                                    '<?= $value['alias'] ? $value['alias'] : $value['name'] ?>';
+                                            </script>
+                                            <!--/noindex-->
+                                            <option value="<?= $value['id'] ?>" id="val<?= $value['id'] ?>"
+                                                    config_chy="<? if (!empty($value['alias_cny'])) { ?><?= $value['alias_cny'] ?><? } else { ?><?= $value['name_cny'] ?><? } ?>"
+                                            >
+                                                <? if (!empty($value['alias'])) { ?><?= $value['alias'] ?><? } else { ?><?= $value['name'] ?><? } ?>
+                                            </option>
+                                        <? } ?>
+                                    </select>
+                                <? } else { ?>
+                                    <select name="<?= $configuration['id'] ?>" id="<?= $configuration['id'] ?>" onchange="changeconfig()" class="form-control width50">
+                                        <? foreach ($configuration['values'] as $value) { ?>
+                                            <!--noindex-->
+                                            <script type="text/javascript">
+                                                configurations['<?= $configuration['id'] ?>']['val']['<?= $value['id'] ?>'] =
+                                                    '<?= $value['alias'] ? $value['alias'] : $value['name'] ?>';
+                                            </script>
+                                            <!--/noindex-->
+                                            <option value="<?= $value['id'] ?>" id="val<?= $value['id'] ?>"
+                                                    config_chy="<? if (!empty($value['alias_cny'])) { ?><?= $value['alias_cny'] ?><? } else { ?><?= $value['name_cny'] ?><? } ?>"
+                                            >
+                                                <? if (!empty($value['alias'])) { ?><?= $value['alias'] ?><? } else { ?><?= $value['name'] ?><? } ?>
+                                            </option>
+                                        <? } ?>
+                                    </select>
+                                <? } ?>
+                            </td>
+                        </tr>
+                    <? }} ?>
+
+                    <tr class="item-status" <? if (General::getConfigValue('hide_item_info_status')) { ?> style="display: none;"<? } ?>>
+                        <td class="w100"><?=Lang::get('status')?>:</td>
+                        <td><b><?=Lang::get('status'.$iteminfo['StuffStatus'])?></b></td>
+                    </tr>
+                    <tr class="item-all-quantity" <? if (General::getConfigValue('hide_item_info_in_existence')) { ?> style="display: none;"<? } ?>>
+                        <td class="w100"><?=Lang::get('in_existence')?>:</td>
+                        <td><b id="c_count"><?= $iteminfo['masterquantity'] ?> <?=Lang::get('pcs')?></b></td>
+                    </tr>
+                    <? if (isset($iteminfo['ActualWeightInfo']['Weight'])) { ?>
+                        <tr class="item-weight" <? if (General::getConfigValue('hide_item_info_weight')) { ?> style="display: none;"<? } ?>>
+                            <td class="w100"><?=$iteminfo['ActualWeightInfo']['DisplayName']?>:</td>
+                            <td><?=$iteminfo['ActualWeightInfo']['Weight']?> <?=Lang::get('kg')?></td>
+                        </tr>
+                    <? } ?>
+                    <? if($iteminfo['FeaturedValues']['TotalSales']){ ?>
+                        <tr class="item-sales-volume" <? if (General::getConfigValue('hide_item_info_sales_last30day')) { ?> style="display: none;"<? } ?>>
+                            <td class="w100"><?=Lang::get('sales_volume')?>:</td>
+                            <td><?=$iteminfo['FeaturedValues']['TotalSales']?></td>
+                        </tr>
+                    <? } ?>
+                    <? if($iteminfo['FeaturedValues']['ItemReviewRating']){ ?>
+                        <tr>
+                            <td class="w100"><?=Lang::get('rating')?>:</td>
+                            <td><span class="ratyScore ratyScore-sm" data-score="<?=$iteminfo['FeaturedValues']['ItemReviewRating']?>"></span></td>
+                        </tr>
+                    <? } ?>
+
+                    <? if (! empty($quantityRanges)) { ?>
+                        <tr>
+                            <td colspan="2" style="padding-left: 0;">
+                                <table class="table table-bordered table-condensed quantity-ranges" title="<?=Lang::get('Prices_ranges')?>">
+                                    <tr>
+                                        <? foreach ($quantityRanges as $rangeKey => $range) { ?>
+                                            <th><?=$range['DisplayRange']?></th>
+                                        <? } ?>
+                                    </tr>
+                                    <tr>
+                                        <? foreach ($quantityRanges as $rangeKey => $range) { ?>
+                                            <td data-range="<?=$range['MinRange'] ?: ''?>">
+                                                <img src="/i/ajax-loader-transparent.gif" />
+                                            </td>
+                                        <? } ?>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    <? } ?>
+                    <? if (isset($iteminfo['Price']['PriceWithoutDiscountAndDelivery'])) { ?>
+                        <tr class="item-price-one-item" <? if (General::getConfigValue('hide_item_info_price1')) { ?> style="display: none;"<? } ?>>
+                            <td class="w100">
+                                <?= Lang::get('price') ?> :
+                            </td>
+                            <td>
+                                <b id="c_cost_one_item" class="ltr-for-rtl"></b> <b id="c_promo_cost_one_item"></b>
+                            </td>
+                        </tr>
+                    <? } ?>
+
+                    <tr class="item-price" <? if (General::getConfigValue('hide_item_info_price1')) { ?> style="display: none;"<? } ?>>
+                        <td class="w100">
+                            <?
+                            if (isset($iteminfo['Price']['PriceWithoutDiscountAndDelivery'])) {
+                                $title = Lang::get('your_price');
+                                $suffix = '<br/>' . Lang::get('group_price', array('group' => $discountGroup)) . '&nbsp;';
+                            } else {
+                                $title = Lang::get('price');
+                                $suffix = '';
+                            }
+                            ?>
+                            <?=$title?>&nbsp;<?=$suffix?>:
+                        </td>
+                        <td><b id="c_cost" class="ltr-for-rtl"></b> <b id="c_promo_cost"></b></td>
+                    </tr>
+                    <? if(isset($iteminfo['HasInternalDelivery']) && $iteminfo['HasInternalDelivery'] == 'true') { ?>
+                        <tr class="item-local-delivery" id="local_delivery"<? if (General::getConfigValue('hide_item_info_price_local_delivery')) { ?> style="display: none;"<? } ?>>
+                            <td class="td1"><?=Lang::get('local_delivery')?>:</td>
+                            <td class="td2" id="local_delivery_prices">
+                            </td>
+                        </tr>
+                    <? } ?>
+
+                    <? if($iteminfo['configurations']){ ?>
+                        <tr>
+                            <td class="td1"><?=Lang::get('selected_conf')?>:</td>
+                            <td class="td2" id="c_cur">...</td>
+                        </tr>
+                    <? } ?>
+
+                    <tr class="item-quantity-edit" >
+                        <td class="w100"><?=Lang::get('quantity')?>:</td>
+                        <td class="form-group box-info-product">
+                            <div class="option quantity">
+                                <div class="input-group quantity-control" unselectable="on" style="user-select: none;">
+                                    <span class="input-group-addon product_quantity_down minus"><i class="fa fa-minus"></i></span>
+                                    <input type="text" value="<?= $iteminfo['FirstLotQuantity'] ?>" class="form-control w40 tar quantity input_numeric_only" name="quantity" id="quantity" max="<?= $iteminfo['masterquantity'] ?>" price="<?= $iteminfo['ConvertedPriceWithoutSign'] ?>" />
+                                    <span class="input-group-addon product_quantity_up plus"><i class="fa fa-plus"></i></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <?=    Plugins::invokeEvent('ShowGeoLocateAtItemInfo',array('LocalVal'=>@$_SESSION['CountryISO'])) ?>
+
+                    <tr class="total product_page_price price">
+                        <td><?=Lang::get('total')?>:</td>
+                        <td style="vertical-align: middle;" class="price-new"><span style="display: block" class="dl mr15 ltr-for-rtl" id="total"><img src="i/ajax-loader-transparent.gif" /></span></td>
+                    </tr>
+                </table>
+                <div class="box-cart clearfix form-group">
+                    <div class="form-group box-info-product">
+                        <div class="detail-action">
+                            <?
+                            $lexicons = array('translation_loading',
+                                'add_to_cart','drop_from_cart',
+                                'pcs','responses_loading',
+                                'item_not_exist','good_added_to_cart',
+                                'delete_from_cart','good_not_added',
+                                'good_deleted_from_basket','add_to_cart',
+                                'product_not_removed'
+                            );
+                            foreach($lexicons as $l){
+                                ?>
+                                <div id="<?=$l?>" style="display: none"><?=Lang::get($l)?></div>
+                                <?
+                            }
+                            ?>
+
+                            <? if($iteminfo['IsSellAllowed'] == 'true') { ?>
+
+
+                                <div class="cart">
+                                    <form action="/" id="addToBasket" style="display: inline-block;">
+                                        <a href="javascript:;" class="btn btn-mega remove-action remove_from_basket" id="basket-action" title="<?=Lang::get('drop_from_cart')?>" alt="<?=Lang::get('drop_from_cart')?>"><?=Lang::get('drop_from_cart')?></a>
+                                        <a href="javascript:;" class="btn btn-mega add-action add_to_basket" style="display: none" id="basket-action" title="<?=Lang::get('add_to_cart')?>" alt="<?=Lang::get('add_to_cart')?>"><?=Lang::get('add_to_cart')?></a>
+
+                                        <input type="hidden" name="price" value="<?=$iteminfo['convertedpricewithoutsign']?>" />
+                                        <input type="hidden" name="currencyName" value="<?=$iteminfo['currencyname']?>" />
+                                        <input type="hidden" name="id" value="<?=$iteminfo['id']?>" />
+                                        <input type="hidden" name="weight" value="<?=@(float)$iteminfo['ActualWeightInfo']['Weight']?>" />
+                                        <input type="hidden" name="comment" value="" />
+                                    </form>
+
+                                    <? if (!General::getConfigValue('is_old_platform')) { ?>
+                                        <button class="btn btn-checkout" id="quickOrder" title="<?=Lang::get('quick_order')?>" <?=User::getObject()->isAuthenticated() ? 'data-action="' . UrlGenerator::getUrl('order/quick-order') . '"' : 'data-redirect-url="' . UrlGenerator::generateContentUrl('login') . '"'?>>
+                                            <?=Lang::get('quick_order')?></i>
+                                        </button>
+                                    <? } ?>
+                                </div>
+                                <div class="add-to-links wish_comp">
+                                    <ul class="blank list-inline">
+                                        <li class="wishlist">
+                                            <a class="btn-remove remove_from_note" id="note-action" href="#"><i class="fa fa-heart"></i> <?=Lang::get('drop_from_fav')?></a>
+                                            <a class="btn-add add_to_note" id="note-action" href="#"><i class="fa fa-heart"></i> <?=Lang::get('add_to_fav')?></a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <form action="/" id="addToFavourites">
+                                    <input type="hidden" name="price" value="<?=$iteminfo['convertedpricewithoutsign']?>" />
+                                    <input type="hidden" name="currencyName" value="<?=$iteminfo['currencyname']?>" />
+                                    <input type="hidden" name="id" value="<?=$iteminfo['id']?>" />
+                                    <input type="hidden" name="comment" value="" />
+                                </form>
+
+                            <? } else { ?>
+                                <h3><?=Lang::get('item_not_allowed')?></h3>
+                                <h3><?=Lang::get($iteminfo['SellDisallowReason'])?></h3>
+                            <? } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-product-mainbody clearfix row">
+        <div class="content-product-content col-sm-12">
+            <div class="content-product-midde clearfix">
+                <div class="producttab ">
+                    <div class="tabsslider   horizontal-tabs  col-xs-12">
+                        <ul class="nav nav-tabs font-sn">
+                            <?php if (empty($isWarehouseProduct)) { ?>
+                                <!--li tab="properties" class="active">
+                                    <a href="#properties" data-toggle="tab"><span><?//=Lang::get('prod_char')?></span><i></i></a>
+                                </li-->
+                            <?php } ?>
+                            <li tab="photos" class="active">
+                                <a href="#photos" data-toggle="tab"><span><?=Lang::get('photo_descr')?></span><i></i></a>
+                            </li>
+                            <? if((CMS::IsFeatureEnabled('ProductComments') || CMS::IsFeatureEnabled('ItemReviews')) && !General::getConfigValue('hide_item_site_responses')){ ?>
+                                <li tab="paymship" item_id="<?= $iteminfo["id"] ?>"  class="">
+
+                                    <a href="#paymship" data-toggle="tab" data-review-id="<?=RequestWrapper::getValueSafe('reviewId')?>"><span><?=Lang::get('user_responses')?></span><i></i></a>
+
+                                </li>
+                            <? } ?>
+                            <? if (! General::getConfigValue('hide_taobao_responses') && empty($isWarehouseProduct) && $hasItemReviews) { ?>
+                                <li tab="TAOBAOcomments" item_id="<?= $iteminfo["id"] ?>"  class="">
+
+                                    <a href="#TAOBAOcomments" data-toggle="tab"><span><?=Lang::get('External_comments')?></span><i></i></a>
+
+                                </li>
+                            <? } ?>
+			              <? if ($iteminfo['ProviderType'] != 'Warehouse') { ?>
+			              	<li tab="SimilarProductsTab"><a href="#SimilarProductsTab" id="SimilarProducts" data-toggle="tab"><span><?= Lang::get('recommended_items') ?></span></a></li>
+			              <? } ?>                            
+                        </ul>
+                        <div class="tab-content  col-xs-12">
+                            <?php if (empty($isWarehouseProduct)) { ?>
+                                <!-- properties -->
+                                <div id="properties" class="tab-pane fade">
+                                </div>
+                                <!-- /properties -->
+                            <?php } ?>
+                            <!-- photos -->
+                            <div id="photos" class="tab-pane active">
+                                <?php if (empty($isWarehouseProduct)) { ?>
+                                <!-- properties -->
+                                <table class="table mb30">
+                                    <tbody>
+                                    <? if (is_array($iteminfo['propertiesEdited'])) {
+                                        foreach ($iteminfo['propertiesEdited'] as $property) {
+                                            ?>
+                                            <tr>
+                                                <td class="td1"><?= $property['name'] ?>:</td>
+                                                <td class="td2"><?= $property['value']?>
+                            
+                                                </td>
+                                            </tr>
+                            
+                                        <? } ?>
+                                    <? } ?>
+                                    </tbody>
+                                </table>
+                                <!-- /properties -->
+                                <?php } ?>                                
+                                <?php if (empty($isWarehouseProduct)) { ?>
+                                    <a href="#" class="button button-big" onclick="tr_desc(this);return false;"><span class="other"><?=Lang::get('original_descr')?></span></a>
+                                    <br />
+                                    <br />
+                                <?php } ?>
+                                <div id="photos-inner">
+                                    
+                                </div>
+                            </div>
+                            <!-- /photos -->
+                            <div id="paymship" item_id="<?= $iteminfo["id"] ?>" class="tab-pane fade"></div>
+                            <? if (! General::getConfigValue('hide_taobao_responses') && empty($isWarehouseProduct)) { ?>
+                                <div id="TAOBAOcomments" item_id="<?= $iteminfo["id"] ?>" class="tab-pane"></div>
+                            <? } ?>
+                            <div id="addinfo" class="tab-pane fade"></div>
+                            <div id="SimilarProductsTab" class="tab-pane fade"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap clrfix">
+        <?
+        if (! General::getConfigValue('show_user_history_views')) {
+            if (Session::isAuthenticated()) {
+                // Выводим просмотренные
+                Plugins::invokeEvent('ShowHistory');
+                // Вставлем в просмотренные
+                Plugins::invokeEvent('AddItemHistory',array('nme'=>$iteminfo['title'],'id'=>$iteminfo['id'],'price'=>General::getCurrencyPrice($iteminfo),'pic'=>$iteminfo['mainpictureurl'],'promo_price'=>General::getCurrencyPromoPrice($iteminfo)));
+            }
+        }
+        ?>
+    </div>
+</div>
+
+<aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas">
+    <span id="close-sidebar" class="fa fa-times"></span>
+    <? if(!empty($vendorInfo) && $vendorInfo['name']){ ?>
+    <div class="module category-style">
+        <h3 class="modtitle"><?=Lang::get('about_vendor')?></h3>
+        <div class="mod-content box-category">
+            <ul>
+                <? if(!General::getConfigValue('hide_vendor_info_name')) { ?>
+                <li style="padding: 5px;"><?=Lang::get('name')?>: <b><?= $this->escape($iteminfo['vendorname']) ?></b></li>
+                <? }
+                if ($vendorInfo['shopname']) { ?>
+                    <li style="padding: 5px;"><?=Lang::get('vendor_shop_name')?>: <b><?= $this->escape($vendorInfo['shopname']) ?></b></li>
+                <? }
+                 if($iteminfo['location']['city']) { ?>
+                <li style="padding: 5px;"><?=Lang::get('placed_in')?>: <b><?= $iteminfo['location']['city'] ?> (<?= $iteminfo['location']['state'] ?>)</b></li>
+                <? }
+                if($vendorInfo['credit']['TotalFeedbacks']) { ?>
+                <li style="padding: 5px;"><?=Lang::get('responses')?>: <b><?= $vendorInfo['credit']['TotalFeedbacks'] ?></b></li>
+                <? }
+                if($vendorInfo['credit']['PositiveFeedbacks']) { ?>
+                <li style="padding: 5px;"><?=Lang::get('positive')?>:
+                        <b>
+                            <?
+                            $positive = $vendorInfo['credit']['PositiveFeedbacks'];
+                            $total = $vendorInfo['credit']['TotalFeedbacks'];
+
+                            $positivePersent = $positive>0 ? number_format(($positive/$total)*100, 2, '.', '') : 0;
+                            ?>
+                            <?=$positivePersent?>%
+                        </b>
+                </li>
+                <? }
+                if($vendorInfo['scores']['DeliveryScore']) { ?>
+                <li style="padding: 5px;"><?=Lang::get('delivery_score')?>:
+                        <b>
+                            <?=$vendorInfo['scores']['DeliveryScore']?>
+                        </b>
+                </li>
+                <? }
+                if($vendorInfo['scores']['ItemScore']) { ?>
+                <li style="padding: 5px;"><?=Lang::get('item_score')?>:
+                        <b>
+                            <?=$vendorInfo['scores']['ItemScore']?>
+                        </b>
+                </li>
+                <? }
+                if($vendorInfo['Scores']['ServiceScore']) { ?>
+                <li style="padding: 5px;"><?=Lang::get('service_score')?>:
+                        <b>
+                            <?=$vendorInfo['scores']['ServiceScore']?>
+                        </b>
+                </li>
+                <? } ?>
+
+                <? if ($vendorInfo['credit']['level']) { ?>
+                <li style="padding: 5px;">
+                    <?=Lang::get('rating')?>:
+                    <img src="/i/hearts_gif/level_<?=$vendorInfo['credit']['level']?>.gif">
+                </li>
+                <? } ?>
+                <? if (isset($vendorInfo['FeaturedValues'])) { ?>
+                    <? if (isset($vendorInfo['FeaturedValues']['ItemReviewRating'])) { ?>
+                        <li style="padding: 5px;">
+                            <?=Lang::get('ItemReviewRating')?>:
+                                <b>
+                                    <?=$vendorInfo['FeaturedValues']['ItemReviewRating']?>
+                                </b>
+                        </li>
+                    <? } ?>
+                <? } ?>
+
+                <? if (!InstanceProvider::getObject()->isLimitItemsByCatalog()) { ?>
+                    <li style="padding: 5px;">
+                        <button type="button" id="add-vendor-to-favourites" style="<?= $vendorInfo['favoriteItemId'] ? 'display:none;' : ''?>" vendorid="<?= $this->escape($iteminfo['vendorid']) ?>" class="button btn-add">
+                            <?=Lang::get('add_vendor_to_favourites')?>
+                        </button>
+                        <button type="button" id="vendor-added-to-favourites" style="<?= $vendorInfo['favoriteItemId'] ? '' : 'display:none;'?>" vendorid="<?= $this->escape($iteminfo['vendorid']) ?>" class="button btn-remove btn-delete-item " itemid="<?=$vendorInfo['favoriteItemId']?>">
+                            <?=Lang::get('drop_vendor_from_fav')?>
+                        </button>
+                    </li>
+                <? } ?>
+            </ul>
+        </div>
+    </div>
+    <? } ?>
+
+    <? if(in_array('Seo2', General::$enabledFeatures)){
+            $url = 'item?';
+            $urlv = 'vendor?';
+        } else {
+            $url = '/?p=item&';
+            $urlv = '/?p=vendor&';
+        }
+    ?>
+    <? if (!InstanceProvider::getObject()->isLimitItemsByCatalog()) { ?>
+        <? if (!empty($vendorItems)) { ?>
+        <div class="module so-extraslider-ltr product-simple col-extra">
+            <h3 class="modtitle"><span><?=Lang::get('other_goods')?></span></h3>
+            <div class="modcontent">
+                <div id="so_extra_slider_11686622581569213192" class="so-extraslider buttom-type1 preset00-1 preset01-1 preset02-1 preset03-1 preset04-1 button-type1">
+                    <div class="extraslider-inner products-list owl2-carousel owl2-theme owl2-loaded" style="padding-bottom: 20px">
+                    <?
+                    $arr = array_chunk($vendorItems, 4);
+                    foreach ($arr as $items) { ?>
+                        <div class="item">
+                            <? foreach ($items as $item) { ?>
+                                <div class="product-layout item-inner style1 ">
+                                    <div class="item-image">
+                                        <div class="item-img-info">
+                                            <a <?=$item['IsSellAllowed'] != 'false' ? 'href="' . $url . 'id=' . $item['id'] . '"' : ''?> target="_self">
+                                                <img data-sizes="auto" src="<?=ProductsHelper::getSmallImage($item)?>" data-src="<?=ProductsHelper::getSmallImage($item)?>" class="lazyautosizes lazyloaded" sizes="80px">
+
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-info">
+                                        <div class="item-title">
+                                            <a <?=$item['IsSellAllowed'] != 'false' ? 'href="' . $url . 'id=' . $item['id'] . '"' : ''?> target="_self">
+                                                <?=Lang::get('good_code')?> <b><?= $item['id'] ?></b>
+                                            </a>
+                                        </div>
+
+                                        <div class="content_price price">
+                                            <? if (count($item['PromotionPrice'])>0) { ?>
+                                                <span class="price-new"><?=General::getCurrencyPromoPrice($item)?></span>
+                                                <span class="price-old"><?=General::getCurrencyPrice($item)?></span>
+                                            <? }else{ ?>
+                                                <span class="price-new"><?=General::getCurrencyPrice($item)?></span>
+                                            <? } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <? } ?>
+                        </div>
+                    <? } ?>
+                    </div>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        jQuery(document).ready(function ($) {
+                            (function (element) {
+                                var $element = $(element),
+                                    $extraslider = $(".extraslider-inner", $element),
+                                    _delay = 500 ,
+                                    _duration = 800 ,
+                                    _effect = 'none ';
+
+                                $extraslider.on("initialized.owl.carousel2", function () {
+                                    var $item_active = $(".owl2-item.active", $element);
+                                    if ($item_active.length > 1 && _effect != "none") {
+                                        _getAnimate($item_active);
+                                    }
+                                    else {
+                                        var $item = $(".owl2-item", $element);
+                                        $item.css({"opacity": 1, "filter": "alpha(opacity = 100)"});
+                                    }
+
+                                    if ($(".owl2-dot", $element).length < 2) {
+                                        $(".owl2-prev", $element).css("display", "none");
+                                        $(".owl2-next", $element).css("display", "none");
+                                        $(".owl2-dot", $element).css("display", "none");
+                                    }
+
+
+                                    $(".owl2-controls", $element).insertBefore($extraslider);
+                                    $(".owl2-dots", $element).insertAfter($(".owl2-prev", $element));
+
+                                });
+
+                                $extraslider.owlCarousel2({
+                                    rtl: false,
+                                    margin: 0,
+                                    slideBy: 1,
+                                    autoplay: 0,
+                                    autoplayHoverPause: 0,
+                                    autoplayTimeout: 0 ,
+                                    autoplaySpeed: 1000 ,
+                                    startPosition: 0 ,
+                                    mouseDrag: 1,
+                                    touchDrag: 1 ,
+                                    autoWidth: false,
+                                    responsive: {
+                                        0: 	{ items: 1 } ,
+                                        480: { items: 1 },
+                                        768: { items: 1 },
+                                        992: { items: 1 },
+                                        1200: {items: 1}
+                                    },
+                                    dotClass: "owl2-dot",
+                                    dotsClass: "owl2-dots",
+                                    dots: true ,
+                                    dotsSpeed:500 ,
+                                    nav: false ,
+                                    loop: false ,
+                                    navSpeed: 500 ,
+                                    navText: ["&#171 ", "&#187 "],
+                                    navClass: ["owl2-prev", "owl2-next"]
+
+                                });
+
+                                $extraslider.on("translate.owl.carousel2", function (e) {
+
+                                    if ($(".owl2-dot", $element).length < 2) {
+                                        $(".owl2-prev", $element).css("display", "none");
+                                        $(".owl2-next", $element).css("display", "none");
+                                        $(".owl2-dot", $element).css("display", "none");
+                                    }
+
+
+                                    var $item_active = $(".owl2-item.active", $element);
+                                    _UngetAnimate($item_active);
+                                    _getAnimate($item_active);
+                                });
+
+                                $extraslider.on("translated.owl.carousel2", function (e) {
+
+
+                                    if ($(".owl2-dot", $element).length < 2) {
+                                        $(".owl2-prev", $element).css("display", "none");
+                                        $(".owl2-next", $element).css("display", "none");
+                                        $(".owl2-dot", $element).css("display", "none");
+                                    }
+
+
+                                    var $item_active = $(".owl2-item.active", $element);
+                                    var $item = $(".owl2-item", $element);
+
+                                    _UngetAnimate($item);
+
+                                    if ($item_active.length > 1 && _effect != "none") {
+                                        _getAnimate($item_active);
+                                    } else {
+
+                                        $item.css({"opacity": 1, "filter": "alpha(opacity = 100)"});
+
+                                    }
+                                });
+
+                                function _getAnimate($el) {
+                                    if (_effect == "none") return;
+                                    //if ($.browser.msie && parseInt($.browser.version, 10) <= 9) return;
+                                    $extraslider.removeClass("extra-animate");
+                                    $el.each(function (i) {
+                                        var $_el = $(this);
+                                        $(this).css({
+                                            "-webkit-animation": _effect + " " + _duration + "ms ease both",
+                                            "-moz-animation": _effect + " " + _duration + "ms ease both",
+                                            "-o-animation": _effect + " " + _duration + "ms ease both",
+                                            "animation": _effect + " " + _duration + "ms ease both",
+                                            "-webkit-animation-delay": +i * _delay + "ms",
+                                            "-moz-animation-delay": +i * _delay + "ms",
+                                            "-o-animation-delay": +i * _delay + "ms",
+                                            "animation-delay": +i * _delay + "ms",
+                                            "opacity": 1
+                                        }).animate({
+                                            opacity: 1
+                                        });
+
+                                        if (i == $el.size() - 1) {
+                                            $extraslider.addClass("extra-animate");
+                                        }
+                                    });
+                                }
+
+                                function _UngetAnimate($el) {
+                                    $el.each(function (i) {
+                                        $(this).css({
+                                            "animation": "",
+                                            "-webkit-animation": "",
+                                            "-moz-animation": "",
+                                            "-o-animation": "",
+                                            "opacity": 1
+                                        });
+                                    });
+                                }
+
+                            })("#so_extra_slider_11686622581569213192 ");
+                        });
+                        //]]>
+                    </script>
+                </div>
+                <? if ($vendorInfo['showLinkAllGoods']) { ?>
+                    <? if (! (InstanceProvider::getObject()->isLimitItemsByCatalog() && $cid == '')) { ?>
+                        <? $categoryId = (InstanceProvider::getObject()->isLimitItemsByCatalog()) ? $cid : ''; ?>
+                            <a href="<?=UrlGenerator::generateVendorUrl($iteminfo['vendorid'], false, $categoryId)?>" class="button">
+                                <?=Lang::get('all_goods_from_seller')?>
+                            </a>
+                    <? } ?>
+                <? } ?>
+            </div>
+
+        </div>
+        <? } ?>
+    <? } ?>
+</aside>
+<!--noindex-->
+<script type="text/javascript">
+    var preLoadDescription = <?=General::getConfigValue('product_tabs') == 2 ? 'true' : 'false'?>;
+    var itempath = <?=json_encode($GLOBALS['itempath'])?>;
+
+    <? if(defined('CFG_LOAD_ITEM_VIA_AJAX') && CFG_LOAD_ITEM_VIA_AJAX){ ?>
+    $.each(itempath, function(k, v){
+        var virt = '';
+        if(v.IsVirtual[0] == 'true'){
+            virt = '&virt';
+        }
+        $('.crumbs .wrap').append(
+            $('<a></a>')
+                .attr({
+                    href: '/?p=subcategory&cid='+ v.id + virt
+                })
+                .text(v.Name)
+        );
+    });
+        <? } ?>
+
+
+    iteminfo = {
+        id: '<?= $iteminfo['id'] ?>',
+        otc: '<?= $iteminfo['CategoryId'] ?>',
+        providerType: '<?= $iteminfo['ProviderType'] ?>',
+        debug: '<?=isset($_GET['debug'])?>',
+        confid: 0,
+        confitem: '',
+        weight: '<?=@(float)$iteminfo['ActualWeightInfo']['Weight']?>',
+        //isvalidpromotions: '<?= $iteminfo['IsValidPromotions'] ?>',
+        promoid: '<?=$iteminfo["Promotions"]["Id"]?>',
+        count: <?= $iteminfo['FirstLotQuantity'] ?>,
+        maxcount: '<?= $iteminfo['masterquantity'] ?>',
+        minCount: <?= $iteminfo['FirstLotQuantity'] ?>,
+        stepCount: <?= $iteminfo['NextLotQuantity'] ?>,
+        //addedToCartId: <?=$inCart?>,
+        //addedToNoteId: <?=$inNote?>,
+        addedToCartId: 0,
+        addedToNoteId: 0,
+
+        addedToCart: <?=json_encode($inCart)?>,
+        addedToNote: <?=json_encode($inNote)?>,
+        
+        price_without_config: <?=json_encode($iteminfo["Price"])?>,
+        promotions: <?=json_encode($iteminfo["Promotions"])?>,
+        promo: <?=json_encode($promo)?>,
+        promo_static: <?=json_encode($promo)?>,
+        price: <?=json_encode($iteminfo["Price"])?>,
+        quantityranges: <?=json_encode($iteminfo["QuantityRanges"])?>,
+        item_with_config: <?=json_encode($iteminfo["item_with_config"])?>,
+        configurations: <?=count($iteminfo['configurations']) ? json_encode($iteminfo['configurations']) : 0?>,
+        CFG_NO_DELIVERY_IN_PRICE: '<?=(int)(defined('CFG_NO_DELIVERY_IN_PRICE')&&CFG_NO_DELIVERY_IN_PRICE)?>',
+        CFG_ROUND_DECIMALS: <?=(int)General::getConfigValue('price_rounding')?>
+    };
+
+    langs = {
+        good_added_to_fav: '<?=Lang::get('good_added_to_fav')?>!',
+        delete_from_fav: '<?=Lang::get('delete_from_fav')?>',
+        good_not_added: '<?=Lang::get('good_not_added')?>',
+        good_removed_from_fav: '<?=Lang::get('good_removed_from_fav')?>!',
+        add_to_fav: '<?=Lang::get('add_to_fav')?>',
+        product_not_removed: '<?=Lang::get('product_not_removed')?>',
+        pcs: '<?=Lang::get('pcs')?>',
+        vendor_added_to_favourites: '<?=Lang::get('vendor_added_to_favourites')?>',
+        warning: '<?=Lang::get('warning')?>',
+        sell_not_allowed_without_config: '<?=Lang::get('sell_not_allowed_without_config')?>',
+        vendor_removed_from_favourites: '<?=Lang::get('vendor_removed_from_favourites')?>',
+        choosen_max_item_count: '<?=Lang::get('choosen_max_item_count')?>',
+        min_count: '<?=Lang::get('min_count_alert')?>',
+        step_count: '<?=Lang::get('step_count_alert')?>',
+        additional_value: '<?=Lang::get('additional_value')?>',
+        supplement_for_heading: '<?=Lang::get('supplement_for_heading')?>',
+        delivery: '<?=Lang::get('delivery')?>',
+        select_later: '<?=Lang::get('select_later')?>',
+        reg_order: '<?=Lang::get('reg_order')?>',
+        continue_shopping: '<?=Lang::get('continue_shopping')?>',
+        make_order: '<?=Lang::get('make_order')?>',
+        not_found: '<?=Lang::get('not_found')?>'
+    };
+
+    
+    $(function(){
+        <? if((CMS::IsFeatureEnabled('ProductComments') || CMS::IsFeatureEnabled('ItemReviews')) && !General::getConfigValue('hide_item_site_responses')){ ?>
+        $('[tab="paymship"]').click(function(){
+            self = $(this);
+            $('#paymship').html('<div class="spinner"></div>');
+            $.get("//"+window.location.hostname,{
+                p: 'itemcomments',
+                itemid: "<?=RequestWrapper::getValueSafe('id')?>",
+                reviewId: self.data('review-id')
+            }, function(data){
+                if (data.errorCode === 'SessionExpired') {
+                    window.location.replace('/?p=login');
+                }
+                $('#paymship').html(data.reviews);
+            });
+            //return false;
+        });
+        <? } ?>
+        <? if (! General::getConfigValue('hide_taobao_responses') && empty($isWarehouseProduct)) { ?>
+        $('[tab="TAOBAOcomments"]').click(function(){
+            //if ($('#TAOBAOcomments').html()) return;
+            $('#TAOBAOcomments').html('<div class="spinner"></div>');
+            $.ajax({
+                url: '/?p=itemtraderateinfo&itemid=' + $('#TAOBAOcomments').attr('item_id'),
+                success: function(data) {
+                    $('#TAOBAOcomments').html(data);
+                }
+            });
+            //return false;
+        });
+        <? } ?>
+    });
+    defaultCurrencySign = "<?=$defaultCurrencySign?>";
+    defaultDeliveryMode = "<?=$defaultDeliveryMode?>";
+    var photosInnerContent = <?=json_encode(htmlentities($iteminfo['Description'], ENT_QUOTES))?>;
+    defaultCurrencySign = '<?=User::getObject()->getCurrencySign()?>';
+</script>
+<script type="text/javascript" src="<?=General::getThemeWebDir()?>/js/item.js?v=0.001"></script>
+<script type="text/javascript" src="/packages/SimilarProducts/assets/main.js"></script>
+
+<script type="text/javascript">
+$(function(){
+    photosInnerContent = $('<div/>').html(photosInnerContent).text();
+    $('#photos-inner').html(photosInnerContent);
+
+    $('span.ratyScore').raty({
+        readOnly: true
+    });
+
+    $(".pictures").colorbox({rel:'group1', photo:true});
+
+    <? if (empty($iteminfo['propertiesEdited'])) { ?>
+        $('#product-tabs li[tab="properties"]').hide();
+    <? } ?>
+
+    <? if ($isWarehouseProduct || empty($iteminfo['propertiesEdited'])) { ?>
+        $('#product-tabs li[tab="photos"] a').click();
+    <? } ?>
+
+    <? if (General::getConfigValue('product_tabs')) {
+        switch (General::getConfigValue('product_tabs')) {
+            case '2': ?>
+                $('#product-tabs li[tab="photos"] a').click();
+                <? break;
+            case '3': ?>
+                $('#product-tabs li[tab="paymship"] a').click();
+                <? break;
+            case '4': ?>
+                $('#product-tabs li[tab="TAOBAOcomments"] a').click();
+                <? break;
+        }
+    } ?>
+
+    <? if ($showReviewTab !== false) { ?>
+        var reviewTab = $('#product-tabs li[tab="paymship"] a');
+        reviewTab.click();
+        $("body,html").animate({"scrollTop":reviewTab.offset().top}, 1000);
+    <? } ?>
+
+    //наведение мышкой на i
+    $('body').tooltip({
+        selector: '[rel="tooltip"]',
+        trigger: 'hover'
+    });
+});
+</script>
+
+<!--/noindex-->
+
+<?=Plugins::invokeEvent('onRenderItemPage', array('id' => RequestWrapper::getValueSafe('id')))?>
+<?=Plugins::invokeEvent('onItemInfoStatistics', array('itemInfo' => $iteminfo, 'category' => @end($GLOBALS['itempath'])))?>
+
+<div id="item-debug"></div>
+
+<link rel="stylesheet" href="css/vendor/jquery.raty.css?<?=CFG_SITE_VERSION;?>"/>
+<script type="text/javascript" src="js/vendor/jquery.raty.js?<?=CFG_SITE_VERSION;?>"></script>

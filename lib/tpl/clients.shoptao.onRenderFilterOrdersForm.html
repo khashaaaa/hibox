@@ -1,0 +1,17 @@
+<script type="text/javascript">
+$(function(){
+    $('#export').click(function(){
+        $(this).closest('form').find('[name="cmd"]').remove();
+        $(this).closest('form').attr({
+            'method': 'post',
+            'action': "index.php?cmd=OrdersExport&do=exportOrders"
+        }).submit();
+    });
+});
+</script>
+<div class="grid_2" style="margin-left: 70px">
+    <p>
+        <label>&nbsp;<br/><br/></label>
+        <input id="export" type="button" value="<?=Lang::get('export')?>" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+    </p>
+</div>

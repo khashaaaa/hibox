@@ -1,0 +1,204 @@
+<ul class="breadcrumb">
+    <li><a href="."><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('contents', 'default')?>"><?=LangAdmin::get('blog::Content')?></a> <span class="divider">›</span></li>
+    <li class="active"><?= $post['id'] ? LangAdmin::get('blog::Edit_post') : LangAdmin::get('blog::Add_post')?></li>
+</ul>
+<!--/.breadcrumb-->
+
+<?=TabsGenerator::GetTabs('templates/contents/navigation/tabs.xml', $PageUrl)?>
+
+<h1><?= $post['id'] ? LangAdmin::get('blog::Edit_post') : LangAdmin::get('blog::Add_post')?></h1>
+
+<div class="well blog-wrapper">
+    
+    <form method="post" class="form-horizontal ot_form ot_edit_post_form" action="<?=$PageUrl->AssignCmdAndDo('blog', 'saveBlogPost')?>" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id" value="<?=$post['id']?>">
+    
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('Name')?></label>
+            <div class="controls">
+                <input id="post-title" name="post-title" class="input-xlarge" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>" value="<?= $this->escape($post['title'])?>">
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('blog::Date')?></label>
+            <div class="controls">
+                <div class="input-append">
+                    <input name="post-date-display" id="post-date-display" class="input-small date" type="text" value="<?=$post ? $post['created'] : date('j.m.Y')?>">
+                    <span class="btn add-on" id="post-date"><i class="icon-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('contents::Address')?></label>
+            <div class="controls">
+                <input class="input-xlarge" name="alias" id="alias" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>" <?php if ($post) echo 'value="' . $post['alias'] . '"' ?> original-value="<?=$post['alias'] ? $post['alias'] : ''?>">
+                <?php if ($isService) { ?>
+                    <input type="hidden" name="alias" value="<?=$post['alias']?>">
+                <?php } ?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('blog::Image')?></label>
+            <div class="controls">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                    <div class="fileupload-new thumbnail thumbnail-mini">
+                        <div class="thumbnail-placeholder">
+                        <?php if ($post['image']) { ?>
+                            <img src="<?=DigestRepository::getImage($post['image'], "thumb")?>" alt="">
+                        <?php } else {?>
+                            <i class="icon-picture"></i>
+                        <?php } ?>
+                        </div>
+                    </div>
+                    <div class="fileupload-preview fileupload-exists thumbnail thumbnail-mini"></div>
+                    <span class="btn btn-primary btn-tiny btn-file">
+                        <span class="fileupload-new"><?=LangAdmin::get('blog::Select')?></span>
+                        <span class="fileupload-exists"><?=LangAdmin::get('blog::Change')?></span>
+                        <input type="file" name="new_image" id="new_image" />
+                        <input type="hidden" name="image" id="image" value="<?=$post['image']?>"/>
+                    </span>
+                    <span class="btn btn-danger btn-tiny fileupload-exists" data-dismiss="fileupload"><?=LangAdmin::get('blog::Delete')?></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('blog::Category')?></label>
+            <div class="controls">
+                <select class="input-medium" id="post-category" name="post-category">
+                    <option value="0" <?php if($post && $post['category_id'] == 0) echo 'selected="selected"' ?></option><?=LangAdmin::get('blog::No_category')?> 
+                    <? foreach ($categories as $category) { ?>
+                        <option value="<?=$category['id']?>" <?php if($post['category_id'] == $category['id']) print 'selected="selected"' ?> description="<?=$this->escape($category["description"])?>" language="<?=$category['language']?>" ><?=$this->escape($category['title'])?></option>
+                    <?php } ?>
+                </select>
+                <a id="blog-category-add" href="#" data-target="#blog_category_form" data-toggle="collapse" class="btn btn-primary" data-loading-text="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></a>
+                <a id="blog-category-delete" href="#" class="btn btn-primary" data-loading-text="<?=LangAdmin::get('Delete')?>"><?=LangAdmin::get('Delete')?></a>
+                <a id="blog-category-edit" href="#" data-target="#blog_category_form" data-toggle="collapse" class="btn btn-primary" data-loading-text="<?=LangAdmin::get('Edit')?>"><?=LangAdmin::get('Edit')?></a>
+            </div>
+        </div>
+
+        <div id="blog_category_form" class="collapse controls"> 
+            <div class="well well-small">
+                <input type="hidden" id="blog-category-id" value="">
+                <input type="hidden" id="blog-category-mode" value="">
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('Name')?></label>
+                    <div class="controls">
+                        <input id="blog-category-name" name="blog-category-name" class="input-xlarge" type="text" value="">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('Description')?></label>
+                    <div class="controls">
+                        <input id="blog-category-description" name="blog-category-description" class="input-xlarge" type="text" value="">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label bold"><?=LangAdmin::get('blog::Language')?></label>
+                    <div class="controls">
+                        <select class="input-medium" id="blog-category-language" name="blog-category-language">
+                            <?php foreach ($languages as $lang) { 
+                            ?>
+                                <option value="<?=$lang['name']?>" <?php if($post['lang_code'] == $lang['name']) print 'selected="selected"' ?>><?=$lang['description']?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <a id="blog-category-save" href="#" class="btn btn-primary" data-loading-text="<?=LangAdmin::get('Save')?>"><?=LangAdmin::get('Save')?></a>
+                <a type="button" class="btn btn-tiny offset-left1 cancel-btn" data-target="#blog_category_form" data-toggle="collapse"><?=LangAdmin::get('Cancel')?></a>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('blog::Language')?></label>
+            <div class="controls">
+
+                <select class="input-medium" id="post-language" name="post-language">
+                    <? foreach ($languages as $lang) { ?>
+                        <option value="<?=$lang['name']?>" <?php if(($post['lang_code'] == $lang['name']) || ($language == $lang['name'])) print 'selected="selected"' ?>><?=$lang['description']?></option>
+                    <?php } ?>
+                </select>
+    
+            </div>
+        </div>
+        
+        <div class="box box-blinked box-closed offset-top0 offset-bottom1_2">
+            <div class="box-header corner-top">
+                <i class="icon-caret-right font-13"></i>
+                <a href="#" data-box="collapse" class="font-13 bold">
+                    <?=LangAdmin::get('contents::Seo_attributes')?>
+                </a>
+            </div>
+
+            <div class="box-body inset-horizontal-none">
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('contents::Title')?></label>
+                    <div class="controls">
+                        <input class="input-xlarge" type="text" id="page-title" name="page-title" <?php if ($post) echo 'value="' . $post['pagetitle'] . '"' ?> original-value="<?=$post['pagetitle'] ? $post['pagetitle'] : ''?>">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('contents::Keywords')?></label>
+                    <div class="controls">
+                        <textarea cols="20" rows="2" class="input-xxlarge"  id="page-keywords" name="page-keywords" ><?php if ($post) echo $post['seo_keywords'] ?></textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=LangAdmin::get('contents::Description')?></label>
+                    <div class="controls">
+                        <textarea cols="20" rows="2" class="input-xxlarge"  id="page-description" name="page-description"><?php if ($post) echo $post['seo_description'] ?></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>    
+            
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('blog::announcement')?></label>
+            <div class="controls" style="margin-bottom: 10px;">
+                <textarea rows="6" class="input-xxlarge" id="post-preview" name="post-preview"><?php echo $post['brief']; ?></textarea>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <span class="offset-left1"><span class="blink blink-iconed font-14 weight-normal" data-toggle="collapse" data-target=".ot_add_item_from_link"><i class="icon-plus"></i><?=LangAdmin::get('blog::Add_product')?></span></span>                
+            </div>
+            <div class="ot_add_item_from_link collapse">
+                    <label class="control-label bold" style="margin-right: 20px;"><?=LangAdmin::get('By_link_or_Id')?></label>                    
+                    <input class="span5 add-item-data" type="text" placeholder="<?=LangAdmin::get('Paste_link_to_item')?>">
+
+                    <button type="button" class="btn btn-primary btn_preloader add-item" data-action="<?=$PageUrl->AssignDo('getProduct')?>" data-loading-text="<?=LangAdmin::get('Add')?>"><?=LangAdmin::get('Add')?></button>
+                    <button type="button" class="btn offset-left05" data-target=".ot_add_item_from_link" data-toggle="collapse" title="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></button> 
+               
+            </div>
+        </div>
+        
+        
+        <div class="control-group">
+            <label class="control-label bold"><?=LangAdmin::get('blog::Content')?></label>
+            <div class="controls">
+                <textarea rows="10" class="input-xxlarge" id="post-content" name="post-content"><?php echo $post['content']; ?></textarea>                
+            </div>
+        </div>
+
+        <div class="controls">
+            <button href="#" class="btn btn-primary btn_preloader save-post" data-loading-text="<?=LangAdmin::get('Save')?>"><?=LangAdmin::get('Save')?></button>
+            <? if ($post['id']) { ?>
+            <a href="#" class="btn btn_preloader save-and-continue" data-loading-text="<?=LangAdmin::get('Save_and_continue')?>"><?=LangAdmin::get('Save_and_continue')?></a>
+            <? } ?>
+            <a href="<?=$PageUrl->AssignCmdAndDo('blog', 'default')?>" type="button" class="btn offset-left2 btn_preloader" data-loading-text="<?=LangAdmin::get('Cancel')?>"><?=LangAdmin::get('Cancel')?></a>
+        </div>
+
+    </form>
+
+</div>
+<? AssetsMin::registerJsFile('/js/vendor/jquery.form.js'); ?>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-contents-blog.js'); ?>

@@ -1,0 +1,19 @@
+<? if($mode=='code') {?>
+<?=$username?>!<br/>
+<?=Lang::get('go_recovery_link')?>: <a href="<?=$code?>"><?=Lang::get('recover')?></a>
+<br />
+<br />
+<?=Lang::get('best_regards')?> <?=General::getConfigValue('site_name')?>.
+
+<? } else { ?>
+
+<?=Lang::get('your_new_login_details')?> <a href="<?=$url?>"><?=CFG_SITE_NAME?></a>:<br />
+<br />
+<?=Lang::get('login_username')?>: <?=$username?>
+<br />
+<?=Lang::get('password')?>: <?=$password?>
+<br />
+<br />
+<?=Lang::get('best_regards')?> <?=General::getConfigValue('site_name')?>.
+
+<? } ?>

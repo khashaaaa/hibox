@@ -1,0 +1,879 @@
+{
+    "defaultSaveUrl": {
+        "cmd": "SiteConfiguration",
+        "do": "save"
+    },
+    "defaultFieldsParameters": {
+        "text": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        },
+        "textarea": {
+            "emptytext": {
+                "trans": "Not_filled"
+            }
+        }
+    },
+    "fields": [
+        {
+            "name": "",
+            "type": "",
+            "valuesList": [
+
+            ]
+        },
+        {
+            "name": "structure_type",
+            "type": "select",
+            "valuesList": [
+                "LeafMixed",
+                "Predefined",
+                "Internal",
+                "External"
+            ]
+        },
+
+        {
+            "name": "left_menu_mode_for_content",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "2",
+                "3"
+            ]
+        },
+        {
+            "name": "rtl",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "header_text",
+            "type": "textarea"
+        },
+        {
+            "name": "store_email",
+            "type": "text"
+        },
+        {
+            "name": "custom_head_code",
+            "type": "textarea",
+            "displayValue": "Filled"
+        },
+        {
+            "name": "html_for_footet",
+            "type": "textarea",
+            "displayValue": "Filled"
+        },
+        {
+            "name": "custom_scss_after_scss_lite",
+            "type": "textarea",
+            "displayValue": "Filled"
+        },
+        {
+            "name": "custom_scss_after_scss_elastic",
+            "type": "textarea",
+            "displayValue": "Filled"
+        },
+        {
+          "name": "custom_scss_after_scss_fashi",
+          "type": "textarea",
+          "displayValue": "Filled"
+        },
+        {
+            "name": "custom_scss_background_repeat_lite",
+            "type": "select",
+            "valuesList": [
+                "no-repeat",
+                "repeat",
+                "repeat-x",
+                "repeat-y"
+            ]
+        },
+        {
+            "name": "custom_scss_background_repeat_elastic",
+            "type": "select",
+            "valuesList": [
+                "no-repeat",
+                "repeat",
+                "repeat-x",
+                "repeat-y"
+            ]
+        },
+        {
+          "name": "custom_scss_background_repeat_fashi",
+          "type": "select",
+          "valuesList": [
+            "no-repeat",
+            "repeat",
+            "repeat-x",
+            "repeat-y"
+          ]
+        },
+        {
+            "name": "custom_scss_background_position_lite",
+            "type": "select",
+            "valuesList": [
+                "left",
+                "center",
+                "right"
+            ]
+        },
+      {
+        "name": "custom_scss_background_position_elastic",
+        "type": "select",
+        "valuesList": [
+          "left",
+          "center",
+          "right"
+        ]
+      },
+      {
+        "name": "custom_scss_background_position_fashi",
+        "type": "select",
+        "valuesList": [
+          "left",
+          "center",
+          "right"
+        ]
+      },
+        {
+            "name": "custom_scss_background_attachment_lite",
+            "type": "select",
+            "valuesList": [
+                "scroll",
+                "fixed"
+            ]
+
+        },
+      {
+        "name": "custom_scss_background_attachment_elastic",
+        "type": "select",
+        "valuesList": [
+          "scroll",
+          "fixed"
+        ]
+
+      },
+      {
+        "name": "custom_scss_background_attachment_fashi",
+        "type": "select",
+        "valuesList": [
+          "scroll",
+          "fixed"
+        ]
+
+      },
+        {
+            "name": "custom_scss_body_background_color_lite",
+            "type": "color"
+        },
+        {
+          "name": "custom_scss_body_background_color_elastic",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_body_background_color_fashi",
+          "type": "color"
+        },
+        {
+            "name": "custom_scss_design_color_1_lite",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_design_color_1_elastic",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_design_color_1_fashi",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_design_color_2_lite",
+            "type": "color"
+        },
+        {
+          "name": "custom_scss_design_color_2_elastic",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_design_color_2_fashi",
+          "type": "color"
+        },
+        {
+            "name": "custom_scss_body_text_color_lite",
+            "type": "color"
+        },
+        {
+          "name": "custom_scss_body_text_color_elastic",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_body_text_color_fashi",
+          "type": "color"
+        },
+        {
+            "name": "custom_scss_headers_text_color_lite",
+            "type": "color"
+        },
+        {
+          "name": "custom_scss_headers_text_color_elastic",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_headers_text_color_fashi",
+          "type": "color"
+        },
+        {
+            "name": "custom_scss_border_color_lite",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_success_color_lite",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_info_color_lite",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_warning_color_lite",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_danger_color_lite",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_border_color_elastic",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_success_color_elastic",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_info_color_elastic",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_warning_color_elastic",
+            "type": "color"
+        },
+        {
+            "name": "custom_scss_danger_color_elastic",
+            "type": "color"
+        },
+
+        {
+          "name": "custom_scss_border_color_fashi",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_success_color_fashi",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_info_color_fashi",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_warning_color_fashi",
+          "type": "color"
+        },
+        {
+          "name": "custom_scss_danger_color_fashi",
+          "type": "color"
+        },
+
+        {
+            "name": "display_as_carousel",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "news_count_print",
+            "type": "text"
+        },
+        {
+            "name": "items_with_comments",
+            "type": "text"
+        },
+        {
+            "name": "items_with_vendor",
+            "type": "text"
+        },
+        {
+            "name": "shopreviews_main",
+            "type": "text"
+        },
+        {
+            "name": "items_with_category",
+            "type": "text"
+        },
+        {
+            "name": "banner_widget",
+            "type": "textarea"
+        },
+        {
+            "name": "brand_with_best",
+            "type": "text"
+        },
+        {
+            "name": "items_with_best",
+            "type": "text"
+        },
+        {
+            "name": "items_with_popular",
+            "type": "text"
+        },
+        {
+            "name": "items_with_last",
+            "type": "text"
+        },
+        {
+            "name": "warehouse_items",
+            "type": "text"
+        },
+        {
+            "name": "items_with_pristroy",
+            "type": "text"
+        },
+        {
+            "name": "hide_taobao_responses",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "product_allow_in_complete",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "product_allow_deleted",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hide_item_title",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hide_item_info_status",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hide_item_external_links_in_description",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hide_taobao_link",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hide_item_info_price1",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hide_item_info_price_local_delivery",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "show_user_history_views",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hide_item_info_features",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "no_index_sets",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_item_property_price_range",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_item_site_responses",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_item_info_weight",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_item_site_responses",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_item_info_in_existence",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "hide_item_info_sales_last30day",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "product_tabs",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "2",
+                "3",
+                "4"
+            ]
+        },
+        {
+            "name": "search_category_mode",
+            "type": "select",
+            "valuesList": [
+                "External",
+                "InternalLeaf",
+                "Nothing",
+                "CurrentLevel"
+            ]
+        },
+        {
+            "name": "oficial_catalog_perpage",
+            "type": "text"
+        },
+        {
+            "name": "extended_catalog_perpage",
+            "type": "text"
+        },
+        {
+            "name": "extendedNew_catalog_perpage",
+            "type": "text"
+        },
+        {
+            "name": "warehouse_catalog_perpage",
+            "type": "text"
+        },
+        {
+            "name": "pristroy_catalog_perpage",
+            "type": "text"
+        },
+        {
+            "name": "comments_catalog_perpage",
+            "type": "text"
+        },
+
+        {
+            "name": "default_perpage",
+            "type": "select",
+            "valuesList": [
+                "20",
+                "40",
+                "100"
+            ]
+        },
+        {
+            "name": "use_multi_search",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "simple_search_perpage",
+            "type": "select",
+            "valuesList": [
+                "8",
+                "20",
+                "40",
+                "100"                
+            ]
+        },
+        {
+            "name": "tmall_search_perpage",
+            "type": "select",
+            "valuesList": [
+                "4",
+                "8",
+                "16",
+                "32",
+                "64"
+            ]
+        },
+        {
+            "name": "promoted_search_perpage",
+            "type": "select",
+            "valuesList": [
+                "4",
+                "8",
+                "16",
+                "32",
+                "64"
+            ]
+        },
+        {
+            "name": "warehouse_search_perpage",
+            "type": "select",
+            "valuesList": [
+                "4",
+                "8",
+                "16",
+                "32",
+                "64"
+            ]
+        },
+        {
+            "name": "comments_search_perpage",
+            "type": "select",
+            "valuesList": [
+                "4",
+                "8",
+                "16",
+                "32",
+                "64"
+            ]
+        },
+        {
+            "name": "pager_count_print",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ]
+        },
+        {
+            "name": "hide_work_shedule",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "phone",
+            "type": "text"
+        },
+        {
+            "name": "work_shedule",
+            "type": "text"
+        },
+        {
+            "name": "hide_operator",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "online_chat_code",
+            "type": "textarea",
+            "displayValue": "Connected"
+        },
+        {
+            "name": "stock",
+            "type": "html"
+        },
+        {
+            "name":"menu_count_lvl1",
+            "type":"text"
+        },
+        {
+            "name":"menu_count_lvl2",
+            "type":"text"
+        },
+        {
+            "name": "vendor_rating_view_as_number",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ]
+        },
+        {
+            "name": "menu_type",
+            "type": "select",
+            "valuesList": [
+                "1",
+                "2",
+                "3"
+            ]
+        },
+        {
+            "name": "limit_items_by_catalog",
+            "type": "select",
+            "valuesList": [
+                "0",
+                "1"
+            ],
+            "saveUrl": {
+                "cmd": "SiteConfiguration",
+                "do": "saveLimitItemsByCatalog"
+            }
+        },
+        {
+            "name": "blog_posts_index",
+            "type": "text"
+        },
+        {
+            "name": "blog_posts",
+            "type": "text"
+        },
+        {
+            "name": "search_items_at_render_page",
+            "type": "select",
+            "valuesList": [
+                0,
+                1
+            ]
+        },
+        {
+            "name": "referall_active_time",
+            "type": "text"
+        },
+        {
+            "name": "google_commerce_account",
+            "type": "text"
+        },
+        {
+            "name": "elastic_banner_1_title",
+            "type": "html"
+        },
+        {
+            "name": "elastic_banner_1_subtitle",
+            "type": "html"
+        },
+        {
+            "name": "elastic_banner_1_link",
+            "type": "text"
+        },
+        {
+            "name": "elastic_banner_2_title",
+            "type": "html"
+        },
+        {
+            "name": "elastic_banner_2_subtitle",
+            "type": "html"
+        },
+        {
+            "name": "elastic_advertising_banner_title",
+            "type": "html"
+        },
+        {
+            "name": "elastic_advertising_banner_subtitle",
+            "type": "html"
+        },
+        {
+            "name": "elastic_advertising_banner_link",
+            "type": "text"
+        },
+        {
+            "name": "elastic_banner_2_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_banner_1_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_banner_1_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_banner_2_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_banner_2_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_banner_3_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_banner_3_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_side_banner_1_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_side_banner_1_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_side_banner_2_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_side_banner_2_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_side_banner_3_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_side_banner_3_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_promo_banner_1_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_promo_banner_1_subtitle",
+            "type": "html"
+        },
+        {
+            "name": "fashi_promo_banner_1_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_promo_banner_1_discount",
+            "type": "text"
+        },
+        {
+            "name": "fashi_promo_banner_2_title",
+            "type": "html"
+        },
+        {
+            "name": "fashi_promo_banner_2_subtitle",
+            "type": "html"
+        },
+        {
+            "name": "fashi_promo_banner_2_link",
+            "type": "text"
+        },
+        {
+            "name": "fashi_promo_banner_2_discount",
+            "type": "text"
+        },
+        {
+            "name": "how_to_order_title",
+            "type": "text"
+        },
+        {
+            "name": "how_to_order_subtitle",
+            "type": "text"
+        },
+        {
+            "name": "how_to_order_link",
+            "type": "text"
+        },
+        {
+            "name": "how_to_pay_title",
+            "type": "text"
+        },
+        {
+            "name": "how_to_pay_subtitle",
+            "type": "text"
+        },
+        {
+            "name": "how_to_pay_link",
+            "type": "text"
+        },
+        {
+            "name": "about_delivery_title",
+            "type": "text"
+        },
+        {
+            "name": "about_delivery_subtitle",
+            "type": "text"
+        },
+        {
+            "name": "about_delivery_link",
+            "type": "text"
+        },
+        {
+            "name": "about_guarantees_title",
+            "type": "text"
+        },
+        {
+            "name": "about_guarantees_subtitle",
+            "type": "text"
+        },
+        {
+            "name": "about_guarantees_link",
+            "type": "text"
+        }
+    ]
+}

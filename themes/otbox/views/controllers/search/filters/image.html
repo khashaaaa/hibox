@@ -1,0 +1,28 @@
+<? if ($searchResult->GetItems()->GetCurrentImageUrl()) { ?>
+    <div class="row clearfix search-content_image">
+        <div class="col-md-2">
+            <div class="search-img-wrapper">
+                <img src="<?= $searchResult->GetItems()->GetCurrentImageUrl()?>"/>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <? foreach ($searchProperties as $state => $properties) { ?>
+                <? foreach ($properties as $property) { ?>
+                    <? if ($property['isCategory']) { ?>
+                        <p><label class="panel-title"><?= $property['name'] ?></label></p>
+                        <p>
+                            <? foreach ($property['values'] as $subState => $values) { ?>
+                                <? foreach ($values as $value) { ?>
+                                    <a href="<?=$value['link']?>" class="btn btn-default search-click filter-button <?=$subState == 'active' ? 'btn-success active-feature' : ''?>">
+                                        <?= $subState == 'active' ? '<span class="glyphicon glyphicon-ok"></span>' : ''?>
+                                        <?=$value['name']?>
+                                    </a>
+                                <? } ?>
+                            <? } ?>
+                        </p>
+                    <? }?>
+                <? } ?>
+            <? } ?>
+        </div>
+    </div>
+<? } ?>

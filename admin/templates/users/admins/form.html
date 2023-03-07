@@ -1,0 +1,122 @@
+<ul class="breadcrumb">
+    <li><a href="/admin/"><i class="icon-home"></i></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignDo('default')?>"><?=LangAdmin::get('Users')?></a> <span class="divider">›</span></li>
+    <li><a href="<?=$PageUrl->AssignCmdAndDo('administrators','default')?>"><?=LangAdmin::get('Administrators')?></a> <span class="divider">›</span></li>
+    <li class="active"></li>
+    <? if (! empty($user)) { ?>
+        <li class="active"><?=$this->escape($user['Login'])?></li>
+    <? } else { ?>
+        <li class="active"><?=$this->escape($actionTitle)?></li>
+    <? } ?>
+</ul><!--/.breadcrumb-->
+
+<? require TPL_ABSOLUTE_PATH . 'users/inc/tabs.php'; ?>
+
+<!-- ot-sub-sub-nav -->
+<? XEditableFields::Init('build', $PageUrl); ?>
+
+<div class="admins-form-wrapper">
+
+<h1><?=$actionTitle?></h1>
+
+
+<div class="well">
+
+        <form method="post" action="<?=$PageUrl->AssignCmdAndDo('administrators', 'save')?>" class="form-horizontal ot_form">
+
+        <input type="hidden" name="Id" value="<?=((!empty($user) && isset($user['Id'])) ? $user['Id'] : 0)?>" />
+        <? if (!empty($user) && isset($user['Id'])) { ?>
+            <input type="hidden" name="CurrentRoleName" value="<?=@$user['Roles'][0]['Name']?>" />
+            <input type="hidden" name="CurrentLogin" value="<?=$this->escape($user['Login'])?>" />
+        <? } ?>
+
+            <fieldset>
+
+                <div class="row-fluid">
+
+                    <div class="span6">
+
+                        <div class="control-group">
+                            <label class="control-label"><?=LangAdmin::get('Login')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content=""></i></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-user"></i></span>
+                                    <? $disabled = (!empty($user) && isset($user['Id'])) ? 'disabled="disabled"' : ''; ?>
+                                    <input <?=$disabled ?>id="Login" name="Login" class="input-medium" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>" value="<?=(!empty($user) ? $this->escape($user['Login']) : '')?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label"><?=LangAdmin::get('Password')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content=""></i></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-lock"></i></span>
+                                    <input id="Password" name="Password" class="input-medium" type="text" required="required" value="<?=(!empty($user) ? $this->escape($user['Password']) : '')?>">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label"><?=LangAdmin::get('Email')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content=""></i></label>
+                            <div class="controls">
+                                <div class="input-prepend">
+                                    <span class="add-on">@</span>
+                                    <input id="Email" name="Email" class="input-medium" type="text" required="required" title="<?=LangAdmin::get('Required_field')?>" value="<?=(!empty($user) ? $this->escape($user['Email']) : '')?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label"><?=LangAdmin::get('Role')?> <i class="icon-question-sign ot_inline_help" data-toggle="popover" data-placement="top" data-content=""></i></label>
+                            <div class="controls">
+                                <? if (Session::get('adminLogin') === $user['Login']) { ?>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-user"></i></span>
+                                        <input id="RoleName" name="RoleName" class="input-medium" type="text" required="required"
+                                            value="<?=RightsManager::getCurrentRole()?>" readonly="true" />
+                                    </div>
+                                <? } else { ?>
+                                <select id="RoleName" name="RoleName" class="input-large" required="required">
+                                    <? foreach ($roles as $role) { ?>
+                                        <? $selected = (isset($user['Roles'][0]) && $user['Roles'][0]['Name']==$role['Name']) ? 'selected' : ''; ?>?>
+                                        <option value="<?=$role['Name']?>" <?=$selected?>><?=$this->escape(LangAdmin::get($role['Name']))?></option>
+                                    <? } ?>
+                                </select>
+                                <? } ?>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="span6">
+                        <legend class="legend-mini"><?=LangAdmin::get('Private_data')?></legend>
+
+                        <div class="control-group">
+                            <label class="control-label"><?=LangAdmin::get('FIO')?></label>
+                            <div class="controls">
+                                <input id="Name" name="Name" class="input-medium name" type="text" required="required" value="<?=(!empty($user) ? $this->escape($user['Name']) : '')?>">
+                            </div>
+                        </div>
+
+                    </div><!-- /.span6 -->
+                </div><!-- /.row-fluid -->
+            </fieldset>
+
+
+            <div class="control-group offset-top1">
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary btn_preloader" data-loading-text="<?=LangAdmin::get('Saving')?>"><?=LangAdmin::get('Save')?></button>
+                    <button type="button" class="btn offset-left1 btn_preloader cancel" data-loading-text="<?=LangAdmin::get('Canceling')?>" data-action="<?=$PageUrl->AssignCmdAndDo('administrators', 'default')?>"><?=LangAdmin::get('Cancel')?></button>
+                </div>
+            </div>
+
+
+        </form>
+
+</div><!-- /.well -->
+
+</div>
+
+<? AssetsMin::registerJsFile('/admin/js/ot-admins-form.js'); ?>

@@ -1,0 +1,13 @@
+<? if (! empty($crumbs)) { ?>
+    <div class="breadcrumbs ">
+        <div class="container">
+            <ul class="breadcrumb">
+                <? $endCrumb = array_pop($crumbs); ?>
+                <li><a href="/"><i class="fa fa-home"></i></a></li>
+                <? foreach ($crumbs as $crumb) { ?>
+                    <li><a href="<?=$crumb['url']?>"><?=$this->escape($crumb['title'])?></a></li>
+                <? } ?>
+            </ul>
+        </div>
+    </div>
+<? } ?>

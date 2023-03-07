@@ -1,0 +1,83 @@
+<? if($chat !== false) { ?>
+    <?
+    if (empty($chat['TicketInfo']['OrderId'])) {
+        $heading = $chat['TicketInfo']['TicketId'];
+    } else {
+        $heading = Lang::get('order_number_is')
+            . ' ' . OrdersProxy::normalizeOrderId($chat['TicketInfo']['OrderId']);
+    }
+    $heading .= ' (' . $this->escape($chat['TicketInfo']['Subject']) . ')';
+    ?>
+    <div class="main">
+    <h1><?=$heading?></h1>
+    <? if(isset($error)){ ?>
+        <div class="error"><?=$error?></div>
+    <? } ?>
+    <div id="support">
+        <div class="bproduct">
+            <h2 class="mb20"><span><?=Lang::get('messages_list')?></span></h2>
+            <? if(is_array($chat['TicketMessageList'])){ ?>
+                <? foreach($chat['TicketMessageList'] as $msg){ ?>
+                    <div class="message">
+                        <div class="title">
+                            <div class="date flr"><?=$msg['CreatedDate']?></div>
+                            <div class="name">
+                                <?=($msg['Direction'] == 'Out') ? Lang::get('operator') : $this->escape($name)?>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <?=TextHelper::parseTextWithUrl(nl2br($this->escape($msg['Text'])))?>
+                        </div>
+                    </div>
+                <? } ?>
+            <? } ?>
+        </div>
+        <? if ($chat['TicketInfo']['Status']!='close') { ?>
+            <div class="bproduct mb30">
+                <h2 class="mb15"><span><?=Lang::get('new_message2')?></span></h2>
+                <div class="userform newmessage">
+                    <form action="<?=$_SERVER['REQUEST_URI']?>" method="post" id="chatform" onsubmit="return ChechSupportChat()">
+                        <div class="form-row">
+                            <label for="Text"><?=Lang::get('message_text')?>:<i class="glyphicon glyphicon-asterisk"></i></label>
+                            <span class="input"><textarea id="Text" name="Text" onkeypress="EnableSubmit('chat_button','chatform')" class="form-control ml-2"><?=$this->escape($_POST['Text'])?></textarea></span>
+                        </div>
+
+                        <div class="form-row send">
+                            <input type="button" name="send" value="<?=Lang::get('send_message')?>" class="btn btn-primary mt-2"  id="chat_button" onclick="DisableSubmit('chat_button','chatform');"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <? } else { ?>
+            <?=Lang::get('ticket_closed')?>
+        <? } ?>
+    </div>
+<? } else { ?>
+    <b><?=$error?></b>
+<? } ?>
+    </div>
+
+    <script>
+        function DisableSubmit(id_button,form){
+
+            $('#'+id_button).attr("disabled", "disabled");
+            $('#'+id_button).css("color", "#999");
+            $('#'+form).submit();
+        }
+
+        function EnableSubmit(id_button){
+            $('#'+id_button).removeAttr("disabled style");
+        }
+
+        function ChechSupportChat(){
+            var can = true;
+
+            var str = $('#Text').val();
+            str = str.replace(/\s/g, '');
+            if (str.length==0) {
+                $('#Text').css('border-color','red');
+                can = false;
+            }
+            return can;
+        }
+    </script>

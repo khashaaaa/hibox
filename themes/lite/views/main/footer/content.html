@@ -1,0 +1,15 @@
+<footer class="box-section box-footer" role="contentinfo">
+    <?=General::viewFetch('main/footer/bottom-menu', array('vars' => array(
+        'bottomMenu' => $bottomMenu, 'controller' => $controller
+    )))?>
+
+    <?=General::viewFetch('main/footer/counter')?>
+
+    <?=General::viewFetch('main/footer/copyright')?>
+</footer>
+<div id="overlay-no-preloader" class="search-preloader js-overlay-no-preloader" align="center">
+    <img src="css/i/ajax-loader-white.gif" style="padding-top:300px"><br>
+    <span class="message js-overlay-no-preloader-message">
+        <?=Lang::get("search_for_products")?>
+    </span>
+</div>

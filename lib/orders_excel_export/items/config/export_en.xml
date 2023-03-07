@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <header>
+        <column>№</column>
+        <column>Link</column>
+        <column>Image</column>
+        <column>ID</column>
+        <column>描述</column>     <!--Конфигурация-->
+        <column>數</column>       <!--Количество-->
+        <column>價格, ¥</column>  <!--Цена-->
+        <column>交貨, ¥</column>  <!--Доставка-->
+        <column>量, ¥</column>    <!--Сумма-->
+        <column>Bought</column>
+        <column>Paid</column>
+        <column>Difference</column>
+    </header>
+</config>

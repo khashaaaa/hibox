@@ -1,0 +1,53 @@
+<? if (empty($ajax)) { ?>
+
+    <h2><?=LangAdmin::get('Orders')?></h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th><?=LangAdmin::get('Order_number')?></th>
+                <th><?=LangAdmin::get('Creation_time')?></th>
+                <th><?=LangAdmin::get('Amount')?></th>
+                <th><?=LangAdmin::get('Paid')?></th>
+                <th><?=LangAdmin::get('Operator')?></th>
+                <th><?=LangAdmin::get('Order_status')?></th>
+            </tr>
+        </thead>
+
+        <tbody>
+<? } ?>
+            <? if (! empty($orders)) { ?>
+
+                <? foreach ($orders as $order) { ?>
+                <tr>
+                    <td><a target="_blank" href="<?=$PageUrl->generate(array('cmd'=>'orders', 'do'=>'view', 'id'=>$order['id']));?>"><?=OrdersProxy::normalizeOrderId($order['id'])?></a></td>
+                    <td><?=date('d.m.Y', strtotime($order['CreatedDateTime']))?> </td>
+                    <td><span class="pr"><nobr><?=round((float)$order['totalamount'],2).' '.$order['CurrencySign']?></nobr></span></td>
+                    <td><span class="pr"><nobr><?=round((float)$order['totalamount'] - (float)$order['remainamount'],2).' '.$order['CurrencySign'];?></nobr></span></td>
+                    <td><span class="pr"><?=$order['OperatorName'];?></span></td>
+                    <td><?=$order['statusname']?></td>
+                </tr>
+                <? } ?>
+
+            <? } else { ?>
+                <tr>
+                    <td colspan="6">
+                        <? if ($activeTab == 'orders') { ?>
+                            <?=LangAdmin::get('No_orders_found')?>
+                        <? } else { ?>
+                            <div class="text-center"><div class="ot-preloader-small"></div></div>
+                        <? } ?>
+                    </td>
+                </tr>
+            <? } ?>
+
+<? if (empty($ajax)) { ?>
+        </tbody>
+
+    </table>
+
+    <div class="pagination-orders">
+        <?= ($activeTab == 'orders' && isset($paginator)) ? $paginator->display(false) : ''; ?>
+    </div>
+<? } ?>

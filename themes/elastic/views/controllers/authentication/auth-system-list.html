@@ -1,0 +1,13 @@
+<? if (! empty($authSystemList)) { ?>
+    <p><?=Lang::get('Sign_in_with')?>:</p>
+
+    <ul class="modal-social">
+        <? foreach ($authSystemList->GetItem() as $authSystem) { ?>
+            <li>
+                <a href="/?p=login&authSystem=<?=$authSystem->GetId()?>" class="<?=$authSystem->GetId()?>">
+                    <img src="<?=$authSystem->GetIconUrl()?>" title="<?=$authSystem->GetName()?>" />
+                </a>
+            </li>
+        <? } ?>
+    </ul>
+<? } ?>

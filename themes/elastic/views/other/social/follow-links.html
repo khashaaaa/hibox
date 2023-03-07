@@ -1,0 +1,22 @@
+<? $socialNetworksLinks = InstanceProvider::getObject()->GetSocialWithLinks() ?>
+
+<? if (!empty($socialNetworksLinks)) { ?>
+    <div class="col footer-col-social">
+        <div class="footer-col__title"><?=Lang::get('we_in_social_networks')?></div>
+        <ul class="footer-social">
+            <? foreach ($socialNetworksLinks as $social) { ?>
+                <? if (!empty($social->GetLink())) { ?>
+                    <li>
+                        <a target="_blank"
+                           class="social"
+                           href="<?=$social->GetLink();?>"
+                        >
+                            <span style="background-image: url('<?=$social->GetIconUrl()?>')"></span>
+                            <?=$social->GetName()?>
+                        </a>
+                    </li>
+                <? } ?>
+            <? } ?>
+        </ul>
+    </div>
+<? } ?>

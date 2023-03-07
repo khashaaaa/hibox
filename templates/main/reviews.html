@@ -1,0 +1,234 @@
+<div class="main">
+    <div class="wrap clrfix">
+        <div class="bproduct">
+            <h2 class="mb25"><span><?=Lang::get('with_reviews')?></span></h2>
+
+            <div class="fll col240">
+
+                <? if (!empty($availableSearchMethodList) && count($availableSearchMethodList) > 1) { ?>
+                    <div class="bgr-block mb20">
+                        <div class="titlecat bbn"><?=Lang::get('supplier_type')?></div>
+                        <ul class="listitem">
+                            <? foreach ($availableSearchMethodList as $type) { ?>
+                                <li class="item">
+                                    <a class="<?= ($type->GetSearchMethod() == $activeSearchMethod->GetSearchMethod() && $type->GetProvider() == $activeSearchMethod->GetProvider()) ? 'active' : '' ?>"
+                                        href="<?=UrlGenerator::generateReviewsUrl(array(
+                                            'Provider' => InstanceProvider::getObject()->GetAliasByProviderName(
+                                                Session::getActiveLang(),
+                                                $type->GetProvider()
+                                            ),
+                                            'SearchMethod' => $type->GetSearchMethod(),
+                                            'cid' => $searchParams['cid'],
+                                            'per_page' => $perPage,
+                                        ))?>">
+                                        <?=$type->GetDisplayName()?>
+                                    </a>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    </div>
+                <? } ?>
+
+                <? if (is_array(@$subCats)) { ?>
+                    <div class="bgr-block mb20">
+                        <div class="titlecat bbn"><?=Lang::get('prods_by_cats')?></div>
+                        <ul class="listitem">
+                            <li class="item">
+                                <a class="<?=($cid==false?'active':'')?>" href="<?=UrlGenerator::generateReviewsUrl()?>">
+                                    <?=Lang::get('all_categories')?>
+                                </a>
+                            </li>
+                            <? if ($_GET['p']=='reviews') { ?>
+                                <? $cid = RequestWrapper::getValueSafe('cid'); ?>
+                                <? foreach ($subCats as $k => $cat) { ?>
+                                    <? if ($k >= 10) $classLink = ' class=" item left-category-hidden"'; ?>
+
+                                    <li <?=$classLink?>>
+                                        <a class="<?=($cat['id'] == $cid ?'active':'')?> i-link" href="<?=@UrlGenerator::generateReviewsUrl(array('cid' => $cat['id']))?>"><?=$cat['name']?></a>
+                                    </li>
+                                <? } ?>
+                                <? if ($k > 10){ ?>
+                                    <li class="item last">
+                                        <a href="#" class="dotted" onclick="$('.left-category-hidden').show(); $(this).remove();return false;">
+                                            <i class="i-new i-arrow-down i arrowdown"></i><span><?=Lang::get('other_cats')?></span>
+                                        </a>
+                                    </li>
+                                <? } ?>
+                            <? } ?>
+                        </ul>
+                    </div>
+                <? } ?>
+            </div>
+
+            <div class="flr col690 bproduct">
+                <? if(@$GLOBALS['brandinfo']){ ?>
+                    <h2><span><?=Lang::get('brand_description')?></span></h2>
+
+                    <div class="wrap clrfix" style="margin-bottom: 10px; width: 690px">
+                        <img src="<?=$GLOBALS['brandinfo']['PictureUrl']?>" style="float:left; margin: 0 10px 10px 0"/>
+                        <?=$GLOBALS['brandinfo']['Description']?>
+                    </div>
+                <? } ?>
+                <div class="bgr-panel mb20">
+
+                    <ul class="tableList">
+                        <li><?=Lang::get('items_rus')?>: <b><?=$totalCount?></b></li>
+                        <li><?=Lang::get('shown')?>: <?=Lang::get('from')?> <b><?=($from+1)?></b> <?=Lang::get('to')?>
+                            <b><? if($from+$perPage<$count) print $from+$perPage; else print $count; ?></b> <?=Lang::get('from2')?>
+                            <b><?=$count?></b></li>
+                        <!--<li>-->
+                        <!--<form method="post" id="sort_form">-->
+                        <!--<?=Lang::get('sort_by')?>-->
+                        <!--<select name="sort_by" onchange="document.getElementById('sort_form').submit();">-->
+                        <!--<option value="popularity:desc" <?if ($_GET['sort_by'] == 'popularity:desc'){?>selected<?}?>><?=Lang::get('popularity')?></option>-->
+                        <!--<option value="price:desc" <?if ($_GET['sort_by'] == 'price:desc'){?>selected<?}?>><?=Lang::get('price_desc')?></option>-->
+                        <!--<option value="price:asc" <?if ($_GET['sort_by'] == 'price:asc'){?>selected<?}?>><?=Lang::get('price_asc')?></option>-->
+                        <!--<option value="vendorRating:desc" <?if ($_GET['sort_by'] == 'vendorRating:desc'){?>selected<?}?>><?=Lang::get('vendor_rating')?></option>-->
+                        <!--<option value="volume:desc" <?if ($_GET['sort_by'] == 'volume:desc'){?>selected<?}?>><?=Lang::get('sales_volume')?></option>-->
+                        <!--</select>-->
+                        <!--</form>-->
+
+                        <!--</li>-->
+                        <li>
+                            <?php
+                            $pp = array(16, 64, 128);
+                            $ppValue = General::getNumConfigValue('comments_catalog_perpage', 16);
+                            if (!in_array($ppValue, $pp)) {
+                                $pp[] = $ppValue;
+                                asort($pp);
+                            }
+                            ?>
+                            <form method="post" id="per_page">
+                                <?=Lang::get('output_to')?>
+                                <select name="per_page" onchange="document.getElementById('per_page').submit();">
+                                    <?php foreach ($pp as $key => $value) { ?>
+                                        <option value="<?=$value?>" <?if ($perPage == $value){?>selected<?}?>><?=$value?></option>
+                                    <?php } ?>
+                                </select>
+                            </form>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <? if (!empty($products)) { ?>
+                    <!-- .product -->
+                    <ul class="lproduct flin w700 w160li clrfix">
+
+                        <? foreach($products as $idx=>$item) { ?>
+                            <li id="product<?=$idx?>" title="<?= $item->title ?>">
+                                <a class="pic" href="<?=$item->url?>">
+                                    <i><img src="<?= $item->getMediumImage() ?>" width="160"></i>
+                                    <ins></ins>
+                                </a>
+                                <div class="price">
+                                    <div class="line"></div>
+                                    <a href="<?=$item->url?>">
+                                        <? if ($item->getDisplayPromoPrice()) { ?>
+                                            <span><?=$item->getDisplayPromoPrice()?></span>
+                                        <? }else{ ?>
+                                            <span><?=$item->getDisplayPrice()?></span>
+                                        <? } ?>
+                                    </a>
+                                    <!--noindex-->
+                                    <a href="<?=$item->url?>" title="<?=$this->escape($item->title)?>">
+                                        <ins class="name" pid="<?=$item->id?>"><?=$this->escape($item->title)?></ins>
+                                        <span class="glow"></span>
+                                    </a>
+                                    <!--/noindex-->
+                                </div>
+                                <? if ($item->getDisplayPromoPrice() > 0 && $item->getDisplayPromoPrice() != $item->getDisplayPrice()) { ?>
+                                    <a href="<?=$item->url?>" style="text-align: center" class="wrapper_sale_item">
+                                        <span class="old_price"><?=$item->getDisplayPrice()?></span><br>
+                                        <span class="new_price"><?=$item->getDisplayPromoPrice()?></span>
+                                    </a>
+                                <? } ?>
+                                <?=ProductsHelper::getHtmlFeatureListForLabel($item->features)?>
+                            </li>
+                            <?
+                            if($idx % 4 == 3){
+                                ?>
+                                <div style="clear: both"></div>
+                            <? }  ?>
+                        <? } ?>
+                    </ul>
+                    <!-- /.product -->
+                <? } else { ?>
+                    <h2><span><?=Lang::get('nothing_found')?></span></h2>
+                <? } ?>
+
+                <div>
+                    <? $page_count_print = General::getNumConfigValue('pager_count_print', 2); ?>
+                    <? $curpage = floor($from / $perPage) + 1 ?>
+                    <? $maxpage = ceil($count / $perPage) ?>
+
+                    <? if (General::getConfigValue('is_old_platform', 0)) { ?>
+                        <div class="b-pager">
+                            <? if ($curpage != 1) {?>
+                                <a href="<?=$baseUrl->DeleteKey('from')->Add('from',$from - $perPage)->Get()?>" class="btn btn-apper b-first-page"><span><?=Lang::get('prev_page')?></span></a>
+                            <? } ?>
+
+                            <? if ($maxpage > 1 && !($curpage >= $maxpage)) { ?>
+                                <a href="<?=$baseUrl->DeleteKey('from')->Add('from',$from + $perPage)->Get()?>"
+                                   class="btn btn-apper b-last-page"><span><?=Lang::get('next_page')?></span></a>
+                            <? } elseif ($curpage > $maxpage) { ?>
+                            <? } ?>
+
+                            <ul class="b-list-page">
+                                <? if ($curpage > ($page_count_print + 1)) { ?>
+                                    <li class="b-item"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',0)->Get()?>" class="i-link">1</a></li>
+                                <? } ?>
+                                <? if ($curpage > ($page_count_print + 2)) { ?>
+                                    <li class="b-item dotted">...</li>
+                                <? } ?>
+                                <? for ($i = max(1, $curpage - $page_count_print); $i <= min($maxpage, $curpage + $page_count_print); $i++) { ?>
+                                    <? if ($curpage == $i) { ?>
+                                        <li class="b-item active"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($i - 1) * $perPage)->Get()?>" class="i-link"><?=$i?></a></li>
+                                    <? } else { ?>
+                                        <li class="b-item"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($i - 1) * $perPage)->Get()?>" class="i-link"><?=$i?></a></li>
+                                    <? } ?>
+                                <? } ?>
+                                <? if ($curpage < $maxpage - ($page_count_print + 1)) { ?>
+                                    <li class="b-item dotted">...</li>
+                                <? } ?>
+                                <? if ($curpage < $maxpage - $page_count_print) { ?>
+                                    <li class="b-item">
+                                        <a href="<?=$baseUrl->DeleteKey('from')->Add('from',($maxpage - 1) * $perPage)->Get()?>" class="i-link"><?=$maxpage?></a>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        </div>
+                    <? } else { ?>
+                        <ul class="pagination">
+                            <? if ($curpage != 1) {?>
+                                <li class="pagination_prev"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',$from - $perPage)->Get()?>">&laquo;</a></li>
+                            <? } ?>
+                            <? if ($curpage > ($page_count_print + 1)) { ?>
+                                <li><a href="<?=$baseUrl->DeleteKey('from')->Add('from',0)->Get()?>">1</a></li>
+                            <? } ?>
+                            <? if ($curpage > ($page_count_print + 2)) { ?>
+                                <li class="pagination_skip disabled"><a href="javascript:void(0)"></a></li>
+                            <? } ?>
+                            <? for ($i = max(1, $curpage - $page_count_print); $i <= min($maxpage, $curpage + $page_count_print); $i++) { ?>
+                                <? if ($curpage == $i) { ?>
+                                    <li class="active"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($i - 1) * $perPage)->Get()?>"><?=$i?></a></li>
+                                <? } else { ?>
+                                    <li><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($i - 1) * $perPage)->Get()?>"><?=$i?></a></li>
+                                <? } ?>
+                            <? } ?>
+                            <? if ($curpage < $maxpage - ($page_count_print + 1)) { ?>
+                                <li class="pagination_skip disabled"><a href="javascript:void(0)"></a></li>
+                            <? } ?>
+                            <? if ($curpage < $maxpage - $page_count_print) { ?>
+                                <li><a href="<?=$baseUrl->DeleteKey('from')->Add('from',($maxpage - 1) * $perPage)->Get()?>"><?=$maxpage?></a></li>
+                            <? } ?>
+                            <? if ($maxpage > 1 && !($curpage >= $maxpage)) { ?>
+                                <li class="pagination_next"><a href="<?=$baseUrl->DeleteKey('from')->Add('from',$from + $perPage)->Get()?>">&raquo;</a></li>
+                            <? } ?>
+                        </ul>
+                    <? } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
